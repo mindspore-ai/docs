@@ -1,6 +1,6 @@
 # Distributed Parallelism Training
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_en/feature/parallel_training.md)
+[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_en/feature/parallel_training.md)
 
 ## Parallel Modes and Application Scenarios
 
@@ -86,7 +86,7 @@ From generative AI to scientific models, long sequence training is becoming very
 
 #### Ring Attention Sequence Parallelism
 
-> This feature has been deprecated and will be removed in subsequent versions. Currently, you can use other sequence parallel methods. If you have any questions or suggestions, please submit feedback through **[Community Issue](https://gitee.com/mindspore/mindformers/issues/new)**. Thank you for your understanding and support!
+> This feature has been deprecated and will be removed in subsequent versions. Currently, you can use other sequence parallel methods. If you have any questions or suggestions, please submit feedback through **[Community Issue](https://atomgit.com/mindspore/mindformers/issues/new)**. Thank you for your understanding and support!
 
 Long Sequence Parallel Algorithm, Ring Attention, is a representative technique for long sequence parallelism in the current industry, which is used to solve the memory overhead problem during long sequence training, while realizing computation and communication masking. The Ring Attention algorithm utilizes the chunking property of Attention, when the sequence parallelism is N, Q, K, V are sliced into N sub-chunks, and each card calls the Flash Attention algorithm to compute the Attention result of the local QKV sub-chunks respectively. Since each card only needs to compute the Attention of the sliced QKV sub-chunks, its memory occupation is reduced significantly. Ring Attention uses ring communication to collect and send sub-chunks to neighboring cards while doing FA computation to maximize the masking of computation and communication, which guarantees the overall performance of long sequence parallelism.
 
@@ -251,7 +251,7 @@ For more information on configuring distributed parallel parameters, see the [Mi
 
 ## MindSpore Transformers Distributed Parallel Application Practices
 
-In the [Qwen3 fine-tuning configuration](https://gitee.com/mindspore/mindformers/blob/master/configs/qwen3/finetune_qwen3.yaml) file provided on the official website, multiple distributed parallelism strategies are used to improve the training efficiency in the multi-node multi-device environment. The main parallelism parameters involved in the configuration file are as follows:
+In the [Qwen3 fine-tuning configuration](https://atomgit.com/mindspore/mindformers/blob/master/configs/qwen3/finetune_qwen3.yaml) file provided on the official website, multiple distributed parallelism strategies are used to improve the training efficiency in the multi-node multi-device environment. The main parallelism parameters involved in the configuration file are as follows:
 
 - **Data Parallelism**: Input data is sharded and distributed across different computing devices for parallel processing.
 - **Model Parallelism**: The model is partitioned into multiple segments, which are computed on different devices.

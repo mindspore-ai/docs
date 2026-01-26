@@ -1,6 +1,6 @@
 # Training High Availability
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_en/feature/high_availability.md)
+[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_en/feature/high_availability.md)
 
 ## Overview
 
@@ -151,7 +151,7 @@ The key to the end-of-life CheckPoint, UCE and ARF functions of high availabilit
 This section demonstrates the use of the end-of-life CKPT using Qwen3-8B training as an example.
 
 1. First install MindSpore and MindIO
-2. Download MindSpore Transformers and modify the [pretrain_qwen3_8b.yaml](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/example/qwen3/pretrain_qwen3_8b.yaml) configuration file with the following main configuration:
+2. Download MindSpore Transformers and modify the [pretrain_qwen3_8b.yaml](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/example/qwen3/pretrain_qwen3_8b.yaml) configuration file with the following main configuration:
 
     ```yaml
     # runner config
@@ -266,7 +266,7 @@ This chapter uses Qwen3-8B training as an example to demonstrate the use of rapi
 > The parameter values shown in the following examples are only experimental data, please refer to real training data.
 
 1. Install [MindSpore](https://www.mindspore.cn/install/en) first.
-2. Download MindSpore Transformers, using [pretrain_qwen3_8b.yaml](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/example/qwen3/pretrain_qwen3_8b.yaml) to add and modify parameters according to the configuration below:
+2. Download MindSpore Transformers, using [pretrain_qwen3_8b.yaml](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/example/qwen3/pretrain_qwen3_8b.yaml) to add and modify parameters according to the configuration below:
 
     ```yaml
     output_dir: './output'

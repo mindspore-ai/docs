@@ -768,7 +768,7 @@ def api_generate_prepare(pf_url, pf_diff, rp_dir_docs, rp_dir, clone_branch):
     generate_pr_list_en_sum = []
 
     sha_num = result[0]['sha']
-    base_raw = f'https://gitee.com/mindspore/mindspore/raw/{sha_num}'
+    base_raw = f'https://atomgit.com/mindspore/mindspore/raw/{sha_num}'
 
     # pr文件处理
     # pylint: disable=R1702

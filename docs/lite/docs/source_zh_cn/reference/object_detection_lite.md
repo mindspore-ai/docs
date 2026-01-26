@@ -1,6 +1,6 @@
 # 目标检测模型
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_zh_cn/reference/object_detection_lite.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/lite/docs/source_zh_cn/reference/object_detection_lite.md)
 
 ## 目标检测介绍
 
@@ -12,7 +12,7 @@
 | ----- | ---- | ---------------- |
 | mouse | 0.78 | [10, 25, 35, 43] |
 
-使用MindSpore Lite实现目标检测的[示例代码](https://gitee.com/mindspore/models/tree/master/official/lite/object_detection)。
+使用MindSpore Lite实现目标检测的[示例代码](https://atomgit.com/mindspore-lab/models/tree/master/official/lite/object_detection)。
 
 ## 目标检测模型列表
 

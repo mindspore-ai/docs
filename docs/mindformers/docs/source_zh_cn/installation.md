@@ -1,6 +1,6 @@
 # 安装指南
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/installation.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/installation.md)
 
 ## 确认版本匹配关系
 
@@ -37,7 +37,7 @@
 目前在研版本仅支持源码编译安装，用户可以执行如下命令安装MindSpore Transformers：
 
 ```bash
-git clone -b master https://gitee.com/mindspore/mindformers.git
+git clone -b master https://atomgit.com/mindspore/mindformers.git
 cd mindformers
 bash build.sh
 ```

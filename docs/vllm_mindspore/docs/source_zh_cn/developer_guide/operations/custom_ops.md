@@ -1,6 +1,6 @@
 # 自定义算子接入
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/vllm_mindspore/docs/source_zh_cn/developer_guide/operations/custom_ops.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/vllm_mindspore/docs/source_zh_cn/developer_guide/operations/custom_ops.md)
 
 当内置算子不满足需求时，你可以利用MindSpore提供的自定义算子功能接入你的算子。
 
@@ -41,7 +41,7 @@ vllm-mindspore/
 
 ### 算子接口声明
 
-在 `csrc/ascendc/` 目录下创建头文件（如 `adv_step_flash.h`），以声明算子接口。内容参考[adv_step_flash.h](https://gitee.com/mindspore/vllm-mindspore/blob/master/csrc/ascendc/adv_step_flash.h)：
+在 `csrc/ascendc/` 目录下创建头文件（如 `adv_step_flash.h`），以声明算子接口。内容参考[adv_step_flash.h](https://atomgit.com/mindspore/vllm-mindspore/blob/master/csrc/ascendc/adv_step_flash.h)：
 
 ```cpp
 #ifndef VLLM_MINDSPORE_CSRC_ASCENDC_ADV_STEP_FLASH_H
@@ -57,7 +57,7 @@ extern void AdvStepFlashKernelEntry(uint32_t blockDims, void *l2ctrl, void *aclS
 
 ### 算子实现
 
-在 `csrc/ascendc/` 目录下创建实现文件（如 `adv_step_flash.c`），以实现算子的核心逻辑。内容参考[adv_step_flash.c](https://gitee.com/mindspore/vllm-mindspore/blob/master/csrc/ascendc/adv_step_flash.c)：
+在 `csrc/ascendc/` 目录下创建实现文件（如 `adv_step_flash.c`），以实现算子的核心逻辑。内容参考[adv_step_flash.c](https://atomgit.com/mindspore/vllm-mindspore/blob/master/csrc/ascendc/adv_step_flash.c)：
 
 ```cpp
 #include "kernel_operator.h"
@@ -84,7 +84,7 @@ void AdvStepFlashKernelEntry(uint32_t blockDims, void *l2ctrl, void *aclStream, 
 
 ### 算子接入
 
-在 `csrc/module/` 目录下创建一个新的接入文件（如 `adv_step_flash.cpp`）。内容参考 [adv_step_flash.cpp](https://gitee.com/mindspore/vllm-mindspore/blob/master/csrc/module/adv_step_flash.cpp)：
+在 `csrc/module/` 目录下创建一个新的接入文件（如 `adv_step_flash.cpp`）。内容参考 [adv_step_flash.cpp](https://atomgit.com/mindspore/vllm-mindspore/blob/master/csrc/module/adv_step_flash.cpp)：
 
 ```cpp
 #include "ms_extension/api.h"
@@ -144,7 +144,7 @@ def advance_step_flashattn(num_seqs: int, num_queries: int, block_size: int,
 
 1. **代码集成**：将代码集成至vLLM-MindSpore插件项目。
 2. **编译项目**：在项目代码根目录下执行 `pip install .` ，编译安装vLLM-MindSpore插件。
-3. **测试算子接口**：通过 `_custom_ops` 调用算子接口。可以参考测试用例[test_custom_advstepflash.py](https://gitee.com/mindspore/vllm-mindspore/blob/master/tests/st/python/test_custom_advstepflash.py)：
+3. **测试算子接口**：通过 `_custom_ops` 调用算子接口。可以参考测试用例[test_custom_advstepflash.py](https://atomgit.com/mindspore/vllm-mindspore/blob/master/tests/st/python/test_custom_advstepflash.py)：
 
 ```python
 from vllm_mindspore import _custom_ops as custom_ops

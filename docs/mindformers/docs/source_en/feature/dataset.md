@@ -1,6 +1,6 @@
 # Dataset
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_en/feature/dataset.md)
+[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_en/feature/dataset.md)
 
 MindSpore Transformers currently supports multiple types of dataset loading methods, covering common open-source and custom scenarios. Specifically, it includes:
 
@@ -16,7 +16,7 @@ The following sections will explain how to generate `.bin` and `.idx` files, as 
 
 ### Data Preprocessing
 
-MindSpore Transformers provides a data preprocessing script, [preprocess_indexed_dataset.py](https://gitee.com/mindspore/mindformers/blob/master/toolkit/data_preprocess/megatron/preprocess_indexed_dataset.py), which is used to convert raw text data in `json` format into `.bin` and `.idx` files.
+MindSpore Transformers provides a data preprocessing script, [preprocess_indexed_dataset.py](https://atomgit.com/mindspore/mindformers/blob/master/toolkit/data_preprocess/megatron/preprocess_indexed_dataset.py), which is used to convert raw text data in `json` format into `.bin` and `.idx` files.
 
 If the raw text data is not in `json` format, users need to preprocess and convert it into the appropriate format themselves.
 
@@ -73,7 +73,7 @@ The following example demonstrates how to convert the `wikitext-103` dataset int
 
 4. Generate `.bin` and `.idx` data files
 
-   Run the data preprocessing script [preprocess_indexed_dataset.py](https://gitee.com/mindspore/mindformers/blob/master/toolkit/data_preprocess/megatron/preprocess_indexed_dataset.py) to convert the original text data into corresponding token IDs using the model's tokenizer.
+   Run the data preprocessing script [preprocess_indexed_dataset.py](https://atomgit.com/mindspore/mindformers/blob/master/toolkit/data_preprocess/megatron/preprocess_indexed_dataset.py) to convert the original text data into corresponding token IDs using the model's tokenizer.
 
    The script accepts the following parameters:
 
@@ -395,7 +395,7 @@ For other native dataset processing operations, please refer to the [datasets pr
 
 #### Custom Processing
 
-To use custom preprocessing, implement your own handler module. See [AlpacaInstructDataHandler](https://gitee.com/mindspore/mindformers/blob/master/mindformers/dataset/handler/alpaca_handler.py).
+To use custom preprocessing, implement your own handler module. See [AlpacaInstructDataHandler](https://atomgit.com/mindspore/mindformers/blob/master/mindformers/dataset/handler/alpaca_handler.py).
 
 Custom handlers support `Class` and `Method` forms:
 
@@ -415,9 +415,9 @@ If using a `Class`:
 
    The `CustomHandler` above implements the random sampling of the dataset. To achieve other functions, you can modify the data preprocessing operations and return the processed dataset.
 
-   MindSpore Transformers provides [BaseInstructDataHandler](https://gitee.com/mindspore/mindformers/blob/master/mindformers/dataset/handler/base_handler.py) with built-in tokenizer config. If need to use a tokenizer, you can inherit from the `BaseInstructDataHandler` class.
+   MindSpore Transformers provides [BaseInstructDataHandler](https://atomgit.com/mindspore/mindformers/blob/master/mindformers/dataset/handler/base_handler.py) with built-in tokenizer config. If need to use a tokenizer, you can inherit from the `BaseInstructDataHandler` class.
 
-2. Add to [\_\_init__.py](https://gitee.com/mindspore/mindformers/blob/master/mindformers/dataset/handler/__init__.py):
+2. Add to [\_\_init__.py](https://atomgit.com/mindspore/mindformers/blob/master/mindformers/dataset/handler/__init__.py):
 
    ```python
    from .custom_handler import CustomHandler
@@ -441,7 +441,7 @@ If using a `Method`:
        return dataset
    ```
 
-2. Add to [\_\_init__.py](https://gitee.com/mindspore/mindformers/blob/master/mindformers/dataset/handler/__init__.py):
+2. Add to [\_\_init__.py](https://atomgit.com/mindspore/mindformers/blob/master/mindformers/dataset/handler/__init__.py):
 
    ```python
    from .custom_handler import custom_process
@@ -680,7 +680,7 @@ The following example uses `qwen3-8b` fine-tuning to explain related functionali
 
 1. Download the `alpaca` dataset: [Link](https://github.com/tatsu-lab/stanford_alpaca/blob/main/alpaca_data.json)
 
-2. Execute the data processing script [alpaca_converter.py](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/example/qwen3/alpaca_converter.py) to convert the `alpaca` dataset into a dialogue format:
+2. Execute the data processing script [alpaca_converter.py](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/example/qwen3/alpaca_converter.py) to convert the `alpaca` dataset into a dialogue format:
 
    ```shell
    python alpaca_converter.py \
@@ -690,7 +690,7 @@ The following example uses `qwen3-8b` fine-tuning to explain related functionali
 
    Here, `data_path` refers to the path where the downloaded `alpaca` dataset is stored, and `output_path` refers to the save path for the generated dialogue format data file.
 
-3. Execute the script [datasets_preprocess.py](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/example/qwen3/datasets_preprocess.py) to convert the dialogue format data file into MindRecord format:
+3. Execute the script [datasets_preprocess.py](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/example/qwen3/datasets_preprocess.py) to convert the dialogue format data file into MindRecord format:
 
    ```shell
    python datasets_preprocess.py \
@@ -713,7 +713,7 @@ Following the above data preprocessing steps, you can generate a MindRecord data
 
 1. Modify the model configuration file
 
-   The `qwen3-8b` model fine-tuning uses the [finetune_qwen3.yaml](https://gitee.com/mindspore/mindformers/blob/master/configs/qwen3/finetune_qwen3.yaml) configuration file. Modify the dataset section as follows:
+   The `qwen3-8b` model fine-tuning uses the [finetune_qwen3.yaml](https://atomgit.com/mindspore/mindformers/blob/master/configs/qwen3/finetune_qwen3.yaml) configuration file. Modify the dataset section as follows:
 
    ```yaml
    train_dataset: &train_dataset
@@ -731,7 +731,7 @@ Following the above data preprocessing steps, you can generate a MindRecord data
 
 2. Start Model Fine-tuning
 
-   After modifying the dataset and parallel-related configurations in the model configuration file, you can refer to the model documentation to launch the fine-tuning task. Here, we take the [Qwen3 model documentation](https://gitee.com/mindspore/mindformers/blob/master/configs/qwen3/README.md) as an example.
+   After modifying the dataset and parallel-related configurations in the model configuration file, you can refer to the model documentation to launch the fine-tuning task. Here, we take the [Qwen3 model documentation](https://atomgit.com/mindspore/mindformers/blob/master/configs/qwen3/README.md) as an example.
 
 ### Multi-source Datasets
 

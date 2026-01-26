@@ -1,6 +1,6 @@
 # Custom原语AOT类型自定义算子（Ascend平台）
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/custom_program/operation/op_custom_ascendc.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/tutorials/source_zh_cn/custom_program/operation/op_custom_ascendc.md)
 
 ## 概述
 
@@ -22,7 +22,7 @@ AOT类型的自定义算子支持昇腾平台的Ascend C编程语言。这是一
 
 **算子实现**：学习[基于自定义算子工程的算子开发](https://www.hiascend.com/document/detail/zh/canncommercial/80RC3/developmentguide/opdevg/Ascendcopdevg/atlas_ascendc_10_0006.html?Mode=PmIns&OS=Ubuntu&Software=cannToolKit)，快速了解自定义算子开发的端到端流程，重点关注kernel侧实现和host侧实现。
 
-**开发样例**：昇腾社区提供了丰富的 [Ascend C算子开发样例](https://gitee.com/ascend/samples/tree/master/operator/ascendc)，覆盖了多种类型算子，帮助您快速理解算子开发的实际应用。也可以查看 [AddCustom自定义算子开发样例](https://gitee.com/ascend/samples/tree/master/operator/ascendc/0_introduction/1_add_frameworklaunch/AddCustom)，它简洁展示了一个自定义算子开发需要的核心工作。
+**开发样例**：昇腾社区提供了丰富的 [Ascend C算子开发样例](https://atomgit.com/ascend/samples/tree/master/operator/ascendc)，覆盖了多种类型算子，帮助您快速理解算子开发的实际应用。也可以查看 [AddCustom自定义算子开发样例](https://atomgit.com/ascend/samples/tree/master/operator/ascendc/0_introduction/1_add_frameworklaunch/AddCustom)，它简洁展示了一个自定义算子开发需要的核心工作。
 
 ## 编译与部署方法
 
@@ -149,7 +149,7 @@ assert output.asnumpy().dtype == 'float32'
 assert output.asnumpy().shape == (1280, 1280)
 ```
 
-您可以查看MindSpore仓中的[自定义算子测试用例](https://gitee.com/mindspore/mindspore/tree/master/tests/st/custom/ops_custom/ascendc)，获取更多数据类型与使用场景的Ascend C自定义算子用例。
+您可以查看MindSpore仓中的[自定义算子测试用例](https://atomgit.com/mindspore/mindspore/tree/master/tests/st/custom/ops_custom/ascendc)，获取更多数据类型与使用场景的Ascend C自定义算子用例。
 样例工程的目录结构如下：
 
 ```text
@@ -349,7 +349,7 @@ extern "C" std::vector<std::vector<int64_t>> FuncNameInferShape(int *ndims, int6
 - ndims (int \*): 输入shape维度数组。
 - shapes (int64_t \*\*): 输入shape数组。
 - extra (AotExtra \*): 用于带属性的自定义算子扩展。其中`AotExtra`
-  类型定义在MindSpore提供的头文件[custom_aot_extra.h](https://gitee.com/mindspore/mindspore/blob/master/tests/st/custom/ops_custom/aot_test_files/custom_aot_extra.h)。
+  类型定义在MindSpore提供的头文件[custom_aot_extra.h](https://atomgit.com/mindspore/mindspore/blob/master/tests/st/custom/ops_custom/aot_test_files/custom_aot_extra.h)。
 
 **Infer Type函数原型**
 

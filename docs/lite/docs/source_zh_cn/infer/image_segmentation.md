@@ -1,6 +1,6 @@
 # 基于Java接口的Android应用开发
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_zh_cn/infer/image_segmentation.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/lite/docs/source_zh_cn/infer/image_segmentation.md)
 
 ## 概述
 
@@ -34,7 +34,7 @@
 
 ### 构建与运行
 
-1. 在Android Studio中加载本[示例源码](https://gitee.com/mindspore/models/tree/master/official/lite/image_segmentation)，并安装相应的SDK（指定SDK版本后，由Android Studio自动安装）。
+1. 在Android Studio中加载本[示例源码](https://atomgit.com/mindspore-lab/models/tree/master/official/lite/image_segmentation)，并安装相应的SDK（指定SDK版本后，由Android Studio自动安装）。
 
     ![start_home](../images/lite_quick_start_home.png)
 
@@ -117,7 +117,7 @@ Android调用MindSpore Lite Android AAR时，需要相关库文件支持。可�
 
 ### 编写端侧推理代码
 
-推理代码流程如下，完整代码请参见 [src/java/com/mindspore/imagesegmentation/TrackingMobile](https://gitee.com/mindspore/models/blob/master/official/lite/image_segmentation/app/src/main/java/com/mindspore/imagesegmentation/help/TrackingMobile.java)。
+推理代码流程如下，完整代码请参见 [src/java/com/mindspore/imagesegmentation/TrackingMobile](https://atomgit.com/mindspore-lab/models/blob/master/official/lite/image_segmentation/app/src/main/java/com/mindspore/imagesegmentation/help/TrackingMobile.java)。
 
 1. 加载MindSpore Lite模型，构建上下文、会话以及用于推理的计算图。  
 

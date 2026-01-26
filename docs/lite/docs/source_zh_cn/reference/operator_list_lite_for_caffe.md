@@ -1,6 +1,6 @@
 # MindSpore Lite支持的Caffe算子列表
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_zh_cn/reference/operator_list_lite_for_caffe.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/lite/docs/source_zh_cn/reference/operator_list_lite_for_caffe.md)
 
 | MindSpore Lite算子名称 | 对应的Caffe算子                  |
 | ---------------------- | -------------------------------- |

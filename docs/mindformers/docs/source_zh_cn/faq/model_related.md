@@ -1,6 +1,6 @@
 # 模型相关 FAQ
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/faq/model_related.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/faq/model_related.md)
 
 ## Q: 网络运行时报错“Out of Memory”(`OOM`)，如何处理？
 
@@ -12,4 +12,4 @@ A: 该报错表示设备内存不足，可能由多种原因导致，建议按�
 4. 调整混合并行策略，适当增大流水线并行（pp）和模型并行（mp），并相应减小数据并行（dp），保持`dp * mp * pp = device_num`，必要时增加NPU数量。
 5. 尝试调小批次大小或序列长度。
 6. 开启选择重计算或完全重计算，开启优化器并行。
-7. 如问题仍需进一步排查，欢迎[提issue](https://gitee.com/mindspore/mindformers/issues)反馈。
+7. 如问题仍需进一步排查，欢迎[提issue](https://atomgit.com/mindspore/mindformers/issues)反馈。

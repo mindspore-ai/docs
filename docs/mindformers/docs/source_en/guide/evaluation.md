@@ -1,6 +1,6 @@
 # Evaluation
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_en/guide/evaluation.md)
+[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_en/guide/evaluation.md)
 
 ## Overview
 
@@ -10,7 +10,7 @@ In previous versions, MindSpore Transformers adapted the Harness evaluation fram
 
 ## AISBench Benchmarking
 
-For service-oriented evaluation of MindSpore Transformers, the AISBench Benchmark suite is recommended. AISBench Benchmark is a model evaluation tool built on OpenCompass, compatible with OpenCompass's configuration system, dataset structure, and model backend implementation, while extending support for service-oriented models. It supports 30+ open-source datasets: [Evaluation datasets supported by AISBench](https://gitee.com/aisbench/benchmark/blob/master/doc/users_guide/datasets.md#%E5%BC%80%E6%BA%90%E6%95%B0%E6%8D%AE%E9%9B%86).
+For service-oriented evaluation of MindSpore Transformers, the AISBench Benchmark suite is recommended. AISBench Benchmark is a model evaluation tool built on OpenCompass, compatible with OpenCompass's configuration system, dataset structure, and model backend implementation, while extending support for service-oriented models. It supports 30+ open-source datasets: [Evaluation datasets supported by AISBench](https://atomgit.com/aisbench/benchmark/blob/master/doc/users_guide/datasets.md#%E5%BC%80%E6%BA%90%E6%95%B0%E6%8D%AE%E9%9B%86).
 
 Currently, AISBench supports two major categories of inference task evaluation scenarios:
 
@@ -38,14 +38,14 @@ unset USE_TORCH
 Then clone the repository and install from source:
 
 ```bash
-git clone https://gitee.com/aisbench/benchmark.git
+git clone https://atomgit.com/aisbench/benchmark.git
 cd benchmark/
 pip3 install -e ./ --use-pep517
 ```
 
 #### Step 2 Dataset Download
 
-The official documentation provides download links for each dataset. Taking CEVAL as an example, you can find the download link in the [CEVAL documentation,](https://gitee.com/aisbench/benchmark/blob/master/ais_bench/benchmark/configs/datasets/ceval/README.md), and execute the following commands to download and extract the dataset to the specified path:
+The official documentation provides download links for each dataset. Taking CEVAL as an example, you can find the download link in the [CEVAL documentation,](https://atomgit.com/aisbench/benchmark/blob/master/ais_bench/benchmark/configs/datasets/ceval/README.md), and execute the following commands to download and extract the dataset to the specified path:
 
 ```bash
 cd ais_bench/datasets
@@ -113,7 +113,7 @@ Parameter Description:
 - `--models`: Specifies the model task interface, i.e., vllm_api_general, corresponding to the file name changed in the previous step. There is also vllm_api_general_chat
 - `--datasets`: Specifies the dataset task, i.e., the ceval_gen_4_shot_str dataset task, where 4_shot means the question will be input repeatedly four times, and str means non-chat output
 
-For more parameter configuration descriptions, see [Configuration Description](https://gitee.com/aisbench/benchmark/blob/master/doc/users_guide/models.md#%E6%9C%8D%E5%8A%A1%E5%8C%96%E6%8E%A8%E7%90%86%E5%90%8E%E7%AB%AF).
+For more parameter configuration descriptions, see [Configuration Description](https://atomgit.com/aisbench/benchmark/blob/master/doc/users_guide/models.md#%E6%9C%8D%E5%8A%A1%E5%8C%96%E6%8E%A8%E7%90%86%E5%90%8E%E7%AB%AF).
 
 After the evaluation is completed, statistical results will be displayed on the screen. The specific execution results and logs will be saved in the outputs folder under the current path. In case of execution exceptions, problems can be located based on the logs.
 
@@ -168,7 +168,7 @@ Parameter Description:
 - `--summarizer`: Specifies task statistical data
 - `--mode`: Specifies the task execution mode
 
-For more parameter configuration descriptions, see [Configuration Description](https://gitee.com/aisbench/benchmark/blob/master/doc/users_guide/models.md#%E6%9C%8D%E5%8A%A1%E5%8C%96%E6%8E%A8%E7%90%86%E5%90%8E%E7%AB%AF).
+For more parameter configuration descriptions, see [Configuration Description](https://atomgit.com/aisbench/benchmark/blob/master/doc/users_guide/models.md#%E6%9C%8D%E5%8A%A1%E5%8C%96%E6%8E%A8%E7%90%86%E5%90%8E%E7%AB%AF).
 
 #### Evaluation Results Description
 
@@ -186,9 +186,9 @@ After the evaluation is completed, performance evaluation results will be output
 | Tokenizer             | /                     | Tokenizer encoding time (ms)                                                              |
 | Detokenizer           | /                     | Detokenizer decoding time (ms)                                                            |
 
-- For more evaluation tasks, such as synthetic random dataset evaluation and performance stress testing, see the following documentation: [AISBench Official Documentation](https://gitee.com/aisbench/benchmark/tree/master/doc/users_guide).
+- For more evaluation tasks, such as synthetic random dataset evaluation and performance stress testing, see the following documentation: [AISBench Official Documentation](https://atomgit.com/aisbench/benchmark/tree/master/doc/users_guide).
 - For more tips on optimizing inference performance, see the following documentation: [Inference Performance Optimization](https://docs.qq.com/doc/DZGhMSWFCenpQZWJR).
-- For more parameter descriptions, see the following documentation: [Performance Evaluation Results Description](https://gitee.com/aisbench/benchmark/blob/master/doc/users_guide/performance_metric.md).
+- For more parameter descriptions, see the following documentation: [Performance Evaluation Results Description](https://atomgit.com/aisbench/benchmark/blob/master/doc/users_guide/performance_metric.md).
 
 ### Appendix
 
@@ -278,8 +278,8 @@ This specifically depends on the comprehensive consideration of model type and d
 
 The above only introduces the basic usage of AISBench. For more tutorials and usage methods, please refer to the official materials:
 
-- [AISBench Official Tutorial](https://gitee.com/aisbench/benchmark)
-- [AISBench Main Documentation](https://gitee.com/aisbench/benchmark/tree/master/doc/users_guide)
+- [AISBench Official Tutorial](https://atomgit.com/aisbench/benchmark)
+- [AISBench Main Documentation](https://atomgit.com/aisbench/benchmark/tree/master/doc/users_guide)
 
 ## Harness Evaluation
 
@@ -321,9 +321,9 @@ pip install -e .
 
 1. Create a new directory with e.g. the name `model_dir` for storing the model yaml files.
 2. Place the model inference yaml configuration file (predict_xxx_.yaml) in the directory created in the previous step. The directory location of the reasoning yaml configuration file for different models refers to [model library](../introduction/models.md).
-3. Configure the yaml file. If the model class, model Config class, and model Tokenizer class in yaml use cheat code, that is, the code files are in [research](https://gitee.com/mindspore/mindformers/tree/master/research) directory or other external directories, it is necessary to modify the yaml file: under the corresponding class `type` field, add the `auto_register` field in the format of `module.class`. (`module` is the file name of the script where the class is located, and `class` is the class name. If it already exists, there is no need to modify it.).
+3. Configure the yaml file. If the model class, model Config class, and model Tokenizer class in yaml use cheat code, that is, the code files are in [research](https://atomgit.com/mindspore/mindformers/tree/master/research) directory or other external directories, it is necessary to modify the yaml file: under the corresponding class `type` field, add the `auto_register` field in the format of `module.class`. (`module` is the file name of the script where the class is located, and `class` is the class name. If it already exists, there is no need to modify it.).
 
-    Using [predict_llama3_1_8b. yaml](https://gitee.com/mindspore/mindformers/blob/master/research/llama3_1/llama3_1_8b/predict_llama3_1_8b.yaml) configuration as an example, modify some of the configuration items as follows:
+    Using [predict_llama3_1_8b. yaml](https://atomgit.com/mindspore/mindformers/blob/master/research/llama3_1/llama3_1_8b/predict_llama3_1_8b.yaml) configuration as an example, modify some of the configuration items as follows:
 
     ```yaml
     run_mode: 'predict'    # Set inference mode
@@ -348,13 +348,13 @@ pip install -e .
 
 #### Evaluation Example
 
-Execute the script of [run_harness.sh](https://gitee.com/mindspore/mindformers/blob/master/toolkit/benchmarks/run_harness.sh) to evaluate.
+Execute the script of [run_harness.sh](https://atomgit.com/mindspore/mindformers/blob/master/toolkit/benchmarks/run_harness.sh) to evaluate.
 
 The following table lists the parameters of the script of `run_harness.sh`:
 
 | Parameter         | Type | Description                                                                                                                                                                                        | Required                       |
 |-------------------|------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------|
-| `--register_path` | str  | The absolute path of the directory where the cheat code is located. For example, the model directory under the [research](https://gitee.com/mindspore/mindformers/tree/master/research) directory. | No(The cheat code is required) |
+| `--register_path` | str  | The absolute path of the directory where the cheat code is located. For example, the model directory under the [research](https://atomgit.com/mindspore/mindformers/tree/master/research) directory. | No(The cheat code is required) |
 | `--model`         | str  | The value must be `mf`, indicating the MindSpore Transformers evaluation policy.                                                                                                                   | Yes                            |
 | `--model_args`    | str  | Model and evaluation parameters. For details, see MindSpore Transformers model parameters.                                                                                                         | Yes                            |
 | `--tasks`         | str  | Dataset name. Multiple datasets can be specified and separated by commas (,).                                                                                                                      | Yes                            |
@@ -472,7 +472,7 @@ After training, the model generally uses the trained model weights to run evalua
 
 If the weights generated after training are distributed, the existing distributed weights need to be merged into complete weights first, and then the weights can be loaded through online slicing to complete the inference task.
 
-MindSpore Transformers provides a [safetensors weight merging script](https://gitee.com/mindspore/mindformers/blob/master/toolkit/safetensors/unified_safetensors.py) that can be used to merge multiple safetensors weights obtained from distributed training to obtain the complete weights.
+MindSpore Transformers provides a [safetensors weight merging script](https://atomgit.com/mindspore/mindformers/blob/master/toolkit/safetensors/unified_safetensors.py) that can be used to merge multiple safetensors weights obtained from distributed training to obtain the complete weights.
 
 The merging instruction is as follows (the Adam optimizer parameters are merged for the training weights in step 1000, and the redundancy removal function is enabled when saving the training weights):
 
@@ -504,7 +504,7 @@ Script parameter description:
 
 After completing the merging of weight files, you need to develop the corresponding inference configuration file based on the training configuration file.
 
-Taking Qwen3 as an example, modify the [Qwen3 training configuration](https://gitee.com/mindspore/mindformers/blob/master/configs/qwen3/finetune_qwen3.yaml) based on the [Qwen3 inference configuration](https://gitee.com/mindspore/mindformers/blob/master/configs/qwen3/predict_qwen3.yaml):
+Taking Qwen3 as an example, modify the [Qwen3 training configuration](https://atomgit.com/mindspore/mindformers/blob/master/configs/qwen3/finetune_qwen3.yaml) based on the [Qwen3 inference configuration](https://atomgit.com/mindspore/mindformers/blob/master/configs/qwen3/predict_qwen3.yaml):
 
 Main modification points of Qwen3 training configuration include:
 

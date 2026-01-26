@@ -1,6 +1,6 @@
 # CANN Common Error Analysis
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/debug/error_analysis/cann_error_cases.md)&nbsp;&nbsp;
+[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/tutorials/source_en/debug/error_analysis/cann_error_cases.md)&nbsp;&nbsp;
 
 This article focuses on the handling of common CANN errors by users. When encountering CANN errors, MindSpore logs may not be sufficient to analyze the related errors. You can print CANN logs to better analyze the errors by setting the following two environment variables:
 
@@ -119,7 +119,7 @@ In file /cache/user-job-dir/mindspore_clip_20210923/msvision/backbone/clip.py(56
 In file /cache/user-job-dir/mindspore_clip_20210923/msvision/backbone/clip.py(635)/        image_features = self.encode_image(image)/
 ```
 
-From the error message reported in the above error code, we can see that the specification of this transpose operator is not supported and its data exceeds the limit when doing memory copy instructions. For such problems, users can submit issues to [MindSpore Community](https://gitee.com/mindspore) for help.
+From the error message reported in the above error code, we can see that the specification of this transpose operator is not supported and its data exceeds the limit when doing memory copy instructions. For such problems, users can submit issues to [MindSpore Community](https://atomgit.com/mindspore) for help.
 
 ## AICORE Operator Execution Problem
 
@@ -161,7 +161,7 @@ Traceback (most recent call last):
 RuntimeError: mindspore/ccsrc/backend/session/ascend_session.cc:1456 Execute] run task error!
 ```
 
-AICORE operator execution failure may be due to data input mismatch, access out-of-bounds, computation overflow, or it may be a code problem with the operator itself. For this kind of problem, users can use the logs and dump data to first check by themselves and construct a single-calculus use case to locate. If you cannot locate the problem, you can submit an issue to the [MindSpore Community](https://gitee.com/mindspore) for help.
+AICORE operator execution failure may be due to data input mismatch, access out-of-bounds, computation overflow, or it may be a code problem with the operator itself. For this kind of problem, users can use the logs and dump data to first check by themselves and construct a single-calculus use case to locate. If you cannot locate the problem, you can submit an issue to the [MindSpore Community](https://atomgit.com/mindspore) for help.
 
 ## AICPU Operator Execution Problem
 
@@ -196,7 +196,7 @@ E39999: Inner Error!
 INFO 2021-09-14 09:26:01 - root - test_ms_cifar10_tdt_consume_beyond_produce_more_RDR.py:test_run:50 - when dataset batch num is less than train loop, error msg is mindspore/ccsrc/backend/session/ascend_session.cc:1456 Execute] run task error!
 ```
 
-The AICPU operator execution failure may be due to data input mismatch, access out-of-bounds, AICPU thread hang, or caused by the operator itself. For this kind of problem, users can use the logs and dump data to first check by themselves and construct a single-calculus use case to locate. If you cannot locate the problem, you can submit an issue to the [MindSpore Community](https://gitee.com/mindspore) for help.
+The AICPU operator execution failure may be due to data input mismatch, access out-of-bounds, AICPU thread hang, or caused by the operator itself. For this kind of problem, users can use the logs and dump data to first check by themselves and construct a single-calculus use case to locate. If you cannot locate the problem, you can submit an issue to the [MindSpore Community](https://atomgit.com/mindspore) for help.
 
 ## runtime FAQ
 
@@ -378,7 +378,7 @@ Generally, this kind of error may be caused by the GetNext timeout for fetching 
 
 2. When executing the multi-device distributed program, the process of one card may hang, which may cause the timeout of other devices.
 
-If the problem is not caused by GetNext timeout, users can submit issues to [MindSpore Community](https://gitee.com/mindspore) for help.
+If the problem is not caused by GetNext timeout, users can submit issues to [MindSpore Community](https://atomgit.com/mindspore) for help.
 
 ### EE1001: Device ID Setting Error
 

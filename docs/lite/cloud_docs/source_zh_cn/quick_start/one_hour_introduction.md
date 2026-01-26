@@ -1,6 +1,6 @@
 # 云侧推理快速入门
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/lite/cloud_docs/source_zh_cn/quick_start/one_hour_introduction.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/lite/cloud_docs/source_zh_cn/quick_start/one_hour_introduction.md)
 
 ## 概述
 
@@ -58,7 +58,7 @@ MindSpore Lite云侧推理仅支持在Linux环境部署运行。支持Atlas 200/
 
 4. 获取样例
 
-    本节样例代码放置在[mindspore-lite/examples/cloud_infer/quick_start_cpp](https://gitee.com/mindspore/mindspore-lite/tree/master/mindspore-lite/examples/quick_start_cpp)目录。
+    本节样例代码放置在[mindspore-lite/examples/cloud_infer/quick_start_cpp](https://atomgit.com/mindspore/mindspore-lite/tree/master/mindspore-lite/examples/quick_start_cpp)目录。
 
     ```text
     quick_start_cpp

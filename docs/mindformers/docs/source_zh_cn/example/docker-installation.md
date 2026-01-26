@@ -1,6 +1,6 @@
 # 制作 MindSpore Transformers 的 Docker 镜像的实践案例
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/example/docker-installation.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/example/docker-installation.md)
 
 本案例将分享构建 **MindSpore Transformers** 的 Docker 镜像的实践，开发者可以参考本案例构建自己的镜像。
 
@@ -43,7 +43,7 @@ docker --version
 
 这样可以减少最终镜像大小，并提高构建效率。
 
-DockerFile的内容可参考[社区 issue](https://gitee.com/mindspore/mindformers/issues/ICQ9JF)
+DockerFile的内容可参考[社区 issue](https://atomgit.com/mindspore/mindformers/issues/ICQ9JF)
 
 并将其中的Dockerfile保存到本地。
 
@@ -102,7 +102,7 @@ DockerFile的内容可参考[社区 issue](https://gitee.com/mindspore/mindforme
 | `CANN_TOOLKIT_URL` | CANN toolkit包下载地址 | [昇腾社区下载页](https://www.hiascend.com/developer/download/community/result?module=cann) |
 | `CANN_KERNELS_URL` | CANN kernels包下载地址 | [昇腾社区下载页](https://www.hiascend.com/developer/download/community/result?module=cann) |
 | `MS_WHL_URL` | MindSpore wheel 包地址 | [MindSpore PyPI](https://repo.mindspore.cn/pypi/simple/mindspore/) |
-| `MINDFORMERS_GIT_REF` | MindFormers 分支名称，会自动checkout到对应分支 | [MindFormers 仓库](https://gitee.com/mindspore/mindformers) |
+| `MINDFORMERS_GIT_REF` | MindFormers 分支名称，会自动checkout到对应分支 | [MindFormers 仓库](https://atomgit.com/mindspore/mindformers) |
 
 > 构建过程可能需要 30 分钟左右，取决于网络速度和硬件性能。
 
@@ -172,8 +172,8 @@ docker run -itd \
 ## 参考资源
 
 - [MindSpore 官网](https://www.mindspore.cn)
-- [MindSpore Transformers 仓库](https://gitee.com/mindspore/mindformers)
+- [MindSpore Transformers 仓库](https://atomgit.com/mindspore/mindformers)
 - [Docker 官方文档](https://docs.docker.com)
 - [Ascend 社区](https://www.hiascend.com/developer)
-- [MindSpore 社区](https://gitee.com/mindspore/community)
-- [相关 issue](https://gitee.com/mindspore/mindformers/issues/ICQ9JF)
+- [MindSpore 社区](https://atomgit.com/mindspore/community)
+- [相关 issue](https://atomgit.com/mindspore/mindformers/issues/ICQ9JF)

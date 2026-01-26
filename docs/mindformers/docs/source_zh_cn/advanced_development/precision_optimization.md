@@ -1,6 +1,6 @@
 # 大模型精度调优指南
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/advanced_development/precision_optimization.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/advanced_development/precision_optimization.md)
 
 ## 精度问题概述和场景
 
@@ -228,7 +228,7 @@ MindSpore与PyTorch均支持`bin`格式数据，加载相同的数据集进行�
       # 原始代码
   ```
 
-* MindSpore代码，在[run_mindformer.py](https://gitee.com/mindspore/mindformers/blob/master/run_mindformer.py)中，新增seed_all方法，并在main方法中调用，添加方法如下：
+* MindSpore代码，在[run_mindformer.py](https://atomgit.com/mindspore/mindformers/blob/master/run_mindformer.py)中，新增seed_all方法，并在main方法中调用，添加方法如下：
 
   ```python
   import numpy as np
@@ -348,7 +348,7 @@ def get_parameters(self):
     return params
 ```
 
-MindSpore Transformers加载梯度参考[mindformers/wrapper/wrapper.py](https://gitee.com/mindspore/mindformers/blob/master/mindformers/wrapper/wrapper.py)实现。注意，需要用户自行找到MindSpore Transformers与PyTorch梯度的对应关系，参考如下修改代码：
+MindSpore Transformers加载梯度参考[mindformers/wrapper/wrapper.py](https://atomgit.com/mindspore/mindformers/blob/master/mindformers/wrapper/wrapper.py)实现。注意，需要用户自行找到MindSpore Transformers与PyTorch梯度的对应关系，参考如下修改代码：
 
 ```python
 class MFTrainOneStepCell(nn.TrainOneStepWithLossScaleCell):

@@ -1,6 +1,6 @@
 # Class TrainCfg
 
-\#include &lt;[cfg.h](https://gitee.com/mindspore/mindspore-lite/blob/master/include/api/cfg.h)&gt;
+\#include &lt;[cfg.h](https://atomgit.com/mindspore/mindspore-lite/blob/master/include/api/cfg.h)&gt;
 
 `TrainCfg`MindSpore Lite训练的相关配置参数。
 

@@ -1,6 +1,6 @@
 # 评测指南
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/guide/evaluation.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/guide/evaluation.md)
 
 ## 概览
 
@@ -12,7 +12,7 @@ MindSpore Transformers在之前版本，对于部分Legacy架构的模型，适�
 
 ## AISBench评测
 
-MindSpore Transformers的服务化评测推荐AISBench Benchmark套件。AISBench Benchmark是基于OpenCompass构建的模型评测工具，兼容OpenCompass的配置体系、数据集结构与模型后端实现，并在此基础上扩展了对服务化模型的支持能力。同时支持30+开源数据集：[AISBench支持的评测数据集](https://gitee.com/aisbench/benchmark/blob/master/doc/users_guide/datasets.md#%E5%BC%80%E6%BA%90%E6%95%B0%E6%8D%AE%E9%9B%86)。
+MindSpore Transformers的服务化评测推荐AISBench Benchmark套件。AISBench Benchmark是基于OpenCompass构建的模型评测工具，兼容OpenCompass的配置体系、数据集结构与模型后端实现，并在此基础上扩展了对服务化模型的支持能力。同时支持30+开源数据集：[AISBench支持的评测数据集](https://atomgit.com/aisbench/benchmark/blob/master/doc/users_guide/datasets.md#%E5%BC%80%E6%BA%90%E6%95%B0%E6%8D%AE%E9%9B%86)。
 
 当前，AISBench支持两大类推理任务的评测场景：
 
@@ -40,14 +40,14 @@ unset USE_TORCH
 然后克隆仓库并通过源码安装：
 
 ```bash
-git clone https://gitee.com/aisbench/benchmark.git
+git clone https://atomgit.com/aisbench/benchmark.git
 cd benchmark/
 pip3 install -e ./ --use-pep517
 ```
 
 #### Step2 数据集下载
 
-官方文档提供各个数据集下载链接，以ceval为例可在[ceval文档](https://gitee.com/aisbench/benchmark/blob/master/ais_bench/benchmark/configs/datasets/ceval/README.md)中找到下载链接，执行以下命令下载解压数据集到指定路径：
+官方文档提供各个数据集下载链接，以ceval为例可在[ceval文档](https://atomgit.com/aisbench/benchmark/blob/master/ais_bench/benchmark/configs/datasets/ceval/README.md)中找到下载链接，执行以下命令下载解压数据集到指定路径：
 
 ```bash
 cd ais_bench/datasets
@@ -115,7 +115,7 @@ ais_bench --models vllm_api_general --datasets ceval_gen_5_shot_str --debug
 - `--models`：指定了模型任务接口，即vllm_api_general，对应上一步更改的文件名。此外还有vllm_api_general_chat。
 - `--datasets`：指定了数据集任务，即ceval_gen_5_shot_str数据集任务，其中的5_shot指问题会重复四次输入，str是指非chat输出。
 
-其它更多的参数配置说明，见[配置说明](https://gitee.com/aisbench/benchmark/blob/master/doc/users_guide/models.md#%E6%9C%8D%E5%8A%A1%E5%8C%96%E6%8E%A8%E7%90%86%E5%90%8E%E7%AB%AF)。
+其它更多的参数配置说明，见[配置说明](https://atomgit.com/aisbench/benchmark/blob/master/doc/users_guide/models.md#%E6%9C%8D%E5%8A%A1%E5%8C%96%E6%8E%A8%E7%90%86%E5%90%8E%E7%AB%AF)。
 
 评测结束后统计结果会打屏，具体执行结果和日志都会保存在当前路径下的outputs文件夹下，执行异常情况下可以根据日志定位问题。
 
@@ -170,7 +170,7 @@ ais_bench --models vllm_api_stream_chat --datasets gsm8k_gen_0_shot_cot_str_perf
 - `--summarizer`：指定了任务统计数据。
 - `--mode`：指定了任务执行模式。
 
-其它更多的参数配置说明，见[配置说明](https://gitee.com/aisbench/benchmark/blob/master/doc/users_guide/models.md#%E6%9C%8D%E5%8A%A1%E5%8C%96%E6%8E%A8%E7%90%86%E5%90%8E%E7%AB%AF)。
+其它更多的参数配置说明，见[配置说明](https://atomgit.com/aisbench/benchmark/blob/master/doc/users_guide/models.md#%E6%9C%8D%E5%8A%A1%E5%8C%96%E6%8E%A8%E7%90%86%E5%90%8E%E7%AB%AF)。
 
 #### 评测结果说明
 
@@ -188,9 +188,9 @@ ais_bench --models vllm_api_stream_chat --datasets gsm8k_gen_0_shot_cot_str_perf
 | Tokenizer             | /                     | Tokenizer 编码耗时(ms)               |
 | Detokenizer           | /                     | Detokenizer 解码耗时(ms)             |
 
-- 更多评测任务，如合成随机数据集评测、性能压测，可查看以下文档：[AISBench官方文档](https://gitee.com/aisbench/benchmark/tree/master/doc/users_guide)。
+- 更多评测任务，如合成随机数据集评测、性能压测，可查看以下文档：[AISBench官方文档](https://atomgit.com/aisbench/benchmark/tree/master/doc/users_guide)。
 - 更多调优推理性能技巧，可查看以下文档：[推理性能调优](https://docs.qq.com/doc/DZGhMSWFCenpQZWJR)。
-- 更多参数说明请看以下文档：[性能测评结果说明](https://gitee.com/aisbench/benchmark/blob/master/doc/users_guide/performance_metric.md)。
+- 更多参数说明请看以下文档：[性能测评结果说明](https://atomgit.com/aisbench/benchmark/blob/master/doc/users_guide/performance_metric.md)。
 
 ### 附录
 
@@ -280,8 +280,8 @@ for _split in ['val']:
 
 关于AISBench的更多教程和使用方式可参考官方资料：
 
-- [AISBench官方教程](https://gitee.com/aisbench/benchmark)
-- [AISBench主要文档](https://gitee.com/aisbench/benchmark/tree/master/doc/users_guide)
+- [AISBench官方教程](https://atomgit.com/aisbench/benchmark)
+- [AISBench主要文档](https://atomgit.com/aisbench/benchmark/tree/master/doc/users_guide)
 
 ## Harness评测
 
@@ -323,9 +323,9 @@ pip install -e .
 
 1. 创建一个新目录，例如名称为`model_dir`，用于存储模型yaml文件。
 2. 在上个步骤创建的目录中，放置模型推理yaml配置文件（predict_xxx_.yaml）。不同模型的推理yaml配置文件所在目录位置，请参考[模型库](../introduction/models.md)。
-3. 配置yaml文件。如果yaml中模型类、模型Config类、模型Tokenizer类使用了外挂代码，即代码文件在[research](https://gitee.com/mindspore/mindformers/tree/master/research)目录或其他外部目录下，需要修改yaml文件：在相应类的`type`字段下，添加`auto_register`字段，格式为“module.class”（其中“module”为类所在脚本的文件名，“class”为类名。如果已存在，则不需要修改）。
+3. 配置yaml文件。如果yaml中模型类、模型Config类、模型Tokenizer类使用了外挂代码，即代码文件在[research](https://atomgit.com/mindspore/mindformers/tree/master/research)目录或其他外部目录下，需要修改yaml文件：在相应类的`type`字段下，添加`auto_register`字段，格式为“module.class”（其中“module”为类所在脚本的文件名，“class”为类名。如果已存在，则不需要修改）。
 
-    以[predict_llama3_1_8b.yaml](https://gitee.com/mindspore/mindformers/blob/master/research/llama3_1/llama3_1_8b/predict_llama3_1_8b.yaml)配置为例，对其中的部分配置项进行如下修改：
+    以[predict_llama3_1_8b.yaml](https://atomgit.com/mindspore/mindformers/blob/master/research/llama3_1/llama3_1_8b/predict_llama3_1_8b.yaml)配置为例，对其中的部分配置项进行如下修改：
 
       ```yaml
       run_mode: 'predict'       # 设置推理模式
@@ -350,13 +350,13 @@ pip install -e .
 
 #### 评测样例
 
-执行脚本[run_harness.sh](https://gitee.com/mindspore/mindformers/blob/master/toolkit/benchmarks/run_harness.sh)进行评测。
+执行脚本[run_harness.sh](https://atomgit.com/mindspore/mindformers/blob/master/toolkit/benchmarks/run_harness.sh)进行评测。
 
 run_harness.sh脚本参数配置如下表：
 
 | 参数                | 类型  | 参数介绍                                                                                             | 是否必须      |
 |-------------------|-----|--------------------------------------------------------------------------------------------------|-----------|
-| `--register_path` | str | 外挂代码所在目录的绝对路径。比如[research](https://gitee.com/mindspore/mindformers/tree/master/research)目录下的模型目录 | 否（外挂代码必填） |
+| `--register_path` | str | 外挂代码所在目录的绝对路径。比如[research](https://atomgit.com/mindspore/mindformers/tree/master/research)目录下的模型目录 | 否（外挂代码必填） |
 | `--model`         | str | 需设置为 `mf` ，对应为MindSpore Transformers评估策略                                                         | 是         |
 | `--model_args`    | str | 模型及评估相关参数，见下方模型参数介绍                                                                              | 是         |
 | `--tasks`         | str | 数据集名称。可传入多个数据集，使用逗号（，）分隔                                                                         | 是         |
@@ -474,7 +474,7 @@ Harness评测支持单机单卡、单机多卡、多机多卡场景，每种场�
 
 训练后产生的权重如果是分布式的，需要先将已有的分布式权重合并成完整权重后，再通过在线切分的方式进行权重加载完成推理任务。
 
-MindSpore Transformers 提供了一份 [safetensors 权重合并脚本](https://gitee.com/mindspore/mindformers/blob/master/toolkit/safetensors/unified_safetensors.py)，使用该脚本，可以将分布式训练得到的多个 safetensors 权重进行合并，得到完整权重。
+MindSpore Transformers 提供了一份 [safetensors 权重合并脚本](https://atomgit.com/mindspore/mindformers/blob/master/toolkit/safetensors/unified_safetensors.py)，使用该脚本，可以将分布式训练得到的多个 safetensors 权重进行合并，得到完整权重。
 
 合并指令参考如下（对第 1000 步训练权重进行去 adam 优化器参数合并，且训练权重在保存时开启了去冗余功能）：
 
@@ -506,7 +506,7 @@ python toolkit/safetensors/unified_safetensors.py \
 
 在完成权重文件的合并后，需依据训练配置文件开发对应的推理配置文件。
 
-以 Qwen3 为例，基于 [Qwen3 推理配置](https://gitee.com/mindspore/mindformers/blob/master/configs/qwen3/predict_qwen3.yaml)修改 [Qwen3 训练配置](https://gitee.com/mindspore/mindformers/blob/master/configs/qwen3/finetune_qwen3.yaml)：
+以 Qwen3 为例，基于 [Qwen3 推理配置](https://atomgit.com/mindspore/mindformers/blob/master/configs/qwen3/predict_qwen3.yaml)修改 [Qwen3 训练配置](https://atomgit.com/mindspore/mindformers/blob/master/configs/qwen3/finetune_qwen3.yaml)：
 
 Qwen3 训练配置主要修改点包括：
 

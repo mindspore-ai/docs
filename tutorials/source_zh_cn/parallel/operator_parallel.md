@@ -1,6 +1,6 @@
 # 算子级并行
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/parallel/operator_parallel.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/tutorials/source_zh_cn/parallel/operator_parallel.md)
 
 ## 简介
 
@@ -16,7 +16,7 @@ MindSpore提供两种粒度的算子级并行能力：算子级并行和高阶�
 
 #### 样例代码说明
 
-> 下载完整的样例代码：[distributed_operator_parallel](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_operator_parallel)。
+> 下载完整的样例代码：[distributed_operator_parallel](https://atomgit.com/mindspore/docs/tree/master/docs/sample_code/distributed_operator_parallel)。
 
 目录结构如下：
 
@@ -194,7 +194,7 @@ epoch: 0 step: 50, loss is 1.8051043
 
 #### 样例代码说明
 
-> 下载完整的样例代码：[distributed_operator_parallel](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_operator_parallel)。
+> 下载完整的样例代码：[distributed_operator_parallel](https://atomgit.com/mindspore/docs/tree/master/docs/sample_code/distributed_operator_parallel)。
 
 目录结构如下：
 
@@ -348,7 +348,7 @@ epoch: 0 step: 50, forward_sum is 0.96655
 
 #### 样例代码说明
 
-> 下载完整的样例代码：[distributed_operator_parallel](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_operator_parallel)。
+> 下载完整的样例代码：[distributed_operator_parallel](https://atomgit.com/mindspore/docs/tree/master/docs/sample_code/distributed_operator_parallel)。
 
 目录结构如下：
 
@@ -470,7 +470,7 @@ epoch: 0 step: 50, loss is 1.8051043
 
 #### 样例代码说明
 
-> 下载完整的样例代码：[distributed_operator_parallel](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_operator_parallel)。
+> 下载完整的样例代码：[distributed_operator_parallel](https://atomgit.com/mindspore/docs/tree/master/docs/sample_code/distributed_operator_parallel)。
 
 目录结构如下：
 

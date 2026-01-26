@@ -1,6 +1,6 @@
 # CustomOpBuilder通过AtbOpRunner接入ATB算子
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/custom_program/operation/op_customopbuilder_atb.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/tutorials/source_zh_cn/custom_program/operation/op_customopbuilder_atb.md)
 
 ## 概述
 
@@ -14,7 +14,7 @@
 
 用户基于 [AtbOpRunner类](https://www.mindspore.cn/tutorials/zh-CN/master/custom_program/operation/cpp_api_for_custom_ops.html#class-atboprunner) 对接ATB算子时，仅需要提供相应`Param`的哈希函数（作为缓存`Operation`的键值），并调用`Init`接口初始化（即构造`Operation`），再调用`Run`接口即可执行ATB算子。还可以直接调用 [RunAtbOp](https://www.mindspore.cn/tutorials/zh-CN/master/custom_program/operation/cpp_api_for_custom_ops.html#function-runatbop)函数一键执行（函数内包含了`Init`和`Run`接口的调用）。
 
-本指南以一个`SwiGLU`为例，展示ATB算子的接入流程。完整代码请参阅[代码仓库](https://gitee.com/mindspore/mindspore/blob/master/tests/st/custom/custom_op_builder/pyboost/jit_test_files/atb_swiglu.cpp)。
+本指南以一个`SwiGLU`为例，展示ATB算子的接入流程。完整代码请参阅[代码仓库](https://atomgit.com/mindspore/mindspore/blob/master/tests/st/custom/custom_op_builder/pyboost/jit_test_files/atb_swiglu.cpp)。
 
 ## 安装ATB加速库
 
