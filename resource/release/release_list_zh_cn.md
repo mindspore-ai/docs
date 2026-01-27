@@ -97,9 +97,9 @@
 
 **配套资料**
 
-|        安装   |      教程      |  文档    |  API|
-|        ---   |       ---      |     ---     |     ---      |
-| [安装指南](https://atomgit.com/mindspore/docs/tree/r2.7.2/install)  |  [快速上手](https://www.mindspore.cn/tutorials/zh-CN/r2.7.2/beginner/quick_start.html)      <br> [实践案例](https://www.mindspore.cn/tutorials/zh-CN/r2.7.2/cv.html)  | [MindSpore](https://www.mindspore.cn/docs/zh-CN/r2.7.2/index.html) |  [MindSpore](https://www.mindspore.cn/docs/zh-CN/r2.7.2/api_python/mindspore.html)  |
+|   版本说明和接口变更   |   安装   |      教程      |  文档    |  API|
+|    ---  |    ---   |       ---      |     ---     |     ---      |
+|   [版本说明](https://www.mindspore.cn/docs/zh-CN/r2.7.2/RELEASE.html)   | [安装指南](https://atomgit.com/mindspore/docs/tree/r2.7.2/install)  |  [快速上手](https://www.mindspore.cn/tutorials/zh-CN/r2.7.2/beginner/quick_start.html)      <br> [实践案例](https://www.mindspore.cn/tutorials/zh-CN/r2.7.2/cv.html)  | [MindSpore](https://www.mindspore.cn/docs/zh-CN/r2.7.2/index.html) |  [MindSpore](https://www.mindspore.cn/docs/zh-CN/r2.7.2/api_python/mindspore.html)  |
 
 ## 2.7.1
 
@@ -129,9 +129,9 @@
 
 **配套资料**
 
-|        安装   |      教程      |  文档    |  API|
-|        ---   |       ---      |     ---     |     ---      |
-| [安装指南](https://atomgit.com/mindspore/docs/tree/r2.7.1/install)  |  [快速上手](https://www.mindspore.cn/tutorials/zh-CN/r2.7.1/beginner/quick_start.html)      <br> [实践案例](https://www.mindspore.cn/tutorials/zh-CN/r2.7.1/cv.html)  | [MindSpore](https://www.mindspore.cn/docs/zh-CN/r2.7.1/index.html) |  [MindSpore](https://www.mindspore.cn/docs/zh-CN/r2.7.1/api_python/mindspore.html)  |
+|   版本说明和接口变更   |   安装   |      教程      |  文档    |  API|
+|    ---  |    ---   |       ---      |     ---     |     ---      |
+|   [ReleaseNotes](https://www.mindspore.cn/docs/zh-CN/r2.7.1/RELEASE.html)   | [安装指南](https://atomgit.com/mindspore/docs/tree/r2.7.1/install)  |  [快速上手](https://www.mindspore.cn/tutorials/zh-CN/r2.7.1/beginner/quick_start.html)      <br> [实践案例](https://www.mindspore.cn/tutorials/zh-CN/r2.7.1/cv.html)  | [MindSpore](https://www.mindspore.cn/docs/zh-CN/r2.7.1/index.html) |  [MindSpore](https://www.mindspore.cn/docs/zh-CN/r2.7.1/api_python/mindspore.html)  |
 
 ## 2.7.0
 
@@ -161,9 +161,9 @@
 
 **配套资料**
 
-|        安装   |      教程      |  文档    |  API|
-|        ---   |       ---      |     ---     |     ---      |
-| [安装指南](https://atomgit.com/mindspore/docs/tree/r2.7.0/install)  |  [快速上手](https://www.mindspore.cn/tutorials/zh-CN/r2.7.0/beginner/quick_start.html)      <br> [实践案例](https://www.mindspore.cn/tutorials/zh-CN/r2.7.0/cv.html)  | [MindSpore](https://www.mindspore.cn/docs/zh-CN/r2.7.0/index.html) |  [MindSpore](https://www.mindspore.cn/docs/zh-CN/r2.7.0/api_python/mindspore.html)  |
+|   版本说明和接口变更   |   安装   |      教程      |  文档    |  API|
+|    ---  |    ---   |       ---      |     ---     |     ---      |
+|   [ReleaseNotes](https://www.mindspore.cn/docs/zh-CN/r2.7.0/RELEASE.html)   | [安装指南](https://atomgit.com/mindspore/docs/tree/r2.7.0/install)  |  [快速上手](https://www.mindspore.cn/tutorials/zh-CN/r2.7.0/beginner/quick_start.html)      <br> [实践案例](https://www.mindspore.cn/tutorials/zh-CN/r2.7.0/cv.html)  | [MindSpore](https://www.mindspore.cn/docs/zh-CN/r2.7.0/index.html) |  [MindSpore](https://www.mindspore.cn/docs/zh-CN/r2.7.0/api_python/mindspore.html)  |
 
 ## 2.7.0-rc1
 
@@ -194,9 +194,9 @@
 
 **配套资料**
 
-|        安装   |      教程      |  文档    |  API|
-|        ---   |       ---      |     ---     |     ---      |
-| [安装指南](https://atomgit.com/mindspore/docs/tree/r2.7.0rc1/install)  |  [快速上手](https://www.mindspore.cn/tutorials/zh-CN/r2.7.0rc1/beginner/quick_start.html)      <br> [实践案例](https://www.mindspore.cn/tutorials/zh-CN/r2.7.0rc1/cv.html)  | [MindSpore](https://www.mindspore.cn/docs/zh-CN/r2.7.0rc1/index.html) <br> [MindSpore Lite](https://www.mindspore.cn/lite/docs/zh-CN/r2.7.0rc1/index.html)|  [MindSpore](https://www.mindspore.cn/docs/zh-CN/r2.7.0rc1/api_python/mindspore.html) <br> [MindSpore Lite](https://www.mindspore.cn/lite/api/zh-CN/r2.7.0rc1/index.html) |
+|      安装   |      教程      |  文档    |  API|
+|       ---   |       ---      |     ---     |     ---      |
+|    [安装指南](https://atomgit.com/mindspore/docs/tree/r2.7.0rc1/install)  |  [快速上手](https://www.mindspore.cn/tutorials/zh-CN/r2.7.0rc1/beginner/quick_start.html)      <br> [实践案例](https://www.mindspore.cn/tutorials/zh-CN/r2.7.0rc1/cv.html)  | [MindSpore](https://www.mindspore.cn/docs/zh-CN/r2.7.0rc1/index.html) <br> [MindSpore Lite](https://www.mindspore.cn/lite/docs/zh-CN/r2.7.0rc1/index.html)|  [MindSpore](https://www.mindspore.cn/docs/zh-CN/r2.7.0rc1/api_python/mindspore.html) <br> [MindSpore Lite](https://www.mindspore.cn/lite/api/zh-CN/r2.7.0rc1/index.html) |
 
 ## 2.6.0
 
@@ -227,9 +227,9 @@
 
 **配套资料**
 
-|        安装   |      教程      |  文档    |  API|
-|        ---   |       ---      |     ---     |     ---      |
-| [安装指南](https://atomgit.com/mindspore/docs/tree/r2.6.0/install)  |  [快速上手](https://www.mindspore.cn/tutorials/zh-CN/r2.6.0/beginner/quick_start.html)      <br> [实践案例](https://www.mindspore.cn/tutorials/zh-CN/r2.6.0/cv.html)  | [MindSpore](https://www.mindspore.cn/docs/zh-CN/r2.6.0/index.html) <br> [MindSpore Lite](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0/index.html)|  [MindSpore](https://www.mindspore.cn/docs/zh-CN/r2.6.0/api_python/mindspore.html) <br> [MindSpore Lite](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0/index.html) |
+|   版本说明和接口变更   |   安装   |      教程      |  文档    |  API|
+|    ---  |    ---   |       ---      |     ---     |     ---      |
+|   [ReleaseNotes](https://www.mindspore.cn/docs/zh-CN/r2.6.0/RELEASE.html)   | [安装指南](https://atomgit.com/mindspore/docs/tree/r2.6.0/install)  |  [快速上手](https://www.mindspore.cn/tutorials/zh-CN/r2.6.0/beginner/quick_start.html)      <br> [实践案例](https://www.mindspore.cn/tutorials/zh-CN/r2.6.0/cv.html)  | [MindSpore](https://www.mindspore.cn/docs/zh-CN/r2.6.0/index.html) <br> [MindSpore Lite](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0/index.html)|  [MindSpore](https://www.mindspore.cn/docs/zh-CN/r2.6.0/api_python/mindspore.html) <br> [MindSpore Lite](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0/index.html) |
 
 ## 2.6.0-rc1
 
@@ -261,9 +261,9 @@
 
 **配套资料**
 
-|        安装   |      教程      |  文档    |  API|
+|    安装   |      教程      |  文档    |  API|
 |        ---   |       ---      |     ---     |     ---      |
-| [安装指南](https://atomgit.com/mindspore/docs/tree/r2.6.0rc1/install)  |  [快速上手](https://www.mindspore.cn/tutorials/zh-CN/r2.6.0rc1/beginner/quick_start.html)      <br> [实践案例](https://www.mindspore.cn/tutorials/zh-CN/r2.6.0rc1/cv.html)  | [MindSpore](https://www.mindspore.cn/docs/zh-CN/r2.6.0rc1/index.html) <br> [MindSpore Lite](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0rc1/index.html)<br>  [MindSpore Transformers](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.5.0/index.html)|  [MindSpore](https://www.mindspore.cn/docs/zh-CN/r2.6.0rc1/api_python/mindspore.html) <br> [MindSpore Lite](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0rc1/index.html)<br>  [MindSpore Transformers](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.5.0/mindformers.html) |
+|    [安装指南](https://atomgit.com/mindspore/docs/tree/r2.6.0rc1/install)  |  [快速上手](https://www.mindspore.cn/tutorials/zh-CN/r2.6.0rc1/beginner/quick_start.html)      <br> [实践案例](https://www.mindspore.cn/tutorials/zh-CN/r2.6.0rc1/cv.html)  | [MindSpore](https://www.mindspore.cn/docs/zh-CN/r2.6.0rc1/index.html) <br> [MindSpore Lite](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0rc1/index.html)<br>  [MindSpore Transformers](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.5.0/index.html)|  [MindSpore](https://www.mindspore.cn/docs/zh-CN/r2.6.0rc1/api_python/mindspore.html) <br> [MindSpore Lite](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0rc1/index.html)<br>  [MindSpore Transformers](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.5.0/mindformers.html) |
 
 ## 2.5.0
 
@@ -314,9 +314,9 @@
 
 **配套资料**
 
-|        安装   |      教程      |  文档    |  API|
-|        ---   |       ---      |     ---     |     ---      |
-| [安装指南](https://atomgit.com/mindspore/docs/tree/r2.5.0/install)  |  [快速上手](https://www.mindspore.cn/tutorials/zh-CN/r2.5.0/beginner/quick_start.html)      <br> [实践案例](https://www.mindspore.cn/tutorials/zh-CN/r2.5.0/cv.html)  | [MindSpore](https://www.mindspore.cn/docs/zh-CN/r2.5.0/index.html) <br> [MindSpore Lite](https://www.mindspore.cn/lite/docs/zh-CN/r2.5.0/index.html)<br>  [MindSpore Golden Stick](https://www.mindspore.cn/golden_stick/docs/zh-CN/r1.0.0/index.html)<br> [MindSpore Quantum](https://www.mindspore.cn/mindquantum/docs/zh-CN/r0.10/index.html)<br> [MindSpore Flow](https://mindspore.cn/mindflow/docs/zh-CN/r0.3/index.html) <br>[MindSpore Earth](https://www.mindspore.cn/mindearth/docs/zh-CN/r0.3/index.html) <br>[MindSpore Chemistry](https://www.mindspore.cn/mindchemistry/docs/zh-CN/r0.2/index.html) |  [MindSpore](https://www.mindspore.cn/docs/zh-CN/r2.5.0/api_python/mindspore.html) <br> [MindSpore Lite](https://www.mindspore.cn/lite/api/zh-CN/r2.5.0/index.html)<br>  [MindSpore Golden Stick](https://www.mindspore.cn/golden_stick/docs/zh-CN/r1.0.0/mindspore_gs.quantization.html)<br> [MindSpore Quantum](https://www.mindspore.cn/mindquantum/docs/zh-CN/r0.10/overview.html)<br> [MindSpore Flow](https://www.mindspore.cn/mindflow/docs/zh-CN/r0.3/mindflow.cell.html) <br>[MindSpore Earth](https://www.mindspore.cn/mindearth/docs/zh-CN/r0.3/mindearth.cell.html)<br>[MindSpore Chemistry](https://www.mindspore.cn/mindchemistry/docs/zh-CN/r0.2/mindchemistry.cell.html)  |
+|   版本说明和接口变更   |   安装   |      教程      |  文档    |  API|
+|    ---  |    ---   |       ---      |     ---     |     ---      |
+|   [ReleaseNotes](https://www.mindspore.cn/docs/zh-CN/r2.5.0/RELEASE.html)   | [安装指南](https://atomgit.com/mindspore/docs/tree/r2.5.0/install)  |  [快速上手](https://www.mindspore.cn/tutorials/zh-CN/r2.5.0/beginner/quick_start.html)      <br> [实践案例](https://www.mindspore.cn/tutorials/zh-CN/r2.5.0/cv.html)  | [MindSpore](https://www.mindspore.cn/docs/zh-CN/r2.5.0/index.html) <br> [MindSpore Lite](https://www.mindspore.cn/lite/docs/zh-CN/r2.5.0/index.html)<br>  [MindSpore Golden Stick](https://www.mindspore.cn/golden_stick/docs/zh-CN/r1.0.0/index.html)<br> [MindSpore Quantum](https://www.mindspore.cn/mindquantum/docs/zh-CN/r0.10/index.html)<br> [MindSpore Flow](https://mindspore.cn/mindflow/docs/zh-CN/r0.3/index.html) <br>[MindSpore Earth](https://www.mindspore.cn/mindearth/docs/zh-CN/r0.3/index.html) <br>[MindSpore Chemistry](https://www.mindspore.cn/mindchemistry/docs/zh-CN/r0.2/index.html) |  [MindSpore](https://www.mindspore.cn/docs/zh-CN/r2.5.0/api_python/mindspore.html) <br> [MindSpore Lite](https://www.mindspore.cn/lite/api/zh-CN/r2.5.0/index.html)<br>  [MindSpore Golden Stick](https://www.mindspore.cn/golden_stick/docs/zh-CN/r1.0.0/mindspore_gs.quantization.html)<br> [MindSpore Quantum](https://www.mindspore.cn/mindquantum/docs/zh-CN/r0.10/overview.html)<br> [MindSpore Flow](https://www.mindspore.cn/mindflow/docs/zh-CN/r0.3/mindflow.cell.html) <br>[MindSpore Earth](https://www.mindspore.cn/mindearth/docs/zh-CN/r0.3/mindearth.cell.html)<br>[MindSpore Chemistry](https://www.mindspore.cn/mindchemistry/docs/zh-CN/r0.2/mindchemistry.cell.html)  |
 
 ## 2.4.10
 
@@ -350,9 +350,9 @@
 
 **配套资料**
 
-|        安装   |      教程      |  文档    |  API|
-|        ---   |       ---      |     ---     |     ---      |
-| [安装指南](https://atomgit.com/mindspore/docs/tree/r2.4.10/install)  |  [快速上手](https://www.mindspore.cn/tutorials/zh-CN/r2.4.10/beginner/quick_start.html)      <br> [实践案例](https://www.mindspore.cn/tutorials/zh-CN/r2.4.10/cv.html)  | [MindSpore](https://www.mindspore.cn/docs/zh-CN/r2.4.10/index.html) <br> [MindSpore Lite](https://www.mindspore.cn/lite/docs/zh-CN/r2.4.10/index.html)<br>  [MindSpore Transformers](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.3.2/index.html) |  [MindSpore](https://www.mindspore.cn/docs/zh-CN/r2.4.10/api_python/mindspore.html) <br>  [MindSpore Lite](https://www.mindspore.cn/lite/api/zh-CN/r2.4.10/index.html) <br>  [MindSpore Transformers](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.3.2/mindformers.html)    |
+|     安装   |      教程      |  文档    |  API|
+|       ---   |       ---      |     ---     |     ---      |
+|    [安装指南](https://atomgit.com/mindspore/docs/tree/r2.4.10/install)  |  [快速上手](https://www.mindspore.cn/tutorials/zh-CN/r2.4.10/beginner/quick_start.html)      <br> [实践案例](https://www.mindspore.cn/tutorials/zh-CN/r2.4.10/cv.html)  | [MindSpore](https://www.mindspore.cn/docs/zh-CN/r2.4.10/index.html) <br> [MindSpore Lite](https://www.mindspore.cn/lite/docs/zh-CN/r2.4.10/index.html)<br>  [MindSpore Transformers](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.3.2/index.html) |  [MindSpore](https://www.mindspore.cn/docs/zh-CN/r2.4.10/api_python/mindspore.html) <br>  [MindSpore Lite](https://www.mindspore.cn/lite/api/zh-CN/r2.4.10/index.html) <br>  [MindSpore Transformers](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.3.2/mindformers.html)    |
 
 ## 2.4.1
 
