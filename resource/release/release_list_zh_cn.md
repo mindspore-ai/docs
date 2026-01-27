@@ -99,7 +99,7 @@
 
 |   版本说明和接口变更   |   安装   |      教程      |  文档    |  API|
 |    ---  |    ---   |       ---      |     ---     |     ---      |
-|   [版本说明](https://www.mindspore.cn/docs/zh-CN/r2.7.2/RELEASE.html)   | [安装指南](https://atomgit.com/mindspore/docs/tree/r2.7.2/install)  |  [快速上手](https://www.mindspore.cn/tutorials/zh-CN/r2.7.2/beginner/quick_start.html)      <br> [实践案例](https://www.mindspore.cn/tutorials/zh-CN/r2.7.2/cv.html)  | [MindSpore](https://www.mindspore.cn/docs/zh-CN/r2.7.2/index.html) |  [MindSpore](https://www.mindspore.cn/docs/zh-CN/r2.7.2/api_python/mindspore.html)  |
+|   [ReleaseNotes](https://www.mindspore.cn/docs/zh-CN/r2.7.2/RELEASE.html)   | [安装指南](https://atomgit.com/mindspore/docs/tree/r2.7.2/install)  |  [快速上手](https://www.mindspore.cn/tutorials/zh-CN/r2.7.2/beginner/quick_start.html)      <br> [实践案例](https://www.mindspore.cn/tutorials/zh-CN/r2.7.2/cv.html)  | [MindSpore](https://www.mindspore.cn/docs/zh-CN/r2.7.2/index.html) |  [MindSpore](https://www.mindspore.cn/docs/zh-CN/r2.7.2/api_python/mindspore.html)  |
 
 ## 2.7.1
 
