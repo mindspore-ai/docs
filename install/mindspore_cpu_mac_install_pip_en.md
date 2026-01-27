@@ -23,8 +23,8 @@ This document describes how to install MindSpore by pip in a macOS system with C
 
     |Chip|Architecture|macOS Version|Supported Python Version|Supported Conda Version|
     |-|-|-|-|-|
-    |M1|ARM|11.3|Python 3.9-3.11|Mambaforge or Miniforge|
-    |Intel|x86_64|10.15/11.3|Python 3.9-3.11|Anaconda or Miniconda|
+    |M1|ARM|11.3|Python 3.9-3.12|Mambaforge or Miniforge|
+    |Intel|x86_64|10.15/11.3|Python 3.9-3.12|Anaconda or Miniconda|
 
 - Ensure that the Conda version is compatible with the current system and chip.
 
