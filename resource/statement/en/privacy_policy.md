@@ -12,7 +12,7 @@ To ensure the proper running of MindSpore and provide better services for you, w
     - Your email address
     - Your phone number
     - Your fax number
-    - Your ID on Gitee
+    - Your ID on AtomGit
 
 3. The community provides a mailing list for developers to communicate and collaborate with each other. When you join a mailing list, we will collect your email address.
 

@@ -9,7 +9,7 @@
 
 ## 快速入门
 
-- 在[Gitee](https://atomgit.com/mindspore/vllm-mindspore)上fork代码仓。
+- 在[AtomGit](https://atomgit.com/mindspore/vllm-mindspore)上fork代码仓。
 - 参见[README.md](https://atomgit.com/mindspore/vllm-mindspore/blob/r0.5.0/README.md)和安装页面了解项目信息和构建说明。
 
 ## 增加新模型
@@ -40,7 +40,7 @@
 - **克隆远程代码仓：** 如果您想将代码下载到本地计算机，最好使用git方法：
 
     ```shell
-    # 在Gitee上：
+    # 在AtomGit上：
     git clone https://atomgit.com/{insert_your_forked_repo}/vllm-mindspore.git
     git remote add upstream https://atomgit.com/mindspore/vllm-mindspore.git
     ```
