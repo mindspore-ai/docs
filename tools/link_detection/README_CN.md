@@ -13,7 +13,7 @@ pip install requests
 执行检测可以对单个文件进行检测，也可以对目录进行检测
 
 ```bash
-/user1/check_tool# python link_lint.py -p=file1,file2,dir1,dir2
+/user1/check_tool# python link_lint.py -p=file1,file2,dir1,dir2 -a="access token"
 ```
 
 ## 检测结果
@@ -34,7 +34,7 @@ ERROR:docs/tutorials/source_zh_cn/intermediate/text/sentimentnet.ipynb: line_2: 
 
 `ERROR:docs/tutorials/source_zh_cn/intermediate/text/sentimentnet.ipynb: line_2: Error link: https://xxxxx`
 
-- 链接检测状态：`ERROR`表示检测出了链接报错，如果是`WARNING`表示该失效链接属于`gitee.com`中的链接，可能由于文件正在合入而造成的链接报错。
+- 链接检测状态：`ERROR`表示检测出了链接报错，如果是`WARNING`表示该失效链接属于`gitee.com`、`atomgit.com`或`gitcode.com`中的链接，可能由于文件正在合入而造成的链接报错。
 
 - 检测文件：`docs/tutorials/source_zh_cn/intermediate/text/sentimentnet.ipynb`
 
