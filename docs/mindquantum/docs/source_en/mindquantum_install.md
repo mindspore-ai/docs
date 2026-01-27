@@ -179,7 +179,7 @@ pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.7.0rc1/MindQua
 
 ### Installing by Source Code
 
-1. Download Source Code from Gitee
+1. Download Source Code from AtomGit
 
    ```bash
    cd ~

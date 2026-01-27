@@ -39,7 +39,7 @@
   如果您想将代码下载到本地计算机，最好使用git方法。
 
   ```shell
-  # 在Gitee上克隆仓库
+  # 在AtomGit上克隆仓库
   git clone https://atomgit.com/(insert_your_forked_repo)/mindformers.git
   ```
 
