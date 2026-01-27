@@ -167,7 +167,7 @@ For specific image requirements and specifications, please refer to [Image Speci
 
 If you want to update an existing image or adding a new image, click ![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg) on the top of the page to go to the source file. Usually the images will be stored in the directory ./images. You only need to put the new images into this directory, or replace the modified images with the original ones, and commit changes to a PR to make the contribution.
 
-> Please submit the original image to Gitee at the same time, and put it in the same path as the image for subsequent modification.
+> Please submit the original image to AtomGit at the same time, and put it in the same path as the image for subsequent modification.
 
 ### Image Citation
 
