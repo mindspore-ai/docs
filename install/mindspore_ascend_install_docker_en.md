@@ -76,7 +76,7 @@ docker pull swr.cn-south-1.myhuaweicloud.com/mindspore/mindspore-ascend-a2:2.7.2
 Execute the following command to start the Docker container instance:
 
 ```bash
-docker run -it --ipc=host \
+docker run -it --ipc=host --privileged \
                --device=/dev/davinci0 \
                --device=/dev/davinci1 \
                --device=/dev/davinci2 \
