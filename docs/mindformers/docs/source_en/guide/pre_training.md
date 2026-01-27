@@ -50,7 +50,7 @@ To create a Megatron-formatted dataset, two steps are required. First, convert t
 
 - Convert `wiki.train.tokens` to `jsonl` format data
 
-  Users need to **process the `wiki.train.tokens` dataset into a jsonl format file themselves**. For reference, a conversion scheme is provided in the [community issue](https://atomgit.com/mindspore/mindformers/issues/ICOKGY). Users need to develop and verify the conversion logic according to their actual needs.
+  Users need to **process the `wiki.train.tokens` dataset into a jsonl format file themselves**. For reference, a conversion scheme is provided in the [community issue](https://gitee.com/mindspore/mindformers/issues/ICOKGY). Users need to develop and verify the conversion logic according to their actual needs.
 
   Below is an example of a JSONL format file:
 

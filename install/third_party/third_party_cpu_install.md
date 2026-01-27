@@ -2,7 +2,7 @@
 
 [![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/install/third_party/third_party_cpu_install.md)
 
-作者：[damon0626](https://atomgit.com/damon0626)
+作者：[damon0626](https://gitee.com/damon0626)
 
 本文档介绍如何在```Ubuntu 18.04 64```位操作系统```CPU```环境下，使用源码编译方式安装```MindSpore```。
 

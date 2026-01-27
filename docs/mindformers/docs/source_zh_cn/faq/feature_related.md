@@ -16,7 +16,7 @@ A: MindSpore Transformers是MindSpore的大模型套件，主要面向大语言�
 
 ## Q: WikiText数据集下载链接失效
 
-A: 官方下载链接失效，请关注社区Issue [#IBV35D](https://atomgit.com/mindspore/mindformers/issues/IBV35D)。
+A: 官方下载链接失效，请关注社区Issue [#IBV35D](https://gitee.com/mindspore/mindformers/issues/IBV35D)。
 
 <br/>
 
