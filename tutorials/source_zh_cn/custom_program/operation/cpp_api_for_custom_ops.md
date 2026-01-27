@@ -470,7 +470,7 @@ PyNative 流程的运行器类，定义在[pyboost_extension.h](https://atomgit.
 
 ### class AtbOpRunner
 
-用于执行 Ascend Transformer Boost (ATB) 算子的运行器类，定义在[atb_common.h](https://atomgit.com/mindspore/mindspore/blob/v2.8.0/mindspore/ops/kernel/ascend/custom/pyboost_impl/atb/atb_common.h)头文件中。
+用于执行 Ascend Transformer Boost (ATB) 算子的运行器类，定义在[atb_common.h](https://atomgit.com/mindspore/mindspore/blob/v2.8.0/mindspore/ops/include/kernel/ascend/custom/pyboost_impl/atb_common.h)头文件中。
 
 此类继承自 `PyboostRunner`，并封装了 ATB 算子的调用流程，包括初始化和运行 ATB 算子、管理输入输出 Tensor、内存分配及内核调度。
 
@@ -502,7 +502,7 @@ PyNative 流程的运行器类，定义在[pyboost_extension.h](https://atomgit.
 
 ### function RunAtbOp
 
-动态图执行ATB算子的接口，定义在[atb_common.h](https://atomgit.com/mindspore/mindspore/blob/v2.8.0/mindspore/ops/kernel/ascend/custom/pyboost_impl/atb/atb_common.h)头文件中。
+动态图执行ATB算子的接口，定义在[atb_common.h](https://atomgit.com/mindspore/mindspore/blob/v2.8.0/mindspore/ops/include/kernel/ascend/custom/pyboost_impl/atb_common.h)头文件中。
 
 ```cpp
 template <typename ParamType>
@@ -520,7 +520,7 @@ void RunAtbOp(const std::string &op_name, const ParamType &param, const std::vec
 
 ### class AsdSipFFTOpRunner
 
-用于执行 Ascend Sip Boost (ASDSIP) 算子的运行器类，定义在[asdsip_common.h](https://atomgit.com/mindspore/mindspore/blob/v2.8.0/mindspore/ops/kernel/ascend/custom/pyboost_impl/asdsip/asdsip_common.h)头文件中。
+用于执行 Ascend Sip Boost (ASDSIP) 算子的运行器类，定义在[asdsip_common.h](https://atomgit.com/mindspore/mindspore/blob/v2.8.0/mindspore/ops/include/kernel/ascend/custom/pyboost_impl/asdsip_common.h)头文件中。
 
 此类继承自 `PyboostRunner`，并封装了 ASDSIP FFT 算子的调用流程，包括初始化和运行 ASDSIP FFT 算子、管理输入输出 Tensor、内存分配及内核调度。
 
@@ -550,7 +550,7 @@ void RunAtbOp(const std::string &op_name, const ParamType &param, const std::vec
 
 ### function RunAsdSipFFTOp
 
-动态图执行ASDSIP FFT算子的接口，定义在[asdsip_common.h](https://atomgit.com/mindspore/mindspore/blob/v2.8.0/mindspore/ops/kernel/ascend/custom/pyboost_impl/asdsip/asdsip_common.h)头文件中。
+动态图执行ASDSIP FFT算子的接口，定义在[asdsip_common.h](https://atomgit.com/mindspore/mindspore/blob/v2.8.0/mindspore/ops/include/kernel/ascend/custom/pyboost_impl/asdsip_common.h)头文件中。
 
 ```cpp
 inline void RunAsdSipFFTOp(const std::string &op_name, const FFTParam &fft_param, const ms::Tensor &input,
