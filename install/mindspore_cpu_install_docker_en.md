@@ -122,5 +122,3 @@ of which,
 - If you install a container with the label of `devel`, you need to compile and install MindSpore yourself.
 
     Go to [MindSpore Installation Guide Page](https://www.mindspore.cn/install/en), and choose the CPU hardware platform, Linux-x86_64 operating system and pip installation method to get the installation guide. After running the container, download the MindSpore code repository and refer to the installation guide, install the MindSpore CPU version through source code compilation, and verify it.
-
-If you want to know more about the MindSpore Docker image building process, please check [docker repo](https://atomgit.com/mindspore/mindspore/blob/v2.8.0/scripts/docker/README.md#) for details.
