@@ -328,8 +328,6 @@ context:
 
 MindSpore提供了SAPP（Symbolic Automatic Parallel Planner）自动负载均衡工具。只需输入模型的内存和时间信息，以及部分流水线并行性能相关的超参（如重计算对性能的影响），工具将自行构建线性规划问题，通过全局求解的方式，为大模型自动生成流水线并行中的stage-layer配比，调整各layer重计算策略，自动优化集群算力和内存利用率，降低空等时间，实现Pipeline并行分钟级策略寻优，大幅度降低性能调优成本，显著提升端到端训练性能。
 
-详细使用方法，请参考[SAPP流水线负载均衡](https://atomgit.com/mindspore/toolkits/tree/master/perftool/autoparallel/pipeline_balance)工具介绍。
-
 ## 整体思路
 
 大模型的性能优化方法主要依赖于profiling数据分析以及内存分析，分析当前性能的瓶颈，并做出针对性优化动作，然后验证性能收益，分析进一步的优化方向。整体调优流程如下：

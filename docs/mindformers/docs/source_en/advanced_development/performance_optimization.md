@@ -328,8 +328,6 @@ Large model training performance tuning requires simultaneous consideration of m
 
 MindSpore provides SAPP (Symbolic Automatic Parallel Planner) automatic load balancing tool. Inputting the model memory and time information, as well as some of the pipeline parallel performance-related hyper-references (e.g., the impact of recomputation on performance), the tool will construct the linear programming problem by itself, through the global solution, automatically generate stage-layer ratios in the pipeline parallel for the large model, adjust the recalculation strategy of each layer, automatically optimize the cluster arithmetic power and memory utilization, reduce the idle waiting time, realize the Pipeline parallel minute-level strategy optimization, greatly reduce the performance tuning cost, and significantly improve the end-to-end training performance.
 
-For detailed usage, please refer to [SAPP Pipelined Load Balancing](https://atomgit.com/mindspore/toolkits/tree/master/perftool/autoparallel/pipeline_balance) tool introduction.
-
 ## Overall Concept
 
 The performance optimization method for large models mainly relies on profiling data analysis as well as memory analysis to analyze the current performance bottlenecks and make targeted optimization actions, then verify the performance gains and analyze further optimization directions. The overall tuning process is as follows:

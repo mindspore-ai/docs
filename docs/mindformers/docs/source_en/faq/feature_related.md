@@ -16,7 +16,7 @@ A: MindSpore Transformers is MindSpore's large-model suite, primarily designed f
 
 ## Q: The WikiText dataset download link is not available.
 
-A: The official download link is not available, please follow the community Issue [#IBV35D](https://atomgit.com/mindspore/mindformers/issues/IBV35D).
+A: The official download link is not available, please follow the community Issue [#IBV35D](https://gitee.com/mindspore/mindformers/issues/IBV35D).
 
 <br/>
 

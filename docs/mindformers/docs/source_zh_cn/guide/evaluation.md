@@ -12,7 +12,7 @@ MindSpore Transformers在之前版本，对于部分Legacy架构的模型，适�
 
 ## AISBench评测
 
-MindSpore Transformers的服务化评测推荐AISBench Benchmark套件。AISBench Benchmark是基于OpenCompass构建的模型评测工具，兼容OpenCompass的配置体系、数据集结构与模型后端实现，并在此基础上扩展了对服务化模型的支持能力。同时支持30+开源数据集：[AISBench支持的评测数据集](https://atomgit.com/aisbench/benchmark/blob/master/doc/users_guide/datasets.md#%E5%BC%80%E6%BA%90%E6%95%B0%E6%8D%AE%E9%9B%86)。
+MindSpore Transformers的服务化评测推荐AISBench Benchmark套件。AISBench Benchmark是基于OpenCompass构建的模型评测工具，兼容OpenCompass的配置体系、数据集结构与模型后端实现，并在此基础上扩展了对服务化模型的支持能力。同时支持30+开源数据集：[AISBench支持的评测数据集](https://gitee.com/aisbench/benchmark/blob/master/doc/users_guide/datasets.md#%E5%BC%80%E6%BA%90%E6%95%B0%E6%8D%AE%E9%9B%86)。
 
 当前，AISBench支持两大类推理任务的评测场景：
 
@@ -40,14 +40,14 @@ unset USE_TORCH
 然后克隆仓库并通过源码安装：
 
 ```bash
-git clone https://atomgit.com/aisbench/benchmark.git
+git clone https://gitee.com/aisbench/benchmark.git
 cd benchmark/
 pip3 install -e ./ --use-pep517
 ```
 
 #### Step2 数据集下载
 
-官方文档提供各个数据集下载链接，以ceval为例可在[ceval文档](https://atomgit.com/aisbench/benchmark/blob/master/ais_bench/benchmark/configs/datasets/ceval/README.md)中找到下载链接，执行以下命令下载解压数据集到指定路径：
+官方文档提供各个数据集下载链接，以ceval为例可在[ceval文档](https://gitee.com/aisbench/benchmark/blob/master/ais_bench/benchmark/configs/datasets/ceval/README.md)中找到下载链接，执行以下命令下载解压数据集到指定路径：
 
 ```bash
 cd ais_bench/datasets
@@ -115,7 +115,7 @@ ais_bench --models vllm_api_general --datasets ceval_gen_5_shot_str --debug
 - `--models`：指定了模型任务接口，即vllm_api_general，对应上一步更改的文件名。此外还有vllm_api_general_chat。
 - `--datasets`：指定了数据集任务，即ceval_gen_5_shot_str数据集任务，其中的5_shot指问题会重复四次输入，str是指非chat输出。
 
-其它更多的参数配置说明，见[配置说明](https://atomgit.com/aisbench/benchmark/blob/master/doc/users_guide/models.md#%E6%9C%8D%E5%8A%A1%E5%8C%96%E6%8E%A8%E7%90%86%E5%90%8E%E7%AB%AF)。
+其它更多的参数配置说明，见[配置说明](https://gitee.com/aisbench/benchmark/blob/master/doc/users_guide/models.md#%E6%9C%8D%E5%8A%A1%E5%8C%96%E6%8E%A8%E7%90%86%E5%90%8E%E7%AB%AF)。
 
 评测结束后统计结果会打屏，具体执行结果和日志都会保存在当前路径下的outputs文件夹下，执行异常情况下可以根据日志定位问题。
 
@@ -170,7 +170,7 @@ ais_bench --models vllm_api_stream_chat --datasets gsm8k_gen_0_shot_cot_str_perf
 - `--summarizer`：指定了任务统计数据。
 - `--mode`：指定了任务执行模式。
 
-其它更多的参数配置说明，见[配置说明](https://atomgit.com/aisbench/benchmark/blob/master/doc/users_guide/models.md#%E6%9C%8D%E5%8A%A1%E5%8C%96%E6%8E%A8%E7%90%86%E5%90%8E%E7%AB%AF)。
+其它更多的参数配置说明，见[配置说明](https://gitee.com/aisbench/benchmark/blob/master/doc/users_guide/models.md#%E6%9C%8D%E5%8A%A1%E5%8C%96%E6%8E%A8%E7%90%86%E5%90%8E%E7%AB%AF)。
 
 #### 评测结果说明
 
@@ -188,9 +188,9 @@ ais_bench --models vllm_api_stream_chat --datasets gsm8k_gen_0_shot_cot_str_perf
 | Tokenizer             | /                     | Tokenizer 编码耗时(ms)               |
 | Detokenizer           | /                     | Detokenizer 解码耗时(ms)             |
 
-- 更多评测任务，如合成随机数据集评测、性能压测，可查看以下文档：[AISBench官方文档](https://atomgit.com/aisbench/benchmark/tree/master/doc/users_guide)。
+- 更多评测任务，如合成随机数据集评测、性能压测，可查看以下文档：[AISBench官方文档](https://gitee.com/aisbench/benchmark/tree/master/doc/users_guide)。
 - 更多调优推理性能技巧，可查看以下文档：[推理性能调优](https://docs.qq.com/doc/DZGhMSWFCenpQZWJR)。
-- 更多参数说明请看以下文档：[性能测评结果说明](https://atomgit.com/aisbench/benchmark/blob/master/doc/users_guide/performance_metric.md)。
+- 更多参数说明请看以下文档：[性能测评结果说明](https://gitee.com/aisbench/benchmark/blob/master/doc/users_guide/performance_metric.md)。
 
 ### 附录
 
@@ -280,8 +280,8 @@ for _split in ['val']:
 
 关于AISBench的更多教程和使用方式可参考官方资料：
 
-- [AISBench官方教程](https://atomgit.com/aisbench/benchmark)
-- [AISBench主要文档](https://atomgit.com/aisbench/benchmark/tree/master/doc/users_guide)
+- [AISBench官方教程](https://gitee.com/aisbench/benchmark)
+- [AISBench主要文档](https://gitee.com/aisbench/benchmark/tree/master/doc/users_guide)
 
 ## Harness评测
 

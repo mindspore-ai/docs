@@ -50,7 +50,7 @@ MindSpore Transformers 预训练阶段当前已支持[Megatron格式的数据集
 
 - `wiki.train.tokens` 转为 `jsonl`格式数据
 
-  用户需要**自行将`wiki.train.tokens`数据集处理成jsonl格式的文件**。作为参考，[社区issue](https://atomgit.com/mindspore/mindformers/issues/ICOKGY)提供了一个转换方案，用户需要根据实际需求自行开发和验证转换逻辑。
+  用户需要**自行将`wiki.train.tokens`数据集处理成jsonl格式的文件**。作为参考，[社区issue](https://gitee.com/mindspore/mindformers/issues/ICOKGY)提供了一个转换方案，用户需要根据实际需求自行开发和验证转换逻辑。
 
   下面是jsonl格式文件的示例：
 

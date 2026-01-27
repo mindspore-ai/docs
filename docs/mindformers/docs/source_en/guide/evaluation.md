@@ -10,7 +10,7 @@ In previous versions, MindSpore Transformers adapted the Harness evaluation fram
 
 ## AISBench Benchmarking
 
-For service-oriented evaluation of MindSpore Transformers, the AISBench Benchmark suite is recommended. AISBench Benchmark is a model evaluation tool built on OpenCompass, compatible with OpenCompass's configuration system, dataset structure, and model backend implementation, while extending support for service-oriented models. It supports 30+ open-source datasets: [Evaluation datasets supported by AISBench](https://atomgit.com/aisbench/benchmark/blob/master/doc/users_guide/datasets.md#%E5%BC%80%E6%BA%90%E6%95%B0%E6%8D%AE%E9%9B%86).
+For service-oriented evaluation of MindSpore Transformers, the AISBench Benchmark suite is recommended. AISBench Benchmark is a model evaluation tool built on OpenCompass, compatible with OpenCompass's configuration system, dataset structure, and model backend implementation, while extending support for service-oriented models. It supports 30+ open-source datasets: [Evaluation datasets supported by AISBench](https://gitee.com/aisbench/benchmark/blob/master/doc/users_guide/datasets.md#%E5%BC%80%E6%BA%90%E6%95%B0%E6%8D%AE%E9%9B%86).
 
 Currently, AISBench supports two major categories of inference task evaluation scenarios:
 
@@ -38,14 +38,14 @@ unset USE_TORCH
 Then clone the repository and install from source:
 
 ```bash
-git clone https://atomgit.com/aisbench/benchmark.git
+git clone https://gitee.com/aisbench/benchmark.git
 cd benchmark/
 pip3 install -e ./ --use-pep517
 ```
 
 #### Step 2 Dataset Download
 
-The official documentation provides download links for each dataset. Taking CEVAL as an example, you can find the download link in the [CEVAL documentation,](https://atomgit.com/aisbench/benchmark/blob/master/ais_bench/benchmark/configs/datasets/ceval/README.md), and execute the following commands to download and extract the dataset to the specified path:
+The official documentation provides download links for each dataset. Taking CEVAL as an example, you can find the download link in the [CEVAL documentation,](https://gitee.com/aisbench/benchmark/blob/master/ais_bench/benchmark/configs/datasets/ceval/README.md), and execute the following commands to download and extract the dataset to the specified path:
 
 ```bash
 cd ais_bench/datasets
@@ -113,7 +113,7 @@ Parameter Description:
 - `--models`: Specifies the model task interface, i.e., vllm_api_general, corresponding to the file name changed in the previous step. There is also vllm_api_general_chat
 - `--datasets`: Specifies the dataset task, i.e., the ceval_gen_4_shot_str dataset task, where 4_shot means the question will be input repeatedly four times, and str means non-chat output
 
-For more parameter configuration descriptions, see [Configuration Description](https://atomgit.com/aisbench/benchmark/blob/master/doc/users_guide/models.md#%E6%9C%8D%E5%8A%A1%E5%8C%96%E6%8E%A8%E7%90%86%E5%90%8E%E7%AB%AF).
+For more parameter configuration descriptions, see [Configuration Description](https://gitee.com/aisbench/benchmark/blob/master/doc/users_guide/models.md#%E6%9C%8D%E5%8A%A1%E5%8C%96%E6%8E%A8%E7%90%86%E5%90%8E%E7%AB%AF).
 
 After the evaluation is completed, statistical results will be displayed on the screen. The specific execution results and logs will be saved in the outputs folder under the current path. In case of execution exceptions, problems can be located based on the logs.
 
@@ -168,7 +168,7 @@ Parameter Description:
 - `--summarizer`: Specifies task statistical data
 - `--mode`: Specifies the task execution mode
 
-For more parameter configuration descriptions, see [Configuration Description](https://atomgit.com/aisbench/benchmark/blob/master/doc/users_guide/models.md#%E6%9C%8D%E5%8A%A1%E5%8C%96%E6%8E%A8%E7%90%86%E5%90%8E%E7%AB%AF).
+For more parameter configuration descriptions, see [Configuration Description](https://gitee.com/aisbench/benchmark/blob/master/doc/users_guide/models.md#%E6%9C%8D%E5%8A%A1%E5%8C%96%E6%8E%A8%E7%90%86%E5%90%8E%E7%AB%AF).
 
 #### Evaluation Results Description
 
@@ -186,9 +186,9 @@ After the evaluation is completed, performance evaluation results will be output
 | Tokenizer             | /                     | Tokenizer encoding time (ms)                                                              |
 | Detokenizer           | /                     | Detokenizer decoding time (ms)                                                            |
 
-- For more evaluation tasks, such as synthetic random dataset evaluation and performance stress testing, see the following documentation: [AISBench Official Documentation](https://atomgit.com/aisbench/benchmark/tree/master/doc/users_guide).
+- For more evaluation tasks, such as synthetic random dataset evaluation and performance stress testing, see the following documentation: [AISBench Official Documentation](https://gitee.com/aisbench/benchmark/tree/master/doc/users_guide).
 - For more tips on optimizing inference performance, see the following documentation: [Inference Performance Optimization](https://docs.qq.com/doc/DZGhMSWFCenpQZWJR).
-- For more parameter descriptions, see the following documentation: [Performance Evaluation Results Description](https://atomgit.com/aisbench/benchmark/blob/master/doc/users_guide/performance_metric.md).
+- For more parameter descriptions, see the following documentation: [Performance Evaluation Results Description](https://gitee.com/aisbench/benchmark/blob/master/doc/users_guide/performance_metric.md).
 
 ### Appendix
 
@@ -278,8 +278,8 @@ This specifically depends on the comprehensive consideration of model type and d
 
 The above only introduces the basic usage of AISBench. For more tutorials and usage methods, please refer to the official materials:
 
-- [AISBench Official Tutorial](https://atomgit.com/aisbench/benchmark)
-- [AISBench Main Documentation](https://atomgit.com/aisbench/benchmark/tree/master/doc/users_guide)
+- [AISBench Official Tutorial](https://gitee.com/aisbench/benchmark)
+- [AISBench Main Documentation](https://gitee.com/aisbench/benchmark/tree/master/doc/users_guide)
 
 ## Harness Evaluation
 
