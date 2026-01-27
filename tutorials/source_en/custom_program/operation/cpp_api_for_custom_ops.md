@@ -470,7 +470,7 @@ The `PyboostRunner` class for PyNative processes is defined in the [pyboost_exte
 
 ### class AtbOpRunner
 
-The `AtbOpRunner` class is a runner for executing Ascend Transformer Boost (ATB) operators, defined in the [atb_common.h](https://atomgit.com/mindspore/mindspore/blob/master/mindspore/ops/kernel/ascend/custom/pyboost_impl/atb/atb_common.h) header file.
+The `AtbOpRunner` class is a runner for executing Ascend Transformer Boost (ATB) operators, defined in the [atb_common.h](https://atomgit.com/mindspore/mindspore/blob/master/mindspore/ops/include/kernel/ascend/custom/pyboost_impl/atb_common.h) header file.
 
 This class inherits from `PyboostRunner` and encapsulates the process of invoking ATB operators, including initialization, running the ATB operator, managing input/output tensors, memory allocation, and kernel scheduling.
 
@@ -502,7 +502,7 @@ Refer to the tutorial [CustomOpBuilder Using AtbOpRunner to Integrate ATB Operat
 
 ### function RunAtbOp
 
-The interface for executing ATB operators in dynamic graphs, defined in the [atb_common.h](https://atomgit.com/mindspore/mindspore/blob/master/mindspore/ops/kernel/ascend/custom/pyboost_impl/atb/atb_common.h) header file.
+The interface for executing ATB operators in dynamic graphs, defined in the [atb_common.h](https://atomgit.com/mindspore/mindspore/blob/master/mindspore/ops/include/kernel/ascend/custom/pyboost_impl/atb_common.h) header file.
 
 ```cpp
 template <typename ParamType>
@@ -520,7 +520,7 @@ void RunAtbOp(const std::string &op_name, const ParamType &param, const std::vec
 
 ### class AsdSipFFTOpRunner
 
-The `AsdSipFFTOpRunner` class is a runner for executing Ascend Sip Boost (ASDSIP) operators, defined in the [asdsip_common.h](https://atomgit.com/mindspore/mindspore/blob/master/mindspore/ops/kernel/ascend/custom/pyboost_impl/asdsip/asdsip_common.h) header file.
+The `AsdSipFFTOpRunner` class is a runner for executing Ascend Sip Boost (ASDSIP) operators, defined in the [asdsip_common.h](https://atomgit.com/mindspore/mindspore/blob/master/mindspore/ops/include/kernel/ascend/custom/pyboost_impl/asdsip_common.h) header file.
 
 This class inherits from `PyboostRunner` and encapsulates the process of invoking ASDSIP FFT operators, including initialization, running the ASDSIP FFT operator, managing input/output tensor, memory allocation, and kernel scheduling.
 
@@ -550,7 +550,7 @@ Refer to the tutorial [CustomOpBuilder Integrates the ASDSIP FFT Operators throu
 
 ### function RunAsdSipFFTOp
 
-The interface for executing ASDSIP FFT operators in dynamic graphs, defined in the [asdsip_common.h](https://atomgit.com/mindspore/mindspore/blob/master/mindspore/ops/kernel/ascend/custom/pyboost_impl/asdsip/asdsip_common.h) header file.
+The interface for executing ASDSIP FFT operators in dynamic graphs, defined in the [asdsip_common.h](https://atomgit.com/mindspore/mindspore/blob/master/mindspore/ops/include/kernel/ascend/custom/pyboost_impl/asdsip_common.h) header file.
 
 ```cpp
 inline void RunAsdSipFFTOp(const std::string &op_name, const FFTParam &fft_param, const ms::Tensor &input,
