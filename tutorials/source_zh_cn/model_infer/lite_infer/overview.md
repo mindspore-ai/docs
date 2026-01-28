@@ -32,15 +32,15 @@ MindSpore Lite推理框架支持将MindSpore训练导出的`.mindir`模型以及
 
 ## 关键能力
 
-1. [支持昇腾硬件推理](https://www.mindspore.cn/lite/cloud_docs/zh-CN/r2.8.0/mindir/runtime_python.html)
+1. [支持昇腾硬件推理](https://www.mindspore.cn/lite/cloud_docs/zh-CN/master/mindir/runtime_python.html)
 
 2. [支持鸿蒙](https://developer.huawei.com/consumer/cn/sdk/mindspore-lite-kit)
 
-3. [训练后量化](https://www.mindspore.cn/lite/docs/zh-CN/r2.8.0/advanced/quantization.html)
+3. [训练后量化](https://www.mindspore.cn/lite/docs/zh-CN/master/advanced/quantization.html)
 
-4. [轻量化Micro推理部署](https://www.mindspore.cn/lite/docs/zh-CN/r2.8.0/advanced/micro.html#模型推理代码生成)
+4. [轻量化Micro推理部署](https://www.mindspore.cn/lite/docs/zh-CN/master/advanced/micro.html#模型推理代码生成)
 
-5. [基准调试工具](https://www.mindspore.cn/lite/docs/zh-CN/r2.8.0/tools/benchmark.html)
+5. [基准调试工具](https://www.mindspore.cn/lite/docs/zh-CN/master/tools/benchmark.html)
 
 ## 推理教程
 
@@ -52,6 +52,6 @@ MindSpore Lite推理框架支持将MindSpore训练导出的`.mindir`模型以及
 
 2. 集成部署
 
-    通过[MindSpore Lite推理API](https://www.mindspore.cn/lite/api/zh-CN/r2.8.0/index.html) 完成转换得到的模型推理集成，将用户推理输入数据码传递给相关API接口，即可实现MindSpore Lite的模型推理。
+    通过[MindSpore Lite推理API](https://www.mindspore.cn/lite/api/zh-CN/master/index.html) 完成转换得到的模型推理集成，将用户推理输入数据码传递给相关API接口，即可实现MindSpore Lite的模型推理。
 
-其中，针对`.ms`模型的推理教程可以参考[端侧推理快速入门](https://www.mindspore.cn/lite/docs/zh-CN/r2.8.0/quick_start/one_hour_introduction.html)，针对`.mindir`模型的推理教程可以参考[使用Python接口执行云侧推理](https://www.mindspore.cn/lite/cloud_docs/zh-CN/r2.8.0/mindir/runtime_python.html)。
+其中，针对`.ms`模型的推理教程可以参考[端侧推理快速入门](https://www.mindspore.cn/lite/docs/zh-CN/master/quick_start/one_hour_introduction.html)，针对`.mindir`模型的推理教程可以参考[使用Python接口执行云侧推理](https://www.mindspore.cn/lite/cloud_docs/zh-CN/master/mindir/runtime_python.html)。

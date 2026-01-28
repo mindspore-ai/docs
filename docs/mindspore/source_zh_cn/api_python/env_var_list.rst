@@ -435,7 +435,7 @@ Dump调试
      - 说明
    * - MINDSPORE_DUMP_CONFIG
      - 指定 `云侧Dump功能 <https://www.mindspore.cn/tutorials/zh-CN/r2.8.0/debug/dump.html>`_
-       或 `端侧Dump功能 <https://www.mindspore.cn/lite/docs/zh-CN/r2.8.0/tools/benchmark_tool.html#dump功能>`_ 所依赖的配置文件的路径
+       或 `端侧Dump功能 <https://www.mindspore.cn/lite/docs/zh-CN/master/tools/benchmark_tool.html#dump功能>`_ 所依赖的配置文件的路径
      - String
      - 文件路径，支持相对路径与绝对路径
      -
