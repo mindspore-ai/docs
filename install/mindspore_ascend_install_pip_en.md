@@ -109,10 +109,10 @@ pip install sympy protobuf attrs cloudpickle decorator ml-dtypes psutil scipy to
 
 ### Installing MindSpore
 
-First, refer to [Version List](https://www.mindspore.cn/versions) to select the version of MindSpore you want to install, and perform SHA-256 integrity check. Taking version 2.7.1 as an example, execute the following commands.
+First, refer to [Version List](https://www.mindspore.cn/versions) to select the version of MindSpore you want to install, and perform SHA-256 integrity check. Taking version 2.8.0 as an example, execute the following commands.
 
 ```bash
-export MS_VERSION=2.7.1
+export MS_VERSION=2.8.0
 ```
 
 Then run the following command to install MindSpore.
