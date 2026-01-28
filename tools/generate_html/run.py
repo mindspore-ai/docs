@@ -149,7 +149,7 @@ def download_with_retry(url, max_retries=3, auth=None, verify=True):
 #######################################
 # 运行检测
 #######################################
-def main(version, user, pd, WGETDIR, release_url, generate_list):
+def main(version, user, pd, WGETDIR, release_url, generate_list, api_detect):
 
     print(f"开始构建{version}版本html....")
 
@@ -205,6 +205,11 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
         for i in range(len(data)):
             if data[i]['name'] == 'mindscience':
                 msc_branch = data[i]["branch"]
+
+    # api-detection-tool开关
+    if api_detect:
+        cwd_path = os.getcwd()
+        REPODIR = os.path.dirname(os.path.dirname(os.path.dirname(cwd_path)))
 
     for i in range(len(data)):
 
@@ -701,6 +706,7 @@ if __name__ == "__main__":
     parser.add_argument('--release_url', type=str, default="") # 发布版本使用的repo url
     parser.add_argument('--theme', type=str, default="") # theme.css/js
     parser.add_argument('--single_generate', type=str, default="")
+    parser.add_argument('--api_detect', type=bool, default=False)
     args = parser.parse_args()
 
     password = args.pd
@@ -721,7 +727,7 @@ if __name__ == "__main__":
     try:
         # 主函数组件html构建
         main(version=args.version, user=args.user, pd=password, WGETDIR=args.wgetdir,
-             release_url=args.release_url, generate_list=generate_list_p)
+             release_url=args.release_url, generate_list=generate_list_p, api_detect=args.api_detect)
 
         # 替换页面左侧目录部分
         ms_path = f"{MAINDIR}/{args.version}/output/docs/zh-CN/master"
