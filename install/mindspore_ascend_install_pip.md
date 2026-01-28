@@ -109,10 +109,10 @@ pip install sympy protobuf attrs cloudpickle decorator ml-dtypes psutil scipy to
 
 ### 安装MindSpore
 
-首先参考[版本列表](https://www.mindspore.cn/versions)，选择想要安装的MindSpore版本，并进行SHA-256完整性校验。以2.7.1版本为例，执行以下命令。
+首先参考[版本列表](https://www.mindspore.cn/versions)，选择想要安装的MindSpore版本，并进行SHA-256完整性校验。以2.8.0版本为例，执行以下命令。
 
 ```bash
-export MS_VERSION=2.7.1
+export MS_VERSION=2.8.0
 ```
 
 然后执行以下命令安装MindSpore。
