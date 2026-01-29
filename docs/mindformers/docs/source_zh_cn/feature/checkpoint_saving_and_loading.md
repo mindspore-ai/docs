@@ -46,28 +46,28 @@ output
 
 权重相关文件说明
 
-| 文件                                       | 描述                                                         |
-| ------------------------------------------ | ------------------------------------------------------------ |
-| metadata.json                              | 记录各参数的分布式策略元信息与存储信息，为后续加载权重时自动执行 Reshard 转换提供必要的元数据支持，确保转换精准适配当前任务。 |
-| common.json                                | 记录当前迭代（iteration）的训练信息，为断点续训提供数据支持。 |
+| 文件                                         | 描述                                                                                        |
+|--------------------------------------------|-------------------------------------------------------------------------------------------|
+| metadata.json                              | 记录各参数的分布式策略元信息与存储信息，为后续加载权重时自动执行 Reshard 转换提供必要的元数据支持，确保转换精准适配当前任务。                       |
+| common.json                                | 记录当前迭代（iteration）的训练信息，为断点续训提供数据支持。                                                       |
 | {prefix}-model-0000000-0000008.safetensors | 模型权重存储文件。命名规则说明：`prefix` 为自定义文件名前缀，`model` 标识文件类型为模型权重，`0000000` 是文件序号，`0000008` 代表总文件个数。 |
 | {prefix}-opt-0000000-0000008.safetensors   | 优化器权重存储文件。命名规则说明：`prefix` 为自定义文件名前缀，`opt` 标识文件类型为优化器权重，`0000000` 是文件序号，`0000008` 代表总文件个数。 |
-| latest_checkpointed_iteration.txt          | 记录 `output/checkpoint` 目录下最后一个成功保存的checkpoint对应的迭代步数。 |
+| latest_checkpointed_iteration.txt          | 记录 `output/checkpoint` 目录下最后一个成功保存的checkpoint对应的迭代步数。                                     |
 
 ### 配置说明
 
 用户可通过修改 YAML 配置文件中 `CheckpointMonitor` 下的相关字段，控制权重保存行为，具体参数说明如下：
 
-| 参数名称              | 描述                                                         | 取值说明                                                     |
-| --------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| prefix                | 权重文件名自定义前缀，建议填写模型名称以区分不同模型的checkpoint。 | (str, 可选) - 默认值： `"CKP"` 。                            |
-| directory             | checkpoint保存路径，未配置时默认存储于 `./output/checkpoint`。 | (str, 可选) - 默认值： `None` 。                             |
-| save_checkpoint_steps | 设置保存checkpoint的训练间隔步数（即每训练指定步数保存一次checkpoint）。 | (int, 可选) - 默认值： `1` ，不设置时不保存模型权重。        |
-| keep_checkpoint_max   | 设置checkpoint最大保留数量，达到上限后，保存新checkpoint时会自动删除最旧的checkpoint。 | (int, 可选) - 默认值： `5` 。                                |
-| async_save            | checkpoint异步保存功能开关（控制是否启用异步保存机制）。     | (bool, 可选) - `True` 时将使用异步线程保存checkpoint。默认值： `False` 。 |
-| checkpoint_format     | checkpoint权重保存格式，Checkpoint 2.0 版本仅支持 `'safetensors'`；若已配置 `use_legacy_format: False`，该字段将自动转换为 `'safetensors'`。 | (str, 可选) - 默认值： `'safetensors'` 。                    |
-| remove_redundancy     | checkpoint去冗余保存功能开关（控制是否启用去冗余保存机制）。 | (bool, 可选) - 默认值： `False` 。                           |
-| save_optimizer        | 优化器权重保存功能开关（控制是否保存优化器权重信息）。       | (bool, 可选) - 默认值： `True` 。                            |
+| 参数名称                  | 描述                                                                                                               | 取值说明                                                    |
+|-----------------------|------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------|
+| prefix                | 权重文件名自定义前缀，建议填写模型名称以区分不同模型的checkpoint。                                                                           | (str, 可选) - 默认值： `"CKP"` 。                              |
+| directory             | checkpoint保存路径，未配置时默认存储于 `./output/checkpoint`。                                                                  | (str, 可选) - 默认值： `None` 。                               |
+| save_checkpoint_steps | 设置保存checkpoint的训练间隔步数（即每训练指定步数保存一次checkpoint）。                                                                   | (int, 可选) - 默认值： `1` ，不设置时不保存模型权重。                      |
+| keep_checkpoint_max   | 设置checkpoint最大保留数量，达到上限后，保存新checkpoint时会自动删除最旧的checkpoint。                                                       | (int, 可选) - 默认值： `5` 。                                  |
+| async_save            | checkpoint异步保存功能开关（控制是否启用异步保存机制）。                                                                                | (bool, 可选) - `True` 时将使用异步线程保存checkpoint。默认值： `False` 。 |
+| checkpoint_format     | checkpoint权重保存格式，Checkpoint 2.0 版本仅支持 `'safetensors'`；若已配置 `use_legacy_format: False`，该字段将自动转换为 `'safetensors'`。 | (str, 可选) - 默认值： `'safetensors'` 。                      |
+| remove_redundancy     | checkpoint去冗余保存功能开关（控制是否启用去冗余保存机制）。                                                                              | (bool, 可选) - 默认值： `False` 。                             |
+| save_optimizer        | 优化器权重保存功能开关（控制是否保存优化器权重信息）。                                                                                      | (bool, 可选) - 默认值： `True` 。                              |
 
 配置示例如下：
 
@@ -99,13 +99,14 @@ MindSpore Transformers 提供灵活的checkpoint加载能力，覆盖单卡与�
 
 用户可通过修改 YAML 配置文件中的相关字段，控制权重加载行为。
 
-| 参数名称             | 描述                                                         | 取值说明                       |
-| -------------------- | ------------------------------------------------------------ | ------------------------------ |
-| load_checkpoint      | checkpoint文件夹路径，可**填写`output/checkpoint`文件夹路径或`iteration`子文件夹路径**。<br />若为`checkpoint`文件夹路径，按照`latest_checkpointed_iteration.txt`中记录的步数加载对应`iteration`子文件夹checkpoint。 | (str，可选) - 默认值：`""`     |
-| pretrained_model_dir | 指定 HuggingFace 社区权重的文件夹路径；若同时配置了 `load_checkpoint`，该字段将自动失效。 | (str，可选) - 默认值：`""`     |
-| balanced_load        | 权重均衡加载功能开关，**仅支持在分布式任务中开启**；设为 `True` 时，各 rank 按参数均衡分配策略加载权重，再通过参数广播获取最终权重。 | (bool，可选) - 默认值：`False` |
-| use_legacy_format    | Checkpoint 1.0 版本启用开关，需设置为 `False`（使用Checkpoint 2.0 版本）。 | (bool，可选) - 默认值：`True`  |
-| load_ckpt_format     | 指定加载权重的格式，需设置为 `'safetensors'`（适配Checkpoint 2.0 版本）。 | (str，可选) - 默认值：`'ckpt'` |
+| 参数名称                 | 描述                                                                                                                                                                  | 取值说明                    |
+|----------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------|
+| load_checkpoint      | checkpoint文件夹路径，可**填写`output/checkpoint`文件夹路径或`iteration`子文件夹路径**。<br>若为`checkpoint`文件夹路径，按照`latest_checkpointed_iteration.txt`中记录的步数加载对应`iteration`子文件夹checkpoint。 | (str，可选) - 默认值：`""`     |
+| pretrained_model_dir | 指定 HuggingFace 社区权重的文件夹路径；若同时配置了 `load_checkpoint`，该字段将自动失效。                                                                                                        | (str，可选) - 默认值：`""`     |
+| balanced_load        | 权重均衡加载功能开关，**仅支持在分布式任务中开启**；设为 `True` 时，各 rank 按参数均衡分配策略加载权重，再通过参数广播获取最终权重。                                                                                         | (bool，可选) - 默认值：`False` |
+| use_legacy_format    | Checkpoint 1.0 版本启用开关，需设置为 `False`（使用Checkpoint 2.0 版本）。                                                                                                            | (bool，可选) - 默认值：`True`  |
+| load_ckpt_format     | 指定加载权重的格式，需设置为 `'safetensors'`（适配Checkpoint 2.0 版本）。                                                                                                                | (str，可选) - 默认值：`'ckpt'` |
+| reshard_worker_num   | 指定并行权重 Reshard 的线程数。对于权重需要在线 Reshard 的场景，可配置该字段进行并行加速。                                                                                                              | (int, 可选) - 默认值： `1` 。  |
 
 当 `load_checkpoint` 配置为 `output/checkpoint` 文件夹路径时，用户可通过修改 `latest_checkpointed_iteration.txt` 中记录的步数，实现指定 `iteration` 权重的加载。
 
