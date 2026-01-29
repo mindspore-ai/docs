@@ -40,7 +40,7 @@ vLLM-MindSpore插件采用vLLM社区推荐的插件机制，实现能力注册�
 - 软件：
 
   * Python >= 3.9, <= 3.11
-  * CANN == 8.3.RC1
+  * CANN == 8.3.RC2
   * MindSpore（与vLLM-MindSpore插件版本配套）
   * vLLM（与vLLM-MindSpore插件版本配套）
 
@@ -99,7 +99,7 @@ SIG组织
 
 许可证
 -----------------------------------------------------
-Apache 许可证 2.0，如 `LICENSE <https://atomgit.com/mindspore/vllm-mindspore/blob/r0.5.0/LICENSE>`_ 文件中所示。
+Apache 许可证 2.0，如 `LICENSE <https://atomgit.com/mindspore/vllm-mindspore/blob/v0.5.1/LICENSE>`_ 文件中所示。
 
 
 .. toctree::

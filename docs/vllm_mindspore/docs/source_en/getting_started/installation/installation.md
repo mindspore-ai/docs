@@ -10,7 +10,7 @@ This document will introduce the [Version Matching](#version-compatibility) of v
 ## Version Compatibility
 
 - OS: Linux-aarch64
-- Python：3.9 / 3.10 / 3.11
+- Python: 3.9 / 3.10 / 3.11
 - Depent Software version compatibility
 
    | Software | Version And Links |
@@ -27,7 +27,7 @@ This document will introduce the [Version Matching](#version-compatibility) of v
 
    | Source Code Link | Package Link |
    | -----    | -----   |
-   | [v0.5.1](https://atomgit.com/mindspore/vllm-mindspore/tree/v0.5.1) | [Python3.9](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.7.1.post1/VllmMindSpore/ascend/aarch64/vllm_mindspore-0.5.1-cp39-cp39-linux_aarch64.whl)，[Python3.10](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.7.1.post1/VllmMindSpore/ascend/aarch64/vllm_mindspore-0.5.1-cp310-cp310-linux_aarch64.whl)，[Python3.11](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.7.1.post1/VllmMindSpore/ascend/aarch64/vllm_mindspore-0.5.1-cp311-cp311-linux_aarch64.whl) |   
+   | [v0.5.1](https://atomgit.com/mindspore/vllm-mindspore/tree/v0.5.1) | [Python3.9](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.7.1.post1/VllmMindSpore/ascend/aarch64/vllm_mindspore-0.5.1-cp39-cp39-linux_aarch64.whl)，[Python3.10](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.7.1.post1/VllmMindSpore/ascend/aarch64/vllm_mindspore-0.5.1-cp310-cp310-linux_aarch64.whl)，[Python3.11](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.7.1.post1/VllmMindSpore/ascend/aarch64/vllm_mindspore-0.5.1-cp311-cp311-linux_aarch64.whl) |
 
 ## Docker Installation
 

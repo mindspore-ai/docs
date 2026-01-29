@@ -169,7 +169,7 @@ inputs = [
 sampling_params = SamplingParams(max_tokens=512)
 model_path = "/path/to/save/Qwen3-VL-8B-Instruct"
 # Create a LLM
-llm = LLM(model=model_path，
+llm = LLM(model=model_path,
           max_model_len=32768,
           gpu_memory_utilization=0.85)
 # Generate texts from the prompts. The output is a list of RequestOutput objects
@@ -263,6 +263,7 @@ send_request()
 User needs to ensure that the `"model"` field matches the model tag in the service startup, and the request can successfully match the model.
 
 If online inference runs successfully, similar results will be obtained:
-```
+
+```text
 {'id': 'chatcmpl-0f0a85dcbe7343f89539200e1a201e04', 'object': 'chat.completion', 'created': 1769408795, 'model': '/home/ckpt/Qwen3-VL-8B-Instruct', 'choices': [{'index': 0, 'message': {'role': 'assistant', 'content': 'This is a photograph of a Pallas's cat (also known as a "manul") walking through a snowy landscape.\n\nHere are the key details:\n\n* Subject: The central focus is a Pallas's cat, a small wild feline native to Central Asia. It is covered in thick, fluffy fur that is a mix of gray, brown, and tan, with distinct dark markings around its eyes and on its cheeks.\n* Action: The cat is captured mid-stride, walking forward through the snow. Its body is low to the ground, and its front left paw is lifted, indicating movement.\n* Environment: The setting is a winter scene. The ground is covered in white snow, and the background consists of the distinctive white, peeling bark of birch trees. There are also some dark, vertical elements in the background, possibly a fence or another structure.\n* Atmosphere: The image conveys a sense of quiet wilderness. The cat's thick fur is dusted with snow, suggesting it has been moving through the snow for some time. The overall mood is calm and natural.\n\nThe Pallas's cat's unique, somewhat "pug-faced" appearance, with its large, rounded ears and dense coat, is clearly visible, making it a striking and memorable subject.', 'refusal': None, 'annotations': None, 'audio': None, 'function_call': None, 'tool_calls': [], 'reasoning_content': None}, 'logprobs': None, 'finish_reason': 'stop', 'stop_reason': None, 'token_ids': None}], 'service_tier': None, 'system_fingerprint': None, 'usage': {'prompt_tokens': 646, 'total_tokens': 917, 'completion_tokens': 271, 'prompt_tokens_details': None}, 'prompt_logprobs': None, 'prompt_token_ids': None, 'kv_transfer_params': None}
 ```

@@ -2,9 +2,9 @@
 
 [![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.1.post1/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/r2.7.1.post1/docs/vllm_mindspore/docs/source_zh_cn/release_notes/release_notes.md)
 
-## vLLM-MindSpore插件 0.5.0 Release Notes
+## vLLM-MindSpore插件 0.5.1 Release Notes
 
-vLLM MindSpore插件0.5.0版本，配套vLLM 0.11.0版本。以下为此版本支持的关键新功能和模型。
+vLLM MindSpore插件0.5.1版本，配套vLLM 0.11.0版本。以下为此版本支持的关键新功能和模型。
 
 ### 新特性
 
@@ -19,6 +19,7 @@ vLLM MindSpore插件0.5.0版本，配套vLLM 0.11.0版本。以下为此版本�
     - GLM-4.1V支持原生模型
 
 ### 问题修复
+
 - 关于encoder的显存泄露问题
     - [对于vLLM的修复](https://github.com/vllm-project/vllm/pull/31857)
     - [对于vLLM-MindSpore插件的修复](https://atomgit.com/mindspore/vllm-mindspore/pull/1447)

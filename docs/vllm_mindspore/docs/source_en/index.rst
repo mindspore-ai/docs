@@ -40,7 +40,7 @@ Prerequisites
 - Software:
 
   * Python >= 3.9, <= 3.11
-  * CANN == 8.3.RC1
+  * CANN == 8.3.RC2
   * MindSpore (matched with the vllm-mindspore version)
   * vLLM (matched with the vllm-mindspore version)
 
@@ -99,7 +99,7 @@ SIG
 
 License
 -----------------------------------------------------
-Apache License 2.0, as found in the `LICENSE <https://atomgit.com/mindspore/vllm-mindspore/blob/r0.5.0/LICENSE>`_ file.
+Apache License 2.0, as found in the `LICENSE <https://atomgit.com/mindspore/vllm-mindspore/blob/v0.5.1/LICENSE>`_ file.
 
 
 .. toctree::
