@@ -730,5 +730,6 @@ content = re.sub(r"^[\s\S]*?(?=\n## )", "", content, flags=re.DOTALL).lstrip('\n
 with open(des_release, "w", encoding="utf-8") as p:
     content = re.sub(re_url, r'\1/r2.8.0', content)
     content = re.sub(re_url2, r'\1/v2.8.0', content)
+    content = content.replace("align_conner", "align_corners")
     p.write("# Release Notes" + "\n\n" + release_source)
     p.write(content)
