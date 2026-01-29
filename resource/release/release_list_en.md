@@ -96,6 +96,12 @@
 |--------|------------------|
 | [Installation guide](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/850/quickstart/instg_quick.html) | [CANN 8.5.0](https://www.hiascend.com/developer/download/community/result?module=cann) <br> [firmware and driver](https://www.hiascend.com/hardware/firmware-drivers/community) |
 
+**Related Documents**
+
+|   Releasenotes and API Updates   |   Installation  |      Tutorials      |  Document    |  API|
+|    ---  |    ---   |       ---      |     ---     |     ---      |
+|   [ReleaseNotes](https://www.mindspore.cn/docs/en/r2.8.0/RELEASE.html)   | [Installation Guide](https://atomgit.com/mindspore/docs/tree/r2.8.0/install)  |  [Quick Start](https://www.mindspore.cn/tutorials/en/r2.8.0/beginner/quick_start.html)      <br> [Practical Cases](https://www.mindspore.cn/tutorials/en/r2.8.0/cv.html)  | [MindSpore](https://www.mindspore.cn/docs/en/r2.8.0/index.html)|  [MindSpore](https://www.mindspore.cn/docs/en/r2.8.0/api_python/mindspore.html) |
+
 ## 2.7.2
 
 | Module Name                           | Hardware Platform   | Operating System          | Python Version   | Download Links                                                                                                                                                                                 | SHA-256                                                          |
