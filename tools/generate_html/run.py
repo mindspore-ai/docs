@@ -209,6 +209,7 @@ def main(version, user, pd, WGETDIR, release_url, generate_list, api_detect):
     # api-detection-tool开关
     if api_detect:
         cwd_path = os.getcwd()
+        global REPODIR
         REPODIR = os.path.dirname(os.path.dirname(os.path.dirname(cwd_path)))
 
     for i in range(len(data)):
