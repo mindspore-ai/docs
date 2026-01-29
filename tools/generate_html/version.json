@@ -15,7 +15,9 @@
     {
       "id" : 2 ,
       "name" : "vllm_mindspore",
-      "branch" : "r0.5.0",
+      "branch" : "v0.5.1",
+      "html_version" : "r0.5.1",
+      "tag" : "v0.5.1",
       "whl_path" : "",
       "whl_name" : "",
       "environ" : "",
