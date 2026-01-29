@@ -1,8 +1,8 @@
-# Multi-modal Single-Card Inference (Qwen2.5-7B)
+# Multi-modal Single-Card Inference (Qwen3-VL-8B-Instruct)
 
 [![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.1.post1/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/r2.7.1.post1/docs/vllm_mindspore/docs/source_en/getting_started/tutorials/qwen3_vl_8b_singleNPU/qwen3_vl_8b_singleNPU.md)  
 
-This document introduces single NPU inference process by vLLM-MindSpore Plugin. Taking the [Qwen3-VL-8B-Instruct](https://huggingface.co/Qwen/Qwen3-VL-8B-Instruct) model as an example, user can configure the environment through the [Docker Installation](#docker-installation) or the [Installation Guide](../../installation/installation.md#installation-guide), and [downloading model weights](#downloading-model-weights). After [setting environment variables](#setting-environment-variables), user can perform [offline inference](#offline-inference) and [online inference](#online-inference) to experience single NPU inference abilities.
+This document introduces single NPU multimodal inference process by vLLM-MindSpore Plugin. Taking the [Qwen3-VL-8B-Instruct](https://huggingface.co/Qwen/Qwen3-VL-8B-Instruct) model as an example, user can configure the environment through the [Docker Installation](#docker-installation) or the [Installation Guide](../../installation/installation.md#installation-guide), and [downloading model weights](#downloading-model-weights). After [setting environment variables](#setting-environment-variables), user can perform [offline inference](#offline-inference) and [online inference](#online-inference) to experience single NPU inference abilities.
 
 ## Docker Installation
 
@@ -92,22 +92,7 @@ docker exec -it $DOCKER_NAME bash
 
 ## Downloading Model Weights
 
-User can download the model using either [Python Tool](#downloading-with-python-tool) or [git-lfs Tool](#downloading-with-git-lfs-tool).  
-
-### Downloading with Python Tool
-
-Execute the following Python script to download the [Qwen3-VL-8B-Instruct](https://huggingface.co/Qwen/Qwen3-VL-8B-Instruct) weights and files from [Hugging Face](https://huggingface.co/):  
-
-```python  
-from huggingface_hub import snapshot_download  
-snapshot_download(  
-    repo_id="Qwen/Qwen3-VL-8B-Instruct",  
-    local_dir="/path/to/save/Qwen3-VL-8B-Instruct",  
-    local_dir_use_symlinks=False  
-)  
-```  
-
-`local_dir` is the user-specified model save path. Ensure sufficient disk space is available.  
+User can download the model using either Web or [git-lfs Tool](#downloading-with-git-lfs-tool).  
 
 ### Downloading with git-lfs Tool
 
@@ -137,7 +122,7 @@ For [Qwen3-VL-8B-Instruct](https://huggingface.co/Qwen/Qwen3-VL-8B-Instruct), th
 
 ```bash  
 #set environment variables  
-export VLLM_MS_MODEL_BACKEND=MindFormers # use MindSpore TransFormers as model backend.
+export VLLM_MS_MODEL_BACKEND=Native # use Native Model as model backend.
 ```  
 
 Here is an explanation of these variables:  
@@ -162,14 +147,11 @@ from vllm import LLM, SamplingParams
 # Sample prompts.
 PROMPT_TEMPLATE = (
     "<|im_start|>system\nYou are a helpful assistant.<|im_end|>"
-    "\n<|im_start|>user\n<|vision_start|><|image_pad|><|vision_end|>"
-    "Is there anyone in the picture?<|im_end|>\n"
+    "\n<|im_start|>user\nDescribe the content of the image"
+    "<|vision_start|><|image_pad|><|vision_end|><|im_end|>\n"
     "<|im_start|>assistant\n")
 
-# example:
-# https://tools.mindspore.cn/dataset/workspace/mindspore_dataset/images/houses_and_mountain.jpeg
-
-image_path = "/path/to/houses_and_mountain.jpeg"
+image_path = "/path/to/image.jpg"
 
 def pil_image() -> Image.Image:
     return Image.open(image_path)
@@ -184,13 +166,15 @@ inputs = [
 ]
 
 # Create a sampling params object.
-sampling_params = SamplingParams(temperature=0.0, top_p=0.95)
+sampling_params = SamplingParams(max_tokens=512)
 model_path = "/path/to/save/Qwen3-VL-8B-Instruct"
 # Create a LLM
-llm = LLM(model=model_path)
+llm = LLM(model=model_path，
+          max_model_len=32768,
+          gpu_memory_utilization=0.85)
 # Generate texts from the prompts. The output is a list of RequestOutput objects
 # that contain the prompt, generated text, and other information.
-outputs = llm.generate(prompts, sampling_params)
+outputs = llm.generate(inputs, sampling_params)
 # Print the outputs.
 for output in outputs:
     prompt = output.prompt
@@ -201,7 +185,7 @@ for output in outputs:
 If offline inference runs successfully, similar results will be obtained:
 
 ```text
-Generated text: This is a breathtaking landscape photograph capturing a serene, idyllic scene in a mountainous region. Here's a breakdown of what's in the image:\n\n*   **Foreground:** A vibrant green meadow dotted with wildflowers, including yellow dandelions and some
+"Generated text: This image captures a Pallas's cat (also known as the manul or Otocolobus manul) walking through a snowy landscape.\n\nKey features of the cat:\n* Distinctive Appearance: The cat has a stocky, robust build with a very thick, dense coat of fur that is a mix of gray, brown, and buff colors. This thick fur, dusted with snowflakes, is a key adaptation for its cold, high-altitude habitat.\n* Round Head and Face: It has a wide, rounded head and a remarkably flattened face with short, broad muzzle and large, prominent ears.\n* Gaze: The cat is looking down and to its left, seemingly focused on something in the snow.\n* Posture: It is walking or stalking with one front paw lifted, indicating movement.\n* Paws: Its paws are large and furry, which help it walk on snow.\n\nEnvironment:\n* The cat is on a blanket of fresh white snow.\n* The background is composed of the characteristic white, peeling bark of birch trees and a dark, possibly wrought iron, fence.\n* The lighting suggests an overcast day, which is common in winter mountain environments where this species lives.\n\nIn summary, the image provides a clear, naturalistic view of a Pallas's cat navigating its snowy, wooded habitat, showcasing its unique and endearing physical characteristics."
 ```
 
 ## Online Inference
@@ -213,7 +197,7 @@ vLLM-MindSpore Plugin supports online inference deployment with the OpenAI API p
 Start the vLLM service with the following command:
 
 ```bash
-nohup vllm-mindspore serve /path/to/save/Qwen3-VL-8B-Instruct &
+nohup vllm-mindspore serve /path/to/save/Qwen3-VL-8B-Instruct --max-model-len 32768 --gpu-memory-utilization 0.85 &
 ```
 
 User can also set the local model path as model tag. If the service starts successfully, similar output will be obtained:
@@ -251,17 +235,13 @@ def send_request():
     )
     print(response.json())
 
-# The image for encoding
-# example:
-# https://tools.mindspore.cn/dataset/workspace/mindspore_dataset/images/houses_and_mountain.jpeg
-
-image_path = "/path/to/houses_and_mountain.jpeg"
+image_path = "/path/to/image.jpg"
 
 base64_image = encode_image(image_path)
 
 # make a request
 payload = {
-    "model": "/home/ckpt/Qwen2.5-VL-7B-Instruct",
+    "model": "/home/ckpt/Qwen3-VL-8B-Instruct",
     "messages": [
         {
             "role": "user",
@@ -270,13 +250,19 @@ payload = {
                     "type": "image_url",
                     "image_url": {"url": f"data:image/jpeg;base64,{base64_image}"}
                 },
-                {"type": "text", "text": "Is there anyone in the picture?"}
+                {"type": "text", "text": "Describe the content of the image"}
             ]
         }
     ],
-    "max_tokens": 100,
-    "temperature": 0.1,
+    "max_tokens": 512,
 }
+
+send_request()
 ```
 
 User needs to ensure that the `"model"` field matches the model tag in the service startup, and the request can successfully match the model.
+
+If online inference runs successfully, similar results will be obtained:
+```
+{'id': 'chatcmpl-0f0a85dcbe7343f89539200e1a201e04', 'object': 'chat.completion', 'created': 1769408795, 'model': '/home/ckpt/Qwen3-VL-8B-Instruct', 'choices': [{'index': 0, 'message': {'role': 'assistant', 'content': 'This is a photograph of a Pallas's cat (also known as a "manul") walking through a snowy landscape.\n\nHere are the key details:\n\n* Subject: The central focus is a Pallas's cat, a small wild feline native to Central Asia. It is covered in thick, fluffy fur that is a mix of gray, brown, and tan, with distinct dark markings around its eyes and on its cheeks.\n* Action: The cat is captured mid-stride, walking forward through the snow. Its body is low to the ground, and its front left paw is lifted, indicating movement.\n* Environment: The setting is a winter scene. The ground is covered in white snow, and the background consists of the distinctive white, peeling bark of birch trees. There are also some dark, vertical elements in the background, possibly a fence or another structure.\n* Atmosphere: The image conveys a sense of quiet wilderness. The cat's thick fur is dusted with snow, suggesting it has been moving through the snow for some time. The overall mood is calm and natural.\n\nThe Pallas's cat's unique, somewhat "pug-faced" appearance, with its large, rounded ears and dense coat, is clearly visible, making it a striking and memorable subject.', 'refusal': None, 'annotations': None, 'audio': None, 'function_call': None, 'tool_calls': [], 'reasoning_content': None}, 'logprobs': None, 'finish_reason': 'stop', 'stop_reason': None, 'token_ids': None}], 'service_tier': None, 'system_fingerprint': None, 'usage': {'prompt_tokens': 646, 'total_tokens': 917, 'completion_tokens': 271, 'prompt_tokens_details': None}, 'prompt_logprobs': None, 'prompt_token_ids': None, 'kv_transfer_params': None}
+```
