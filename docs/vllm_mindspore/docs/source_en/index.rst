@@ -39,8 +39,8 @@ Prerequisites
 - Operating System: openEuler or Ubuntu Linux
 - Software:
 
-  * Python >= 3.10, <= 3.12
-  * CANN >= 8.3.RC1
+  * Python >= 3.9, <= 3.11
+  * CANN == 8.3.RC1
   * MindSpore (matched with the vllm-mindspore version)
   * vLLM (matched with the vllm-mindspore version)
 
@@ -88,9 +88,9 @@ The following are the version branches:
    *  -  r0.4.0
       -  Maintained
       -  Compatible with vLLM v0.9.1, and CI commitment for MindSpore 2.7.1
-   *  -  r0.5.0
+   *  -  v0.5.1
       -  Maintained
-      -  Compatible with vLLM v0.11.0, and CI commitment for MindSpore 2.7.1.post1   
+      -  Compatible with vLLM v0.11.0, and CI commitment for MindSpore 2.7.1.post1
 
 SIG
 -----------------------------------------------------

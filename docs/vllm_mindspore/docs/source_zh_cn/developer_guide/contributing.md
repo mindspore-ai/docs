@@ -19,7 +19,7 @@
 - **文件格式及位置要遵循规范。** 模型代码文件统一放置于`vllm_mindspore/model_executor`文件夹下，请根据不同模型将代码文件放置于对应的文件夹下。
 - **模型基于MindSpore接口实现，支持jit静态图方式执行。** vLLM-MindSpore插件中的模型定义需基于MindSpore接口实现。由于MindSpore静态图模式执行性能有优势，因此模型需支持@jit静态图方式执行。详细可参考[Qwen2.5](https://atomgit.com/mindspore/vllm-mindspore/blob/r0.5.0/vllm_mindspore/model_executor/models/qwen2.py)模型定义实现。
 - **将新模型在vLLM-MindSpore插件代码中进行注册。** 模型结构定义实现后，需要将该模型注册到vLLM-MindSpore插件中，注册文件位于'vllm_mindspore/model_executor/models/registry.py'中，请将模型注册到`_NATIVE_MODELS`。
-- **编写单元测试。** 新增的模型需同步提交单元测试用例，用例编写请参考[Qwen2.5模型用例](https://atomgit.com/mindspore/vllm-mindspore/blob/r0.5.0/tests/st/python/cases_parallel/vllm_qwen_7b.py)。
+- **编写单元测试。** 新增的模型需同步提交单元测试用例，用例编写请参考[Qwen2.5模型用例](https://atomgit.com/mindspore/vllm-mindspore/blob/r0.5.0/tests/st/models/qwen2_5/test_vllm_qwen_7b_v1.py)。
 
 ## 贡献流程
 

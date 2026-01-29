@@ -18,6 +18,13 @@ The vLLM-MindSpore Plugin 0.5.0 version is compatible with vLLM 0.11.0. Below ar
 - GLM Model Series:
     - GLM-4.1V Native Model
 
+### Problem Fixes
+
+- Encoder Memory Leak Issue
+    - [Fix for vLLM](https://github.com/vllm-project/vllm/pull/31857)
+    - [Fix for vLLM-MindSpore Plugin](https://atomgit.com/mindspore/vllm-mindspore/pull/1447)
+
+
 ### Contributors
 
 Thanks to the following contributors for their efforts:

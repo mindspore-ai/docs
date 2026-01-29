@@ -11,7 +11,7 @@
     在执行以下命令安装vLLM-MindSpore Plugin
 
     ```bash
-    git clone -b r0.5.0 https://atomgit.com/mindspore/vllm-mindspore.git
+    git clone -b v0.5.1 https://atomgit.com/mindspore/vllm-mindspore.git
     cd vllm-mindspore
     bash install_depend_pkgs.sh
     pip install .
@@ -29,7 +29,7 @@
     2. 请检查`pip`版本是否大于等于25.3。如果是，则使用以下命令编译并安装vLLM-MindSpore Plugin：
 
         ```bash
-        git clone -b r0.5.0 https://atomgit.com/mindspore/vllm-mindspore.git
+        git clone -b v0.5.1 https://atomgit.com/mindspore/vllm-mindspore.git
         cd vllm-mindspore
         bash install_depend_pkgs.sh
         pip install --no-build-isolation .

@@ -18,6 +18,11 @@ vLLM MindSpore插件0.5.0版本，配套vLLM 0.11.0版本。以下为此版本�
 - GLM系列模型
     - GLM-4.1V支持原生模型
 
+### 问题修复
+- 关于encoder的显存泄露问题
+    - [对于vLLM的修复](https://github.com/vllm-project/vllm/pull/31857)
+    - [对于vLLM-MindSpore插件的修复](https://atomgit.com/mindspore/vllm-mindspore/pull/1447)
+
 ### 贡献者
 
 感谢以下人员做出的贡献：
