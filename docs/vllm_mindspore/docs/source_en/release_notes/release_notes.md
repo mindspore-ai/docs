@@ -2,9 +2,9 @@
 
 [![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.1.post1/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/r2.7.1.post1/docs/vllm_mindspore/docs/source_en/release_notes/release_notes.md)
 
-## vLLM-MindSpore Plugin 0.5.0 Release Notes
+## vLLM-MindSpore Plugin 0.5.1 Release Notes
 
-The vLLM-MindSpore Plugin 0.5.0 version is compatible with vLLM 0.11.0. Below are the new features and models supported in this release.
+The vLLM-MindSpore Plugin 0.5.1 version is compatible with vLLM 0.11.0. Below are the new features and models supported in this release.
 
 ### New Features
 
@@ -17,6 +17,12 @@ The vLLM-MindSpore Plugin 0.5.0 version is compatible with vLLM 0.11.0. Below ar
 - Qwen3-VL Model Series
 - GLM Model Series:
     - GLM-4.1V Native Model
+
+### Problem Fixes
+
+- Encoder Memory Leak Issue
+    - [Fix for vLLM](https://github.com/vllm-project/vllm/pull/31857)
+    - [Fix for vLLM-MindSpore Plugin](https://atomgit.com/mindspore/vllm-mindspore/pull/1447)
 
 ### Contributors
 

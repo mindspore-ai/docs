@@ -10,18 +10,24 @@ This document will introduce the [Version Matching](#version-compatibility) of v
 ## Version Compatibility
 
 - OS: Linux-aarch64
-- Python：3.10 / 3.11 / 3.12
+- Python: 3.9 / 3.10 / 3.11
 - Depent Software version compatibility
 
    | Software | Version And Links |
    | -----    | -----   |
    | CANN  |   [8.3.RC1](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/83RC1/index/index.html)      |
-   | MindSpore |  [2.7.1.post1](https://repo.mindspore.cn/mindspore/mindspore/version/202512/20251225/r2.7.1_20251225204822_6eefcb41b2c30e42eb049908d5efea40c3425abc_newest/)    |
+   | MindSpore |  [2.7.1.post1](https://repo.mindspore.cn/mindspore/mindspore/version/202512/20251229/r2.7.1_20251229100307_d3099307fd78df39099f0e7801a6d2aa3121bf2c_newest/)    |
    | MSAdapter| [0.0.5](https://repo.mindspore.cn/mindspore/msadapter/version/202510/20251011/r0.3.0_20251011095813_951a8218d4c29785e48f304e720212b57056573e_newest/) |
-   | MindSpore Transformers | [1.7.0](https://repo.mindspore.cn/mindspore/mindformers/version/202510/20251030/r1.7.0_20251030031507_8ccc49b3f6645d3d1abfab80b4c78f3cafe5c84e_newest/)  |
-   | vLLM     | [0.11.0](https://repo.mindspore.cn/mirrors/vllm/version/202511/20251113/v0.11.0/) |
-   | ms_custom_ops | [0.1.0](https://repo.mindspore.cn/mindspore/ms_custom_ops/version/202512/20251210/r0.1.0_20251210100500_15d84de93ca616c1a9880275c15213a34f2c0a39_newest/) |
-   | MindSpore ONE  | [0.5.0](https://repo.mindspore.cn/mindspore-lab/mindone/version/202512/20251223/master_20251223115818_36c25653b3ebaff55eb40ca10bc742d603b21f0a_newest/) |
+   | MindSpore Transformers | [1.7.0](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.7.1/MindFormers/any/mindformers-1.7.0-py3-none-any.whl)  |
+   | vLLM     | [0.11.0](https://repo.mindspore.cn/mirrors/vllm/version/202511/20251113/v0.11.0/any/vllm-0.11.0%2Bempty-py3-none-any.whl) |
+   | ms_custom_ops | [0.1.0](https://repo.mindspore.cn/mindspore/ms_custom_ops/version/202512/20251229/r0.1.0_20251229145109_5bd05d81cf153ce96c2244fbf5d0c03b9fba1ffe_newest/) |
+   | MindSpore ONE  | [0.5.0](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.7.1.post1/MindOne/any/mindone-0.5.0-py3-none-any.whl) |
+
+- Source code and download link of vLLM-MindSpore Plugin
+
+   | Source Code Link | Package Link |
+   | -----    | -----   |
+   | [v0.5.1](https://atomgit.com/mindspore/vllm-mindspore/tree/v0.5.1) | [Python3.9](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.7.1.post1/VllmMindSpore/ascend/aarch64/vllm_mindspore-0.5.1-cp39-cp39-linux_aarch64.whl)，[Python3.10](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.7.1.post1/VllmMindSpore/ascend/aarch64/vllm_mindspore-0.5.1-cp310-cp310-linux_aarch64.whl)，[Python3.11](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.7.1.post1/VllmMindSpore/ascend/aarch64/vllm_mindspore-0.5.1-cp311-cp311-linux_aarch64.whl) |
 
 ## Docker Installation
 
@@ -32,7 +38,7 @@ We recommend using Docker for quick deployment of the vLLM-MindSpore Plugin envi
 User can execute the following commands to clone the vLLM-MindSpore Plugin code repository:
 
 ```bash
-git clone -b r0.5.0 https://atomgit.com/mindspore/vllm-mindspore.git
+git clone -b v0.5.1 https://atomgit.com/mindspore/vllm-mindspore.git
 ```  
 
 To build the image according to your npu type, follow these steps:
@@ -136,7 +142,7 @@ vLLM-MindSpore Plugin can be installed in the following two ways. **vLLM-MindSpo
     To install vLLM-MindSpore Plugin, user needs to pull the vLLM-MindSpore Plugin source code and then runs the following command to install the dependencies:
 
     ```bash
-    git clone -b r0.5.0 https://atomgit.com/mindspore/vllm-mindspore.git
+    git clone -b v0.5.1 https://atomgit.com/mindspore/vllm-mindspore.git
     cd vllm-mindspore
     bash install_depend_pkgs.sh
     ```
@@ -206,7 +212,7 @@ vLLM-MindSpore Plugin can be installed in the following two ways. **vLLM-MindSpo
         User could also use source code to install vLLM-MindSpore Plugin.
 
         ```bash
-        git clone -b r0.5.0 https://atomgit.com/mindspore/vllm-mindspore.git
+        git clone -b v0.5.1 https://atomgit.com/mindspore/vllm-mindspore.git
         cd vllm-mindspore
         pip install .
         ```

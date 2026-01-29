@@ -10,7 +10,7 @@
 | DeepSeek-R1 W8A4 |   已支持 | MindFormers | Atlas 800I A2 |  [DeepSeek-R1-W8A4](https://modelers.cn/models/MindSpore-Lab/DeepSeek-R1-0528-gs-A8W4) |
 | Telechat2 | 已支持 | MindFormers | Atlas 800I A2 | [TeleChat2-7B-32K](https://www.modelscope.cn/models/TeleAI/TeleChat2-7B-32K)、[TeleChat2-35B-32K](https://www.modelscope.cn/models/TeleAI/TeleChat2-35B-32K) |
 | GLM-4.5 | 已支持 | MindFormers | Atlas 800I A2 | [GLM-4.5](https://huggingface.co/zai-org/GLM-4.5), [GLM-4.5-Air](https://huggingface.co/zai-org/GLM-4.5-Air) |
-| GLM-4.1V-Thinking | 已支持 | MindFormers | Atlas 800I A2 | [GLM-4.1V-9B-Thinking](https://huggingface.co/zai-org/GLM-4.1V-9B-Thinking) |
+| GLM-4.1V-Thinking | 已支持 | Native | Atlas 800I A2 | [GLM-4.1V-9B-Thinking](https://huggingface.co/zai-org/GLM-4.1V-9B-Thinking) |
 | GLM-4 | 已支持 | MindFormers | Atlas 800I A2 | [GLM-4-9B-0414](https://huggingface.co/zai-org/GLM-4-9B-0414)、[GLM-4-32B-0414](https://huggingface.co/zai-org/GLM-4-32B-0414) |
 | Qwen3-VL | 已支持 | Native  | Atlas 800I A2 | [
 Qwen3-VL-2B](https://huggingface.co/Qwen/Qwen3-VL-2B-Instruct)、[Qwen3-VL-4B](https://huggingface.co/Qwen/Qwen3-VL-4B-Instruct)、[Qwen3-VL-8B](https://huggingface.co/Qwen/Qwen3-VL-8B-Instruct)、[Qwen3-VL-30B-A3B](https://huggingface.co/Qwen/Qwen3-VL-30B-A3B-Instruct)、[Qwen3-VL-235B-A22B](https://huggingface.co/Qwen/Qwen3-VL-235B-A22B-Instruct) |

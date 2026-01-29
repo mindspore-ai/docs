@@ -39,8 +39,8 @@ vLLM-MindSpore插件采用vLLM社区推荐的插件机制，实现能力注册�
 - 操作系统：openEuler或Ubuntu Linux
 - 软件：
 
-  * Python >= 3.10, <= 3.12
-  * CANN >= 8.3.RC1
+  * Python >= 3.9, <= 3.11
+  * CANN == 8.3.RC2
   * MindSpore（与vLLM-MindSpore插件版本配套）
   * vLLM（与vLLM-MindSpore插件版本配套）
 
@@ -88,7 +88,7 @@ vLLM-MindSpore插件代码仓包含主干分支、开发分支、版本分支：
    *  -  r0.4.0
       -  Maintained
       -  基于vLLM v0.9.1版本和MindSpore 2.7.1版本CI看护
-   *  -  r0.5.0
+   *  -  v0.5.1
       -  Maintained
       -  基于vLLM v0.11.0版本和MindSpore 2.7.1.post1版本CI看护
 
@@ -99,7 +99,7 @@ SIG组织
 
 许可证
 -----------------------------------------------------
-Apache 许可证 2.0，如 `LICENSE <https://atomgit.com/mindspore/vllm-mindspore/blob/r0.5.0/LICENSE>`_ 文件中所示。
+Apache 许可证 2.0，如 `LICENSE <https://atomgit.com/mindspore/vllm-mindspore/blob/v0.5.1/LICENSE>`_ 文件中所示。
 
 
 .. toctree::

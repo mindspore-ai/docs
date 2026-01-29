@@ -10,18 +10,24 @@
 ## 版本配套
 
 - OS：Linux-aarch64
-- Python：3.10 / 3.11 / 3.12
+- Python：3.9 / 3.10 / 3.11
 - 依赖软件版本配套
 
    | 软件 | 配套版本与下载链接 |
    | -----    | -----   |
    | CANN  |   [8.3.RC1](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/83RC1/index/index.html)      |
-   | MindSpore |  [2.7.1.post1](https://repo.mindspore.cn/mindspore/mindspore/version/202512/20251225/r2.7.1_20251225204822_6eefcb41b2c30e42eb049908d5efea40c3425abc_newest/)    |
+   | MindSpore |  [2.7.1.post1](https://repo.mindspore.cn/mindspore/mindspore/version/202512/20251229/r2.7.1_20251229100307_d3099307fd78df39099f0e7801a6d2aa3121bf2c_newest/)    |
    | MSAdapter| [0.0.5](https://repo.mindspore.cn/mindspore/msadapter/version/202510/20251011/r0.3.0_20251011095813_951a8218d4c29785e48f304e720212b57056573e_newest/) |
-   | MindSpore Transformers | [1.7.0](https://repo.mindspore.cn/mindspore/mindformers/version/202510/20251030/r1.7.0_20251030031507_8ccc49b3f6645d3d1abfab80b4c78f3cafe5c84e_newest/)  |
-   | vLLM     | [0.11.0](https://repo.mindspore.cn/mirrors/vllm/version/202511/20251113/v0.11.0/) |
-   | ms_custom_ops | [0.1.0](https://repo.mindspore.cn/mindspore/ms_custom_ops/version/202512/20251210/r0.1.0_20251210100500_15d84de93ca616c1a9880275c15213a34f2c0a39_newest/) |
-   | MindSpore ONE  | [0.5.0](https://repo.mindspore.cn/mindspore-lab/mindone/version/202512/20251223/master_20251223115818_36c25653b3ebaff55eb40ca10bc742d603b21f0a_newest/) |
+   | MindSpore Transformers | [1.7.0](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.7.1/MindFormers/any/mindformers-1.7.0-py3-none-any.whl)  |
+   | vLLM     | [0.11.0](https://repo.mindspore.cn/mirrors/vllm/version/202511/20251113/v0.11.0/any/vllm-0.11.0%2Bempty-py3-none-any.whl) |
+   | ms_custom_ops | [0.1.0](https://repo.mindspore.cn/mindspore/ms_custom_ops/version/202512/20251229/r0.1.0_20251229145109_5bd05d81cf153ce96c2244fbf5d0c03b9fba1ffe_newest/) |
+   | MindSpore ONE  | [0.5.0](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.7.1.post1/MindOne/any/mindone-0.5.0-py3-none-any.whl) |
+
+- vLLM-MindSpore插件代码仓与下载链接
+
+   |代码仓链接 | 插件包下载链接 |
+   | -----    | -----   |
+   | [v0.5.1](https://atomgit.com/mindspore/vllm-mindspore/tree/v0.5.1) | [Python3.9](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.7.1.post1/VllmMindSpore/ascend/aarch64/vllm_mindspore-0.5.1-cp39-cp39-linux_aarch64.whl)，[Python3.10](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.7.1.post1/VllmMindSpore/ascend/aarch64/vllm_mindspore-0.5.1-cp310-cp310-linux_aarch64.whl)，[Python3.11](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.7.1.post1/VllmMindSpore/ascend/aarch64/vllm_mindspore-0.5.1-cp311-cp311-linux_aarch64.whl) |
 
 ## docker安装
 
@@ -32,7 +38,7 @@
 用户可执行以下命令，拉取vLLM-MindSpore插件代码仓库：
 
 ```bash
-git clone -b r0.5.0 https://atomgit.com/mindspore/vllm-mindspore.git
+git clone -b v0.5.1 https://atomgit.com/mindspore/vllm-mindspore.git
 ```
 
 根据计算卡类型，构建镜像：
@@ -136,7 +142,7 @@ vLLM-MindSpore插件有以下两种安装方式。**vLLM-MindSpore插件快速�
     采用快速安装脚本来安装vLLM-MindSpore插件，需要在拉取vLLM-MindSpore插件源码后，执行以下命令安装依赖包：
 
     ```bash
-    git clone -b r0.5.0 https://atomgit.com/mindspore/vllm-mindspore.git
+    git clone -b v0.5.1 https://atomgit.com/mindspore/vllm-mindspore.git
     cd vllm-mindspore
     bash install_depend_pkgs.sh
     ```
@@ -206,7 +212,7 @@ vLLM-MindSpore插件有以下两种安装方式。**vLLM-MindSpore插件快速�
         也可以进行如下的源码编译安装：
 
         ```bash
-        git clone -b r0.5.0 https://atomgit.com/mindspore/vllm-mindspore.git
+        git clone -b v0.5.1 https://atomgit.com/mindspore/vllm-mindspore.git
         cd vllm-mindspore
         pip install .
         ```
