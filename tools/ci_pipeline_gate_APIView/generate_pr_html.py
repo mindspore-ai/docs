@@ -478,6 +478,8 @@ def en_file_handle(py_file_list, repo_path, dict1):
         ['mindspore/python/mindspore/dataset/audio', 'mindspore.dataset.audio'],
         ['mindspore/python/mindspore/dataset/core/config.py', 'mindspore.dataset.config'],
         ['mindspore/python/mindspore/dataset/dataloader', 'mindspore.dataset.dataloader'],
+        ['mindspore/python/mindspore/dataset/transforms', 'mindspore.dataset.transforms'],
+        ['mindspore/python/mindspore/dataset/utils', 'mindspore.dataset.utils'],
         ['mindspore/python/mindspore/dataset', 'mindspore.dataset'],
         ['mindspore/python/mindspore/communication/comm_func.py', 'mindspore.communication.comm_func'],
         ['mindspore/python/mindspore/communication', 'mindspore.communication'],
