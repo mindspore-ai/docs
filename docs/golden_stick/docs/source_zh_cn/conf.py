@@ -341,8 +341,10 @@ for gs_p, f_p in spec_copy:
         content = f.read()
         if f_p.endswith('.md'):
             content = re.sub('.*?/README.md.*\n.*\n', '', content)
+            content = re.sub(r'\n\[!\[查看源文件\]\(.*?\.svg\)\]\(.*?\)\n', "", content, flags=re.DOTALL)
         elif f_p.endswith('.ipynb'):
             content = re.sub('\n.*\[View English\].*\n.*\n', '\n', content, 1)
+            content = re.sub('\n.*\[!\[查看源文件\].*\n', '\n', content)
         f.seek(0)
         f.truncate()
         f.write(content)
@@ -381,31 +383,6 @@ re_view = f"\n.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.
 # master使用
 # copy_list白名单转绝对路径（去重）
 copy_list_abs = list({Path(p).resolve() for p in copy_list})
-# 只遍历白名单文件，添加“查看源文件”链接
-inserted = []
-for rst_file in copy_list_abs:
-    if not rst_file.exists() or not rst_file.suffix == '.rst':
-        continue
-    try:
-        with open(rst_file, 'r+', encoding='utf-8') as f:
-            content = f.read()
-            new_content = content
-
-            # 跳过自动生成文件
-            if '.. include::' in content and '.. automodule::' in content:
-                continue
-
-            # 插链接条件：有标题下划线且无 autosummary
-            if 'autosummary::' not in content and "\n=====" in content:
-                rel_path = rst_file.relative_to(Path(moment_dir)).as_posix()
-                re_view_ = re_view + copy_path + '/' + rel_path + '\n    :alt: 查看源文件\n\n'
-                new_content = re.sub(r'([=]{5,})\n', r'\1\n' + re_view_, content, 1)
-            if new_content != content:
-                    f.seek(0)
-                    f.truncate()
-                    f.write(new_content)
-    except Exception:
-        print(f'打开{i}文件失败')
 
 if not os.path.exists(os.path.join(moment_dir, 'install.md')):
     shutil.copy(os.path.join(os.getenv("GS_PATH"), 'docs/zh_cn/install.md'),
@@ -413,6 +390,7 @@ if not os.path.exists(os.path.join(moment_dir, 'install.md')):
     with open(os.path.join(moment_dir, 'install.md'), 'r+', encoding='utf-8') as f:
         content = f.read()
         content = re.sub('\n\[View English\].*\n', '', content, 1)
+        content = re.sub(r'\n\[!\[查看源文件\]\(.*?\.svg\)\]\(.*?\)\n', "", content, flags=re.DOTALL)
         f.seek(0)
         f.truncate()
         f.write(content)
@@ -433,6 +411,7 @@ if not os.path.exists(os.path.join(moment_dir, 'CONTRIBUTING.md')):
     with open(os.path.join(moment_dir, 'CONTRIBUTING.md'), 'r+', encoding='utf-8') as f:
         content = f.read()
         content = re.sub('\n\[View English\].*\n', '', content, 1)
+        content = content.replace("r1.4.1", "v1.4.1")
         f.seek(0)
         f.truncate()
         f.write(content)
@@ -457,9 +436,11 @@ with open(des_release, "w", encoding="utf-8") as p:
     p.write(content[0])
 
 # 发版本时这里启用
-re_url1 = r"(((atomgit.com/mindspore/golden-stick)|(mindspore.cn/golden_stick))/[\w\d/_.-]*?)/(master)"
+re_url1 = r"((gitee.com/mindspore/golden-stick)/[\w\d/_.-]*?)/(master)"
 
-re_url2 = r"(mindspore.cn/vllm_mindspore/[\w\d/_.-]*?)/(master)"
+re_url2 = r"((mindspore.cn/golden_stick)/[\w\d/_.-]*?)/(master)"
+
+re_url3 = r"(mindspore.cn/vllm_mindspore/[\w\d/_.-]*?)/(master)"
 
 # 发版本时这里启用
 for cur, _, files in os.walk(moment_dir):
@@ -468,8 +449,9 @@ for cur, _, files in os.walk(moment_dir):
             try:
                 with open(os.path.join(cur, i), 'r+', encoding='utf-8') as f:
                     content = f.read()
-                    new_content = re.sub(re_url1, r'\1/r1.4.1', content)
-                    new_content = re.sub(re_url2, r'\1/r0.5.0', new_content)
+                    new_content = re.sub(re_url1, r'\1/v1.4.1', content)
+                    new_content = re.sub(re_url2, r'\1/r1.4.1', content)
+                    new_content = re.sub(re_url3, r'\1/r0.5.1', new_content)
                     if new_content != content:
                         f.seek(0)
                         f.truncate()
