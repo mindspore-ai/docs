@@ -63,21 +63,18 @@ docker run -itd --name=${DOCKER_NAME} --ipc=host --network=host --privileged=tru
         --device=/dev/davinci_manager \
         --device=/dev/devmm_svm \
         --device=/dev/hisi_hdc \
-        -v /usr/local/sbin/:/usr/local/sbin/ \
-        -v /var/log/npu/slog/:/var/log/npu/slog \
-        -v /var/log/npu/profiling/:/var/log/npu/profiling \
-        -v /var/log/npu/dump/:/var/log/npu/dump \
-        -v /var/log/npu/:/usr/slog \
-        -v /etc/hccn.conf:/etc/hccn.conf \
         -v /usr/local/bin/npu-smi:/usr/local/bin/npu-smi \
-        -v /usr/local/dcmi:/usr/local/dcmi \
         -v /usr/local/Ascend/driver:/usr/local/Ascend/driver \
         -v /etc/ascend_install.info:/etc/ascend_install.info \
-        -v /etc/vnpu.cfg:/etc/vnpu.cfg \
+        -v /var/log/npu/:/usr/slog \
+        -v /usr/bin/hccn_tool:/usr/bin/hccn_tool \
+        -v /etc/hccn.conf:/etc/hccn.conf \
         --shm-size="250g" \
         ${IMAGE_NAME} \
         bash
 ```
+
+关于docker运行参数，可以参考文档：[MindSpore安装指南](https://www.mindspore.cn/install/)的“运行MindSpore镜像”部分。
 
 新建容器成功后，将返回容器ID。用户可执行以下命令，确认容器是否创建成功：
 
@@ -164,7 +161,7 @@ vLLM-MindSpore插件可使用OpenAI的API协议，部署在线推理。以下以
 ```bash
 export TENSOR_PARALLEL_SIZE=4
 export MAX_MODEL_LEN=1024
-vllm-mindspore serve Qwen/Qwen2.5-32B-Instruct --trust_remote_code --tensor-parallel-size $TENSOR_PARALLEL_SIZE --max-model-len $MAX_MODEL_LEN
+nohup vllm-mindspore serve /path/to/save/Qwen2.5-32B-Instruct  --trust_remote_code --tensor-parallel-size $TENSOR_PARALLEL_SIZE --max-model-len $MAX_MODEL_LEN &
 ```
 
 其中，`TENSOR_PARALLEL_SIZE`为用户指定的卡数，`MAX_MODEL_LEN`为模型最大输出token数。

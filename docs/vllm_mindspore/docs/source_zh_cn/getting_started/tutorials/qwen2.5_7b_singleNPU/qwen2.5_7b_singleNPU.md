@@ -63,23 +63,18 @@ docker run -itd --name=${DOCKER_NAME} --ipc=host --network=host --privileged=tru
         --device=/dev/davinci_manager \
         --device=/dev/devmm_svm \
         --device=/dev/hisi_hdc \
-        -v /usr/local/sbin/:/usr/local/sbin/ \
-        -v /var/log/npu/slog/:/var/log/npu/slog \
-        -v /var/log/npu/profiling/:/var/log/npu/profiling \
-        -v /var/log/npu/dump/:/var/log/npu/dump \
-        -v /var/log/npu/:/usr/slog \
-        -v /etc/hccn.conf:/etc/hccn.conf \
         -v /usr/local/bin/npu-smi:/usr/local/bin/npu-smi \
-        -v /usr/local/dcmi:/usr/local/dcmi \
         -v /usr/local/Ascend/driver:/usr/local/Ascend/driver \
         -v /etc/ascend_install.info:/etc/ascend_install.info \
-        -v /etc/vnpu.cfg:/etc/vnpu.cfg \
+        -v /var/log/npu/:/usr/slog \
+        -v /usr/bin/hccn_tool:/usr/bin/hccn_tool \
+        -v /etc/hccn.conf:/etc/hccn.conf \
         --shm-size="250g" \
         ${IMAGE_NAME} \
         bash
 ```
 
-新建容器成功后，将返回容器ID。用户可执行以下命令，确认容器是否创建成功：
+关于docker运行参数，可以参考文档：[MindSpore安装指南](https://www.mindspore.cn/install/)的“运行MindSpore镜像”部分。
 
 ```bash
 docker ps
@@ -170,9 +165,9 @@ prompts = [
 
 # Create a sampling params object.
 sampling_params = SamplingParams(temperature=0.0, top_p=0.95)
-
+model_path = "/path/to/save/Qwen2.5-7B-Instruct"
 # Create a LLM
-llm = LLM(model="Qwen/Qwen2.5-7B-Instruct")
+llm = LLM(model=model_path)
 # Generate texts from the prompts. The output is a list of RequestOutput objects
 # that contain the prompt, generated text, and other information.
 outputs = llm.generate(prompts, sampling_params)
@@ -200,7 +195,7 @@ vLLM-MindSpore插件可使用OpenAI的API协议，部署在线推理。以下以
 使用如下命令启动vLLM服务：
 
 ```bash
-vllm-mindspore serve Qwen/Qwen2.5-7B-Instruct
+nohup vllm-mindspore serve /path/to/save/Qwen2.5-7B-Instruct &
 ```
 
 用户可以通过指定模型保存的本地路径作为模型标签。若服务成功启动，则可以获得类似的执行结果：
@@ -225,7 +220,7 @@ Engine 000: Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 0.0 
 curl http://localhost:8000/v1/completions -H "Content-Type: application/json" -d '{"model": "Qwen/Qwen2.5-7B-Instruct", "prompt": "I am", "max_tokens": 20, "temperature": 0}'
 ```
 
-其中，用户需确认`"model"`字段与启动服务中的`--model`一致，请求才能成功匹配到模型。若请求处理成功，将获得以下推理结果：
+其中，用户需确认`"model"`字段与启动服务中的模型标签一致，请求才能成功匹配到模型。若请求处理成功，将获得以下推理结果：
 
 ```text
 {

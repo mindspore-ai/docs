@@ -39,8 +39,8 @@ Prerequisites
 - Operating System: openEuler or Ubuntu Linux
 - Software:
 
-  * Python >= 3.9, < 3.12
-  * CANN >= 8.0.0.beta1
+  * Python >= 3.9, <= 3.11
+  * CANN == 8.3.RC2
   * MindSpore (matched with the vllm-mindspore version)
   * vLLM (matched with the vllm-mindspore version)
 
@@ -84,10 +84,13 @@ The following are the version branches:
       -  Compatible with vLLM v0.7.3, and CI commitment for MindSpore 2.6.0. Allow document modification only.
    *  -  r0.3.0
       -  Unmaintained
-      -  Compatible with vLLM v0.8.3, and CI commitment for MindSpore 2.7.0
+      -  Compatible with vLLM v0.8.3, and CI commitment for MindSpore 2.7.0. Allow document modification only.
    *  -  r0.4.0
       -  Maintained
       -  Compatible with vLLM v0.9.1, and CI commitment for MindSpore 2.7.1
+   *  -  v0.5.1
+      -  Maintained
+      -  Compatible with vLLM v0.11.0, and CI commitment for MindSpore 2.7.1.post1
 
 SIG
 -----------------------------------------------------
@@ -110,6 +113,7 @@ Apache License 2.0, as found in the `LICENSE <https://atomgit.com/mindspore/vllm
    getting_started/tutorials/qwen2.5_7b_singleNPU/qwen2.5_7b_singleNPU
    getting_started/tutorials/qwen2.5_32b_multiNPU/qwen2.5_32b_multiNPU
    getting_started/tutorials/deepseek_parallel/deepseek_r1_671b_w8a8_dp4_tp4_ep4
+   getting_started/tutorials/qwen3_vl_8b_singleNPU/qwen3_vl_8b_singleNPU
 
 .. toctree::
    :glob:

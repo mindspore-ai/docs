@@ -16,12 +16,12 @@
    | 软件 | 配套版本与下载链接 |
    | -----    | -----   |
    | CANN  |   [8.3.RC1](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/83RC1/index/index.html)      |
-   | MindSpore |  [2.7.1](https://repo.mindspore.cn/mindspore/mindspore/version/202510/20251023/r2.7.1_20251023150800_71340184dc86527cb1ac22c992b9a9b240bcd366_newest/)    |
+   | MindSpore |  [2.7.1.post1](https://repo.mindspore.cn/mindspore/mindspore/version/202512/20251229/r2.7.1_20251229100307_d3099307fd78df39099f0e7801a6d2aa3121bf2c_newest/)    |
    | MSAdapter| [0.0.5](https://repo.mindspore.cn/mindspore/msadapter/version/202510/20251011/r0.3.0_20251011095813_951a8218d4c29785e48f304e720212b57056573e_newest/) |
-   | MindSpore Transformers | [1.7.0](https://repo.mindspore.cn/mindspore/mindformers/version/202510/20251030/r1.7.0_20251030031507_8ccc49b3f6645d3d1abfab80b4c78f3cafe5c84e_newest/)  |
-   | vLLM     | [0.11.0](https://repo.mindspore.cn/mirrors/vllm/version/202511/20251113/v0.11.0/) |
-   | ms_custom_ops | [0.1.0](https://repo.mindspore.cn/mindspore/ms_custom_ops/version/202512/20251203/master_20251203031508_007121f1940bf26aa8c40d479eb6a56548897bf3_newest/) |
-   | MindSpore ONE  | [0.5.0](https://repo.mindspore.cn/mindspore-lab/mindone/version/202512/20251205/master_20251205093444_4be9653bfac58cedc70a5696b9b91f7d40e25ebb_newest/) |
+   | MindSpore Transformers | [1.7.0](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.7.1/MindFormers/any/mindformers-1.7.0-py3-none-any.whl)  |
+   | vLLM     | [0.11.0](https://repo.mindspore.cn/mirrors/vllm/version/202511/20251113/v0.11.0/any/vllm-0.11.0%2Bempty-py3-none-any.whl) |
+   | ms_custom_ops | [0.1.0](https://repo.mindspore.cn/mindspore/ms_custom_ops/version/202512/20251229/r0.1.0_20251229145109_5bd05d81cf153ce96c2244fbf5d0c03b9fba1ffe_newest/) |
+   | MindSpore ONE  | [0.5.0](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.7.1.post1/MindOne/any/mindone-0.5.0-py3-none-any.whl) |
 
 ## docker安装
 
@@ -82,21 +82,18 @@ docker run -itd --name=${DOCKER_NAME} --ipc=host --network=host --privileged=tru
         --device=/dev/davinci_manager \
         --device=/dev/devmm_svm \
         --device=/dev/hisi_hdc \
-        -v /usr/local/sbin/:/usr/local/sbin/ \
-        -v /var/log/npu/slog/:/var/log/npu/slog \
-        -v /var/log/npu/profiling/:/var/log/npu/profiling \
-        -v /var/log/npu/dump/:/var/log/npu/dump \
-        -v /var/log/npu/:/usr/slog \
-        -v /etc/hccn.conf:/etc/hccn.conf \
         -v /usr/local/bin/npu-smi:/usr/local/bin/npu-smi \
-        -v /usr/local/dcmi:/usr/local/dcmi \
         -v /usr/local/Ascend/driver:/usr/local/Ascend/driver \
         -v /etc/ascend_install.info:/etc/ascend_install.info \
-        -v /etc/vnpu.cfg:/etc/vnpu.cfg \
+        -v /var/log/npu/:/usr/slog \
+        -v /usr/bin/hccn_tool:/usr/bin/hccn_tool \
+        -v /etc/hccn.conf:/etc/hccn.conf \
         --shm-size="250g" \
         ${IMAGE_NAME} \
         bash
 ```
+
+关于docker运行参数，可以参考文档：[MindSpore安装指南](https://www.mindspore.cn/install/)的“运行MindSpore镜像”部分。
 
 新建容器成功后，将返回容器ID。用户可执行以下命令，确认容器是否创建成功：
 

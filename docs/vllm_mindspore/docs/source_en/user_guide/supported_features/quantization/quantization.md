@@ -14,9 +14,14 @@ We use the [DeepSeek-R1](https://huggingface.co/deepseek-ai/DeepSeek-R1) network
 
 We employ [MindSpore Golden Stick's PTQ algorithm](https://atomgit.com/mindspore/golden-stick/blob/master/mindspore_gs/ptq/ptq/README.md) for quantization of DeepSeek-R1. For detailed methods, refer to [DeepSeekR1-OutlierSuppressionLite Quantization Example](https://atomgit.com/mindspore/golden-stick/blob/master/example/deepseekv3/a8w8-osl/readme.md).
 
+**Note:**
+
+- Currently, quantization calibration is only supported on the Atlas 800I A2.  
+- Do **not** install the `accelerate` library in the environment; otherwise, errors will occur during quantization.
+
 ### Downloading Quantized Weights
 
-We have uploaded the quantized DeepSeek-R1 to [ModelArts Community](https://modelers.cn): [MindSpore-Lab/DeepSeek-R1-0528-A8W8](https://modelers.cn/models/MindSpore-Lab/DeepSeek-R1-0528-A8W8). Refer to the [ModelArts Community documentation](https://modelers.cn/docs/en/openmind-hub-client/0.9/basic_tutorial/download.html) to download the weights locally.
+We have uploaded the quantized DeepSeek-R1 to [ModelArts Community](https://modelers.cn): [MindSpore-Lab/DeepSeek-R1-0528-A8W8](https://modelers.cn/models/MindSpore-Lab/DeepSeek-R1-0528-gs-A8W8). Refer to the [ModelArts Community documentation](https://modelers.cn/docs/en/openmind-hub-client/0.9/basic_tutorial/download.html) to download the weights locally.
 
 ## Quantized Model Inference
 
