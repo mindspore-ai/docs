@@ -213,6 +213,7 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
         repo_url = f"https://atomgit.com/mindspore/{repo_name}.git"
         repo_path = f"{REPODIR}/{repo_name}"
         branch_ = data[i]["branch"]
+        version_ = data[i]["html_version"]
         if not branch_:
             continue
 
@@ -258,7 +259,7 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
         # 组件仓内有.sh需提前运行
         if 'golden-stick' in repo_path:
             os.chdir(repo_path)
-            cmd_reppath = ["sh", "./docs/adapte_to_docs.sh", f"{branch_}"]
+            cmd_reppath = ["sh", "./docs/adapte_to_docs.sh", f"{version_}"]
             subprocess.run(cmd_reppath)
 
         # 生成version.json后续放入_static/js/下

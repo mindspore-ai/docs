@@ -230,9 +230,11 @@ except:
     print('golden_stick替换安装包内容失败')
 
 # 发版本时这里启用
-re_url1 = r"(((atomgit.com/mindspore/golden-stick)|(mindspore.cn/golden_stick))/[\w\d/_.-]*?)/(master)"
+re_url1 = r"((gitee.com/mindspore/golden-stick)/[\w\d/_.-]*?)/(master)"
 
-re_url2 = r"(mindspore.cn/vllm_mindspore/[\w\d/_.-]*?)/(master)"
+re_url2 = r"((mindspore.cn/golden_stick)/[\w\d/_.-]*?)/(master)"
+
+re_url3 = r"(mindspore.cn/vllm_mindspore/[\w\d/_.-]*?)/(master)"
 
 # 发版本时这里启用
 for cur, _, files in os.walk(os.path.join(base_path, 'mindspore_gs')):
@@ -240,8 +242,9 @@ for cur, _, files in os.walk(os.path.join(base_path, 'mindspore_gs')):
         if i.endswith('.py'):
             with open(os.path.join(cur, i), 'r+', encoding='utf-8') as f:
                 content = f.read()
-                new_content = re.sub(re_url1, r'\1/r1.4.1', content)
-                new_content = re.sub(re_url2, r'\1/r0.5.0', new_content)
+                new_content = re.sub(re_url1, r'\1/v1.4.1', content)
+                new_content = re.sub(re_url2, r'\1/r1.4.1', content)
+                new_content = re.sub(re_url3, r'\1/r0.5.1', new_content)
                 if new_content != content:
                     f.seek(0)
                     f.truncate()
@@ -311,8 +314,10 @@ for gs_p, f_p in spec_copy:
         content = f.read()
         if f_p.endswith('.md'):
             content = re.sub('\n\[查看中文\].*\n', '', content)
+            content = re.sub(r'\n\[!\[View Source On Gitee\]\(.*?\.svg\)\]\(.*?\)\n', "", content, flags=re.DOTALL)
         elif f_p.endswith('.ipynb'):
             content = re.sub('\n.*\[查看中文\].*\n.*\n', '\n', content, 1)
+            content = re.sub('\n.*\[!\[查看源文件\].*\n', '\n', content)
         f.seek(0)
         f.truncate()
         f.write(content)
@@ -331,6 +336,7 @@ if not os.path.exists(os.path.join(moment_dir, 'install.md')):
     with open(os.path.join(moment_dir, 'install.md'), 'r+', encoding='utf-8') as f:
         content = f.read()
         content = re.sub('\n\[查看中文\].*\n', '', content, 1)
+        content = re.sub(r'\n\[!\[View Source On Gitee\]\(.*?\.svg\)\]\(.*?\)\n', "", content, flags=re.DOTALL)
         f.seek(0)
         f.truncate()
         f.write(content)
@@ -351,6 +357,7 @@ if not os.path.exists(os.path.join(moment_dir, 'CONTRIBUTING.md')):
     with open(os.path.join(moment_dir, 'CONTRIBUTING.md'), 'r+', encoding='utf-8') as f:
         content = f.read()
         content = re.sub('\n\[查看中文\].*\n', '', content, 1)
+        content = content.replace("r1.4.1", "v1.4.1")
         f.seek(0)
         f.truncate()
         f.write(content)
@@ -411,8 +418,9 @@ for cur, _, files in os.walk(moment_dir):
             try:
                 with open(os.path.join(cur, i), 'r+', encoding='utf-8') as f:
                     content = f.read()
-                    new_content = re.sub(re_url1, r'\1/r1.4.1', content)
-                    new_content = re.sub(re_url2, r'\1/r0.5.0', new_content)
+                    new_content = re.sub(re_url1, r'\1/v1.4.1', content)
+                    new_content = re.sub(re_url2, r'\1/r1.4.1', content)
+                    new_content = re.sub(re_url3, r'\1/r0.5.1', new_content)
                     if new_content != content:
                         f.seek(0)
                         f.truncate()
