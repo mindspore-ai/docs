@@ -47,37 +47,34 @@ docker images
 
 After [building the image](#building-the-image), set `DOCKER_NAME` and `IMAGE_NAME` as the container and image names, then create the container:  
 
-```bash  
-export DOCKER_NAME=vllm-mindspore-container  # your container name  
-export IMAGE_NAME=hub.oepkgs.net/oedeploy/openeuler/aarch64/mindspore:latest  # your image name  
+```bash
+export DOCKER_NAME=vllm-mindspore-container  # your container name
+export IMAGE_NAME=vllm_ms_20250726:latest  # your image name
 
-docker run -itd --name=${DOCKER_NAME} --ipc=host --network=host --privileged=true \  
-        --device=/dev/davinci0 \  
-        --device=/dev/davinci1 \  
-        --device=/dev/davinci2 \  
-        --device=/dev/davinci3 \  
-        --device=/dev/davinci4 \  
-        --device=/dev/davinci5 \  
-        --device=/dev/davinci6 \  
-        --device=/dev/davinci7 \  
-        --device=/dev/davinci_manager \  
-        --device=/dev/devmm_svm \  
-        --device=/dev/hisi_hdc \  
-        -v /usr/local/sbin/:/usr/local/sbin/ \  
-        -v /var/log/npu/slog/:/var/log/npu/slog \  
-        -v /var/log/npu/profiling/:/var/log/npu/profiling \  
-        -v /var/log/npu/dump/:/var/log/npu/dump \  
-        -v /var/log/npu/:/usr/slog \  
-        -v /etc/hccn.conf:/etc/hccn.conf \  
-        -v /usr/local/bin/npu-smi:/usr/local/bin/npu-smi \  
-        -v /usr/local/dcmi:/usr/local/dcmi \  
-        -v /usr/local/Ascend/driver:/usr/local/Ascend/driver \  
-        -v /etc/ascend_install.info:/etc/ascend_install.info \  
-        -v /etc/vnpu.cfg:/etc/vnpu.cfg \  
-        --shm-size="250g" \  
-        ${IMAGE_NAME} \  
-        bash  
-```  
+docker run -itd --name=${DOCKER_NAME} --ipc=host --network=host --privileged=true \
+        --device=/dev/davinci0 \
+        --device=/dev/davinci1 \
+        --device=/dev/davinci2 \
+        --device=/dev/davinci3 \
+        --device=/dev/davinci4 \
+        --device=/dev/davinci5 \
+        --device=/dev/davinci6 \
+        --device=/dev/davinci7 \
+        --device=/dev/davinci_manager \
+        --device=/dev/devmm_svm \
+        --device=/dev/hisi_hdc \
+        -v /usr/local/bin/npu-smi:/usr/local/bin/npu-smi \
+        -v /usr/local/Ascend/driver:/usr/local/Ascend/driver \
+        -v /etc/ascend_install.info:/etc/ascend_install.info \
+        -v /var/log/npu/:/usr/slog \
+        -v /usr/bin/hccn_tool:/usr/bin/hccn_tool \
+        -v /etc/hccn.conf:/etc/hccn.conf \
+        --shm-size="250g" \
+        ${IMAGE_NAME} \
+        bash
+```
+
+For docker run parameters, please refer to the "Running MindSpore Image" section in the [MindSpore Installation Guide](https://www.mindspore.cn/install/en/).
 
 After successful creation, the container ID will be returned. Verify the container by running:  
 
@@ -170,9 +167,9 @@ prompts = [
 
 # Create a sampling params object.  
 sampling_params = SamplingParams(temperature=0.0, top_p=0.95)  
-
-# Create a LLM  
-llm = LLM(model="Qwen/Qwen2.5-7B-Instruct")  
+model_path = "/path/to/save/Qwen2.5-7B-Instruct"
+# Create a LLM
+llm = LLM(model=model_path)
 # Generate texts from the prompts.  
 outputs = llm.generate(prompts, sampling_params)  
 # Print the outputs.  
@@ -192,14 +189,14 @@ Prompt: 'Llama is'. Generated text: ' a 100% natural, biodegradable, and compost
 
 ## Online Inference
 
-vLLM-MindSpore Plugin supports online inference deployment with the OpenAI API protocol. The following section would introduce how to [starting the service](#starting-the-service) and [send requests](#sending-requests) to obtain inference results, using [Qwen2.5-7B](https://huggingface.co/Qwen/Qwen2.5-7B-Instruct) as an example.  
+vLLM-MindSpore Plugin supports online inference deployment with the OpenAI API protocol. The following section would introduce how to [starting the service](#starting-the-service) and [send requests](#sending-requests) to obtain inference results, using [Qwen2.5-7B](https://huggingface.co/Qwen/Qwen2.5-7B-Instruct) as an example.
 
 ### Starting the Service
 
-Use the model `Qwen/Qwen2.5-7B-Instruct` and start the vLLM service with the following command:
+Use the model `/path/to/save/Qwen2.5-7B-Instruct` and start the vLLM service with the following command:
 
 ```bash  
-vllm-mindspore serve Qwen/Qwen2.5-7B-Instruct
+nohup vllm-mindspore serve /path/to/save/Qwen2.5-7B-Instruct &
 ```  
 
 User can also set the local model path as model tag. If the service starts successfully, similar output will be obtained:
@@ -224,7 +221,7 @@ Use the following command to send a request, where `prompt` is the model input:
 curl http://localhost:8000/v1/completions -H "Content-Type: application/json" -d '{"model": "Qwen/Qwen2.5-7B-Instruct", "prompt": "I am", "max_tokens": 15, "temperature": 0}'  
 ```  
 
-User needs to ensure that the `"model"` field matches the model tag in the service startup, and the request can successfully match the model.
+Users must ensure that the `"model"` field matches the model tag used when starting the service for the request to successfully match the model.
 
 If the request is processed successfully, the following inference result will be returned:
 

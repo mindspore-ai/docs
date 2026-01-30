@@ -2,30 +2,27 @@
 
 [![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/vllm_mindspore/docs/source_en/release_notes/release_notes.md)
 
-## vLLM-MindSpore Plugin 0.4.0 Release Notes
+## vLLM-MindSpore Plugin 0.5.1 Release Notes
 
-The vLLM-MindSpore Plugin 0.4.0 version is compatible with vLLM 0.9.1. Below are the new features and models supported in this release.
+The vLLM-MindSpore Plugin 0.5.1 version is compatible with vLLM 0.11.0. Below are the new features and models supported in this release.
 
 ### New Features
 
-- Architecture Adaptation: Completed architectural upgrades and adapted to vLLM 0.9.1, fully inheriting all features of the older version. Added support for deploying DP parallel services by Ray. For specific configurations and operational instructions, please refer to the [Multi-Machine Parallel Inference](../getting_started/tutorials/deepseek_parallel/deepseek_r1_671b_w8a8_dp4_tp4_ep4.md).  
-- Quantization Support: The DeepSeek-R1 model now supports A8W4 quantization inference. For technical details and usage guidelines, see [DeepSeek-R1 A8W4 Quantization Inference Model Link](https://modelers.cn/models/MindSpore-Lab/R1-A8W4).  
-- Performance Optimization: Integrated FA3 quantization inference and MLA series operators, significantly improving the performance of the DeepSeek model series in long-sequence scenarios. Performance improvements exceed 10% in some scenarios.  
-- Usability Enhancements: Optimized the deployment process for backend model services in MindSpore Transformers, eliminating the dependency on YAML configuration files. Users can now complete deployments directly using community-open-sourced Hugging Face model configuration files.  
+- Architecture Adaptation: Completed architectural upgrades and adapted to vLLM 0.11.0, fully inheriting all features of the older version.  
+- Performance Optimization: Enhanced the V1 architecture scheduling to improve inference performance in high-concurrency, long-input scenarios.
+- Graph Capture Feature Support: AclGraph graph capture functionality is supported.
 
 ### New Models
 
-- DeepSeek Series Model:
-    - DeepSeek-R1 A8W4 Quantization Inference
-- TeleChat Model Series:
-    - TeleChat2 Model Inference
+- Qwen3-VL Model Series
 - GLM Model Series:
-    - GLM-4 Model Inference
-    - GLM-4.5 Model Inference
-- Qwen3 Model Series:
-    - Qwen3 Native Model
-- Qwen2.5 Model Series:
-    - Qwen2.5-VL Native Model
+    - GLM-4.1V Native Model
+
+### Problem Fixes
+
+- Encoder Memory Leak Issue
+    - [Fix for vLLM](https://github.com/vllm-project/vllm/pull/31857)
+    - [Fix for vLLM-MindSpore Plugin](https://atomgit.com/mindspore/vllm-mindspore/pull/1447)
 
 ### Contributors
 

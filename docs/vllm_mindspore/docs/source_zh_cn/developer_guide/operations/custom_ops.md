@@ -144,7 +144,7 @@ def advance_step_flashattn(num_seqs: int, num_queries: int, block_size: int,
 
 1. **代码集成**：将代码集成至vLLM-MindSpore插件项目。
 2. **编译项目**：在项目代码根目录下执行 `pip install .` ，编译安装vLLM-MindSpore插件。
-3. **测试算子接口**：通过 `_custom_ops` 调用算子接口。可以参考测试用例[test_custom_advstepflash.py](https://atomgit.com/mindspore/vllm-mindspore/blob/master/tests/st/python/test_custom_advstepflash.py)：
+3. **测试算子接口**：通过 `_custom_ops` 调用算子接口。可以参考测试用例[test_custom_advstepflash.py](https://atomgit.com/mindspore/vllm-mindspore/blob/master/tests/ut/ops/test_custom_advstepflash.py)：
 
 ```python
 from vllm_mindspore import _custom_ops as custom_ops

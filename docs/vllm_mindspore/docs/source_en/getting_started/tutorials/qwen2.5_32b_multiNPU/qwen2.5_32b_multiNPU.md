@@ -49,7 +49,7 @@ After [building the image](#building-the-image), set `DOCKER_NAME` and `IMAGE_NA
 
 ```bash
 export DOCKER_NAME=vllm-mindspore-container  # your container name
-export IMAGE_NAME=hub.oepkgs.net/oedeploy/openeuler/aarch64/mindspore:latest  # your image name
+export IMAGE_NAME=vllm_ms_20250726:latest  # your image name
 
 docker run -itd --name=${DOCKER_NAME} --ipc=host --network=host --privileged=true \
         --device=/dev/davinci0 \
@@ -63,21 +63,18 @@ docker run -itd --name=${DOCKER_NAME} --ipc=host --network=host --privileged=tru
         --device=/dev/davinci_manager \
         --device=/dev/devmm_svm \
         --device=/dev/hisi_hdc \
-        -v /usr/local/sbin/:/usr/local/sbin/ \
-        -v /var/log/npu/slog/:/var/log/npu/slog \
-        -v /var/log/npu/profiling/:/var/log/npu/profiling \
-        -v /var/log/npu/dump/:/var/log/npu/dump \
-        -v /var/log/npu/:/usr/slog \
-        -v /etc/hccn.conf:/etc/hccn.conf \
         -v /usr/local/bin/npu-smi:/usr/local/bin/npu-smi \
-        -v /usr/local/dcmi:/usr/local/dcmi \
         -v /usr/local/Ascend/driver:/usr/local/Ascend/driver \
         -v /etc/ascend_install.info:/etc/ascend_install.info \
-        -v /etc/vnpu.cfg:/etc/vnpu.cfg \
+        -v /var/log/npu/:/usr/slog \
+        -v /usr/bin/hccn_tool:/usr/bin/hccn_tool \
+        -v /etc/hccn.conf:/etc/hccn.conf \
         --shm-size="250g" \
         ${IMAGE_NAME} \
         bash
 ```
+
+For docker run parameters, please refer to the "Running MindSpore Image" section in the [MindSpore Installation Guide](https://www.mindspore.cn/install/en/).
 
 After successful creation, the container ID will be returned. Verify the container by running:
 
@@ -159,12 +156,12 @@ vLLM-MindSpore Plugin supports online inference deployment with the OpenAI API p
 
 ### Starting the Service
 
-Use the model `Qwen/Qwen2.5-32B-Instruct` and start the vLLM service with the following command:
+Use the model `/path/to/save/Qwen2.5-32B-Instruct` and start the vLLM service with the following command:
 
 ```bash
 export TENSOR_PARALLEL_SIZE=4
 export MAX_MODEL_LEN=1024
-vllm-mindspore serve Qwen/Qwen2.5-32B-Instruct --trust_remote_code --tensor-parallel-size $TENSOR_PARALLEL_SIZE --max-model-len $MAX_MODEL_LEN
+nohup vllm-mindspore serve /path/to/save/Qwen2.5-32B-Instruct --trust_remote_code --tensor-parallel-size $TENSOR_PARALLEL_SIZE --max-model-len $MAX_MODEL_LEN &
 ```
 
 Here, `TENSOR_PARALLEL_SIZE` specifies the number of NPU cards, and `MAX_MODEL_LEN` sets the maximum output token length. User can also set the local model path as model tag.
@@ -191,7 +188,7 @@ Use the following command to send a request, where `prompt` is the model input:
 curl http://localhost:8000/v1/completions -H "Content-Type: application/json" -d '{"model": "Qwen/Qwen2.5-32B-Instruct", "prompt": "I am", "max_tokens": 20, "temperature": 0}'
 ```
 
-User needs to ensure that the `"model"` field matches the `--model` in the service startup, and the request can successfully match the model.
+Users must ensure that the `"model"` field matches the model tag used when starting the service for the request to successfully match the model.
 
 If processed successfully, the inference result will be:
 

@@ -54,21 +54,18 @@ docker run -itd --name=${DOCKER_NAME} --ipc=host --network=host --privileged=tru
         --device=/dev/davinci_manager \
         --device=/dev/devmm_svm \
         --device=/dev/hisi_hdc \
-        -v /usr/local/sbin/:/usr/local/sbin/ \
-        -v /var/log/npu/slog/:/var/log/npu/slog \
-        -v /var/log/npu/profiling/:/var/log/npu/profiling \
-        -v /var/log/npu/dump/:/var/log/npu/dump \
-        -v /var/log/npu/:/usr/slog \
-        -v /etc/hccn.conf:/etc/hccn.conf \
         -v /usr/local/bin/npu-smi:/usr/local/bin/npu-smi \
-        -v /usr/local/dcmi:/usr/local/dcmi \
         -v /usr/local/Ascend/driver:/usr/local/Ascend/driver \
         -v /etc/ascend_install.info:/etc/ascend_install.info \
-        -v /etc/vnpu.cfg:/etc/vnpu.cfg \
+        -v /var/log/npu/:/usr/slog \
+        -v /usr/bin/hccn_tool:/usr/bin/hccn_tool \
+        -v /etc/hccn.conf:/etc/hccn.conf \
         --shm-size="250g" \
         ${IMAGE_NAME} \
         bash
 ```
+
+For docker run parameters, please refer to the "Running MindSpore Image" section in the [MindSpore Installation Guide](https://www.mindspore.cn/install/en/).
 
 After successfully creating the container, the container ID will be returned. Users can execute the following command to confirm if the container was created successfully:
 
@@ -124,7 +121,7 @@ If the tool is not available, you need to install [git-lfs](https://git-lfs.com)
 After confirming the tool is available, execute the following command to download the weights:
 
 ```bash
-git clone https://modelers.cn/models/MindSpore-Lab/DeepSeek-R1-0528-A8W8.git
+git clone https://modelers.cn/models/MindSpore-Lab/DeepSeek-R1-0528-gs-A8W8.git
 ```
 
 ## Starting the Model Service
@@ -192,11 +189,25 @@ vllm-mindspore serve
 - Users can specify the local path where the model is saved as the model tag.
 - Users can configure parallelism and other features using the `--additional-config` parameter.
 
-The following is the Ray startup command:
+Users can start the model service using Ray with the following command:
 
 ```bash
 # Master Node:
-vllm-mindspore serve MindSpore-Lab/DeepSeek-R1-0528-A8W8 --trust-remote-code --max-num-seqs=256 --max-model-len=32768 --max-num-batched-tokens=4096 --block-size=128 --gpu-memory-utilization=0.9 --tensor-parallel-size 4 --data-parallel-size 4 --data-parallel-size-local 2 --enable-expert-parallel --additional-config '{"expert_parallel": 4}' --data-parallel-backend ray --quantization ascend
+nohup vllm-mindspore serve /path/to/save/deepseek_r1_0528_a8w8fa3 --trust-remote-code --max-num-seqs=256 --max-model-len=32768 --max-num-batched-tokens=4096 --block-size=128 --gpu-memory-utilization=0.9 --tensor-parallel-size 4 --data-parallel-size 4 --data-parallel-size-local 2 --enable-expert-parallel --additional-config '{"expert_parallel": 4}' --data-parallel-backend ray --quantization ascend &
+```
+
+Users can specify a local path for saving the model as the model label. If the service starts successfully, similar output will be obtained:
+
+```text
+INFO:   Started server process [6363]
+INFO:   Waiting for application startup.
+INFO:   Application startup complete.
+```
+
+Additionally, performance metrics will be logged, such as:
+
+```text
+Engine 000: Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 0.0 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%, Prefix cache hit rate: 0.0%
 ```
 
 For the multiprocess startup command, please refer to the [Multiprocess Startup Method](../../../user_guide/supported_features/parallel/parallel.md#starting-the-service).

@@ -54,21 +54,18 @@ docker run -itd --name=${DOCKER_NAME} --ipc=host --network=host --privileged=tru
         --device=/dev/davinci_manager \
         --device=/dev/devmm_svm \
         --device=/dev/hisi_hdc \
-        -v /usr/local/sbin/:/usr/local/sbin/ \
-        -v /var/log/npu/slog/:/var/log/npu/slog \
-        -v /var/log/npu/profiling/:/var/log/npu/profiling \
-        -v /var/log/npu/dump/:/var/log/npu/dump \
-        -v /var/log/npu/:/usr/slog \
-        -v /etc/hccn.conf:/etc/hccn.conf \
         -v /usr/local/bin/npu-smi:/usr/local/bin/npu-smi \
-        -v /usr/local/dcmi:/usr/local/dcmi \
         -v /usr/local/Ascend/driver:/usr/local/Ascend/driver \
         -v /etc/ascend_install.info:/etc/ascend_install.info \
-        -v /etc/vnpu.cfg:/etc/vnpu.cfg \
+        -v /var/log/npu/:/usr/slog \
+        -v /usr/bin/hccn_tool:/usr/bin/hccn_tool \
+        -v /etc/hccn.conf:/etc/hccn.conf \
         --shm-size="250g" \
         ${IMAGE_NAME} \
         bash
 ```
+
+关于docker运行参数，可以参考文档：[MindSpore安装指南](https://www.mindspore.cn/install/)的“运行MindSpore镜像”部分。
 
 新建容器成功后，将返回容器ID。用户可执行以下命令，确认容器是否创建成功：
 
@@ -124,7 +121,7 @@ Git LFS initialized.
 工具确认可用后，执行以下命令，下载权重：
 
 ```bash
-git clone https://modelers.cn/models/MindSpore-Lab/DeepSeek-R1-0528-A8W8.git
+git clone https://modelers.cn/models/MindSpore-Lab/DeepSeek-R1-0528-gs-A8W8.git
 ```
 
 ## 启动模型服务
@@ -192,11 +189,25 @@ vllm-mindspore serve
 - 用户可以通过指定模型保存的本地路径为模型标签；
 - 用户可以通过`--additional-config`参数，配置并行与其他功能。
 
-以下为Ray启动命令：
+用户可以通过以下命令，使用Ray启动模型服务：
 
 ```bash
 # 主节点：
-vllm-mindspore serve MindSpore-Lab/DeepSeek-R1-0528-A8W8 --trust-remote-code --max-num-seqs=256 --max-model-len=32768 --max-num-batched-tokens=4096 --block-size=128 --gpu-memory-utilization=0.9 --tensor-parallel-size 4 --data-parallel-size 4 --data-parallel-size-local 2 --enable-expert-parallel --additional-config '{"expert_parallel": 4}' --data-parallel-backend ray --quantization ascend
+nohup vllm-mindspore serve /path/to/save/deepseek_r1_0528_a8w8fa3 --trust-remote-code --max-num-seqs=256 --max-model-len=32768 --max-num-batched-tokens=4096 --block-size=128 --gpu-memory-utilization=0.9 --tensor-parallel-size 4 --data-parallel-size 4 --data-parallel-size-local 2 --enable-expert-parallel --additional-config '{"expert_parallel": 4}' --data-parallel-backend ray --quantization ascend &
+```
+
+用户可以通过指定模型保存的本地路径作为模型标签。若服务成功启动，则可以获得类似的执行结果：
+
+```text
+INFO:   Started server process [6363]
+INFO:   Waiting for application startup.
+INFO:   Application startup complete.
+```
+
+另外，日志中还会打印出服务的性能数据信息，如：
+
+```text
+Engine 000: Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 0.0 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%, Prefix cache hit rate: 0.0%
 ```
 
 关于multiprocess启动命令，可以参考[multiprocess启动方式](../../../user_guide/supported_features/parallel/parallel.md#启动服务)。
