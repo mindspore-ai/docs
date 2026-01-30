@@ -9,7 +9,7 @@
         "theme": "theme-docs"
     },
     {
-        "version": "0.5.0",
+        "version": "0.5.1",
         "label": {
             "zh": "vLLM-MindSpore Plugin",
             "en": "vLLM-MindSpore Plugin"
