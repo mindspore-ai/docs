@@ -599,8 +599,7 @@ ge.dynamicNodeType=1
 
 在创建[AscendDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/generate/classmindspore_AscendDeviceInfo.html)时，通过[SetProvider](https://www.mindspore.cn/lite/api/zh-CN/master/generate/classmindspore_DeviceInfoContext.html#setprovider)指定provider=ge-v1，可支持免拷贝功能。
 
-> 1. ge-v1是对ge的逻辑重构，更便于功能的扩展。随着版本迭代，ge的功能将逐步迁移到ge-v1中。
-> 2. ge-v1当前版本仅支持纯静态模型(包括动态分档)。
+> ge-v1是对ge的逻辑重构，更便于功能的扩展。随着版本迭代，ge的功能将逐步迁移到ge-v1中。
 
 C++实现参考：
 
@@ -719,8 +718,7 @@ int QuickStart() {
 }
 ```
 
-> 1. 这个示例模型是固定shape的，不支持纯动态。
-> 2. 需确保输出张量的数据大小不小于实际输入数据的大小。
+> 需确保输出张量的数据大小不小于实际输入数据的大小。
 
 Python实现参考：
 
