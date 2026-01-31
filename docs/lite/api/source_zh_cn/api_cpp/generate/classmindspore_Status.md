@@ -2,13 +2,24 @@
 
 \#include &lt;[status.h](https://atomgit.com/mindspore/mindspore-lite/blob/master/include/api/status.h)&gt;
 
-## 构造函数和析构函数
+## 构造函数
 
 ```cpp
 Status()
+```
+
+```cpp
 inline Status(enum StatusCode status_code, const std::string &status_msg = "")
+```
+
+```cpp
 inline Status(const StatusCode code, int line_of_code, const char *file_name, const std::string &extra = "")
-~Status() = default;
+```
+
+## 析构函数
+
+```cpp
+~Status() = default
 ```
 
 ## 公有成员函数

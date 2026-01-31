@@ -4,10 +4,15 @@
 
 `Delegate`定义了第三方AI框架接入MindSpore Lite的代理接口。
 
-## 构造函数和析构函数
+## 构造函数
 
 ```cpp
 Delegate() = default
+```
+
+## 析构函数
+
+```cpp
 virtual ~Delegate() = default
 ```
 

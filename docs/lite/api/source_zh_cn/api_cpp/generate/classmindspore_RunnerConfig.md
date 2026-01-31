@@ -4,10 +4,15 @@
 
 RunnerConfig定义了ModelParallelRunner中使用的配置选项参数。
 
-## 构造函数和析构函数
+## 构造函数
 
 ```cpp
 RunnerConfig()
+```
+
+## 析构函数
+
+```cpp
 ~RunnerConfig()
 ```
 

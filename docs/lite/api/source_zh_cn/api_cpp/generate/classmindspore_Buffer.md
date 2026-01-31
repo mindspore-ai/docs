@@ -4,11 +4,19 @@
 
 Buffer定义了MindSpore中Buffer数据的结构。
 
-## 构造函数和析构函数
+## 构造函数
 
 ```cpp
   Buffer()
+```
+
+```cpp
   Buffer(const void *data, size_t data_len)
+```
+
+## 析构函数
+
+```cpp
   ~Buffer()
 ```
 

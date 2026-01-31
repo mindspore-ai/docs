@@ -12,6 +12,9 @@
     loss_scale_ = 128.0f;
     num_of_not_nan_iter_th_ = 1000;
   }
+```
+
+```cpp
   MixPrecisionCfg(const MixPrecisionCfg &rhs) {
     this->dynamic_loss_scale_ = rhs.dynamic_loss_scale_;
     this->loss_scale_ = rhs.loss_scale_;
@@ -30,7 +33,7 @@
 ~MixPrecisionCfg() = default
 ```
 
-## 共有成员变量
+## 公有成员变量
 
 ```cpp
 bool dynamic_loss_scale_ = false

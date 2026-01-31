@@ -4,10 +4,15 @@
 
 DeviceInfoContext类定义不同硬件设备的环境信息。
 
-## 构造函数和析构函数
+## 构造函数
 
 ```cpp
 DeviceInfoContext()
+```
+
+## 析构函数
+
+```cpp
 virtual ~DeviceInfoContext() = default
 ```
 

@@ -35,23 +35,21 @@ MindSpore docs仓提供了[文档写作要求](https://atomgit.com/mindspore/doc
 
     以训练教程为例，先在`source_zh_cn`目录下找到[index.rst](https://atomgit.com/mindspore/docs/blob/master/tutorials/source_zh_cn/index.rst)文件，该文件即对应训练教程网页的组织结构。
 
-    在对应的分类中添加新建的文件，也可新建分类后再添加。以《实现一个图片分类应用》文档为例，该文档存放在`quick_start`目录，命名为`quick_start.md`，需将`quick_start/quick_start`添加至“快速入门”分类下，如下所示。
+    在对应的分类中添加新建的文件，也可新建分类后再添加。以《快速入门》文档为例，该文档存放在`beginner`目录，命名为`quick_start.md`，需将`beginner/quick_start`添加至“快速上手”分类下，如下所示。
 
     ```rst
     .. toctree::
       :glob:
       :maxdepth: 1
-      :caption: 快速入门
+      :caption: 快速上手
       :hidden:
 
-      quick_start/quick_start
-      quick_start/linear_regression
-      quick_start/quick_video
+      beginner/quick_start
     ```
 
 完成上述操作后，并提交PR即可参与贡献。
 
-### 检查文档
+### 门禁检查
 
 提交PR后，需要确保有`mindspore-cla/yes`和`ci-pipeline-passed`标签，没有`stat/need-squash`标签，并经过Committer审核后方可合入。
 
@@ -69,6 +67,12 @@ MindSpore CI采用了Markdownlint、Pylint、Shellcheck、Cppcheck、Cpplint、T
 
 更为详细规则信息请参考[RULES](https://github.com/markdownlint/markdownlint/blob/master/docs/RULES.md#)。
 
+### AI辅助检查
+
+首次执行`/retest`门禁时，MindSpore CI会自动执行AI辅助检查，包括拼写错误检查、ReStructureText/Markdown/Notebook文档格式检查等。检查结果会自动回复在PR下，供参考。
+
+也可以在PR下添加评论`/ai-review`，重新触发AI辅助检查。
+
 ### 确认内容
 
 PR合入后次日，即可在MindSpore官网中查看到新增内容，新增文档将新建链接。
@@ -77,11 +81,11 @@ PR合入后次日，即可在MindSpore官网中查看到新增内容，新增文
 
 ![master_doc](./resource/_static/master_doc.png)
 
-以《初学入门》文档为例，该文档的链接为<https://www.mindspore.cn/tutorials/zh-CN/master/beginner/quick_start.html>。
+以《快速入门》文档为例，该文档的链接为<https://www.mindspore.cn/tutorials/zh-CN/master/beginner/quick_start.html>。
 
 ## API
 
-MindSpore docs仓提供了[API注释写作要求](https://atomgit.com/mindspore/docs/wiki/%E8%A7%84%E8%8C%83%2FAPI%E6%B3%A8%E9%87%8A%E5%86%99%E4%BD%9C%E8%A6%81%E6%B1%82.md)供写作时参考。
+MindSpore的docs仓提供了[API注释写作要求](https://atomgit.com/mindspore/docs/wiki/%E8%A7%84%E8%8C%83%2FAPI%E6%B3%A8%E9%87%8A%E5%86%99%E4%BD%9C%E8%A6%81%E6%B1%82.md)供写作时参考。
 
 ### 更新/新增API
 
@@ -103,25 +107,26 @@ MindSpore docs仓提供了[API注释写作要求](https://atomgit.com/mindspore/
 
 - 如果属于已有模块，在MindSpore代码仓按注释要求完成注释内容，并将该API添加至对应模块的\_\_all\_\_中，确保能通过导入“mindspore.模块名.API名”使用该API。
 
-    如果属于以下模块，还需更新MindSpore docs仓的接口列表，请按字母序添加API。
+    如属于以下模块，还需更新mindSpore仓docs目录下的接口列表，请按字母序添加API。
 
     - `mindspore.dataset`：[中文页面列表](https://atomgit.com/mindspore/mindspore/blob/master/docs/api/api_python/mindspore.dataset.rst) | [英文页面列表](https://atomgit.com/mindspore/mindspore/blob/master/docs/api/api_python_en/mindspore.dataset.rst)
     - `mindspore.dataset.transforms`：[中文页面列表](https://atomgit.com/mindspore/mindspore/blob/master/docs/api/api_python/mindspore.dataset.transforms.rst) | [英文页面列表](https://atomgit.com/mindspore/mindspore/blob/master/docs/api/api_python_en/mindspore.dataset.transforms.rst)
     - `mindspore.nn`：[中文页面列表](https://atomgit.com/mindspore/mindspore/blob/master/docs/api/api_python/mindspore.nn.rst) | [英文页面列表](https://atomgit.com/mindspore/mindspore/blob/master/docs/api/api_python_en/mindspore.nn.rst)
-    - `mindspore.nn.probability`：[中文页面列表](https://atomgit.com/mindspore/mindspore/blob/master/docs/api/api_python/mindspore.nn.probability.rst) | [英文页面列表](https://atomgit.com/mindspore/mindspore/blob/master/docs/api/api_python_en/mindspore.nn.probability.rst)
+    - `mindspore.mint`：[中文页面列表](https://atomgit.com/mindspore/mindspore/blob/master/docs/api/api_python/mindspore.mint.rst) | [英文页面列表](https://atomgit.com/mindspore/mindspore/blob/master/docs/api/api_python_en/mindspore.mint.rst)
     - `mindspore.ops`：[中文页面列表](https://atomgit.com/mindspore/mindspore/blob/master/docs/api/api_python/mindspore.ops.rst) | [英文页面列表](https://atomgit.com/mindspore/mindspore/blob/master/docs/api/api_python_en/mindspore.ops.rst)
-    - `mindspore.ops.primitive`：[中文页面列表](https://atomgit.com/mindspore/mindspore/blob/master/docs/api/api_python/mindspore.ops.primitive.rst) | [英文页面列表](https://atomgit.com/mindspore/mindspore/blob/master/docs/api/api_python_en/mindspore.ops.primitive.rst)
+    - `mindspore.runtime`：[中文页面列表](https://atomgit.com/mindspore/mindspore/blob/master/docs/api/api_python/mindspore.runtime.rst) | [英文页面列表](https://atomgit.com/mindspore/mindspore/blob/master/docs/api/api_python_en/mindspore.runtime.rst)
 
-- 如果不属于已有模块，需新增MindSpore docs仓的接口工程文件，并按字母序添加模块到[目录结构](https://atomgit.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/index.rst)中。如需新增`mindspore.mindrecord`模块接口，需在`docs/docs/api_python/source_zh_cn/mindspore`目录下新增[mindspore.mindrecord.rst](https://atomgit.com/mindspore/mindspore/blob/master/docs/api/api_python/mindspore.mindrecord.rst)文件，并将其添加到目录结构中。同时，在`docs/docs/api_python/source_en/mindspore`目录下做相应修改，即可生成英文页面内容。
+- 如果不属于已有模块，需新增mindSpore仓docs目录下的接口工程文件，并添加模块到[中文目录结构](https://atomgit.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/api_python/index.rst)和[英文目录结构](https://atomgit.com/mindspore/docs/blob/master/docs/mindspore/source_en/api_python/index.rst)中。如需新增`mindspore.mindrecord`模块接口，需在`mindspore/docs/api/api_python`目录下新增[mindspore.mindrecord.rst](https://atomgit.com/mindspore/mindspore/blob/master/docs/api/api_python/mindspore.mindrecord.rst)文件，并将其添加到目录结构中。同时，在`mindspore/docs/api_python_en`目录下新增[mindspore.mindrecord.rst](https://atomgit.com/mindspore/mindspore/blob/master/docs/api/api_python_en/mindspore.mindrecord.rst)文件，并将其添加到目录结构中，即可生成英文页面内容。
 
     ```rst
     .. toctree::
-    :maxdepth: 1
-    :caption: MindSpore Python API
+       :glob:
+       :maxdepth: 1
+       :hidden:
 
-    ...
-    mindspore/mindspore.mindrecord
-    ...
+       ...
+       mindspore.mindrecord
+       ...
     ```
 
 完成上述修改，并提交PR即可参与贡献。
