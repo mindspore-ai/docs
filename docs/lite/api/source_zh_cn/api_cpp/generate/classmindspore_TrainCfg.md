@@ -7,7 +7,10 @@
 ## 构造函数
 
 ```cpp
-TrainCfg() { this->loss_name_ = "_loss_fn"; }\
+TrainCfg() { this->loss_name_ = "_loss_fn"; }
+```
+
+```cpp
 TrainCfg(const TrainCfg &rhs) {
     this->loss_name_ = rhs.loss_name_;
     this->mix_precision_cfg_ = rhs.mix_precision_cfg_;

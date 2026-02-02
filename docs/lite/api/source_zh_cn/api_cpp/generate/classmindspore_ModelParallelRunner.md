@@ -4,10 +4,15 @@
 
 ModelParallelRunner定义了MindSpore的多个Model以及并发策略，便于多个Model的调度与管理。
 
-## 构造函数和析构函数
+## 构造函数
 
 ```cpp
 ModelParallelRunner()
+```
+
+## 析构函数
+
+```cpp
 ~ModelParallelRunner()
 ```
 

@@ -12,6 +12,9 @@ std::vector<mindspore::MSTensor> outputs_
 
 ```cpp
 IDelegate()
+```
+
+```cpp
 IDelegate(const std::vector<mindspore::MSTensor> &inputs, const std::vector<mindspore::MSTensor> &outputs)
       : AbstractDelegate(inputs, outputs)
 ```

@@ -2,19 +2,37 @@
 
 \#include &lt;[graph.h](https://atomgit.com/mindspore/mindspore-lite/blob/master/include/api/graph.h)&gt;
 
-## 构造函数和析构函数
+## 构造函数
 
 ```cpp
   Graph()
+```
+
+```cpp
   explicit Graph(const std::shared_ptr<GraphData> &graph_data)
-  explicit Graph(std::shared_ptr<GraphData> &&graph_data)
-  explicit Graph(std::nullptr_t)
-  ~Graph()
 ```
 
 - 参数
 
     - `graph_data`: 输出通道数。
+
+```cpp
+  explicit Graph(std::shared_ptr<GraphData> &&graph_data)
+```
+
+- 参数
+
+    - `graph_data`: 输出通道数。
+
+```cpp
+  explicit Graph(std::nullptr_t)
+```
+
+## 析构函数
+
+```cpp
+  ~Graph()
+```
 
 ## 公有成员函数
 

@@ -4,17 +4,31 @@
 
 `MSTensor`定义了MindSpore中的张量。
 
-## 构造函数和析构函数
+## 构造函数
 
 ```cpp
 MSTensor()
+```
+
+```cpp
 explicit MSTensor(const std::shared_ptr<Impl> &impl)
+```
+
+```cpp
 MSTensor(const std::string &name, DataType type, const std::vector<int64_t> &shape, const void *data, size_t data_len)
+```
+
+```cpp
 explicit MSTensor(std::nullptr_t)
-~MSTensor()
 ```
 
 注意：MSTensor构造时，若data指针通过malloc生成，用户在构造完成MSTensor后，需自行释放free，否则存在内存泄露。
+
+## 析构函数
+
+```cpp
+~MSTensor()
+```
 
 ## 静态公有成员函数
 

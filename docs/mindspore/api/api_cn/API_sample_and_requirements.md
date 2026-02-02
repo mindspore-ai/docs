@@ -1,6 +1,8 @@
 # 中文API格式规范
 
-## 类 Class
+## Python API
+
+### 类 Class
 
 ```text
 .. py:class:: mindspore.Tensor(default_input, dtype=None, init_with_data=True, **kwargs)
@@ -36,7 +38,7 @@
         - **Error2** – 异常描述2。
 ```
 
-## 属性 Property
+### 属性 Property
 
 ```text
 .. py:method:: T
@@ -47,7 +49,7 @@
 
 注意：相对于类要增加4空格缩进。
 
-## 方法 Method
+### 方法 Method
 
 普通方法：
 
@@ -95,7 +97,7 @@
         返回说明。
 ```
 
-## 特殊方法 mindspore.Tensor
+### 特殊方法 mindspore.Tensor
 
 该接口与func接口同名时写法如下：
 
@@ -169,7 +171,7 @@
         - **Error2** – 异常描述2。
 ```
 
-## 函数 Function
+### 函数 Function
 
 无重载函数：
 
@@ -225,7 +227,7 @@
         - **Error2** – 异常描述2。
 ```
 
-## 样例特殊情况
+### 样例特殊情况
 
 注意：重载接口暂不支持特殊样例的写法！
 
@@ -292,28 +294,28 @@
 
 ```
 
-## Note
+### Note
 
 ```text
 .. note::
     此处描述具体需要注意的部分，前面需缩进四格。
 ```
 
-## See also
+### See also
 
 ```text
 .. seealso::
     此处描述为对模块文档或外部文档的引用，前面需缩进四格。
 ```
 
-## Warning
+### Warning
 
 ```text
 .. warning::
     此处描述具体需要警告的部分，前面需缩进四格。
 ```
 
-## 引入其他部分
+### 引入其他部分
 
 ```text
 
@@ -323,7 +325,7 @@
 
 引用其他`.rst`或`.txt`文件的内容，其中`{relative_file_path.rst}`为待引用文件的相对路径。
 
-## 默认行为的描述方法
+### 默认行为的描述方法
 
 1. 参数有默认值，且不为None，直接表达为实际的默认值。
 
@@ -369,7 +371,7 @@
 
 4. 参数没有默认值，框架也没有默认值，不需要任何说明。
 
-## 内容注意事项
+### 内容注意事项
 
 1. 类（class，如mindspore.nn模块）文档中可能包含参数、输入、输出、异常；函数（function，如mindspore.ops模块）和方法（method，如mindspore.Tensor中的方法）文档中可能包含参数、返回、异常。
 
@@ -383,7 +385,7 @@
 
 4. 维度描述：描述维度时，需使用文字方式表示数字，如零维数组、一维数组、二维数组、三维数组等。
 
-## 其他格式注意事项
+### 其他格式注意事项
 
 1. 链接的用法：
 
@@ -504,7 +506,79 @@
           子SymbolTree里面的节点。默认值： ``False`` 。
     ```
 
-## 参考
+### 参考
 
 - 有关rst的书写规则，请参考[rst入门](https://www.sphinx-doc.org/en/master/usage/restructuredtext/basics.html)。
 - 有关rst在Python领域的用法，请参考[rst在Python领域用法](https://www.sphinx-doc.org/en/master/usage/restructuredtext/domains.html#the-python-domain)。
+
+## C++ API
+
+### 文件命名规范
+
+- class文件命名：class{namespace}_{classname}.md，例如：classmindspore_Model.md。
+- struct文件命名：struct{namespace}_{structname}.md，例如：structmindspore_Key.md。
+- enum文件命名：enum_{namespace}_{enumname}-1.md，例如：enum_mindspore_DataType-1.md。
+- function文件命名：function_{namespace}_{functionname}-1.md，例如：function_mindspore_Version-1.md。
+- typedef文件命名：typedef_{namespace}_{typedefname}-1.md，例如：typedef_mindspore_KernelIter-1.md。
+
+> enum、function、typedef文件命名中，-1表示该文件为第一个文件，如果存在同名枚举、同名函数或同名typedef，则依次类推。文件序号和头文件中声明顺序保持一致。
+
+### 内容示例
+
+````markdown
+# class Model
+
+\#include &lt;[model.h](https://atomgit.com/mindspore/mindspore-lite/blob/master/include/api/model.h)&gt;
+
+Model定义了MindSpore中的模型，便于计算图管理。
+
+## 构造函数
+
+```cpp
+Model()
+```
+
+## 析构函数
+
+```cpp
+~Model()
+```
+
+## 公有成员函数
+
+| 函数                                                                                                                                                                                                                 | 云侧推理是否支持 | 端侧推理是否支持 |
+|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------|---------|
+| [Status BuildTransferLearning(GraphCell backbone, GraphCell head, const std::shared_ptr\<Context\> &context, const std::shared_ptr\<TrainCfg\> &train_cfg = nullptr)](#buildtransferlearning)     |    ✕    |    √    |
+
+### BuildTransferLearning
+
+```cpp
+Status BuildTransferLearning(GraphCell backbone, GraphCell head, const std::shared_ptr<Context> &context,
+                      const std::shared_ptr<TrainCfg> &train_cfg = nullptr)
+```
+
+构建一个迁移学习模型，其中主干权重是固定的，头部权重是可训练的。
+
+- 参数
+
+    - `backbone`: 静态、不可学习部分。
+    - `head`: 可训练部分。
+    - `model_context`: 模型[Context](#context)。
+    - `train_cfg`: train配置文件[TrainCfg](#traincfg)。
+
+- 返回值
+
+  状态码类`Status`对象，可以使用其公有函数`StatusCode`或`ToString`函数来获取具体错误码及错误信息。
+
+````
+
+### 注意事项
+
+1. 文档开篇需给出接口所在头文件地址，例如：`\#include &lt;[model.h](https://atomgit.com/mindspore/mindspore-lite/blob/master/include/api/model.h)&gt;`。
+2. 构造函数和析构函数不要合并写在一个代码块内，需分开写在不同章节。
+3. 如果有多个构造函数，也需要写在不同的代码块内。
+4. 接口顺序和头文件中声明顺序保持一致。
+
+### 参考
+
+- 有关markdown的书写规则，请参考[markdown入门](https://www.markdownguide.org/basic-syntax/)。

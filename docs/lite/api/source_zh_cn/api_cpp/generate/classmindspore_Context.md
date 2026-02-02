@@ -4,11 +4,16 @@
 
 Context类用于保存执行中的环境变量。
 
-## 构造函数和析构函数
+## 构造函数
 
 ```cpp
 Context()
-~Context() = default;
+```
+
+## 析构函数
+
+```cpp
+~Context() = default
 ```
 
 ## 公有成员变量
