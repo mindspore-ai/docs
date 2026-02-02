@@ -311,6 +311,46 @@ repo_path = os.getenv("MS_PATH")
 src_dir = os.path.join(repo_path, copy_path)
 des_sir = "./api_python"
 
+original_code = '''
+    参数：
+        - **lambd** (number, 可选) - SoftShrink公式中的 :math:`\lambda` ，必须不小于零。默认值： ``0.5`` 。
+
+    输入：
+        - **input** (Tensor) - SoftShrink的输入，任意维度的Tensor，数据类型为float16或float32。
+
+          - Ascend: float16、float32、bfloat16。
+          - CPU/GPU: float16、float32。
+    输出：
+        Tensor，shape和数据类型与 `input` 相同。
+
+    异常：
+        - **TypeError** - `lambd` 不是float、int或bool。
+        - **TypeError** - `input` 不是tensor。
+        - **TypeError** - `input` 的数据类型float16、float32或bfloat16。'''
+new_code = '''
+    参数：
+        - **lambd** (number, 可选) - SoftShrink公式中的 :math:`\lambda` ，必须不小于零。默认 ``0.5`` 。
+
+    输入：
+        - **input** (Tensor) - 输入tensor。支持数据类型：
+
+          - Ascend：mindspore.float16、mindspore.float32、mindspore.bfloat16。
+          - CPU/GPU：mindspore.float16、mindspore.float32。
+
+    输出：
+        Tensor。'''
+file_path = os.path.join(repo_path, "docs/api/api_python/nn/mindspore.nn.SoftShrink.rst")
+
+try:
+    with open(file_path, "r+", encoding="utf-8") as f:
+        content = f.read()
+        content = content.replace(original_code, new_code)
+        f.seek(0)
+        f.truncate()
+        f.write(content)
+except Exception as e:
+    print(f"读取文件失败：{e}")
+
 def copy_source(sourcedir, des_sir):
     for i in os.listdir(sourcedir):
         if os.path.isfile(os.path.join(sourcedir,i)):

@@ -336,7 +336,9 @@ decorator_list = [("mindspore/common/dtype.py","del decorator",
                    ("mindspore/mint/__init__.py","del decorator",
                    "@jit_view_unsupported","# generate api by del decorator."),
                    ("mindspore/common/dtype.py","del class",
-                   "class QuantDtype(enum.Enum):","class QuantDtype():")
+                   "class QuantDtype(enum.Enum):","class QuantDtype():"),
+                   ("mindspore/nn/layer/activation.py","content replace",
+                   "mindspore.nn.Softshrink","mindspore.nn.SoftShrink")
                    ]
 
 for i in decorator_list:
