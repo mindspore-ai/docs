@@ -481,7 +481,7 @@ mindspore-lite-{version}-linux-x64
 
     打开上一步创建的`CMakeLists.txt`，粘贴如下内容，其中每句话的含义见注释：
 
-    ```cpp
+    ```text
     cmake_minimum_required(VERSION 3.12)  # cmake版本要求最低3.12
     project(Demo)  # 工程名为Demo
 
@@ -1190,7 +1190,7 @@ mindspore-lite-{version}-win-x64
 
     打开上一步创建的`CMakeLists.txt`，粘贴如下内容，其中每句话的含义见注释：
 
-    ```cpp
+    ```text
     cmake_minimum_required(VERSION 3.12)  # cmake版本要求最低3.12
     project(Demo)  # 工程名为Demo
 
