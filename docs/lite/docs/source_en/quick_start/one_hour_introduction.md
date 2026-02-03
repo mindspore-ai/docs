@@ -481,7 +481,7 @@ In the previous section, the official inference test tool is used to perform the
 
     Open the created `CMakeLists.txt` file and paste the following content.
 
-    ```cpp
+    ```text
     cmake_minimum_required(VERSION 3.12)  # The CMake version must be 3.12 or later.
     project(Demo)  # The project name is Demo.
 
@@ -1190,7 +1190,7 @@ In the previous section, the official inference test tool is used to perform the
 
     Open the created `CMakeLists.txt` file and paste the following content.
 
-    ```cpp
+    ```text
     cmake_minimum_required(VERSION 3.12)  # The CMake version must be 3.12 or later.
     project(Demo)  # The project name is Demo.
 
