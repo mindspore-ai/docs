@@ -332,16 +332,18 @@ for i in decorator_list:
 
 # Repair error content defined in mindspore.
 decorator_list = [("mindspore/common/dtype.py","del decorator",
-                   "@enum.unique","# generate api by del decorator."),
-                   ("mindspore/mint/__init__.py","del decorator",
-                   "@jit_view_unsupported","# generate api by del decorator."),
-                   ("mindspore/common/dtype.py","del class",
-                   "class QuantDtype(enum.Enum):","class QuantDtype():"),
-                   ("mindspore/nn/layer/activation.py","content replace",
-                   "mindspore.nn.Softshrink","mindspore.nn.SoftShrink"),
-                   ("mindspore/mint/nn/layer/normalization.py", "content replace",
-                   "mint.nn.BatchNorm2d(2)", "mindspore.mint.nn.BatchNorm2d(2)")
-                   ]
+                    "@enum.unique","# generate api by del decorator."),
+                    ("mindspore/mint/__init__.py","del decorator",
+                    "@jit_view_unsupported","# generate api by del decorator."),
+                    ("mindspore/common/dtype.py","del class",
+                    "class QuantDtype(enum.Enum):","class QuantDtype():"),
+                    ("mindspore/nn/layer/activation.py","content replace",
+                    "mindspore.nn.Softshrink","mindspore.nn.SoftShrink"),
+                    ("mindspore/mint/nn/layer/normalization.py", "content replace",
+                    "mint.nn.BatchNorm2d(2)", "mindspore.mint.nn.BatchNorm2d(2)"),
+                    ("mindspore/mint/nn/layer/normalization.py", "content replace",
+                    "mindspore.mint.nn.layer.SyncBatchNorm", "mindspore.mint.nn.SyncBatchNorm")
+                    ]
 
 for i in decorator_list:
     try:
