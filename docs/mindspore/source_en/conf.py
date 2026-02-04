@@ -338,7 +338,9 @@ decorator_list = [("mindspore/common/dtype.py","del decorator",
                    ("mindspore/common/dtype.py","del class",
                    "class QuantDtype(enum.Enum):","class QuantDtype():"),
                    ("mindspore/nn/layer/activation.py","content replace",
-                   "mindspore.nn.Softshrink","mindspore.nn.SoftShrink")
+                   "mindspore.nn.Softshrink","mindspore.nn.SoftShrink"),
+                   ("mindspore/mint/nn/layer/normalization.py", "content replace",
+                   "mint.nn.BatchNorm2d(2)", "mindspore.mint.nn.BatchNorm2d(2)")
                    ]
 
 for i in decorator_list:
