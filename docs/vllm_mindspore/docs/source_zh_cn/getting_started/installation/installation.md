@@ -13,15 +13,15 @@
 - Python：3.9 / 3.10 / 3.11
 - 依赖软件版本配套
 
-   | 软件 | 配套版本与下载链接 |
-   | -----    | -----   |
-   | CANN  |   [8.3.RC1](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/83RC1/index/index.html)      |
-   | MindSpore |  [2.7.1.post1](https://repo.mindspore.cn/mindspore/mindspore/version/202512/20251229/r2.7.1_20251229100307_d3099307fd78df39099f0e7801a6d2aa3121bf2c_newest/)    |
-   | MSAdapter| [0.0.5](https://repo.mindspore.cn/mindspore/msadapter/version/202510/20251011/r0.3.0_20251011095813_951a8218d4c29785e48f304e720212b57056573e_newest/) |
-   | MindSpore Transformers | [1.7.0](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.7.1/MindFormers/any/mindformers-1.7.0-py3-none-any.whl)  |
+   | 软件 | 配套版本与下载链接                                                                                                                 |
+   | -----    |---------------------------------------------------------------------------------------------------------------------------|
+   | CANN  | [8.5](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/850/index/index.html)                              |
+   | MindSpore | master                                                                                                                    |
+   | MSAdapter| 0.6.0                                                                                                                     |
+   | MindSpore Transformers | master                                                                                                                    |
    | vLLM     | [0.11.0](https://repo.mindspore.cn/mirrors/vllm/version/202511/20251113/v0.11.0/any/vllm-0.11.0%2Bempty-py3-none-any.whl) |
-   | ms_custom_ops | [0.1.0](https://repo.mindspore.cn/mindspore/ms_custom_ops/version/202512/20251229/r0.1.0_20251229145109_5bd05d81cf153ce96c2244fbf5d0c03b9fba1ffe_newest/) |
-   | MindSpore ONE  | [0.5.0](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.7.1.post1/MindOne/any/mindone-0.5.0-py3-none-any.whl) |
+   | ms_custom_ops | master                                                                                                                    |
+   | MindSpore ONE  | [0.5.0](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.7.1.post1/MindOne/any/mindone-0.5.0-py3-none-any.whl)       |
 
 ## docker安装
 
