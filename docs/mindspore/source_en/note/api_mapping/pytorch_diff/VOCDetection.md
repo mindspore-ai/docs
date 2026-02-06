@@ -72,10 +72,10 @@ MindSpore: A source dataset for reading and parsing VOC dataset.
 ## Code Example
 
 ```python
-import mindspore.dataset as ds
 import torchvision.transforms as T
 import torchvision.datasets as datasets
 from torch.utils.data import DataLoader
+import mindspore.dataset as ds
 
 # In MindSpore, the generated dataset with different task setting has different output columns.
 
