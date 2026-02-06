@@ -20,6 +20,7 @@ from hashlib import md5
 from datetime import datetime
 from os import path
 from typing import IO, Any, Dict, Iterable, Iterator, List, Set, Tuple, Type
+from collections import defaultdict
 from urllib.parse import quote
 
 from docutils import nodes
