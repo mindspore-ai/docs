@@ -32,15 +32,15 @@ The MindSpore Lite inference framework supports the conversion of MindSpore trai
 
 ## Main Features
 
-1. [Support Ascend hardware inference](https://www.mindspore.cn/lite/cloud_docs/en/master/mindir/runtime_python.html)
+1. [Support Ascend hardware inference](https://www.mindspore.cn/lite/cloud_docs/en/r2.8.0/mindir/runtime_python.html)
 
 2. [Supporting HarmonyOS](https://developer.huawei.com/consumer/cn/sdk/mindspore-lite-kit)
 
-3. [Quantification after Training](https://www.mindspore.cn/lite/docs/en/master/advanced/quantization.html)
+3. [Quantification after Training](https://www.mindspore.cn/lite/docs/en/r2.8.0/advanced/quantization.html)
 
-4. [Lightweight Micro inference deployment](https://www.mindspore.cn/lite/docs/en/master/advanced/micro.html#generating-model-inference-code)
+4. [Lightweight Micro inference deployment](https://www.mindspore.cn/lite/docs/en/r2.8.0/advanced/micro.html#generating-model-inference-code)
 
-5. [Benchmark Debugging Tool](https://www.mindspore.cn/lite/docs/en/master/tools/benchmark.html)
+5. [Benchmark Debugging Tool](https://www.mindspore.cn/lite/docs/en/r2.8.0/tools/benchmark.html)
 
 ## Inference Tutorial
 
@@ -52,6 +52,6 @@ This chapter will explain the inference deployment of MindSpore Lite through two
 
 2. Integrated deployment
 
-    By using the [MindSpore Lite inference API](https://www.mindspore.cn/lite/api/en/master/index.html) By completing the model inference integration obtained from the quasi exchange and passing the user inference input data code to the relevant API interface, MindSpore Lite's model inference can be implemented.
+    By using the [MindSpore Lite inference API](https://www.mindspore.cn/lite/api/en/r2.8.0/index.html) By completing the model inference integration obtained from the quasi exchange and passing the user inference input data code to the relevant API interface, MindSpore Lite's model inference can be implemented.
 
-Among them, the reasoning tutorial for the `.ms` model can refer to [Quick Start of End Side Reasoning](https://www.mindspore.cn/lite/docs/en/master/quick_start/one_hour_introduction.html). For the inference tutorial of the `.mindir` model, you can refer to [using Python interface to perform cloud side inference](https://www.mindspore.cn/lite/cloud_docs/en/master/mindir/runtime_python.html).
+Among them, the reasoning tutorial for the `.ms` model can refer to [Quick Start of End Side Reasoning](https://www.mindspore.cn/lite/docs/en/r2.8.0/quick_start/one_hour_introduction.html). For the inference tutorial of the `.mindir` model, you can refer to [using Python interface to perform cloud side inference](https://www.mindspore.cn/lite/cloud_docs/en/r2.8.0/mindir/runtime_python.html).

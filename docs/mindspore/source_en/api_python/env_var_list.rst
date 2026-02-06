@@ -435,7 +435,7 @@ Dump Debugging
      - Description
    * - MINDSPORE_DUMP_CONFIG
      - Specify the path of the configuration file that the `cloud-side Dump <https://www.mindspore.cn/tutorials/en/r2.8.0/debug/dump.html>`_
-       or the `device-side Dump <https://www.mindspore.cn/lite/docs/en/master/tools/benchmark_tool.html#dump>`_ depends on.
+       or the `device-side Dump <https://www.mindspore.cn/lite/docs/en/r2.8.0/tools/benchmark_tool.html#dump>`_ depends on.
      - String
      - File path, which can be a relative path or an absolute path.
      -
