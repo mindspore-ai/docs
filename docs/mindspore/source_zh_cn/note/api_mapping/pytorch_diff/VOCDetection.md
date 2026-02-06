@@ -72,10 +72,10 @@ MindSpore：用于读取和分析VOC数据集的源数据集。
 ## 代码示例
 
 ```python
-import mindspore.dataset as ds
 import torchvision.transforms as T
 import torchvision.datasets as datasets
 from torch.utils.data import DataLoader
+import mindspore.dataset as ds
 
 # In MindSpore, the generated dataset with different task setting has different output columns.
 
