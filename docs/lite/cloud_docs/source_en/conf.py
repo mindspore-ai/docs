@@ -127,6 +127,8 @@ try:
 except Exception as e:
     print(e)
 
+present_path = os.path.dirname(__file__)
+
 # 发版本时这里启用
 # modify urls
 re_url = r"(((atomgit.com/mindspore/docs/mindspore-lite)|(github.com/mindspore-ai/(mindspore|docs))|" + \
