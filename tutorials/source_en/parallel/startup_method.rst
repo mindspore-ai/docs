@@ -25,7 +25,7 @@ Currently GPU, Ascend and CPU support multiple startup methods respectively, thr
 .. warning::
     `rank_table` method has been deprecated in MindSpore 2.4 version.
 
-The hardware support for the four startup methods is shown in the table below:
+The hardware support for the three startup methods is shown in the table below:
 
 +-------------------------+--------------+-----------------+-------------+
 |                         | GPU          | Ascend          | CPU         |
