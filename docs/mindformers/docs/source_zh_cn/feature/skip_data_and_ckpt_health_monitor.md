@@ -109,7 +109,11 @@ MindSpore Transformers提供的健康监测功能，能够通过监测stage0下�
 
 本功能通过YAML配置文件使能：
 
+Checkpoint 1.0配置：
+
 ```yaml
+use_legacy_format: True
+
 use_checkpoint_health_monitor : True
 
 monitor_config:
@@ -133,13 +137,42 @@ parallel_config:
   micro_batch_num: 2
 ```
 
+Checkpoint 2.0配置：
+
+```yaml
+use_legacy_format: False
+
+monitor_config:
+  monitor_on: True
+  health_checkpoint:
+    embedding_local_norm_threshold: 270.0
+
+runner_wrapper:
+  local_norm: True
+
+callbacks:
+  - type: CheckpointMonitor
+    save_checkpoint_steps: 1
+
+parallel:
+  full_batch: False
+  dataset_strategy: [[4, 1], [4, 1]]
+
+parallel_config:
+  data_parallel: 4
+  pipeline_stage: 2
+  micro_batch_num: 2
+```
+
 **参数说明：**
 
 | 参数名称                           | 描述                                                                                                                                                                                                                                                                                  | 类型    | 是否可选       | 取值范围 |
 |--------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------|------------|-----|
+| use_legacy_format              | Checkpoint 1.0和Checkpoint 2.0开关。默认值为`True`。设置为`True`时，使用Checkpoint 1.0，为`False`时，使用Checkpoint 2.0。                                                                                                                                                                                  |       |            |     |
 | use_checkpoint_health_monitor  | 健康监测功能开关。默认值为`False`。                                                                                                                                                                                                                                                               | bool  | 可选         |     |
 | monitor_config                 | 训练指标监控配置。默认值为`None`。                                                                                                                                                                                                                                                                |       | 可选         |     |
 | monitor_on                     | 是否开启训练指标监控配置，开启后才能观测embedding local norm的数据指标。默认值为`False`。                                                                                                                                                                                                                          | bool  | 可选         |     |
+| health_checkpoint              | 健康权重相关配置。默认值为`None`。                                                                                                                                                                                                                                                                |       |            |     |
 | runner_wrapper                 | wrapper配置。                                                                                                                                                                                                                                                                          |       | 必选         |     |
 | local_norm                     | 单卡上各参数的梯度范数。默认值为`False`。                                                                                                                                                                                                                                                            | bool  | 可选         |     |
 | callbacks                      | callbacks配置。                                                                                                                                                                                                                                                                        |       | 必选         |     |
@@ -152,6 +185,8 @@ parallel_config:
 | data_parallel                  | 设置数据并行数。                                                                                                                                                                                                                                                                            |   int    | 必选         | 正整数 |
 | pipeline_stage                 | 设置流水线并行数。                                                                                                                                                                                                                                                                           |    int   | 必选         | 正整数 |
 | micro_batch_num                | 设置流水线并行的微批次大小，在`parallel_config.pipeline_stage`大于1时，应满足`parallel_config.micro_batch_num` >= `parallel_config.pipeline_stage`。                                                                                                                                                       |    int   | 必选         | 正整数 |
+
+> Checkpoint 1.0配置在Checkpoint 1.0场景下和Checkpoint 2.0场景下均可生效，同时配置时Checkpoint 2.0的配置优先级高于Checkpoint 1.0的配置。Checkpoint 2.0配置仅在Checkpoint 2.0场景下生效。
 
 ### 使用示例
 
