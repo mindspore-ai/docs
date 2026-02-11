@@ -361,7 +361,7 @@ sys.path.append(os.path.abspath('../../../resource/search'))
 import search_code
 
 # 发版本时这里启用
-re_url = r"(((atomgit.com/mindspore/docs/mindspore-lite)|(gitee.com/mindspore/docs)|(github.com/mindspore-ai/(mindspore|docs))|" + \
+re_url = r"(((atomgit.com/mindspore/docs/mindspore-lite)|(atomgit.com/mindspore/docs)|(github.com/mindspore-ai/(mindspore|docs))|" + \
          r"(mindspore.cn/(docs|tutorials|lite))|(obs.dualstack.cn-north-4.myhuaweicloud)|" + \
          r"(mindspore-website.obs.cn-north-4.myhuaweicloud))[\w\d/_.-]*?)/(master)"
 
@@ -495,6 +495,17 @@ for i in os.listdir(os.path.join(repo_path, 'mindspore/ops/op_def/yaml')):
             op_content = f.read()
             if re.findall('function:\n\s+?name: (.*)', op_content):
                 func_name_dict[re.findall('function:\n\s+?name: (.*)', op_content)[0]] = i.replace('_op.yaml', '')
+
+# 链接替换
+link_replace_list = ["mindspore.ops.rst", "mindspore.nn.rst", "mindspore.mint.rst", "mindspore.ops.primitive.rst"]
+for i in link_replace_list:
+    if os.path.exists(os.path.join(des_sir, i)):
+        with open(os.path.join(des_sir, i), 'r+', encoding='utf-8') as f:
+            content = f.read()
+            content = content.replace("gitee", "atomgit")
+            f.seek(0)
+            f.truncate()
+            f.write(content)
 
 for cur, _, files in os.walk(des_sir):
     for i in files:

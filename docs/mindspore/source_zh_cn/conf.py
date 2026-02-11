@@ -454,7 +454,7 @@ for root, dirs, files in os.walk(api_file_dir, topdown=True):
 import json
 
 # 发版本时这里启用
-re_url = r"(((atomgit.com/mindspore/docs/mindspore-lite)|(gitee.com/mindspore/docs)|(github.com/mindspore-ai/(mindspore|docs))|" + \
+re_url = r"(((atomgit.com/mindspore/docs/mindspore-lite)|(atomgit.com/mindspore/docs)|(github.com/mindspore-ai/(mindspore|docs))|" + \
          r"(mindspore.cn/(docs|tutorials|lite))|(obs.dualstack.cn-north-4.myhuaweicloud)|" + \
          r"(mindspore-website.obs.cn-north-4.myhuaweicloud))[\w\d/_.-]*?)/(master)"
 
@@ -480,6 +480,17 @@ docs_branch = [version_inf[i]['branch'] for i in range(len(version_inf)) if vers
 
 re_view = f"\n.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/{docs_branch}/" + \
           f"resource/_static/logo_source.svg\n    :target: https://atomgit.com/mindspore/{copy_repo}/blob/{branch}/"
+
+# 链接替换
+link_replace_list = ["mindspore.ops.rst", "mindspore.nn.rst", "mindspore.mint.rst", "mindspore.ops.primitive.rst"]
+for i in link_replace_list:
+    if os.path.exists(os.path.join(des_sir, i)):
+        with open(os.path.join(des_sir, i), 'r+', encoding='utf-8') as f:
+            content = f.read()
+            content = content.replace("gitee", "atomgit")
+            f.seek(0)
+            f.truncate()
+            f.write(content)
 
 for cur, _, files in os.walk(des_sir):
     for i in files:
