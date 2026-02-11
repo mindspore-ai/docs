@@ -608,7 +608,7 @@ def linkcode_resolve(domain, info):
         source, linenum = inspect.getsourcelines(obj)
     except Exception:
         name = info["fullname"]
-        if name.startswith('Tensor.') and name.split('.')[-1] + '_doc.yaml' in tensor_yaml_list:
+        if (name.startswith('Tensor.') or name.startswith('mindspore.Tensor.')) and name.split('.')[-1] + '_doc.yaml' in tensor_yaml_list:
             py_source_rel = tensor_yaml + name.split('.')[-1] + '_doc.yaml'
             return f"https://atomgit.com/mindspore/mindspore/blob/{branch}/{py_source_rel}"
         return None
