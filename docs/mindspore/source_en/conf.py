@@ -361,7 +361,7 @@ sys.path.append(os.path.abspath('../../../resource/search'))
 import search_code
 
 # 发版本时这里启用
-re_url = r"(((atomgit.com/mindspore/docs/mindspore-lite)|(github.com/mindspore-ai/(mindspore|docs))|" + \
+re_url = r"(((atomgit.com/mindspore/docs/mindspore-lite)|(gitee.com/mindspore/docs)|(github.com/mindspore-ai/(mindspore|docs))|" + \
          r"(mindspore.cn/(docs|tutorials|lite))|(obs.dualstack.cn-north-4.myhuaweicloud)|" + \
          r"(mindspore-website.obs.cn-north-4.myhuaweicloud))[\w\d/_.-]*?)/(master)"
 
