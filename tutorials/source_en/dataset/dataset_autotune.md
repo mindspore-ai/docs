@@ -1,6 +1,6 @@
 # Dataset AutoTune for Dataset Pipeline
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.8.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.8.0/tutorials/source_en/dataset/dataset_autotune.md)
+[![View Source On AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.8.0/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/r2.8.0/tutorials/source_en/dataset/dataset_autotune.md)
 
 ## Overview
 
@@ -112,7 +112,7 @@ def create_dataset(...)
 
 ### Starting Training
 
-Start the training process as described in [resnet/README.md](https://gitee.com/mindspore/models/blob/master/official/cv/ResNet/README.md#). Dataset AutoTune will display its analysis result through log messages.
+Start the training process as described in [resnet/README.md](https://atomgit.com/mindspore/models/blob/master/official/cv/ResNet/README.md#). Dataset AutoTune will display its analysis result through log messages.
 
 ```text
 [INFO] [auto_tune.cc:73 LaunchThread] Launching Dataset AutoTune thread
