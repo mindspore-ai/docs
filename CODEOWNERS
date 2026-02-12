@@ -29,7 +29,7 @@
 /tutorials/source_zh_cn/debug/dump.md @DavidFFFan @gemini524
 /tutorials/source_zh_cn/debug/profiler.md @changzherui @gemini524
 /tutorials/source_zh_cn/debug/pynative.md @chujinjin @gemini524
-/tutorials/source_zh_cn/debug/sdc.md @fary86 @gemini524
+/tutorials/source_zh_cn/debug/sdc.md @zhangbuxue @gemini524
 /tutorials/source_zh_cn/generative/ @zwiori @gemini524
 /tutorials/source_zh_cn/model_infer/introduction.md @liulili-huawei @gemini524
 /tutorials/source_zh_cn/model_infer/ms_infer/ @liulili-huawei @gemini524
@@ -40,9 +40,9 @@
 /tutorials/source_zh_cn/nlp/ @zwiori @gemini524
 /tutorials/source_zh_cn/orange_pi/ @xing-yiren @gemini524
 /tutorials/source_zh_cn/parallel/ @yangzhenzhang @gemini524
-/tutorials/source_zh_cn/train_availability/ @fary86 @gemini524
+/tutorials/source_zh_cn/train_availability/ @zhangbuxue @gemini524
 /tutorials/source_zh_cn/train_availability/fault_recover.md @changzherui @gemini524
-/tutorials/source_zh_cn/train_availability/graceful_exit.md @fary86 @gemini524
+/tutorials/source_zh_cn/train_availability/graceful_exit.md @zhangbuxue @gemini524
 
 # The maintainers of MindSpore docs.
 /docs/mindspore/source_zh_cn/ @zwiori @gemini524
@@ -64,7 +64,7 @@
 
 # The maintainers of MindSpore Transformers docs.
 /docs/mindformers/docs/source_zh_cn/ @Lin-Bert @gemini524
-/docs/mindformers/docs/source_zh_cn/feature/high_availability.md @fary86 @gemini524
+/docs/mindformers/docs/source_zh_cn/feature/high_availability.md @zhangbuxue @gemini524
 /docs/mindformers/docs/source_zh_cn/_templates/ @gemini524
 /docs/mindformers/docs/source_zh_cn/conf.py @gemini524
 
