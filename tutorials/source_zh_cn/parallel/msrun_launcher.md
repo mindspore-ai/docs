@@ -601,6 +601,321 @@ msrun --worker_num=8 --local_worker_num=8 --master_port=8118 --log_dir=msrun_log
 
 不启用进程级 NUMA 亲和性设置，为默认配置。
 
+#### 4. JSON文件配置（--bind_numa=PATH_TO_JSON.json）
+
+- **格式要求**：传入带有绑核/绑内存的 JSON 文件的绝对路径。
+
+- **示例**：
+
+    启动命令示例:
+
+    ```bash
+    msrun --bind_numa=<json>
+    ```
+
+    `<json>` 文件示例：
+
+    ```json
+    {
+      "bind_config": {"bind_cpu_mode": "cpu", "bind_memory_mode": "numa"},
+      "bind_cpu": {"scheduler": {"main": "20-29"}, "device0": {"main": "0-9"}, "device1": {"main": "10-19"}},
+      "bind_memory": {"scheduler": 2, "device0": 0, "device1": 1}
+    }
+    ```
+
+    含义：
+
+    - 为`scheduler`进程绑定 CPU 20-29，0 号 worker 进程（对应`device0`）绑定 CPU 0-9，1 号 worker 进程（对应`device1`）绑定 CPU 10-19。
+    - 为`scheduler`进程绑定 NUMA 节点2，0 号 worker 进程（对应`device0`）绑定 NUMA 节点0，1 号 worker 进程（对应`device1`）绑定 NUMA 节点1。
+
+- **注意事项**：
+
+    详细的 JSON 配置及指导可以参考章节 `使用 JSON 统一配置 CPU/NUMA 亲和`。
+
 ### --bind_numa 与 --bind_core 配合使用
 
 同时使用`--bind_numa`和`--bind_core`时，启动进程时会调用`numactl --membind NUMAX --physcpubind CPUA-CPUB`，即`--bind_numa`依据 NUMA 架构控制内存区域绑定，`--bind_core`以 CPU 核心的力度设置进程的 CPU 亲和性。
+
+### 使用 JSON 统一配置 CPU/NUMA 亲和（--bind_numa / mindspore.runtime.set_cpu_affinity）
+
+`msrun --bind_numa` 与 `mindspore.runtime.set_cpu_affinity` 支持传入统一 JSON 文件进行 CPU/内存绑定。
+
+#### 一、能力概述
+
+统一 JSON 绑定文件用于同时描述**进程级**与**线程级**绑定策略：
+
+- **进程级绑定**：`msrun --bind_numa=<json>` 在启动 scheduler/worker 进程时，根据 JSON 选择 `taskset` 或 `numactl` 进行 CPU/NUMA 绑定。
+- **线程级绑定**：`mindspore.runtime.set_cpu_affinity(enable_affinity=True, bind_file=<json>)` 根据 JSON 中的模块配置，对 `main/runtime/minddata/pynative` 等线程做绑核。
+
+两者配合实现：
+
+- 进程级：对“主线程/进程”做 CPU 绑定 + 内存 NUMA 绑定。
+- 线程级：对关键线程模块做更细粒度的 CPU 绑定。
+
+#### 二、JSON 文件结构
+
+统一 JSON 文件必须为一个对象，包含以下字段：
+
+```json
+{
+  "bind_config": {
+    "bind_cpu_mode": "cpu",
+    "bind_memory_mode": "numa",
+    "actor_thread_fix_bind": true
+  },
+  "bind_cpu": {
+    "device0": {
+      "main": "0-4",
+      "runtime": "5-9",
+      "pynative": "10-14",
+      "minddata": "15-19"
+    },
+    "device1": {
+      "main": "20-24",
+      "runtime": "25-29",
+      "pynative": "30-34",
+      "minddata": "35-39"
+    },
+    "scheduler": {
+      "main": "40-45"
+    }
+  },
+  "bind_memory": {
+    "device0": 0,
+    "device1": 1,
+    "scheduler": 2
+  }
+}
+```
+
+1. bind_config
+
+    - `bind_cpu_mode`：CPU 绑定模式，取值：
+        - `"cpu"`：按 CPU 核心列表绑定。
+        - `"numa"`：按 NUMA 节点绑定。
+        - `"none"`：不做 CPU 绑定。
+    - `bind_memory_mode`：内存绑定模式，取值：
+        - `"numa"`：按 NUMA 节点绑定内存。
+        - `"none"`：不做内存绑定。
+    - `actor_thread_fix_bind`：可选，bool。
+        - `true`：对 runtime 线程采用“固定绑定”的策略。runtime 共包含5个actor线程，如对device0的runtime绑定范围为"5-9"，采用“固定绑定”策略时，每个线程顺序绑定范围段内的一个 CPU，即`actor_thread0`绑定CPU 5，`actor_thread1`绑定CPU 6，以此类推。
+        - `false`：不固定绑定（允许更灵活的绑核方式）。如对device0的runtime绑定范围为"5-9"，采用“非固定绑定”策略时，每个线程均绑定CPU范围段"5-9"。
+
+2. bind_cpu
+
+    - 当 `bind_cpu_mode="cpu"`：
+        - key 为 `deviceX` 或 `scheduler`。
+        - value 为对象，模块名 -> CPU 范围。
+        - 模块名支持：`main` / `runtime` / `pynative` / `minddata`。
+        - CPU 范围可为字符串（推荐），如：`"0-4"` / `"0,2,4"` / `"0-3,8-11"`。
+
+    - 当 `bind_cpu_mode="numa"`：
+        - key 为 `deviceX` 或 `scheduler`。
+        - value 为 NUMA 节点（int 或字符串范围），如：`0` / `"0"` / `"0-1,3"`。
+
+3. bind_memory
+
+    - 仅当 `bind_memory_mode="numa"` 才生效。
+    - key 为 `deviceX` 或 `scheduler`。
+    - value 为 NUMA 节点（int 或字符串范围），如：`0` / `"0"` / `"0-1,3"`。
+
+> JSON 中的 `deviceX` 指**物理设备 ID**。若设置了 `ASCEND_RT_VISIBLE_DEVICES`，请使用可见设备的物理 ID。例如：`ASCEND_RT_VISIBLE_DEVICES=3,5` 时，应使用 `device3`、`device5`。
+
+#### 三、msrun --bind_numa 的行为说明
+
+`msrun --bind_numa=<json>` 启动进程时行为如下：
+
+- `bind_cpu_mode="cpu"`：
+
+    - 进程主线程使用 `taskset -c <main>` 绑定 CPU；
+    - 若 `bind_memory_mode="numa"`，则使用 `numactl --membind <node> --physcpubind <main>`分别以CPU核心粒度和NUMA节点粒度绑定 CPU和内存。
+
+- `bind_cpu_mode="numa"`：
+
+    - 使用 `numactl --cpunodebind <node>` 绑定 CPU；
+    - 若 `bind_memory_mode="numa"`，则使用 `numactl --membind <node> --cpunodebind <node>`同时以NUMA节点粒度绑定 CPU 和内存。
+
+- `bind_cpu_mode="none"`：
+
+    - 不进行 CPU 绑定；
+
+- `bind_memory_mode="numa"`：
+
+    - 使用 `numactl --membind <node>` 绑定内存。
+
+#### 四、set_cpu_affinity 的行为说明
+
+调用方式：
+
+```python
+mindspore.runtime.set_cpu_affinity(True, bind_file="/path/to/bind.json")
+```
+
+具体接口说明可参考 [mindspore.runtime.set_cpu_affinity](https://www.mindspore.cn/docs/zh-CN/master/api_python/runtime/mindspore.runtime.set_cpu_affinity.html)。
+
+行为规则：
+
+- 仅当 `bind_cpu_mode="cpu"` 时，才会从 JSON 提取线程绑定策略。
+- 根据 `deviceX` 的 `main/runtime/minddata/pynative` 等字段设置线程绑核。
+- 若使用 `msrun --bind_numa` 启动，主线程 `main` 已由进程级绑定完成，
+  `set_cpu_affinity` 通常不再绑定 `main`。
+
+一致性检查：
+
+- msrun 启动时会记录 `MSRUN_BIND_FILE` 与文件 hash。
+- `set_cpu_affinity` 传入 `bind_file` 时必须与 msrun 一致，否则会报错。
+
+#### 五、自动化脚本生成 JSON
+
+可使用自动化脚本[gen_bind_json.py](https://atomgit.com/mindspore/docs/blob/master/docs/sample_code/set_affinity/gen_bind_json.py)生成统一 JSON 文件：
+
+```bash
+python gen_bind_json.py -o bind.json
+```
+
+脚本特性：
+
+- 自动检测设备数量、CPU/NUMA、NPU 与 NUMA 的亲和性。
+- 若无法获取亲和性，自动均分 CPU/NUMA。
+- 默认生成：`bind_cpu_mode=cpu`、`bind_memory_mode=numa`、`actor_thread_fix_bind=True`。
+- scheduler 仅绑定 CPU，不绑定内存。
+
+常用参数：
+
+- `--device-ids`：手动指定设备 ID（如 `0,1,2`）。
+- `--device-count`：当自动检测失败时，指定设备数量。
+- `--runtime-range`：runtime 相对 CPU 范围（默认 `4-8`）。
+- `--minddata-range`：minddata 相对 CPU 范围（默认 `9-12`）。
+- `--main-range`：main 相对 CPU 范围（默认 `13-19`）。
+- `--pynative-range`：可选，pynative 相对 CPU 范围（默认不配置）。
+- `--scheduler-range`：scheduler 相对 CPU 范围（默认 `20-23`）。
+- `--scheduler-base`：scheduler 基准 CPU 列表：
+
+    - `free`：使用未分配给 device 的空闲 CPU；不足则回退全局。
+    - `global`：使用全局可用 CPU 列表。
+    - `device0`：使用 device0 的 CPU 列表。
+
+如需进一步定制（例如新增模块、特定 NUMA 亲和策略），可在 JSON 中扩展或在生成脚本中调整相对 CPU 范围。
+
+#### 六、示例配置
+
+##### 示例 1：CPU 绑定 + NUMA 内存绑定（进程级 + 线程级）
+
+```json
+{
+  "bind_config": {"bind_cpu_mode": "cpu", "bind_memory_mode": "numa", "actor_thread_fix_bind": true},
+  "bind_cpu": {
+    "scheduler": {"main": "40-45"},
+    "device0": {"main": "0-4", "runtime": "5-9", "pynative": "10-14", "minddata": "15-19"},
+    "device1": {"main": "20-24", "runtime": "25-29", "pynative": "30-34", "minddata": "35-39"}
+  },
+  "bind_memory": {"device0": 0, "device1": 1, "scheduler": 2}
+}
+```
+
+绑定说明：
+
+- 进程级（cpu 粒度）：`scheduler`、`device0`、`device1` 的 `main` 使用 `numactl --physcpubind` 绑定到对应 CPU 段。
+- 线程级（cpu 粒度）：`runtime` / `pynative` / `minddata` 由 `set_cpu_affinity` 绑定到对应 CPU 段。
+- 内存（numa 粒度）：`device0`/`device1`/`scheduler` 按 `bind_memory` 绑定到指定 NUMA 节点。
+
+##### 示例 2：按 NUMA 绑定 CPU + 内存（仅进程级）
+
+```json
+{
+  "bind_config": {"bind_cpu_mode": "numa", "bind_memory_mode": "numa"},
+  "bind_cpu": {"device0": 0, "device1": 1},
+  "bind_memory": {"device0": 0, "device1": 1, "scheduler": "2-3,4"}
+}
+```
+
+绑定说明：
+
+- 进程级（numa 粒度）：`device0`/`device1` 使用 `numactl --cpunodebind` 绑定到 NUMA 节点。
+- 线程级：不生效（`bind_cpu_mode=numa` 不会触发 `set_cpu_affinity`）。
+- 内存（numa 粒度）：`device0`/`device1`/`scheduler` 使用 `--membind` 绑定。
+
+##### 示例 3：CPU 绑定（无内存绑定）
+
+```json
+{
+  "bind_config": {"bind_cpu_mode": "cpu", "bind_memory_mode": "none", "actor_thread_fix_bind": false},
+  "bind_cpu": {
+    "scheduler": {"main": "40-45"},
+    "device0": {"main": "0-4", "runtime": "5-9", "pynative": "10-14", "minddata": "15-19"},
+    "device1": {"main": "20-24", "runtime": "25-29", "pynative": "30-34", "minddata": "35-39"}
+  }
+}
+```
+
+绑定说明：
+
+- 进程级（cpu 粒度）：`scheduler`/`device0`/`device1` 的 `main` 使用 `taskset -c` 绑定。
+- 线程级（cpu 粒度）：`runtime`/`pynative`/`minddata` 由 `set_cpu_affinity` 绑定。
+- 内存：未绑定（`bind_memory_mode=none`）。
+
+##### 示例 4：仅绑定 main（CPU 模式 + 无模块绑定）
+
+```json
+{
+  "bind_config": {"bind_cpu_mode": "cpu", "bind_memory_mode": "numa"},
+  "bind_cpu": {
+    "device0": {"main": "0-4"},
+    "device1": {"main": "20-24"}
+  }
+}
+```
+
+绑定说明：
+
+- 进程级（cpu 粒度）：仅 `device0`/`device1` 的 `main` 使用 `taskset -c` 绑定。
+- 线程级：不绑定（模块配置缺失）。
+- 内存：未绑定（未提供 `bind_memory`）。
+
+##### 示例 5：仅按 NUMA 绑定 CPU（无内存绑定）
+
+```json
+{
+  "bind_config": {"bind_cpu_mode": "numa", "bind_memory_mode": "none"},
+  "bind_cpu": {"device0": 0, "device1": 1}
+}
+```
+
+绑定说明：
+
+- 进程级（numa 粒度）：`device0`/`device1` 使用 `numactl --cpunodebind` 绑定。
+- 线程级：不绑定（`bind_cpu_mode=numa`）。
+- 内存：未绑定（`bind_memory_mode=none`）。
+
+##### 示例 6：仅绑定内存（CPU 不绑定）
+
+```json
+{
+  "bind_config": {"bind_cpu_mode": "none", "bind_memory_mode": "numa"},
+  "bind_memory": {"device0": 0, "device1": 1}
+}
+```
+
+绑定说明：
+
+- 进程级（numa 粒度）：仅内存使用 `numactl --membind` 绑定。
+- CPU：不绑定（`bind_cpu_mode=none`）。
+- 线程级：不绑定。
+
+##### 示例 7：仅绑定 runtime/minddata/pynative（无 main）
+
+```json
+{
+  "bind_config": {"bind_cpu_mode": "cpu", "bind_memory_mode": "none"},
+  "bind_cpu": {
+    "device0": {"runtime": "5-9", "pynative": "10-14", "minddata": "15-19"},
+    "device1": {"runtime": "25-29", "pynative": "30-34", "minddata": "35-39"}
+  }
+}
+```
+
+绑定说明：
+
+- 进程级：不绑定（无 `main`，不会使用 `taskset/numactl`）。
+- 线程级（cpu 粒度）：`runtime`/`pynative`/`minddata` 由 `set_cpu_affinity` 绑定。
+- 内存：未绑定（`bind_memory_mode=none`）。

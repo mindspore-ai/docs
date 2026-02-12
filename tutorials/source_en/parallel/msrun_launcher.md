@@ -601,6 +601,318 @@ Key invocation command: `numactl --membind NUMAX --cpunodebind NUMAX python XXX.
 
 Do not enable process-level NUMA affinity setting; this is the default configuration.
 
+#### 4. JSON File Configuration (`--bind_numa=PATH_TO_JSON.json`)
+
+- **Format Requirement**: Provide the absolute path to a JSON file that describes CPU/NUMA binding.
+
+- **Example**:
+
+    Launch command:
+
+    ```bash
+    msrun --bind_numa=<json>
+    ```
+
+    `<json>` file example:
+
+    ```json
+    {
+      "bind_config": {"bind_cpu_mode": "cpu", "bind_memory_mode": "numa"},
+      "bind_cpu": {"scheduler": {"main": "20-29"}, "device0": {"main": "0-9"}, "device1": {"main": "10-19"}},
+      "bind_memory": {"scheduler": 2, "device0": 0, "device1": 1}
+    }
+    ```
+
+    Meaning:
+
+    - Bind CPU 20-29 for the `scheduler` process, CPU 0-9 for worker 0 (`device0`), and CPU 10-19 for worker 1 (`device1`).
+    - Bind NUMA node 2 for the `scheduler` process, NUMA node 0 for worker 0 (`device0`), and NUMA node 1 for worker 1 (`device1`).
+
+- **Notes**:
+
+    For detailed JSON configuration guidance, see the section **"Using JSON to unify CPU/NUMA affinity"** below.
+
 ### Using --bind_numa and --bind_core Together
 
 When `--bind_numa` and `--bind_core` are used simultaneously, the process startup command will be `numactl --membind NUMAX --physcpubind CPUA-CPUB`. In other words, `--bind_numa` controls memory area binding based on the NUMA architecture, while `--bind_core` sets the CPU affinity of the process at the granularity of CPU cores.
+
+### Using JSON to Unify CPU/NUMA Affinity (`--bind_numa` / `mindspore.runtime.set_cpu_affinity`)
+
+`msrun --bind_numa` and `mindspore.runtime.set_cpu_affinity` accept a unified JSON file for CPU/memory binding.
+
+#### 1. Overview
+
+The unified bind JSON describes both **process-level** and **thread-level** policies:
+
+- **Process-level binding**: `msrun --bind_numa=<json>` launches scheduler/worker processes with `taskset` or `numactl` based on the JSON.
+- **Thread-level binding**: `mindspore.runtime.set_cpu_affinity(True, bind_file=<json>)` binds `main/runtime/minddata/pynative threads` based on the JSON.
+
+Together:
+
+- Process-level: bind process/main threads to CPUs and memory NUMA nodes.
+- Thread-level: bind specific module threads to CPU ranges.
+
+#### 2. JSON File Structure
+
+The unified JSON file is an object containing the following fields:
+
+```json
+{
+  "bind_config": {
+    "bind_cpu_mode": "cpu",
+    "bind_memory_mode": "numa",
+    "actor_thread_fix_bind": true
+  },
+  "bind_cpu": {
+    "device0": {
+      "main": "0-4",
+      "runtime": "5-9",
+      "pynative": "10-14",
+      "minddata": "15-19"
+    },
+    "device1": {
+      "main": "20-24",
+      "runtime": "25-29",
+      "pynative": "30-34",
+      "minddata": "35-39"
+    },
+    "scheduler": {
+      "main": "40-45"
+    }
+  },
+  "bind_memory": {
+    "device0": 0,
+    "device1": 1,
+    "scheduler": 2
+  }
+}
+```
+
+- 2.1 bind_config
+
+    - `bind_cpu_mode`: CPU binding mode:
+        - `"cpu"`: bind by CPU lists.
+        - `"numa"`: bind by NUMA nodes.
+        - `"none"`: no CPU binding.
+    - `bind_memory_mode`: memory binding mode:
+        - `"numa"`: bind by NUMA nodes.
+        - `"none"`: no memory binding.
+    - `actor_thread_fix_bind`: optional bool.
+        - `true`: fixed binding for runtime threads. For example, if runtime range is `"5-9"` for `device0`, each runtime actor thread binds to one CPU in order (actor_thread0->CPU5, actor_thread1->CPU6, etc.).
+        - `false`: non-fixed binding. For runtime range `"5-9"`, each runtime actor thread binds to the whole range `"5-9"`.
+
+- 2.2 bind_cpu
+
+    - When `bind_cpu_mode="cpu"`:
+        - Keys: `deviceX` or `scheduler`.
+        - Values: object mapping module -> CPU range.
+        - Modules: `main` / `runtime` / `pynative` / `minddata`.
+        - CPU ranges as strings, e.g. `"0-4"`, `"0,2,4"`, `"0-3,8-11"`.
+
+    - When `bind_cpu_mode="numa"`:
+        - Keys: `deviceX` or `scheduler`.
+        - Values: NUMA node id (int or string range), e.g. `0`, `"0"`, `"0-1,3"`.
+
+- 2.3 bind_memory
+
+    - Effective only when `bind_memory_mode="numa"`.
+    - Keys: `deviceX` or `scheduler`.
+    - Values: NUMA node id (int or string range), e.g. `0`, `"0"`, `"0-1,3"`.
+
+> `deviceX` refers to the **physical device id**. If `ASCEND_RT_VISIBLE_DEVICES` is set, use the physical ids from that list. Example: `ASCEND_RT_VISIBLE_DEVICES=3,5` → use `device3` and `device5`.
+
+#### 3. Behavior of `msrun --bind_numa`
+
+- `bind_cpu_mode="cpu"`:
+
+    - Process main uses `taskset -c <main>`;
+    - If `bind_memory_mode="numa"`, uses `numactl --membind <node> --physcpubind <main>` to bind CPU and memory.
+
+- `bind_cpu_mode="numa"`:
+
+    - Uses `numactl --cpunodebind <node>`;
+    - If `bind_memory_mode="numa"`, uses `numactl --membind <node> --cpunodebind <node>` to bind CPU and memory.
+
+- `bind_cpu_mode="none"`:
+
+    - No CPU binding.
+
+- `bind_memory_mode="numa"`:
+
+    - Memory binding via `numactl --membind <node>`.
+
+#### 4. Behavior of `set_cpu_affinity`
+
+Usage:
+
+```python
+mindspore.runtime.set_cpu_affinity(True, bind_file="/path/to/bind.json")
+```
+
+See the API reference: [mindspore.runtime.set_cpu_affinity](https://www.mindspore.cn/docs/en/master/api_python/runtime/mindspore.runtime.set_cpu_affinity.html).
+
+Rules:
+
+- Only active when `bind_cpu_mode="cpu"`.
+- Uses `deviceX` fields (`main/runtime/minddata/pynative`) to bind threads.
+- If msrun is used, `main` is already bound at process level and is usually not re-bound.
+
+Consistency checks:
+
+- msrun exports `MSRUN_BIND_FILE` and a hash of the file.
+- `set_cpu_affinity` requires the same file content; otherwise it errors.
+
+#### 5. Auto-generate JSON
+
+Use the script [gen_bind_json.py](https://atomgit.com/mindspore/docs/blob/master/docs/sample_code/set_affinity/gen_bind_json.py) to generate a unified JSON file:
+
+```bash
+python gen_bind_json.py -o bind.json
+```
+
+Features:
+
+- Detects device count, CPU/NUMA, and NPU-NUMA affinity.
+- Falls back to equal distribution when affinity detection fails.
+- Defaults: `bind_cpu_mode=cpu`, `bind_memory_mode=numa`, `actor_thread_fix_bind=True`.
+- Scheduler binds CPU only (no memory binding).
+
+Common options:
+
+- `--device-ids`: specify device ids (e.g. `0,1,2`).
+- `--device-count`: device count when auto-detection fails.
+- `--runtime-range`: runtime relative CPU range (default `4-8`).
+- `--minddata-range`: minddata relative CPU range (default `9-12`).
+- `--main-range`: main relative CPU range (default `13-19`).
+- `--pynative-range`: optional pynative relative CPU range (default unset).
+- `--scheduler-range`: scheduler relative CPU range (default `20-23`).
+- `--scheduler-base`: scheduler base CPU list:
+
+    - `free`: use CPUs not assigned to devices; fallback to global if insufficient.
+    - `global`: use the full available CPU list.
+    - `device0`: use device0's CPU list.
+
+For further customization (additional modules or custom NUMA strategies), extend the JSON or adjust the generator ranges.
+
+#### 6. Examples
+
+##### Example 1: CPU binding + NUMA memory binding (process + threads)
+
+```json
+{
+  "bind_config": {"bind_cpu_mode": "cpu", "bind_memory_mode": "numa", "actor_thread_fix_bind": true},
+  "bind_cpu": {
+    "scheduler": {"main": "40-45"},
+    "device0": {"main": "0-4", "runtime": "5-9", "pynative": "10-14", "minddata": "15-19"},
+    "device1": {"main": "20-24", "runtime": "25-29", "pynative": "30-34", "minddata": "35-39"}
+  },
+  "bind_memory": {"device0": 0, "device1": 1, "scheduler": 2}
+}
+```
+
+Binding details:
+
+- Process-level (cpu): `scheduler`, `device0`, `device1` `main` use `numactl --physcpubind`.
+- Thread-level (cpu): `runtime` / `pynative` / `minddata` are bound by `set_cpu_affinity`.
+- Memory (numa): `device0`/`device1`/`scheduler` bind to the specified NUMA nodes.
+
+##### Example 2: NUMA CPU + memory binding (process-only)
+
+```json
+{
+  "bind_config": {"bind_cpu_mode": "numa", "bind_memory_mode": "numa"},
+  "bind_cpu": {"device0": 0, "device1": 1},
+  "bind_memory": {"device0": 0, "device1": 1, "scheduler": "2-3,4"}
+}
+```
+
+Binding details:
+
+- Process-level (numa): `device0`/`device1` use `numactl --cpunodebind`.
+- Thread-level: not applied (`bind_cpu_mode=numa`).
+- Memory (numa): `device0`/`device1`/`scheduler` bind via `--membind`.
+
+##### Example 3: CPU binding without memory binding
+
+```json
+{
+  "bind_config": {"bind_cpu_mode": "cpu", "bind_memory_mode": "none", "actor_thread_fix_bind": false},
+  "bind_cpu": {
+    "scheduler": {"main": "40-45"},
+    "device0": {"main": "0-4", "runtime": "5-9", "pynative": "10-14", "minddata": "15-19"},
+    "device1": {"main": "20-24", "runtime": "25-29", "pynative": "30-34", "minddata": "35-39"}
+  }
+}
+```
+
+Binding details:
+
+- Process-level (cpu): `scheduler`/`device0`/`device1` `main` use `taskset -c`.
+- Thread-level (cpu): `runtime`/`pynative`/`minddata` are bound by `set_cpu_affinity`.
+- Memory: not bound (`bind_memory_mode=none`).
+
+##### Example 4: Main-only CPU binding (no module binding)
+
+```json
+{
+  "bind_config": {"bind_cpu_mode": "cpu", "bind_memory_mode": "numa"},
+  "bind_cpu": {
+    "device0": {"main": "0-4"},
+    "device1": {"main": "20-24"}
+  }
+}
+```
+
+Binding details:
+
+- Process-level (cpu): only `device0`/`device1` `main` use `taskset -c`.
+- Thread-level: not bound (no module ranges).
+- Memory: not bound (no `bind_memory` entries).
+
+##### Example 5: NUMA CPU binding only (no memory binding)
+
+```json
+{
+  "bind_config": {"bind_cpu_mode": "numa", "bind_memory_mode": "none"},
+  "bind_cpu": {"device0": 0, "device1": 1}
+}
+```
+
+Binding details:
+
+- Process-level (numa): `device0`/`device1` use `numactl --cpunodebind`.
+- Thread-level: not bound (`bind_cpu_mode=numa`).
+- Memory: not bound (`bind_memory_mode=none`).
+
+##### Example 6: Memory-only binding (no CPU binding)
+
+```json
+{
+  "bind_config": {"bind_cpu_mode": "none", "bind_memory_mode": "numa"},
+  "bind_memory": {"device0": 0, "device1": 1}
+}
+```
+
+Binding details:
+
+- Process-level (numa): memory only via `numactl --membind`.
+- CPU: not bound (`bind_cpu_mode=none`).
+- Thread-level: not bound.
+
+##### Example 7: Module-only CPU binding (no main)
+
+```json
+{
+  "bind_config": {"bind_cpu_mode": "cpu", "bind_memory_mode": "none"},
+  "bind_cpu": {
+    "device0": {"runtime": "5-9", "pynative": "10-14", "minddata": "15-19"},
+    "device1": {"runtime": "25-29", "pynative": "30-34", "minddata": "35-39"}
+  }
+}
+```
+
+Binding details:
+
+- Process-level: not bound (no `main`, so no `taskset/numactl` prefix).
+- Thread-level (cpu): `runtime`/`pynative`/`minddata` are bound by `set_cpu_affinity`.
+- Memory: not bound (`bind_memory_mode=none`).
