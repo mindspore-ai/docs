@@ -268,6 +268,8 @@ This chapter uses Qwen3-8B training as an example to demonstrate the use of rapi
 1. Install [MindSpore](https://www.mindspore.cn/install/en) first.
 2. Download MindSpore Transformers, using [pretrain_qwen3_8b.yaml](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/example/qwen3/pretrain_qwen3_8b.yaml) to add and modify parameters according to the configuration below:
 
+    Checkpoint 1.0 configuration:
+
     ```yaml
     output_dir: './output'
 
@@ -281,17 +283,34 @@ This chapter uses Qwen3-8B training as an example to demonstrate the use of rapi
         save_checkpoint_steps: 1
     ```
 
+    Checkpoint 2.0 configuration:
+
+    ```yaml
+    output_dir: './output'
+
+    monitor_config:
+      monitor_on: True
+      health_checkpoint:
+        global_norm_spike_threshold: 44.0
+
+    callbacks:
+      - type: CheckpointMonitor
+        save_checkpoint_steps: 1
+    ```
+
     **Parameter:**
 
-    | Parameters                  | Description                                                                                                                                           | Type  | Optional        |
-    |-----------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------|-------|-----------------|
-    | output_dir                  | Path to save checkpoint/strategy. Default to `./output`.                                                                                              | str   | Optional        |
-    | monitor_config              | Whether to enable training indicator monitoring configuration. Default to `None`.                                                                     | dict  | Optional        |
-    | monitor_on                  | Whether to enable training metric monitoring configuration. Only when enabled can abnormal global norm be monitored and TRE functionality be enabled. | bool  | Required `True` |
-    | check_for_global_norm       | Whether to enable the process-level fault rapid recovery function is mutually exclusive with the data skip function. Default to `False`.              | bool  | Optional        |
-    | global_norm_spike_threshold | The threshold for global norm, which triggers data skipping when global norm is exceeded. Default to `3.0`.                                           | float | Optional        |
-    | callbacks                   | The configs of callbacks.                                                                                                                             | list  | Required        |
-    | save_checkpoint_steps       | The step interval for saving weights.                                                                                                                 | int   | Required        |
+    | Parameters                  | Description                                                                                                                                                                                                                                                                                                                                                                                   | Type  | Optional        |
+    |-----------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------|-----------------|
+    | output_dir                  | Path to save checkpoint/strategy. Default to `./output`.                                                                                                                                                                                                                                                                                                                                      | str   | Optional        |
+    | monitor_config              | Whether to enable training indicator monitoring configuration. Default to `None`.                                                                                                                                                                                                                                                                                                             | dict  | Optional        |
+    | monitor_on                  | Whether to enable training metric monitoring configuration. Only when enabled can abnormal global norm be monitored and TRE functionality be enabled.                                                                                                                                                                                                                                         | bool  | Required `True` |
+    | check_for_global_norm       | Whether to enable the process-level fault rapid recovery function is mutually exclusive with the data skip function. Default to `False`.                                                                                                                                                                                                                                                      | bool  | Optional        |
+    | global_norm_spike_threshold | The threshold for global norm, which triggers data skipping when global norm is exceeded. The default value in the Checkpoint 1.0 scenario is `3.0`. In the Checkpoint 1.0 scenario, it is used in conjunction with `check_for_global_norm`. In the Checkpoint 2.0 scenario, it is used independently, and assigning a value indicates the activation of the quick failure recovery function. | float | Optional        |
+    | callbacks                   | The configs of callbacks.                                                                                                                                                                                                                                                                                                                                                                     | list  | Required        |
+    | save_checkpoint_steps       | The step interval for saving weights.                                                                                                                                                                                                                                                                                                                                                         | int   | Required        |
+
+     > The configuration with Checkpoint 1.0 can take effect in both Checkpoint 1.0 scenario and Checkpoint 2.0 scenario. Meanwhile, when configuring, the priority of Checkpoint 2.0 configuration is higher than that of Checkpoint 1.0 configuration. Checkpoint 2.0 configuration is only effective in Checkpoint 2.0 scenario.
 
 3. Configure environment variables:
 
