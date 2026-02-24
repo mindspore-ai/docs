@@ -538,13 +538,19 @@ import mindspore
 def linkcode_resolve(domain, info):
     if domain != "py":
         return None
-    if not info["module"]:
-        return None
+    name = info["fullname"]
+    modname = info['module']
+    if name and not info['module']:
+        if name.split('.')[-1].lower() == name.split('.')[-1] and name.split('.')[-2].lower() != name.split('.')[-2]:
+            modname = '.'.join(name.split('.')[:-2])
+            name = '.'.join(name.split('.')[-2:])
+        else:
+            modname = '.'.join(name.split('.')[:-1])
+            name = name.split('.')[-1]
 
     try:
-        module = __import__(info["module"], fromlist=[''])
+        module = __import__(modname, fromlist=[''])
         obj = module
-        name = info["fullname"]
         for part in name.split("."):
             obj = getattr(obj, part)
         # Get the source file and line number
@@ -565,7 +571,7 @@ def linkcode_resolve(domain, info):
                        ('mint.nn.functional.inplace_threshold', 'mint.nn.functional.threshold_', 'inplace_threshold', 'threshold_'),
                        ('ops.binary_cross_entropy_with_logits', 'ops.BCEWithLogitsLoss', 'binary_cross_entropy_with_logits', 'BCEWithLogitsLoss'),
                        ]
-            fullname = info["module"] + '.' + name
+            fullname = modname + '.' + name
             for i in spec_tp:
                 if fullname.endswith(i[1]):
                     name1 = name.replace(i[3], i[2])
