@@ -1220,7 +1220,7 @@ The following uses examples related to Tensor and Parameter to illustrate the su
     graph_grad_out:  1
     ```
 
-    Graph Mode ensure correct gradient computation for in-place operations due to global optimization.
+    Graph Mode ensures correct gradient computation for in-place operations due to global optimization.
 
     In PyNative Mode, modifications to the forward tensor will affect backpropagation, which may cause errors in automatic differentiation, so use it with caution.
 
@@ -1238,8 +1238,8 @@ The following uses examples related to Tensor and Parameter to illustrate the su
     y = mindspore.tensor(3, dtype=mindspore.int32)
     net = Net()
     pynative_out = net(x, y)
-    pynative_grad_out = grad(net)(x, y)
     print("pynative_out: ", pynative_out)
+    pynative_grad_out = grad(net)(x, y)
     print("pynative_grad_out: ", pynative_grad_out)
     ```
 
@@ -1339,7 +1339,7 @@ Combining view and in-place operations improves memory efficiency and computatio
 
 - Tensor indexing scenario
 
-    Enabled via `MS_DEV_TENSOR_INDEX_BOOST` (see [Environment Variables](https://chat.deepseek.com/a/chat/s/ba8b920c-4345-435e-bf87-c26bd6a9537b)).
+    When enabled via `MS_DEV_TENSOR_INDEX_BOOST`, Tensor indexing uses view and in-place operators for better execution efficiency (see [Environment Variables](https://www.mindspore.cn/docs/en/r2.8.0/api_python/env_var_list.html)).
 
     `Ascend` devices are supported. When compiling with `mindspore.jit`, both `jit_level=00` and `jit_level=01` are available.
 
@@ -1472,7 +1472,7 @@ Combining view and in-place operations improves memory efficiency and computatio
         RuntimeError: In backpropagation, inplace modification of the output of view operations within control flow is not supported.
         ```
 
-        This type of liminitation may be avoided by adding `x.add_(2)` after the view operation in both branches. For complex control flows, if it is difficult to clarify the correspondence between in-place operators and view operators by modifying the script, it is recommended not to use view operators and in-place operators to implement the logic in static graph mode.
+        This type of limitation may be avoided by adding `x.add_(2)` after the view operation in both branches. For complex control flows, if it is difficult to clarify the correspondence between in-place operators and view operators by modifying the script, it is recommended not to use view operators and in-place operators to implement the logic in static graph mode.
 
         When using view and in-place operators together in the computation graph, the actual execution of the backward graph may involve additional operators compared to Pynative Mode, potentially affecting execution performance. Therefore, it is advisable to use this combination cautiously in complex scenarios.
 
