@@ -1143,8 +1143,8 @@ In-place操作是指直接修改输入张量的内容，而不创建新的张量
     y = mindspore.tensor(3, dtype=mindspore.int32)
     net = Net()
     pynative_out = net(x, y)
-    pynative_grad_out = grad(net)(x, y)
     print("pynative_out: ", pynative_out)
+    pynative_grad_out = grad(net)(x, y)
     print("pynative_grad_out: ", pynative_grad_out)
     ```
 
