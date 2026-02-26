@@ -92,5 +92,14 @@
     "whl_name" : "mindspore_gs-.*-py3-none-any.whl$",
     "environ" : "GS_PATH",
     "uninstall_name" : "mindspore_gs"
+},
+{
+    "id" : 10 ,
+    "name" : "msadapter",
+    "branch" : "master",
+    "whl_path" : "",
+    "whl_name" : "",
+    "environ" : "",
+    "uninstall_name" : ""
 }
 ]
