@@ -18,7 +18,6 @@ If you have any comments or suggestions on the documents, submit them in Issues.
 
 ```text
 docs
-├───activity // Record the activity experience.
 |
 ├───docs // Technical documents about design, specification and so on. Configuration files for API generation.
 |    |
@@ -28,27 +27,19 @@ docs
 |    |
 |    ├───mindarmour // MindSpore Armour Documents
 |    |
-|    ├───mindchemistry // MindSpore Chemistry Documents
-|    |
-|    ├───mindearth // MindSpore Earth Documents
-|    |
-|    ├───mindelec // MindSpore Elec Documents
-|    |
-|    ├───mindflow // MindSpore Flow Documents
-|    |
 |    ├───mindformers // MindSpore Transformers Documents
 |    |
 |    ├───mindquantum // MindSpore Quantum Documents
 |    |
 |    ├───mindscience // MindScience Documents
 |    |
-|    ├───mindsponge // MindSpore SPONGE Documents
-|    |
 |    ├───mindspore // MindSpore Documents
 |    |
-|    ├───sample_code // Document corresponding sample code
+|    ├───mindstudio // MindStudio Documents
 |    |
-|    ├───sciai // MindSpore SciAI Documents
+|    ├───msadapter // MSAdapter Documents
+|    |
+|    ├───sample_code // Document corresponding sample code
 |    |
 |    └───vllm_mindspore // vLLM-MindSpore Plugin Documents
 |
