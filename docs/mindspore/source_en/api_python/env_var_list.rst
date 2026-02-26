@@ -282,6 +282,8 @@ Graph Compilation and Execution
        backend_compile_cache: Whether to enable backend cache in O0/O1 mode, only effective when enable compilation cache(MS_COMPILER_CACHE_ENABLE), with a default value of true.
 
        view: Whether to enable view kernels, only effective in O0 or O1 mode, with a default value of true.
+
+       actor_thread_fix_bind: When thread-level CPU affinity is enabled, whether to enable the "fixed binding" strategy for runtime threads. There are 5 actor threads in runtime. With "fixed binding", each thread is bound in order to one CPU within the configured range. For example, if device0 runtime binding range is "5-9", then `actor_thread0` is bound to CPU 5, `actor_thread1` is bound to CPU 6, and so on. Default: false.
      -
    * - MS_DEV_VIEW_OP
      - Specify certain operators to replace by view with MS_DEV_RUNTIME_CONF enabled view

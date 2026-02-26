@@ -80,7 +80,14 @@
         <td align="left">开启进程绑核。</td>
         <td align="left" style="white-space:nowrap">Bool/Dict</td>
         <td align="left">True、False或者给指定设备分配CPU范围段的字典。默认为False。</td>
-        <td align="left">若设置为True，则会基于环境信息按照设备亲和去自动分配CPU范围段；若手动传入一个字典，则根据该字典分配的CPU范围段去绑核。具体配置可参考**进程级绑核**章节。。</td>
+        <td align="left">若设置为True，则会基于环境信息按照设备亲和去自动分配CPU范围段；若手动传入一个字典，则根据该字典分配的CPU范围段去绑核。具体配置可参考“进程级 CPU/NUMA 亲和性配置”章节。</td>
+    </tr>
+    <tr>
+        <td align="left" style="white-space:nowrap">--bind_numa</td>
+        <td align="left">开启进程绑 NUMA 节点。</td>
+        <td align="left" style="white-space:nowrap">Bool/Dict/String</td>
+        <td align="left">True、False或者给指定设备分配 NUMA 节点的字典，也支持传入以.json结尾的文件路径。默认为False。</td>
+        <td align="left">若设置为True，则会基于环境信息按照设备亲和去自动分配 NUMA 节点；若手动传入一个字典或者JSON文件，则根据传入的配置自定义去绑定 NUMA 节点。具体配置可参考“进程级 CPU/NUMA 亲和性配置”章节。</td>
     </tr>
     <tr>
         <td align="left" style="white-space:nowrap">--sim_level</td>
