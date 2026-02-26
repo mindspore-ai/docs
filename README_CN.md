@@ -18,7 +18,6 @@
 
 ```text
 docs
-├───activity // 活动体验记录
 |
 ├───docs // 设计、规格、FAQ等技术文档，以及用于生成API的相关配置文件
 |    |
@@ -28,27 +27,19 @@ docs
 |    |
 |    ├───mindarmour // MindSpore Armour文档
 |    |
-|    ├───mindchemistry // MindSpore Chemistry文档
-|    |
-|    ├───mindearth // MindSpore Earth文档
-|    |
-|    ├───mindelec // MindSpore Elec文档
-|    |
-|    ├───mindflow // MindSpore Flow文档
-|    |
 |    ├───mindformers // MindSpore Transformers文档
 |    |
 |    ├───mindquantum // MindSpore Quantum文档
 |    |
 |    ├───mindscience // MindScience文档
 |    |
-|    ├───mindsponge // MindSpore SPONGE文档
-|    |
 |    ├───mindspore // MindSpore文档
 |    |
-|    ├───sample_code // 文档对应样例代码
+|    ├───mindstudio // MindStudio文档
 |    |
-|    ├───sciai // MindSpore SciAI文档
+|    ├───msadapter // MSAdapter文档
+|    |
+|    ├───sample_code // 文档对应样例代码
 |    |
 |    └───vllm_mindspore // vLLM-MindSpore Plugin文档
 |

@@ -35,7 +35,7 @@ If you need to add a document, create a markdown or reStructuredText file in a p
 
    Take a training tutorial as an example. Find the [index.rst](https://atomgit.com/mindspore/docs/blob/master/tutorials/source_en/index.rst) file in the `source_en` directory. This file corresponds to the organization structure of the training tutorial web page.
 
-    Add the new document to the corresponding category. You can also create a category before adding the document. Take **Implementing an Image Classification Application** as an example. Save the document in the `quick_start` directory and name it as `quick_start.md`. Add `quick_start/quick_start` to the Quick Start category, as shown below.
+    Add the new document to the corresponding category. You can also create a category before adding the document. Take **Quick Start** as an example. Save the document in the `beginner` directory and name it as `quick_start.md`. Add `beginner/quick_start` to the Quick Start category, as shown below.
 
     ```rst
     .. toctree::
@@ -44,14 +44,12 @@ If you need to add a document, create a markdown or reStructuredText file in a p
       :caption: Quick Start
       :hidden:
 
-      quick_start/quick_start
-      quick_start/linear_regression
-      quick_start/quick_video
+      beginner/quick_start
     ```
 
 After completing the preceding operations, commit to a PR to make contribution.
 
-### Checking a Document
+### Gate Access Check
 
 After committing to a PR, ensure that the `mindspore-cla/yes` and `ci-pipeline-passed` labels exist and the `stat/need-squash` label does not exist. The PR can be merged only after being approved by the committer.
 
@@ -69,6 +67,12 @@ Markdownlint is a tool for checking the markdown file format. You can use the to
 
 For details, see [RULES](https://github.com/markdownlint/markdownlint/blob/master/docs/RULES.md#).
 
+### AI-assisted Check
+
+When executing `/retest` for the first time, MindSpore CI automatically performs AI-assisted checks, including spelling error detection and ReStructureText/Markdown/Notebook document formatting verification. The results will be automatically replied under the PR comments for your reference.
+
+You can also add a comment `/ai-review` under the PR to retrigger the AI-assisted review.
+
 ### Confirming the Content
 
 On the next day after the PR is merged, you can view the new content on the MindSpore website. A new link will be created for the new document.
@@ -77,7 +81,7 @@ By default, tutorials and documents of the latest version are displayed on the o
 
 ![master_doc_en](./resource/_static/master_doc_en.png)
 
-Take **Quick Start for Beginners** as an example. The document link is <https://www.mindspore.cn/tutorials/en/master/beginner/quick_start.html>.
+Take **Quick Start** as an example. The document link is <https://www.mindspore.cn/tutorials/en/master/beginner/quick_start.html>.
 
 ## API
 
@@ -101,27 +105,28 @@ Modify the comments in the source file and commit changes to a PR to make the co
 
 If you want to add an API, check whether the API has been added to an existing module. For details about the existing modules, see <https://www.mindspore.cn/docs/en/master/index.html>.
 
-- If the API belongs to an existing module, comment out the API in the MindSpore code repository based on the requirements and add the API to \_\_all\_\_ of the corresponding module. Ensure that the API can be used in importing **mindspore.*Module name*.*API name*** format.
+- If the API belongs to an existing module, comment out the API in the mindspore code repository based on the requirements and add the API to \_\_all\_\_ of the corresponding module. Ensure that the API can be used in importing **mindspore.*Module name*.*API name*** format.
 
-    If the API belongs to the following modules, the API list of the MindSpore docs repository needs to be updated. Please add APIs in alphabetical order.
+    If it belongs to the following modules, you must also update the API list in the docs directory of the mindspore repository. Add APIs in alphabetical order.
 
     - `mindspore.dataset`: [中文](https://atomgit.com/mindspore/mindspore/blob/master/docs/api/api_python/mindspore.dataset.rst) | [English](https://atomgit.com/mindspore/mindspore/blob/master/docs/api/api_python_en/mindspore.dataset.rst)
     - `mindspore.dataset.transforms`: [中文](https://atomgit.com/mindspore/mindspore/blob/master/docs/api/api_python/mindspore.dataset.transforms.rst) | [English](https://atomgit.com/mindspore/mindspore/blob/master/docs/api/api_python_en/mindspore.dataset.transforms.rst)
     - `mindspore.nn`: [中文](https://atomgit.com/mindspore/mindspore/blob/master/docs/api/api_python/mindspore.nn.rst) | [English](https://atomgit.com/mindspore/mindspore/blob/master/docs/api/api_python_en/mindspore.nn.rst)
-    - `mindspore.nn.probability`: [中文](https://atomgit.com/mindspore/mindspore/blob/master/docs/api/api_python/mindspore.nn.probability.rst) | [English](https://atomgit.com/mindspore/mindspore/blob/master/docs/api/api_python_en/mindspore.nn.probability.rst)
+    - `mindspore.mint`：[中文](https://atomgit.com/mindspore/mindspore/blob/master/docs/api/api_python/mindspore.mint.rst) | [English](https://atomgit.com/mindspore/mindspore/blob/master/docs/api/api_python_en/mindspore.mint.rst)
     - `mindspore.ops`: [中文](https://atomgit.com/mindspore/mindspore/blob/master/docs/api/api_python/mindspore.ops.rst) | [English](https://atomgit.com/mindspore/mindspore/blob/master/docs/api/api_python_en/mindspore.ops.rst)
-    - `mindspore.ops.primitive`: [中文](https://atomgit.com/mindspore/mindspore/blob/master/docs/api/api_python/mindspore.ops.primitive.rst) | [English](https://atomgit.com/mindspore/mindspore/blob/master/docs/api/api_python_en/mindspore.ops.primitive.rst)
+    - `mindspore.runtime`：[中文](https://atomgit.com/mindspore/mindspore/blob/master/docs/api/api_python/mindspore.runtime.rst) | [English](https://atomgit.com/mindspore/mindspore/blob/master/docs/api/api_python_en/mindspore.runtime.rst)
 
-- If the API does not belong to the existing module, add an API project file of the MindSpore docs repository. Please add modules to the [directory structure](https://atomgit.com/mindspore/docs/blob/master/docs/mindspore/source_en/index.rst) in alphabetical order. To add the API of the `mindspore.mindrecord` module, you need to create the [mindspore.mindrecord.rst](https://atomgit.com/mindspore/mindspore/blob/master/docs/api/api_python_en/mindspore.mindrecord.rst) file in the `docs/docs/api_python/source_en/mindspore` directory and add the file to the directory structure.
+- If it does not belong to an existing module, you must create a new interface project file under the docs directory of the mindspore repository and add the module to the [Chinese directory structure](https://atomgit.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/api_python/index.rst) and [English directory structure](https://atomgit.com/mindspore/docs/blob/master/docs/mindspore/source_en/api_python/index.rst). To add a new `mindspore.mindrecord` module interface, create a new [mindspore.mindrecord.rst](https://atomgit.com/mindspore/mindspore/blob/master/docs/api/api_python/mindspore.mindrecord.rst) file in the `mindspore/docs/api/api_python` directory and add it to the directory structure. Additionally, create a new file named [mindspore.mindrecord.rst](https://atomgit.com/mindspore/mindspore/blob/master/docs/api/api_python_en/mindspore.mindrecord.rst) in the `mindspore/docs/api_python_en` directory and add it to the directory structure to generate the English page content.
 
     ```rst
     .. toctree::
-    :maxdepth: 1
-    :caption: MindSpore Python API
+       :glob:
+       :maxdepth: 1
+       :hidden:
 
-    ...
-    mindspore/mindspore.mindrecord
-    ...
+       ...
+       mindspore.mindrecord
+       ...
     ```
 
 After completing the preceding modification, commit to a PR to make contribution.

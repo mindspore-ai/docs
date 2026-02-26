@@ -105,9 +105,9 @@ MindSpore的docs仓提供了[API注释写作要求](https://atomgit.com/mindspor
 
 如果您需要新增API，请先确认是否在已有模块中添加，已有模块列表请查看<https://www.mindspore.cn/docs/zh-CN/master/index.html>。
 
-- 如果属于已有模块，在MindSpore代码仓按注释要求完成注释内容，并将该API添加至对应模块的\_\_all\_\_中，确保能通过导入“mindspore.模块名.API名”使用该API。
+- 如果属于已有模块，在mindspore代码仓按注释要求完成注释内容，并将该API添加至对应模块的\_\_all\_\_中，确保能通过导入“mindspore.模块名.API名”使用该API。
 
-    如属于以下模块，还需更新mindSpore仓docs目录下的接口列表，请按字母序添加API。
+    如属于以下模块，还需更新mindspore仓docs目录下的接口列表，请按字母序添加API。
 
     - `mindspore.dataset`：[中文页面列表](https://atomgit.com/mindspore/mindspore/blob/master/docs/api/api_python/mindspore.dataset.rst) | [英文页面列表](https://atomgit.com/mindspore/mindspore/blob/master/docs/api/api_python_en/mindspore.dataset.rst)
     - `mindspore.dataset.transforms`：[中文页面列表](https://atomgit.com/mindspore/mindspore/blob/master/docs/api/api_python/mindspore.dataset.transforms.rst) | [英文页面列表](https://atomgit.com/mindspore/mindspore/blob/master/docs/api/api_python_en/mindspore.dataset.transforms.rst)
@@ -116,7 +116,7 @@ MindSpore的docs仓提供了[API注释写作要求](https://atomgit.com/mindspor
     - `mindspore.ops`：[中文页面列表](https://atomgit.com/mindspore/mindspore/blob/master/docs/api/api_python/mindspore.ops.rst) | [英文页面列表](https://atomgit.com/mindspore/mindspore/blob/master/docs/api/api_python_en/mindspore.ops.rst)
     - `mindspore.runtime`：[中文页面列表](https://atomgit.com/mindspore/mindspore/blob/master/docs/api/api_python/mindspore.runtime.rst) | [英文页面列表](https://atomgit.com/mindspore/mindspore/blob/master/docs/api/api_python_en/mindspore.runtime.rst)
 
-- 如果不属于已有模块，需新增mindSpore仓docs目录下的接口工程文件，并添加模块到[中文目录结构](https://atomgit.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/api_python/index.rst)和[英文目录结构](https://atomgit.com/mindspore/docs/blob/master/docs/mindspore/source_en/api_python/index.rst)中。如需新增`mindspore.mindrecord`模块接口，需在`mindspore/docs/api/api_python`目录下新增[mindspore.mindrecord.rst](https://atomgit.com/mindspore/mindspore/blob/master/docs/api/api_python/mindspore.mindrecord.rst)文件，并将其添加到目录结构中。同时，在`mindspore/docs/api_python_en`目录下新增[mindspore.mindrecord.rst](https://atomgit.com/mindspore/mindspore/blob/master/docs/api/api_python_en/mindspore.mindrecord.rst)文件，并将其添加到目录结构中，即可生成英文页面内容。
+- 如果不属于已有模块，需新增mindspore仓docs目录下的接口工程文件，并添加模块到[中文目录结构](https://atomgit.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/api_python/index.rst)和[英文目录结构](https://atomgit.com/mindspore/docs/blob/master/docs/mindspore/source_en/api_python/index.rst)中。如需新增`mindspore.mindrecord`模块接口，需在`mindspore/docs/api/api_python`目录下新增[mindspore.mindrecord.rst](https://atomgit.com/mindspore/mindspore/blob/master/docs/api/api_python/mindspore.mindrecord.rst)文件，并将其添加到目录结构中。同时，在`mindspore/docs/api_python_en`目录下新增[mindspore.mindrecord.rst](https://atomgit.com/mindspore/mindspore/blob/master/docs/api/api_python_en/mindspore.mindrecord.rst)文件，并将其添加到目录结构中，即可生成英文页面内容。
 
     ```rst
     .. toctree::
