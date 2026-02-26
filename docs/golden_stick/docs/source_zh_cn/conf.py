@@ -361,9 +361,6 @@ import json
 if os.path.exists('../../../../tools/generate_html/version.json'):
     with open('../../../../tools/generate_html/version.json', 'r+', encoding='utf-8') as f:
         version_inf = json.load(f)
-elif os.path.exists('../../../../tools/generate_html/daily_dev.json'):
-    with open('../../../../tools/generate_html/daily_dev.json', 'r+', encoding='utf-8') as f:
-        version_inf = json.load(f)
 elif os.path.exists('../../../../tools/generate_html/daily.json'):
     with open('../../../../tools/generate_html/daily.json', 'r+', encoding='utf-8') as f:
         version_inf = json.load(f)
