@@ -40,6 +40,6 @@ The following are the features supported in vLLM-MindSpore Plugin.
 
 ## Feature Description
 
-- LoRA currently only supports the Qwen2.5 vLLM-MindSpore Plugin native model, other models are in the process of adaptation.
+- LoRA currently has two inference modes: static graph and dynamic graph. The static graph offers better performance but does not support dynamic unloading or loading LoRA adapters. The LoRA feature currently only supports the Qwen2.5, other models are in the process of adaptation.
 - Tool Calling only supports DeepSeek V3 0324 W8A8 model.
-- 300I Duo has supported Chunked Prefill, Automatic Prefix Caching and Tensor Parallel，and other features are in the process of adaptation.
+- Atlas 300I Duo has supported Chunked Prefill, LoRA(static graph), Automatic Prefix Caching and Tensor Parallel, and other features are in the process of adaptation.
