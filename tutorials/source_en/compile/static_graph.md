@@ -2434,15 +2434,15 @@ An example is as follows:
 ``` python
 import mindspore
 
-@mindspore.jit(capture_mode="bytecode")
+@mindspore.jit(capture_mode="bytecode", fullgraph=True)
 def func(x):
-    a = 0
-    m = x * 3
-    for _ in range(m):
-        a = a + 1
-    return a
+    if x > 0:
+        return x * 2
+    else:
+        return x + 2
 
-x = mindspore.tensor([1], dtype=mindspore.int32)
+
+x = mindspore.mutable(1)
 ret = func(x)
 
 print("ret: ", ret)
@@ -2451,10 +2451,18 @@ print("ret: ", ret)
 The results are as follows:
 
 ``` text
-ret: 3
+Traceback (most recent call last):
+  File "/workspace/test_pijit.py", line 13, in <module>
+    ret = func(x)
+  File "/root/miniconda3/lib/python3.10/site-packages/mindspore/common/_pijit_context.py", line 104, in _fn
+    self.ret = self.fn(*args, **kwds)
+mindspore.common._pijit_context.Unsupported: Reason: Data-dependent conditional control flow is not supported
+
+From user code:
+In file /workspace/test_pijit.py:5
+    if x > 0:
 ```
 
-In the above example, m is a variable, so the entire for loop control
-flow cannot be included in the graph and needs to be executed in dynamic graph mode.
+In the above example, `x` is a variable, so the `if` control flow cannot be included in the graph. With `fullgraph=True` set to enforce graph compilation, the program throws an exception indicating that data-dependent conditional control flow is not supported since the graph cannot be constructed; if this parameter is not set, the control flow will trigger a graph break and fall back to Python for execution.
 
 4. When constructing graphs based on bytecode, Python 3.12 and higher versions are currently not supported.
