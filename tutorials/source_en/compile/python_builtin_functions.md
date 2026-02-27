@@ -178,7 +178,7 @@ The result is as follows:
 a:                                             # a is empty string
 b:  0
 c:  [1, 2, 3, 4]
-d:  Tensor(shape=[1], dtype=Int64, value=[10])
+d:  [10]
 e:  [1 2 3 4]
 ```
 
@@ -1144,22 +1144,19 @@ import mindspore
 import numpy as np
 
 x = mindspore.tensor(np.array([1, 2, 3]), mindspore.int32)
-y = mindspore.tensor(3, mindspore.int32)
 
 @mindspore.jit
-def test(x, y):
+def test(x):
     print(x)
-    print(y)
-    return x, y
+    return x
 
-ret = test(x, y)
+ret = test(x)
 ```
 
 The result is as follows:
 
 ```text
 Tensor(shape=[3], dtype=Int32, value=[1 2 3])
-Tensor(shape=[], dtype=Int32, value=3)
 ```
 
 ## filter
