@@ -2238,15 +2238,15 @@ net.attr: Tensor(shape=[3], dtype=Int64, value= [2, 3, 4])
 ``` python
 import mindspore
 
-@mindspore.jit(capture_mode="bytecode")
+@mindspore.jit(capture_mode="bytecode", fullgraph=True)
 def func(x):
-    a = 0
-    m = x * 3
-    for _ in range(m):
-        a = a + 1
-    return a
+    if x > 0:
+        return x * 2
+    else:
+        return x + 2
 
-x = mindspore.tensor([1], dtype=mindspore.int32)
+
+x = mindspore.mutable(1)
 ret = func(x)
 
 print("ret: ", ret)
@@ -2255,9 +2255,18 @@ print("ret: ", ret)
 运行结果如下：
 
 ``` text
-ret: 3
+Traceback (most recent call last):
+  File "/workspace/test_pijit.py", line 13, in <module>
+    ret = func(x)
+  File "/root/miniconda3/lib/python3.10/site-packages/mindspore/common/_pijit_context.py", line 104, in _fn
+    self.ret = self.fn(*args, **kwds)
+mindspore.common._pijit_context.Unsupported: Reason: Data-dependent conditional control flow is not supported
+
+From user code:
+In file /workspace/test_pijit.py:5
+    if x > 0:
 ```
 
-上述用例中，m为变量，因此整个for循环控制流无法入图，需要按照动态图的方式运行。
+上述用例中，`x`为变量，因此`if`控制流无法入图。在设置了`fullgraph=True`强制入图的情况下，由于无法构图，程序抛出异常提示不支持数据依赖的条件控制流；若未设置该参数，则该控制流会触发graph break并回退到Python侧运行。
 
 4. 基于字节码构图时，暂不支持 Python 3.12 及更高版本。
