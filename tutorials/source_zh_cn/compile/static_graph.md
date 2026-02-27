@@ -1058,7 +1058,7 @@ ret:(Tensor(shape=[1], dtype=Int64, value= [1]), Tensor(shape=[1], dtype=Int64, 
 
 View操作是指创建一个新的张量，它与原始张量共享相同的数据存储，但具有不同的形状或排列方式。换句话说，view操作不会复制数据，而是通过不同的视角来解释现有的数据，避免了不必要的内存分配和数据复制。
 
-支持`Ascend`设备，使用`mindspore.jit`进行编译时，`jit_level=00`和`01`均支持。
+View算子仅在`Ascend`设备上支持，使用`mindspore.jit`进行编译时，`jit_level=O0`和`O1`均支持。
 
 View操作和求导：静态图和动态图结果一致。
 
@@ -1069,6 +1069,8 @@ import numpy as np
 import mindspore
 from mindspore import nn, mint
 from mindspore import grad
+
+mindspore.set_device(device_target="Ascend")
 
 class Net(nn.Cell):
     def construct(self, x):
@@ -1103,6 +1105,8 @@ In-place操作是指直接修改输入张量的内容，而不创建新的张量
     from mindspore import nn
     from mindspore import grad
 
+    mindspore.set_device(device_target="Ascend")
+
     class Net(nn.Cell):
         def construct(self, x, y):
             x.add_(y)
@@ -1113,8 +1117,8 @@ In-place操作是指直接修改输入张量的内容，而不创建新的张量
     net = Net()
     net.construct = mindspore.jit(net.construct, backend='ms_backend')
     graph_out = net(x, y)
-    graph_grad_out = grad(net)(x, y)
     print("graph_out: ", graph_out)
+    graph_grad_out = grad(net)(x, y)
     print("graph_grad_out: ", graph_grad_out)
     ```
 
@@ -1133,6 +1137,8 @@ In-place操作是指直接修改输入张量的内容，而不创建新的张量
     import mindspore
     from mindspore import nn
     from mindspore import grad
+
+    mindspore.set_device(device_target="Ascend")
 
     class Net(nn.Cell):
         def construct(self, x, y):
@@ -1216,6 +1222,8 @@ In-place操作是指直接修改输入张量的内容，而不创建新的张量
     import mindspore.nn as nn
     from mindspore import ops
 
+    mindspore.set_device(device_target="Ascend")
+
     class ViewOut(nn.Cell):
         def __init__(self):
             super(ViewOut, self).__init__()
@@ -1246,13 +1254,15 @@ In-place操作是指直接修改输入张量的内容，而不创建新的张量
 
     开启`MS_DEV_TENSOR_INDEX_BOOST`使能后，将使用view算子和in-place算子实现Tensor索引功能，提升索引操作的执行效率，具体描述请参考[环境变量](https://www.mindspore.cn/docs/zh-CN/r2.8.0/api_python/env_var_list.html#%E5%9B%BE%E7%BC%96%E8%AF%91%E6%89%A7%E8%A1%8C)。
 
-    支持`Ascend`设备，使用`mindspore.jit`进行编译时，`jit_level=00`和`01`均支持。
+    仅在`Ascend`设备上支持，使用`mindspore.jit`进行编译时，`jit_level=O0`和`O1`均支持。
 
     示例如下：
 
     ```python
     import numpy as np
     import mindspore
+
+    mindspore.set_device(device_target="Ascend")
 
     @mindspore.jit(capture_mode='ast', jit_level="O0", backend="ms_backend")
     def func(ms_x):
@@ -1281,6 +1291,8 @@ In-place操作是指直接修改输入张量的内容，而不创建新的张量
         from mindspore import ops, mint
         from mindspore import grad
 
+        mindspore.set_device(device_target="Ascend")
+
         class Net(nn.Cell):
             def construct(self, x):
                 y = ops.abs(x)
@@ -1306,6 +1318,8 @@ In-place操作是指直接修改输入张量的内容，而不创建新的张量
         from mindspore import ops, mint
         from mindspore import grad
 
+        mindspore.set_device(device_target="Ascend")
+
         class Net(nn.Cell):
             def construct(self, x):
                 y = ops.abs(x)
@@ -1328,6 +1342,8 @@ In-place操作是指直接修改输入张量的内容，而不创建新的张量
         import mindspore.nn as nn
         from mindspore import ops, mint
         from mindspore import grad
+
+        mindspore.set_device(device_target="Ascend")
 
         class Net(nn.Cell):
             @ms.jit(backend="ms_backend")
@@ -1356,6 +1372,8 @@ In-place操作是指直接修改输入张量的内容，而不创建新的张量
         import mindspore.nn as nn
         from mindspore import ops, mint
         from mindspore import grad
+
+        mindspore.set_device(device_target="Ascend")
 
         class Net(nn.Cell):
             @ms.jit(backend="ms_backend")
