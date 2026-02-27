@@ -4,8 +4,8 @@
 
 The following table lists models supported by MindSpore Transformers.
 
-| Model                                                                                                   | Specifications                |    Model Type     | Model Architecture |        Latest Version         |
-|:--------------------------------------------------------------------------------------------------------|:------------------------------|:-----------------:|:------------------:|:-----------------------------:|
+| Model                                                                                                     | Specifications                |    Model Type     | Model Architecture |        Latest Version         |
+|:----------------------------------------------------------------------------------------------------------|:------------------------------|:-----------------:|:------------------:|:-----------------------------:|
 | [Qwen3](https://atomgit.com/mindspore/mindformers/tree/master/configs/qwen3)                              | 0.6B/1.7B/4B/8B/14B/32B       |     Dense LLM     |       Mcore        | 1.7.0, In-Development Version |
 | [Qwen3-MoE](https://atomgit.com/mindspore/mindformers/tree/master/configs/qwen3_moe)                      | 30B-A3B/235B-A22B             |    Sparse LLM     |       Mcore        | 1.7.0, In-Development Version |
 | [DeepSeek-V3](https://atomgit.com/mindspore/mindformers/tree/master/research/deepseek3)                   | 671B                          |    Sparse LLM     |    Mcore/Legacy    | 1.7.0, In-Development Version |
@@ -27,7 +27,6 @@ The following table lists models supported by MindSpore Transformers.
 | [Llama3.2](https://atomgit.com/mindspore/mindformers/blob/r1.5.0/docs/model_cards/llama3_2.md)            | 3B                            |     Dense LLM     |       Legacy       |             1.5.0             |
 | [Llama3.2-Vision](https://atomgit.com/mindspore/mindformers/blob/r1.5.0/docs/model_cards/mllama.md)       | 11B                           |        MM         |       Legacy       |             1.5.0             |
 | [Llama3](https://atomgit.com/mindspore/mindformers/tree/r1.5.0/research/llama3)                           | 8B/70B                        |     Dense LLM     |       Legacy       |             1.5.0             |
-| [Llama2](https://atomgit.com/mindspore/mindformers/blob/r1.5.0/docs/model_cards/llama2.md)                | 7B/13B/70B                    |     Dense LLM     |       Legacy       |             1.5.0             |
 | [Qwen2](https://atomgit.com/mindspore/mindformers/tree/r1.5.0/research/qwen2)                             | 0.5B/1.5B/7B/57B/57B-A14B/72B | Dense /Sparse LLM |       Legacy       |             1.5.0             |
 | [Qwen1.5](https://atomgit.com/mindspore/mindformers/tree/r1.5.0/research/qwen1_5)                         | 7B/14B/72B                    |     Dense LLM     |       Legacy       |             1.5.0             |
 | [Qwen-VL](https://atomgit.com/mindspore/mindformers/tree/r1.5.0/research/qwenvl)                          | 9.6B                          |        MM         |       Legacy       |             1.5.0             |
@@ -35,6 +34,7 @@ The following table lists models supported by MindSpore Transformers.
 | [Whisper](https://atomgit.com/mindspore/mindformers/blob/r1.5.0/docs/model_cards/whisper.md)              | 1.5B                          |        MM         |       Legacy       |             1.5.0             |
 | [Yi](https://atomgit.com/mindspore/mindformers/tree/r1.5.0/research/yi)                                   | 6B/34B                        |     Dense LLM     |       Legacy       |             1.5.0             |
 | [YiZhao](https://atomgit.com/mindspore/mindformers/tree/r1.5.0/research/yizhao)                           | 12B                           |     Dense LLM     |       Legacy       |             1.5.0             |
+| [Llama2](https://atomgit.com/mindspore/mindformers/blob/r1.3.0/docs/model_cards/llama2.md)                | 7B/13B/70B                    |     Dense LLM     |       Legacy       |             1.3.2             |
 | [Baichuan2](https://atomgit.com/mindspore/mindformers/blob/r1.3.0/research/baichuan2/baichuan2.md)        | 7B/13B                        |     Dense LLM     |       Legacy       |             1.3.2             |
 | [GLM2](https://atomgit.com/mindspore/mindformers/blob/r1.3.0/docs/model_cards/glm2.md)                    | 6B                            |     Dense LLM     |       Legacy       |             1.3.2             |
 | [GPT2](https://atomgit.com/mindspore/mindformers/blob/r1.3.0/docs/model_cards/gpt2.md)                    | 124M/13B                      |     Dense LLM     |       Legacy       |             1.3.2             |
