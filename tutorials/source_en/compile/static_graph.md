@@ -1153,7 +1153,7 @@ Graph Mode supports view operations and in-place operations on tensors, along wi
 
 View operations create new tensors that share the same underlying data storage as the original tensors but have different shapes or layouts. In other words, the view operation does not copy data, but rather interprets the existing data from a different perspective, avoiding unnecessary memory allocation and data copying.
 
-`Ascend` devices are supported. When compiling with `mindspore.jit`, both `jit_level=00` and `jit_level=01` are available.
+View operators are only supported on `Ascend` devices. When compiling with `mindspore.jit`, both `jit_level=O0` and `O1` are supported.
 
 View operations and gradient computations in Graph Mode produce results consistent with PyNative Mode.
 
@@ -1164,6 +1164,8 @@ import numpy as np
 import mindspore
 from mindspore import nn, mint
 from mindspore import grad
+
+mindspore.set_device(device_target="Ascend")
 
 class Net(nn.Cell):
     def construct(self, x):
@@ -1198,6 +1200,8 @@ The following uses examples related to Tensor and Parameter to illustrate the su
     from mindspore import nn
     from mindspore import grad
 
+    mindspore.set_device(device_target="Ascend")
+
     class Net(nn.Cell):
         def construct(self, x, y):
             x.add_(y)
@@ -1208,8 +1212,8 @@ The following uses examples related to Tensor and Parameter to illustrate the su
     net = Net()
     net.construct = mindspore.jit(net.construct, backend='ms_backend')
     graph_out = net(x, y)
-    graph_grad_out = grad(net)(x, y)
     print("graph_out: ", graph_out)
+    graph_grad_out = grad(net)(x, y)
     print("graph_grad_out: ", graph_grad_out)
     ```
 
@@ -1228,6 +1232,8 @@ The following uses examples related to Tensor and Parameter to illustrate the su
     import mindspore
     from mindspore import nn
     from mindspore import grad
+
+    mindspore.set_device(device_target="Ascend")
 
     class Net(nn.Cell):
         def construct(self, x, y):
@@ -1311,6 +1317,8 @@ Combining view and in-place operations improves memory efficiency and computatio
     import mindspore.nn as nn
     from mindspore import ops
 
+    mindspore.set_device(device_target="Ascend")
+
     class ViewOut(nn.Cell):
         def __init__(self):
             super(ViewOut, self).__init__()
@@ -1341,13 +1349,15 @@ Combining view and in-place operations improves memory efficiency and computatio
 
     When enabled via `MS_DEV_TENSOR_INDEX_BOOST`, Tensor indexing uses view and in-place operators for better execution efficiency (see [Environment Variables](https://www.mindspore.cn/docs/en/r2.8.0/api_python/env_var_list.html)).
 
-    `Ascend` devices are supported. When compiling with `mindspore.jit`, both `jit_level=00` and `jit_level=01` are available.
+    Only supported on `Ascend` devices. When compiling with `mindspore.jit`, both `jit_level=O0` and `O1` are supported.
 
     Example:
 
     ```python
     import numpy as np
     import mindspore
+
+    mindspore.set_device(device_target="Ascend")
 
     @mindspore.jit(capture_mode='ast', jit_level="O0", backend="ms_backend")
     def func(ms_x):
@@ -1376,6 +1386,8 @@ Combining view and in-place operations improves memory efficiency and computatio
         from mindspore import ops, mint
         from mindspore import grad
 
+        mindspore.set_device(device_target="Ascend")
+
         class Net(nn.Cell):
             def construct(self, x):
                 y = ops.abs(x)
@@ -1401,6 +1413,8 @@ Combining view and in-place operations improves memory efficiency and computatio
         from mindspore import ops, mint
         from mindspore import grad
 
+        mindspore.set_device(device_target="Ascend")
+
         class Net(nn.Cell):
             def construct(self, x):
                 y = ops.abs(x)
@@ -1423,6 +1437,8 @@ Combining view and in-place operations improves memory efficiency and computatio
         import mindspore.nn as nn
         from mindspore import ops, mint
         from mindspore import grad
+
+        mindspore.set_device(device_target="Ascend")
 
         class Net(nn.Cell):
             @ms.jit(backend="ms_backend")
@@ -1450,6 +1466,8 @@ Combining view and in-place operations improves memory efficiency and computatio
         import mindspore.nn as nn
         from mindspore import ops, mint
         from mindspore import grad
+
+        mindspore.set_device(device_target="Ascend")
 
         class Net(nn.Cell):
             @ms.jit(backend="ms_backend")
