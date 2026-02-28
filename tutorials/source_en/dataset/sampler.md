@@ -270,7 +270,6 @@ The following example uses WeightedRandomSampler to obtain six samples by probab
 import math
 import matplotlib.pyplot as plt
 from mindspore.dataset import WeightedRandomSampler, Cifar10Dataset
-%matplotlib inline
 
 DATA_DIR = "./cifar-10-batches-bin/"
 
