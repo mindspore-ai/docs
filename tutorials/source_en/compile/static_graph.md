@@ -1325,7 +1325,7 @@ Combining view and in-place operations improves memory efficiency and computatio
             self.transpose = ops.operations.TransposeView()
             self.assign = ops.operations.Assign()
 
-        @mindspore.jit
+        @mindspore.jit(backend='ms_backend')
         def construct(self, x):
             x = self.transpose(x, (0, 1, 2))
             self.assign(x, x * 2)
@@ -1334,7 +1334,6 @@ Combining view and in-place operations improves memory efficiency and computatio
     x1 = mindspore.tensor(np.array([[[1, 0, 0, 0], [0, 0, 0, 0], [-1, -1, 0, -1]],
                              [[0, -1, 0, 0], [0, 0, 0, 0], [0, 1, 0, 0]]]), mindspore.int32)
     net = ViewOut()
-    net.construct = mindspore.jit(net.construct, backend='ms_backend')
     out_graph = net(x1)
 
     x2 = mindspore.tensor(np.array([[[1, 0, 0, 0], [0, 0, 0, 0], [-1, -1, 0, -1]],
@@ -1524,7 +1523,7 @@ compilation problems can be found in [Network compilation](https://www.mindspore
     The error is reported as follows:
 
     ``` text
-    AttributeError: External object has no attribute y
+    AttributeError: ClassMember: 'Namespace:__main__..<Net>' object has no attribute 'y'
     ```
 
 2. Class methods modified by `classmethod` in `nn.Cell` are not

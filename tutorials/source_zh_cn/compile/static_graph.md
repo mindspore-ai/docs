@@ -1230,7 +1230,7 @@ In-place操作是指直接修改输入张量的内容，而不创建新的张量
             self.transpose = ops.operations.TransposeView()
             self.assign = ops.operations.Assign()
 
-        @mindspore.jit
+        @mindspore.jit(backend='ms_backend')
         def construct(self, x):
             x = self.transpose(x, (0, 1, 2))
             self.assign(x, x * 2)
@@ -1239,7 +1239,6 @@ In-place操作是指直接修改输入张量的内容，而不创建新的张量
     x1 = mindspore.tensor(np.array([[[1, 0, 0, 0], [0, 0, 0, 0], [-1, -1, 0, -1]],
                              [[0, -1, 0, 0], [0, 0, 0, 0], [0, 1, 0, 0]]]), mindspore.int32)
     net = ViewOut()
-    net.construct = mindspore.jit(net.construct, backend='ms_backend')
     out_graph = net(x1)
 
     x2 = mindspore.tensor(np.array([[[1, 0, 0, 0], [0, 0, 0, 0], [-1, -1, 0, -1]],
@@ -1426,7 +1425,7 @@ In-place操作是指直接修改输入张量的内容，而不创建新的张量
     结果报错如下：
 
     ``` text
-    AttributeError: External object has no attribute y
+    AttributeError: ClassMember: 'Namespace:__main__..<Net>' object has no attribute 'y'
     ```
 
 2. `nn.Cell`不支持`classmethod`修饰的类方法。示例如下：
