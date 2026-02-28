@@ -99,7 +99,7 @@
      - 指定静态图模式下哪些模块需要JIT静态编译，其函数方法会被编译成静态计算图
      - String
      - 模块名，对应import导入的顶层模块的名称。如果有多个，使用英文逗号分隔。例如： `export MS_JIT_MODULES=mindflow,mindyolo`。
-     - 默认情况下，第三方库之外的模块都会进行JIT静态编译。MindSpore套件等一些模块如 `mindflow`、`mindyolo` 等并不会被视作第三方库。如果有类似MindSpore套件的模块，内部存在 `nn.Cell`、`@ms.jit` 修饰函数或需要编译成静态计算图的函数方法，可以通过配置该环境变量，使该模块进行JIT静态编译而不会被当成第三方库。
+     - 默认情况下，第三方库之外的模块都会进行JIT静态编译。MindSpore套件等一些模块如 `mindflow`、`mindyolo` 等并不会被视作第三方库。如果有类似MindSpore套件的模块，内部存在 `nn.Cell`、 `@ms.jit` 修饰函数或需要编译成静态计算图的函数方法，可以通过配置该环境变量，使该模块进行JIT静态编译而不会被当成第三方库。
    * - MS_JIT_IGNORE_MODULES
      - 指定静态图模式下哪些模块是第三方库，不进行JIT静态编译，其函数方法会被解释执行。
      - String
@@ -674,7 +674,7 @@ Dump调试
 
        其中 `RANK_ID` 为多卡训练场景中的卡号，单卡场景默认 `RANK_ID=0` 。
    * - MS_COMPILER_CACHE_PATH
-     - MindSpore编译缓存目录，存储图和算子编译过程生成的缓存文件，如 `graph_cache` , `kernel_meta` , `somas_meta` 等
+     - MindSpore编译缓存目录，存储图和算子编译过程生成的缓存文件，如 `graph_cache` 、 `kernel_meta` 、 `somas_meta` 等
      - String
      - 缓存文件路径，支持相对路径与绝对路径
      -
@@ -824,7 +824,7 @@ Dump调试
 
        3-ERROR
 
-     - 赋值方式为：`MS_SUBMODULE_LOG_v="{SubModule1:LogLevel1,SubModule2:LogLevel2,...}"`
+     - 赋值方式为： `MS_SUBMODULE_LOG_v="{SubModule1:LogLevel1,SubModule2:LogLevel2,...}"`
 
        其中被指定子模块的日志级别将覆盖 `GLOG_v` 在此模块内的设置，
        此处子模块的日志级别 `LogLevel` 与 `GLOG_v` 的日志级别含义相同，
@@ -971,7 +971,7 @@ Dump调试
      - 使能训练监控（Training Health Monitor）功能
      - String
      - "{HCCL_WATCHDOG:1,HCCL_STATUS_SAVE:1}"。HCCL_WATCHDOG：使用一个线程监控集合通信域内是否存在故障，默认开启。HCCL_STATUS_SAVE：使用一个线程记录集合通信算子执行状态，默认关闭。
-     - 仅限在 Ascend 后端开启图模式，且 jit_level 设置为 "O0" 或 "O1"。使用 HCCL_STATUS_SAVE 功能时，可以同时配置 HCCL_STATUS_SAVE_CONFIG 字段，配置形式为`JSON`文件（例如：{HCCL_STATUS_SAVE:1,HCCL_STATUS_SAVE_CONFIG='./abc.json'}）。文件内容：`{"HCCL_STATUS_SAVE_PATH": str, "HCCL_STATUS_SAVE_INTERVAL": int}`，其中 HCCL_STATUS_SAVE_PATH 为通信算子执行状态文件保存路径（绝对路径，否则保存在默认路径`/tmp`下），HCCL_STATUS_SAVE_INTERVAL 为保存文件间隔。如果不配置 HCCL_STATUS_SAVE_CONFIG，默认保存在`/tmp`目录下，保存间隔30秒。
+     - 仅限在 Ascend 后端开启图模式，且 jit_level 设置为 "O0" 或 "O1"。使用 HCCL_STATUS_SAVE 功能时，可以同时配置 HCCL_STATUS_SAVE_CONFIG 字段，配置形式为 `JSON` 文件（例如：{HCCL_STATUS_SAVE:1,HCCL_STATUS_SAVE_CONFIG='./abc.json'}）。文件内容： `{"HCCL_STATUS_SAVE_PATH": str, "HCCL_STATUS_SAVE_INTERVAL": int}` ，其中 HCCL_STATUS_SAVE_PATH 为通信算子执行状态文件保存路径（绝对路径，否则保存在默认路径 `/tmp` 下），HCCL_STATUS_SAVE_INTERVAL 为保存文件间隔。如果不配置 HCCL_STATUS_SAVE_CONFIG，默认保存在 `/tmp` 目录下，保存间隔30秒。
    * - MS_ENABLE_TFT
      - 使能训练故障容错（Training Fault Tolerance）功能，大多数功能依赖 `MindIO TFT <https://www.hiascend.com/document/detail/zh/mindx-dl/600/clusterscheduling/ref/mindiottp/mindiotft001.html>`_ 组件。
      - String
