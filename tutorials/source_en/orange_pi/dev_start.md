@@ -8,9 +8,9 @@ Since developers may perform custom model and case development in OrangePi AIpro
 
 After obtaining the OrangePi AIpro development board, developers first need to confirm hardware resources, burn images, and upgrade CANN and MindSpore versions before running the case. The specific steps are as follows:
 
-| OrangePi AIpro | Image | CANN Toolkit/Kernels | MindSpore |
+| OrangePi AIpro | Image | CANN Toolkit/Ops | MindSpore |
 | :----:| :----: | :----:| :----: |
-| 8T 16G | Ubuntu | 8.5.0.alpha002| 2.7.2 |
+| 8T 16G | Ubuntu | 8.5.0 | 2.7.2 |
 
 ### Image Burning
 
@@ -351,7 +351,7 @@ for data, label in test_dataset:
         plt.subplot(2, 3, i + 1)
         # If the prediction is correct, it will be displayed in blue; if the prediction is incorrect, it will be displayed in red
         color = 'blue' if predicted[i] == label[i] else 'red'
-        plt.title(f'Predicted:{i}'.format(predicted[i]), color=color)
+        plt.title(f'Predicted:{predicted[i]}', color=color)
         plt.imshow(data.asnumpy()[i][0], interpolation="None", cmap="gray")
         plt.axis('off')
     plt.show()
@@ -366,6 +366,6 @@ More examples of MindSpore-based OrangePi development boards are detailed in: [G
 
 The required environment for the operation of this case:
 
-| OrangePi AIpro | Image | CANN Toolkit/Kernels | MindSpore |
+| OrangePi AIpro | Image | CANN Toolkit/Ops | MindSpore |
 | :----:| :----: | :----:| :----: |
-| 8T 16G | Ubuntu | 8.5.0.alpha002| 2.7.2 |
+| 8T 16G | Ubuntu | 8.5.0 | 2.7.2 |

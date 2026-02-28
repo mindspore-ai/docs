@@ -150,7 +150,7 @@
 
 ![environment-setup-1-25](./images/environment_setup_1-25.png)
 
-### 3.2 CANN升级（以CANN 8.5.0.alpha002为例）
+### 3.2 CANN升级（以CANN 8.5.0为例）
 
 若当前CANN版本不满足开发需求，可按照如下内容对CANN版本进行升级。
 
@@ -181,7 +181,7 @@
 
 ```
 
-步骤3 打开昇腾CANN官网访问社区版资源[下载地址](https://www.hiascend.com/developer/download/community/result?module=cann)，下载所需版本的toolkit包，该处以8.5.0.alpha002版本为例，如下图：
+步骤3 打开昇腾CANN官网访问社区版资源[下载地址](https://www.hiascend.com/developer/download/community/result?module=cann)，下载所需版本的toolkit包，该处以8.5.0版本为例，如下图：
 
 ![environment-setup-1-15](./images/environment_setup_1-15.png)
 
@@ -202,13 +202,13 @@
 步骤5 给CANN包添加执行权限。
 
 ```bash
-(base) root@orangepiaipro: /home/HwHiAiUser/Downloads# chmod +x ./Ascend-cann-toolkit_8.5.0.alpha002_linux-aarch64.run
+(base) root@orangepiaipro: /home/HwHiAiUser/Downloads# chmod +x ./Ascend-cann-toolkit_8.5.0_linux-aarch64.run
 ```
 
 步骤6 执行以下命令升级软件。
 
 ```bash
-(base) root@orangepiaipro: /home/HwHiAiUser/Downloads#./Ascend-cann-toolkit_8.5.0.alpha002_linux-aarch64.run --install
+(base) root@orangepiaipro: /home/HwHiAiUser/Downloads#./Ascend-cann-toolkit_8.5.0_linux-aarch64.run --install
 ```
 
 安装时弹出此提示后输入Y，然后按回车键继续安装。该过程约需要10-15分钟，请耐心等待。
@@ -236,9 +236,9 @@ xxx install success
 
 ```
 
-#### 3.2.2 Kernels升级
+#### 3.2.2 Ops升级
 
-> 二进制算子包Kernels依赖CANN软件包Toolkit，执行升级时，当前环境需已安装配套版本的Toolkit，并使用root用户安装。
+> 二进制算子包ops依赖CANN软件包Toolkit，执行升级时，当前环境需已安装配套版本的Toolkit，并使用root用户安装。
 
 步骤1 打开终端，并切换root用户。
 
@@ -260,11 +260,11 @@ root用户密码：Mind@123。
 npu-smi info
 ```
 
-步骤3 打开昇腾CANN官网访问社区版资源[下载地址](https://www.hiascend.com/developer/download/community/result?module=cann)，下载与CANN包版本一致，并且匹配NPU型号的kernel包，如下图：
+步骤3 打开昇腾CANN官网访问社区版资源[下载地址](https://www.hiascend.com/developer/download/community/result?module=cann)，下载与CANN包版本一致，并且匹配NPU型号的ops包，如下图：
 
 ![environment-setup-1-18](./images/environment_setup_1-18.png)
 
-步骤4 进入Kernels包下载目录。
+步骤4 进入ops包下载目录。
 
 ```bash
 (base) root@orangepiaipro: /usr/local/Ascend/ascend-toolkit# cd /home/HwHiAiUser/Downloads
@@ -272,16 +272,16 @@ npu-smi info
 
 > OrangePi AIpro浏览器文件默认下载目录：/home/HwHiAiUser/Downloads
 
-步骤5 给kernels包添加执行权限。
+步骤5 给ops包添加执行权限。
 
 ```bash
-(base) root@orangepiaipro: /home/HwHiAiUser/Downloads# chmod +x ./Ascend-cann-kernels-310b_8.5.0.alpha002_linux-aarch64.run
+(base) root@orangepiaipro: /home/HwHiAiUser/Downloads# chmod +x ./Ascend-cann-310b-ops_8.5.0_linux-aarch64.run
 ```
 
 步骤6 执行以下命令升级软件。
 
 ```bash
-(base) root@orangepiaipro: /home/HwHiAiUser/Downloads#./Ascend-cann-kernels-310b_8.5.0.alpha002_linux-aarch64.run --install
+(base) root@orangepiaipro: /home/HwHiAiUser/Downloads#./Ascend-cann-310b-ops_8.5.0_linux-aarch64.run --install
 ```
 
 升级完成后，若显示如下信息，则说明软件升级成功：
@@ -292,9 +292,7 @@ xxx install success
 
 - xxx表示升级的实际软件包名。
 
-- 安装升级后的路径（以root用户默认安装升级路径为例）：/usr/local/Ascend/ascend-toolkit/latest/opp/built-in/op_impl/ai_core/tbe/kernel。
-
-> 如果输出不正确，需要按照以上步骤重新升级Kernels。
+> 如果输出不正确，需要按照以上步骤重新升级ops。
 
 ## 4. MindSpore升级
 
