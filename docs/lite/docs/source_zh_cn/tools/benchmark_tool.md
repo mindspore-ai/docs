@@ -24,24 +24,6 @@
 
     其中${PACKAGE_ROOT_PATH}是编译得到的包解压后的根目录。
 
-- 如果基于Ascend进行基准测试，使用如下命令切换：
-
-    ```bash
-    export ASCEND_DEVICE_ID=$RANK_ID
-    ```
-
-- 如果需要配置Ascend GE后端进行基准测试，使用如下命令切换：
-
-    ```bash
-    export ASCEND_BACK_POLICY="ge"
-    ```
-
-- 如果需要通过配置项设置Cache，则可以通过如下命令进行配置：
-
-    ```bash
-    export BENCHMARK_UPDATE_CONFIG_ENV="0"
-    ```
-
 - 如果基于GPU进行基准测试，使用如下命令切换：
 
     ```bash
@@ -80,7 +62,7 @@
 | `--benchmarkDataFile=<CALIBDATAPATH>` | 可选 | 指定标杆数据的文件路径。标杆数据作为该测试模型的对比输出，是该测试模型使用相同输入并由其他深度学习框架前向推理而来。 | String | null | - |
 | `--benchmarkDataType=<CALIBDATATYPE>` | 可选 | 指定标杆数据类型。 | String | FLOAT | FLOAT、INT32、INT8、UINT8 |
 | `--cpuBindMode=<CPUBINDMODE>` | 可选 | 指定模型推理程序运行时绑定的CPU核类型。 | Integer | 1      | 2：表示中核<br/>1：表示大核<br/>0：表示不绑定 |
-| `--device=<DEVICE>` | 可选 | 指定模型推理程序运行的设备类型。 | String | CPU | CPU、GPU、Kirin NPU、Ascend、DSP |
+| `--device=<DEVICE>` | 可选 | 指定模型推理程序运行的设备类型。 | String | CPU | CPU、GPU、Kirin NPU、DSP |
 | `--help` | 可选 | 显示`benchmark`命令的帮助信息。 | - | - | - |
 | `--inDataFile=<INDATAPATH>` | 可选 | 指定测试模型输入数据的文件路径，多个输入数据文件用‘,’隔开。如果未设置，则使用随机输入。 | String | null | - |
 | `--loopCount=<LOOPCOUNT>` | 可选 | 指定Benchmark工具进行基准测试时，测试模型的前向推理运行次数，其值为正整数。 | Integer | 10 | - |

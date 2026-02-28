@@ -24,24 +24,6 @@ To use the Benchmark tool, you need to prepare the environment as follows:
 
     ${PACKAGE_ROOT_PATH} is the compiled inference package path after decompressing.
 
-- If you're running this benchmark based on Ascend, use the following command to switch:
-
-    ```bash
-    export ASCEND_DEVICE_ID=$RANK_ID
-    ```
-
-- If you need to configure the Ascend GE backend for benchmark testing, use the following command to switch:
-
-    ```bash
-    export ASCEND_BACK_POLICY="ge"
-    ```
-
-- If it is necessary to set the Cache through configuration items, it can be configured by the following command:
-
-    ```bash
-    export BENCHMARK_UPDATE_CONFIG_ENV="0"
-    ```
-
 - If benchmark test is based on GPUs, use the following command to switch:
 
     ```bash
@@ -80,7 +62,7 @@ The following describes the parameters in detail.
 | `--benchmarkDataFile=<BENCHMARKDATAFILE>` | Optional | Specifies the file path of the benchmark data. The benchmark data, as the comparison output of the tested model, is output from the forward inference of the tested model under other deep learning frameworks using the same input. | String | Null | - |
 | `--benchmarkDataType=<BENCHMARKDATATYPE>` | Optional | Specifies the calibration data type. | String | FLOAT | FLOAT, INT32, INT8 or UINT8|
 | `--cpuBindMode=<CPUBINDMODE>` | Optional | Specifies the type of the CPU core bound to the model inference program. | Integer | 1      | 2: medium core<br/>1: large core<br/>0: not bound |
-| `--device=<DEVICE>` | Optional | Specifies the type of the device on which the model inference program runs. | String | CPU | CPU, GPU, Kirin NPU, Ascend or DSP |
+| `--device=<DEVICE>` | Optional | Specifies the type of the device on which the model inference program runs. | String | CPU | CPU, GPU, Kirin NPU or DSP |
 | `--help` | Optional | Displays the help information about the `benchmark` command. | - | - | - |
 | `--inDataFile=<INDATAFILE>` | Optional | Specifies the file path of the input data of the tested model, and for several file paths, use "," to segregate. If this parameter is not set, a random value will be used. | String | Null  | -       |
 | `--loopCount=<LOOPCOUNT>` | Optional | Specifies the number of forward inference times of the tested model when the Benchmark tool is used for the benchmark testing. The value should be a positive integer. | Integer | 10 | - |
