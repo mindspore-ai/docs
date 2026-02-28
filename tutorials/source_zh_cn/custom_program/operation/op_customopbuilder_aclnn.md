@@ -136,7 +136,7 @@ PYBIND11_MODULE(MS_EXTENSION_NAME, m) { m.def("npu_arg_min", PYBOOST_CALLER(1, c
 import mindspore as ms
 import numpy as np
 
-my_ops = CustomOpBuilder("my_custom", 'argmin.cpp', backend="Ascend").load()
+my_ops = ms.ops.CustomOpBuilder("my_custom", 'argmin.cpp', backend="Ascend").load()
 x = np.random.randn(2, 3, 4, 5).astype(np.float32)
 output = my_ops.npu_arg_min(ms.Tensor(x), 0, False)
 ```
