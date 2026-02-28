@@ -80,7 +80,14 @@ A parameters list of command line:
         <td align="left">Enable processes binding CPU cores.</td>
         <td align="left" style="white-space:nowrap">Bool/Dict</td>
         <td align="left">True/False or a device-to-CPU-range dict. Default: False.</td>
-        <td align="left">If set to True, msrun will automatically allocate CPU ranges based on device affinity; if a dictionary is manually passed, CPU binding will be performed according to the CPU ranges allocated in the dictionary. For specific configurations, please refer to the **Process-Level CPU Binding** section.</td>
+        <td align="left">If set to True, msrun automatically allocates CPU ranges based on device affinity. If a dictionary is manually passed, CPU binding is performed according to the configured CPU ranges. For specific configurations, refer to the "Process-Level CPU/NUMA Affinity Configuration" section.</td>
+    </tr>
+    <tr>
+        <td align="left" style="white-space:nowrap">--bind_numa</td>
+        <td align="left">Enable processes binding NUMA nodes.</td>
+        <td align="left" style="white-space:nowrap">Bool/Dict/String</td>
+        <td align="left">True/False or a device-to-NUMA-node dict. A path ending with `.json` is also supported. Default: False.</td>
+        <td align="left">If set to True, msrun automatically allocates NUMA nodes based on device affinity. If a dictionary or JSON file is manually passed, NUMA binding is performed according to the provided configuration. For specific configurations, refer to the "Process-Level CPU/NUMA Affinity Configuration" section.</td>
     </tr>
     <tr>
         <td align="left" style="white-space:nowrap">--sim_level</td>

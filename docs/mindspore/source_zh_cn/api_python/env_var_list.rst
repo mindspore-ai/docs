@@ -282,6 +282,8 @@
        backend_compile_cache: 是否使用图编译等级O0/O1下的后端编译缓存，仅在前端编译缓存（MS_COMPILER_CACHE_ENABLE）开启时生效，默认值为true。
 
        view: 是否使能view算子功能，仅在O0或O1模式下生效，默认值为true。
+
+       actor_thread_fix_bind：在使能线程级绑核功能时，是否使能对 runtime 线程采用“固定绑定”的策略。runtime 共包含5个actor线程，采用“固定绑定”策略时，每个线程顺序绑定范围段内的一个 CPU，例如对device0的runtime绑定范围为"5-9"，即`actor_thread0`绑定CPU 5，`actor_thread1`绑定CPU 6，以此类推。默认值为false。
      -
    * - MS_DEV_VIEW_OP
      - 在MS_DEV_RUNTIME_CONF开启view的情况下，指定某些算子进行view替换
