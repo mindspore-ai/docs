@@ -136,7 +136,7 @@ Save the above C++ code as `argmin.cpp`, then compile it using the Python `Custo
 import mindspore as ms
 import numpy as np
 
-my_ops = CustomOpBuilder("my_custom", 'argmin.cpp', backend="Ascend").load()
+my_ops = ms.ops.CustomOpBuilder("my_custom", 'argmin.cpp', backend="Ascend").load()
 x = np.random.randn(2, 3, 4, 5).astype(np.float32)
 output = my_ops.npu_arg_min(ms.Tensor(x), 0, False)
 ```

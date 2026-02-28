@@ -72,7 +72,7 @@ auto pyboost_npu_swiglu(const ms::Tensor &x, int32_t dim) {
 }
 
 PYBIND11_MODULE(MS_EXTENSION_NAME, m) {
-  m.def("npu_swiglu", &pyboost_npu_swiglu, "swiglu realization", pybind11::arg("x"), pybind11::arg("dim") = -1);
+  m.def("swiglu", &pyboost_npu_swiglu, "swiglu realization", pybind11::arg("x"), pybind11::arg("dim") = -1);
 }
 ```
 
