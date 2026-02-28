@@ -60,7 +60,7 @@ cpu_device_info->SetEnableFP16(true);
 device_list.push_back(cpu_device_info);
 ```
 
-> `MutableDeviceInfo`中支持用户设置设备信息，包括[CPUDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/generate/classmindspore_CPUDeviceInfo.html)、[GPUDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/generate/classmindspore_GPUDeviceInfo.html)、[KirinNPUDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/generate/classmindspore_KirinNPUDeviceInfo.html)、[AscendDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/generate/classmindspore_AscendDeviceInfo.html)、[DSPDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/generate/classmindspore_DSPDeviceInfo.html)。设置的设备个数不能超过3个，推理过程按照用户设置的先后顺序选择后端设备进行部署推理。
+> `MutableDeviceInfo`中支持用户设置设备信息，包括[CPUDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/generate/classmindspore_CPUDeviceInfo.html)、[GPUDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/generate/classmindspore_GPUDeviceInfo.html)、[KirinNPUDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/generate/classmindspore_KirinNPUDeviceInfo.html)、[DSPDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/generate/classmindspore_DSPDeviceInfo.html)。设置的设备个数不能超过3个，推理过程按照用户设置的先后顺序选择后端设备进行部署推理。
 >
 > float16需要CPU为ARM v8.2架构的机型才能生效，其他不支持的机型和x86平台会自动回退到float32执行。
 >
@@ -184,38 +184,6 @@ device_list.push_back(cpu_device_info);
 ### 配置使用NNIE后端
 
 当需要执行的后端为CPU和NNIE的异构推理时，只需要按照[配置使用CPU后端](#创建配置上下文)的方法创建好Context即可，无需指定provider。
-
-### 配置使用Ascend后端
-
-当需要执行的后端为Ascend时(目前支持Atlas 200/300/500推理产品)，需要设置[AscendDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/generate/classmindspore_AscendDeviceInfo.html)为首选推理后端。建议设置[CPUDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/generate/classmindspore_CPUDeviceInfo.html)为次选后端，排在Ascend后，以保证泛化模型的推理。其中Ascend310DeviceInfo通过`SetDeviceID`来设置设备ID。
-
-下面[示例代码]如何创建CPU与Ascend异构推理后端，同时设备ID设置为0：
-
-```cpp
-auto context = std::make_shared<mindspore::Context>();
-if (context == nullptr) {
-    std::cerr << "New context failed." << std::endl;
-}
-auto &device_list = context->MutableDeviceInfo();
-
-// Set Atlas 200/300/500 inference product device first, make Atlas 200/300/500 inference product preferred backend.
-auto ascend_device_info = std::make_shared<mindspore::AscendDeviceInfo>();
-if (ascend_device_info == nullptr) {
-  std::cerr << "New AscendDeviceInfo failed." << std::endl;
-}
-// Atlas 200/300/500 inference product sets device id to be 0.
-ascend_device_info->SetDeviceID(0);
-// The Atlas 200/300/500 inference product device context needs to be push_back into device_list to work.
-device_list.push_back(ascend_device_info);
-
-// Set CPU device after Atlas 200/300/500 inference product as second choice.
-auto cpu_device_info = std::make_shared<mindspore::CPUDeviceInfo>();
-if (cpu_device_info == nullptr) {
-  std::cerr << "New CPUDeviceInfo failed." << std::endl;
-}
-
-device_list.push_back(cpu_device_info);
-```
 
 ### 配置使用CoreML后端
 

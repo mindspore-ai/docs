@@ -186,38 +186,6 @@ device_list.push_back(cpu_device_info);
 
 When the backend that needs to be executed is the heterogeneous inference based on CPU and NNIE, you only need to create the Context according to the configuration method of [CPU Backend](#creating-and-configuring-context) without specifying a provider.
 
-### Configuring the ASCEND Backend
-
-If the backend to be executed is Ascend(only support Atlas 200/300/500 inference product), you need to set [AscendDeviceInfo](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_AscendDeviceInfo.html#class-documentation) as the first choice. It is suggested to set [CPUDeviceInfo](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_CPUDeviceInfo.html#class-cpudeviceinfo) as the second choice, to ensure model inference. Use `SetDeviceID` to set ascend device id.
-
-The following sample code shows how to create the CPU and ASCEND heterogeneous inference backend and set ascend device id to 0.
-
-```cpp
-auto context = std::make_shared<mindspore::Context>();
-if (context == nullptr) {
-    std::cerr << "New context failed." << std::endl;
-}
-auto &device_list = context->MutableDeviceInfo();
-
-// Set Atlas 200/300/500 inference product device first, make Atlas 200/300/500 inference product preferred backend.
-auto ascend_device_info = std::make_shared<mindspore::AscendDeviceInfo>();
-if (ascend_device_info == nullptr) {
-  std::cerr << "New AscendDeviceInfo failed." << std::endl;
-}
-// Atlas 200/300/500 inference product sets device id to be 0.
-ascend_device_info->SetDeviceID(0);
-// The Atlas 200/300/500 inference product device context needs to be push_back into device_list to work.
-device_list.push_back(ascend_device_info);
-
-// Set CPU device after Atlas 200/300/500 inference product as second choice.
-auto cpu_device_info = std::make_shared<mindspore::CPUDeviceInfo>();
-if (cpu_device_info == nullptr) {
-  std::cerr << "New CPUDeviceInfo failed." << std::endl;
-}
-
-device_list.push_back(cpu_device_info);
-```
-
 ### Configuring the CoreML Backend
 
 If the backend to be executed is CoreML, you need to instantiate the [CoreMLDelegate](https://mindspore.cn/lite/api/en/master/generate/classmindspore_CoreMLDelegate.html) class, and use [SetDelegate](https://mindspore.cn/lite/api/en/master/generate/classmindspore_Context.html?highlight=SetDelegate) to pass the instance object into the context object. It is slightly different from the configuring steps of backends defined by hardware such as Kirin NPU and GPU.
