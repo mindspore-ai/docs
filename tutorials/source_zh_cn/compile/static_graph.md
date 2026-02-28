@@ -2246,9 +2246,8 @@ print("net.attr: ", net.attr)
 运行结果如下：
 
 ``` text
-ret: Tensor(shape=[3], dtype=Int64, value= [2, 3, 4])
-
-net.attr: Tensor(shape=[3], dtype=Int64, value= [2, 3, 4])
+ret:  [2 3 4]
+net.attr:  [2 3 4]
 ```
 
 3. 基于字节码构图时，变量场景的控制流无法入图。有关变量的相关介绍请见[变量产生场景](https://www.mindspore.cn/tutorials/zh-CN/master/compile/static_graph.html#%E5%8F%98%E9%87%8F%E4%BA%A7%E7%94%9F%E5%9C%BA%E6%99%AF)。示例如下：
