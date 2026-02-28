@@ -2421,9 +2421,8 @@ print("net.attr: ", net.attr)
 The results are as follows:
 
 ``` text
-ret: Tensor(shape=[3], dtype=Int64, value= [2, 3, 4])
-
-net.attr: Tensor(shape=[3], dtype=Int64, value= [2, 3, 4])
+ret:  [2 3 4]
+net.attr:  [2 3 4]
 ```
 
 3\. When constructing graphs based on bytecode, control flow involving
