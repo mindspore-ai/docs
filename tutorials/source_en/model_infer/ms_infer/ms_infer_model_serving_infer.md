@@ -133,12 +133,12 @@ If `git lfs install` fails during the pull process, refer to the vLLM-MindSpore 
 Before launching the model, user need to set the following environment variables:  
 
 ```bash
-export vLLM_MS_MODEL_BACKEND=MindFormers # use MindSpore Transformers as model backend.
+export VLLM_MS_MODEL_BACKEND=MindFormers # use MindSpore Transformers as model backend.
 ```
 
 Here is an explanation of these environment variables:
 
-- `VLLM_MS_MODEL_BACKEND`: The backend of the model to run. User could find supported models and backends for vLLM-MindSpore Plugin in the [Model Support List](../../user_guide/supported_models/models_list/models_list.md).
+- `VLLM_MS_MODEL_BACKEND`: The backend of the model to run. User could find supported models and backends for vLLM-MindSpore Plugin in the [Model Support List](https://www.mindspore.cn/vllm_mindspore/docs/en/master/user_guide/supported_models/models_list/models_list.html).
 
 vLLM-MindSpore Plugin supports online inference deployment with the OpenAI API protocol. Users can run the following command to start the vLLM-MindSpore Plugin online inference service:
 
@@ -174,13 +174,13 @@ If the request is processed successfully, the following inference result will be
 
 ```text
 {
-    "id":"cmpl-5e6e314861c24ba79fea151d86c1b9a6","object":"text_completion",
-    "create":1747398389,
+    "id":"cmpl-bac2b14c726b48b9967bcfc724e7c2a8","object":"text_completion",
+    "create":1748485893,
     "model":"Qwen2.5-7B-Instruct",
     "choices":[
         {
             "index":0,
-            "text":"trying to create a virtual environment for my Python project, but I am encountering some",
+            "text":"trying to create a virtual environment for my Python project, but I am encountering some issues with setting up",
             "logprobs":null,
             "finish_reason":"length",
             "stop_reason":null,
@@ -189,8 +189,8 @@ If the request is processed successfully, the following inference result will be
     ],
     "usage":{
         "prompt_tokens":2,
-        "total_tokens":17,
-        "completion_tokens":15,
+        "total_tokens":22,
+        "completion_tokens":20,
         "prompt_tokens_details":null
     }
 }

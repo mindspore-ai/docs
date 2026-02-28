@@ -104,7 +104,7 @@ docker run -itd --name=${DOCKER_NAME} --ipc=host --network=host --privileged=tru
 
 关于docker运行参数，可以参考文档：[MindSpore安装指南](https://www.mindspore.cn/install/)的“运行MindSpore镜像”部分。
 
-新建容器后成功后，将返回容器ID。用户可执行以下命令，确认容器是否创建成功：
+新建容器成功后，将返回容器ID。用户可执行以下命令，确认容器是否创建成功：
 
 ```bash
 docker ps
@@ -139,7 +139,7 @@ export VLLM_MS_MODEL_BACKEND=MindFormers # use MindSpore Transformers as model b
 
 以下是对上述环境变量的解释：
 
-- `VLLM_MS_MODEL_BACKEND`：所运行的模型后端。目前vLLM-MindSpore插件所支持的模型与模型后端，可在[模型支持列表](../../user_guide/supported_models/models_list/models_list.md)中进行查询。
+- `VLLM_MS_MODEL_BACKEND`：所运行的模型后端。目前vLLM-MindSpore插件所支持的模型与模型后端，可在[模型支持列表](https://www.mindspore.cn/vllm_mindspore/docs/zh-CN/master/user_guide/supported_models/models_list/models_list.html)中进行查询。
 
 vLLM-MindSpore插件可使用OpenAI的API协议，进行在线推理部署。执行如下命令，启动vLLM-MindSpore插件的在线推理服务：
 
