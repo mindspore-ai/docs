@@ -201,8 +201,74 @@ message(STATUS "Using MindSpore from: ${MINDSPORE_ROOT}")
 # Build options configuration (simplified)
 set(CMAKE_BUILD_TYPE "Release")
 
-# Set CMake module path - adjusted for mindspore test location
-list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
+message(STATUS "MindSpore root directory: ${MINDSPORE_ROOT}")
+
+# Find MindSpore library files - corrected path
+file(GLOB MINDSPORE_LIBS "${MINDSPORE_ROOT}/lib/libmindspore_*.so")
+
+message(STATUS "Found library files count: ${MINDSPORE_LIBS}")
+
+if(MINDSPORE_LIBS)
+    # Select main library file for checking (usually libmindspore_core.so contains core functionality)
+    list(FIND MINDSPORE_LIBS "${MINDSPORE_ROOT}/lib/libmindspore_core.so" CORE_LIB_INDEX)
+    message(STATUS "libmindspore_core.so index: ${CORE_LIB_INDEX}")
+
+    if(CORE_LIB_INDEX GREATER_EQUAL 0)
+        list(GET MINDSPORE_LIBS ${CORE_LIB_INDEX} MINDSPORE_LIB)
+    else()
+        list(GET MINDSPORE_LIBS 0 MINDSPORE_LIB)
+    endif()
+
+    message(STATUS "Selected library file: ${MINDSPORE_LIB}")
+
+    # Check if MindSpore library contains robin_hood symbols
+    message(STATUS "Starting robin_hood symbol check...")
+
+    # Method 1: Use bash to execute command
+    execute_process(
+        COMMAND bash -c "strings '${MINDSPORE_LIB}' | grep -i robin_hood | head -1"
+        OUTPUT_VARIABLE ROBIN_HOOD_CHECK
+        ERROR_VARIABLE ROBIN_HOOD_CHECK_ERROR
+        OUTPUT_STRIP_TRAILING_WHITESPACE
+    )
+
+    message(STATUS "robin_hood check result: '${ROBIN_HOOD_CHECK}'")
+    message(STATUS "robin_hood check error: '${ROBIN_HOOD_CHECK_ERROR}'")
+
+    # Method 2: If bash method fails, try reading file directly
+    if(NOT ROBIN_HOOD_CHECK)
+        message(STATUS "bash method failed, trying to read file directly...")
+        file(READ ${MINDSPORE_LIB} LIB_CONTENT)
+        string(FIND "${LIB_CONTENT}" "robin_hood" ROBIN_HOOD_POS)
+        if(ROBIN_HOOD_POS GREATER_EQUAL 0)
+            set(ROBIN_HOOD_CHECK "found_in_file")
+            message(STATUS "Found robin_hood in file content")
+        endif()
+    endif()
+
+    if(ROBIN_HOOD_CHECK)
+        message(STATUS "MindSpore uses robin_hood::unordered_map")
+
+        # Check if robin_hood.h exists
+        if(EXISTS "${MINDSPORE_ROOT}/include/third_party/robin_hood_hashing/include/robin_hood.h")
+            message(STATUS "Found robin_hood.h: "
+                    "${MINDSPORE_ROOT}/include/third_party/robin_hood_hashing/include/robin_hood.h")
+            add_compile_definitions(ENABLE_FAST_HASH_TABLE=1)
+            add_compile_definitions(HASHMAP_TYPE="robin_hood")
+            # Add robin_hood header file path
+            include_directories("${MINDSPORE_ROOT}/include/third_party/robin_hood_hashing")
+            message(STATUS "Using fast hash table (robin_hood) for ms_custom_ops to match MindSpore")
+        else()
+            message(FATAL_ERROR "robin_hood.h not found under mindspore install path")
+        endif()
+    else()
+        message(STATUS "MindSpore uses std::unordered_map")
+        add_compile_definitions(HASHMAP_TYPE="std")
+        message(STATUS "Using standard hash table (std::unordered_map) for ms_custom_ops to match MindSpore")
+    endif()
+else()
+    message(FATAL_ERROR "MindSpore library not found in ${MINDSPORE_ROOT}/mindspore/lib/")
+endif()
 
 # Include directories
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
@@ -312,7 +378,7 @@ Using [mindspore.graph.register_custom_pass](https://www.mindspore.cn/docs/en/r2
 ```python
 import numpy as np
 import mindspore
-from mindspore import jit, ops, nn, context, Tensor
+from mindspore import jit, ops, nn, Tensor
 
 custom_path = "/data1/libcustom_pass.so"
 success = mindspore.graph.register_custom_pass("AddNegFusionPass", custom_path, "cpu")
@@ -331,7 +397,7 @@ class AddNegNetwork(nn.Cell):
         output = x1 + neg_x2
         return output
 
-context.set_context(device_target="CPU")
+mindspore.set_device("CPU")
 net = AddNegNetwork()
 x1 = Tensor(np.array([[[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12]],
                         [[13, 14, 15, 16], [17, 18, 19, 20], [21, 22, 23, 24]]]).astype(np.float32))
