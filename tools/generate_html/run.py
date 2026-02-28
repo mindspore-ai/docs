@@ -146,6 +146,39 @@ def download_with_retry(url, max_retries=3, auth=None, verify=True):
         print(f"Request failed: {e}")
         raise
 
+def extra_download(user, pd, wgetdir, extra_whl_path, extra_whl_name, whl_dir):
+    s = requests.session()
+    url = f"{wgetdir}/{extra_whl_path}"
+    if not url.endswith(".html") and not url.endswith("/"):
+        url += "/"
+    re_name = extra_whl_name.replace('.whl', '\\.whl')
+    name = rf"{re_name}"
+    res = s.get(url, auth=(user, pd), verify=False)
+    html = etree.HTML(res.text, parser=etree.HTMLParser())
+    links = html.xpath("//a[@title]")
+    if links:
+        for link_ in links:
+            title = link_.get("title", "")
+            href = link_.get("href", "")
+            if re.findall(name, title) and not os.path.exists(os.path.join(whl_dir, title)):
+                download_url = url+href
+                save_path = os.path.join(whl_dir, title)
+                try:
+                    downloaded = download_with_retry(download_url, max_retries=3, auth=(user, pd),
+                                            verify=False)
+                    with open(save_path, 'wb') as fd:
+                        #shutil.copyfileobj(dowmloaded.raw, fd)
+                        for chunk in downloaded.iter_content(chunk_size=512):
+                            if chunk:
+                                fd.write(chunk)
+                    print(f"Download {title} success!")
+                    time.sleep(1)
+                except Exception as e:
+                    print(f"Download {title} failed: {e}")
+                    # 修复：清理不完整文件
+                    if os.path.exists(save_path):
+                        os.remove(save_path)
+
 #######################################
 # 运行检测
 #######################################
@@ -355,36 +388,11 @@ def main(version, user, pd, WGETDIR, release_url, generate_list, api_detect):
             if 'extra_whl_path' in data[i] and data[i]['extra_whl_path'] != "":
                 if data[i]['name'] == "mindscience":
                     wgetdir = WGETDIR + "mindspore"
-                url = f"{wgetdir}/{data[i]['extra_whl_path']}"
-                if not url.endswith(".html") and not url.endswith("/"):
-                    url += "/"
-                re_name = data[i]['extra_whl_name'].replace('.whl', '\\.whl')
-                name = rf"{re_name}"
-                res = s.get(url, auth=(user, pd), verify=False)
-                html = etree.HTML(res.text, parser=etree.HTMLParser())
-                links = html.xpath("//a[@title]")
-                if links:
-                    for link_ in links:
-                        title = link_.get("title", "")
-                        href = link_.get("href", "")
-                        if re.findall(name, title) and not os.path.exists(os.path.join(WHLDIR, title)):
-                            download_url = url+href
-                            save_path = os.path.join(WHLDIR, title)
-                            try:
-                                downloaded = download_with_retry(download_url, max_retries=3, auth=(user, pd),
-                                                        verify=False)
-                                with open(save_path, 'wb') as fd:
-                                    #shutil.copyfileobj(dowmloaded.raw, fd)
-                                    for chunk in downloaded.iter_content(chunk_size=512):
-                                        if chunk:
-                                            fd.write(chunk)
-                                print(f"Download {title} success!")
-                                time.sleep(1)
-                            except Exception as e:
-                                print(f"Download {title} failed: {e}")
-                                # 修复：清理不完整文件
-                                if os.path.exists(save_path):
-                                    os.remove(save_path)
+                if isinstance(data[i]['extra_whl_path'], str):
+                    extra_download(user, pd, wgetdir, data[i]['extra_whl_path'], data[i]['extra_whl_name'], WHLDIR)
+                elif isinstance(data[i]['extra_whl_path'], list):
+                    for j in range(len(data[i]['extra_whl_path'])):
+                        extra_download(user, pd, wgetdir, data[i]['extra_whl_path'][j], data[i]['extra_whl_name'][j], WHLDIR)
 
             # 下载tar包
             if 'tar_path' in data[i].keys() and data[i]['tar_path'] != '':
