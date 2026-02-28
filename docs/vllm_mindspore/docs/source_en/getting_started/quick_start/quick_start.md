@@ -217,7 +217,7 @@ Engine 000: Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 0.0 
 Use the following command to send a request, where `prompt` is the model input:
 
 ```bash
-curl http://localhost:8000/v1/completions -H "Content-Type: application/json" -d '{"model": "Qwen/Qwen2.5-7B-Instruct", "prompt": "I am", "max_tokens": 15, "temperature": 0}'
+curl http://localhost:8000/v1/completions -H "Content-Type: application/json" -d '{"model": "Qwen/Qwen2.5-7B-Instruct", "prompt": "I am", "max_tokens": 20, "temperature": 0}'
 ```
 
 User needs to ensure that the `"model"` field matches the model tag in the service startup, and the request can successfully match the model.
@@ -226,13 +226,13 @@ If the request is processed successfully, the following inference result will be
 
 ```text
 {
-    "id":"cmpl-5e6e314861c24ba79fea151d86c1b9a6","object":"text_completion",
-    "create":1747398389,
+    "id":"cmpl-bac2b14c726b48b9967bcfc724e7c2a8","object":"text_completion",
+    "create":1748485893,
     "model":"Qwen2.5-7B-Instruct",
     "choices":[
         {
             "index":0,
-            "text":"trying to create a virtual environment for my Python project, but I am encountering some",
+            "text":"trying to create a virtual environment for my Python project, but I am encountering some issues with setting up",
             "logprobs":null,
             "finish_reason":"length",
             "stop_reason":null,
@@ -241,8 +241,8 @@ If the request is processed successfully, the following inference result will be
     ],
     "usage":{
         "prompt_tokens":2,
-        "total_tokens":17,
-        "completion_tokens":15,
+        "total_tokens":22,
+        "completion_tokens":20,
         "prompt_tokens_details":null
     }
 }
