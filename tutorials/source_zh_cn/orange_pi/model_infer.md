@@ -25,26 +25,26 @@
 以推理案例为例，项目目录如下：
 
 ```bash
-/home/HwHiAiUser/samples/notebooks/orange-pi-mindspore/Online/inference
-01-quick_start
-02-ResNet50
-03-ViT
-04-FCN
-05-Shufflenet
-06-SSD
-07-RNN
-08-LSTM+CRF
-09-GAN
-10-DCGAN
-11-Pix2Pix
-12-Diffusion
-13-ResNet50_transfer
-14-qwen1.5-0.5b
-15-tinyllama
-16-DctNet
-17-DeepSeek-R1-Distill-Qwen-1.5B
-18-DeepSeek-Janus-Pro-1B
-19-MiniCPM3
+/home/HwHiAiUser/samples/notebooks/orange-pi-mindspore/applications/online/inference
+01_quick_start
+02_resnet50
+03_vit
+04_fcn
+05_shufflenet
+06_ssd
+07_rnn
+08_lstm_crf
+09_gan
+10_dcgan
+11_pix2pix
+12_diffusion
+13_resnet50_transfer
+14_qwen1_5_0_5b
+15_tinyllama
+16_dctnet
+17_deepseek_r1_distill_qwen_1_5b
+18_deepseek_janus_pro_1b
+19_minicpm3
 ```
 
 ## 2. 推理执行
@@ -68,7 +68,7 @@
 
 ![model-infer3](./images/model_infer3.png)
 
-步骤2 在Jupyter Lab界面双击下图所示的案例目录，此处以“04-FCN”为例，即可进入到该案例的目录中。其他案例的操作流程类似，仅需选择对应的案例目录和 .ipynb 文件即可。
+步骤2 在Jupyter Lab界面双击下图所示的案例目录，此处以“04_fcn”为例，即可进入到该案例的目录中。其他案例的操作流程类似，仅需选择对应的案例目录和 .ipynb 文件即可。
 
 ![model-infer4](./images/model_infer4.png)
 
