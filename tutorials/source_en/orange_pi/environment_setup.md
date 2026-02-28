@@ -150,7 +150,7 @@ Step 2 Execute the following command to obtain version information.
 
 ![environment-setup-1-25](../../source_zh_cn/orange_pi/images/environment_setup_1-25.png)
 
-### 3.2 CANN Upgrading (taking 8.5.0.alpha002 version as an example)
+### 3.2 CANN Upgrading (taking 8.5.0 version as an example)
 
 If the current CANN version does not meet the development requirements, the CANN version can be upgraded according to the following steps.
 
@@ -181,7 +181,7 @@ Step 2 Remove installed CANN packages to free up disk space and prevent installi
 
 ```
 
-Step 3 Open the official website of Ascend CANN to access the community version of the resource [download address](https://www.hiascend.com/developer/download/community/result?module=cann), download the required version of the toolkit package. Taking 8.5.0.alpha002 version as an example, as shown below:
+Step 3 Open the official website of Ascend CANN to access the community version of the resource [download address](https://www.hiascend.com/developer/download/community/result?module=cann), download the required version of the toolkit package. Taking 8.5.0 version as an example, as shown below:
 
 ![environment-setup-1-15](../../source_zh_cn/orange_pi/images/environment_setup_1-15.png)
 
@@ -202,13 +202,13 @@ Step 4 Go to the Toolkit package download directory.
 Step 5 Add execution permissions to the CANN package.
 
 ```bash
-(base) root@orangepiaipro: /home/HwHiAiUser/Downloads# chmod +x ./Ascend-cann-toolkit_8.5.0.alpha002_linux-aarch64.run
+(base) root@orangepiaipro: /home/HwHiAiUser/Downloads# chmod +x ./Ascend-cann-toolkit_8.5.0_linux-aarch64.run
 ```
 
 Step 6 Execute the following command to upgrade the software.
 
 ```bash
-(base) root@orangepiaipro: /home/HwHiAiUser/Downloads#./Ascend-cann-toolkit_8.5.0.alpha002_linux-aarch64.run --install
+(base) root@orangepiaipro: /home/HwHiAiUser/Downloads#./Ascend-cann-toolkit_8.5.0_linux-aarch64.run --install
 ```
 
 Type Y when this prompt pops up during installation, then press Enter to continue the installation. This process takes about 10-15 minutes, please be patient.
@@ -236,9 +236,9 @@ Step 7 Load environment variables.
 
 ```
 
-#### 3.2.2 Kernels Upgrading
+#### 3.2.2 Ops Upgrading
 
-> The binary arithmetic package Kernels relies on the CANN package Toolkit. To perform the upgrade, the current environment needs to have the matching version of Toolkit installed and installed by the root user.
+> The binary arithmetic package ops relies on the CANN package Toolkit. To perform the upgrade, the current environment needs to have the matching version of Toolkit installed and installed by the root user.
 
 Step 1 Open a terminal and switch the root user.
 
@@ -260,11 +260,11 @@ Step 2 Execute the following command to get the development board NPU model numb
 npu-smi info
 ```
 
-Step 3 Open the official website of Ascend CANN to access the community edition resources [download address](https://www.hiascend.com/developer/download/community/result?module=cann), and download the kernel package that is consistent with the CANN package version and matches the NPU model. As shown in the figure below:
+Step 3 Open the official website of Ascend CANN to access the community edition resources [download address](https://www.hiascend.com/developer/download/community/result?module=cann), and download the ops package that is consistent with the CANN package version and matches the NPU model. As shown in the figure below:
 
 ![environment-setup-1-18](../../source_zh_cn/orange_pi/images/environment_setup_1-18.png)
 
-Step 4 Go to the Kernels package download directory.
+Step 4 Go to the ops package download directory.
 
 ```bash
 (base) root@orangepiaipro: /usr/local/Ascend/ascend-toolkit# cd /home/HwHiAiUser/Downloads
@@ -272,16 +272,16 @@ Step 4 Go to the Kernels package download directory.
 
 > Default download directory of OrangePi AIpro browser file: /home/HwHiAiUser/Downloads
 
-Step 5 Add execution permissions to the kernels package.
+Step 5 Add execution permissions to the ops package.
 
 ```bash
-(base) root@orangepiaipro: /home/HwHiAiUser/Downloads# chmod +x ./Ascend-cann-kernels-310b_8.5.0.alpha002_linux-aarch64.run
+(base) root@orangepiaipro: /home/HwHiAiUser/Downloads# chmod +x ./Ascend-cann-310b-ops_8.5.0_linux-aarch64.run
 ```
 
 Step 6 Execute the following command to upgrade the software.
 
 ```bash
-(base) root@orangepiaipro: /home/HwHiAiUser/Downloads#./Ascend-cann-kernels-310b_8.5.0.alpha002_linux-aarch64.run --install
+(base) root@orangepiaipro: /home/HwHiAiUser/Downloads#./Ascend-cann-310b-ops_8.5.0_linux-aarch64.run --install
 ```
 
 After the upgrade is completed, if the following message is displayed, the software upgrade is successful:
@@ -292,9 +292,7 @@ xxx install success
 
 - xxx indicates the actual package name of the upgrade.
 
-- Path after installing the upgrade (default installation path for root user as an example): "/usr/local/Ascend/ ascend-toolkit/latest/opp/built-in/op_impl/ai_core/tbe/kernel".
-
-> If the output is incorrect, you need to follow the above steps to upgrade Kernels again.
+> If the output is incorrect, you need to follow the above steps to upgrade ops again.
 
 ## 4. MindSpore Upgrading
 
@@ -314,11 +312,11 @@ Step 2 Execute the following command to obtain version information.
 
 If the current MindSpore version does not meet the development requirements, the MindSpore version can be upgraded according to the following methods.
 
-### 4.2 Installing the Official Version of the Website (Taking MindSpore 2.7.2 as an example)
+### 4.2 Installing the Official Version of the Website (Taking MindSpore 2.8.0 as an example)
 
 #### 4.2.1 MindSpore Upgrading
 
-Please refer to the MindSpore official website [installation tutorial](https://www.mindspore.cn/install) to install MindSpore 2.7.2.
+Please refer to the MindSpore official website [installation tutorial](https://www.mindspore.cn/install) to install MindSpore 2.8.0.
 
 #### 4.2.2 Installation Verification
 
@@ -329,7 +327,7 @@ Please refer to the MindSpore official website [installation tutorial](https://w
 If the output is as follows, it indicates that MindSpore has been successfully installed.
 
 ```bash
-MindSpore version: 2.7.2
+MindSpore version: 2.8.0
 The result of multiplication calculation is correct, MindSpore has been installed on platform [Ascend] successfully!
 ```
 
