@@ -25,7 +25,7 @@
 
 ## 调试接口
 
-当前算子融合相关优化Pass已经纳入图算优化控制点额范围。
+当前算子融合相关优化Pass已经纳入图算优化控制的范围。
 我们提供了环境变量`MS_DEV_GRAPH_KERNEL_FLAGS`可以控制相关图算优化Pass的开关，包括：
 
 ### 指定优化等级
@@ -71,11 +71,7 @@
 
 ### 通过INFO信息
 
-在`[INFO]`信息中，我们提供了所有支持自定义开关的Pass列表。用户可以通过`export GLOG_v=1`来生成`[INFO]`信息。在`[INFO]`信息中，用户通过搜索`graph kernel pass`来获取该Pass列表。比如下面的信息示例中，`graph kernel pass：`后为所有可以自定义开关的Pass名称。
-
-```shell
-[INFO] PRE_ACT(631369,ffffb5450af0,python):2024-08-22-15:34:16.978.158 [mindspore/ccsrc/plugin/device/ascend/optimizer/backend_common_unify_mindir.cc:191] GetBackendFusionGroupPassManager] graph kernel passes: FlashAttentionFusionV1,FlashAttentionFusionV2,add_layer_norm_fusion,add_layer_norm_v3_fusion,add_layer_norm_ext_fusion,inference_swiglu_fusion,inference_matmul_split_fusion,shape_reshape,add_rms_norm_quant_fusion,rms_norm_quant_fusion,add_rms_norm_fusion,add_cast_rms_norm_cast_fusion,MatMulAllReduce,split_concat_fusion,matmul_elemwise_fusion,inference_qbmm_add_fusion,inference_qbmm_allreduce_add_fusion.
-```
+在`[INFO]`信息中，我们提供了所有支持自定义开关的Pass列表。用户可以通过`export GLOG_v=1`来生成`[INFO]`信息。在`[INFO]`信息中，用户通过搜索`graph kernel pass`来获取融合Pass列表。
 
 对于单个Pass，我们也可以通过日志信息确认它是否使能，比如：
 
@@ -85,7 +81,7 @@
     [INFO] GRAPH_KERNEL(631369,ffffb5450af0,python):2024-08-22-15:34:17.640.739 [mindspore/ccsrc/backend/common/graph_kernel/core/graph_kernel_pass_manager.cc:84] RunPass] Run graph kernel pass fusion_group_10_rms_norm_quant_fusion in 74.64 us
     ```
 
-- 被关闭Pass: 下面信息表示`transpose_matmul_fusion`被关闭，可以通过`enable_pass`打开；
+- 被关闭Pass: 下面信息表示`transpose_matmul_fusion`被默认关闭，可以通过`enable_pass`打开；
 
     ```shell
     [INFO] GRAPH_KERNEL(631369,ffffb5450af0,python):2024-08-22-15:34:17.640.771 [mindspore/ccsrc/backend/common/graph_kernel/core/graph_kernel_pass_manager.cc:73] Run] graph kernel pass fusion_group_11_add_rms_norm_fusion is disabled.
