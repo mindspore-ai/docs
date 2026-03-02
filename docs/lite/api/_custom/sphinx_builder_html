@@ -1335,6 +1335,11 @@ def deal_with_generate_rst_files(app, env, docnames) -> None:
         capture_pattern = rf'- :{tag_type}:`(.*?)-(\d+)`'
         all_matches = re.findall(capture_pattern, rst_content)
         if not all_matches:
+            try:
+                with open(rst_file_path, 'w', encoding='utf-8') as f:
+                    f.write(rst_content)
+            except Exception as e:
+                print(f"文件写入失败：{e}")
             return
 
         prefix_first_occur = []
