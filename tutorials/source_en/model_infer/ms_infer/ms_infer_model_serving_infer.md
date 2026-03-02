@@ -90,23 +90,20 @@ docker run -itd --name=${DOCKER_NAME} --ipc=host --network=host --privileged=tru
         --device=/dev/davinci_manager \
         --device=/dev/devmm_svm \
         --device=/dev/hisi_hdc \
-        -v /usr/local/sbin/:/usr/local/sbin/ \
-        -v /var/log/npu/slog/:/var/log/npu/slog \
-        -v /var/log/npu/profiling/:/var/log/npu/profiling \
-        -v /var/log/npu/dump/:/var/log/npu/dump \
-        -v /var/log/npu/:/usr/slog \
-        -v /etc/hccn.conf:/etc/hccn.conf \
         -v /usr/local/bin/npu-smi:/usr/local/bin/npu-smi \
-        -v /usr/local/dcmi:/usr/local/dcmi \
         -v /usr/local/Ascend/driver:/usr/local/Ascend/driver \
         -v /etc/ascend_install.info:/etc/ascend_install.info \
-        -v /etc/vnpu.cfg:/etc/vnpu.cfg \
+        -v /var/log/npu/:/usr/slog \
+        -v /usr/bin/hccn_tool:/usr/bin/hccn_tool \
+        -v /etc/hccn.conf:/etc/hccn.conf \
         --shm-size="250g" \
         ${IMAGE_NAME} \
         bash
 ```  
 
-The container ID will be returned if docker is created successfully. User can also check the container by executing the following command:
+For docker run parameters, please refer to the "Running MindSpore Image" section in the [MindSpore Installation Guide](https://www.mindspore.cn/install/en/).
+
+After successfully creating the container, the container ID will be returned. User can verify the creation by executing the following command:
 
 ```bash  
 docker ps
@@ -122,11 +119,11 @@ docker exec -it $DOCKER_NAME bash
 
 ### Preparing a Model
 
-The service-oriented vLLM-MindSpore Plugin supports the direct running of the native Hugging Face model. Therefore, users can directly download the model from the [Hugging Face](https://huggingface.co/). The following uses the [Qwen2-7B](https://huggingface.co/Qwen/Qwen2-7B) model as an example:
+The service-oriented vLLM-MindSpore Plugin supports the direct running of the native Hugging Face model. Therefore, users can directly download the model from the [Hugging Face](https://huggingface.co/). The following uses the [Qwen2.5-7B](https://huggingface.co/Qwen/Qwen2.5-7B-Instruct) model as an example:
 
 ```bash
 git lfs install
-git clone https://huggingface.co/Qwen/Qwen2-7B
+git clone https://huggingface.co/Qwen/Qwen2.5-7B-Instruct
 ```
 
 If `git lfs install` fails during the pull process, refer to the vLLM-MindSpore Plugin [FAQ](https://www.mindspore.cn/vllm_mindspore/docs/en/master/faqs/faqs.html) for a solution.
@@ -136,26 +133,20 @@ If `git lfs install` fails during the pull process, refer to the vLLM-MindSpore 
 Before launching the model, user need to set the following environment variables:  
 
 ```bash
-export vLLM_MS_MODEL_BACKEND=MindFormers # use MindSpore Transformers as model backend.
+export VLLM_MS_MODEL_BACKEND=MindFormers # use MindSpore Transformers as model backend.
 ```
 
 Here is an explanation of these environment variables:
 
-- `vLLM_MS_MODEL_BACKEND`: The backend of the model to run. User could find supported models and backends for vLLM-MindSpore Plugin in the [Model Support List](https://www.mindspore.cn/vllm_mindspore/docs/en/master/user_guide/supported_models/models_list/models_list.html) and [Environment Variable List](https://www.mindspore.cn/vllm_mindspore/docs/en/master/user_guide/environment_variables/environment_variables.html).
-
-Additionally, users need to ensure that MindSpore Transformers is installed. Users can add it by running the following command:  
-
-```bash  
-export PYTHONPATH=/path/to/mindformers:$PYTHONPATH
-```
+- `VLLM_MS_MODEL_BACKEND`: The backend of the model to run. User could find supported models and backends for vLLM-MindSpore Plugin in the [Model Support List](https://www.mindspore.cn/vllm_mindspore/docs/en/master/user_guide/supported_models/models_list/models_list.html).
 
 vLLM-MindSpore Plugin supports online inference deployment with the OpenAI API protocol. Users can run the following command to start the vLLM-MindSpore Plugin online inference service:
 
 ```bash
-vllm-mindspore serve --model=/path/to/model/Qwen2-7B --trust_remote_code --max-num-seqs=256 --max-model-len=32768 --max-num-batched-tokens=4096 --block_size=128 --gpu-memory-utilization=0.9
+nohup vllm-mindspore serve /path/to/save/Qwen2.5-7B-Instruct &
 ```
 
-User can also set the local model path by `--model` argument. If the service starts successfully, similar output will be obtained:  
+User can also pass the local model path to `vllm-mindspore serve` as model tag. If the service starts successfully, similar output will be obtained:
 
 ```text  
 INFO:   Started server process [6363]
@@ -174,21 +165,22 @@ Engine 000: Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 0.0 
 Use the following command to send a request, where `prompt` is the model input:
 
 ```bash
-curl http://localhost:8000/v1/completions -H "Content-Type: application/json" -d '{"model": "/path/to/model/Qwen2-7B", "prompt": "I love Beijing, because", "max_tokens": 128, "temperature": 1.0, "top_p": 1.0, "top_k": 1, "repetition_penalty": 1.0}'
+curl http://localhost:8000/v1/completions -H "Content-Type: application/json" -d '{"model": "Qwen/Qwen2.5-7B-Instruct", "prompt": "I am", "max_tokens": 20, "temperature": 0}'
 ```
 
-The user needs to ensure that the `"model"` field matches the `--model` specified during the service starting for the request to successfully match the model. If the request is processed successfully, the following inference result will be returned:
+User needs to ensure that the `"model"` field matches the model tag in the service startup, and the request can successfully match the model.
+
+If the request is processed successfully, the following inference result will be returned:
 
 ```text
 {
-    "id":"cmpl-1c30caf453154b5ab4a579b7b06cea19",
-    "object":"text_completion",
-    "created":1754103773,
-    "model":"/path/to/model/Qwen2-7B",
+    "id":"cmpl-bac2b14c726b48b9967bcfc724e7c2a8","object":"text_completion",
+    "create":1748485893,
+    "model":"Qwen2.5-7B-Instruct",
     "choices":[
         {
             "index":0,
-            "text":" it is a city with a long history and rich culture. I have been to many places of interest in Beijing, such as the Great Wall, the Forbidden City, the Summer Palace, and the Temple of Heaven. I also visited the National Museum of China, where I learned a lot about Chinese history and culture. The food in Beijing is also amazing, especially the Peking duck and the dumplings. I enjoyed trying different types of local cuisine and experiencing the unique flavors of Beijing. The people in Beijing are friendly and welcoming, and they are always willing to help tourists. I had a great time exploring the city and interacting with the locals",
+            "text":"trying to create a virtual environment for my Python project, but I am encountering some issues with setting up",
             "logprobs":null,
             "finish_reason":"length",
             "stop_reason":null,
@@ -196,9 +188,9 @@ The user needs to ensure that the `"model"` field matches the `--model` specifie
         }
     ],
     "usage":{
-        "prompt_tokens":5,
-        "total_tokens":133,
-        "completion_tokens":128,
+        "prompt_tokens":2,
+        "total_tokens":22,
+        "completion_tokens":20,
         "prompt_tokens_details":null
     }
 }

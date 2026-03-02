@@ -91,21 +91,18 @@ docker run -itd --name=${DOCKER_NAME} --ipc=host --network=host --privileged=tru
         --device=/dev/davinci_manager \
         --device=/dev/devmm_svm \
         --device=/dev/hisi_hdc \
-        -v /usr/local/sbin/:/usr/local/sbin/ \
-        -v /var/log/npu/slog/:/var/log/npu/slog \
-        -v /var/log/npu/profiling/:/var/log/npu/profiling \
-        -v /var/log/npu/dump/:/var/log/npu/dump \
-        -v /var/log/npu/:/usr/slog \
-        -v /etc/hccn.conf:/etc/hccn.conf \
         -v /usr/local/bin/npu-smi:/usr/local/bin/npu-smi \
-        -v /usr/local/dcmi:/usr/local/dcmi \
         -v /usr/local/Ascend/driver:/usr/local/Ascend/driver \
         -v /etc/ascend_install.info:/etc/ascend_install.info \
-        -v /etc/vnpu.cfg:/etc/vnpu.cfg \
+        -v /var/log/npu/:/usr/slog \
+        -v /usr/bin/hccn_tool:/usr/bin/hccn_tool \
+        -v /etc/hccn.conf:/etc/hccn.conf \
         --shm-size="250g" \
         ${IMAGE_NAME} \
         bash
 ```
+
+关于docker运行参数，可以参考文档：[MindSpore安装指南](https://www.mindspore.cn/install/)的“运行MindSpore镜像”部分。
 
 新建容器成功后，将返回容器ID。用户可执行以下命令，确认容器是否创建成功：
 
@@ -123,11 +120,11 @@ docker exec -it $DOCKER_NAME bash
 
 ### 模型准备
 
-vLLM-MindSpore插件服务化支持原生Hugging Face的模型直接运行，因此直接从[Hugging Face社区](https://huggingface.co/)下载模型即可，此处我们以[Qwen2-7B](https://huggingface.co/Qwen/Qwen2-7B)模型为例。
+vLLM-MindSpore插件服务化支持原生Hugging Face的模型直接运行，因此直接从[Hugging Face社区](https://huggingface.co/)下载模型即可，此处我们以[Qwen2.5-7B](https://huggingface.co/Qwen/Qwen2.5-7B-Instruct)模型为例。
 
 ```bash
 git lfs install
-git clone https://huggingface.co/Qwen/Qwen2-7B
+git clone https://huggingface.co/Qwen/Qwen2.5-7B-Instruct
 ```
 
 若在拉取过程中，执行`git lfs install失败`，可以参考vLLM-MindSpore插件 [FAQ](https://www.mindspore.cn/vllm_mindspore/docs/zh-CN/master/faqs/faqs.html) 进行解决。
@@ -137,26 +134,20 @@ git clone https://huggingface.co/Qwen/Qwen2-7B
 在启动后端服务前，需要设置对应的环境变量。
 
 ```bash
-export vLLM_MS_MODEL_BACKEND=MindFormers # use MindSpore Transformers as model backend.
+export VLLM_MS_MODEL_BACKEND=MindFormers # use MindSpore Transformers as model backend.
 ```
 
 以下是对上述环境变量的解释：
 
-- `vLLM_MS_MODEL_BACKEND`：所运行的模型后端。目前vLLM-MindSpore插件所支持的模型与模型后端，可在[模型支持列表](https://www.mindspore.cn/vllm_mindspore/docs/zh-CN/master/user_guide/supported_models/models_list/models_list.html)与[环境变量清单](https://www.mindspore.cn/vllm_mindspore/docs/zh-CN/master/user_guide/environment_variables/environment_variables.html)中进行查询。
-
-另外，用户需要确保MindSpore Transformers已安装。用户可通过以下方式引入MindSpore Transformers：
-
-```bash
-export PYTHONPATH=/path/to/mindformers:$PYTHONPATH
-```
+- `VLLM_MS_MODEL_BACKEND`：所运行的模型后端。目前vLLM-MindSpore插件所支持的模型与模型后端，可在[模型支持列表](https://www.mindspore.cn/vllm_mindspore/docs/zh-CN/master/user_guide/supported_models/models_list/models_list.html)中进行查询。
 
 vLLM-MindSpore插件可使用OpenAI的API协议，进行在线推理部署。执行如下命令，启动vLLM-MindSpore插件的在线推理服务：
 
 ```bash
-vllm-mindspore serve --model=/path/to/model/Qwen2-7B --trust_remote_code --max-num-seqs=256 --max-model-len=32768 --max-num-batched-tokens=4096 --block_size=128 --gpu-memory-utilization=0.9
+nohup vllm-mindspore serve /path/to/save/Qwen2.5-7B-Instruct &
 ```
 
-用户可以通过`--model`参数，指定模型保存的本地路径。若服务成功启动，则可以获得类似的执行结果：
+用户可以通过指定模型保存的本地路径作为模型标签。若服务成功启动，则可以获得类似的执行结果：
 
 ```text
 INFO:   Started server process [6363]
@@ -175,21 +166,20 @@ Engine 000: Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 0.0 
 使用如下命令发送请求。其中，`prompt`字段为模型输入：
 
 ```bash
-curl http://localhost:8000/v1/completions -H "Content-Type: application/json" -d '{"model": "/path/to/model/Qwen2-7B", "prompt": "I love Beijing, because", "max_tokens": 128, "temperature": 1.0, "top_p": 1.0, "top_k": 1, "repetition_penalty": 1.0}'
+curl http://localhost:8000/v1/completions -H "Content-Type: application/json" -d '{"model": "Qwen/Qwen2.5-7B-Instruct", "prompt": "I am", "max_tokens": 20, "temperature": 0}'
 ```
 
-其中，用户需确认`"model"`字段与启动服务中的`--model`一致，请求才能成功匹配到模型。若请求处理成功，将获得以下推理结果：
+其中，用户需确认`"model"`字段与启动服务中的模型标签一致，请求才能成功匹配到模型。若请求处理成功，将获得以下推理结果：
 
 ```text
 {
-    "id":"cmpl-1c30caf453154b5ab4a579b7b06cea19",
-    "object":"text_completion",
-    "created":1754103773,
-    "model":"/path/to/model/Qwen2-7B",
+    "id":"cmpl-bac2b14c726b48b9967bcfc724e7c2a8","object":"text_completion",
+    "create":1748485893,
+    "model":"Qwen2.5-7B-Instruct",
     "choices":[
         {
             "index":0,
-            "text":" it is a city with a long history and rich culture. I have been to many places of interest in Beijing, such as the Great Wall, the Forbidden City, the Summer Palace, and the Temple of Heaven. I also visited the National Museum of China, where I learned a lot about Chinese history and culture. The food in Beijing is also amazing, especially the Peking duck and the dumplings. I enjoyed trying different types of local cuisine and experiencing the unique flavors of Beijing. The people in Beijing are friendly and welcoming, and they are always willing to help tourists. I had a great time exploring the city and interacting with the locals",
+            "text":"trying to create a virtual environment for my Python project, but I am encountering some issues with setting up",
             "logprobs":null,
             "finish_reason":"length",
             "stop_reason":null,
@@ -197,10 +187,11 @@ curl http://localhost:8000/v1/completions -H "Content-Type: application/json" -d
         }
     ],
     "usage":{
-        "prompt_tokens":5,
-        "total_tokens":133,
-        "completion_tokens":128,
+        "prompt_tokens":2,
+        "total_tokens":22,
+        "completion_tokens":20,
         "prompt_tokens_details":null
     }
 }
 ```
+
