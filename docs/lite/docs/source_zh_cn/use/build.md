@@ -290,7 +290,8 @@ MindSpore Lite根目录下的`build.bat`脚本可用于MindSpore Lite的编译�
 
 | 参数  |  参数说明  | 是否必选 |
 | -------- | ----- | ---- |
-| lite | 设置该参数，则对MindSpore Lite工程进行编译 | 是 |
+| lite | 设置该参数，则对MindSpore Lite工程使用MinGW编译器进行编译 （与ms\_vc参数二选一） | 否 |
+| ms\_vc | 设置该参数，则对MindSpore Lite工程使用MSVC编译器进行编译| 否 |
 | [n] | 设定编译时所用的线程数，否则默认设定为6线程  | 否 |
 
 #### `mindspore-lite/CMakeLists.txt`的选项
