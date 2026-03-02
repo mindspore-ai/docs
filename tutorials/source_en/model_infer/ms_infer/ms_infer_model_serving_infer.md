@@ -146,7 +146,7 @@ vLLM-MindSpore Plugin supports online inference deployment with the OpenAI API p
 nohup vllm-mindspore serve /path/to/save/Qwen2.5-7B-Instruct &
 ```
 
-User can also set the local model path by `--model` argument. If the service starts successfully, similar output will be obtained:  
+User can also pass the local model path to `vllm-mindspore serve` as model tag. If the service starts successfully, similar output will be obtained:
 
 ```text  
 INFO:   Started server process [6363]
