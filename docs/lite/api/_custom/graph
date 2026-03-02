@@ -2296,16 +2296,17 @@ class ExhaleRoot(object):
             print("开始处理generate")
             source_generate='./source_zh_cn/api_cpp/generate/'
 
-            for file_ in os.listdir(source_generate):
-                gfilename = file_.split(".")[0]
-                if os.path.isfile(source_generate+file_):
-                    source_file = os.path.join(source_generate, file_)
-                    target_file = os.path.join(dira, file_)
-                    shutil.copy2(source_file, target_file)
-                    rst_file=dira+gfilename+".rst"
-                    if os.path.exists(rst_file):
-                        os.remove(rst_file)
-            shutil.rmtree(source_generate)
+            if os.path.exists(source_generate):
+                for file_ in os.listdir(source_generate):
+                    gfilename = file_.split(".")[0]
+                    if os.path.isfile(source_generate+file_):
+                        source_file = os.path.join(source_generate, file_)
+                        target_file = os.path.join(dira, file_)
+                        shutil.copy2(source_file, target_file)
+                        rst_file=dira+gfilename+".rst"
+                        if os.path.exists(rst_file):
+                            os.remove(rst_file)
+                shutil.rmtree(source_generate)
 
             # for file in os.listdir(dira):
             #     if file.startswith('enum') and file.endswith('-2.rst'):
