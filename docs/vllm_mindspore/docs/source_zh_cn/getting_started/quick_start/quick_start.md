@@ -76,7 +76,7 @@ docker run -itd --name=${DOCKER_NAME} --ipc=host --network=host --privileged=tru
 
 关于docker运行参数，可以参考文档：[MindSpore安装指南](https://www.mindspore.cn/install/)的“运行MindSpore镜像”部分。
 
-新建容器后成功后，将返回容器ID。用户可执行以下命令，确认容器是否创建成功：
+新建容器成功后，将返回容器ID。用户可执行以下命令，确认容器是否创建成功：
 
 ```bash
 docker ps
