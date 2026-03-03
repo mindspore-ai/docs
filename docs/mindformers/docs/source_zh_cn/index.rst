@@ -20,132 +20,25 @@ MindSpore Transformers的开源仓库地址为 `AtomGit | MindSpore/mindformers 
 使用MindSpore Transformers进行大模型全流程开发
 -----------------------------------------------------
 
-MindSpore Transformers提供了统一的一键启动脚本，支持一键启动任意任务的单卡/多卡训练、微调、推理流程，它通过简化操作、提供灵活性和自动化流程，使得深度学习任务的执行变得更加高效和用户友好，用户可以通过以下说明文档进行学习：
+MindSpore Transformers 提供统一的一键启动脚本，支持单卡/多卡训练、微调与推理。从入门到上线，可按需查阅：`训练指南 <https://www.mindspore.cn/mindformers/docs/zh-CN/master/guide/llm_training.html>`_、`预训练实践 <https://www.mindspore.cn/mindformers/docs/zh-CN/master/guide/pre_training.html>`_、`监督微调实践 <https://www.mindspore.cn/mindformers/docs/zh-CN/master/guide/supervised_fine_tuning.html>`_、`推理指南 <https://www.mindspore.cn/mindformers/docs/zh-CN/master/guide/inference.html>`_、`服务化部署指南 <https://www.mindspore.cn/mindformers/docs/zh-CN/master/guide/deployment.html>`_ 与 `评测指南 <https://www.mindspore.cn/mindformers/docs/zh-CN/master/guide/evaluation.html>`_。
 
-- `训练指南 <https://www.mindspore.cn/mindformers/docs/zh-CN/master/guide/llm_training.html>`_
-- `预训练实践 <https://www.mindspore.cn/mindformers/docs/zh-CN/master/guide/pre_training.html>`_
-- `监督微调实践 <https://www.mindspore.cn/mindformers/docs/zh-CN/master/guide/supervised_fine_tuning.html>`_
-- `推理指南 <https://www.mindspore.cn/mindformers/docs/zh-CN/master/guide/inference.html>`_
-- `服务化部署指南 <https://www.mindspore.cn/mindformers/docs/zh-CN/master/guide/deployment.html>`_
-- `评测指南 <https://www.mindspore.cn/mindformers/docs/zh-CN/master/guide/evaluation.html>`_
 
-代码仓地址： <https://atomgit.com/mindspore/mindformers>
-
-MindSpore Transformers功能特性说明
+MindSpore Transformers 功能特性说明
 -----------------------------------------------------
 
-- 通用功能：
+预训练、微调与推理全流程中的通用能力、训练能力（如数据集、并行、断点续训、内存优化等）以及推理与量化能力，均在 `功能特性概述 <https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/overview.html>`_ 中按类汇总，可从中快速查找并跳转到对应说明文档。
 
-  - `启动任务 <https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/start_tasks.html>`_
-
-    单卡、单机和多机任务一键启动。
-
-  - `Ckpt权重 <https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/ckpt.html>`_
-
-    [Checkpoint 1.0 版本] 支持ckpt格式的权重文件转换及切分功能。
-
-  - `Safetensors权重 <https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/safetensors.html>`_
-
-    [Checkpoint 1.0 版本] 支持safetensors格式的权重文件保存及加载功能。
-
-  - `配置文件说明 <https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/configuration.html>`_
-
-    支持使用 `YAML` 文件集中管理和调整任务中的可配置项。
-
-  - `加载Hugging Face模型配置 <https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/load_huggingface_config.html>`_
-
-    支持加载Hugging Face社区模型配置即插即用，无缝对接。
-
-  - `日志 <https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/logging.html>`_
-
-    日志相关介绍，包括日志结构、日志保存等。
-
-  - `使用Tokenizer <https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/tokenizer.html>`_
-
-    Tokenizer相关介绍，支持在推理、数据集中使用Hugging Face Tokenizer。
-
-- 训练功能：
-
-  - `数据集 <https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/dataset.html>`_
-
-    支持多种类型和格式的数据集。
-
-  - `训练超参数 <https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/training_hyperparameters.html>`_
-
-    灵活配置大模型训练的超参数配置。
-
-  - `训练指标监控 <https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/monitor.html>`_
-
-    提供大模型训练阶段的可视化服务，用于监控和分析训练过程中的各种指标和信息。
-
-  - `断点续训 <https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/resume_training.html>`_
-
-    [Checkpoint 1.0 版本] 支持step级断点续训，有效减少大规模训练时意外中断造成的时间和资源浪费。
-
-  - `checkpoint保存和加载 <https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/checkpoint_saving_and_loading.html>`_
-
-    [Checkpoint 2.0 版本] 支持checkpoint保存和加载功能。
-
-  - `断点续训2.0 <https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/resume_training2.0.html>`_
-
-    [Checkpoint 2.0 版本] 支持step级断点续训，有效减少大规模训练时意外中断造成的时间和资源浪费。
-
-  - `训练高可用（Beta） <https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/high_availability.html>`_
-
-    提供大模型训练阶段的高可用能力，包括临终 CKPT 保存、UCE 故障容错恢复和进程级重调度恢复功能（Beta特性）。
-
-  - `分布式并行训练 <https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/parallel_training.html>`_
-
-    一键配置多维混合分布式并行，让模型在上至万卡的集群中高效训练。
-
-  - `训练内存优化 <https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/memory_optimization.html>`_
-
-    支持细粒度选择重计算和细粒度激活值SWAP，用于降低模型训练的峰值内存开销。
-
-  - `其它训练特性 <https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/other_training_features.html>`_
-
-    支持梯度累积、梯度裁剪、CPU绑核等特性。
-
-- 推理功能
-
-  - `量化 <https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/quantization.html>`_
-
-    集成 MindSpore Golden Stick 工具组件，提供统一量化推理流程开箱即用。
-
-使用MindSpore Transformers进行高阶开发
+使用 MindSpore Transformers 进行高阶开发
 --------------------------------------
 
-- 调试调优
+在完成基础训练与推理后，若需进行模型迁移、精度与性能调优或与标杆做精度对比，可参阅 `高阶开发概述 <https://www.mindspore.cn/mindformers/docs/zh-CN/master/advanced_development/overview.html>`_，其中按调试调优、模型开发与配置、精度对比及 API 参考分类整理了全部高阶开发文档。
 
-  - `精度调优 <https://www.mindspore.cn/mindformers/docs/zh-CN/master/advanced_development/precision_optimization.html>`_
-  - `性能调优 <https://www.mindspore.cn/mindformers/docs/zh-CN/master/advanced_development/performance_optimization.html>`_
-
-- 模型开发
-
-  - `开发迁移 <https://www.mindspore.cn/mindformers/docs/zh-CN/master/advanced_development/dev_migration.html>`_
-  - `推理配置模板使用指南 <https://www.mindspore.cn/mindformers/docs/zh-CN/master/advanced_development/yaml_config_inference.html>`_
-
-- 精度对比
-
-  - `与 Megatron-LM 比对训练精度 <https://www.mindspore.cn/mindformers/docs/zh-CN/master/advanced_development/accuracy_comparison.html>`_
-  - `推理精度比对 <https://www.mindspore.cn/mindformers/docs/zh-CN/master/advanced_development/inference_precision_comparison.html>`_
-
-环境变量
+环境变量、贡献与常见问题
 ------------------------------------
 
-- `环境变量说明 <https://www.mindspore.cn/mindformers/docs/zh-CN/master/env_variables.html>`_
-
-贡献指南
-------------------------------------
-
-- `MindSpore Transformers贡献指南 <https://www.mindspore.cn/mindformers/docs/zh-CN/master/contribution/mindformers_contribution.html>`_
-- `魔乐社区贡献指南 <https://www.mindspore.cn/mindformers/docs/zh-CN/master/contribution/modelers_contribution.html>`_
-
-FAQ
-------------------------------------
-
-- `模型相关 <https://www.mindspore.cn/mindformers/docs/zh-CN/master/faq/model_related.html>`_
-- `功能相关 <https://www.mindspore.cn/mindformers/docs/zh-CN/master/faq/feature_related.html>`_
+- 运行与调试相关环境变量见 `环境变量说明 <https://www.mindspore.cn/mindformers/docs/zh-CN/master/env_variables.html>`_。
+- 参与开发可参考 `MindSpore Transformers 贡献指南 <https://www.mindspore.cn/mindformers/docs/zh-CN/master/contribution/mindformers_contribution.html>`_ 与 `魔乐社区贡献指南 <https://www.mindspore.cn/mindformers/docs/zh-CN/master/contribution/modelers_contribution.html>`_。
+- 常见问题见 `模型相关 <https://www.mindspore.cn/mindformers/docs/zh-CN/master/faq/model_related.html>`_ 与 `功能相关 <https://www.mindspore.cn/mindformers/docs/zh-CN/master/faq/feature_related.html>`_ FAQ。
 
 .. toctree::
    :glob:
@@ -183,6 +76,7 @@ FAQ
    :caption: 功能特性
    :hidden:
 
+   feature/overview
    feature/start_tasks
    feature/ckpt
    feature/safetensors
@@ -190,8 +84,19 @@ FAQ
    feature/load_huggingface_config
    feature/logging
    feature/tokenizer
-   feature/training_function
-   feature/infer_function
+   feature/dataset
+   feature/training_hyperparameters
+   feature/monitor
+   feature/resume_training
+   feature/checkpoint_saving_and_loading
+   feature/resume_training2.0
+   feature/parallel_training
+   feature/high_availability
+   feature/memory_optimization
+   feature/skip_data_and_ckpt_health_monitor
+   feature/pma_fused_checkpoint
+   feature/other_training_features
+   feature/quantization
 
 .. toctree::
    :glob:
@@ -199,6 +104,7 @@ FAQ
    :caption: 高阶开发
    :hidden:
 
+   advanced_development/overview
    advanced_development/precision_optimization
    advanced_development/performance_optimization
    advanced_development/dev_migration

@@ -20,133 +20,24 @@ If you have any suggestions for MindSpore Transformers, please contact us via `i
 Full-process Developing with MindSpore Transformers
 -------------------------------------------------------------------------------------------
 
-MindSpore Transformers supports one-click start of single/multi-card training, fine-tuning, and inference processes for any task, which makes the execution of deep learning tasks more efficient and user-friendly by simplifying the operation, providing flexibility, and automating the process. Users can learn from the following explanatory documents:
-
-- `Pretraining <https://www.mindspore.cn/mindformers/docs/en/master/guide/pre_training.html>`_
-- `Supervised Fine-Tuning <https://www.mindspore.cn/mindformers/docs/en/master/guide/supervised_fine_tuning.html>`_
-- `Inference <https://www.mindspore.cn/mindformers/docs/en/master/guide/inference.html>`_
-- `Service Deployment <https://www.mindspore.cn/mindformers/docs/en/master/guide/deployment.html>`_
-- `Evaluation <https://www.mindspore.cn/mindformers/docs/en/master/guide/evaluation.html>`_
-
-Code repository address: <https://atomgit.com/mindspore/mindformers>
+MindSpore Transformers provides a unified one-click start for single- and multi-card training, fine-tuning, and inference. From getting started to going live, refer as needed to: `Training Guide <https://www.mindspore.cn/mindformers/docs/en/master/guide/llm_training.html>`_, `Pretraining <https://www.mindspore.cn/mindformers/docs/en/master/guide/pre_training.html>`_, `Supervised Fine-Tuning <https://www.mindspore.cn/mindformers/docs/en/master/guide/supervised_fine_tuning.html>`_, `Inference <https://www.mindspore.cn/mindformers/docs/en/master/guide/inference.html>`_, `Service Deployment <https://www.mindspore.cn/mindformers/docs/en/master/guide/deployment.html>`_, and `Evaluation <https://www.mindspore.cn/mindformers/docs/en/master/guide/evaluation.html>`_.
 
 Features description of MindSpore Transformers
 -------------------------------------------------------------------------------------------
 
-MindSpore Transformers provides a wealth of features throughout the full-process of large model development. Users can learn about these features via the following links:
-
-- General Features:
-
-  - `Start Tasks <https://www.mindspore.cn/mindformers/docs/en/master/feature/start_tasks.html>`_
-
-    One-click start for single-device, single-node and multi-node tasks.
-
-  - `Ckpt Weights <https://www.mindspore.cn/mindformers/docs/en/master/feature/ckpt.html>`_
-
-    [Checkpoint 1.0] Supports conversion, slice and merge weight files in ckpt format.
-
-  - `Safetensors Weights <https://www.mindspore.cn/mindformers/docs/en/master/feature/safetensors.html>`_
-
-    [Checkpoint 1.0] Supports saving and loading weight files in safetensors format.
-
-  - `Configuration File Descriptions <https://www.mindspore.cn/mindformers/docs/en/master/feature/configuration.html>`_
-
-    Supports the use of `YAML` files to centrally manage and adjust configurable items in tasks.
-
-  - `Loading Hugging Face Model Configuration <https://www.mindspore.cn/mindformers/docs/en/master/feature/load_huggingface_config.html>`_
-
-    Supports plug-and-play loading of Hugging Face community model configurations for seamless integration.
-
-  - `Logs <https://www.mindspore.cn/mindformers/docs/en/master/feature/logging.html>`_
-
-    Introduction of logs, including log structure, log saving, and so on.
-
-  - `Using Tokenizer <https://www.mindspore.cn/mindformers/docs/en/master/feature/tokenizer.html>`_
-
-    Introduction of tokenizer, supports the Hugging Face Tokenizer for use in inference and datasets.
-
-- Training Features:
-
-  - `Dataset <https://www.mindspore.cn/mindformers/docs/en/master/feature/dataset.html>`_
-
-    Supports multiple types and formats of datasets.
-
-  - `Training Hyperparameters <https://www.mindspore.cn/mindformers/docs/en/master/feature/training_hyperparameters.html>`_
-
-    Flexibly configure hyperparameter settings for large model training.
-
-  - `Training Metrics Monitoring <https://www.mindspore.cn/mindformers/docs/en/master/feature/monitor.html>`_
-
-    Provides visualization services for the training phase of large models for monitoring and analyzing various indicators and information during the training process.
-
-  - `Resumable Training After Breakpoint <https://www.mindspore.cn/mindformers/docs/en/master/feature/resume_training.html>`_
-
-    [Checkpoint 1.0] Supports step-level resumable training after breakpoint, effectively reducing the waste of time and resources caused by unexpected interruptions during large-scale training.
-
-  - `Checkpoint Saving and Loading <https://www.mindspore.cn/mindformers/docs/en/master/feature/checkpoint_saving_and_loading.html>`_
-
-    [Checkpoint 2.0] Supports checkpoint saving and loading.
-
-  - `Resumable Training After Breakpoint 2.0 <https://www.mindspore.cn/mindformers/docs/en/master/feature/resume_training2.0.html>`_
-
-    [Checkpoint 2.0] Supports step-level resumable training after breakpoint, effectively reducing the waste of time and resources caused by unexpected interruptions during large-scale training.
-
-  - `Training High-Availability (Beta) <https://www.mindspore.cn/mindformers/docs/en/master/feature/high_availability.html>`_
-
-    Provides high-availability capabilities for the training phase of large models, including end-of-life CKPT preservation, UCE fault-tolerant recovery, and process-level rescheduling recovery (Beta feature).
-
-  - `Distributed Parallel Training <https://www.mindspore.cn/mindformers/docs/en/master/feature/parallel_training.html>`_
-
-    One-click configuration of multi-dimensional hybrid distributed parallel allows models to run efficiently in clusters up to 10,000 cards.
-
-  - `Training Memory Optimization <https://www.mindspore.cn/mindformers/docs/en/master/feature/memory_optimization.html>`_
-
-    Supports fine-grained recomputation and activations swap, to reduce peak memory overhead during model training.
-
-  - `Other Training Features <https://www.mindspore.cn/mindformers/docs/en/master/feature/other_training_features.html>`_
-
-    Supports gradient accumulation, gradient clipping, CPU affinity binding, etc.
-
-- Inference Features:
-
-  - `Quantization <https://www.mindspore.cn/mindformers/docs/en/master/feature/quantization.html>`_
-
-    Integrates MindSpore Golden Stick toolkit and provides a unified quantization inference process.
+General capabilities, training capabilities (such as dataset, parallelism, resumable training, memory optimization, etc.), and inference and quantization are summarized by category in the `Features Overview <https://www.mindspore.cn/mindformers/docs/en/master/feature/overview.html>`_. Use it to quickly find and jump to the right documentation.
 
 Advanced developing with MindSpore Transformers
 -------------------------------------------------
 
-- Diagnostics and Optimization
+After you have basic training and inference in place, for model migration, precision and performance tuning, or accuracy comparison with a reference implementation, see the `Advanced Development Overview <https://www.mindspore.cn/mindformers/docs/en/master/advanced_development/overview.html>`_, which organizes all advanced development docs by diagnostics and optimization, model development and configuration, accuracy comparison, and API reference.
 
-  - `Precision Optimization <https://www.mindspore.cn/mindformers/docs/en/master/advanced_development/precision_optimization.html>`_
-  - `Performance Optimization <https://www.mindspore.cn/mindformers/docs/en/master/advanced_development/performance_optimization.html>`_
-
-- Model Development
-
-  - `Development Migration <https://www.mindspore.cn/mindformers/docs/en/master/advanced_development/dev_migration.html>`_
-  - `Guide to Using the Inference Configuration Template <https://www.mindspore.cn/mindformers/docs/en/master/advanced_development/yaml_config_inference.html>`_
-
-- Accuracy Comparison
-
-  - `Compare Training Accuracy with Megatron-LM <https://www.mindspore.cn/mindformers/docs/en/master/advanced_development/accuracy_comparison.html>`_
-  - `Comparison of Inference Precision <https://www.mindspore.cn/mindformers/docs/en/master/advanced_development/inference_precision_comparison.html>`_
-
-Environment Variables
+Environment variables, contribution, and FAQ
 ------------------------------------
 
-- `Environment Variables Description <https://www.mindspore.cn/mindformers/docs/en/master/env_variables.html>`_
-
-Contribution Guide
-------------------------------------
-
-- `MindSpore Transformers Contribution Guide <https://www.mindspore.cn/mindformers/docs/en/master/contribution/mindformers_contribution.html>`_
-- `Modelers Contribution Guide <https://www.mindspore.cn/mindformers/docs/en/master/contribution/modelers_contribution.html>`_
-
-FAQ
-------------------------------------
-
-- `Model-Related <https://www.mindspore.cn/mindformers/docs/en/master/faq/model_related.html>`_
-- `Function-Related <https://www.mindspore.cn/mindformers/docs/en/master/faq/feature_related.html>`_
+- For environment variables used in running and debugging, see `Environment Variables Description <https://www.mindspore.cn/mindformers/docs/en/master/env_variables.html>`_.
+- To contribute, refer to the `MindSpore Transformers Contribution Guide <https://www.mindspore.cn/mindformers/docs/en/master/contribution/mindformers_contribution.html>`_ and the `Modelers Contribution Guide <https://www.mindspore.cn/mindformers/docs/en/master/contribution/modelers_contribution.html>`_.
+- For common issues, see the `Model-Related <https://www.mindspore.cn/mindformers/docs/en/master/faq/model_related.html>`_ and `Function-Related <https://www.mindspore.cn/mindformers/docs/en/master/faq/feature_related.html>`_ FAQ.
 
 .. toctree::
    :glob:
@@ -183,15 +74,27 @@ FAQ
    :caption: Features
    :hidden:
 
+   feature/overview
    feature/start_tasks
    feature/ckpt
    feature/safetensors
    feature/configuration
    feature/load_huggingface_config
    feature/logging
-   feature/training_function
-   feature/infer_function
    feature/tokenizer
+   feature/dataset
+   feature/training_hyperparameters
+   feature/monitor
+   feature/resume_training
+   feature/checkpoint_saving_and_loading
+   feature/resume_training2.0
+   feature/parallel_training
+   feature/high_availability
+   feature/memory_optimization
+   feature/skip_data_and_ckpt_health_monitor
+   feature/pma_fused_checkpoint
+   feature/other_training_features
+   feature/quantization
 
 .. toctree::
    :glob:
@@ -199,6 +102,7 @@ FAQ
    :caption: Advanced Development
    :hidden:
 
+   advanced_development/overview
    advanced_development/precision_optimization
    advanced_development/performance_optimization
    advanced_development/dev_migration
