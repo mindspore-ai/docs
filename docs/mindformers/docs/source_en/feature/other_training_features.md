@@ -203,7 +203,7 @@ MindSpore provides thread-level CPU core binding to allocate specific CPU cores 
 
 There are two places to configure CPU affinity under the `context` field: `affinity_cpu_list` and `affinity_config`. `affinity_cpu_list` is merged into `affinity_config`, it will not be elaborated here. When both are configured, `affinity_config` will take effect.
 
-Configure items in the `affinity_config` field under the `context` field. `affinity_config` and all its sub-fields are optional. For details, please refer to [mindspore.runtime.set_cpu_affinity](https://www.mindspore.cn/docs/en/master/api_python/runtime/mindspore.runtime.set_cpu_affinity.html). An example is as follows:
+Configure items in the `affinity_config` field under the `context` field. `affinity_config` and all its sub-fields are optional. A string ending with .json can also be passed to transfer the JSON configuration file to the MindSpore API. For details, please refer to [mindspore.runtime.set_cpu_affinity](https://www.mindspore.cn/docs/en/master/api_python/runtime/mindspore.runtime.set_cpu_affinity.html). An example is as follows:
 
 ```yaml
 context:
@@ -219,6 +219,12 @@ context:
       module_to_cpu_dict:
         main: ...
         ...
+    ...
+
+# Or pass in a JSON file path
+context:
+  ...
+  affinity_config: "path_to_file.json"
     ...
 ```
 

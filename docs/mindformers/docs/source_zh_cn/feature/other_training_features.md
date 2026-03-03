@@ -203,7 +203,7 @@ MindSpore提供线程级CPU绑核功能，允许给MindSpore的主要模块（�
 
 `context`字段下有两处可以配置CPU亲和度。分别是`affinity_cpu_list`与`affinity_config`，`affinity_cpu_list`已合并至`affinity_config`，因此不做赘述。他们同时配置时以`affinity_config`为准。
 
-在`context`字段的`affinity_config`字段中写入配置项，`affinity_config`及其子项都是可选的。详情参考 [mindspore.runtime.set_cpu_affinity](https://www.mindspore.cn/docs/zh-CN/master/api_python/runtime/mindspore.runtime.set_cpu_affinity.html)。示例如下：
+在`context`字段的`affinity_config`字段中写入配置项，`affinity_config`及其子项都是可选的。也支持传入一个以“.json”结尾的字符串，将JSON配置文件传给MindSpore的接口。详情参考 [mindspore.runtime.set_cpu_affinity](https://www.mindspore.cn/docs/zh-CN/master/api_python/runtime/mindspore.runtime.set_cpu_affinity.html)。示例如下：
 
 ```yaml
 context:
@@ -220,6 +220,12 @@ context:
         main: ...
         ...
     ...
+
+# 或者传入JSON文件路径
+context:
+  ...
+  affinity_config: "path_to_file.json"
+  ...
 ```
 
 #### 主要配置参数介绍
