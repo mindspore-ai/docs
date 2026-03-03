@@ -16,7 +16,7 @@
 2. 继承`BackendBase`类并实现`Build`和`Run`接口。
 3. 使用`MS_REGISTER_BACKEND`宏注册自定义后端。
 
-这里基于MindSpore内置的`ms_backend`后端，增加一些额外打印信息，实现一个简单的自定义后端。
+只添加打印信息，实现一个简单的自定义后端。
 
 ```c++
 #include <string>
@@ -28,21 +28,19 @@ namespace mindspore {
 namespace backend {
 constexpr auto kCustomBackendName = "my_custom_backend";
 
-// Use the built-in ms_backend to test the custom backend.
+// Test the custom backend.
 class MSCustomBackendBase : public BackendBase {
  public:
   BackendGraphId Build(const FuncGraphPtr &func_graph, const BackendJitConfig &backend_jit_config) {
-    MS_LOG(WARNING) << "MSCustomBackendBase use the origin ms_backend to build the graph.";
-    mindspore::backend::BackendManager::GetInstance().Build(func_graph, backend_jit_config, "ms_backend");
+    MS_LOG(INFO) << "MSCustomBackendBase use the origin ms_backend to build the graph.";
   }
 
   // The backend graph Run interface by the graph_id which are generated through the graph Build interface above.
   RunningStatus Run(BackendGraphId graph_id, const VectorRef &inputs, VectorRef *outputs) {
-    MS_LOG(WARNING) << "MSCustomBackendBase use the origin ms_backend to run the graph.";
-    mindspore::backend::BackendManager::GetInstance().Run(BackendType::kMSBackend, graph_id, inputs, outputs);
+    MS_LOG(INFO) << "MSCustomBackendBase use the origin ms_backend to run the graph.";
   }
 };
-MS_REGISTER_BACKEND(kCustomBackendName, MSCustomBackendBase)
+MS_REGISTER_BACKEND(kCustomBackendName, MSCustomBackendBase);
 }  // namespace backend
 }  // namespace mindspore
 ```
@@ -160,10 +158,11 @@ make
 
 ```python
 import mindspore
+import numpy as np
 from mindspore import jit, mint
 
 custom_path = "/data1/libcustom_backend.so"
-success = mindspore.graph.register_custom_backend(backend_name="my_custom_backend", path=custom_path)
+success = mindspore.graph.register_custom_backend(backend_name="my_custom_backend", backend_path=custom_path)
 assert success, "Plugin registration failed"
 
 x = mindspore.Tensor(np.ones([2, 2], np.float32))
