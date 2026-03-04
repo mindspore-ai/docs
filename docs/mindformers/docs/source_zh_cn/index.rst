@@ -22,14 +22,13 @@ MindSpore Transformers的开源仓库地址为 `AtomGit | MindSpore/mindformers 
 
 MindSpore Transformers 提供统一的一键启动脚本，支持单卡/多卡训练、微调与推理。从入门到上线，可按需查阅：`训练指南 <https://www.mindspore.cn/mindformers/docs/zh-CN/master/guide/llm_training.html>`_、`预训练实践 <https://www.mindspore.cn/mindformers/docs/zh-CN/master/guide/pre_training.html>`_、`监督微调实践 <https://www.mindspore.cn/mindformers/docs/zh-CN/master/guide/supervised_fine_tuning.html>`_、`推理指南 <https://www.mindspore.cn/mindformers/docs/zh-CN/master/guide/inference.html>`_、`服务化部署指南 <https://www.mindspore.cn/mindformers/docs/zh-CN/master/guide/deployment.html>`_ 与 `评测指南 <https://www.mindspore.cn/mindformers/docs/zh-CN/master/guide/evaluation.html>`_。
 
-
 MindSpore Transformers 功能特性说明
 -----------------------------------------------------
 
 预训练、微调与推理全流程中的通用能力、训练能力（如数据集、并行、断点续训、内存优化等）以及推理与量化能力，均在 `功能特性概述 <https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/overview.html>`_ 中按类汇总，可从中快速查找并跳转到对应说明文档。
 
 使用 MindSpore Transformers 进行高阶开发
---------------------------------------
+------------------------------------------
 
 在完成基础训练与推理后，若需进行模型迁移、精度与性能调优或与标杆做精度对比，可参阅 `高阶开发概述 <https://www.mindspore.cn/mindformers/docs/zh-CN/master/advanced_development/overview.html>`_，其中按调试调优、模型开发与配置、精度对比及 API 参考分类整理了全部高阶开发文档。
 
