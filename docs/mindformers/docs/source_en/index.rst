@@ -33,7 +33,7 @@ Advanced developing with MindSpore Transformers
 After you have basic training and inference in place, for model migration, precision and performance tuning, or accuracy comparison with a reference implementation, see the `Advanced Development Overview <https://www.mindspore.cn/mindformers/docs/en/master/advanced_development/overview.html>`_, which organizes all advanced development docs by diagnostics and optimization, model development and configuration, accuracy comparison, and API reference.
 
 Environment variables, contribution, and FAQ
-------------------------------------
+----------------------------------------------
 
 - For environment variables used in running and debugging, see `Environment Variables Description <https://www.mindspore.cn/mindformers/docs/en/master/env_variables.html>`_.
 - To contribute, refer to the `MindSpore Transformers Contribution Guide <https://www.mindspore.cn/mindformers/docs/en/master/contribution/mindformers_contribution.html>`_ and the `Modelers Contribution Guide <https://www.mindspore.cn/mindformers/docs/en/master/contribution/modelers_contribution.html>`_.
