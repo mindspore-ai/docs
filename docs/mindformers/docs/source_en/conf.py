@@ -262,6 +262,41 @@ try:
 except:
     print('mindformers替换安装包内容失败')
 
+# mindformers content replace
+def content_replace(file_path):
+    modified_lines = 0
+    new_content = []
+
+    with open(file_path, 'r', encoding='utf-8') as f:
+        lines = f.readlines()
+    for line in lines:
+        stripped_line = line.strip()
+        if stripped_line.startswith('#') or "self.ms_custom_ops" in stripped_line:
+            new_content.append(line)
+            continue
+        elif " ms_custom_ops" in stripped_line:
+            indent = line[:len(line) - len(line.lstrip())]
+            replaced_line = indent + 'print("content replace")' + '\n'
+            new_content.append(replaced_line)
+        else:
+            new_content.append(line)
+
+    with open(file_path, 'w', encoding='utf-8') as f:
+        f.writelines(new_content)
+
+replace_list = ["mindformers/generation/text_generator.py",
+                "mindformers/parallel_core/inference/utils.py",
+                "mindformers/parallel_core/inference/tensor_parallel/layers.py",
+                "mindformers/parallel_core/inference/transformer/moe/router.py",
+                "mindformers/parallel_core/inference/transformer/moe/shared_experts.py",
+                "mindformers/parallel_core/inference/quantization/golden_stick/a8w8.py",
+                "mindformers/parallel_core/inference/transformer/multi_latent_attention.py",
+                "mindformers/parallel_core/inference/tensor_parallel/batch_invariant_layers.py",
+                ]
+for file in replace_list:
+    file_path = os.path.join(base_path, file)
+    content_replace(file_path)
+
 # 发版本时这里启用
 # re_url = r"(((atomgit.com/mindspore/docs)|(github.com/mindspore-ai/(mindspore|docs))|" + \
 #          r"(mindspore.cn/(docs|tutorials|lite))|(obs.dualstack.cn-north-4.myhuaweicloud)|" + \
