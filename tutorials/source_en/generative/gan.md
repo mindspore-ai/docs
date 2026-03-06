@@ -419,7 +419,7 @@ ani.save('train_test.gif', writer='pillow', fps=1)
 
 ![Dynamic test image during training](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.8.0/tutorials/source_zh_cn/generative/images/train_test.gif)
 
-As shown in the preceding figure, the image quality becomes better as the number of training epochs increases. If the value of `epoch` is greater than 100, the generated handwritten digit image is similar to that in the dataset. Now, let's load the generator network model parameter file to generate an image. The code is as follows:
+As shown in the preceding figure, the image quality becomes better as the number of training epochs increases. If the value of `epoch` is greater than 100, the generated handwritten digit image is similar to that in the dataset. Now, let's load the generator network model parameter file to generate an image.
 
 ## Model Inference
 

@@ -55,7 +55,7 @@ MindSpore**动态组网**特性通过**复用Parameter Server模式训练架构*
         <td align="left" style="white-space:nowrap">String</td>
         <td align="left">代表本进程的唯一ID，默认由MindSpore自动生成。</td>
         <td align="left">
-            MS_NODE_ID在在以下情况需要设置，一般情况下无需设置，由MindSpore自动生成：
+            MS_NODE_ID在以下情况需要设置，一般情况下无需设置，由MindSpore自动生成：
             <ul>
                 <li>开启容灾场景：容灾恢复时需要获取当前进程ID，从而向Scheduler重新注册。</li>
                 <li>开启GLOG日志重定向场景：为了保证各训练进程日志独立保存，需设置进程ID，作为日志保存路径后缀。</li>
