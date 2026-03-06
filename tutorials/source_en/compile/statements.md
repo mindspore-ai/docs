@@ -459,7 +459,7 @@ ret = test_cond(1, 5)
 print('ret:{}'.format(ret))
 ```
 
-The variable `op1` assigned to `out` inside `while` and the variable or constant `init` initially assigned to `out` must have same data type.
+The variable `ops1` assigned to `out` inside `while` and the variable or constant `init` initially assigned to `out` must have same data type.
 
 The result is as follows:
 
