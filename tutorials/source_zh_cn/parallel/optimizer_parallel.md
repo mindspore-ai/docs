@@ -169,7 +169,7 @@ bash run.sh
 ...
 ```
 
-结果保存在`log_output/worker_*.py`中，示例如下：
+结果保存在`log_output/worker_*.log`中，示例如下：
 
 ```text
 epoch: 0, step: 0, loss is 2.3024087
