@@ -122,7 +122,7 @@
         <td align="left">输出worker日志到控制台。</td>
         <td align="left" style="white-space:nowrap">String</td>
         <td align="left">一个或多个与worker进程rank_id关联的整数。默认为-1。</td>
-        <td align="left">此参数代表<code>--join=True</code>情况下，默认输出当前节点所有worker日志，<br>并且支持用户指定一个或多个卡的worker日志输出到控制台。<br>这个参数需要在[0, local_worker_num]范围内。</td>
+        <td align="left">此参数代表<code>--join=True</code>情况下，默认输出当前节点所有worker日志，<br>并且支持用户指定一个或多个卡的worker日志输出到控制台。<br>这个参数需要在[0, local_worker_num-1]范围内。</td>
     </tr>
     <tr>
         <td align="left" style="white-space:nowrap">task_script</td>
@@ -142,7 +142,7 @@
 
 ## 环境变量
 
-下表是用户脚本中能够使用的环境变量，它们由`msrun`设置：
+下表是用户脚本中能够使用的环境变量，它们由`msrun`设置，不需要用户设置：
 
 <table align="center">
     <tr>
