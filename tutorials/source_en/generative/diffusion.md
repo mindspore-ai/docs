@@ -10,8 +10,6 @@ There are many explanations of diffusion models. This document will introduce it
 
 Actually, the idea of diffusion-based generative models was already introduced by [Sohl-Dickstein et al., 2015](https://arxiv.org/abs/1503.03585). [Song et al., 2019](https://arxiv.org/abs/1907.05600) (at Stanford University) and [Ho et al., 2020](https://arxiv.org/abs/2006.11239) (at Google Brain) independently improve the method.
 
-The method stated in this document is achieved on MindSpore AI framework and refers to Phil Wang's [Denoising Diffusion Probabilistic Model, in PyTorch](https://github.com/lucidrains/denoising-diffusion-pytorch) (which is achieved based on [TensorFlow](https://github.com/hojonathanho/diffusion)).
-
 ![Image-1](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.8.0/tutorials/source_zh_cn/generative/images/diffusion_1.png)
 
 We adopt the discrete time (potential variable model) in the experiment. In addition, you can see [other opinions](https://twitter.com/sedielem/status/1530894256168222722?s=20&t=mfv4afx1GcNQU5fZklpACw) on diffusion models.
