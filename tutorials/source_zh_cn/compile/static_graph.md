@@ -57,7 +57,6 @@ MindSpore的静态图执行过程实际包含两步，对应静态图的Define�
 
     net = Net()
     ret = net(a, b, c)
-    print(ret)
     ```
 
     上述代码中，输入`a`、`b`、`c`均为常量。
@@ -78,7 +77,6 @@ MindSpore的静态图执行过程实际包含两步，对应静态图的Define�
 
     net = Net()
     ret = net()
-    print(ret)
     ```
 
     上述代码中， `a`，`b`，`c`均为常量。
@@ -99,7 +97,6 @@ MindSpore的静态图执行过程实际包含两步，对应静态图的Define�
 
     net = Net()
     ret = net()
-    print(ret)
     ```
 
     上述代码中，`a`、`b`均为图模式内产生的Tensor，因此其计算结果也是常量。但如果其中之一为变量，则返回值也为变量。
@@ -123,7 +120,6 @@ MindSpore的静态图执行过程实际包含两步，对应静态图的Define�
 
     net = Net()
     ret = net(a)
-    print(ret)
     ```
 
     上述代码中，`a`是在图外调用mutable接口的，`b`和`c`是在图内调用mutable接口生成的，`a`、`b`、`c`均为变量。
@@ -144,7 +140,6 @@ MindSpore的静态图执行过程实际包含两步，对应静态图的Define�
 
     net = Net()
     ret = net(a, b)
-    print(ret)
     ```
 
     上述代码中，`a`是作为图模式输入的Tensor，因此其为变量。但`b`是作为图模式输入的元组，非Tensor类型，即使其内部的元素均为Tensor，`b`也是常量。
@@ -168,7 +163,6 @@ MindSpore的静态图执行过程实际包含两步，对应静态图的Define�
 
     net = Net()
     ret = net(a, b)
-    print(ret)
     ```
 
     在这种情况下，`c`是`a`和`b`计算来的结果，且用来计算的输入`a`、`b`均为变量，因此`c`也是变量。
@@ -1888,6 +1882,7 @@ print(res)
 import mindspore
 from mindspore import nn
 
+mindspore.set_device("CPU")
 class Net(nn.Cell):
    @mindspore.jit
    def construct(self):
@@ -1912,6 +1907,7 @@ x:
 import mindspore
 from mindspore import nn
 
+mindspore.set_device("CPU")
 class Net(nn.Cell):
    @mindspore.jit
    def construct(self, x, y=None):

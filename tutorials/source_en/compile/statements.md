@@ -128,6 +128,7 @@ As above, there can be multiple `return` statements in a control flow scenario s
 ```python
 import mindspore
 
+mindspore.set_device("CPU")
 @mindspore.jit
 def foo():
   x = 3
