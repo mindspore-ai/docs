@@ -169,7 +169,7 @@ After training, the log files are saved to the `log_output` directory, where par
 ...
 ```
 
-The results are saved in `log_output/worker_*.py`, and example is as follows:
+The results are saved in `log_output/worker_*.log`, and example is as follows:
 
 ```text
 epoch: 0, step: 0, loss is 2.3024087
