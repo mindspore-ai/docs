@@ -107,7 +107,7 @@ To make the model more robust to various input object sizes and shapes, the SSD 
 
 - Randomly sample a region.
 
-The size of each sampling region is [0.3,1] of the size of the original image, and the aspect ratio is between 1/2 and 2. If the center of the actual label box is within the sampling region, the overlapping part is retained as the real label box of the new image. After the foregoing sampling steps, each sampling region is adjusted to a fixed size, and is flipped horizontally with a probability of 0.5.
+The size of each sampling region is [0.3,1] of the size of the original image, and the aspect ratio is between 0.5 and 2. If the center of the actual label box is within the sampling region, the overlapping part is retained as the real label box of the new image. After the foregoing sampling steps, each sampling region is adjusted to a fixed size, and is flipped horizontally with a probability of 0.5.
 
 ```python
 import cv2
