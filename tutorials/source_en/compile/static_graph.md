@@ -845,11 +845,10 @@ value `value` can be non-unique. The key `key` needs to be guaranteed to be immu
     of this article.
 
     ``` python
-    import numpy as np
     import mindspore
     from mindspore import nn
 
-    x = {"a": mindspore.tensor(np.array([1, 2, 3])), "b": mindspore.tensor(np.array([4, 5, 6])), "c": mindspore.tensor(np.array([7, 8, 9]))}
+    x = {"a": mindspore.tensor([1, 2, 3]), "b": mindspore.tensor([4, 5, 6]), "c": mindspore.tensor([7, 8, 9])}
 
     class Net(nn.Cell):
        @mindspore.jit
@@ -859,7 +858,7 @@ value `value` can be non-unique. The key `key` needs to be guaranteed to be immu
           x_items = x.items()
           value_a = x.get("a")
           check_key = x.has_key("a")
-          y = {"a": mindspore.tensor(np.array([0, 0, 0]))}
+          y = {"a": mindspore.tensor([0, 0, 0])}
           x.update(y)
           new_dict = x.fromkeys("abcd", 123)
           return x_keys, x_values, x_items, value_a, check_key, x, new_dict
@@ -1966,11 +1965,10 @@ The specific usage scenarios are as follows:
     Examples are as follows:
 
     ``` python
-    import numpy as np
     import mindspore
     from mindspore import nn
 
-    x = {"a": mindspore.tensor(np.array([1, 2, 3])), "b": mindspore.tensor(np.array([4, 5, 6])), "c": mindspore.tensor(np.array([7, 8, 9]))}
+    x = {"a": mindspore.tensor([1, 2, 3]), "b": mindspore.tensor([4, 5, 6]), "c": mindspore.tensor([7, 8, 9])}
 
     class Net(nn.Cell):
        @mindspore.jit
