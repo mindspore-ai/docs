@@ -115,7 +115,7 @@ A parameters list of command line:
         <td align="left">Enable output worker log to console.</td>
         <td align="left" style="white-space:nowrap">String</td>
         <td align="left">One or multiple integers associated with the worker process rank_id. Default: -1.</td>
-        <td align="left">This parameter represents output all worker logs of the current node to console by default, and supports users specify one or more worker logs output to console when <code>--join=True</code>. <br>This parameter should be in [0, local_worker_num].</td>
+        <td align="left">This parameter represents output all worker logs of the current node to console by default, and supports users specify one or more worker logs output to console when <code>--join=True</code>. <br>This parameter should be in [0, local_worker_num-1].</td>
     </tr>
     <tr>
         <td align="left" style="white-space:nowrap">task_script</td>
@@ -135,7 +135,7 @@ A parameters list of command line:
 
 ## Environment Variables
 
-The following table shows the environment variables can be used in user scripts, which are set by `msrun`:
+The following table shows the environment variables can be used in user scripts, which are set by `msrun` and do not require user configuration:
 
 <table align="center">
     <tr>
