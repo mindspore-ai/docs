@@ -772,11 +772,10 @@ res: ('H', 'Spore', 'Hello!MindSpore', 'MindSporeMindSpore', True, 'My name is M
     示例如下，其中返回值中的`x`和`new_dict`是一个`Dictionary`，在图模式JIT语法支持级别选项为LAX下扩展支持，更多Dictionary的高阶使用请参考本文的[支持Dictionary的高阶用法](#支持dictionary的高阶用法)章节。
 
     ``` python
-    import numpy as np
     import mindspore
     from mindspore import nn
 
-    x = {"a": mindspore.tensor(np.array([1, 2, 3])), "b": mindspore.tensor(np.array([4, 5, 6])), "c": mindspore.tensor(np.array([7, 8, 9]))}
+    x = {"a": mindspore.tensor([1, 2, 3]), "b": mindspore.tensor([4, 5, 6]), "c": mindspore.tensor([7, 8, 9])}
 
     class Net(nn.Cell):
        @mindspore.jit
@@ -786,7 +785,7 @@ res: ('H', 'Spore', 'Hello!MindSpore', 'MindSporeMindSpore', True, 'My name is M
           x_items = x.items()
           value_a = x.get("a")
           check_key = x.has_key("a")
-          y = {"a": mindspore.tensor(np.array([0, 0, 0]))}
+          y = {"a": mindspore.tensor([0, 0, 0])}
           x.update(y)
           new_dict = x.fromkeys("abcd", 123)
           return x_keys, x_values, x_items, value_a, check_key, x, new_dict
@@ -1830,11 +1829,10 @@ assert a_id == a_after_id
     示例如下：
 
     ``` python
-    import numpy as np
     import mindspore
     from mindspore import nn
 
-    x = {"a": mindspore.tensor(np.array([1, 2, 3])), "b": mindspore.tensor(np.array([4, 5, 6])), "c": mindspore.tensor(np.array([7, 8, 9]))}
+    x = {"a": mindspore.tensor([1, 2, 3]), "b": mindspore.tensor([4, 5, 6]), "c": mindspore.tensor([7, 8, 9])}
 
     class Net(nn.Cell):
        @mindspore.jit
