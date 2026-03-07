@@ -228,6 +228,26 @@ context:
     ...
 ```
 
+Here is an example of the JSON configuration file. For detailed configuration, please refer to [Using JSON to Unify CPU/NUMA Affinity](https://www.mindspore.cn/tutorials/en/master/parallel/msrun_launcher.html):
+
+```json
+{
+  "bind_config": {
+    "bind_cpu_mode": "cpu"
+  },
+  "bind_cpu": {
+    "device0": {
+      "main": "0-1",
+      "minddata": "10-11"
+    },
+    "device1": {
+      "main": "20-21",
+      "minddata": "30-31"
+    }
+  }
+}
+```
+
 #### Key Configuration Parameters
 
 | Parameter          | Description                                                                                                                                                                                                                   | Value Specification                            |
