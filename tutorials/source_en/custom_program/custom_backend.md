@@ -47,7 +47,7 @@ MS_REGISTER_BACKEND(kCustomBackendName, MSCustomBackendBase);
 
 ## Compiling Custom Backend
 
-Save the above example code as `custom_backend.cpp` and compile it into `libcustom_backend.so`. The CMake script is as follows:
+Save the above example code as `custom_backend.cc` and compile it into `libcustom_backend.so`. The CMake script is as follows:
 
 ```cmake
 cmake_minimum_required(VERSION 3.16)

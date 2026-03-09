@@ -47,7 +47,7 @@ MS_REGISTER_BACKEND(kCustomBackendName, MSCustomBackendBase);
 
 ## 编译自定义后端
 
-将上述示例代码保存为`custom_backend.cpp`，并编译成`libcustom_backend.so`动态库，CMake脚本如下：
+将上述示例代码保存为`custom_backend.cc`，并编译成`libcustom_backend.so`动态库，CMake脚本如下：
 
 ```cmake
 cmake_minimum_required(VERSION 3.16)
