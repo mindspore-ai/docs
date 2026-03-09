@@ -228,6 +228,26 @@ context:
   ...
 ```
 
+JSON配置文件示例如下，详细配置可参考 [使用 JSON 统一配置 CPU/NUMA 亲和](https://www.mindspore.cn/tutorials/zh-CN/master/parallel/msrun_launcher.html)：
+
+```json
+{
+  "bind_config": {
+    "bind_cpu_mode": "cpu"
+  },
+  "bind_cpu": {
+    "device0": {
+      "main": "0-1",
+      "minddata": "10-11"
+    },
+    "device1": {
+      "main": "20-21",
+      "minddata": "30-31"
+    }
+  }
+}
+```
+
 #### 主要配置参数介绍
 
 | 参数               | 描述                                                                                                                                                                                                                       | 取值说明                        |
