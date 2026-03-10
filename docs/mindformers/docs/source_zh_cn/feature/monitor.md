@@ -260,6 +260,7 @@ expert_load（图中为3个MoE层的各自16个专家的负载变化曲线）：
 | train_dataset              | 训练数据集配置                                                      |
 | trainer                    | 训练流程配置                                                       |
 | swap_config                | 细粒度激活值SWAP配置                                                 |
+| checkpoint                 | Checkpoint2.0下权重保存和加载相关配置                                    |
 
 > 上述训练配置来源于：
 >

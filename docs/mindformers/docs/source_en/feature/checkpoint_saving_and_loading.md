@@ -13,6 +13,7 @@ Compared with Checkpoint 1.0, the core updates are as follows:
 - **New checkpoint saving [directory structure](#directory-structure)**: The checkpoint directory contains files for **model weights**, **optimizer weights**, **training context information**, **distributed strategy meta-information**, etc.;
 - **Added online Reshard loading mechanism**: If the distributed strategy meta-information of the checkpoint to be loaded is inconsistent with the current task, Reshard conversion will be **automatically performed on the weight parameters** during loading to generate parameters adapted to the current distributed strategy;
 - **Simplified loading configuration**: Relying on the online Reshard mechanism, users **do not need to manually configure parameters such as `auto_trans_ckpt` and `src_strategy_path_or_dir`** to trigger weight strategy conversion, which significantly improves usability.
+- **Simplified YAML configuration**: Checkpoint level 1 configuration integrates previously scattered weight-related configurations under this configuration. This configuration encompasses parameters such as the checkpoint saving path, saving interval steps, saving file name prefix, maximum number of saved files, path for loading weights during resume training from a checkpoint, and the resume training switch. Additionally, it is compatible with Checkpoint 1.0 configuration.
 
 MindSpore Transformers currently uses Checkpoint 1.0 by default. Users need to add the following parameters to the YAML configuration file to enable the saving and loading functions of Checkpoint 2.0.
 
@@ -56,6 +57,37 @@ Description of weight-related files
 
 ### Configuration Instructions
 
+#### Checkpoint 2.0 Configuration
+
+Users can control the weight saving behavior by modifying the relevant fields under `checkpoint` in the YAML configuration file. The specific parameter descriptions are as follows:
+
+| Parameter Name         | Description                                                                                                                                                                                                                                                                      | Value Description                                                                                                |
+|------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------|
+| save_path              | Set the directory for saving weight files. If not configured, the default directory is `checkpoint/` under the `output_dir` directory.                                                                                                                                           | str  |
+| save_max               | The maximum number of weight files to retain. When the number of saved weights exceeds this value, the system will delete the oldest files in order of creation time to ensure that the total number does not exceed this limit. Used to control disk space usage. Default to `5`. | int  |
+| save_interleaved_steps | Sets the automatic saving interval for weights based on the number of training steps (unit: steps). For example, save every 1000 steps. Default to `1`.               | int  |
+| no_save_optim          | Optimizer weight saving function switch (controls whether to save optimizer weight information). Default to `True`.                                                                                                                                                              | bool |
+| async_save             | Whether to save weights asynchronously. Enabling this feature will not block the main training process, improving training efficiency. However, please note that I/O resource contention may cause write delays. Default to `False`.                                             | bool |
+| prefix                 | Set the prefix for the weight file name. For example, `CKP-100.ckpt` is generated. If not configured, default to `'CKP'`.                                                                                                                                                        | str  |
+| save_remove_redundancy | Whether to remove redundancy from model weights when saving. Default to `False`.                                                                                                                                                                                                 | int  |
+
+Configuration example is as follows:
+
+```yaml
+use_legacy_format: False
+
+checkpoint:
+  save_path: './output_dir/checkpoint/'
+  save_max: 5
+  save_interleaved_steps: 1000
+  no_save_optim: False
+  async_save: False
+  prefix: "qwen3"
+  save_remove_redundancy: False
+```
+
+#### Checkpoint 1.0 Configuration
+
 Users can control the weight saving behavior by modifying the relevant fields under `CheckpointMonitor` in the YAML configuration file. The specific parameter descriptions are as follows:
 
 | Parameter Name        | Description                                                                                                                                                                                        | Value Description                                                                                                |
@@ -72,6 +104,8 @@ Users can control the weight saving behavior by modifying the relevant fields un
 Configuration example is as follows:
 
 ```yaml
+use_legacy_format: True
+
 callbacks:
   ...
   - type: CheckpointMonitor
@@ -84,7 +118,7 @@ callbacks:
   ...
 ```
 
-> The above configuration specifies that the training task uses "qwen3" as the prefix for safetensors file names, adopts the synchronous saving mode, saves checkpoints containing model weights and optimizer weights every 1000 steps, and retains at most the latest 5 checkpoints throughout the training process.
+> If `checkpoint` is configured, the `use_legacy_format` parameter will be automatically converted to `False`. The above configuration specifies that the training task uses "qwen3" as the prefix for safetensors file names, adopts the synchronous saving mode, saves checkpoints containing model weights and optimizer weights every 1000 steps, and retains at most the latest 5 checkpoints throughout the training process.
 
 If you want to learn more about CheckpointMonitor, you can refer to the [CheckpointMonitor API Document](https://www.mindspore.cn/mindformers/docs/en/master/core/mindformers.core.CheckpointMonitor.html).
 
@@ -96,6 +130,21 @@ MindSpore Transformers provides flexible checkpoint loading capabilities, coveri
 2. Cross-platform weight compatibility: Through a dedicated conversion interface, it supports loading weight files released by the HuggingFace community. Currently, it has achieved compatible adaptation for the Qwen3 model training scenario, facilitating users to reuse community resources.
 
 ### Configuration Instructions
+
+#### Checkpoint 2.0 Configuration
+
+Users can control the weight loading behavior by modifying the relevant fields in the YAML configuration file.
+
+| Parameter Name        | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | Value Description |
+|-----------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------|
+| load_path             | The file or folder path for loading weights. Supports the following three scenarios: 1. The path to the complete weights file; 2. The path to the distributed weights folder after offline splitting; 3. The path to the folder containing LoRA incremental weights and base model weights. For details on how to obtain various weights, see [Checkpoint Conversion Function](https://www.mindspore.cn/mindformers/docs/en/master/feature/ckpt.html#weight-format-conversion). Default to `''`. | str               |
+| load_balanced         | The switch for the weight balanced loading function **only supports being turned on in distributed tasks**. When set to `True`, each rank loads weights according to a balanced parameter allocation strategy, and then obtains the final weights through parameter broadcasting. Default to `False`.                                                                                                                                                                                            | str               |
+| no_load_optim         | Whether to enable the resumable training feature. When enabled, the optimizer state, learning rate scheduler state, and other parameters will be restored from the path specified by `load_checkpoint` to continue training. For more information, see [Resumable Training](https://www.mindspore.cn/mindformers/docs/en/master/feature/resume_training.html#resumable-training-after-breakpoint).                                                                                               | bool              |
+| reshard_worker_number | Specifies the number of threads for parallel weight resharding. For scenarios where weights need to be resharded online, this field can be configured for parallel acceleration. Default to `1`.                                                                                                                                                                                                                                                                                                 | int               |
+
+When `load_path` is configured as the path of the `output/checkpoint` folder, users can modify the step recorded in `latest_checkpointed_iteration.txt` to load the weights of the specified `iteration`.
+
+#### Checkpoint 1.0 Configuration
 
 Users can control the weight loading behavior by modifying the relevant fields in the YAML configuration file.
 

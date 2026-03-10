@@ -219,6 +219,22 @@ Context配置主要用于指定[mindspore.set_context](https://www.mindspore.cn/
 | filepath_prefix                             | 设置数据优化后的参数配置的保存路径。                                                                                                                                                       | str    |
 | autotune_per_step                           | 设置自动数据加速的配置调整step间隔，详情可参考[set_autotune_interval](https://www.mindspore.cn/docs/zh-CN/master/api_python/dataset/mindspore.dataset.config.set_autotune_interval.html)。 | int    |
 
+### 模型训练权重相关配置
+
+| 参数                                | 说明                                                                                                                                                                                                                                  | 类型   |
+|-----------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------|
+| checkpoint.save_path              | 设置权重文件的保存目录。若未配置，则默认保存在`output_dir` 指定路径下的 `checkpoint/` 子目录中。                                                                                                                                                                      | str  |
+| checkpoint.save_max               | 最多保留的权重文件数量。当保存数量超过该值时，系统将按创建时间顺序删除最早的文件，确保总数不超过此限制。用于控制磁盘空间使用。默认值`5`。                                                                                                                                                              | int  |
+| checkpoint.save_interleaved_steps | 以训练步数间隔方式设置自动保存权重的周期（单位：steps）。与`save_checkpoint_seconds` 互斥，若两者均设置，以时间优先。例如每1000步保存一次。默认值`1`。                                                                                                                                      | int  |
+| checkpoint.no_save_optim          | 优化器权重保存功能开关（控制是否保存优化器权重信息）。默认值`True`。                                                                                                                                                                                               | bool |
+| checkpoint.async_save             | 是否异步执行权重保存。开启后保存操作不会阻塞训练主流程，提升训练效率，但需注意 I/O 资源竞争可能导致延迟写入。默认值`False`。                                                                                                                                                                | bool |
+| checkpoint.prefix                 | 设置保存权重文件名的前缀。例如生成`CKP-100.ckpt`。若未配置，则使用默认值 `'CKP'`。                                                                                                                                                                                | str  |
+| checkpoint.save_remove_redundancy | 保存权重时是否去除模型权重的冗余，默认值为`False`。                                                                                                                                                                                                       | int  |
+| checkpoint.load_path              | 加载权重的文件或文件夹路径，支持以下三种场景：<br/>1. 完整权重文件路径；<br/>2. 离线切分后的分布式权重文件夹路径；<br/>3. 包含 LoRA 增量权重和 base 模型权重的文件夹路径。<br/>各种权重的获取方式详见 [权重转换功能](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/ckpt.html)。默认值为`''`。                | str  |
+| checkpoint.load_balanced          | 权重均衡加载功能开关，**仅支持在分布式任务中开启**；设为 `True` 时，各 rank 按参数均衡分配策略加载权重，再通过参数广播获取最终权重。默认值为`False`。                                                                                                                                             | str  |
+| checkpoint.no_load_optim          | 加载权重文件时是否加载优化器参数。是否开启断点续训功能取反。开启后将从`load_checkpoint` 指定的路径恢复优化器状态、学习率调度器状态等，继续训练。详情见 [断点续训功能](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/resume_training.html#%E6%96%AD%E7%82%B9%E7%BB%AD%E8%AE%AD)。默认值为`True`。 | bool |
+| checkpoint.reshard_worker_number  | 指定并行权重 Reshard 的线程数。对于权重需要在线 Reshard 的场景，可配置该字段进行并行加速。默认值 `1`。                                                                                                                                                                      | int  |
+
 ### 并行配置
 
 为了提升模型的性能，在大规模集群的使用场景中通常需要为模型配置并行策略，详情可参考[分布式并行](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/parallel_training.html)，MindSpore Transformers中的并行配置如下。

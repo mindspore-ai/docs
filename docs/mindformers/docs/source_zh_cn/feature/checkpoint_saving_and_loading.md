@@ -13,6 +13,7 @@ MindSpore Transformers 推出**Checkpoint 2.0 版本**，通过重构checkpoint�
 - **全新checkpoint保存[目录结构](#目录结构)**：目录包含**模型权重**、**优化器权重**、**训练上下文信息**、**分布式策略元信息**等文件；
 - **新增在线 Reshard 加载机制**：若待加载checkpoint的分布式策略元信息与当前任务不一致，加载时将**自动对权重参数执行 Reshard 转换**，生成适配当前分布式策略的参数；
 - **简化加载配置**：依托在线 Reshard 机制，用户**无需手动配置`auto_trans_ckpt`、`src_strategy_path_or_dir`等参数**触发权重策略转换，易用性显著提升。
+- **简化yaml配置**：新增yaml文件中的checkpoint一级配置，统一将之前分散的权重相关配置迁移至该配置下。该配置包含checkpoint保存路径、保存间隔步数、保存文件名前缀、保存文件最大数量、断点续训加载权重路径、断点续训开关等参数。且同时兼容Checkpoint 1.0 配置。
 
 MindSpore Transformers 目前默认采用Checkpoint 1.0 版本，用户需在 YAML 配置文件中添加如下参数，即可启用Checkpoint 2.0 版本的保存与加载功能。
 
@@ -56,6 +57,37 @@ output
 
 ### 配置说明
 
+#### Checkpoint 2.0 配置
+
+用户可通过修改 YAML 配置文件中 `checkpoint` 下的相关字段，控制权重保存行为，具体参数说明如下：
+
+| 参数                               | 描述                                                                                             | 类型   |
+|----------------------------------|------------------------------------------------------------------------------------------------|------|
+| save_path              | 设置权重文件的保存目录。若未配置，则默认保存在`output_dir` 指定路径下的 `checkpoint/` 子目录中。                                 | str  |
+| save_max               | 最多保留的权重文件数量。当保存数量超过该值时，系统将按创建时间顺序删除最早的文件，确保总数不超过此限制。用于控制磁盘空间使用。默认值`5`。                         | int  |
+| save_interleaved_steps | 以训练步数间隔方式设置自动保存权重的周期（单位：steps）。例如每1000步保存一次。默认值`1`。 | int  |
+| no_save_optim          | 优化器权重保存功能开关（控制是否保存优化器权重信息）。默认值`True`。                                                          | bool |
+| async_save            | 是否异步执行权重保存。开启后保存操作不会阻塞训练主流程，提升训练效率，但需注意 I/O 资源竞争可能导致延迟写入。默认值`False`。                           | bool |
+| prefix                | 设置保存权重文件名的前缀。例如生成`CKP-100.ckpt`。若未配置，则使用默认值 `'CKP'`。                                           | str  |
+| save_remove_redundancy | 保存权重时是否去除模型权重的冗余，默认值为`False`。                                                                  | int  |
+
+配置示例如下：
+
+```yaml
+use_legacy_format: False
+
+checkpoint:
+  save_path: './output_dir/checkpoint/'
+  save_max: 5
+  save_interleaved_steps: 1000
+  no_save_optim: False
+  async_save: False
+  prefix: "qwen3"
+  save_remove_redundancy: False
+```
+
+#### Checkpoint 1.0 配置
+
 用户可通过修改 YAML 配置文件中 `CheckpointMonitor` 下的相关字段，控制权重保存行为，具体参数说明如下：
 
 | 参数名称                  | 描述                                                                                                               | 取值说明                                                    |
@@ -72,6 +104,8 @@ output
 配置示例如下：
 
 ```yaml
+use_legacy_format: True
+
 callbacks:
   ...
   - type: CheckpointMonitor
@@ -84,7 +118,7 @@ callbacks:
   ...
 ```
 
-> 上述配置指定训练任务以 "qwen3" 作为 safetensors 文件名前缀，采用同步保存模式，每 1000 步保存一次包含模型权重与优化器权重的checkpoint，且训练全程最多保留最新的 5 个checkpoint。
+> 若是配置了 `checkpoint`，则 `use_legacy_format` 参数将自动转换为 `False`。上述配置指定训练任务以 "qwen3" 作为 safetensors 文件名前缀，采用同步保存模式，每 1000 步保存一次包含模型权重与优化器权重的checkpoint，且训练全程最多保留最新的 5 个checkpoint。
 
 如果您想了解更多有关 CheckpointMonitor 的知识，可以参考 [CheckpointMonitor API 文档](https://www.mindspore.cn/mindformers/docs/zh-CN/master/core/mindformers.core.CheckpointMonitor.html)。
 
@@ -96,6 +130,21 @@ MindSpore Transformers 提供灵活的checkpoint加载能力，覆盖单卡与�
 2. 跨平台权重兼容：通过专用转换接口，支持加载 HuggingFace 社区发布的权重文件，当前已实现 Qwen3 模型训练场景的兼容适配，方便用户复用社区资源。
 
 ### 配置说明
+
+#### Checkpoint 2.0 配置
+
+用户可通过修改 YAML 配置文件中的相关字段，控制权重加载行为。
+
+| 参数名称                 | 描述                                                                                                                                                                                                                                  | 取值说明                    |
+|----------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------|
+| load_path             | 加载权重的文件或文件夹路径，支持以下三种场景：<br/>1. 完整权重文件路径；<br/>2. 离线切分后的分布式权重文件夹路径；<br/>3. 包含 LoRA 增量权重和 base 模型权重的文件夹路径。<br/>各种权重的获取方式详见 [权重转换功能](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/ckpt.html)。默认值为`''`。                | str  |
+| load_balanced         | 权重均衡加载功能开关，**仅支持在分布式任务中开启**；设为 `True` 时，各 rank 按参数均衡分配策略加载权重，再通过参数广播获取最终权重。默认值为`False`。                                                                                                                                             | str  |
+| no_load_optim         | 加载权重文件时是否加载优化器参数。是否开启断点续训功能取反。开启后将从`load_checkpoint` 指定的路径恢复优化器状态、学习率调度器状态等，继续训练。详情见 [断点续训功能](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/resume_training.html#%E6%96%AD%E7%82%B9%E7%BB%AD%E8%AE%AD)。默认值为`True`。 | bool |
+| reshard_worker_number | 指定并行权重 Reshard 的线程数。对于权重需要在线 Reshard 的场景，可配置该字段进行并行加速。默认值 `1`。                                                                                                                                                                      | int  |
+
+当 `load_path` 配置为 `output/checkpoint` 文件夹路径时，用户可通过修改 `latest_checkpointed_iteration.txt` 中记录的步数，实现指定 `iteration` 权重的加载。
+
+#### Checkpoint 1.0 配置
 
 用户可通过修改 YAML 配置文件中的相关字段，控制权重加载行为。
 

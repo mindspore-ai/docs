@@ -260,6 +260,7 @@ All configuration names and descriptions are listed below:
 | train_dataset              | Training dataset configuration                                                      |
 | trainer                    | Training process configuration                                                       |
 | swap_config                | Fine-grained activations SWAP configuration |
+| checkpoint                 | Configuration related to weight saving and loading under Checkpoint2.0                                    |
 
 > The above training configurations are derived from:
 >
