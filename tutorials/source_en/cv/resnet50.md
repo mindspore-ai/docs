@@ -214,7 +214,7 @@ class ResidualBlockBase(nn.Cell):
         self.conv1 = nn.Conv2d(in_channel, out_channel,
                                kernel_size=3, stride=stride,
                                weight_init=weight_init)
-        self.conv2 = nn.Conv2d(in_channel, out_channel,
+        self.conv2 = nn.Conv2d(out_channel, out_channel,
                                kernel_size=3, weight_init=weight_init)
         self.relu = nn.ReLU()
         self.down_sample = down_sample

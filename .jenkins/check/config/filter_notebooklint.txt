@@ -1,0 +1,1 @@
+"docs/tutorials/source_zh_cn/cv/resnet50.ipynb"
