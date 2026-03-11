@@ -11,187 +11,39 @@
 
 命令行参数列表：
 
-<table align="center">
-    <tr>
-        <th align="left">参数</th>
-        <th align="left">功能</th>
-        <th align="left">类型</th>
-        <th align="left">取值</th>
-        <th align="left">说明</th>
-    </tr>
-    <tr>
-        <td align="left" style="white-space:nowrap">--worker_num</td>
-        <td align="left">参与分布式任务的Worker进程总数。</td>
-        <td align="left" style="white-space:nowrap">Integer</td>
-        <td align="left">大于0的整数。默认值为8。</td>
-        <td align="left">所有节点上启动的Worker总数应当等于此参数：<br>若总数大于此参数，多余的Worker进程会注册失败；<br>若总数小于此参数，集群会在等待一段超时时间后，<br>提示任务拉起失败并退出，<br>超时时间窗大小可通过参数<code>cluster_time_out</code>配置。</td>
-    </tr>
-    <tr>
-        <td align="left" style="white-space:nowrap">--local_worker_num</td>
-        <td align="left">当前节点上拉起的Worker进程数。</td>
-        <td align="left" style="white-space:nowrap">Integer</td>
-        <td align="left">大于0的整数。默认值为8。</td>
-        <td align="left">当此参数与<code>worker_num</code>保持一致时，代表所有Worker进程在本地执行，<br>此场景下<code>node_rank</code>值会被忽略。</td>
-    </tr>
-    <tr>
-        <td align="left" style="white-space:nowrap">--master_addr</td>
-        <td align="left">指定Scheduler的IP地址或者主机名。</td>
-        <td align="left" style="white-space:nowrap">String</td>
-        <td align="left">合法的IP地址或者主机名。默认为IP地址127.0.0.1。</td>
-        <td align="left">msrun会自动检测在哪个节点拉起Scheduler进程，用户无需关心。<br>若无法查找到对应的地址或主机名无法被DNS解析，训练任务会拉起失败。<br>当前版本暂不支持IPv6地址。<br>若传入主机名时，msrun会自动将其解析为IP地址，需要用户环境支持DNS服务。</td>
-    </tr>
-    <tr>
-        <td align="left" style="white-space:nowrap">--master_port</td>
-        <td align="left">指定Scheduler绑定端口号。</td>
-        <td align="left" style="white-space:nowrap">Integer</td>
-        <td align="left">1024～65535范围内的端口号。默认为8118。</td>
-        <td align="left"></td>
-    </tr>
-    <tr>
-        <td align="left" style="white-space:nowrap">--node_rank</td>
-        <td align="left">当前节点的索引。</td>
-        <td align="left" style="white-space:nowrap">Integer</td>
-        <td align="left">可传入大于等于0的整数。在不传入值的情况下，默认值为-1。</td>
-        <td align="left">单机多卡场景下，此参数会被忽略。<br>多机多卡场景下，<br>若不设置此参数，Worker进程的rank_id会被自动分配；<br>若设置，则会按照索引为各节点上的Worker进程分配rank_id。<br>若每个节点Worker进程数量不同，建议不配置此参数，<br>以自动分配rank_id。</td>
-    </tr>
-    <tr>
-        <td align="left" style="white-space:nowrap">--log_dir</td>
-        <td align="left">Worker以及Scheduler日志输出路径。</td>
-        <td align="left" style="white-space:nowrap">String</td>
-        <td align="left">文件夹路径。默认为当前目录。</td>
-        <td align="left">若路径不存在，msrun会递归创建文件夹。<br>日志格式如下：对于Scheduler进程，日志名为<code>scheduler.log</code>；<br>对于Worker进程，日志名为<code>worker_[rank].log</code>，<br>其中<code>rank</code>后缀与分配给Worker的<code>rank_id</code>一致，<br>但在未设置<code>node_rank</code>且多机多卡场景下，它们可能不一致。<br>建议执行<code>grep -rn "Global rank id"</code>指令查看各Worker的<code>rank_id</code>。</td>
-    </tr>
-    <tr>
-        <td align="left" style="white-space:nowrap">--join</td>
-        <td align="left">msrun是否等待Worker以及Scheduler退出。</td>
-        <td align="left" style="white-space:nowrap">Bool</td>
-        <td align="left">True或者False。默认为False。</td>
-        <td align="left">若设置为False，msrun在拉起进程后会立刻退出，<br>查看日志确认分布式任务是否正常执行。<br>若设置为True，msrun会等待所有进程退出后，收集异常日志并退出。</td>
-    </tr>
-    <tr>
-        <td align="left" style="white-space:nowrap">--cluster_time_out</td>
-        <td align="left">集群组网超时时间，单位为秒。</td>
-        <td align="left" style="white-space:nowrap">Integer</td>
-        <td align="left">默认为600秒。</td>
-        <td align="left">此参数代表在集群组网的等待时间。<br>若超出此时间窗口依然没有<code>worker_num</code>数量的Worker注册成功，则任务拉起失败。</td>
-    </tr>
-    <tr>
-        <td align="left" style="white-space:nowrap">--bind_core</td>
-        <td align="left">开启进程绑核。</td>
-        <td align="left" style="white-space:nowrap">Bool/Dict</td>
-        <td align="left">True、False或者给指定设备分配CPU范围段的字典。默认为False。</td>
-        <td align="left">若设置为True，则会基于环境信息按照设备亲和去自动分配CPU范围段；若手动传入一个字典，则根据该字典分配的CPU范围段去绑核。具体配置可参考“进程级 CPU/NUMA 亲和性配置”章节。</td>
-    </tr>
-    <tr>
-        <td align="left" style="white-space:nowrap">--bind_numa</td>
-        <td align="left">开启进程绑 NUMA 节点。</td>
-        <td align="left" style="white-space:nowrap">Bool/Dict/String</td>
-        <td align="left">True、False或者给指定设备分配 NUMA 节点的字典，也支持传入以.json结尾的文件路径。默认为False。</td>
-        <td align="left">若设置为True，则会基于环境信息按照设备亲和去自动分配 NUMA 节点；若手动传入一个字典或者JSON文件，则根据传入的配置自定义去绑定 NUMA 节点。具体配置可参考“进程级 CPU/NUMA 亲和性配置”章节。</td>
-    </tr>
-    <tr>
-        <td align="left" style="white-space:nowrap">--sim_level</td>
-        <td align="left">设置模拟编译等级。</td>
-        <td align="left" style="white-space:nowrap">Integer</td>
-        <td align="left">默认为-1，即关闭模拟编译功能。</td>
-        <td align="left">若用户配置此参数，msrun只会拉起进程的模拟编译，不做算子执行。<br>此功能通常用于调试大规模分布式训练并行策略，在编译阶段提前发现内存和策略问题。<br>模拟编译等级的设置可参考文档：<a href="https://www.mindspore.cn/tutorials/zh-CN/master/debug/dryrun.html">DryRun</a>。</td>
-    </tr>
-    <tr>
-        <td align="left" style="white-space:nowrap">--sim_rank_id</td>
-        <td align="left">单卡模拟编译的rank_id。</td>
-        <td align="left" style="white-space:nowrap">Integer</td>
-        <td align="left">默认为-1，即关闭单进程的模拟编译功能。</td>
-        <td align="left">设置单卡模拟编译进程的rank_id。</td>
-    </tr>
-    <tr>
-        <td align="left" style="white-space:nowrap">--rank_table_file</td>
-        <td align="left">rank_table配置文件，只在昇腾平台下有效。</td>
-        <td align="left" style="white-space:nowrap">String</td>
-        <td align="left">rank_table配置文件路径，默认为空。</td>
-        <td align="left">此参数代表昇腾平台下的rank_table配置文件，描述当前分布式集群。<br>由于rank_table配置文件反映的是物理层面分布式集群信息，在使用该配置时，<br>请确保对于当前进程可见的Device与rank_table配置保持一致。<br>可通过环境变量<code>ASCEND_RT_VISIBLE_DEVICES</code>设置对于当前进程可见的Device。</td>
-    </tr>
-    <tr>
-        <td align="left" style="white-space:nowrap">--worker_log_name</td>
-        <td align="left">设置worker日志名。</td>
-        <td align="left" style="white-space:nowrap">String</td>
-        <td align="left">worker日志文件名，默认为<code>worker_[rank].log</code>。</td>
-        <td align="left">此参数代表支持用户配置worker日志名，并且支持分别通过<code>{ip}</code>和<code>{hostname}</code><br>在worker日志名中配置<code>ip</code>和<code>hostname</code>。<br>worker日志名的后缀默认为<code>rank</code>。</td>
-    </tr>
-    <tr>
-        <td align="left" style="white-space:nowrap">--tail_worker_log</td>
-        <td align="left">输出worker日志到控制台。</td>
-        <td align="left" style="white-space:nowrap">String</td>
-        <td align="left">一个或多个与worker进程rank_id关联的整数。默认为-1。</td>
-        <td align="left">此参数代表<code>--join=True</code>情况下，默认输出当前节点所有worker日志，<br>并且支持用户指定一个或多个卡的worker日志输出到控制台。<br>这个参数需要在[0, local_worker_num-1]范围内。</td>
-    </tr>
-    <tr>
-        <td align="left" style="white-space:nowrap">task_script</td>
-        <td align="left">用户Python脚本。</td>
-        <td align="left" style="white-space:nowrap">String</td>
-        <td align="left">合法的脚本路径。</td>
-        <td align="left">一般情况下，此参数为python脚本路径，<br>msrun会默认以<code>python task_script task_script_args</code>方式拉起进程。<br>msrun还支持此参数为pytest，此场景下任务脚本及任务参数<br>在参数<code>task_script_args</code>传递。</td>
-    </tr>
-    <tr>
-        <td align="left" style="white-space:nowrap">task_script_args</td>
-        <td align="left">用户Python脚本的参数。</td>
-        <td align="left"></td>
-        <td align="left">参数列表。</td>
-        <td align="left">例如：<code>msrun --worker_num=8 --local_worker_num=8 train.py <br><b>--device_target=Ascend --dataset_path=/path/to/dataset</b></code></td>
-    </tr>
-</table>
+| 参数 | 功能 | 类型 | 取值 | 说明 |
+|:-----|:-----|:-----|:-----|:-----|
+| `--worker_num` | 参与分布式任务的Worker进程总数。 | Integer | 大于0的整数。默认值为8。 | 所有节点上启动的Worker总数应当等于此参数：<br>若总数大于此参数，多余的Worker进程会注册失败；<br>若总数小于此参数，集群会在等待一段超时时间后，<br>提示任务拉起失败并退出，<br>超时时间窗大小可通过参数`cluster_time_out`配置。 |
+| `--local_worker_num` | 当前节点上拉起的Worker进程数。 | Integer | 大于0的整数。默认值为8。 | 当此参数与`worker_num`保持一致时，代表所有Worker进程在本地执行，<br>此场景下`node_rank`值会被忽略。 |
+| `--master_addr` | 指定Scheduler的IP地址或者主机名。 | String | 合法的IP地址或者主机名。默认为IP地址127.0.0.1。 | msrun会自动检测在哪个节点拉起Scheduler进程，用户无需关心。<br>若无法查找到对应的地址或主机名无法被DNS解析，训练任务会拉起失败。<br>当前版本暂不支持IPv6地址。<br>若传入主机名时，msrun会自动将其解析为IP地址，需要用户环境支持DNS服务。 |
+| `--master_port` | 指定Scheduler绑定端口号。 | Integer | 1024～65535范围内的端口号。默认为8118。 | |
+| `--node_rank` | 当前节点的索引。 | Integer | 可传入大于等于0的整数。在不传入值的情况下，默认值为-1。 | 单机多卡场景下，此参数会被忽略。<br>多机多卡场景下，<br>若不设置此参数，Worker进程的rank_id会被自动分配；<br>若设置，则会按照索引为各节点上的Worker进程分配rank_id。<br>若每个节点Worker进程数量不同，建议不配置此参数，<br>以自动分配rank_id。 |
+| `--log_dir` | Worker以及Scheduler日志输出路径。 | String | 文件夹路径。默认为当前目录。 | 若路径不存在，msrun会递归创建文件夹。<br>日志格式如下：对于Scheduler进程，日志名为`scheduler.log`；<br>对于Worker进程，日志名为`worker_[rank].log`，<br>其中`rank`后缀与分配给Worker的`rank_id`一致，<br>但在未设置`node_rank`且多机多卡场景下，它们可能不一致。<br>建议执行`grep -rn "Global rank id"`指令查看各Worker的`rank_id`。 |
+| `--join` | msrun是否等待Worker以及Scheduler退出。 | Bool | True或者False。默认为False。 | 若设置为False，msrun在拉起进程后会立刻退出，<br>查看日志确认分布式任务是否正常执行。<br>若设置为True，msrun会等待所有进程退出后，收集异常日志并退出。 |
+| `--cluster_time_out` | 集群组网超时时间，单位为秒。 | Integer | 默认为600秒。 | 此参数代表在集群组网的等待时间。<br>若超出此时间窗口依然没有`worker_num`数量的Worker注册成功，则任务拉起失败。 |
+| `--bind_core` | 开启进程绑核。 | Bool/Dict | True、False或者给指定设备分配CPU范围段的字典。默认为False。 | 若设置为True，则会基于环境信息按照设备亲和去自动分配CPU范围段；若手动传入一个字典，则根据该字典分配的CPU范围段去绑核。具体配置可参考“进程级 CPU/NUMA 亲和性配置”章节。 |
+| `--bind_numa` | 开启进程绑 NUMA 节点。 | Bool/Dict/String | True、False或者给指定设备分配 NUMA 节点的字典，也支持传入以.json结尾的文件路径。默认为False。 | 若设置为True，则会基于环境信息按照设备亲和去自动分配 NUMA 节点；若手动传入一个字典或者JSON文件，则根据传入的配置自定义去绑定 NUMA 节点。具体配置可参考“进程级 CPU/NUMA 亲和性配置”章节。 |
+| `--sim_level` | 设置模拟编译等级。 | Integer | 默认为-1，即关闭模拟编译功能。 | 若用户配置此参数，msrun只会拉起进程的模拟编译，不做算子执行。<br>此功能通常用于调试大规模分布式训练并行策略，在编译阶段提前发现内存和策略问题。<br>模拟编译等级的设置可参考文档：[DryRun](https://www.mindspore.cn/tutorials/zh-CN/master/debug/dryrun.html)。 |
+| `--sim_rank_id` | 单卡模拟编译的rank_id。 | Integer | 默认为-1，即关闭单进程的模拟编译功能。 | 设置单卡模拟编译进程的rank_id。 |
+| `--rank_table_file` | rank_table配置文件，只在昇腾平台下有效。 | String | rank_table配置文件路径，默认为空。 | 此参数代表昇腾平台下的rank_table配置文件，描述当前分布式集群。<br>由于rank_table配置文件反映的是物理层面分布式集群信息，在使用该配置时，<br>请确保对于当前进程可见的Device与rank_table配置保持一致。<br>可通过环境变量`ASCEND_RT_VISIBLE_DEVICES`设置对于当前进程可见的Device。 |
+| `--worker_log_name` | 设置worker日志名。 | String | worker日志文件名，默认为`worker_[rank].log`。 | 此参数代表支持用户配置worker日志名，并且支持分别通过`{ip}`和`{hostname}`<br>在worker日志名中配置`ip`和`hostname`。<br>worker日志名的后缀默认为`rank`。 |
+| `--tail_worker_log` | 输出worker日志到控制台。 | String | 一个或多个与worker进程rank_id关联的整数。默认为-1。 | 此参数代表`--join=True`情况下，默认输出当前节点所有worker日志，<br>并且支持用户指定一个或多个卡的worker日志输出到控制台。<br>这个参数需要在[0, local_worker_num-1]范围内。 |
+| `task_script` | 用户Python脚本。 | String | 合法的脚本路径。 | 一般情况下，此参数为python脚本路径，<br>msrun会默认以`python task_script task_script_args`方式拉起进程。<br>msrun还支持此参数为pytest，此场景下任务脚本及任务参数<br>在参数`task_script_args`传递。 |
+| `task_script_args` | 用户Python脚本的参数。 | | 参数列表。 | 例如：`msrun --worker_num=8 --local_worker_num=8 train.py **--device_target=Ascend --dataset_path=/path/to/dataset**` |
 
 ## 环境变量
 
 下表是用户脚本中能够使用的环境变量，它们由`msrun`设置，不需要用户设置：
 
-<table align="center">
-    <tr>
-        <th align="left">环境变量</th>
-        <th align="left">功能</th>
-        <th align="left">取值</th>
-    </tr>
-    <tr>
-        <td align="left" style="white-space:nowrap">MS_ROLE</td>
-        <td align="left">本进程角色。</td>
-        <td align="left">
-            当前版本<code>msrun</code>导出下面两个值：
-            <ul>
-                <li>MS_SCHED：代表Scheduler进程。</li>
-                <li>MS_WORKER：代表Worker进程。</li>
-            </ul>
-        </td>
-    </tr>
-    <tr>
-        <td align="left" style="white-space:nowrap">MS_SCHED_HOST</td>
-        <td align="left">用户指定的Scheduler的IP地址。</td>
-        <td align="left">与参数<code>--master_addr</code>相同。</td>
-    </tr>
-    <tr>
-        <td align="left" style="white-space:nowrap">MS_SCHED_PORT</td>
-        <td align="left">用户指定的Scheduler绑定端口号。</td>
-        <td align="left">与参数<code>--master_port</code>相同。</td>
-    </tr>
-    <tr>
-        <td align="left" style="white-space:nowrap">MS_WORKER_NUM</td>
-        <td align="left">用户指定的Worker进程总数。</td>
-        <td align="left">与参数<code>--worker_num</code>相同。</td>
-    </tr>
-    <tr>
-        <td align="left" style="white-space:nowrap">MS_TOPO_TIMEOUT</td>
-        <td align="left">集群组网超时时间。</td>
-        <td align="left">与参数<code>--cluster_time_out</code>相同。</td>
-    </tr>
-    <tr>
-        <td align="left" style="white-space:nowrap">RANK_SIZE</td>
-        <td align="left">用户指定的Worker进程总数。</td>
-        <td align="left">与参数<code>--worker_num</code>相同。</td>
-    </tr>
-    <tr>
-        <td align="left" style="white-space:nowrap">RANK_ID</td>
-        <td align="left">为Worker进程分配的rank_id。</td>
-        <td align="left">多机多卡场景下，若没有设置<code>--node_rank</code>参数，<code>RANK_ID</code>只会在集群初始化后被导出。<br>因此要使用此环境变量，建议正确设置<code>--node_rank</code>参数。</td>
-    </tr>
-</table>
+| 环境变量 | 功能 | 取值 |
+|:---------|:-----|:-----|
+| `MS_ROLE` | 本进程角色。 | 当前版本`msrun`导出下面两个值：<ul><li>MS_SCHED：代表Scheduler进程。</li><li>MS_WORKER：代表Worker进程。</li></ul> |
+| `MS_SCHED_HOST` | 用户指定的Scheduler的IP地址。 | 与参数`--master_addr`相同。 |
+| `MS_SCHED_PORT` | 用户指定的Scheduler绑定端口号。 | 与参数`--master_port`相同。 |
+| `MS_WORKER_NUM` | 用户指定的Worker进程总数。 | 与参数`--worker_num`相同。 |
+| `MS_TOPO_TIMEOUT` | 集群组网超时时间。 | 与参数`--cluster_time_out`相同。 |
+| `RANK_SIZE` | 用户指定的Worker进程总数。 | 与参数`--worker_num`相同。 |
+| `RANK_ID` | 为Worker进程分配的rank_id。 | 多机多卡场景下，若没有设置`--node_rank`参数，`RANK_ID`只会在集群初始化后被导出。<br>因此要使用此环境变量，建议正确设置`--node_rank`参数。 |
 
 msrun作为动态组网启动方式的封装，所有用户可自定义配置的环境变量可参考[动态组网环境变量](https://www.mindspore.cn/tutorials/zh-CN/master/parallel/dynamic_cluster.html)。
 
