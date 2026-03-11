@@ -14,16 +14,16 @@ MindSpore**动态组网**特性通过**复用Parameter Server模式训练架构*
 
 相关环境变量：
 
-| 环境变量 | 功能 | 类型 | 取值 | 说明 |
+| 环境变量 | 功能 | 类型&nbsp;&nbsp;&nbsp; | 取值 | 说明 |
 |:---------|:-----|:-----|:-----|:-----|
 | `MS_ROLE` | 指定本进程角色。 | String | <ul><li>MS_SCHED: 代表Scheduler进程，一个训练任务只启动一个Scheduler，负责组网，容灾恢复等，**不会执行训练代码**。</li><li>MS_WORKER: 代表Worker进程，一般设置分布式训练进程为此角色。</li><li>MS_PSERVER: 代表Parameter Server进程，只有在Parameter Server模式下此角色生效。</li></ul> | Worker和Parameter Server进程会向Scheduler进程注册从而完成组网。 |
 | `MS_SCHED_HOST` | 指定Scheduler的IP地址。 | String | 合法的IP地址。 | 当前版本还支持Ascend平台下的IPv6地址。 |
-| `MS_SCHED_PORT` | 指定Scheduler绑定端口号。 | Integer | 1024～65535范围内的端口号。 | |
+| `MS_SCHED_PORT` | 指定Scheduler绑定端口号。 | Integer | 1024～65535范围内的端口号。 |-|
 | `MS_NODE_ID` | 指定本进程的ID，集群内唯一。 | String | 代表本进程的唯一ID，默认由MindSpore自动生成。 | MS_NODE_ID在以下情况需要设置，一般情况下无需设置，由MindSpore自动生成：<ul><li>开启容灾场景：容灾恢复时需要获取当前进程ID，从而向Scheduler重新注册。</li><li>开启GLOG日志重定向场景：为了保证各训练进程日志独立保存，需设置进程ID，作为日志保存路径后缀。</li><li>指定进程rank id场景：用户可通过设置MS_NODE_ID为某个整数，来指定本进程的rank id。</li></ul> |
 | `MS_WORKER_NUM` | 指定角色为MS_WORKER的进程数量。 | Integer | 大于0的整数。 | 用户启动的Worker进程数量应当与此环境变量值相等。若小于此数值，组网失败；若大于此数值，Scheduler进程会根据Worker注册先后顺序完成组网，多余的Worker进程会启动失败。 |
 | `MS_SERVER_NUM` | 指定角色为MS_PSERVER的进程数量。 | Integer | 大于0的整数。 | 只在Parameter Server训练模式下需要设置。 |
 | `MS_WORKER_IP` | 指定当前进程和其他进程进行通信和组网使用的IP地址。 | String | 合法的IP地址。 | 在使用IPv6地址进行组网时，建议设置此环境变量。但当用户设置MS_SCHED_HOST为**::1**时（代表IPv6的本地回环地址），无需设置此环境变量，这是因为MindSpore会默认使用本地回环地址进行通信。 |
-| `MS_ENABLE_RECOVERY` | 开启容灾。 | Integer | 1代表开启，0代表关闭。默认为0。 | |
+| `MS_ENABLE_RECOVERY` | 开启容灾。 | Integer | 1代表开启，0代表关闭。默认为0。 |-|
 | `MS_ENABLE_LCCL` | 是否使用LCCL通信库。 | Integer | 1代表开启，0代表关闭。默认为0。 | LCCL通信库暂只支持单机多卡，并且必须在图编译等级为O0时执行。 |
 | `MS_DISABLE_LCCL_KERNELS_LIST` | 指定不使能LCCL算子的列表。 | String | 合法的算子名称，多个算子用','分割。 | 只有在使用LCCL通信库的场景下才生效。<br>目前LCCL支持的算子：<br><ul><li>AllReduce</li><li>AllGather</li><li>AllGatherMatmul</li><li>Broadcast</li><li>Barrier</li><li>MatMulAllReduce</li><li>MatmulReduceScatter</li><li>ReduceScatter</li></ul>注意：<br>    - 算子名称区分大小写<br>    - 多个算子用','分割时不能有空格 |
 | `MS_TOPO_TIMEOUT` | 集群组网阶段超时时间，单位：秒。 | Integer | 默认为30分钟。 | 此数值代表在所有节点在这个时间窗口内均可向Scheduler进行注册，超出此时间窗口则注册失败，若节点数量不满足要求，则集群组网失败。建议用户在集群规模较大时配置此环境变量。 |
