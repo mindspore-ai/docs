@@ -11,180 +11,39 @@
 
 A parameters list of command line:
 
-<table align="center">
-    <tr>
-        <th align="left">Parameters</th>
-        <th align="left">Functions</th>
-        <th align="left">Types</th>
-        <th align="left">Values</th>
-        <th align="left">Instructions</th>
-    </tr>
-    <tr>
-        <td align="left" style="white-space:nowrap">--worker_num</td>
-        <td align="left">The total number of Worker processes participating in the distributed task.</td>
-        <td align="left" style="white-space:nowrap">Integer</td>
-        <td align="left">An integer greater than 0. The default value is 8.</td>
-        <td align="left">The total number of Workers started on all nodes should be equal to this parameter:<br> if the total number is greater than this parameter, the extra Worker processes will fail to register; <br>if the total number is less than this parameter, the cluster will wait for a certain period of timeout before prompting the task to pull up the failed task and exit, <br>and the size of the timeout window can be configured by the parameter <code>cluster_time_out</code>.</td>
-    </tr>
-    <tr>
-        <td align="left" style="white-space:nowrap">--local_worker_num</td>
-        <td align="left">The number of Worker processes pulled up on the current node.</td>
-        <td align="left" style="white-space:nowrap">Integer</td>
-        <td align="left">An integer greater than 0. The default value is 8.</td>
-        <td align="left">When this parameter is consistent with <code>worker_num</code>, it means that all Worker processes are executed locally. <br>The <code>node_rank</code> value is ignored in this scenario.</td>
-    </tr>
-    <tr>
-        <td align="left" style="white-space:nowrap">--master_addr</td>
-        <td align="left">Specifies the IP address or hostname of the Scheduler.</td>
-        <td align="left" style="white-space:nowrap">String</td>
-        <td align="left">Legal IP address or hostname. The default is the IP address 127.0.0.1.</td>
-        <td align="left">msrun will automatically detect on which node to pull up the Scheduler process, and users do not need to care. <br>If the corresponding IP address cannot be found or the hostname cannot be resolved by DNS, the training task will pull up and fail.<br>IPv6 addresses are not supported in the current version.<br>If a hostname is input as a parameter, msrun will automatically resolve it to an IP address, which requires the user's environment to support DNS service.</td>
-    </tr>
-    <tr>
-        <td align="left" style="white-space:nowrap">--master_port</td>
-        <td align="left">Specifies the Scheduler binding port number.</td>
-        <td align="left" style="white-space:nowrap">Integer</td>
-        <td align="left">Port number in the range 1024 to 65535. The default is 8118.</td>
-        <td align="left"></td>
-    </tr>
-    <tr>
-        <td align="left" style="white-space:nowrap">--node_rank</td>
-        <td align="left">The index of the current node.</td>
-        <td align="left" style="white-space:nowrap">Integer</td>
-        <td align="left">An integer greater than 0. The default value is -1.</td>
-        <td align="left">This parameter is ignored in single-machine multi-card scenario.<br>In multi-machine and multi-card scenarios, if this parameter is not set, the rank_id of the Worker process will be assigned automatically; <br>if it is set, the rank_id will be assigned to the Worker process on each node according to the index.<br>If the number of Worker processes per node is different, it is recommended that this parameter not be configured to automatically assign the rank_id.</td>
-    </tr>
-    <tr>
-        <td align="left" style="white-space:nowrap">--log_dir</td>
-        <td align="left">Worker, and Scheduler log output paths.</td>
-        <td align="left" style="white-space:nowrap">String</td>
-        <td align="left">Folder path. Defaults to the current directory.</td>
-        <td align="left">If the path does not exist, msrun creates the folder recursively.<br>The log format is as follows: for the Scheduler process, the log is named <code>scheduler.log</code>; <br>For Worker process, log name is <code>worker_[rank].log</code>, where <code>rank</code> suffix is the same as the <code>rank_id</code> assigned to the Worker, <br>but they may be inconsistent in multiple-machine and multiple-card scenarios where <code>node_rank</code> is not set. <br>It is recommended that <code>grep -rn "Global rank id"</code> is executed to view <code>rank_id</code> of each Worker.</td>
-    </tr>
-    <tr>
-        <td align="left" style="white-space:nowrap">--join</td>
-        <td align="left">Whether msrun waits for the Worker as well as the Scheduler to exit.</td>
-        <td align="left" style="white-space:nowrap">Bool</td>
-        <td align="left">True or False. Default: False.</td>
-        <td align="left">If set to False, msrun will exit immediately after pulling up the process and check the logs to confirm that the distributed task is executing properly.<br>If set to True, msrun waits for all processes to exit, collects the exception log and exits.</td>
-    </tr>
-    <tr>
-        <td align="left" style="white-space:nowrap">--cluster_time_out</td>
-        <td align="left">Cluster networking timeout in seconds.</td>
-        <td align="left" style="white-space:nowrap">Integer</td>
-        <td align="left">Default: 600 seconds.</td>
-        <td align="left">This parameter represents the waiting time in cluster networking. <br>If no <code>worker_num</code> number of Workers register successfully beyond this time window, the task pull-up fails.</td>
-    </tr>
-    <tr>
-        <td align="left" style="white-space:nowrap">--bind_core</td>
-        <td align="left">Enable processes binding CPU cores.</td>
-        <td align="left" style="white-space:nowrap">Bool/Dict</td>
-        <td align="left">True/False or a device-to-CPU-range dict. Default: False.</td>
-        <td align="left">If set to True, msrun will automatically allocate CPU ranges based on device affinity; if a dictionary is manually passed, CPU binding will be performed according to the CPU ranges allocated in the dictionary. For specific configurations, please refer to the **Process-Level CPU Binding** section.</td>
-    </tr>
-    <tr>
-        <td align="left" style="white-space:nowrap">--sim_level</td>
-        <td align="left">Set simulated compilation level.</td>
-        <td align="left" style="white-space:nowrap">Integer</td>
-        <td align="left">Default: -1. Disable simulated compilation.</td>
-        <td align="left">If this parameter is set, msrun starts only the processes for simulated compilation and does not execute operators. This feature is commonly used to debug large-scale distributed training parallel strategies, and to detect memory and strategy issues in advance. <br> The settings for the simulated compilation level can be found in the document: <a href="https://www.mindspore.cn/tutorials/en/r2.8.0/debug/dryrun.html">DryRun</a>.</td>
-    </tr>
-    <tr>
-        <td align="left" style="white-space:nowrap">--sim_rank_id</td>
-        <td align="left">rank_id of the simulated process.</td>
-        <td align="left" style="white-space:nowrap">Integer</td>
-        <td align="left">Default: -1. Disable simulated compilation for a single process.</td>
-        <td align="left">Set rank id of the simulated process.</td>
-    </tr>
-    <tr>
-        <td align="left" style="white-space:nowrap">--rank_table_file</td>
-        <td align="left">rank_table configuration. Only valid on Ascend platform.</td>
-        <td align="left" style="white-space:nowrap">String</td>
-        <td align="left">File path of rank_table configuration. Default: empty string.</td>
-        <td align="left">This parameter represents the rank_table configuration file on Ascend platform, describing current distributed cluster. <br>Since the rank_table configuration file reflects distributed cluster information at the physical level, when using this configuration, make sure that the Devices visible to the current process are consistent with the rank_table configuration. <br>The Device visible to the current process can be set via the environment variable <code>ASCEND_RT_VISIBLE_DEVICES</code>.</td>
-    </tr>
-    <tr>
-        <td align="left" style="white-space:nowrap">--worker_log_name</td>
-        <td align="left">Specifies the worker log name.</td>
-        <td align="left" style="white-space:nowrap">String</td>
-        <td align="left">File name of worker log. Default: <code>worker_[rank].log</code>.</td>
-        <td align="left">This parameter represents support users configure worker log name, and support configure <code>ip</code> and <code>hostname</code> to worker log name by <code>{ip}</code> and <code>{hostname}</code> separately. <br>The suffix of worker log name is <code>rank</code> by default.</td>
-    </tr>
-    <tr>
-        <td align="left" style="white-space:nowrap">--tail_worker_log</td>
-        <td align="left">Enable output worker log to console.</td>
-        <td align="left" style="white-space:nowrap">String</td>
-        <td align="left">One or multiple integers associated with the worker process rank_id. Default: -1.</td>
-        <td align="left">This parameter represents output all worker logs of the current node to console by default, and supports users specify one or more worker logs output to console when <code>--join=True</code>. <br>This parameter should be in [0, local_worker_num-1].</td>
-    </tr>
-    <tr>
-        <td align="left" style="white-space:nowrap">task_script</td>
-        <td align="left">User Python scripts.</td>
-        <td align="left" style="white-space:nowrap">String</td>
-        <td align="left">Legal script path.</td>
-        <td align="left">Normally, this parameter is the python script path, and msrun will pull up the process as <code>python task_script task_script_args</code> by default.<br>msrun also supports this parameter as pytest. <br>In this scenario the task script and task parameters are passed in the parameter <code>task_script_args</code>.</td>
-    </tr>
-    <tr>
-        <td align="left" style="white-space:nowrap">task_script_args</td>
-        <td align="left">Parameters for the user Python script.</td>
-        <td align="left"></td>
-        <td align="left">Parameter list.</td>
-        <td align="left">For example, <code>msrun --worker_num=8 --local_worker_num=8 train.py <b>--device_target=Ascend --dataset_path=/path/to/dataset</b></code></td>
-    </tr>
-</table>
+| Parameters | Functions | Types&nbsp;&nbsp;&nbsp; | Values | Instructions |
+|:-----------|:----------|:----------------|:-------|:------------|
+| `--worker_num` | The total number of Worker processes participating in the distributed task. | Integer | An integer greater than 0. The default value is 8. | The total number of Workers started on all nodes should be equal to this parameter:<br> if the total number is greater than this parameter, the extra Worker processes will fail to register; <br>if the total number is less than this parameter, the cluster will wait for a certain period of timeout before prompting the task to pull up the failed task and exit, <br>and the size of the timeout window can be configured by the parameter `cluster_time_out`. |
+| `--local_worker_num` | The number of Worker processes pulled up on the current node. | Integer | An integer greater than 0. The default value is 8. | When this parameter is consistent with `worker_num`, it means that all Worker processes are executed locally. <br>The `node_rank` value is ignored in this scenario. |
+| `--master_addr` | Specifies the IP address or hostname of the Scheduler. | String | Legal IP address or hostname. The default is the IP address 127.0.0.1. | msrun will automatically detect on which node to pull up the Scheduler process, and users do not need to care. <br>If the corresponding IP address cannot be found or the hostname cannot be resolved by DNS, the training task will pull up and fail.<br>IPv6 addresses are not supported in the current version.<br>If a hostname is input as a parameter, msrun will automatically resolve it to an IP address, which requires the user's environment to support DNS service. |
+| `--master_port` | Specifies the Scheduler binding port number. | Integer | Port number in the range 1024 to 65535. The default is 8118. |-|
+| `--node_rank` | The index of the current node. | Integer | An integer greater than 0. The default value is -1. | This parameter is ignored in single-machine multi-card scenario.<br>In multi-machine and multi-card scenarios, if this parameter is not set, the rank_id of the Worker process will be assigned automatically; <br>if it is set, the rank_id will be assigned to the Worker process on each node according to the index.<br>If the number of Worker processes per node is different, it is recommended that this parameter not be configured to automatically assign the rank_id. |
+| `--log_dir` | Worker, and Scheduler log output paths. | String | Folder path. Defaults to the current directory. | If the path does not exist, msrun creates the folder recursively.<br>The log format is as follows: for the Scheduler process, the log is named `scheduler.log`; <br>For Worker process, log name is `worker_[rank].log`, where `rank` suffix is the same as the `rank_id` assigned to the Worker, <br>but they may be inconsistent in multiple-machine and multiple-card scenarios where `node_rank` is not set. <br>It is recommended that `grep -rn "Global rank id"` is executed to view `rank_id` of each Worker. |
+| `--join` | Whether msrun waits for the Worker as well as the Scheduler to exit. | Bool | True or False. Default: False. | If set to False, msrun will exit immediately after pulling up the process and check the logs to confirm that the distributed task is executing properly.<br>If set to True, msrun waits for all processes to exit, collects the exception log and exits. |
+| `--cluster_time_out` | Cluster networking timeout in seconds. | Integer | Default: 600 seconds. | This parameter represents the waiting time in cluster networking. <br>If no `worker_num` number of Workers register successfully beyond this time window, the task pull-up fails. |
+| `--bind_core` | Enable processes binding CPU cores. | Bool / Dict | True/False or a device-to-CPU-range dict. Default: False. | If set to True, msrun automatically allocates CPU ranges based on device affinity. If a dictionary is manually passed, CPU binding is performed according to the configured CPU ranges. For specific configurations, refer to the "Process-Level CPU/NUMA Affinity Configuration" section. |
+| `--bind_numa` | Enable processes binding NUMA nodes. | Bool / Dict / String | True/False or a device-to-NUMA-node dict. A path ending with `.json` is also supported. Default: False. | If set to True, msrun automatically allocates NUMA nodes based on device affinity. If a dictionary or JSON file is manually passed, NUMA binding is performed according to the provided configuration. For specific configurations, refer to the "Process-Level CPU/NUMA Affinity Configuration" section. |
+| `--sim_level` | Set simulated compilation level. | Integer | Default: -1. Disable simulated compilation. | If this parameter is set, msrun starts only the processes for simulated compilation and does not execute operators. This feature is commonly used to debug large-scale distributed training parallel strategies, and to detect memory and strategy issues in advance. <br> The settings for the simulated compilation level can be found in the document: [DryRun](https://www.mindspore.cn/tutorials/en/r2.8.0/debug/dryrun.html). |
+| `--sim_rank_id` | rank_id of the simulated process. | Integer | Default: -1. Disable simulated compilation for a single process. | Set rank id of the simulated process. |
+| `--rank_table_file` | rank_table configuration. Only valid on Ascend platform. | String | File path of rank_table configuration. Default: empty string. | This parameter represents the rank_table configuration file on Ascend platform, describing current distributed cluster. <br>Since the rank_table configuration file reflects distributed cluster information at the physical level, when using this configuration, make sure that the Devices visible to the current process are consistent with the rank_table configuration. <br>The Device visible to the current process can be set via the environment variable `ASCEND_RT_VISIBLE_DEVICES`. |
+| `--worker_log_name` | Specifies the worker log name. | String | File name of worker log. Default: `worker_[rank].log`. | This parameter represents support users configure worker log name, and support configure `ip` and `hostname` to worker log name by `{ip}` and `{hostname}` separately. <br>The suffix of worker log name is `rank` by default. |
+| `--tail_worker_log` | Enable output worker log to console. | String | One or multiple integers associated with the worker process rank_id. Default: -1. | This parameter represents output all worker logs of the current node to console by default, and supports users specify one or more worker logs output to console when `--join=True`. <br>This parameter should be in [0, local_worker_num-1]. |
+| `task_script` | User Python scripts. | String | Legal script path. | Normally, this parameter is the python script path, and msrun will pull up the process as `python task_script task_script_args` by default.<br>msrun also supports this parameter as pytest. <br>In this scenario the task script and task parameters are passed in the parameter `task_script_args`. |
+| `task_script_args` | Parameters for the user Python script. |-| Parameter list. | For example, `msrun --worker_num=8 --local_worker_num=8 train.py **--device_target=Ascend --dataset_path=/path/to/dataset**` |
 
 ## Environment Variables
 
 The following table shows the environment variables can be used in user scripts, which are set by `msrun` and do not require user configuration:
 
-<table align="center">
-    <tr>
-        <th align="left">Environment Variables</th>
-        <th align="left">Functions</th>
-        <th align="left">Values</th>
-    </tr>
-    <tr>
-        <td align="left" style="white-space:nowrap">MS_ROLE</td>
-        <td align="left">This process role.</td>
-        <td align="left">
-            The current version of <code>msrun</code> exports the following two values:
-            <ul>
-                <li>MS_SCHED: Represents the Scheduler process.</li>
-                <li>MS_WORKER: Represents the Worker process.</li>
-            </ul>
-        </td>
-    </tr>
-    <tr>
-        <td align="left" style="white-space:nowrap">MS_SCHED_HOST</td>
-        <td align="left">The IP address of the user-specified Scheduler.</td>
-        <td align="left">Same as parameter <code>--master_addr</code>.</td>
-    </tr>
-    <tr>
-        <td align="left" style="white-space:nowrap">MS_SCHED_PORT</td>
-        <td align="left">User-specified Scheduler binding port number.</td>
-        <td align="left">Same as parameter <code>--master_port</code>.</td>
-    </tr>
-    <tr>
-        <td align="left" style="white-space:nowrap">MS_WORKER_NUM</td>
-        <td align="left">The total number of Worker processes specified by the user.</td>
-        <td align="left">Same as parameter <code>--worker_num</code>.</td>
-    </tr>
-    <tr>
-        <td align="left" style="white-space:nowrap">MS_TOPO_TIMEOUT</td>
-        <td align="left">Cluster Timeout Time.</td>
-        <td align="left">Same as parameter <code>--cluster_time_out</code>.</td>
-    </tr>
-    <tr>
-        <td align="left" style="white-space:nowrap">RANK_SIZE</td>
-        <td align="left">The total number of Worker processes specified by the user.</td>
-        <td align="left">Same as parameter <code>--worker_num</code>.</td>
-    </tr>
-    <tr>
-        <td align="left" style="white-space:nowrap">RANK_ID</td>
-        <td align="left">The rank_id assigned to the Worker process.</td>
-        <td align="left">In a multi-machine multi-card scenario, if the parameter <code>--node_rank</code> is not set, <code>RANK_ID</code> will only be exported after the cluster is initialized.<br> So to use this environment variable, it is recommended to set the <code>--node_rank</code> parameter correctly.</td>
-    </tr>
-</table>
+| Environment Variables | Functions | Values |
+|:----------------------|:----------|:-------|
+| `MS_ROLE` | This process role. | The current version of `msrun` exports the following two values:<ul><li>MS_SCHED: Represents the Scheduler process.</li><li>MS_WORKER: Represents the Worker process.</li></ul> |
+| `MS_SCHED_HOST` | The IP address of the user-specified Scheduler. | Same as parameter `--master_addr`. |
+| `MS_SCHED_PORT` | User-specified Scheduler binding port number. | Same as parameter `--master_port`. |
+| `MS_WORKER_NUM` | The total number of Worker processes specified by the user. | Same as parameter `--worker_num`. |
+| `MS_TOPO_TIMEOUT` | Cluster Timeout Time. | Same as parameter `--cluster_time_out`. |
+| `RANK_SIZE` | The total number of Worker processes specified by the user. | Same as parameter `--worker_num`. |
+| `RANK_ID` | The rank_id assigned to the Worker process. | In a multi-machine multi-card scenario, if the parameter `--node_rank` is not set, `RANK_ID` will only be exported after the cluster is initialized.<br> So to use this environment variable, it is recommended to set the `--node_rank` parameter correctly. |
 
 msrun is used as an encapsulation of the Dynamic Cluster startup method, and all user-configurable environment variables can be found in [dynamic networking environment variables](https://www.mindspore.cn/tutorials/en/r2.8.0/parallel/dynamic_cluster.html).
 

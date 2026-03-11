@@ -14,165 +14,25 @@ MindSpore**动态组网**特性通过**复用Parameter Server模式训练架构*
 
 相关环境变量：
 
-<table align="center">
-    <tr>
-        <th align="left">环境变量</th>
-        <th align="left">功能</th>
-        <th align="left">类型</th>
-        <th align="left">取值</th>
-        <th align="left">说明</th>
-    </tr>
-    <tr>
-        <td align="left" style="white-space:nowrap">MS_ROLE</td>
-        <td align="left">指定本进程角色。</td>
-        <td align="left" style="white-space:nowrap">String</td>
-        <td align="left">
-            <ul>
-                <li>MS_SCHED: 代表Scheduler进程，一个训练任务只启动一个Scheduler，负责组网，容灾恢复等，<b>不会执行训练代码</b>。</li>
-                <li>MS_WORKER: 代表Worker进程，一般设置分布式训练进程为此角色。</li>
-                <li>MS_PSERVER: 代表Parameter Server进程，只有在Parameter Server模式下此角色生效。</li>
-            </ul>
-        </td>
-        <td align="left">Worker和Parameter Server进程会向Scheduler进程注册从而完成组网。</td>
-    </tr>
-    <tr>
-        <td align="left" style="white-space:nowrap">MS_SCHED_HOST</td>
-        <td align="left">指定Scheduler的IP地址。</td>
-        <td align="left" style="white-space:nowrap">String</td>
-        <td align="left">合法的IP地址。</td>
-        <td align="left">当前版本还支持Ascend平台下的IPv6地址。</td>
-    </tr>
-    <tr>
-        <td align="left" style="white-space:nowrap">MS_SCHED_PORT</td>
-        <td align="left">指定Scheduler绑定端口号。</td>
-        <td align="left" style="white-space:nowrap">Integer</td>
-        <td align="left">1024～65535范围内的端口号。</td>
-        <td align="left"></td>
-    </tr>
-    <tr>
-        <td align="left" style="white-space:nowrap">MS_NODE_ID</td>
-        <td align="left">指定本进程的ID，集群内唯一。</td>
-        <td align="left" style="white-space:nowrap">String</td>
-        <td align="left">代表本进程的唯一ID，默认由MindSpore自动生成。</td>
-        <td align="left">
-            MS_NODE_ID在以下情况需要设置，一般情况下无需设置，由MindSpore自动生成：
-            <ul>
-                <li>开启容灾场景：容灾恢复时需要获取当前进程ID，从而向Scheduler重新注册。</li>
-                <li>开启GLOG日志重定向场景：为了保证各训练进程日志独立保存，需设置进程ID，作为日志保存路径后缀。</li>
-                <li>指定进程rank id场景：用户可通过设置MS_NODE_ID为某个整数，来指定本进程的rank id。</li>
-            </ul>
-        </td>
-    </tr>
-    <tr>
-        <td align="left" style="white-space:nowrap">MS_WORKER_NUM</td>
-        <td align="left">指定角色为MS_WORKER的进程数量。</td>
-        <td align="left" style="white-space:nowrap">Integer</td>
-        <td align="left">大于0的整数。</td>
-        <td align="left">
-            用户启动的Worker进程数量应当与此环境变量值相等。若小于此数值，组网失败；若大于此数值，Scheduler进程会根据Worker注册先后顺序完成组网，多余的Worker进程会启动失败。
-        </td>
-    </tr>
-    <tr>
-        <td align="left" style="white-space:nowrap">MS_SERVER_NUM</td>
-        <td align="left">指定角色为MS_PSERVER的进程数量。</td>
-        <td align="left" style="white-space:nowrap">Integer</td>
-        <td align="left">大于0的整数。</td>
-        <td align="left">只在Parameter Server训练模式下需要设置。</td>
-    </tr>
-    <tr>
-        <td align="left" style="white-space:nowrap">MS_WORKER_IP</td>
-        <td align="left">指定当前进程和其他进程进行通信和组网使用的IP地址。</td>
-        <td align="left" style="white-space:nowrap">String</td>
-        <td align="left">合法的IP地址。</td>
-        <td align="left">在使用IPv6地址进行组网时，建议设置此环境变量。但当用户设置MS_SCHED_HOST为<b>::1</b>时（代表IPv6的本地回环地址），无需设置此环境变量，这是因为MindSpore会默认使用本地回环地址进行通信。</td>
-    </tr>
-    <tr>
-        <td align="left" style="white-space:nowrap">MS_ENABLE_RECOVERY</td>
-        <td align="left">开启容灾。</td>
-        <td align="left" style="white-space:nowrap">Integer</td>
-        <td align="left">1代表开启，0代表关闭。默认为0。</td>
-        <td align="left"></td>
-    </tr>
-    <tr>
-        <td align="left" style="white-space:nowrap">MS_ENABLE_LCCL</td>
-        <td align="left">是否使用LCCL通信库。</td>
-        <td align="left" style="white-space:nowrap">Integer</td>
-        <td align="left">1代表开启，0代表关闭。默认为0。</td>
-        <td align="left">LCCL通信库暂只支持单机多卡，并且必须在图编译等级为O0时执行。</td>
-    </tr>
-    <tr>
-        <td align="left" style="white-space:nowrap">MS_DISABLE_LCCL_KERNELS_LIST</td>
-        <td align="left">指定不使能LCCL算子的列表。</td>
-        <td align="left" style="white-space:nowrap">String</td>
-        <td align="left">合法的算子名称，多个算子用','分割。</td>
-        <td align="left">
-            只有在使用LCCL通信库的场景下才生效。<br>
-            目前LCCL支持的算子：<br>
-            <ul>
-                <li>AllReduce</li>
-                <li>AllGather</li>
-                <li>AllGatherMatmul</li>
-                <li>Broadcast</li>
-                <li>Barrier</li>
-                <li>MatMulAllReduce</li>
-                <li>MatmulReduceScatter</li>
-                <li>ReduceScatter</li>
-            </ul>
-            注意：<br>
-                - 算子名称区分大小写<br>
-                - 多个算子用','分割时不能有空格
-        </td>
-    </tr>
-    <tr>
-        <td align="left" style="white-space:nowrap">MS_TOPO_TIMEOUT</td>
-        <td align="left">集群组网阶段超时时间，单位：秒。</td>
-        <td align="left" style="white-space:nowrap">Integer</td>
-        <td align="left">默认为30分钟。</td>
-        <td align="left">此数值代表在所有节点在这个时间窗口内均可向Scheduler进行注册，超出此时间窗口则注册失败，若节点数量不满足要求，则集群组网失败。建议用户在集群规模较大时配置此环境变量。</td>
-    </tr>
-    <tr>
-        <td align="left" style="white-space:nowrap">MS_NODE_TIMEOUT</td>
-        <td align="left">节点心跳超时时间，单位：秒。</td>
-        <td align="left" style="white-space:nowrap">Integer</td>
-        <td align="left">默认为30秒</td>
-        <td align="left">Scheduler与Worker间的心跳超时阈值。若Scheduler在该时间内未收到Worker的心跳消息，将触发集群异常退出。</td>
-    </tr>
-    <tr>
-        <td align="left" style="white-space:nowrap">MS_RECEIVE_MSG_TIMEOUT</td>
-        <td align="left">节点接收消息超时时间，单位：秒。</td>
-        <td align="left" style="white-space:nowrap">Integer</td>
-        <td align="left">默认为15秒</td>
-        <td align="left">此数值代表节点接收对端消息超时时间，若时间窗口内无消息响应，则返回空消息。</td>
-    </tr>
-    <tr>
-        <td align="left" style="white-space:nowrap">MS_RETRY_INTERVAL_LOWER</td>
-        <td align="left">节点间消息重试间隔下限，单位：秒。</td>
-        <td align="left" style="white-space:nowrap">Integer</td>
-        <td align="left">默认为3秒</td>
-        <td align="left">此数值代表节点每次重试发送消息的时间间隔下限，MindSpore会随机选择<code>MS_RETRY_INTERVAL_LOWER</code>和<code>MS_RETRY_INTERVAL_UPPER</code>之间的值作为间隔时间。此变量可以控制Scheduler节点的消息并发量。</td>
-    </tr>
-    <tr>
-        <td align="left" style="white-space:nowrap">MS_RETRY_INTERVAL_UPPER</td>
-        <td align="left">节点间消息重试间隔上限，单位：秒。</td>
-        <td align="left" style="white-space:nowrap">Integer</td>
-        <td align="left">默认为5秒</td>
-        <td align="left">此数值代表节点每次重试发送消息的时间间隔上限，MindSpore会随机选择<code>MS_RETRY_INTERVAL_LOWER</code>和<code>MS_RETRY_INTERVAL_UPPER</code>之间的值作为间隔时间。此变量可以控制Scheduler节点的消息并发量。</td>
-    </tr>
-    <tr>
-        <td align="left" style="white-space:nowrap">MS_DISABLE_HEARTBEAT</td>
-        <td align="left">关闭集群中节点间心跳业务。</td>
-        <td align="left" style="white-space:nowrap">Integer</td>
-        <td align="left">默认开启心跳业务</td>
-        <td align="left">若设置为1，则关闭集群节点间心跳，此场景下Scheduler不会检测到Worker异常，集群不会被Scheduler控制退出。此变量可以降低Scheduler节点消息并发量。<br>在使用`gdb attach`指令调试时，建议开启此环境变量。</td>
-    </tr>
-    <tr>
-        <td align="left" style="white-space:nowrap">MS_HEARTBEAT_RETRY_TIMEOUT</td>
-        <td align="left">节点心跳重试超时时间，单位：秒。</td>
-        <td align="left" style="white-space:nowrap">Integer</td>
-        <td align="left">默认为20秒</td>
-        <td align="left">Worker节点未收到Scheduler心跳回复后的重连超时阈值。若Worker在该时间内未重新建立与Scheduler的连接，将触发自身异常退出。建议配置<code>MS_NODE_TIMEOUT</code>值大于<code>MS_HEARTBEAT_RETRY_TIMEOUT</code>，确保Scheduler在<code>MS_NODE_TIMEOUT</code>窗口期内能够重新接收Worker的心跳消息，保障集群稳定运行。注意：当心跳功能关闭，或集群未采用Scheduler进程进行管理时，该环境变量配置不生效。</td>
-    </tr>
-</table>
+| 环境变量 | 功能 | 类型&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | 取值 | 说明 |
+|:---------|:-----|:-----|:-----|:-----|
+| `MS_ROLE` | 指定本进程角色。 | String | <ul><li>MS_SCHED: 代表Scheduler进程，一个训练任务只启动一个Scheduler，负责组网，容灾恢复等，**不会执行训练代码**。</li><li>MS_WORKER: 代表Worker进程，一般设置分布式训练进程为此角色。</li><li>MS_PSERVER: 代表Parameter Server进程，只有在Parameter Server模式下此角色生效。</li></ul> | Worker和Parameter Server进程会向Scheduler进程注册从而完成组网。 |
+| `MS_SCHED_HOST` | 指定Scheduler的IP地址。 | String | 合法的IP地址。 | 当前版本还支持Ascend平台下的IPv6地址。 |
+| `MS_SCHED_PORT` | 指定Scheduler绑定端口号。 | Integer | 1024～65535范围内的端口号。 |-|
+| `MS_NODE_ID` | 指定本进程的ID，集群内唯一。 | String | 代表本进程的唯一ID，默认由MindSpore自动生成。 | MS_NODE_ID在以下情况需要设置，一般情况下无需设置，由MindSpore自动生成：<ul><li>开启容灾场景：容灾恢复时需要获取当前进程ID，从而向Scheduler重新注册。</li><li>开启GLOG日志重定向场景：为了保证各训练进程日志独立保存，需设置进程ID，作为日志保存路径后缀。</li><li>指定进程rank id场景：用户可通过设置MS_NODE_ID为某个整数，来指定本进程的rank id。</li></ul> |
+| `MS_WORKER_NUM` | 指定角色为MS_WORKER的进程数量。 | Integer | 大于0的整数。 | 用户启动的Worker进程数量应当与此环境变量值相等。若小于此数值，组网失败；若大于此数值，Scheduler进程会根据Worker注册先后顺序完成组网，多余的Worker进程会启动失败。 |
+| `MS_SERVER_NUM` | 指定角色为MS_PSERVER的进程数量。 | Integer | 大于0的整数。 | 只在Parameter Server训练模式下需要设置。 |
+| `MS_WORKER_IP` | 指定当前进程和其他进程进行通信和组网使用的IP地址。 | String | 合法的IP地址。 | 在使用IPv6地址进行组网时，建议设置此环境变量。但当用户设置MS_SCHED_HOST为**::1**时（代表IPv6的本地回环地址），无需设置此环境变量，这是因为MindSpore会默认使用本地回环地址进行通信。 |
+| `MS_ENABLE_RECOVERY` | 开启容灾。 | Integer | 1代表开启，0代表关闭。默认为0。 |-|
+| `MS_ENABLE_LCCL` | 是否使用LCCL通信库。 | Integer | 1代表开启，0代表关闭。默认为0。 | LCCL通信库暂只支持单机多卡，并且必须在图编译等级为O0时执行。 |
+| `MS_DISABLE_LCCL_KERNELS_LIST` | 指定不使能LCCL算子的列表。 | String | 合法的算子名称，多个算子用','分割。 | 只有在使用LCCL通信库的场景下才生效。<br>目前LCCL支持的算子：<br><ul><li>AllReduce</li><li>AllGather</li><li>AllGatherMatmul</li><li>Broadcast</li><li>Barrier</li><li>MatMulAllReduce</li><li>MatmulReduceScatter</li><li>ReduceScatter</li></ul>注意：<br>    - 算子名称区分大小写<br>    - 多个算子用','分割时不能有空格 |
+| `MS_TOPO_TIMEOUT` | 集群组网阶段超时时间，单位：秒。 | Integer | 默认为30分钟。 | 此数值代表在所有节点在这个时间窗口内均可向Scheduler进行注册，超出此时间窗口则注册失败，若节点数量不满足要求，则集群组网失败。建议用户在集群规模较大时配置此环境变量。 |
+| `MS_NODE_TIMEOUT` | 节点心跳超时时间，单位：秒。 | Integer | 默认为30秒 | Scheduler与Worker间的心跳超时阈值。若Scheduler在该时间内未收到Worker的心跳消息，将触发集群异常退出。 |
+| `MS_RECEIVE_MSG_TIMEOUT` | 节点接收消息超时时间，单位：秒。 | Integer | 默认为15秒 | 此数值代表节点接收对端消息超时时间，若时间窗口内无消息响应，则返回空消息。 |
+| `MS_RETRY_INTERVAL_LOWER` | 节点间消息重试间隔下限，单位：秒。 | Integer | 默认为3秒 | 此数值代表节点每次重试发送消息的时间间隔下限，MindSpore会随机选择`MS_RETRY_INTERVAL_LOWER`和`MS_RETRY_INTERVAL_UPPER`之间的值作为间隔时间。此变量可以控制Scheduler节点的消息并发量。 |
+| `MS_RETRY_INTERVAL_UPPER` | 节点间消息重试间隔上限，单位：秒。 | Integer | 默认为5秒 | 此数值代表节点每次重试发送消息的时间间隔上限，MindSpore会随机选择`MS_RETRY_INTERVAL_LOWER`和`MS_RETRY_INTERVAL_UPPER`之间的值作为间隔时间。此变量可以控制Scheduler节点的消息并发量。 |
+| `MS_DISABLE_HEARTBEAT` | 关闭集群中节点间心跳业务。 | Integer | 默认开启心跳业务 | 若设置为1，则关闭集群节点间心跳，此场景下Scheduler不会检测到Worker异常，集群不会被Scheduler控制退出。此变量可以降低Scheduler节点消息并发量。<br>在使用`gdb attach`指令调试时，建议开启此环境变量。 |
+| `MS_HEARTBEAT_RETRY_TIMEOUT` | 节点心跳重试超时时间，单位：秒。 | Integer | 默认为20秒 | Worker节点未收到Scheduler心跳回复后的重连超时阈值。若Worker在该时间内未重新建立与Scheduler的连接，将触发自身异常退出。建议配置`MS_NODE_TIMEOUT`值大于`MS_HEARTBEAT_RETRY_TIMEOUT`，确保Scheduler在`MS_NODE_TIMEOUT`窗口期内能够重新接收Worker的心跳消息，保障集群稳定运行。注意：当心跳功能关闭，或集群未采用Scheduler进程进行管理时，该环境变量配置不生效。 |
 
 > 环境变量`MS_SCHED_HOST`、`MS_SCHED_PORT`、`MS_WORKER_NUM`内容需保持一致，否则会由于各进程配置不一致导致组网失败。
 
