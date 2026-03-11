@@ -278,9 +278,9 @@ python -c "import mindspore_lite"
     - 编译32位：[MinGW-W64 i686](https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win32/Personal%20Builds/mingw-builds/7.3.0/threads-posix/dwarf/i686-7.3.0-release-posix-dwarf-rt_v5-rev0.7z) = GCC-7.3.0
 
 - Visual Studio 编译依赖
-    - [Visual Studio](https://visualstudio.microsoft.com/zh-hans/vs/older-downloads/) = 2017，已自带cmake。
-    - 编译64位：进入开始菜单，点击“适用于 VS 2017 的 x64 本机工具命令提示”，或者打开cmd窗口，执行`call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Profession\VC\Auxiliary\Build\vcvars64.bat"`。
-    - 编译32位：进入开始菜单，点击“VS 2017的 x64_x86 交叉工具命令提示符”，或者打开cmd窗口，执行`call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Profession\VC\Auxiliary\Build\vcvarsamd64_x86.bat"`。
+    - [Visual Studio](https://visualstudio.microsoft.com/zh-hans/vs/older-downloads/) = 2019，已自带cmake。
+    - 编译64位：进入开始菜单，点击“适用于 VS 2019 的 x64 本机工具命令提示”，或者打开cmd窗口，执行`call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Profession\VC\Auxiliary\Build\vcvars64.bat"`。
+    - 编译32位：进入开始菜单，点击“VS 2019的 x64_x86 交叉工具命令提示符”，或者打开cmd窗口，执行`call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Profession\VC\Auxiliary\Build\vcvarsamd64_x86.bat"`。
 
 ### 编译选项
 
