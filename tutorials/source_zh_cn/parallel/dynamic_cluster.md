@@ -14,7 +14,7 @@ MindSpore**动态组网**特性通过**复用Parameter Server模式训练架构*
 
 相关环境变量：
 
-| 环境变量 | 功能&nbsp;&nbsp;&nbsp; | 类型&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | 取值 | 说明 |
+| 环境变量 | 功能 | 类型&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | 取值 | 说明 |
 |:---------|:-----|:-----|:-----|:-----|
 | `MS_ROLE` | 指定本进程角色。 | String | <ul><li>MS_SCHED: 代表Scheduler进程，一个训练任务只启动一个Scheduler，负责组网，容灾恢复等，**不会执行训练代码**。</li><li>MS_WORKER: 代表Worker进程，一般设置分布式训练进程为此角色。</li><li>MS_PSERVER: 代表Parameter Server进程，只有在Parameter Server模式下此角色生效。</li></ul> | Worker和Parameter Server进程会向Scheduler进程注册从而完成组网。 |
 | `MS_SCHED_HOST` | 指定Scheduler的IP地址。 | String | 合法的IP地址。 | 当前版本还支持Ascend平台下的IPv6地址。 |
