@@ -639,6 +639,7 @@ def linkcode_resolve(domain, info):
                        ('mint.nn.functional.im2col_ext', 'mint.nn.functional.unfold', 'im2col_ext', 'unfold'),
                        ('mint.nn.functional.col2im_ext', 'mint.nn.functional.fold', 'col2im_ext', 'fold'),
                        ('mint.nn.functional.inplace_threshold', 'mint.nn.functional.threshold_', 'inplace_threshold', 'threshold_'),
+                       ('mint.linalg_qr', 'mint.linalg.qr', 'linalg_qr', 'qr'),
                        ('ops.binary_cross_entropy_with_logits', 'ops.BCEWithLogitsLoss', 'binary_cross_entropy_with_logits', 'BCEWithLogitsLoss'),
                        ]
             fullname = modname + '.' + name
@@ -659,6 +660,7 @@ def linkcode_resolve(domain, info):
                             name1 = name.lower()
             else:
                 return None
+
             # 根据yaml文件名查询文件是否存在，分别再处理
             if name1.split('.')[-1] + '_ext_doc.yaml' in ops_yaml_list and '.mint.' in fullname:
                 py_source_rel = ops_yaml + name1.split('.')[-1] + '_ext_doc.yaml'
