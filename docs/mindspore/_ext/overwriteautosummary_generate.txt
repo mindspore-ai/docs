@@ -486,6 +486,7 @@ def generate_autosummary_docs(sources: List[str], output_dir: str = None,
                         ('mint.transpose_ext_view', 'mint.transpose'),
                         ('mint.narrow_view', 'mint.narrow'),
                         ('mint.broadcast_to_view', 'mint.broadcast_to'),
+                        ('mint.linalg_qr', 'mint.linalg.qr')
                         ]
                 for i in spec_tp:
                     if name.endswith(i[1]):
@@ -499,6 +500,7 @@ def generate_autosummary_docs(sources: List[str], output_dir: str = None,
                         if name1.split('.')[-1] + '_doc.yaml' not in app.config.ops_yaml_list:
                             if name.split('.')[-1].lower() + '_doc.yaml' in app.config.ops_yaml_list:
                                 name1 = name.lower()
+
                 # 根据yaml文件名查询文件是否存在，分别再处理
                 if name1.split('.')[-1] + '_doc.yaml' not in app.config.ops_yaml_list:
                     # 新增查找_ext后缀文件
