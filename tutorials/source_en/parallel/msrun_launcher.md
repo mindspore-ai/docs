@@ -11,7 +11,7 @@
 
 A parameters list of command line:
 
-| Parameters | Functions | Types&nbsp;&nbsp;&nbsp; | Values | Instructions |
+| Parameters | Functions&nbsp;&nbsp;&nbsp; | Types&nbsp;&nbsp;&nbsp; | Values | Instructions |
 |:-----------|:----------|:----------------|:-------|:------------|
 | `--worker_num` | The total number of Worker processes participating in the distributed task. | Integer | An integer greater than 0. The default value is 8. | The total number of Workers started on all nodes should be equal to this parameter:<br> if the total number is greater than this parameter, the extra Worker processes will fail to register; <br>if the total number is less than this parameter, the cluster will wait for a certain period of timeout before prompting the task to pull up the failed task and exit, <br>and the size of the timeout window can be configured by the parameter `cluster_time_out`. |
 | `--local_worker_num` | The number of Worker processes pulled up on the current node. | Integer | An integer greater than 0. The default value is 8. | When this parameter is consistent with `worker_num`, it means that all Worker processes are executed locally. <br>The `node_rank` value is ignored in this scenario. |
