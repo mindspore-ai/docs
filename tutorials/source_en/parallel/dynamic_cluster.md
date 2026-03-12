@@ -14,7 +14,7 @@ The **Dynamic Cluster** feature starts multiple MindSpore training processes as 
 
 The relevant environment variables:
 
-| Environment Variables | Function&nbsp;&nbsp;&nbsp; | Type&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | Value | Description |
+| Environment Variables | Functions | Type&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | Value | Description |
 |:----------------------|:---------|:------------------------|:------|:------------|
 | `MS_ROLE` | Specifies the role of this process. | String | <ul><li>MS_SCHED: represents the Scheduler process. A training task starts only one Scheduler, which is responsible for networking, disaster recovery, etc., and **does not execute training code**.</li><li>MS_WORKER: Represents the Worker process, which generally sets up the distributed training process for this role.</li><li>MS_PSERVER: represents the Parameter Server process. Only in Parameter Server mode this role is effective.</li></ul> | The Worker and Parameter Server processes register with the Scheduler process to complete the networking. |
 | `MS_SCHED_HOST` | Specifies the IP address of the Scheduler. | String | Legal IP address. | IPv6 addresses are only supported on `Ascend` platform in current version. |
