@@ -107,7 +107,8 @@ Based on the mainstream Qwen2 open-source LLM, this section demonstrates how to 
 
 .. note::
 
-   The Qwen2 model has multiple versions and configurations. This document uses Qwen2-7B-Instruct as an example.
+   1. The Qwen2 model has multiple versions and configurations. This document uses Qwen2-7B-Instruct as an example.
+   2. Since some high-performance operators are only implemented on Ascend chips, this tutorial currently only supports execution in the Ascend environment.
 
 Environment Preparations
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
