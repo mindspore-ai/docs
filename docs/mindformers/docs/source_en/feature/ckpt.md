@@ -21,6 +21,14 @@ MindSpore Transformers provides a unified weight conversion tool that allows mod
 
 To perform weight conversion, clone the complete HuggingFace repository of the model to be converted locally, and execute the `mindformers/convert_weight.py` script. This script automatically converts the HuggingFace model weight file into a weight file applicable to MindSpore Transformers. If you want to convert a MindSpore Transformers weight to a HuggingFace one, set `reversed` to `True`.
 
+The weight conversion script depends on torch. Please execute the following command to install torch before running it:
+
+```shell
+pip install torch>=2.10.0
+```
+ 	 
+Then proceed with the weight conversion:
+
 ```shell
 python convert_weight.py [-h] --model MODEL [--reversed] --input_path INPUT_PATH  --output_path OUTPUT_PATH [--dtype DTYPE] [--telechat_type TELECHAT_TYPE]
 ```
