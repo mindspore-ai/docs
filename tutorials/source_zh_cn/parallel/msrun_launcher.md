@@ -15,7 +15,7 @@
 |:-----|:-----|:------------------------------|:-----|:-----|
 | `--worker_num` | 参与分布式任务的Worker进程总数。 | Integer | 大于0的整数。默认值为8。 | 所有节点上启动的Worker总数应当等于此参数：<br>若总数大于此参数，多余的Worker进程会注册失败；<br>若总数小于此参数，集群会在等待一段超时时间后，<br>提示任务拉起失败并退出，<br>超时时间窗大小可通过参数`cluster_time_out`配置。 |
 | `--local_worker_num` | 当前节点上拉起的Worker进程数。 | Integer | 大于0的整数。默认值为8。 | 当此参数与`worker_num`保持一致时，代表所有Worker进程在本地执行，<br>此场景下`node_rank`值会被忽略。 |
-| `--master_addr` | 指定Scheduler的IP地址或者主机名。 | String | 合法的IP地址或者主机名。默认为IP地址127.0.0.1。 | msrun会自动检测在哪个节点拉起Scheduler进程，用户无需关心。<br>若无法查找到对应的地址或主机名无法被DNS解析，训练任务会拉起失败。<br>当前版本暂不支持IPv6地址。<br>若传入主机名时，msrun会自动将其解析为IP地址，需要用户环境支持DNS服务。 |
+| `--master_addr` | 指定Scheduler的IP地址或者主机名。 | String | 合法的IP地址或者主机名。默认为IP地址127.0.0.1。 | msrun会自动检测在哪个节点拉起Scheduler进程，用户无需关心。<br>若无法查找到对应的地址或主机名无法被DNS解析，训练任务会拉起失败。<br>当前版本已支持IPv6地址。传入IPv6地址时，请使用方括号 `[]` 进行包裹，示例：`[0:0:0:0:0:0:0:1]`。<br>若传入主机名时，msrun会自动将其解析为IP地址，需要用户环境支持DNS服务。 |
 | `--master_port` | 指定Scheduler绑定端口号。 | Integer | 1024～65535范围内的端口号。默认为8118。 |-|
 | `--node_rank` | 当前节点的索引。 | Integer | 可传入大于等于0的整数。在不传入值的情况下，默认值为-1。 | 单机多卡场景下，此参数会被忽略。<br>多机多卡场景下，<br>若不设置此参数，Worker进程的rank_id会被自动分配；<br>若设置，则会按照索引为各节点上的Worker进程分配rank_id。<br>若每个节点Worker进程数量不同，建议不配置此参数，<br>以自动分配rank_id。 |
 | `--log_dir` | Worker以及Scheduler日志输出路径。 | String | 文件夹路径。默认为当前目录。 | 若路径不存在，msrun会递归创建文件夹。<br>日志格式如下：对于Scheduler进程，日志名为`scheduler.log`；<br>对于Worker进程，日志名为`worker_[rank].log`，<br>其中`rank`后缀与分配给Worker的`rank_id`一致，<br>但在未设置`node_rank`且多机多卡场景下，它们可能不一致。<br>建议执行`grep -rn "Global rank id"`指令查看各Worker的`rank_id`。 |
