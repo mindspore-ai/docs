@@ -82,6 +82,7 @@ from mindspore.nn.utils import no_init_parameters
 
 ms.set_context(mode=ms.GRAPH_MODE)
 ms.runtime.set_memory(max_size="2GB")
+ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.SEMI_AUTO_PARALLEL)
 init()
 ms.set_seed(1)
 np.random.seed(1)
@@ -136,9 +137,8 @@ class Network(nn.Cell):
         logits = self.matmul3(x, self.fc3_weight)
         return logits
 
-with no_init_parameters():
-    net = Network()
-    optimizer = nn.SGD(net.trainable_params(), 1e-2)
+net = Network()
+optimizer = nn.SGD(net.trainable_params(), 1e-2)
 net.matmul1.shard(((1, 4), (4, 1)))
 net.relu1.shard(((4, 1),))
 net.matmul2.shard(((1, 4), (4, 1)))
