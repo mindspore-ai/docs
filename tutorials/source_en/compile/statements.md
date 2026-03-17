@@ -631,7 +631,7 @@ l = [y for x in ((1, 2), (3, 4), (5, 6)) for y in x]
 An error will be prompted:
 
 ```text
-TypeError:  The `generators` supports one `comprehension` in ListComp/GeneratorExp, but got 2 comprehensions.
+TypeError: The 'generators' supports 1 'comprehension' in ListComp/GeneratorExp, but got 2 comprehensions.
 ```
 
 #### Dict Comprehension
@@ -681,7 +681,7 @@ print('ret:{}'.format(ret))
 An error will be prompted:
 
 ```text
-TypeError:  The `generators` supports one `comprehension` in DictComp/GeneratorExp, but got 2 comprehensions.
+TypeError: The 'generators' supports 1 'comprehension' in DictComp/GeneratorExp, but got 2 comprehensions.
 ```
 
 #### Generator Expression
