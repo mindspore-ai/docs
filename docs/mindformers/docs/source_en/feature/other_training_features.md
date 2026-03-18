@@ -203,7 +203,7 @@ MindSpore provides thread-level CPU core binding to allocate specific CPU cores 
 
 There are two places to configure CPU affinity under the `context` field: `affinity_cpu_list` and `affinity_config`. `affinity_cpu_list` is merged into `affinity_config`, it will not be elaborated here. When both are configured, `affinity_config` will take effect.
 
-Configure items in the `affinity_config` field under the `context` field. `affinity_config` and all its sub-fields are optional. A string ending with .json can also be passed to transfer the JSON configuration file to the MindSpore API. For details, please refer to [mindspore.runtime.set_cpu_affinity](https://www.mindspore.cn/docs/en/master/api_python/runtime/mindspore.runtime.set_cpu_affinity.html). An example is as follows:
+Configure items in the `affinity_config` field under the `context` field. `affinity_config` and all its sub-fields are optional. A string ending with .json can also be passed to transfer the JSON configuration file to the MindSpore API. For details, please refer to [mindspore.runtime.set_cpu_affinity](https://www.mindspore.cn/docs/en/master/api_python/runtime/mindspore.runtime.set_cpu_affinity.html). The following is a two-device example showing both custom configuration and JSON file methods achieving the same binding effect (device0's main thread binds to CPU 0 and CPU 1, minddata thread binds to CPU 10 and CPU 11; device1's main thread binds to CPU 20 and CPU 21, minddata thread binds to CPU 30 and CPU 31):
 
 ```yaml
 context:
@@ -215,10 +215,10 @@ context:
         main: [0, 1]
         minddata: [6, 7]
     device_1:
-      affinity_cpu_list: ...
+      affinity_cpu_list: ["20-23", "28-31"]
       module_to_cpu_dict:
-        main: ...
-        ...
+        main: [0, 1]
+        minddata: [6, 7]
     ...
 
 # Or pass in a JSON file path
@@ -247,6 +247,8 @@ Here is an example of the JSON configuration file. For detailed configuration, p
   }
 }
 ```
+
+> JSON file configuration uses **absolute CPU IDs**, for example, `"main": "10-12"` in JSON directly binds to physical CPU IDs 10, 11, 12; custom configuration (`affinity_cpu_list` + `module_to_cpu_dict`) uses **absolute CPU range + relative indexing mechanism**, where `affinity_cpu_list` defines the available range (absolute IDs) and `module_to_cpu_dict` uses indices within that range. For example, `affinity_cpu_list: ["10-20"]` and `module_to_cpu_dict: {main: [0, 1, 2]}` mean selecting indices 0, 1, 2 from range 10-20, binding to physical CPU IDs 10, 11, 12.
 
 #### Key Configuration Parameters
 

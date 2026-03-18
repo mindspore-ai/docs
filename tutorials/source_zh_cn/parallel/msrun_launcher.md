@@ -567,6 +567,7 @@ msrun --worker_num=8 --local_worker_num=8 --master_port=8118 --log_dir=msrun_log
         - value 为对象，模块名 -> CPU 范围。
         - 模块名支持：`main` / `runtime` / `pynative` / `minddata`。
         - CPU 范围可为字符串（推荐），如：`"0-4"` / `"0,2,4"` / `"0-3,8-11"`。
+        - **重要** ：CPU 范围使用的是 **环境上的绝对 CPU ID** 。例如 `"main": "20-24"` 表示将 main 线程直接绑定到物理 CPU ID 20、21、22、23、24 上。
 
     - 当 `bind_cpu_mode="numa"`：
         - key 为 `deviceX` 或 `scheduler`。
@@ -578,7 +579,7 @@ msrun --worker_num=8 --local_worker_num=8 --master_port=8118 --log_dir=msrun_log
     - key 为 `deviceX` 或 `scheduler`。
     - value 为 NUMA 节点（int 或字符串范围），如：`0` / `"0"` / `"0-1,3"`。
 
-> JSON 中的 `deviceX` 指**物理设备 ID**。若设置了 `ASCEND_RT_VISIBLE_DEVICES`，请使用可见设备的物理 ID。例如：`ASCEND_RT_VISIBLE_DEVICES=3,5` 时，应使用 `device3`、`device5`。
+> JSON 中的 `deviceX` 指 **物理设备 ID** 。若设置了 `ASCEND_RT_VISIBLE_DEVICES`，请使用可见设备的物理 ID。例如：`ASCEND_RT_VISIBLE_DEVICES=3,5` 时，应使用 `device3`、`device5`。
 
 #### 三、msrun --bind_numa 的行为说明
 
@@ -611,6 +612,11 @@ mindspore.runtime.set_cpu_affinity(True, bind_file="/path/to/bind.json")
 ```
 
 具体接口说明可参考 [mindspore.runtime.set_cpu_affinity](https://www.mindspore.cn/docs/zh-CN/master/api_python/runtime/mindspore.runtime.set_cpu_affinity.html)。
+
+> `set_cpu_affinity` 接口传参支持的两种配置方式，CPU ID 的使用方式不同：
+>
+> - **传入 JSON 文件**（`bind_file` 参数）：使用 **绝对 CPU ID** ，与 JSON 文件配置一致。例如 `"main": "10-12"` 直接绑定到物理 CPU ID 10、11、12。
+> - **传入 affinity_cpu_list + module_to_cpu_dict** ：使用 **相对索引机制** 。`affinity_cpu_list` 定义可用范围（绝对 ID），`module_to_cpu_dict` 在范围内使用索引。例如 `affinity_cpu_list=["10-20"]`，`module_to_cpu_dict={"main": {0, 1, 2}}` 表示在范围 10-20 中选择索引 0、1、2，即绑定到物理 CPU ID 10、11、12。
 
 行为规则：
 

@@ -203,7 +203,7 @@ MindSpore提供线程级CPU绑核功能，允许给MindSpore的主要模块（�
 
 `context`字段下有两处可以配置CPU亲和度。分别是`affinity_cpu_list`与`affinity_config`，`affinity_cpu_list`已合并至`affinity_config`，因此不做赘述。他们同时配置时以`affinity_config`为准。
 
-在`context`字段的`affinity_config`字段中写入配置项，`affinity_config`及其子项都是可选的。也支持传入一个以“.json”结尾的字符串，将JSON配置文件传给MindSpore的接口。详情参考 [mindspore.runtime.set_cpu_affinity](https://www.mindspore.cn/docs/zh-CN/master/api_python/runtime/mindspore.runtime.set_cpu_affinity.html)。示例如下：
+在`context`字段的`affinity_config`字段中写入配置项，`affinity_config`及其子项都是可选的。也支持传入一个以“.json”结尾的字符串，将JSON配置文件传给MindSpore的接口。详情参考 [mindspore.runtime.set_cpu_affinity](https://www.mindspore.cn/docs/zh-CN/master/api_python/runtime/mindspore.runtime.set_cpu_affinity.html)。以下是一个两卡示例，分别以自定义配置项和传入JSON文件方式做绑定，两者达到相同的绑定效果（device0的main线程绑定CPU0和CPU1，minddata线程绑定CPU10和CPU11；device1的main线程绑定CPU20和CPU21，minddata线程绑定CPU30和CPU31）：
 
 ```yaml
 context:
@@ -215,10 +215,10 @@ context:
         main: [0, 1]
         minddata: [6, 7]
     device_1:
-      affinity_cpu_list: ...
+      affinity_cpu_list: ["20-23", "28-31"]
       module_to_cpu_dict:
-        main: ...
-        ...
+        main: [0, 1]
+        minddata: [6, 7]
     ...
 
 # 或者传入JSON文件路径
@@ -247,6 +247,8 @@ JSON配置文件示例如下，详细配置可参考 [使用 JSON 统一配置 C
   }
 }
 ```
+
+> 在 JSON 文件中， CPU 的配置方式使用 **绝对 CPU ID** ，例如 JSON 中 `"main": "10-12"` 表示直接绑定到物理 CPU ID 10、11、12；自定义配置（`affinity_cpu_list` + `module_to_cpu_dict`）使用 **绝对CPU范围段 + 相对索引机制** ，`affinity_cpu_list` 定义可用范围（绝对 ID），`module_to_cpu_dict` 在该范围内使用索引，例如 `affinity_cpu_list: ["10-20"]`，`module_to_cpu_dict: {main: [0, 1, 2]}` 表示在范围 10-20 中选择索引 0、1、2，即绑定到物理 CPU ID 10、11、12。
 
 #### 主要配置参数介绍
 

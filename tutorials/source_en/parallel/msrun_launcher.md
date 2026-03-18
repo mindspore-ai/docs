@@ -567,6 +567,7 @@ The unified JSON file is an object containing the following fields:
         - Values: object mapping module -> CPU range.
         - Modules: `main` / `runtime` / `pynative` / `minddata`.
         - CPU ranges as strings, e.g. `"0-4"`, `"0,2,4"`, `"0-3,8-11"`.
+        - **Important**: CPU ranges use **absolute CPU IDs** from the system. For example, `"main": "20-24"` directly binds the main thread to physical CPU IDs 20, 21, 22, 23, 24.
 
     - When `bind_cpu_mode="numa"`:
         - Keys: `deviceX` or `scheduler`.
@@ -609,6 +610,11 @@ mindspore.runtime.set_cpu_affinity(True, bind_file="/path/to/bind.json")
 ```
 
 See the API reference: [mindspore.runtime.set_cpu_affinity](https://www.mindspore.cn/docs/en/master/api_python/runtime/mindspore.runtime.set_cpu_affinity.html).
+
+> `set_cpu_affinity` supports two configuration methods with different CPU ID usage:
+>
+> - **JSON file** (`bind_file` parameter): Uses **absolute CPU IDs**, consistent with JSON file configuration. For example, `"main": "10-12"` directly binds to physical CPU IDs 10, 11, 12.
+> - **affinity_cpu_list + module_to_cpu_dict**: Uses a **relative indexing mechanism**. `affinity_cpu_list` defines the available range (absolute IDs), while `module_to_cpu_dict` uses indices within that range. For example, `affinity_cpu_list=["10-20"]` and `module_to_cpu_dict={"main": {0, 1, 2}}` means selecting indices 0, 1, 2 from range 10-20, binding to physical CPU IDs 10, 11, 12.
 
 Rules:
 
