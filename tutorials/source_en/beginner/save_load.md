@@ -98,7 +98,7 @@ Not all Python syntax and data types are supported for MindIR export. Unsupporte
     class Model(nn.Cell):
 
         def construct(self, x: Tensor) -> mindspore.dtype:
-            return x.dtype
+            return x.dtype
     ```
 
 3. In `nn.Cell`'s `construct()` method, random number generators from [mindspore.mint](https://www.mindspore.cn/docs/en/master/api_python/mindspore.mint.html) (e.g., `mint.rand`, `mint.randn`, `mint.randint`, `mint.randperm`) are prohibited. Use equivalent [mindspore.ops](https://www.mindspore.cn/docs/en/master/api_python/mindspore.ops.html) interfaces instead.
@@ -119,9 +119,9 @@ Not all Python syntax and data types are supported for MindIR export. Unsupporte
             # Parameters defined within nn.Cell.__init__() are exportable.
             self.bias = Parameter([0, 1, -1])
 
-        def construct(self, x: Parameter):  # Parameters passed as function arguments are exportable.
+        def construct(self, x: Parameter):  # Parameters passed as function arguments are exportable.
             # The global_param is a global variable and will cause an error during export.
-            return x + global_param + self.bias
+            return x + global_param + self.bias
 
     model = Model()
     param = Parameter([1, 2, 3], name='input_param')

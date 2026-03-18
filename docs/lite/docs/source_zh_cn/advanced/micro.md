@@ -670,21 +670,21 @@ STM32F767芯片为Cortex-M7架构，可以通过以下两种方式获取该架�
     ```text
     test_stm32f767                                   # MCU工程目录
     ├── Core
-    │   ├── Inc
-    │   └── Src
+    │   ├── Inc
+    │   └── Src
     │       ├── main.c
     │       └── ...
     ├── Drivers
     ├── EWARM                                        # IAR工程文件目录
     └── mnist                                        # 生成代码根目录
-        ├── benchmark                                # 对模型推理代码进行集成调用的benchmark例程
+        ├── benchmark                                # 对模型推理代码进行集成调用的benchmark例程
         │   ├── benchmark.c
         │   ├── data.c
         │   ├── data.h
         │   └── ...
         │── mindspore-lite-1.8.0-none-cortex-m7      # 下载的Cortex-M7架构`Micro`库
         ├── src                                      # 模型推理代码目录
-        └── ...
+        └── ...
     ```
 
 - 向IAR工程导入源文件
@@ -806,20 +806,20 @@ STM32F767芯片为Cortex-M7架构，可以通过以下两种方式获取该架�
     ```text
     stm32f767                                       # MCU工程目录
     ├── Core
-    │   ├── Inc
-    │   └── Src
+    │   ├── Inc
+    │   └── Src
     │       ├── main.c
     │       └── ...
     ├── Drivers
     ├── mnist                                        # 生成代码根目录
-    │   ├── benchmark                                # 对模型推理代码进行集成调用的benchmark例程
+    │   ├── benchmark                                # 对模型推理代码进行集成调用的benchmark例程
     │   │   ├── benchmark.c
     │   │   ├── data.c
     │   │   ├── data.h
     │   │   └── ...
     │   │── mindspore-lite-1.8.0-none-cortex-m7      # 下载的Cortex-M7架构`Micro`库
     │   ├── src                                      # 模型推理代码目录
-    │   └── ...
+    │   └── ...
     ├── Makefile
     ├── startup_stm32f767xx.s
     └── STM32F767IGTx_FLASH.ld
