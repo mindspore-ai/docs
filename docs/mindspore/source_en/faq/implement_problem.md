@@ -10,7 +10,7 @@ A: During multi-scale training, when different `shape` are used to call `Cell` o
 
 <br/>
 
-### Q: If a `tensor` of MindSpore whose `requires_grad=False` is set to `False` is converted into `numpy` for processing and then converted into `tensor`, will the computational graph and backward propagation be affected?
+### Q: If a `tensor` of MindSpore whose `requires_grad=False` is set to `False` is converted into `numpy` for processing and then converted into `tensor`, will the computational graph and backward propagation be affected?
 
 A: In PyNative mode, if `numpy` is used for computation, gradient transfer will be interrupted. In the scenario where `requires_grad=False` is set to `False`, if the backward propagation of `tensor` is not transferred to other parameters, there is no impact. If `requires_grad=False` is set to `True`, there is an impact.
 
@@ -121,7 +121,7 @@ model.train(epoch_size, ds_train, callbacks=[stop_cb])
 
 <br/>
 
-### Q: How do I obtain `feature map` with the expected size when `nn.Conv2d` is used?
+### Q: How do I obtain `feature map` with the expected size when `nn.Conv2d` is used?
 
 A: For details about how to derive the `Conv2d shape`, click [here](https://www.mindspore.cn/docs/en/r2.8.0/api_python/nn/mindspore.nn.Conv2d.html#mindspore.nn.Conv2d). Change `pad_mode` of `Conv2d` to `same`. Alternatively, you can calculate the `pad` based on the `Conv2d shape` derivation formula to keep the `shape` unchanged. Generally, the pad is `(kernel_size-1)//2`.
 
@@ -293,7 +293,7 @@ After the `Driver` package is installed (assuming that the installation path is 
 
 <br/>
 
-### Q: How can I do when the error message `Out of Memory!!! total[3212254720] (dynamic[0] memory poll[524288000]) malloc[32611480064] failed!` is displayed by performing the training process using the Ascend platform?
+### Q: How can I do when the error message `Out of Memory!!! total[3212254720] (dynamic[0] memory poll[524288000]) malloc[32611480064] failed!` is displayed by performing the training process using the Ascend platform?
 
 A: This issue is a memory shortage problem caused by too much memory usage, which can be caused by two possible causes:
 
@@ -379,7 +379,7 @@ Method 2: If the problem persists, delete the cache file of the wheel installati
 
 <br/>
 
-### Q: What should I do if I encounter `matplotlib.pyplot.show()` or `plt.show` not be executed during the documentation sample code is running?
+### Q: What should I do if I encounter `matplotlib.pyplot.show()` or `plt.show` not be executed during the documentation sample code is running?
 
 A: First confirm whether `matplotlib` is installed. If it is not installed, you can execute `pip install matplotlib` on the command line to install it.
 

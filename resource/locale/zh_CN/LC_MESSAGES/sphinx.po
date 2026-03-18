@@ -1156,7 +1156,7 @@ msgid ""
 "\n"
 "By default, everything that is outdated is built. Output only for selected\n"
 "files can be built by specifying individual filenames.\n"
-msgstr "\n从源文件生成文档。\n\nsphinx-build 从 SOURCEDIR 中的文件生成文档，并保存在 OUTPUTDIR。\n它从 SOURCEDIR 的“conf.py” 中读取配置。“sphinx-quickstart”工具可以生\n成包括“conf.py”在内的模板文件。\n\nsphinx-build 可以生成多种格式的文档。在命令行中指定构建器名称即可\n选择文档格式，默认是 HTML。构建器也可以执行文档处理相关的其他\n任务。\n\n默认只会重新构建过期内容。如果指定了文件名，那么只会产生这些文件\n的输出。\n"
+msgstr "\n从源文件生成文档。\n\nsphinx-build 从 SOURCEDIR 中的文件生成文档，并保存在 OUTPUTDIR。\n它从 SOURCEDIR 的“conf.py” 中读取配置。“sphinx-quickstart”工具可以生\n成包括“conf.py”在内的模板文件。\n\nsphinx-build 可以生成多种格式的文档。在命令行中指定构建器名称即可\n选择文档格式，默认是 HTML。构建器也可以执行文档处理相关的其他\n任务。\n\n默认只会重新构建过期内容。如果指定了文件名，那么只会产生这些文件\n的输出。\n"
 
 #: sphinx/cmd/build.py:128
 msgid "path to documentation source files"
@@ -2760,7 +2760,7 @@ msgstr "无法导入对象 %s"
 msgid ""
 "autosummary generats .rst files internally. But your source_suffix does not "
 "contain .rst. Skipped."
-msgstr "autosummary 内部生成 .rst 文件，但是 source_suffix 中不包含 .rst，已跳过。"
+msgstr "autosummary 内部生成 .rst 文件，但是 source_suffix 中不包含 .rst，已跳过。"
 
 #: sphinx/ext/autosummary/generate.py:100
 #, python-format
@@ -2785,7 +2785,7 @@ msgid ""
 "``sphinx.ext.autosummary`` Python module and can be read using::\n"
 "\n"
 "  pydoc sphinx.ext.autosummary\n"
-msgstr "\n用 autosummary 指令生成 ReStructuredText\n\nsphinx-autogen 是 sphinx.ext.autosummary.generate 的前端，它根据给定\n的输入文件中的 autosummary 指令生成 reStructuredText  文件\n\nautosummary 指令的格式见 Python 模块 ``sphinx.ext.autosummary`` 的文\n档，并且可以这样调出文档阅读::\n\n  pydoc sphinx.ext.autosummary\n"
+msgstr "\n用 autosummary 指令生成 ReStructuredText\n\nsphinx-autogen 是 sphinx.ext.autosummary.generate 的前端，它根据给定\n的输入文件中的 autosummary 指令生成 reStructuredText 文件\n\nautosummary 指令的格式见 Python 模块 ``sphinx.ext.autosummary`` 的文\n档，并且可以这样调出文档阅读::\n\n  pydoc sphinx.ext.autosummary\n"
 
 #: sphinx/ext/autosummary/generate.py:381
 msgid "source files to generate rST files for"
