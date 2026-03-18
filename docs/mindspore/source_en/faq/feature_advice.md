@@ -54,7 +54,7 @@ A: Atlas 200/300/500 inference product requires a dedicated OM model. Use MindSp
 
 <br/>
 
-## Q: Does MindSpore only be run on Huawei own `Ascend`?
+## Q: Does MindSpore only be run on Huawei own `Ascend`?
 
 A: MindSpore supports Huawei's own `Ascend` in addition to `GPU` and `CPU`, which is support for heterogeneous computing power.
 

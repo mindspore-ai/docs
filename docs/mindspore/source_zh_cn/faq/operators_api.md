@@ -52,7 +52,7 @@ A: 这个昇腾算子底层规格限制一次拼接的Tensor个数不能超过19
 
 ## Q: 在使用`Conv2D`进行卷积定义的时候使用到了`group`的参数，`group`的值不是只需要保证可以被输入输出的维度整除即可了吗？`group`参数的传递方式是怎样的呢？
 
-A: `Conv2D`算子是有这个约束条件的: 当`group`大于1 时，其值必须要与输入输出的通道数相等。不要使用[ops.Conv2D](https://www.mindspore.cn/docs/zh-CN/r2.7.2/api_python/ops/mindspore.ops.Conv2D.html)，这个算子目前不支持`group`>1。目前MindSpore只有[nn.Conv2D](https://www.mindspore.cn/docs/zh-CN/r2.7.2/api_python/nn/mindspore.nn.Conv2d.html)接口支持组卷积，但是有`group`要与输入输出的通道数相等的约束。
+A: `Conv2D`算子是有这个约束条件的: 当`group`大于1 时，其值必须要与输入输出的通道数相等。不要使用[ops.Conv2D](https://www.mindspore.cn/docs/zh-CN/r2.7.2/api_python/ops/mindspore.ops.Conv2D.html)，这个算子目前不支持`group`>1。目前MindSpore只有[nn.Conv2D](https://www.mindspore.cn/docs/zh-CN/r2.7.2/api_python/nn/mindspore.nn.Conv2d.html)接口支持组卷积，但是有`group`要与输入输出的通道数相等的约束。
 
 <br/>
 
