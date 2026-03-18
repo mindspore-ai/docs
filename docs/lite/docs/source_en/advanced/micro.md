@@ -673,21 +673,21 @@ This chapter uses the STM32F767 startup project as an example to describe how to
     ```text
     test_stm32f767                                   # MCU project directory
     ├── Core
-    │   ├── Inc
-    │   └── Src
+    │   ├── Inc
+    │   └── Src
     │       ├── main.c
     │       └── ...
     ├── Drivers
     ├── EWARM                                        # IAR project file directory
     └── mnist                                        # Generated Code Root Directory
-        ├── benchmark                                # Benchmark routines for integrated calls to model inference code
+        ├── benchmark                                # Benchmark routines for integrated calls to model inference code
         │   ├── benchmark.c
         │   ├── data.c
         │   ├── data.h
         │   └── ...
         │── mindspore-lite-1.8.0-none-cortex-m7      # Downloaded Cortex-M7 Architecture `Micro` Lib
         ├── src                                      # Model inference code directory
-        └── ...
+        └── ...
     ```
 
 - Import source files to the IAR project
@@ -809,20 +809,20 @@ This chapter uses the STM32F767 startup project as an example to describe how to
     ```text
     stm32f767                                       # MCU project directory
     ├── Core
-    │   ├── Inc
-    │   └── Src
+    │   ├── Inc
+    │   └── Src
     │       ├── main.c
     │       └── ...
     ├── Drivers
     ├── mnist                                        # Generate Code Root Directory
-    │   ├── benchmark                                # Benchmark routines for integrated calls to model inference code
+    │   ├── benchmark                                # Benchmark routines for integrated calls to model inference code
     │   │   ├── benchmark.c
     │   │   ├── data.c
     │   │   ├── data.h
     │   │   └── ...
     │   │── mindspore-lite-1.8.0-none-cortex-m7      # Downloaded Cortex-M7 Architecture `Micro` Lib
     │   ├── src                                      # Model inference code directory
-    │   └── ...
+    │   └── ...
     ├── Makefile
     ├── startup_stm32f767xx.s
     └── STM32F767IGTx_FLASH.ld

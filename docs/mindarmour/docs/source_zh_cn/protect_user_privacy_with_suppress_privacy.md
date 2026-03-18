@@ -280,17 +280,17 @@ ds_train = generate_mnist_dataset('MNIST_unzip/train', cfg.batch_size)
     ├── lenet5_net.py
     ├── mnist_train.py
     ├── new_trained_ckpt_file
-    │   ├── checkpoint_lenet-10_1875.ckpt
-    │   ├── checkpoint_lenet-1_1875.ckpt
-    │   ├── checkpoint_lenet-2_1875.ckpt
-    │   ├── checkpoint_lenet-3_1875.ckpt
-    │   ├── checkpoint_lenet-4_1875.ckpt
-    │   ├── checkpoint_lenet-5_1875.ckpt
-    │   ├── checkpoint_lenet-6_1875.ckpt
-    │   ├── checkpoint_lenet-7_1875.ckpt
-    │   ├── checkpoint_lenet-8_1875.ckpt
-    │   ├── checkpoint_lenet-9_1875.ckpt
-    │   └── checkpoint_lenet-graph.meta
+    │   ├── checkpoint_lenet-10_1875.ckpt
+    │   ├── checkpoint_lenet-1_1875.ckpt
+    │   ├── checkpoint_lenet-2_1875.ckpt
+    │   ├── checkpoint_lenet-3_1875.ckpt
+    │   ├── checkpoint_lenet-4_1875.ckpt
+    │   ├── checkpoint_lenet-5_1875.ckpt
+    │   ├── checkpoint_lenet-6_1875.ckpt
+    │   ├── checkpoint_lenet-7_1875.ckpt
+    │   ├── checkpoint_lenet-8_1875.ckpt
+    │   ├── checkpoint_lenet-9_1875.ckpt
+    │   └── checkpoint_lenet-graph.meta
     └── trained_ckpt_file
         ├── checkpoint_lenet-10_1875.ckpt
         ├── checkpoint_lenet-1_1875.ckpt
