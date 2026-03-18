@@ -36,7 +36,7 @@ A: You can refer to the following steps to reduce CPU consumption (mainly due to
 
 <br/>
 
-## Q:  Why there is no difference between the parameter `shuffle` in `GeneratorDataset`, and `shuffle=True` and `shuffle=False` when the task is run?
+## Q: Why there is no difference between the parameter `shuffle` in `GeneratorDataset`, and `shuffle=True` and `shuffle=False` when the task is run?
 
 A: If `shuffle` is enabled, the input `Dataset` must support random access (for example, the user-defined `Dataset` has the `getitem` method). If data is returned in `yeild` mode in the user-defined `Dataset`, random access is not supported. For details, see section [GeneratorDataset example](https://www.mindspore.cn/docs/en/r2.7.2/api_python/dataset/mindspore.dataset.GeneratorDataset.html).
 
@@ -130,7 +130,7 @@ for item in data_set.create_dict_iterator(output_numpy=True):
 
 <br/>
 
-## Q: When a customizing image dataset is converted to the mindrecord format, the data is in the `numpy.ndarray` format and `shape` is [4,100,132,3], indicating four three-channel frames, and each value ranges from 0 to 255. However, when I view the data that is converted into the mindrecord format, I find that the `shape` is `[19800]` and the dimensions of the original data are all expanded as`[158400]`. Why?
+## Q: When a customizing image dataset is converted to the mindrecord format, the data is in the `numpy.ndarray` format and `shape` is [4,100,132,3], indicating four three-channel frames, and each value ranges from 0 to 255. However, when I view the data that is converted into the mindrecord format, I find that the `shape` is `[19800]` and the dimensions of the original data are all expanded as`[158400]`. Why?
 
 A: The value of `dtype` in `ndarray` might be set to `int8`. The difference between `[158400]` and `[19800]` is eight times. You are advised to set `dtype` of `ndarray` to `float64`.
 
@@ -205,7 +205,7 @@ A: MindSpore Dataset module makes it easy for users to define data preprocessing
 
 <br/>
 
-## Q: When an error message  that "TDT Push data into device Failed" is displayed during network training, how to locate the problem?
+## Q: When an error message that "TDT Push data into device Failed" is displayed during network training, how to locate the problem?
 
 A: Firstly, above error refers to failed sending data to the device through the training data transfer channel (TDT). Here are several possible reasons for this error. Therefore, the corresponding checking suggestions are given in the log. In detail:
 
