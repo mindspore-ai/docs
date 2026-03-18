@@ -82,6 +82,12 @@ MindSpore Transformer在多卡训练时，需要预先将权重进行转换，�
 - tokenizer_config.json
 ```
 
+权重转换脚本依赖torch，运行前请执行如下指令安装torch：
+
+```shell
+pip install torch>=2.10.0
+```
+
 然后进行权重转换：
 
 ``` bash

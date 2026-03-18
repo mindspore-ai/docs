@@ -21,6 +21,14 @@ MindSpore Transformers提供了统一的权重转换工具，能够将模型权�
 
 要进行权重转换，首先请将待转换模型的HuggingFace仓库完整克隆到本地，然后执行`mindformers/convert_weight.py`脚本。该脚本能够自动将HuggingFace的模型权重文件转换为适用于MindSpore Transformers的权重文件。如若希望将MindSpore Transformers权重转为HuggingFace权重，请将`reversed`设置为`True`。
 
+权重转换脚本依赖torch，运行前请执行如下指令安装torch：
+
+```shell
+pip install torch>=2.10.0
+```
+
+然后进行权重转换：
+
 ```shell
 python convert_weight.py [-h] --model MODEL [--reversed] --input_path INPUT_PATH  --output_path OUTPUT_PATH [--dtype DTYPE] [--telechat_type TELECHAT_TYPE]
 ```
