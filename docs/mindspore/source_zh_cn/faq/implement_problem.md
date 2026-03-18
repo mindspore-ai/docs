@@ -123,7 +123,7 @@ model.train(epoch_size, ds_train, callbacks=[stop_cb])
 
 ### Q: 使用`nn.Conv2d`时，怎样获取期望大小的`feature map`？
 
-A: `Conv2d shape`推导方法可以[参考这里](https://www.mindspore.cn/docs/zh-CN/r2.8.0/api_python/nn/mindspore.nn.Conv2d.html#mindspore.nn.Conv2d)，`Conv2d`的`pad_mode`改成`same`，或者可以根据`Conv2d shape`推导公式自行计算`pad`，想要使得`shape`不变，一般pad为`(kernel_size-1)//2`。
+A: `Conv2d shape`推导方法可以[参考这里](https://www.mindspore.cn/docs/zh-CN/r2.8.0/api_python/nn/mindspore.nn.Conv2d.html#mindspore.nn.Conv2d)，`Conv2d`的`pad_mode`改成`same`，或者可以根据`Conv2d shape`推导公式自行计算`pad`，想要使得`shape`不变，一般pad为`(kernel_size-1)//2`。
 
 <br/>
 

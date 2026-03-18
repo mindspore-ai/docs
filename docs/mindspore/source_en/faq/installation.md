@@ -168,7 +168,7 @@ A: Currently, MindSpore only provides version matching relationships, which requ
 
 <br/>
 
-### Q: What should I do when the error message `No module named 'mindspore.version` is displayed when the use case is executed?
+### Q: What should I do when the error message `No module named 'mindspore.version` is displayed when the use case is executed?
 
 A: When there is such an error, it is possible to execute a use case in the path that created the same name as the MindSpore installation package, causing Python to preferentially find the current directory when importing the package, and the current directory does not version.py the file. The solution is to rename the directory or exit the one- or multi-level directory upwards.
 
@@ -312,7 +312,7 @@ It means MindSpore has been installed successfully.
 
 <br/>
 
-### Q: What should I do when the errors prompt, such as `sh:1:python:not found`, `No module named mindspore._extends.remote` that the Python was linked to Python2.7 when the use case is executed on `linux` platform?
+### Q: What should I do when the errors prompt, such as `sh:1:python:not found`, `No module named mindspore._extends.remote` that the Python was linked to Python2.7 when the use case is executed on `linux` platform?
 
 A: When you encounter such problem, it is most likely caused by Python environment. Use the following command to check whether the current Python environment meets the requirements of MindSpore.
 
