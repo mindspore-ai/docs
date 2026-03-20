@@ -28,10 +28,6 @@ Step 3 Select the desktop version to download, it is recommended to download the
 
 ![environment-setup-1-3](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.8.0/tutorials/source_zh_cn/orange_pi/images/environment_setup_1-3.png)
 
-Step 4 Alternative download method.
-
-If the download from Baidu Wangpan is too slow, you can use [this link](https://obs-9be7.obs.cn-east-2.myhuaweicloud.com/OrangePi/20240318/opiaipro_ubuntu22.04_desktop_aarch64_20240318.img.xz) to download directly.
-
 ### 1.3 Downloading the Tools
 
 There are two card-making tools balenaEtcher, Rufus, and you can choose any one of the tools to burn according to your computer.
@@ -50,11 +46,7 @@ There are two card-making tools balenaEtcher, Rufus, and you can choose any one 
 
   ![environment-setup-1-5](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.8.0/tutorials/source_zh_cn/orange_pi/images/environment_setup_1-5.png)
 
-  Step 3 Alternative download method.
-
-  If it is too slow to download from the official website, you can use to [this link](https://obs-9be7.obs.cn-east-2.myhuaweicloud.com/OrangePi/balenaEtcher/balenaEtcher-Setup-1.18.4.exe) to download directly the balenaEtcher-Setup-1.18.4 software.
-
-  Step 4 Open balenaEtcher.
+  Step 3 Open balenaEtcher.
 
   ![environment-setup-1-6](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.8.0/tutorials/source_zh_cn/orange_pi/images/environment_setup_1-6.png)
 
