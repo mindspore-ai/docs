@@ -28,10 +28,6 @@
 
 ![environment-setup-1-3](./images/environment_setup_1-3.png)
 
-步骤4 备选下载方式。
-
-如果百度网盘下载过慢，可以使用[此链接](https://obs-9be7.obs.cn-east-2.myhuaweicloud.com/OrangePi/20240318/opiaipro_ubuntu22.04_desktop_aarch64_20240318.img.xz)直接下载。
-
 ### 1.3 下载制卡工具
 
 有两种制卡工具balenaEtcher、Rufus，可根据自己电脑情况任选一种工具进行烧录。
@@ -50,11 +46,7 @@
 
   ![environment-setup-1-5](./images/environment_setup_1-5.png)
 
-  步骤3 备选下载方式。
-
-  如果官方网站下载过慢，可以使用[此链接](https://obs-9be7.obs.cn-east-2.myhuaweicloud.com/OrangePi/balenaEtcher/balenaEtcher-Setup-1.18.4.exe)直接下载balenaEtcher-Setup-1.18.4软件。
-
-  步骤4 打开balenaEtcher。
+  步骤3 打开balenaEtcher。
 
   ![environment-setup-1-6](./images/environment_setup_1-6.png)
 
