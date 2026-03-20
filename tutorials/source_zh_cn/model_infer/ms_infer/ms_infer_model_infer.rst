@@ -106,7 +106,8 @@ MindSpore大语言模型为了能够实现最优的性价比，针对大语言�
 
 .. note::
 
-   由于Qwen2模型也有多个版本和配置，本文主要基于Qwen2-7B-Instruct模型进行说明。
+   1. 由于Qwen2模型也有多个版本和配置，本文主要基于Qwen2-7B模型进行说明。
+   2. 由于部分高性能算子只在Ascend芯片上实现，当前该教程只支持Ascend环境执行。
 
 环境准备
 ~~~~~~~~
@@ -374,7 +375,7 @@ MindSpore大语言模型带框架推理主要依赖MindSpore开源软件，用�
 
   .. code:: shell
 
-     <s>I love Beijing, because it is a city that is constantly changing. I have been living here for 10 years and I have seen the city changes so much. ...
+     <s>I love Beijing, because it is a beautiful city with a long history. I have been to many places of interest in Beijing, such as the Great Wall, the Summer Palace, the Palace Museum and so on. ...
 
   可以看到，将模型推理的token id翻译后，即是一句可以被正常人理解的语句。实际验证过程中，由于do_sample的随机性，每次推理会有一定的差异，但是结果的逻辑基本都是可以被理解的。
 
