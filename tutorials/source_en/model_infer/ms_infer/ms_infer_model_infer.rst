@@ -107,7 +107,8 @@ Based on the mainstream Qwen2 open-source LLM, this section demonstrates how to 
 
 .. note::
 
-   The Qwen2 model has multiple versions and configurations. This document uses Qwen2-7B-Instruct as an example.
+   1. The Qwen2 model has multiple versions and configurations. This document uses Qwen2-7B as an example.
+   2. Since some high-performance operators are only implemented on Ascend chips, this tutorial currently only supports execution in the Ascend environment.
 
 Environment Preparations
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -375,7 +376,7 @@ Once the model is built, you can utilize the model object for text generation, e
 
   .. code:: shell
 
-     <s>I love Beijing, because it is a city that is constantly changing. I have been living here for 10 years and I have seen the city changes so much. ...
+     <s>I love Beijing, because it is a beautiful city with a long history. I have been to many places of interest in Beijing, such as the Great Wall, the Summer Palace, the Palace Museum and so on. ...
 
   It can be seen that the model-inferred token IDs are translated to a human-readable statement. In actual verification, due to the randomness of **do_sample**, each inference is different, but the result logic is basically understandable.
 
