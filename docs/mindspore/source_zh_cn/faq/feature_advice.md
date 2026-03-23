@@ -4,6 +4,10 @@
 
 ## 常见问题
 
+### Q: 部分教程样例在CPU（Linux、MacOS、Windows）上运行时，结果与文档中不同，或运行报错怎么办？
+
+A: 文档样例仅在Ascend上验证，除特殊说明外，默认未提供CPU和GPU等的验证和支持。
+
 ### Q: 导出MindIR格式的时候，`input=np.random.uniform(...)`是不是固定格式？
 
 A: 不是固定格式的，这一步操作是为了创建一个输入，以便于构建网络结构。`export`里只要传入正确的`shape`即可，使用`np.ones`和`np.zeros`创建都是可以的。
