@@ -4,6 +4,10 @@
 
 ## FAQ
 
+### Q: What should I do if the results of some tutorial examples differ from those in the documentation when run on a CPU (Linux, macOS, Windows), or if an error occurs during execution?
+
+A: The documentation examples have been verified only on Ascend. Unless otherwise specified, verification and support for CPUs, GPUs, and other components are not provided by default.
+
 ### Q: Is the `input=np.random.uniform(...)` format fixed when the MindIR format is exported?
 
 A: The format is not fixed. This step is to create an input for constructing the network structure. You only need to input the correct `shape` in `export`. You can use `np.ones` and `np.zeros` to create an input.
