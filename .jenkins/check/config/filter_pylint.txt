@@ -2,3 +2,4 @@
 "docs/tools/generate_html"
 "docs/tools/ci_pipeline_gate_APIView"
 "docs/tools/link_detection/link_lint.py"
+"docs/docs/mindquantum/docs/_ext/myautosummary.py"
