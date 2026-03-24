@@ -505,8 +505,9 @@ mindspore-lite-{version}-linux-x64
         │   ├── nnacl        # nnacl 算子头文件
         │   └── wrapper      # wrapper 算子头文件
         ├── lib
-        │   ├── libwrapper.a # MindSpore Lite codegen生成代码依赖的部分算子静态库
-        │   └── libnnacl.a   # MindSpore Lite codegen生成代码依赖的nnacl算子静态库
+        │   ├── cpu
+        │   │   ├── libwrapper.a # MindSpore Lite codegen生成代码依赖的部分算子静态库
+        │   │   └── libnnacl.a   # MindSpore Lite codegen生成代码依赖的nnacl算子静态库
         └── third_party
             ├── include
             │   └── CMSIS    # ARM CMSIS NN 算子头文件
@@ -709,8 +710,8 @@ STM32F767芯片为Cortex-M7架构，可以通过以下两种方式获取该架�
     在项目选项窗口左侧选择`Linker`选项，在右侧的子窗口中，选择`Library`子界面，将推理代码依赖的算子静态库文件加入到列表中。本例中添加的静态库文件如下：
 
     ```text
-    $PROJ_DIR$/../mnist/mindspore-lite-1.8.0-none-cortex-m7/tools/codegen/lib/libwrapper.a
-    $PROJ_DIR$/../mnist/mindspore-lite-1.8.0-none-cortex-m7/tools/codegen/lib/libnnacl.a
+    $PROJ_DIR$/../mnist/mindspore-lite-1.8.0-none-cortex-m7/tools/codegen/lib/cpu/libwrapper.a
+    $PROJ_DIR$/../mnist/mindspore-lite-1.8.0-none-cortex-m7/tools/codegen/lib/cpu/libnnacl.a
     $PROJ_DIR$/../mnist/mindspore-lite-1.8.0-none-cortex-m7/tools/codegen/third_party/lib/libcmsis_nn.a  
     ```
 
@@ -1033,7 +1034,7 @@ lite_component("mnist_benchmark") {
     ]
     libs = [
         "<YOUR MINDSPORE LITE RUNTIME PATH>/runtime/lib/libmindspore-lite.a",
-        "<YOUR MINDSPORE LITE RUNTIME PATH>/tools/codegen/lib/libwrapper.a",
+        "<YOUR MINDSPORE LITE RUNTIME PATH>/tools/codegen/lib/cpu/libwrapper.a",
     ]
     defines = [
         "NOT_USE_STL",

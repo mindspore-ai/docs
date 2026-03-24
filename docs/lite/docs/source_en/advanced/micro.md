@@ -507,8 +507,9 @@ mindspore-lite-{version}-linux-x64
         │   ├── nnacl        # nnacl operator header file
         │   └── wrapper      # wrapper operator header file
         ├── lib
-        │   ├── libwrapper.a # The MindSpore Lite codegen generates some operator static libraries on which the code depends
-        │   └── libnnacl.a   # The MindSpore Lite codegen generates the nnacl operator static library on which the code depends
+        │   ├── cpu
+        │   │   ├── libwrapper.a # The MindSpore Lite codegen generates some operator static libraries on which the code depends
+        │   │   └── libnnacl.a   # The MindSpore Lite codegen generates the nnacl operator static library on which the code depends
         └── third_party
             ├── include
             │   └── CMSIS    # ARM CMSIS NN operator header file
@@ -712,8 +713,8 @@ This chapter uses the STM32F767 startup project as an example to describe how to
     In the left pane of the Project Options window, select `Linker`. In the right pane, select `Library` and add the operator static library file on which the inference code depends to the list. The static library file added in this example is as follows:
 
     ```text
-    $PROJ_DIR$/../mnist/mindspore-lite-1.8.0-none-cortex-m7/tools/codegen/lib/libwrapper.a
-    $PROJ_DIR$/../mnist/mindspore-lite-1.8.0-none-cortex-m7/tools/codegen/lib/libnnacl.a
+    $PROJ_DIR$/../mnist/mindspore-lite-1.8.0-none-cortex-m7/tools/codegen/lib/cpu/libwrapper.a
+    $PROJ_DIR$/../mnist/mindspore-lite-1.8.0-none-cortex-m7/tools/codegen/lib/cpu/libnnacl.a
     $PROJ_DIR$/../mnist/mindspore-lite-1.8.0-none-cortex-m7/tools/codegen/third_party/lib/libcmsis_nn.a  
     ```
 
@@ -1036,7 +1037,7 @@ lite_component("mnist_benchmark") {
     ]
     libs = [
         "<YOUR MINDSPORE LITE RUNTIME PATH>/runtime/lib/libmindspore-lite.a",
-        "<YOUR MINDSPORE LITE RUNTIME PATH>/tools/codegen/lib/libwrapper.a",
+        "<YOUR MINDSPORE LITE RUNTIME PATH>/tools/codegen/lib/cpu/libwrapper.a",
     ]
     defines = [
         "NOT_USE_STL",
