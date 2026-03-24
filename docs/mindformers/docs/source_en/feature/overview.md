@@ -8,15 +8,15 @@ MindSpore Transformers provides a wide range of features across the full process
 
 Foundational capabilities reusable across pre-training, fine-tuning, and inference for consistent setup and reuse.
 
-| Feature                                                                                                                              | Description                                                                           | Architecture Support |
-|--------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------|----------------------|
-| [Start Tasks](https://www.mindspore.cn/mindformers/docs/en/master/feature/start_tasks.html)                                          | One-click start for single-device, single-node and multi-node tasks.                  | Mcore/Legacy         |
-| [Ckpt Weights](https://www.mindspore.cn/mindformers/docs/en/master/feature/ckpt.html)                                                | [Checkpoint 1.0] Supports conversion, slice and merge of weight files in ckpt format. | Legacy               |
-| [Safetensors Weights](https://www.mindspore.cn/mindformers/docs/en/master/feature/safetensors.html)                                  | [Checkpoint 1.0] Supports saving and loading weight files in safetensors format.      | Mcore/Legacy         |
-| [Configuration File Descriptions](https://www.mindspore.cn/mindformers/docs/en/master/feature/configuration.html)                    | Use YAML files to centrally manage and adjust configurable items in tasks.            | Mcore/Legacy         |
-| [Loading Hugging Face Model Configuration](https://www.mindspore.cn/mindformers/docs/en/master/feature/load_huggingface_config.html) | Plug-and-play loading of Hugging Face community model configurations.                 | Mcore                |
-| [Logs](https://www.mindspore.cn/mindformers/docs/en/master/feature/logging.html)                                                     | Introduction to logs, including log structure and log saving.                         | Mcore/Legacy         |
-| [Using Tokenizer](https://www.mindspore.cn/mindformers/docs/en/master/feature/tokenizer.html)                                        | Introduction to tokenizer; supports Hugging Face Tokenizer in inference and datasets. | Mcore                |
+| Feature                                                                                                                              | Description                                                                               | Architecture Support |
+|--------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------|----------------------|
+| [Start Tasks](https://www.mindspore.cn/mindformers/docs/en/master/feature/start_tasks.html)                                          | One-click start for single-device, single-node and multi-node tasks.                      | Mcore/Legacy         |
+| [Ckpt Weights](https://www.mindspore.cn/mindformers/docs/en/master/feature/ckpt.html)                                                | [Checkpoint 1.0] Supports conversion, slicing and merging of weight files in ckpt format. | Legacy               |
+| [Safetensors Weights](https://www.mindspore.cn/mindformers/docs/en/master/feature/safetensors.html)                                  | [Checkpoint 1.0] Supports saving and loading weight files in safetensors format.          | Mcore/Legacy         |
+| [Configuration File Descriptions](https://www.mindspore.cn/mindformers/docs/en/master/feature/configuration.html)                    | Use YAML files to centrally manage and adjust configurable items in tasks.                | Mcore/Legacy         |
+| [Loading Hugging Face Model Configuration](https://www.mindspore.cn/mindformers/docs/en/master/feature/load_huggingface_config.html) | Plug-and-play loading of Hugging Face community model configurations.                     | Mcore                |
+| [Logs](https://www.mindspore.cn/mindformers/docs/en/master/feature/logging.html)                                                     | Introduction to logs, including log structure and log saving.                             | Mcore/Legacy         |
+| [Using Tokenizer](https://www.mindspore.cn/mindformers/docs/en/master/feature/tokenizer.html)                                        | Introduction to tokenizer; supports Hugging Face Tokenizer in inference and datasets.     | Mcore                |
 
 ## Training Features
 

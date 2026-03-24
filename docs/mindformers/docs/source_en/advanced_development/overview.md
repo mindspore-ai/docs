@@ -6,7 +6,7 @@ MindSpore Transformers advanced development targets scenarios such as model migr
 
 ## Diagnostics and Optimization
 
-Systematic methods for identifying and resolving precision and performance issues during training and inference.
+We provide systematic methods for identifying and resolving precision and performance issues during training and inference.
 
 | Document                                                                                                                           | Description                                                                                                                                              | Architecture Support |
 |------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------|
@@ -37,6 +37,6 @@ Validation of alignment with reference implementations or GPU environments for b
 
 Entry point to API documentation for MindSpore Transformers modules.
 
-| Document                                                                                 | Description                                                                    |
-|------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------|
-| [API](https://www.mindspore.cn/mindformers/docs/en/master/advanced_development/api.html) | API index and detailed interface documentation for mindformers and submodules. |
+| Document                                                                                 | Description                                                                               |
+|------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------|
+| [API](https://www.mindspore.cn/mindformers/docs/en/master/advanced_development/api.html) | API index and detailed interface documentation for MindSpore Transformers and submodules. |

@@ -8,10 +8,10 @@ MindSpore Transformers 高阶开发面向模型迁移、调优与精度验证等
 
 面向训练与推理过程中的精度与性能问题，提供系统化的排查与优化方法。
 
-| 文档                                                                                                                | 说明                                                   | 架构支持         |
-|-------------------------------------------------------------------------------------------------------------------|------------------------------------------------------|--------------|
-| [精度调优](https://www.mindspore.cn/mindformers/docs/zh-CN/master/advanced_development/precision_optimization.html)   | 大模型训练常见精度问题与通用定位方法，包括 CheckList、参数对齐、随机性固定及长稳排查等。    | Mcore/Legacy |
-| [性能调优](https://www.mindspore.cn/mindformers/docs/zh-CN/master/advanced_development/performance_optimization.html) | 大模型性能调优思路与工具，涵盖数据加载、前反向计算、通信与调度等环节的优化及 Profile 使用指导。 | Mcore/Legacy |
+| 文档                                                                                                                | 说明                                                     | 架构支持         |
+|-------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------|--------------|
+| [精度调优](https://www.mindspore.cn/mindformers/docs/zh-CN/master/advanced_development/precision_optimization.html)   | 大模型训练常见精度问题与通用定位方法，包括 CheckList、参数对齐、随机性固定及长稳排查等。      | Mcore/Legacy |
+| [性能调优](https://www.mindspore.cn/mindformers/docs/zh-CN/master/advanced_development/performance_optimization.html) | 大模型性能调优思路与工具，涵盖数据加载、前向/反向计算、通信与调度等环节的优化及 Profile 使用指导。 | Mcore/Legacy |
 
 ## 模型开发与配置
 
