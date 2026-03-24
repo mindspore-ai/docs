@@ -115,5 +115,14 @@
             ]
         },
         "theme": "theme-lite"
+    },
+    {
+        "version": "r0.12",
+        "label": {
+            "zh": "MindSpore Quantum",
+            "en": "MindSpore Quantum"
+        },
+        "repo_name": "mindquantum",
+        "theme": "theme-docs"
     }
 ]
