@@ -27,7 +27,7 @@
 /tutorials/source_zh_cn/debug/error_analysis/ @zwiori @gemini524
 /tutorials/source_zh_cn/debug/dryrun.md @limingqi107 @gemini524
 /tutorials/source_zh_cn/debug/dump.md @DavidFFFan @gemini524
-/tutorials/source_zh_cn/debug/profiler.md @changzherui @gemini524
+/tutorials/source_zh_cn/debug/profiler.md @changzherui1 @gemini524
 /tutorials/source_zh_cn/debug/pynative.md @chujinjin @gemini524
 /tutorials/source_zh_cn/debug/sdc.md @zhangbuxue @gemini524
 /tutorials/source_zh_cn/generative/ @zwiori @gemini524
@@ -45,7 +45,7 @@
 /tutorials/source_zh_cn/parallel/dynamic_cluster.md @zhangyinxia @gemini524
 /tutorials/source_zh_cn/parallel/mpirun.md @zhangyinxia @gemini524
 /tutorials/source_zh_cn/train_availability/ @zhangbuxue @gemini524
-/tutorials/source_zh_cn/train_availability/fault_recover.md @changzherui @gemini524
+/tutorials/source_zh_cn/train_availability/fault_recover.md @zhangbuxue @gemini524
 /tutorials/source_zh_cn/train_availability/graceful_exit.md @zhangbuxue @gemini524
 
 # The maintainers of MindSpore docs.
