@@ -35,5 +35,16 @@
     "whl_name" : "",
     "environ" : "",
     "uninstall_name" : ""
+    },
+    {
+    "id" : 4 ,
+    "name" : "mindquantum",
+    "branch" : "r0.12",
+    "whl_path" : "2.8.0/MindQuantum/gpu/x86_64/cuda-11.1/",
+    "whl_name" : "mindquantum-0.12.0-cp39-cp39-linux_x86_64.whl",
+    "environ" : "MQ_PATH",
+    "uninstall_name" : "mindquantum",
+    "extra_whl_path" : "2.8.0/MindSpore/unified/x86_64/",
+    "extra_whl_name" : "mindspore-2.8.0-cp39-cp39-linux_x86_64.whl"
     }
 ]
