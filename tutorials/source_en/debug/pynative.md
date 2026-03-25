@@ -125,6 +125,10 @@ When you need to see if the backpropagation accuracy is accurate under a dynamic
   print(output)
   ```
 
+  ```text
+  (Tensor(shape=[], dtype=Float32, value= 4), (Tensor(shape=[], dtype=Float32, value= 8), Tensor(shape=[], dtype=Float32, value= 6)))
+  ```
+
   Detailed API usage instructions can be [referenced](https://www.mindspore.cn/docs/en/master/api_python/mindspore/Tensor/mindspore.Tensor.register_hook.html#mindspore.Tensor.register_hook).
 
 - Viewing the gradient during execution can be done with `mindspore.ops.HookBackward`, for example:
@@ -149,6 +153,11 @@ When you need to see if the backpropagation accuracy is accurate under a dynamic
   output = backward(Tensor(1, mindspore.float32), Tensor(2, mindspore.float32))
 
   print(output)
+  ```
+
+  ```text
+  (Tensor(shape=[], dtype=Float32, value= 2),)
+  (Tensor(shape=[], dtype=Float32, value= 4), (Tensor(shape=[], dtype=Float32, value= 4), Tensor(shape=[], dtype=Float32, value= 4)))
   ```
 
   Detailed API usage instructions can be [referenced](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.HookBackward.html).
@@ -178,6 +187,12 @@ When you need to see if the backpropagation accuracy is accurate under a dynamic
   output = mindspore.value_and_grad(net, grad_position=(0,))(Tensor(np.ones([1]).astype(np.float32)))
 
   print(output)
+  ```
+
+  ```text
+  backward input:  (Tensor(shape=[1], dtype=Float32, value= [ 1.00000000e+00]),)
+  backward output:  (Tensor(shape=[1], dtype=Float32, value= [ 1.00000000e+00]),)
+  (Tensor(shape=[1], dtype=Float32, value= [ 2.00000000e+00]), Tensor(shape=[1], dtype=Float32, value= [ 2.00000000e+00]))
   ```
 
   Detailed API usage instructions can be [referenced](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.register_backward_hook).
