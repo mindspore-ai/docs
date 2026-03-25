@@ -106,7 +106,7 @@ model = Model(net, loss_fn=loss, optimizer=optim)  # Model encapsulation
 
 [mindspore.train.CheckpointConfig](https://www.mindspore.cn/docs/en/master/api_python/train/mindspore.train.CheckpointConfig.html) supports configuration based on the number of iterations, with the following main parameters:
 
-- `save_checkpoint_steps`: indicates how many steps to save a Checkpoint file. The default value is 1.
+- `save_checkpoint_steps`: indicates how many steps to save a Checkpoint file. The default value is 1. (When dataset_sink_mode is enabled, this indicates how many epochs elapse between saving each checkpoint file.)
 - `keep_checkpoint_max`: indicates the maximum number of Checkpoint files to be saved. The default value is 5.
 
 If the iteration strategy script ends normally, the Checkpoint file of the last step is saved by default.
@@ -118,6 +118,8 @@ During model training, the `callbacks` parameter in `Model.train` is used to pas
 The parameter `append_info` of `CheckpointConfig` can save user-defined information in the Checkpoint file. `append_info` supports passing in ``epoch_num``, ``step_num`` and data of dictionary type. ``epoch_num`` and ``step_num`` can save the number of epochs and the number of steps during training in the Checkpoint file.
 
 `key` of the dictionary type data must be of type string, and `value` must be of type int, float, bool, string, Parameter, or Tensor.
+
+The data sinking mode for model training, that is, the `dataset_sink_mode=True` setting, takes effect only on Ascend devices.
 
 ```python
 # User-defined saved data
