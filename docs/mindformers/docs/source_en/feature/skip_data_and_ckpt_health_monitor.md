@@ -211,6 +211,8 @@ When the model officially starts training, the log will print the embedding loca
 - INFO - embedding_local_norm: 291.3603
 ```
 
+Under Checkpoint 1.0, the health monitoring results are saved in `output_path/health_ckpts.json`.
+
 The recorded data of health_ckpts.json is as follows:
 
 The ckpt_name records the weight file name, while is_health records the health status of the corresponding weight. In the record, 1 represents unhealthy and 0 represents healthy.
@@ -226,4 +228,21 @@ The ckpt_name records the weight file name, while is_health records the health s
         "ckpt_name": "qwen3_8b_rank_0-2_1.safetensors"
     }
 ]
+```
+
+Under Checkpoint 2.0, the health monitoring results are saved in `output_path/checkpoint/iteation_xxxxxx/common.json`.
+
+The recorded data of common.json is as follows:
+
+The `ckpt_status` records the health status of the corresponding weights. In the record, 1 indicates unhealthy and 0 indicates healthy. The remaining data are training parameters for Checkpoint 2.0. For details, please refer to the [Checkpoint 2.0 documentation](https://www.mindspore.cn/mindformers/docs/en/master/feature/resume_training2.0.html).
+
+```json
+{
+    "epoch_num": 1,
+    "step_num": 1,
+    "global_step": 1,
+    "loss_scale": 1.0,
+    "global_batch_size": 8,
+    "ckpt_status": 1
+}
 ```

@@ -211,6 +211,8 @@ bash scripts/msrun_launcher.sh "run_mindformer.py \
 - INFO - embedding_local_norm: 291.3603
 ```
 
+Checkpoint 1.0 下健康监测结果保存在`output_path/health_ckpts.json`中。
+
 health_ckpts.json记录数据如下：
 
 ckpt_name记录的是权重文件名，is_health记录的是对应权重的健康状况。记录中1表示不健康，0表示健康。
@@ -226,4 +228,21 @@ ckpt_name记录的是权重文件名，is_health记录的是对应权重的健�
         "ckpt_name": "qwen3_1_8b_rank_0-2_1.safetensors"
     }
 ]
+```
+
+Checkpoint 2.0 下健康监测结果保存在`output_path/checkpoint/iteation_xxxxxx/common.json`中。
+
+common.json记录数据如下：
+
+其中ckpt_status记录的是对应权重的健康状况。记录中1表示不健康，0表示健康。其余数据为Checkpoint 2.0的训练参数，详情请查看[Checkpoint 2.0文档](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/resume_training2.0.html)。
+
+```json
+{
+    "epoch_num": 1,
+    "step_num": 1,
+    "global_step": 1,
+    "loss_scale": 1.0,
+    "global_batch_size": 8,
+    "ckpt_status": 1
+}
 ```
