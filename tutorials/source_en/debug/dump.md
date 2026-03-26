@@ -142,7 +142,7 @@ MindSpore supports different Dump functionalities under various modes, as shown 
            Note that whether setting the environment variable `MS_DEV_SAVE_GRAPHS` to 2 may cause the different IDs of the same operator, so when dump specified operators, keep this setting unchanged after obtaining the operator name. Or you can obtain the operator names from the file `ms_output_trace_code_graph_{graph_id}.ir` saved by Dump. Refer to [Ascend ms_backend Dump Data Object Directory](#introduction-to-data-object-directory-and-data-file).
            2. You can also specify an operator type. When there is no operator scope information or operator id information in the string, the background considers it as an operator type, such as "conv". The matching rule of operator type is: when the operator name contains an operator type string, the matching is considered successful (case insensitive). For example, "conv" can match operators "Conv2D-op1234" and "Conv3D-op1221".
            3. Regular expressions are supported. When the string conforms to the format of "name-regex(xxx)", it would be considered a regular expression. For example, "name-regex(Default/.+)" can match all operators with names starting with "Default/".
-        - `support_device`: Supported devices, default setting is `[0,1,2,3,4,5,6,7]`. In distributed training scenarios where data on individual devices needs to be dumped, you can specify only the device Id that needs to be dumped in `support_device`. This configuration parameter is invalid on the CPU, because there is no concept of device on the CPU, but it is still need to reserve this parameter in the json file.
+        - `support_device`: Supported devices, default setting is `[0,1,2,3,4,5,6,7]`. In distributed training scenarios where data on individual devices needs to be dumped, you can specify only the device ID that needs to be dumped in `support_device`. This configuration parameter is invalid on the CPU, because there is no independent device ID concept on the CPU, but this field still needs to be retained in the json file.
         - `statistic_category`: This attribute is used by users to configure the category of statistical information to be saved, and only takes effect when saving statistical information is enabled(i.e.`saved_data` is set to `statistic` or `full`). The type is a string list, where the optional values of the strings are as follows:
 
             - "max": represents the maximum value of the elements in tensor, supporting both device and host statistics;
@@ -167,7 +167,7 @@ MindSpore supports different Dump functionalities under various modes, as shown 
     - `e2e_dump_settings`:
 
         - `enable`: When set to `true`, enable Synchronous Dump. When set to false or not set, Asynchronous Dump will be used on Ascend. The main difference between the two is that Asynchronous Dump has less impact on the original code execution order.
-        - `trans_flag`: Enable trans flag. Transform the device data format into NCHW. If it is `true`, the data will be saved in the 4D format (NCHW) format on the Host side; if it is `false`, the data format on the Device side will be retained. Default: `true`.
+        - `trans_flag`: Enable trans flag. Transform the device data format into NCHW. If it is `true`, the data will be saved in the 4D format (NCHW) format on the Host side; if it is `false`, the data format on the Device side will be retained. In the context of CPU scenarios, the term "device side" can be understood as a generic term on the execution side. It does not imply the existence of a separate physical device. Default: `true`.
         - `stat_calc_mode`: Select the backend for statistical calculations. Options are "host" and "device". Choosing "device" enables device computation of statistics, currently only effective on Ascend, and supports only min/max/avg/l2norm statistics. When `op_debug_mode` is set to 3, only `stat_calc_mode` set to "host" is supported. Default: "host".
         - `device_stat_precision_mode`(Optional): Precision mode of device statistics, and the value can be "high" or "low". When "high" is selected, avg/l2norm statistics will be calculated using float32, which will increase device memory usage and have higher precision; when "low" is selected, the same type as the original data will be used for calculation, which will occupy less device memory, but statistics overflow may be caused when processing large values. The default value is "high".
         - `sample_mode`(Optional): Setting it to 0 means the sample dump function is not enabled. Enable the sampling dump feature during graph compilation using the ms_backend backend. This field is effective only when "op_debug_mode" is set to `0`, sample dump cannot be enabled in other scene.
@@ -291,7 +291,7 @@ ms_execution_order_graph_{graph_id}.csv
 
 ### Data Analysis Sample
 
-In order to better demonstrate the process of using dump to save and analyze data, we provide a set of [complete sample script](https://atomgit.com/mindspore/docs/tree/r2.8.0/docs/sample_code/dump) , you only need to execute `bash dump_sync_dump.sh` for Ascend ms_backend dump.
+In order to better demonstrate the process of using dump to save and analyze data, we provide a set of [complete sample scripts](https://atomgit.com/mindspore/docs/tree/r2.8.0/docs/sample_code/dump). You only need to execute `bash dump_sync_dump.sh` for Ascend ms_backend dump.
 
 After the graph corresponding to the script is saved to the disk through the Dump function, the final execution graph file `ms_output_trace_code_graph_{graph_id}.ir` will be generated. This file saves the stack information of each operator in the corresponding graph, and records the generation script corresponding to the operator.
 
@@ -506,13 +506,13 @@ For detailed configuration descriptions, please refer to the [Introduction to co
             - "md5": represents the MD5 value of the tensor;
             - "l2norm": represents L2Norm value of the tensor.
 
-        In CPU/GPU Dump Backend, all statistics are calculated on the host.
+        In CPU/GPU Dump Backend, all statistics are calculated on the host. Here, "host" and "device" are used to distinguish the framework-side view from the execution-side view, and this does not necessarily indicate the presence of an independent physical device. Therefore, in CPU scenarios, although there is no independent device concept, these terms may still be used in the document.
         This field is optional, with default values of ["max", "min", "l2norm"].
 
     - `e2e_dump_settings`:
 
         - `enable`: In CPU/GPU Dump Backend, this field must be set to `true`.
-        - `trans_flag`: Enable trans flag. Transform the device data format into NCHW. If it is `true`, the data will be saved in the 4D format (NCHW) format on the Host side; if it is `false`, the data format on the Device side will be retained. Default: `true`.
+        - `trans_flag`: Enable trans flag. Transform the device data format into NCHW. If it is `true`, the data will be saved in the 4D format (NCHW) format on the Host side; if it is `false`, the data format on the Device side will be retained. In the context of CPU scenarios, the term "device side" can be understood as a generic term on the execution side. It does not imply the existence of a separate physical device. Default: `true`.
 
 2. Set Dump environment variable.
 
@@ -546,6 +546,8 @@ For detailed configuration descriptions, please refer to the [Introduction to co
    After the training is started, if the `MINDSPORE_DUMP_CONFIG` environment variable is correctly configured, the content of the configuration file will be read and the operator data will be saved according to the data storage path specified in the Dump configuration.
    If you want to dump data in GPU environment, you must use the non-data sink mode (set the `dataset_sink_mode` parameter in `model.train` or `DatasetHelper` to `False`) to ensure that you can get the dump data of each step.
    If `model.train` or `DatasetHelper` is not called in the script, the default is non-data sinking mode. Using the Dump function will automatically generate the IR file of the final execution graph.
+
+   If you use the sample script `run_sync_dump.sh`, update `DEVICE_TARGET` in the script according to the actual backend before execution: set it to `CPU` for the CPU backend and `GPU` for the GPU backend. The default value in the script is `Ascend`, so running it directly on CPU/GPU backends will fail.
 
 4. Read and parse dump data through `numpy.load`, refer to [Introduction to CPU/GPU Dump Data File](#introduction-to-data-object-directory-and-data-file-1).
 
@@ -638,7 +640,7 @@ This file stores the list of iterations in which the graph was executed. After t
 
 ### Data Analysis Sample
 
-In order to better demonstrate the process of using dump to save and analyze data, we provide a set of [complete sample script](https://atomgit.com/mindspore/docs/tree/r2.8.0/docs/sample_code/dump) , you only need to execute `bash dump_sync_dump.sh` for CPU/GPU dump.
+In order to better demonstrate the process of using dump to save and analyze data, we provide a set of [complete sample scripts](https://atomgit.com/mindspore/docs/tree/r2.8.0/docs/sample_code/dump). Before executing `bash run_sync_dump.sh` in the CPU/GPU backend, you need to update `DEVICE_TARGET` in the script to match the actual backend: set it to `CPU` for CPU and `GPU` for GPU.
 
 After the graph corresponding to the script is saved to the disk through the Dump function, the final execution graph file `ms_output_trace_code_graph_{graph_id}.ir` will be generated. This file saves the stack information of each operator in the corresponding graph, and records the generation script corresponding to the operator.
 
