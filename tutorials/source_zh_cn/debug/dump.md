@@ -142,7 +142,7 @@ MindSpore在不同后端下支持的Dump功能如下表所示：
            需要注意的是，是否设置环境变量`MS_DEV_SAVE_GRAPHS`的值为2可能会导致同一个算子的id不同，所以在Dump指定算子时要在获取算子名称之后保持这一项设置不变。或者也可以在Dump保存的`ms_output_trace_code_graph_{graph_id}.ir`文件中获取算子名称，参考[Ascend ms_backend后端下Dump数据对象目录](#数据对象目录和数据文件介绍)。
            2. 还可以指定算子类型。当字符串中不带算子scope信息和算子id信息时，后台则认为其为算子类型，例如："conv"。算子类型的匹配规则为：当发现算子名中包含算子类型字符串时，则认为匹配成功（不区分大小写），例如："conv" 可以匹配算子 "Conv2D-op1234"、"Conv3D-op1221"。
            3. 算子名称的正则表达式。当字符串符合"name-regex(xxx)"格式时，后台则会将其作为正则表达式。例如，"name-regex(Default/.+)"可匹配算子名称以"Default/"开头的所有算子。
-        - `support_device`：支持的设备，默认设置成0到7即可；在分布式训练场景下，需要dump个别设备上的数据，可以只在`support_device`中指定需要Dump的设备Id。该配置参数在CPU上无效，因为CPU下没有device这个概念，但是在json格式的配置文件中仍需保留该字段。
+        - `support_device`：支持的设备，默认设置成0到7即可；在分布式训练场景下，需要dump个别设备上的数据，可以只在`support_device`中指定需要Dump的设备Id。该配置参数在CPU上无效，因为CPU下没有独立device ID这个概念，但是在json格式的配置文件中仍需保留该字段。
         - `statistic_category`: 该属性用于用户配置要保存的统计信息类别，仅在开启了保存统计信息(即`saved_data`设置为"statistic"或"full")时生效。类型为字符串列表，其中的字符串可选值如下：
 
             - "max": 表示Tensor中元素的最大值，支持在device统计和在host统计；
@@ -167,7 +167,7 @@ MindSpore在不同后端下支持的Dump功能如下表所示：
     - `e2e_dump_settings`:
 
         - `enable`：设置成true，表示开启同步Dump；设置成false时，采用异步Dump。不设置该字段时默认值为false，开启异步Dump。两者的区别是异步Dump对原本代码执行过程的影响更小。
-        - `trans_flag`：开启格式转换，将设备上的数据格式转换成NCHW格式。若为`true`，则数据会以Host侧的4D格式（NCHW）格式保存；若为`false`，则保留Device侧的数据格式。该配置参数在CPU上无效，因为CPU上没有format转换。默认值：true。
+        - `trans_flag`：开启格式转换，将设备上的数据格式转换成NCHW格式。若为`true`，则数据会以Host侧的4D格式（NCHW）格式保存；若为`false`，则保留Device侧的数据格式。在CPU场景下，此处的“Device侧”可理解为算子执行侧的统一术语，并不表示存在独立物理设备。该配置参数在CPU上无效，因为CPU上没有format转换。默认值：true。
         - `stat_calc_mode`：选择统计信息计算后端，可选"host"和"device"。选择"device"后可以使能device计算统计信息，当前只在Ascend生效，只支持`min/max/avg/l2norm`统计量。在op_debug_mode设置为3时，仅支持将`stat_calc_mode`设置为"host"。默认值："host"。
         - `device_stat_precision_mode`（可选）：device统计信息精度模式，可选"high"和"low"。选择"high"时，`avg/l2norm`统计量使用float32进行计算，会增加device内存占用，精度更高；为"low"时使用与原始数据相同的类型进行计算，device内存占用较少，但在处理较大数值时可能会导致统计量溢出。默认值为"high"。
         - `sample_mode`（可选）：设置成0，表示不开启切片dump功能；设置成1时，在图编译后端为ms_backend的情况下开启切片dump功能。仅在op_debug_mode设置为0时生效，其他场景不会开启切片dump功能。
@@ -506,13 +506,13 @@ Ascend下GE后端Dump已迁移到msprobe工具，更多详情请查看[《msprob
             - "md5": 表示Tensor的MD5值；
             - "l2norm": 表示Tensor的L2Norm值。
 
-        CPU/GPU Dump后端只支持host测统计信息及结算。
+        CPU/GPU Dump后端只支持host侧统计信息计算。这里的“host侧”/“device侧”更偏向区分框架侧视图和执行侧视图，并不完全等同于是否存在独立物理设备。因此在CPU场景下，虽然没有独立的设备（device）概念，文档中仍可能沿用这组术语。
         该字段为可选，默认值为["max", "min", "l2norm"]。
 
     - `e2e_dump_settings`:
 
         - `enable`：在CPU/GPU Dump后端下，该字段必须设置为`true`。
-        - `trans_flag`：开启格式转换。将设备上的数据格式转换成NCHW格式。若为`true`，则数据会以Host侧的4D格式（NCHW）格式保存；若为`false`，则保留Device侧的数据格式。该配置参数在CPU上无效，因为CPU上没有format转换。默认值：true。
+        - `trans_flag`：开启格式转换。将设备上的数据格式转换成NCHW格式。若为`true`，则数据会以Host侧的4D格式（NCHW）格式保存；若为`false`，则保留Device侧的数据格式。在CPU场景下，此处的“Device侧”可理解为算子执行侧的统一术语，并不表示存在独立物理设备。该配置参数在CPU上无效，因为CPU上没有format转换。默认值：true。
 
 2. 设置Dump环境变量。
 
@@ -546,6 +546,8 @@ Ascend下GE后端Dump已迁移到msprobe工具，更多详情请查看[《msprob
    训练启动后，若正确配置了`MINDSPORE_DUMP_CONFIG`环境变量，则会读取配置文件的内容，并按照Dump配置中指定的数据保存路径保存算子数据。
    GPU环境如果要Dump数据，必须采用非数据下沉模式（设置`model.train`或`DatasetHelper`中的`dataset_sink_mode`参数为`False`），以保证可以获取每个step的Dump数据。
    若脚本中都不调用`model.train`或`DatasetHelper`，则默认为非数据下沉模式。使用Dump功能将自动生成最终执行图的IR文件。
+
+   如果使用样例脚本`run_sync_dump.sh`，需要先根据实际后端修改脚本中的`DEVICE_TARGET`：CPU后端设置为`CPU`，GPU后端设置为`GPU`。该脚本默认值为`Ascend`，若直接在CPU/GPU后端执行会报错。
 
 4. 通过`numpy.load`读取和解析CPU/GPU后端下Dump数据，参考[CPU/GPU后端下Dump数据文件介绍](#数据对象目录和数据文件介绍-1)。
 
@@ -638,7 +640,7 @@ ms_global_execution_order_graph_{graph_id}.csv
 
 ### 数据分析样例
 
-为了更好地展示使用Dump来保存数据并分析数据的流程，我们提供了一套[完整样例脚本](https://atomgit.com/mindspore/docs/tree/master/docs/sample_code/dump) ，CPU/GPU后端下Dump只需要执行 `bash run_sync_dump.sh`。
+为了更好地展示使用Dump来保存数据并分析数据的流程，我们提供了一套[完整样例脚本](https://atomgit.com/mindspore/docs/tree/master/docs/sample_code/dump) 。CPU/GPU后端下Dump执行 `bash run_sync_dump.sh` 前，需要先将脚本中的`DEVICE_TARGET`修改为对应后端：CPU后端设置为`CPU`，GPU后端设置为`GPU`。
 
 在通过Dump功能将脚本对应的图保存到磁盘上后，会产生最终执行图文件`ms_output_trace_code_graph_{graph_id}.ir`。该文件中保存了对应的图中每个算子的堆栈信息，记录了算子对应的生成脚本。
 
