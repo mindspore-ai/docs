@@ -125,6 +125,8 @@ When you need to see if the backpropagation accuracy is accurate under a dynamic
   print(output)
   ```
 
+  The results are as follows:
+
   ```text
   (Tensor(shape=[], dtype=Float32, value= 4), (Tensor(shape=[], dtype=Float32, value= 8), Tensor(shape=[], dtype=Float32, value= 6)))
   ```
@@ -154,6 +156,8 @@ When you need to see if the backpropagation accuracy is accurate under a dynamic
 
   print(output)
   ```
+
+  The results are as follows:
 
   ```text
   (Tensor(shape=[], dtype=Float32, value= 2),)
@@ -188,6 +192,8 @@ When you need to see if the backpropagation accuracy is accurate under a dynamic
 
   print(output)
   ```
+
+  The results are as follows:
 
   ```text
   backward input:  (Tensor(shape=[1], dtype=Float32, value= [ 1.00000000e+00]),)

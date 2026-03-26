@@ -36,6 +36,8 @@ output = net(ms.Tensor(1, ms.float32), ms.Tensor(2, ms.float32))
 print("output:", output)
 ```
 
+The results are as follows:
+
 ```text
 hook_fn print grad_out: (Tensor(shape=[], dtype=Float32, value= 2),)
 output: (Tensor(shape=[], dtype=Float32, value= 4), Tensor(shape=[], dtype=Float32, value= 4))
@@ -94,6 +96,8 @@ gradient = grad_net(x, y)
 print(gradient)
 ```
 
+The results are as follows:
+
 ```text
 forward inputs:  (Tensor(shape=[1], dtype=Float32, value= [ 2.00000000e+00]),)
 [2.]
@@ -137,6 +141,8 @@ y = ms.Tensor(np.ones([1]).astype(np.float32))
 gradient = grad_net(x, y)
 print(gradient)
 ```
+
+The results are as follows:
 
 ```text
 forward inputs:  (Tensor(shape=[1], dtype=Float32, value= [ 2.00000000e+00]),)
@@ -200,6 +206,8 @@ gradient = grad_net(x, y)
 print(gradient)
 ```
 
+The results are as follows:
+
 ```text
 forward inputs:  (Tensor(shape=[1], dtype=Float32, value= [ 2.00000000e+00]),)
 forward outputs:  [2.]
@@ -261,6 +269,8 @@ net.handle.remove()
 output = grad_net(ms.Tensor(np.ones([1, 1, 2, 2]).astype(np.float32)))
 print("-------------\n", output)
 ```
+
+The results are as follows:
 
 ```text
 (Tensor(shape=[1, 2, 1, 1], dtype=Float32, value=
@@ -328,6 +338,8 @@ net.handle.remove()
 output = grad_net(ms.Tensor(np.ones([1, 1, 2, 2]).astype(np.float32)))
 print("-------------\n", output)
 ```
+
+The results are as follows:
 
 ```text
 (Tensor(shape=[1, 2, 1, 1], dtype=Float32, value=
@@ -397,6 +409,8 @@ grad_net = ms.grad(net, grad_position=(0, 1))
 gradient = grad_net(ms.Tensor(np.ones([1]).astype(np.float32)), ms.Tensor(np.ones([1]).astype(np.float32)))
 print(gradient)
 ```
+
+The results are as follows:
 
 ```text
 forward inputs:  (Tensor(shape=[1], dtype=Float32, value= [ 2.00000000e+00]),)
