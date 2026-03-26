@@ -266,11 +266,11 @@ print("-------------\n", output)
 (Tensor(shape=[1, 2, 1, 1], dtype=Float32, value=
 [[[[ 1.00000000e+00]],
   [[ 1.00000000e+00]]]]),)
-[[[[1.99999 1.99999]
-   [1.99999 1.99999]]]]
+[[[[2 2]
+   [2 2]]]]
 -------------
- [[[[1.99999 1.99999]
-   [1.99999 1.99999]]]]
+ [[[[2 2]
+   [2 2]]]]
 ```
 
 To avoid running failure when the scripts switch to graph mode, it is not recommended to call the `register_backward_pre_hook` function and the `remove()` function of the `handle` object in the `construct` function of the Cell object. In PyNative mode, if the `register_backward_pre_hook` function is called in the `construct` function of the Cell object, the Cell object will register a new Hook function every time it runs.
@@ -336,11 +336,11 @@ print("-------------\n", output)
 (Tensor(shape=[1, 2, 1, 1], dtype=Float32, value=
 [[[[ 1.00000000e+00]],
   [[ 1.00000000e+00]]]]),)
-[[[[1.99999 1.99999]
-   [1.99999 1.99999]]]]
+[[[[2 2]
+   [2 2]]]]
 -------------
- [[[[1.99999 1.99999]
-   [1.99999 1.99999]]]]
+ [[[[2 2]
+   [2 2]]]]
 ```
 
 To avoid running failure when the scripts switch to graph mode, it is not recommended to call the `register_backward_hook` function and the `remove()` function of the `handle` object in the `construct` function of the Cell object. In PyNative mode, if the `register_backward_hook` function is called in the `construct` function of the Cell object, the Cell object will register a new Hook function every time it runs.
@@ -403,7 +403,7 @@ forward inputs:  (Tensor(shape=[1], dtype=Float32, value= [ 2.00000000e+00]),)
 forward inputs:  (Tensor(shape=[1], dtype=Float32, value= [ 2.00000000e+00]),)
 forward outputs:  [2.]
 grad input:  (Tensor(shape=[1], dtype=Float32, value= [ 1.00000000e+00]),)
-grad input:  (Tensor(shape=[1], dtype=Float32, value= [ 2.00000000e+00]),)
+grad input:  (Tensor(shape=[1], dtype=Float32, value= [ 1.00000000e+00]),)
 grad output:  (Tensor(shape=[1], dtype=Float32, value= [ 2.00000000e+00]),)
 (Tensor(shape=[1], dtype=Float32, value= [ 2.00000000e+00]), Tensor(shape=[1], dtype=Float32, value= [ 2.00000000e+00]))
 ```

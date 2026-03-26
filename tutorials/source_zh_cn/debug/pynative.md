@@ -125,6 +125,10 @@ def some_function():
   print(output)
   ```
 
+  ```text
+  (Tensor(shape=[], dtype=Float32, value= 4), (Tensor(shape=[], dtype=Float32, value= 8), Tensor(shape=[], dtype=Float32, value= 6)))
+  ```
+
   详细API使用说明可以[参考](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/Tensor/mindspore.Tensor.register_hook.html#mindspore.Tensor.register_hook)。
 
 - 可以通过`mindspore.ops.HookBackward`查看执行过程中的梯度，例如：
@@ -149,6 +153,11 @@ def some_function():
   output = backward(Tensor(1, mindspore.float32), Tensor(2, mindspore.float32))
 
   print(output)
+  ```
+
+  ```text
+  (Tensor(shape=[], dtype=Float32, value= 2),)
+  (Tensor(shape=[], dtype=Float32, value= 4), (Tensor(shape=[], dtype=Float32, value= 4), Tensor(shape=[], dtype=Float32, value= 4)))
   ```
 
   详细API使用说明可以[参考](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.HookBackward.html)。
@@ -178,6 +187,12 @@ def some_function():
   output = mindspore.value_and_grad(net, grad_position=(0,))(Tensor(np.ones([1]).astype(np.float32)))
 
   print(output)
+  ```
+
+  ```text
+  backward input:  (Tensor(shape=[1], dtype=Float32, value= [ 1.00000000e+00]),)
+  backward output:  (Tensor(shape=[1], dtype=Float32, value= [ 1.00000000e+00]),)
+  (Tensor(shape=[1], dtype=Float32, value= [ 2.00000000e+00]), Tensor(shape=[1], dtype=Float32, value= [ 2.00000000e+00]))
   ```
 
   详细API使用说明可以[参考](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.register_backward_hook)。
