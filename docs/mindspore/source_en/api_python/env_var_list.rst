@@ -236,15 +236,6 @@ Graph Compilation and Execution
      - String
      - 'on', indicating that disable to use bprop's graph cache
      - Experimental environment variable. When set env on, it will slow down building bprop's graph
-   * - MS_ENABLE_IO_REUSE
-     - Turn on the graph input/output memory multiplexing flag
-     - Integer
-     - 1: Enable this function.
-
-       0: not enabled.
-
-       Default value: 0
-     - Ascend AI processor environment and GE backend use only.
    * - MS_ENABLE_GRACEFUL_EXIT
      - Enable training process exit gracefully
      - Integer
@@ -633,7 +624,7 @@ Distributed Parallel
    * - MS_CUSTOM_DEPEND_CONFIG_PATH
      - Insert the control edge based on the configuration file xxx.json specified by the user, and use the primitive ops.Depend in MindSpore expresses the dependency control relationship.
      - String
-     - This environment variable is only enabled in Atlas A2 series product graph mode.
+     - This environment variable is only enabled in graph mode.
      - The fields contained in the json file have the following meanings:
 
        get_full_op_name_list(bool): Whether to generate an operator name list, optional, default is false.
@@ -717,8 +708,6 @@ Operators Compile
      - Saturation mode: Saturates to floating-point extremes (+-MAX) when computation overflows.
 
        INF/NAN mode: Follows the IEEE 754 standard and outputs INF/NAN calculations as defined.
-
-       Atlas A2 training series use only.
    * - MS_CUSTOM_AOT_WHITE_LIST
      - Specify the valid path for custom operators to use dynamic libraries.
      - String
@@ -896,7 +885,7 @@ Silent Data Corruption Detection
      - 0: Disable CheckSum for silent data corruption detection
 
        1: Enable CheckSum for silent data corruption detection
-     - Currently, this feature only supports the Atlas A2 training series products, and only supports CheckSum for MatMul with bfloat16 data type in O0 or O1 mode
+     - Currently, this feature only supports CheckSum for MatMul with bfloat16 data type in O0 or O1 mode
    * - MS_NPU_ASD_CONFIG
      - Configure the silent detection
      - Strings
@@ -919,7 +908,7 @@ Silent Data Corruption Detection
        strikes_window: Time window for counting the number of feature values detection anomalies, in the format of a positive integer, in minutes, with a default value of 480
 
        checksum_cooldown: CheckSum detection cooldown time, in the format of a positive integer, in minutes, with a default value of 180
-     - Currently, this feature only supports the Atlas A2 training series products and is limited to networks that support automatic and semi-automatic parallel training modes.
+     - Currently, this feature is limited to networks that support automatic and semi-automatic parallel training modes.
 
 For more information on feature value detection, see `Feature Value Detection <https://www.mindspore.cn/tutorials/en/master/debug/sdc.html>`_.
 
@@ -1016,7 +1005,7 @@ For more information about CANN's environment variables, see `Ascend community <
      - Value Range
      - Description
    * - MS_FORMAT_MODE
-     - Set the default preferred format for Ascend and GE backend, with the entire network set to ND format
+     - Set the default preferred format for Ascend, with the entire network set to ND format
      - Integer
      - 1: The operator prioritizes the ND format.
 
@@ -1024,8 +1013,6 @@ For more information about CANN's environment variables, see `Ascend community <
 
        Default value: 1
      - This environment variable affects the choice of format for the operator, which has an impact on network execution performance and memory usage, and can be tested by setting this option to get a better choice of operator format in terms of performance and memory.
-
-       Ascend AI processor environment and GE backend only.
 
 Profiler
 -----------

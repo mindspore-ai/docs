@@ -34,7 +34,7 @@ MindSpore框架2.7.1版本提供了特征值与CheckSum联合检测方案，能�
 
 ### 使用限制
 
-目前本特性仅支持Atlas A2 训练系列产品，仅支持检测8维以内Transformer类模型，bfloat16和float32数据类型，训练过程中出现的特征值检测异常。
+目前本特性仅支持检测8维以内Transformer类模型，bfloat16和float32数据类型，训练过程中出现的特征值检测异常。
 
 联合检测方案目前仅支持自动并行或半自动并行模式。CheckSum仅针对bfloat16数据类型的MatMul算子进行校验。
 

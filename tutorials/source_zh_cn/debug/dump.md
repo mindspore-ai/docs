@@ -10,7 +10,7 @@ MindSpore Dump功能已陆续迁移到[msprobe工具](https://atomgit.com/Ascend
 
 > [msprobe](https://atomgit.com/Ascend/mstt/tree/master/debug/accuracy_tools/msprobe) 是 MindStudio Training Tools 工具链下精度调试部分的工具包。主要包括精度预检、溢出检测和精度比对等功能，目前适配 PyTorch 和 MindSpore 框架。
 
-其中动态图、静态图Ascend GE后端Dump已完全迁移到msprobe工具，通过msprobe工具入口使能，详情请查看[《msprobe 工具 MindSpore场景精度数据采集指南》](https://atomgit.com/Ascend/mstt/blob/master/debug/accuracy_tools/msprobe/docs/zh/dump/mindspore_data_dump_instruct.md)。
+其中动态图Dump已完全迁移到msprobe工具，通过msprobe工具入口使能，详情请查看[《msprobe 工具 MindSpore场景精度数据采集指南》](https://atomgit.com/Ascend/mstt/blob/master/debug/accuracy_tools/msprobe/docs/zh/dump/mindspore_data_dump_instruct.md)。
 
 静态图Ascend ms_backend和CPU/GPU后端仍然通过框架入口使能，后续会陆续迁移到msprobe工具。
 
@@ -19,12 +19,9 @@ MindSpore Dump功能已陆续迁移到[msprobe工具](https://atomgit.com/Ascend
 MindSpore在不同后端下支持的Dump功能不完全相同，需要的配置文件和以及生成的数据格式也不同，因此需要根据运行的后端选择对应的Dump配置：
 
 - [Ascend下ms_backend后端Dump](#ascend下ms_backend后端dump)
-- [Ascend下GE后端Dump](#ascend下ge后端dump)
 - [CPU/GPU后端Dump](#cpugpu后端dump)
 
-> - Ascend下ms_backend/GE后端的区别请见[jit接口](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.jit.html#mindspore.jit)。
->
-> - CPU/GPU后端支持dump常量数据，Ascend ms_backend/GE后端不支持Dump常量数据。
+> - CPU/GPU后端支持dump常量数据，Ascend ms_backend不支持Dump常量数据。
 >
 > - Dump暂不支持异构训练，即不支持CPU/Ascend混合训练或GPU/Ascend混合训练。
 
@@ -429,26 +426,6 @@ numpy.load("Conv2D.Conv2D-op12.0.0.1623124369613540.output.0.DefaultFormat.float
 
 生成numpy.array数据。
 
-## Ascend下GE后端Dump
-
-Ascend下GE后端Dump已迁移到msprobe工具，更多详情请查看[《msprobe 工具 MindSpore场景精度数据采集指南》](https://atomgit.com/Ascend/mstt/blob/master/debug/accuracy_tools/msprobe/docs/zh/dump/mindspore_data_dump_instruct.md)。
-
-采集方式请参考示例代码[《msprobe静态图场景采集》](https://atomgit.com/Ascend/mstt/blob/master/debug/accuracy_tools/msprobe/docs/zh/dump/mindspore_data_dump_instruct.md#71-%E9%9D%99%E6%80%81%E5%9B%BE%E5%9C%BA%E6%99%AF)；
-
-配置文件示例请参考[《config.json 配置示例》](https://atomgit.com/Ascend/mstt/blob/master/debug/accuracy_tools/msprobe/docs/zh/dump/config_json_examples.md#2-mindspore-%E9%9D%99%E6%80%81%E5%9B%BE%E5%9C%BA%E6%99%AF)中的“MindSpore 静态图场景”；
-
-详细配置介绍请参考[《config.json 配置文件介绍》](https://atomgit.com/Ascend/mstt/blob/master/debug/accuracy_tools/msprobe/docs/zh/dump/config_json_introduct.md#11-%E9%80%9A%E7%94%A8%E9%85%8D%E7%BD%AE)。
-
-> 迁移到msporbe后部分功能暂不支持：
->
-> 1. 数据切片保存，对应原配置中sample_num和sample_mode字段；
->
-> 2. set_dump能力，对应原配置中dump_mode为2的场景；
->
-> 3. tensor和statistic同时保存，对应原配置中saved_data为full的场景；
->
-> 4. MD5和其他统计量无法同时开启，对应原配置中statistic_category字段。
-
 ## CPU/GPU后端Dump
 
 ### 操作步骤
@@ -782,6 +759,4 @@ numpy.load("Conv2D.Conv2D-op12.0.0.1623124369613540.output.0.DefaultFormat.npy")
 - Dump仅支持bool、int、int8、in16、int32、int64、uint、uint8、uint16、uint32、uint64、float、float16、float32、float64、bfloat16、double、complex64、complex128类型数据的保存。
 - complex64和complex128仅支持保存为npy文件，不支持保存为统计值信息。
 - Print算子内部有一个输入参数为string类型，string类型不属于Dump支持的数据类型，所以在脚本中包含Print算子时，会有错误日志，这不会影响其他类型数据的保存。
-- 使能Ascend GE后端下Dump时，sink size只能设置为1。用户通常可以使用[Model.train()](https://www.mindspore.cn/docs/zh-CN/master/api_python/train/mindspore.train.Model.html#mindspore.train.Model.train)或[data_sink()](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.data_sink.html)接口配置sink size。
-- 使能Ascend GE后端下Dump时，**统计值dump**如果是大数据量dump场景（如网络本身规模庞大，连续dump多个step等），可能会导致host侧内存被占满，导致数据流同步失败，建议使用新版[**统计值dump**](https://atomgit.com/Ascend/mstt/blob/master/debug/accuracy_tools/msprobe/docs/zh/dump/mindspore_data_dump_instruct.md#51-%E9%9D%99%E6%80%81%E5%9B%BE%E5%9C%BA%E6%99%AF)替代。
 - 默认情况下，Dump会忽略算子的无效输出，比如Send/Print算子的输出、FlashAttentionScore算子的第三个预留输出等。如果需要保留这些无效输出，可以将环境变量`MINDSPORE_DUMP_IGNORE_USELESS_OUTPUT`设置为`0`。详情请参阅[环境变量-Dump调试](https://www.mindspore.cn/docs/zh-CN/master/api_python/env_var_list.html#dump%E8%B0%83%E8%AF%95)。
