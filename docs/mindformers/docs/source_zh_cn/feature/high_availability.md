@@ -300,15 +300,16 @@ YAML配置包含两部分：临终 CKPT 的保存及恢复配置和卡间副本�
 
     **参数说明：**
 
-    | 参数名称                      | 描述                                                                                                                                | 类型    | 是否可选     |
-    |-----------------------------|-----------------------------------------------------------------------------------------------------------------------------------|-------|----------|
-    | output_dir                  | 保存权重和切分策略的文件路径。默认值为`./output`。                                                                                                    | str   | 可选       |
-    | monitor_config              | 训练指标监控配置。默认值为`None`。                                                                                                              | dict  | 可选       |
-    | monitor_on                  | 是否开启训练指标监控配置。只有开启时才能监测异常的global norm和使能TRE功能。                                                                                     | bool  | 必选`True` |
-    | check_for_global_norm       | 是否开启进程级故障快速恢复功能，和数据跳过功能互斥。默认值为`False`。                                                                                            | bool  | 可选       |
+    | 参数名称                        | 描述                                                                                                                                                 | 类型    | 是否可选     |
+    |-----------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------|-------|----------|
+    | health_checkpoint           | 健康权重相关配置。默认值为`None`。                                                                                                                               | dict  | 可选       |
+    | output_dir                  | 保存权重和切分策略的文件路径。默认值为`./output`。                                                                                                                     | str   | 可选       |
+    | monitor_config              | 训练指标监控配置。默认值为`None`。                                                                                                                               | dict  | 可选       |
+    | monitor_on                  | 是否开启训练指标监控配置。只有开启时才能监测异常的global norm和使能TRE功能。                                                                                                      | bool  | 必选`True` |
+    | check_for_global_norm       | 是否开启进程级故障快速恢复功能，和数据跳过功能互斥。默认值为`False`。                                                                                                             | bool  | 可选       |
     | global_norm_spike_threshold | global norm的阈值，当global norm超过时触发数据跳过。Checkpoint 1.0场景下默认值为`3.0`。Checkpoint 1.0场景下和check_for_global_norm搭配使用。Checkpoint 2.0场景下单独使用，赋值则表示启用故障快速恢复功能。 | float | 可选       |
-    | callbacks                   | callbacks配置。                                                                                                                      | list  | 必选       |
-    | save_checkpoint_steps       | 保存权重的步数间隔。                                                                                                                        | int   | 必选       |
+    | callbacks                   | callbacks配置。                                                                                                                                       | list  | 必选       |
+    | save_checkpoint_steps       | 保存权重的步数间隔。                                                                                                                                         | int   | 必选       |
 
      > Checkpoint 1.0配置在Checkpoint 1.0场景下和Checkpoint 2.0场景下均可生效，同时配置时Checkpoint 2.0的配置优先级高于Checkpoint 1.0的配置。Checkpoint 2.0配置仅在Checkpoint 2.0场景下生效。
 
