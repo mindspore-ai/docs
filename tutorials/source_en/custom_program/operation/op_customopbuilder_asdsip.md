@@ -116,13 +116,18 @@ PYBIND11_MODULE(MS_EXTENSION_NAME, m) {
 Save the above C++ code as a file named `asdsip_fftc2c.cpp`, and then compile it using the Python interface `CustomOpBuilder`.
 
 ```python
+import numpy as np
+import mindspore as ms
+from mindspore.ops import CustomOpBuilder
+
+ms.set_device("Ascend")
+my_ops = CustomOpBuilder("asdsip_fftc2c", "asdsip_fftc2c.cpp", enable_asdsip=True).load()
 input_np = np.random.rand(2, 16)
 real_np = input_np.astype(np.float32)
 imag_np = input_np.astype(np.float32)
 complex_np = real_np + 1j * imag_np
-my_ops = CustomOpBuilder("asdsip_fftc2c", "jit_test_files/asdsip_fftc2c.cpp", enable_asdsip=True).load()
-output_tensor = my_ops.fft(input_tensor, 16, 2)
-print(output_tensor)
+input_tensor = ms.Tensor(complex_np, dtype=ms.dtype.complex64)
+output_tensor = my_ops.fft_1d(input_tensor, 16, 2)
 ```
 
 Here, the parameter `enable_asdsip=True` is passed into `CustomOpBuilder`, and MindSpore will automatically add compilation and linking options related to the ASDSIP acceleration library. Users only need to ensure that the `set_env.sh` script for the ASDSIP library has been correctly executed, and the environment contains the `ASDSIP_HOME_PATH` variable.

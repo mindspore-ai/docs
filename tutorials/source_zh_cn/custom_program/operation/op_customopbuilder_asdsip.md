@@ -116,13 +116,18 @@ PYBIND11_MODULE(MS_EXTENSION_NAME, m) {
 将上述C++代码保存成文件`asdsip_fftc2c.cpp`，然后使用Python接口`CustomOpBuilder`编译。
 
 ```python
+import numpy as np
+import mindspore as ms
+from mindspore.ops import CustomOpBuilder
+
+ms.set_device("Ascend")
+my_ops = CustomOpBuilder("asdsip_fftc2c", "asdsip_fftc2c.cpp", enable_asdsip=True).load()
 input_np = np.random.rand(2, 16)
 real_np = input_np.astype(np.float32)
 imag_np = input_np.astype(np.float32)
 complex_np = real_np + 1j * imag_np
-my_ops = CustomOpBuilder("asdsip_fftc2c", "jit_test_files/asdsip_fftc2c.cpp", enable_asdsip=True).load()
-output_tensor = my_ops.fft(input_tensor, 16, 2)
-print(output_tensor)
+input_tensor = ms.Tensor(complex_np, dtype=ms.dtype.complex64)
+output_tensor = my_ops.fft_1d(input_tensor, 16, 2)
 ```
 
 这里向`CustomOpBuilder`传入了`enable_asdsip=True`的参数，MindSpore会自动添加与ASDSIP加速库有关的编译和链接选项。用户需保证正确执行了ASDSIP库的`set_env.sh`脚本，环境中已配置`ASDSIP_HOME_PATH`环境变量。
