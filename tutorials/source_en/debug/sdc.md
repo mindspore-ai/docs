@@ -354,9 +354,9 @@ Feature value detection anomalies and CheckSum verification results can be obser
 
 ```bash
 $ grep -m1 'Silent detect strike' worker_0.log
-[WARNING] DEBUG(2950752,fffee7e591e0,python):2025-08-26-10:46:26.665.782 [mindspore/ccsrc/tools/silent_detect/silent_detector.cc:109] SilentDetect] Silent detect strike detected: StrikeRecord{timestamp: 1756176386, name: fc1.weight, value: inf, stat: StatData{avg: 6.44326e+12, pre_value: 6.441e+14, count: 6, none_zero_count: 6}}
+[WARNING] ME(1404663,fffed7f721e0,python):2026-03-24-20:48:04.380.984 [mindspore/ccsrc/tools/silent_detect/silent_detector.cc:113] SilentDetect] Silent detect strike detected: StrikeRecord{timestamp: 1774356484, name: fc2.weight, value: 4.77043e+30, stat: StatData{avg: 1.67934e+23, pre_value: 1.83862e+28, count: 11, none_zero_count: 10}}
 $ grep -m1 'Global CheckSum result is' worker_0.log
-[WARNING] DEBUG(2950752,fffda37fe1e0,python):2025-08-26-10:47:28.934.305 [mindspore/ccsrc/tools/silent_detect/silent_detector.cc:316] DoCheckSum] Global CheckSum result is 0
+[WARNING] ME(1404663,fffd5affd1e0,python):2026-03-24-20:49:10.870.409 [mindspore/ccsrc/tools/silent_detect/silent_detector.cc:333] DoCheckSum] Global CheckSum result is 0
 ```
 
 ## Detection Results and Handling
@@ -381,4 +381,4 @@ When using combined detection, if feature value detection anomalies occur and Ch
 
 Isolate the abnormal device, resume training with checkpoint recovery; meanwhile, on the abnormal device, use the Ascend-DMI tool to perform AICore ERROR stress diagnostics to detect whether there are faulty NPUs on the device. For details, see [ToolBox User Guide](https://www.hiascend.com/document/detail/zh/mindx-dl/600/toolbox/ascenddmi/toolboxug_000002.html) in the "ascend-dmi tool usage > fault diagnosis" section.
 
-If a faulty card is detected on the abnormal device, contact Huawei engineers for maintenance and replacement; if all NPUs on the abnormal device are normal, it is a software-related issue triggering feature value overflow, and it is recommended to check the processes and operators'es causes.
+If a faulty card is detected on the abnormal device, contact Huawei engineers for maintenance and replacement; if all NPUs on the abnormal device are normal, it is a software-related issue triggering feature value overflow, and it is recommended to check the processes and operators' causes.

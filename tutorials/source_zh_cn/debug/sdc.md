@@ -354,9 +354,9 @@ msrun --worker_num=8 --local_worker_num=8 --master_addr=127.0.0.1 --master_port=
 
 ```bash
 $ grep -m1 'Silent detect strike' worker_0.log
-[WARNING] DEBUG(2950752,fffee7e591e0,python):2025-08-26-10:46:26.665.782 [mindspore/ccsrc/tools/silent_detect/silent_detector.cc:109] SilentDetect] Silent detect strike detected: StrikeRecord{timestamp: 1756176386, name: fc1.weight, value: inf, stat: StatData{avg: 6.44326e+12, pre_value: 6.441e+14, count: 6, none_zero_count: 6}}
+[WARNING] ME(1404663,fffed7f721e0,python):2026-03-24-20:48:04.380.984 [mindspore/ccsrc/tools/silent_detect/silent_detector.cc:113] SilentDetect] Silent detect strike detected: StrikeRecord{timestamp: 1774356484, name: fc2.weight, value: 4.77043e+30, stat: StatData{avg: 1.67934e+23, pre_value: 1.83862e+28, count: 11, none_zero_count: 10}}
 $ grep -m1 'Global CheckSum result is' worker_0.log
-[WARNING] DEBUG(2950752,fffda37fe1e0,python):2025-08-26-10:47:28.934.305 [mindspore/ccsrc/tools/silent_detect/silent_detector.cc:316] DoCheckSum] Global CheckSum result is 0
+[WARNING] ME(1404663,fffd5affd1e0,python):2026-03-24-20:49:10.870.409 [mindspore/ccsrc/tools/silent_detect/silent_detector.cc:333] DoCheckSum] Global CheckSum result is 0
 ```
 
 ## 检测结果及处理
@@ -381,4 +381,4 @@ $ grep -m1 'Global CheckSum result is' worker_0.log
 
 将异常设备隔离，断点续训拉起继续训练；同时在异常设备上，通过Ascend-DMI工具执行AICore ERROR压测诊断，检测该设备上是否存在故障NPU。详情请查看[《ToolBox用户指南》](https://www.hiascend.com/document/detail/zh/mindx-dl/600/toolbox/ascenddmi/toolboxug_000002.html) “ascend-dmi工具使用 > 故障诊断”章节。
 
-若异常设备上检测到故障卡，请联系华为工程师维修更换；若异常设备上所有NPU均正常，则为软件类问题触发特征值溢出，建议排查程序和算子原因。
+若异常设备上检测到故障卡，请联系华为工程师维修更换；若异常设备上所有NPU均正常，则为软件类问题触发特征值溢出，建议排查程序、算子原因。
