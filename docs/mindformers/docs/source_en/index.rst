@@ -62,6 +62,7 @@ Environment variables, contribution, and FAQ
    :caption: Full-process Guide to Large Models
    :hidden:
 
+   guide/llm_training
    guide/pre_training
    guide/supervised_fine_tuning
    guide/inference
