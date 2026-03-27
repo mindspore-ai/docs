@@ -532,6 +532,13 @@ Dump调试
 
        不设置或其他值：关闭通信子图复用
      -
+   * - MS_HCCL_ZERO_COPY
+     - 控制是否开启HCCL零拷贝功能，减少单server内集合通信过程中的片内拷贝次数。
+     - Integer
+     - 1：开启HCCL零拷贝功能
+
+       0或不设置：关闭HCCL零拷贝功能
+     - 默认值：0。仅支持Ascend A3系列产品的单机多卡场景，且依赖虚拟内存功能，需设置 `MS_ALLOC_CONF=enable_vmm:true` 。其他约束请参见 `《CANN HCCL API（C）》中“零拷贝功能 > 使用前必读”章节 <https://www.hiascend.com/document/detail/zh/canncommercial/850/API/hcclapiref/hcclcpp_07_0053.html>`_ 。
    * - DEVICE_ID
      - 昇腾AI处理器的ID，即Device在AI server上的序列号。
      - Integer
