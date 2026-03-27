@@ -354,7 +354,7 @@
 
        opt_level：是否开启算子融合，0表示不开启，1表示开启。默认值：0。
 
-       enable_ops：在开启算子融合的前提下，将部分默认不参与融合的算子加入融合。该配置项支持的算子：Dense、MatMul、MatMulExt、BatchMatMul、BatchMatMulExt。
+       enable_ops：在开启算子融合的前提下，将部分默认不参与融合的算子加入融合。该配置项支持的算子：Dense、MatMul、MatMulExt、BatchMatMul、BatchMatMulExt、GroupedMatmul。
      -
 
    * - MS_DEV_DISABLE_AUTO_H2D
