@@ -534,6 +534,13 @@ Distributed Parallel
 
        Do not set or set other values:: communication subgraph extraction and reuse is turned off.
      -
+   * - MS_HCCL_ZERO_COPY
+     - Controls whether to enable HCCL zero-copy to reduce intra-chip memory copies during collective communication within a single server.
+     - Integer
+     - 1: Enable HCCL zero-copy.
+
+       0 or not set: Disable HCCL zero-copy.
+     - Default value: 0. This feature is supported only in single-server multi-card scenarios on Ascend A3 series products, and requires virtual memory to be enabled by setting `MS_ALLOC_CONF=enable_vmm:true` . For other constraints, see `CANN HCCL API (C) <https://www.hiascend.com/document/detail/en/canncommercial/800/apiref/hcclapiref/hcclcpp_07_0001.html>`_ .
    * - DEVICE_ID
      - The ID of the Ascend AI processor, which is the Device's serial number on the AI server.
      - Integer
