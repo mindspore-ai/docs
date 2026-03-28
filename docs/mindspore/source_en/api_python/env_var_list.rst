@@ -345,7 +345,7 @@ Graph Compilation and Execution
 
        opt_level: Determines whether to enable operator fusion, 0 means disabled, and 1 means enabled. Default: 0.
 
-       enable_ops: Under the premise of enabling operator fusion, add some operators that are not fused by default to the fusion process. The operators supported by this configuration item are: Dense, MatMul, MatMulExt, BatchMatMul, and BatchMatMulExt.
+       enable_ops: Under the premise of enabling operator fusion, add some operators that are not fused by default to the fusion process. The operators supported by this configuration item are: Dense, MatMul, MatMulExt, BatchMatMul, BatchMatMulExt and GroupedMatmul.
      -
 
    * - MS_DEV_DISABLE_AUTO_H2D
