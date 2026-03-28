@@ -34,7 +34,7 @@ The reasons for feature value anomalies can be divided into two categories: hard
 
 ### Usage Restrictions
 
-Currently, this feature only supports Atlas A2 training series products, detects abnormal feature value during the training process with Transformer model within 8-D and bfloat16, float32 data type.
+Currently, this feature only detects abnormal feature value during the training process with Transformer model within 8-D and bfloat16, float32 data type.
 
 The combined detection scheme currently only supports `auto_parallel` or `semi_auto_parallel` modes. CheckSum only verifies the MatMul operator of bfloat16 data type.
 

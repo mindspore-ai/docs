@@ -106,7 +106,7 @@ ops.Custom(func, bprop=None, out_dtype=None, func_type='aot', out_shape=None, re
 - `bprop`(function)：自定义算子的反向函数。默认值：`None`。
 - `reg_info`(Union[str, dict, list, tuple])：自定义算子的注册信息。默认值：`None`。Ascend C自定义算子无需传入该参数，使用默认值。
 
-**场景限制**：当前动态图和静态图GE后端只支持输入输出为Tensor类型；静态图O0/O1模式对类型无限制。Ascend C自定义算子在动态图场景推荐使用[基于CustomOpBuilder的自定义算子](https://www.mindspore.cn/tutorials/zh-CN/master/custom_program/operation/op_customopbuilder.html)。
+**场景限制**：当前动态图只支持输入输出为Tensor类型；静态图O0/O1模式对类型无限制。Ascend C自定义算子在动态图场景推荐使用[基于CustomOpBuilder的自定义算子](https://www.mindspore.cn/tutorials/zh-CN/master/custom_program/operation/op_customopbuilder.html)。
 
 ### 简单示例
 

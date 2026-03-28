@@ -10,7 +10,7 @@ The MindSpore Dump functionality has been gradually migrated to the [msprobe too
 
 > [msprobe](https://atomgit.com/Ascend/mstt/tree/master/debug/accuracy_tools/msprobe) is a toolkit under the MindStudio Training Tools suite, specifically for accuracy debugging. It primarily includes functionalities such as accuracy pre-inspection, overflow detection, and accuracy comparison. Currently, it is compatible with the PyTorch and MindSpore frameworks.
 
-The Dump features for dynamic graphs and static graphs in Ascend GE backend have been fully migrated to the msprobe tool and are enabled through the msprobe tool entry point. For more details, please refer to the [msprobe Tool MindSpore Scenario Accuracy Data Collection Guide](https://atomgit.com/Ascend/mstt/blob/master/debug/accuracy_tools/msprobe/docs/zh/dump/mindspore_data_dump_instruct.md).
+The Dump features for dynamic graphs have been fully migrated to the msprobe tool and are enabled through the msprobe tool entry point. For more details, please refer to the [msprobe Tool MindSpore Scenario Accuracy Data Collection Guide](https://atomgit.com/Ascend/mstt/blob/master/debug/accuracy_tools/msprobe/docs/zh/dump/mindspore_data_dump_instruct.md).
 
 For graphs in Ascend ms_backend and CPU/GPU backends, these functionalities are still enabled through the framework entry points but will be gradually migrated to the msprobe tool in subsequent updates.
 
@@ -19,12 +19,9 @@ For graphs in Ascend ms_backend and CPU/GPU backends, these functionalities are 
 In different backends, the Dump features supported by MindSpore are not entirely the same, and the required configuration files and the generated data formats vary accordingly. Therefore, you need to select the corresponding Dump configuration based on the running backend:
 
 - [Dump in Ascend ms_backend](#dump-in-ascend-ms_backend)
-- [Dump in Ascend GE backend](#dump-in-ascend-ge-backend)
 - [Dump in CPU/GPU Backend](#dump-in-cpugpu-backend)
 
-> - The differences between Ascend ms_backend and GE backend can be found in [the parameter jit](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.jit.html#mindspore.jit).
->
-> - Dumping constant data is only supported in CPU/GPU backend, while not supported in Ascend ms_backend/GE backend.
+> - Dumping constant data is only supported in CPU/GPU backend, while not supported in Ascend ms_backend.
 >
 > - Currently, Dump does not support heterogeneous training, meaning it does not support CPU/Ascend mixed training or GPU/Ascend mixed training.
 
@@ -429,26 +426,6 @@ numpy.load("Conv2D.Conv2D-op12.0.0.1623124369613540.output.0.DefaultFormat.float
 
 Generate the numpy.array data.
 
-## Dump in Ascend GE Backend
-
-GE backend Dump under Ascend has been migrated to the msprobe tool. For more details, please see [msprobe Tool MindSpore Scene Accuracy Data Collection Guide](https://atomgit.com/Ascend/mstt/blob/master/debug/accuracy_tools/msprobe/docs/zh/dump/mindspore_data_dump_instruct.md).
-
-For data collection methods, please refer to the example code in [Graph Scenario Data Collection with msprobe](https://atomgit.com/Ascend/mstt/blob/master/debug/accuracy_tools/msprobe/docs/zh/dump/mindspore_data_dump_instruct.md#71-%E9%9D%99%E6%80%81%E5%9B%BE%E5%9C%BA%E6%99%AF);
-
-For configuration file examples, please refer to the "MindSpore Graph Scenario" section in [config.json Configuration Examples](https://atomgit.com/Ascend/mstt/blob/master/debug/accuracy_tools/msprobe/docs/zh/dump/config_json_examples.md#2-mindspore-%E9%9D%99%E6%80%81%E5%9B%BE%E5%9C%BA%E6%99%AF);
-
-For detailed configuration descriptions, please refer to the [Introduction to config.json Configuration File](https://atomgit.com/Ascend/mstt/blob/master/debug/accuracy_tools/msprobe/docs/zh/dump/config_json_introduct.md#11-%E9%80%9A%E7%94%A8%E9%85%8D%E7%BD%AE).
-
-> After migrating to msprobe, some features are temporarily not supported:
->
-> 1. Data slicing storage, corresponding to the sample_num and sample_mode fields in the original configuration;
->
-> 2. set_dump capability, corresponding to scenarios where dump_mode is set to 2 in the original configuration;
->
-> 3. Simultaneous saving of tensor and statistics, corresponding to the saved_data field being set to full in the original configuration;
->
-> 4. Simultaneous enabling of MD5 and other statistics, corresponding to the statistic_category field in the original configuration.
-
 ## Dump in CPU/GPU Backend
 
 ### Dump Step
@@ -784,6 +761,4 @@ Generate the numpy.array data.
 - Dump only supports saving data with type of bool, int, int8, int16, int32, int64, uint, uint8, uint16, uint32, uint64, float, float16, float32, float64, bfloat16, double, complex64 and complex128.
 - Complex64 and complex128 only support saving as npy files, not as statistics information.
 - The Print operator has an input parameter with type of string, which is not a data type supported by Dump. Therefore, when the Print operator is included in the script, there will be an error log, which will not affect the saving data of other types.
-- When Ascend GE dump is enabled, sink size can only be set to 1. User can use [Model.train()](https://www.mindspore.cn/docs/en/master/api_python/train/mindspore.train.Model.html#mindspore.train.Model.train) or [data_sink()](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.data_sink.html) to set up sink size.
-- When Ascend GE dump is enabled, if **statistical value dumping** is performed in scenarios with a large amount of data (such as when the network itself is of a large scale or multiple steps are dumped consecutively), it may cause the host-side memory to become full, leading to a failure in data flow synchronization. It is recommended to replace it with the new version of [**statistical value dumping**](https://atomgit.com/Ascend/mstt/blob/master/debug/accuracy_tools/msprobe/docs/zh/dump/mindspore_data_dump_instruct.md#51-%E9%9D%99%E6%80%81%E5%9B%BE%E5%9C%BA%E6%99%AF).
 - By default, Dump ignores invalid operator outputs, such as the outputs of the Send/Print operator or the third reserved output of the FlashAttentionScore operator. If you need to retain these invalid outputs, you can set the environment variable `MINDSPORE_DUMP_IGNORE_USELESS_OUTPUT` to `0`. For details, please refer to [Environment Variables - Dump Debugging](https://www.mindspore.cn/docs/en/master/api_python/env_var_list.html#dump-debugging).

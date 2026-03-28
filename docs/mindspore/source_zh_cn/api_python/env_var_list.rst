@@ -236,15 +236,6 @@
      - String
      - "on"，表示关闭bprop缓存图功能
      - 实验性质的环境变量，关闭缓存功能会导致构图时间延长
-   * - MS_ENABLE_IO_REUSE
-     - 开启图输入输出内存复用标志
-     - Integer
-     - 1: 使能此功能。
-
-       0：不使能。
-
-       默认值：0
-     - 仅限Ascend AI处理器环境GE后端流程使用。
    * - MS_ENABLE_GRACEFUL_EXIT
      - 设置使能进程优雅退出
      - Integer
@@ -636,7 +627,7 @@ Dump调试
    * - MS_CUSTOM_DEPEND_CONFIG_PATH
      - 根据用户指定路径下的配置文件xxx.json插入控制边，在MindSpore中使用原语ops.Depend表达依赖控制关系。
      - String
-     - 该环境变量只在Atlas A2系列产品图模式下使能。
+     - 该环境变量只在图模式下使能。
      - json文件包含的字段含义如下：
 
        get_full_op_name_list(bool)：是否生成算子名称列表，可选，默认为false。
@@ -718,8 +709,6 @@ Dump调试
      - 饱和模式：计算出现溢出时，饱和为浮点数极值（+-MAX）。
 
        INF/NAN模式：遵循IEEE 754标准，根据定义输出INF/NAN的计算结果。
-
-       仅限Atlas A2训练系列产品使用。
    * - MS_CUSTOM_AOT_WHITE_LIST
      - 指定自定义算子使用动态库的合法路径。
      - String
@@ -900,7 +889,7 @@ Dump调试
      - 0：关闭CheckSum检测静默故障
 
        1：使能CheckSum检测静默故障
-     - 目前本特性仅支持Atlas A2训练系列产品，仅支持在O0或O1模式下，对bfloat16数据类型的MatMul算子进行CheckSum校验
+     - 目前本特性仅支持在O0或O1模式下，对bfloat16数据类型的MatMul算子进行CheckSum校验
    * - MS_NPU_ASD_CONFIG
      - 设置静默检测选项
      - String
@@ -923,7 +912,7 @@ Dump调试
        strikes_window: 统计特征值异常次数的时间窗口，格式为正整数，单位分钟，默认值为480
 
        checksum_cooldown: CheckSum检测冷却时间，格式为正整数，单位为分钟，默认值为180
-     - 目前本特性仅支持Atlas A2训练系列产品，仅支持检测自动并行和半自动并行模式的网络
+     - 目前本特性仅支持检测自动并行和半自动并行模式的网络
 
 特征值检测的更多内容详见 `特征值检测 <https://www.mindspore.cn/tutorials/zh-CN/master/debug/sdc.html>`_ 。
 
@@ -1019,7 +1008,7 @@ CANN的环境变量详见 `昇腾社区 <https://www.hiascend.com/document/detai
      - 取值
      - 说明
    * - MS_FORMAT_MODE
-     - 设置Ascend GE后端流程的默认优选格式，整网设置为ND格式
+     - 设置Ascend的默认优选格式，整网设置为ND格式
      - Integer
      - 1: 算子优先选择ND格式。
 
@@ -1027,8 +1016,6 @@ CANN的环境变量详见 `昇腾社区 <https://www.hiascend.com/document/detai
 
        默认值：1。
      - 此环境变量影响算子的format选择，从而对网络执行性能和内存占用产生影响，可通过设置此选项测试得到性能和内存更优的算子格式选择。
-
-       仅限Ascend AI处理器环境GE后端使用。
 
 Profiler
 -----------
