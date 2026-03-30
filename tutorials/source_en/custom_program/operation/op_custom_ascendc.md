@@ -199,10 +199,10 @@ The input to the inference function is the shape or type of the custom operator'
 
 
    # Define the custom operator
-   custom_add = ops.Custom(func="aclnnAdd", out_shape=add_infer_shape, out_dtype=add_infer_type, func_type="aot")
+   custom_add = ops.Custom(func="aclnnMul", out_shape=add_infer_shape, out_dtype=add_infer_type, func_type="aot")
 
    # For simple infer shape or infer type, you can also use a lambda function directly
-   custom_add = ops.Custom(func="aclnnAdd", out_shape=lambda x, y: x, out_dtype=lambda x, y: x, func_type="aot")
+   custom_add = ops.Custom(func="aclnnMul", out_shape=lambda x, y: x, out_dtype=lambda x, y: x, func_type="aot")
    ```
 
 - Infer function for scenarios where the output shape is calculated based on the input shape.
@@ -236,7 +236,7 @@ The input to the inference function is the shape or type of the custom operator'
 
    ```python
    from mindspore import ops
-   import mindspore.dtype as mstype
+   import mindspore.common.dtype as mstype
 
 
    def msda_grad_infer_shape_1(v_s, vss_s, vlsi_s, sl_s, aw_s, go_s):
@@ -263,13 +263,13 @@ The input to the inference function is the shape or type of the custom operator'
 
    # For multiple output scenarios, ensure that the types of `out_shape` and `out_dtype` are identical. Example 1: Both are of type list.
    custom_msda_grad = ops.Custom(
-       func="aclnnMultiScaleDeformableAttnGrad", out_shape=msda_grad_infer_shape_1,
+       func="aclnnMultiScaleDeformableAttentionGrad", out_shape=msda_grad_infer_shape_1,
        out_dtype=[mstype.float32, mstype.float32, mstype.float32],
        func_type="aot")
 
    # For multiple output scenarios, ensure that the types of `out_shape` and `out_dtype` are identical. Example 1: Both are of type tuple.
    custom_msda_grad = ops.Custom(
-       func="aclnnMultiScaleDeformableAttnGrad", out_shape=msda_grad_infer_shape_2,
+       func="aclnnMultiScaleDeformableAttentionGrad", out_shape=msda_grad_infer_shape_2,
        out_dtype=(mstype.float32, mstype.float32, mstype.float32),
        func_type="aot")
 
