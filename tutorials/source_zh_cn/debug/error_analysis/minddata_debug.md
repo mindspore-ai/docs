@@ -390,6 +390,7 @@ You can increase the parameter num_parallel_workers in GeneratorDataset / optimi
 
 下面介绍一种调试数据集性能的方法，即使没有出现上述的WARNING信息，也可以调试数据性能，作为参考：
 构造一个简单的lenet训练网络，简单修改一点代码，使运行结果出现WARNING信息。
+Mnist数据集可在[此处](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/MNIST_Data.zip)下载。
 
 ```python
 import time
