@@ -104,7 +104,7 @@ ops.Custom(func, bprop=None, out_dtype=None, func_type='aot', out_shape=None, re
 - `out_dtype`(Union[function, [mindspore.dtype](https://www.mindspore.cn/docs/zh-CN/r2.7.2/api_python/mindspore/mindspore.dtype.html#mindspore.dtype), list, tuple])：输出type或输出type的推导函数。默认值：`None`。
 - `func_type`(str)：自定义算子的函数类型。Ascend C自定义算子请指定`func_type="aot"`。
 - `bprop`(function)：自定义算子的反向函数。默认值：`None`。
-- `reg_info`(Union[str, dict, list, tuple])：自定义算子的注册信息。默认值：`None`。Ascend C自定义算子无需传入该参数，使用默认值。
+- `reg_info`(Union[str, dict, list, tuple])：自定义算子的注册信息。默认值：`None`。Ascend C自定义算子无需传入该参数，使用默认值。(注意：若通过ops.Custom接入CANN包内置的算子，则需要设置该参数，参考[算子信息注册](https://www.mindspore.cn/tutorials/zh-CN/r2.7.2/custom_program/operation/op_custom_adv.html#)。)
 
 **场景限制**：当前动态图和静态图GE后端只支持输入输出为Tensor类型；静态图O0/O1模式对类型无限制。Ascend C自定义算子在动态图场景推荐使用[基于CustomOpBuilder的自定义算子](https://www.mindspore.cn/tutorials/zh-CN/r2.7.2/custom_program/operation/op_customopbuilder.html)。
 
