@@ -102,7 +102,7 @@ ops.Custom(func, bprop=None, out_dtype=None, func_type='aot', out_shape=None, re
 - `out_dtype` (Union[function, [mindspore.dtype](https://www.mindspore.cn/docs/en/r2.7.2/api_python/mindspore/mindspore.dtype.html#mindspore.dtype), list, tuple])：Output type or type inference function. Default value: `None`.
 - `func_type`(str)：Function type of the custom operator. For Ascend C custom operators, specify `func_type="aot"`.
 - `bprop`(function)：Backpropagation function for the custom operator. Default value: `None`.
-- `reg_info`(Union[str, dict, list, tuple])：Registration information for the custom operator. Default value: `None`. Ascend C custom operators do not need to pass this parameter and can use the default value.
+- `reg_info`(Union[str, dict, list, tuple])：Registration information for the custom operator. Default value: `None`. Ascend C custom operators do not need to pass this parameter and can use the default value. (Note: When accessing built-in operators in the CANN package via ops.Custom, this parameter must be set. Refer to [Operator Information Registration for details](https://www.mindspore.cn/tutorials/en/r2.7.2/custom_program/operation/op_custom_adv.html).)
 
 **Scenario Limitations**： Currently, dynamic graphs and static graphs in GE backend only support input and output of Tensor types. Static graphs in O0/O1 modes have no type restrictions. For dynamic graph scenarios with Ascend C custom operators, it is recommended to use [CustomOpBuilder-Based Custom Operators](https://www.mindspore.cn/tutorials/en/r2.7.2/custom_program/operation/op_customopbuilder.html).
 
