@@ -290,7 +290,8 @@ The script `build.bat` in the root directory of MindSpore Lite can be used to co
 
 | Parameter  |  Parameter Description   | Mandatory or Not |
 | -------- | ----- | ---- |
-| lite | Set this parameter to compile the MindSpore Lite project. | Yes |
+| lite | Set this parameter to compile the MindSpore Lite project by the MinGW compiler (mutually exclusive with ms\_vc). | No |
+| ms\_vc | Set this parameter to compile the MindSpore Lite project by the MSVC compiler. | No |
 | [n] | Set the number of threads used during compilation, otherwise the default is set to 6 threads.  | No |
 
 #### The Options of `mindspore-lite/CMakeLists.txt`
