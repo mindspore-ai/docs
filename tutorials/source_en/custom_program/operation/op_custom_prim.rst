@@ -40,7 +40,7 @@ The difference between these operator development methods are as follows:
      - `CPU`
      - Fast algorithm verification scenarios
    * - `aot <https://www.mindspore.cn/tutorials/en/master/custom_program/operation/op_custom_aot.html>`_
-     - Ascend C/CUDA/C++
+     - Ascend C / CUDA / C++
      - `Ascend` `GPU` `CPU`
      - high-performance scenarios
 
