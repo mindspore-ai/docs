@@ -46,6 +46,11 @@ output
 | load_checkpoint | checkpoint文件夹路径，可**填写`output/checkpoint`文件夹路径或`iteration`子文件夹路径**。<br />若为`checkpoint`文件夹路径，将会按照`latest_checkpointed_iteration.txt`中记录的迭代步数，加载对应`iteration`子文件夹checkpoint。 | (str，可选) - 默认值：`""`     |
 | resume_training | 断点续训功能开关，设置为 `True` 时，将从待加载checkpoint对应的迭代步数继续训练。 | (bool，可选) - 默认值：`False` |
 
+## 权重保存声明
+
+- 当在保存权重时，MindSpore Transformers在除特殊场景外仅对本轮次训练的权重进行保存和删除（删除逻辑：当保存的权重数目达到设定的最大值时，会删除旧权重文件）。
+- 特殊场景：当保存权重时遇到同名目录时，旧的权重目录会被覆盖。所以请及时做好权重目录的备份工作。
+
 ## 场景介绍
 
 ### 中断续训
