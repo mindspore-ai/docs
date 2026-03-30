@@ -393,6 +393,7 @@ You can increase the parameter num_parallel_workers in GeneratorDataset / optimi
 
 Here is a way to debug the performance of the dataset, even if the above WARNING message does not appear, as a reference
 Construct a simple lenet training network and simply modify the code so that there is a warning message in the run results.
+The MNIST dataset can be downloaded [here](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/MNIST_Data.zip).
 
 ```python
 import time
