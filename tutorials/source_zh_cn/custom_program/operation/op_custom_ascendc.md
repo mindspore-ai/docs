@@ -104,7 +104,7 @@ ops.Custom(func, bprop=None, out_dtype=None, func_type='aot', out_shape=None, re
 - `out_dtype`(Union[function, [mindspore.dtype](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.dtype.html#mindspore.dtype), list, tuple])：输出type或输出type的推导函数。默认值：`None`。
 - `func_type`(str)：自定义算子的函数类型。Ascend C自定义算子请指定`func_type="aot"`。
 - `bprop`(function)：自定义算子的反向函数。默认值：`None`。
-- `reg_info`(Union[str, dict, list, tuple])：自定义算子的注册信息。默认值：`None`。Ascend C自定义算子无需传入该参数，使用默认值。
+- `reg_info`(Union[str, dict, list, tuple])：自定义算子的注册信息。默认值：`None`。Ascend C自定义算子无需传入该参数，使用默认值。(注意：若通过ops.Custom接入CANN包内置的算子，则需要设置该参数，参考[算子信息注册](https://www.mindspore.cn/tutorials/zh-CN/master/custom_program/operation/op_custom_adv.html#)。)
 
 **场景限制**：当前动态图只支持输入输出为Tensor类型；静态图O0/O1模式对类型无限制。Ascend C自定义算子在动态图场景推荐使用[基于CustomOpBuilder的自定义算子](https://www.mindspore.cn/tutorials/zh-CN/master/custom_program/operation/op_customopbuilder.html)。
 
@@ -204,10 +204,10 @@ assert output.asnumpy().shape == (1280, 1280)
 
 
    # 定义自定义算子
-   custom_add = ops.Custom(func="aclnnAdd", out_shape=add_infer_shape, out_dtype=add_infer_type, func_type="aot")
+   custom_add = ops.Custom(func="aclnnMul", out_shape=add_infer_shape, out_dtype=add_infer_type, func_type="aot")
 
    # 对于简单的infer shape或infer type，也可以直接使用lambda函数
-   custom_add = ops.Custom(func="aclnnAdd", out_shape=lambda x, y: x, out_dtype=lambda x, y: x, func_type="aot")
+   custom_add = ops.Custom(func="aclnnMul", out_shape=lambda x, y: x, out_dtype=lambda x, y: x, func_type="aot")
    ```
 
 - 输出shape通过输入shape计算场景的infer函数
@@ -241,7 +241,7 @@ assert output.asnumpy().shape == (1280, 1280)
 
    ```python
    from mindspore import ops
-   import mindspore.dtype as mstype
+   import mindspore.common.dtype as mstype
 
 
    def msda_grad_infer_shape_1(v_s, vss_s, vlsi_s, sl_s, aw_s, go_s):
@@ -268,13 +268,13 @@ assert output.asnumpy().shape == (1280, 1280)
 
    # 多输出场景需保证out_shape和out_dtype的类型相同，示例一：均为list类型
    custom_msda_grad = ops.Custom(
-       func="aclnnMultiScaleDeformableAttnGrad", out_shape=msda_grad_infer_shape_1,
+       func="aclnnMultiScaleDeformableAttentionGrad", out_shape=msda_grad_infer_shape_1,
        out_dtype=[mstype.float32, mstype.float32, mstype.float32],
        func_type="aot")
 
    # 多输出场景需保证out_shape和out_dtype的类型相同，示例二：均为tuple类型
    custom_msda_grad = ops.Custom(
-       func="aclnnMultiScaleDeformableAttnGrad", out_shape=msda_grad_infer_shape_2,
+       func="aclnnMultiScaleDeformableAttentionGrad", out_shape=msda_grad_infer_shape_2,
        out_dtype=(mstype.float32, mstype.float32, mstype.float32),
        func_type="aot")
 

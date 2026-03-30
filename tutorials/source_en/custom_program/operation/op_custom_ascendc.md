@@ -102,7 +102,7 @@ ops.Custom(func, bprop=None, out_dtype=None, func_type='aot', out_shape=None, re
 - `out_dtype` (Union[function, [mindspore.dtype](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.dtype.html#mindspore.dtype), list, tuple])：Output type or type inference function. Default value: `None`.
 - `func_type`(str)：Function type of the custom operator. For Ascend C custom operators, specify `func_type="aot"`.
 - `bprop`(function)：Backpropagation function for the custom operator. Default value: `None`.
-- `reg_info`(Union[str, dict, list, tuple])：Registration information for the custom operator. Default value: `None`. Ascend C custom operators do not need to pass this parameter and can use the default value.
+- `reg_info`(Union[str, dict, list, tuple])：Registration information for the custom operator. Default value: `None`. Ascend C custom operators do not need to pass this parameter and can use the default value. (Note: When accessing built-in operators in the CANN package via ops.Custom, this parameter must be set. Refer to [Operator Information Registration for details](https://www.mindspore.cn/tutorials/en/master/custom_program/operation/op_custom_adv.html).)
 
 **Scenario Limitations**： Currently, dynamic graphs only support input and output of Tensor types. Static graphs in O0/O1 modes have no type restrictions. For dynamic graph scenarios with Ascend C custom operators, it is recommended to use [CustomOpBuilder-Based Custom Operators](https://www.mindspore.cn/tutorials/en/master/custom_program/operation/op_customopbuilder.html).
 
@@ -199,10 +199,10 @@ The input to the inference function is the shape or type of the custom operator'
 
 
    # Define the custom operator
-   custom_add = ops.Custom(func="aclnnAdd", out_shape=add_infer_shape, out_dtype=add_infer_type, func_type="aot")
+   custom_add = ops.Custom(func="aclnnMul", out_shape=add_infer_shape, out_dtype=add_infer_type, func_type="aot")
 
    # For simple infer shape or infer type, you can also use a lambda function directly
-   custom_add = ops.Custom(func="aclnnAdd", out_shape=lambda x, y: x, out_dtype=lambda x, y: x, func_type="aot")
+   custom_add = ops.Custom(func="aclnnMul", out_shape=lambda x, y: x, out_dtype=lambda x, y: x, func_type="aot")
    ```
 
 - Infer function for scenarios where the output shape is calculated based on the input shape.
@@ -236,7 +236,7 @@ The input to the inference function is the shape or type of the custom operator'
 
    ```python
    from mindspore import ops
-   import mindspore.dtype as mstype
+   import mindspore.common.dtype as mstype
 
 
    def msda_grad_infer_shape_1(v_s, vss_s, vlsi_s, sl_s, aw_s, go_s):
@@ -263,13 +263,13 @@ The input to the inference function is the shape or type of the custom operator'
 
    # For multiple output scenarios, ensure that the types of `out_shape` and `out_dtype` are identical. Example 1: Both are of type list.
    custom_msda_grad = ops.Custom(
-       func="aclnnMultiScaleDeformableAttnGrad", out_shape=msda_grad_infer_shape_1,
+       func="aclnnMultiScaleDeformableAttentionGrad", out_shape=msda_grad_infer_shape_1,
        out_dtype=[mstype.float32, mstype.float32, mstype.float32],
        func_type="aot")
 
    # For multiple output scenarios, ensure that the types of `out_shape` and `out_dtype` are identical. Example 1: Both are of type tuple.
    custom_msda_grad = ops.Custom(
-       func="aclnnMultiScaleDeformableAttnGrad", out_shape=msda_grad_infer_shape_2,
+       func="aclnnMultiScaleDeformableAttentionGrad", out_shape=msda_grad_infer_shape_2,
        out_dtype=(mstype.float32, mstype.float32, mstype.float32),
        func_type="aot")
 
