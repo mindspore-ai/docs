@@ -46,6 +46,11 @@ You can refer to [Checkpoint Saving and Loading](https://www.mindspore.cn/mindfo
 | load_checkpoint | The path to the checkpoint folder. It can **be filled with the path of the `output/checkpoint` folder or the path of the `iteration` subfolder**.<br />If it is the path of the `checkpoint` folder, the checkpoint in the corresponding `iteration` subfolder will be loaded according to the number of iterations recorded in `latest_checkpointed_iteration.txt`. | (str, optional) - Default value: `""`     |
 | resume_training | The switch for the resume training function. When set to `True`, training will restore from the number of iterations corresponding to the checkpoint to be loaded. | (bool, optional) - Default value: `False` |
 
+## Weight Saving Declaration
+
+- When saving weights, MindSpore Transformers only saves and deletes the weights from the current training round, except in special scenarios (deletion logic: when the number of saved weights reaches the set maximum value, old weight files will be deleted).
+- Special scenario: When saving weights, if a directory with the same name is encountered, the old weight directory will be overwritten. Therefore, please back up your weight directory in a timely manner.
+
 ## Scenario Introduction
 
 ### Interruption Resume Training
