@@ -1,6 +1,6 @@
 # Installing MSYS2 Software on Windows
 
-[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/install/third_party/msys_software_install_en.md)
+[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.9.0/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/r2.9.0/install/third_party/msys_software_install_en.md)
 
 This document describes the steps on how to install the MSYS2 software on a Windows system.
 

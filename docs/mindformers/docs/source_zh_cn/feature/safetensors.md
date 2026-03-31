@@ -1,6 +1,6 @@
 # Safetensors权重
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/feature/safetensors.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.9.0/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/r2.9.0/docs/mindformers/docs/source_zh_cn/feature/safetensors.md)
 
 本文档为 **MindSpore Transformers 框架下 Checkpoint 1.0 版本** 的 Safetensors 格式权重使用介绍。
 
@@ -58,7 +58,7 @@ qwen3_8b
 Safetensors分布式权重可通过以下两种方式获取：
 
 1. 通过MindSpore Transformers分布式训练生成。
-2. 通过[格式转换脚本](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.ckpt_to_safetensors.html)，将原有分布式ckpt权重转换为Safetensors格式。
+2. 通过[格式转换脚本](https://www.mindspore.cn/docs/zh-CN/r2.9.0/api_python/mindspore/mindspore.ckpt_to_safetensors.html)，将原有分布式ckpt权重转换为Safetensors格式。
 
 分布式Safetensors示例目录结构：
 
@@ -130,7 +130,7 @@ output
 
 用户可修改 `yaml` 配置文件中 `CheckpointMonitor` 下的字段来控制权重保存行为。
 
-以 [DeepSeek-V3 预训练 yaml](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/example/deepseek3/pretrain_deepseek3_671b.yaml) 为例，可做如下配置：
+以 [DeepSeek-V3 预训练 yaml](https://atomgit.com/mindspore/docs/blob/r2.9.0/docs/mindformers/docs/source_zh_cn/example/deepseek3/pretrain_deepseek3_671b.yaml) 为例，可做如下配置：
 
 ```yaml
 # callbacks
@@ -334,7 +334,7 @@ output
 
 **2.合并分布式策略**
 
-调用MindSpore提供的[策略合并接口](https://www.mindspore.cn/docs/zh-CN/master/api_python/parallel/mindspore.parallel.merge_pipeline_strategys.html)将集中后的所有策略文件合并成一个文件，用于后续权重切分。
+调用MindSpore提供的[策略合并接口](https://www.mindspore.cn/docs/zh-CN/r2.9.0/api_python/parallel/mindspore.parallel.merge_pipeline_strategys.html)将集中后的所有策略文件合并成一个文件，用于后续权重切分。
 
 ```python
 import mindspore as ms
@@ -526,7 +526,7 @@ python toolkit/safetensors/unified_safetensors.py \
 
 #### 使用说明
 
-使用MindSpore提供的[策略合并接口](https://www.mindspore.cn/docs/zh-CN/master/api_python/parallel/mindspore.parallel.merge_pipeline_strategys.html)和[切分保存接口](https://www.mindspore.cn/docs/zh-CN/master/api_python/parallel/mindspore.parallel.load_distributed_checkpoint.html)，按照如下方式进行safetensors权重离线切分保存。切分后的权重格式为[分布式权重](#分布式权重)。
+使用MindSpore提供的[策略合并接口](https://www.mindspore.cn/docs/zh-CN/r2.9.0/api_python/parallel/mindspore.parallel.merge_pipeline_strategys.html)和[切分保存接口](https://www.mindspore.cn/docs/zh-CN/r2.9.0/api_python/parallel/mindspore.parallel.load_distributed_checkpoint.html)，按照如下方式进行safetensors权重离线切分保存。切分后的权重格式为[分布式权重](#分布式权重)。
 
 ```python
 import mindspore as ms
@@ -568,7 +568,7 @@ MindSpore Transformers存量权重文件为ckpt格式，可以通过以下两种
 
 #### 接口调用
 
-直接调用[Mindspore格式转换接口](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.ckpt_to_safetensors.html)实现。
+直接调用[Mindspore格式转换接口](https://www.mindspore.cn/docs/zh-CN/r2.9.0/api_python/mindspore/mindspore.ckpt_to_safetensors.html)实现。
 
 ```python
 import mindspore as ms

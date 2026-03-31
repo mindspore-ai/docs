@@ -1,6 +1,6 @@
 # Advanced Development Overview
 
-[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_en/advanced_development/overview.md)
+[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.9.0/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/r2.9.0/docs/mindformers/docs/source_en/advanced_development/overview.md)
 
 MindSpore Transformers advanced development targets scenarios such as model migration, tuning, and accuracy verification, helping users go beyond basic training and inference to perform development migration, debugging, optimization, and accuracy comparison. This section summarizes all advanced development documentation by category: **Diagnostics and Optimization**, **Model Development and Configuration**, **Accuracy Comparison**, and **API Reference**, for quick reference and navigation.
 

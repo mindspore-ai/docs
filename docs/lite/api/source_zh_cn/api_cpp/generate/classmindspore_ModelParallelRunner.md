@@ -1,6 +1,6 @@
 # Class ModelParallelRunner
 
-\#include &lt;[model_parallel_runner.h](https://atomgit.com/mindspore/mindspore-lite/blob/master/include/api/model_parallel_runner.h)&gt;
+\#include &lt;[model_parallel_runner.h](https://atomgit.com/mindspore/mindspore-lite/blob/r2.9.0/include/api/model_parallel_runner.h)&gt;
 
 ModelParallelRunner定义了MindSpore的多个Model以及并发策略，便于多个Model的调度与管理。
 

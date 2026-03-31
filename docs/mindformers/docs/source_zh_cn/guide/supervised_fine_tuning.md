@@ -1,6 +1,6 @@
 # 监督微调实践
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/guide/supervised_fine_tuning.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.9.0/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/r2.9.0/docs/mindformers/docs/source_zh_cn/guide/supervised_fine_tuning.md)
 
 ## 概述
 

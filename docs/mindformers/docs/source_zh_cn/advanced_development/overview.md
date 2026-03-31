@@ -1,6 +1,6 @@
 # 高阶开发概述
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/advanced_development/overview.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.9.0/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/r2.9.0/docs/mindformers/docs/source_zh_cn/advanced_development/overview.md)
 
 MindSpore Transformers 高阶开发面向模型迁移、调优与精度验证等进阶场景，帮助用户在完成基础训练与推理后，进一步做开发迁移、调试调优和精度对比。本章节按 **调试调优**、**模型开发与配置**、**精度对比** 和 **API 参考** 对全部高阶开发文档进行分类汇总，便于快速查找与跳转。
 

@@ -1,6 +1,6 @@
 # Class Graph
 
-\#include &lt;[graph.h](https://atomgit.com/mindspore/mindspore-lite/blob/master/include/api/graph.h)&gt;
+\#include &lt;[graph.h](https://atomgit.com/mindspore/mindspore-lite/blob/r2.9.0/include/api/graph.h)&gt;
 
 ## 构造函数
 

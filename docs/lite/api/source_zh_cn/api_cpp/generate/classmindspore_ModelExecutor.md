@@ -1,6 +1,6 @@
 # Class ModelExecutor
 
-\#include &lt;[multi_model_runner.h](https://atomgit.com/mindspore/mindspore-lite/blob/master/include/api/multi_model_runner.h)&gt;
+\#include &lt;[multi_model_runner.h](https://atomgit.com/mindspore/mindspore-lite/blob/r2.9.0/include/api/multi_model_runner.h)&gt;
 
 ModelExecutor定义了对Model的封装，用于调度多个Model的推理。
 

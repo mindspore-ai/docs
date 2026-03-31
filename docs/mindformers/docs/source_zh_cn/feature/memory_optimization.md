@@ -1,12 +1,12 @@
 # 训练内存优化
 
-[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/feature/memory_optimization.md)
+[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.9.0/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/r2.9.0/docs/mindformers/docs/source_zh_cn/feature/memory_optimization.md)
 
 ## 重计算
 
 ### 概述
 
-重计算可以显著降低训练时的激活内存，但会额外增加一些计算。关于重计算的原理和框架侧能力可参考 [MindSpore 教程文档：重计算](https://www.mindspore.cn/tutorials/zh-CN/master/parallel/recompute.html)。
+重计算可以显著降低训练时的激活内存，但会额外增加一些计算。关于重计算的原理和框架侧能力可参考 [MindSpore 教程文档：重计算](https://www.mindspore.cn/tutorials/zh-CN/r2.9.0/parallel/recompute.html)。
 
 ### 配置与使用
 
@@ -14,7 +14,7 @@
 
 用户可通过在模型训练的 yaml 配置文件中新增 `recompute_config` 模块来使用重计算。
 
-以 [DeepSeek-V3 预训练 yaml](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/example/deepseek3/pretrain_deepseek3_671b.yaml) 为例，可做如下配置：
+以 [DeepSeek-V3 预训练 yaml](https://atomgit.com/mindspore/docs/blob/r2.9.0/docs/mindformers/docs/source_zh_cn/example/deepseek3/pretrain_deepseek3_671b.yaml) 为例，可做如下配置：
 
 ```yaml
 # recompute config
@@ -123,7 +123,7 @@ INFO - Formative select_comm_recompute: {'ffn_norm\.norm': [[4, 5, 5, 5, 5], [5,
 
 ### 使用示例
 
-本章节以 [DeepSeek-V3 预训练 yaml](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/example/deepseek3/pretrain_deepseek3_671b.yaml) 为例，演示细粒度激活值SWAP特性的使用。
+本章节以 [DeepSeek-V3 预训练 yaml](https://atomgit.com/mindspore/docs/blob/r2.9.0/docs/mindformers/docs/source_zh_cn/example/deepseek3/pretrain_deepseek3_671b.yaml) 为例，演示细粒度激活值SWAP特性的使用。
 
 #### 环境准备
 

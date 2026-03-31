@@ -1,6 +1,6 @@
 # Comparison of Reasoning Precision
 
-[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_en/advanced_development/inference_precision_comparison.md)
+[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.9.0/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/r2.9.0/docs/mindformers/docs/source_en/advanced_development/inference_precision_comparison.md)
 
 ## Overview
 
@@ -96,7 +96,7 @@ Possible problems and solutions:
       checker.check_precision(gpu_data, npu_data)
       ```
 
-      > For information on how to dump data, you can refer to the [Dump Tutorial Document](https://www.mindspore.cn/tutorials/en/master/debug/dump.html) provided on the MindSpore official website.
+      > For information on how to dump data, you can refer to the [Dump Tutorial Document](https://www.mindspore.cn/tutorials/en/r2.9.0/debug/dump.html) provided on the MindSpore official website.
     - Possible reasons: Precision loss caused by inconsistent dtype types of a certain input, etc.
     - Solution: Align the dtype of the benchmark.
 

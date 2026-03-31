@@ -1,6 +1,6 @@
 # List of Hardware Backends Supported by MindSpore Lite
 
-[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/lite/docs/source_en/reference/operator_list_lite.md)
+[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.9.0/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/r2.9.0/docs/lite/docs/source_en/reference/operator_list_lite.md)
 
 | Operator Names                            | Operator Functions                                                     | CPU                                                 | Kirin NPU | GPU (Mali/Adreno)        | Ascend  |
 | ----------------------------------- | ------------------------------------------------------------ | --------------------------------------------------- | --------- | ----------------------- | ----------------------- |
