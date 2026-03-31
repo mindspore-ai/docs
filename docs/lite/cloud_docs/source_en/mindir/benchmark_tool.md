@@ -1,6 +1,6 @@
 # Benchmark Tool
 
-[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/lite/cloud_docs/source_en/mindir/benchmark_tool.md)
+[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.9.0/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/r2.9.0/docs/lite/cloud_docs/source_en/mindir/benchmark_tool.md)
 
 ## Overview
 
@@ -12,9 +12,9 @@ Before performing inference after converting the model, you can use the Benchmar
 
 To use the Benchmark tool, you need to do the following environment preparation work.
 
-- Compile: The Benchmark tool code is in the `mindspore-lite/tools/benchmark` directory of the MindSpore Lite source code. Refer to the build documentation for [Environment requirements](https://www.mindspore.cn/lite/cloud_docs/en/master/use/build.html#environment-requirements) and [Compilation Examples](https://www.mindspore.cn/lite/cloud_docs/en/master/use/build.html#compilation-examples) in the build documentation to perform the compilation.
+- Compile: The Benchmark tool code is in the `mindspore-lite/tools/benchmark` directory of the MindSpore Lite source code. Refer to the build documentation for [Environment requirements](https://www.mindspore.cn/lite/cloud_docs/en/r2.9.0/use/build.html#environment-requirements) and [Compilation Examples](https://www.mindspore.cn/lite/cloud_docs/en/r2.9.0/use/build.html#compilation-examples) in the build documentation to perform the compilation.
 
-- Run: Refer to [compilation output](https://www.mindspore.cn/lite/cloud_docs/en/master/use/build.html#directory-structure) in the build documentation to get the `benchmark` tool from the compiled package.
+- Run: Refer to [compilation output](https://www.mindspore.cn/lite/cloud_docs/en/r2.9.0/use/build.html#directory-structure) in the build documentation to get the `benchmark` tool from the compiled package.
 
 - Add the dynamic link libraries needed for inference to the environment variable LD_LIBRARY_PATH.
 

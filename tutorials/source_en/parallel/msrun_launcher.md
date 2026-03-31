@@ -1,10 +1,10 @@
 # msrun Launching
 
-[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/tutorials/source_en/parallel/msrun_launcher.md)
+[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.9.0/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/r2.9.0/tutorials/source_en/parallel/msrun_launcher.md)
 
 ## Overview
 
-`msrun` is an encapsulation of the [Dynamic Cluster](https://www.mindspore.cn/tutorials/en/master/parallel/dynamic_cluster.html) startup method. Users can use `msrun` to pull multi-process distributed tasks across nodes with a single command line instruction. Users can use `msrun` to pull up multi-process distributed tasks on each node with a single command line command, and there is no need to manually set [dynamic networking environment variables](https://www.mindspore.cn/tutorials/en/master/parallel/dynamic_cluster.html). `msrun` supports both `Ascend`, `GPU` and `CPU` backends. As with the `Dynamic Cluster` startup, `msrun` has no dependencies on third-party libraries and configuration files.
+`msrun` is an encapsulation of the [Dynamic Cluster](https://www.mindspore.cn/tutorials/en/r2.9.0/parallel/dynamic_cluster.html) startup method. Users can use `msrun` to pull multi-process distributed tasks across nodes with a single command line instruction. Users can use `msrun` to pull up multi-process distributed tasks on each node with a single command line command, and there is no need to manually set [dynamic networking environment variables](https://www.mindspore.cn/tutorials/en/r2.9.0/parallel/dynamic_cluster.html). `msrun` supports both `Ascend`, `GPU` and `CPU` backends. As with the `Dynamic Cluster` startup, `msrun` has no dependencies on third-party libraries and configuration files.
 
 > - `msrun` is available after the user installs MindSpore, and the command `msrun --help` can be used to view the supported parameters.
 > - `msrun` supports `graph mode` as well as `PyNative mode`.
@@ -23,7 +23,7 @@ A parameters list of command line:
 | `--cluster_time_out` | Cluster networking timeout in seconds. | Integer | Default: 600 seconds. | This parameter represents the waiting time in cluster networking. <br>If no `worker_num` number of Workers register successfully beyond this time window, the task pull-up fails. |
 | `--bind_core` | Enable processes binding CPU cores. | Bool / Dict | True/False or a device-to-CPU-range dict. Default: False. | If set to True, msrun automatically allocates CPU ranges based on device affinity. If a dictionary is manually passed, CPU binding is performed according to the configured CPU ranges. For specific configurations, refer to the "Process-Level CPU/NUMA Affinity Configuration" section. |
 | `--bind_numa` | Enable processes binding NUMA nodes. | Bool / Dict / String | True/False or a device-to-NUMA-node dict. A path ending with `.json` is also supported. Default: False. | If set to True, msrun automatically allocates NUMA nodes based on device affinity. If a dictionary or JSON file is manually passed, NUMA binding is performed according to the provided configuration. For specific configurations, refer to the "Process-Level CPU/NUMA Affinity Configuration" section. |
-| `--sim_level` | Set simulated compilation level. | Integer | Default: -1. Disable simulated compilation. | If this parameter is set, msrun starts only the processes for simulated compilation and does not execute operators. This feature is commonly used to debug large-scale distributed training parallel strategies, and to detect memory and strategy issues in advance. <br> The settings for the simulated compilation level can be found in the document: [DryRun](https://www.mindspore.cn/tutorials/en/master/debug/dryrun.html). |
+| `--sim_level` | Set simulated compilation level. | Integer | Default: -1. Disable simulated compilation. | If this parameter is set, msrun starts only the processes for simulated compilation and does not execute operators. This feature is commonly used to debug large-scale distributed training parallel strategies, and to detect memory and strategy issues in advance. <br> The settings for the simulated compilation level can be found in the document: [DryRun](https://www.mindspore.cn/tutorials/en/r2.9.0/debug/dryrun.html). |
 | `--sim_rank_id` | rank_id of the simulated process. | Integer | Default: -1. Disable simulated compilation for a single process. | Set rank id of the simulated process. |
 | `--rank_table_file` | rank_table configuration. Only valid on Ascend platform. | String | File path of rank_table configuration. Default: empty string. | This parameter represents the rank_table configuration file on Ascend platform, describing current distributed cluster. <br>Since the rank_table configuration file reflects distributed cluster information at the physical level, when using this configuration, make sure that the Devices visible to the current process are consistent with the rank_table configuration. <br>The Device visible to the current process can be set via the environment variable `ASCEND_RT_VISIBLE_DEVICES`. |
 | `--worker_log_name` | Specifies the worker log name. | String | File name of worker log. Default: `worker_[rank].log`. | This parameter represents support users configure worker log name, and support configure `ip` and `hostname` to worker log name by `{ip}` and `{hostname}` separately. <br>The suffix of worker log name is `rank` by default. |
@@ -45,13 +45,13 @@ The following table shows the environment variables can be used in user scripts,
 | `RANK_SIZE` | The total number of Worker processes specified by the user. | Same as parameter `--worker_num`. |
 | `RANK_ID` | The rank_id assigned to the Worker process. | In a multi-machine multi-card scenario, if the parameter `--node_rank` is not set, `RANK_ID` will only be exported after the cluster is initialized.<br> So to use this environment variable, it is recommended to set the `--node_rank` parameter correctly. |
 
-msrun is used as an encapsulation of the Dynamic Cluster startup method, and all user-configurable environment variables can be found in [dynamic networking environment variables](https://www.mindspore.cn/tutorials/en/master/parallel/dynamic_cluster.html).
+msrun is used as an encapsulation of the Dynamic Cluster startup method, and all user-configurable environment variables can be found in [dynamic networking environment variables](https://www.mindspore.cn/tutorials/en/r2.9.0/parallel/dynamic_cluster.html).
 
 ## Launching Distributed Tasks
 
 The startup script is consistent across hardware platforms. The following is an example of how to write a startup script for Ascend:
 
-> You can download the full sample code here: [startup_method](https://atomgit.com/mindspore/docs/tree/master/docs/sample_code/startup_method).
+> You can download the full sample code here: [startup_method](https://atomgit.com/mindspore/docs/tree/r2.9.0/docs/sample_code/startup_method).
 
 The directory structure is as follows:
 
@@ -158,7 +158,7 @@ for epoch in range(10):
 
 The following is an example of performing a single-machine 8-card training session:
 
-The script [msrun_single.sh](https://atomgit.com/mindspore/docs/blob/master/docs/sample_code/startup_method/msrun_single.sh) uses the msrun command to pull up 1 `Scheduler` process as well as 8 `Worker` processes on the current node (no need to set `master_addr`, defaults to `127.0.0.1`; no need to set `node_rank` for single-machine):
+The script [msrun_single.sh](https://atomgit.com/mindspore/docs/blob/r2.9.0/docs/sample_code/startup_method/msrun_single.sh) uses the msrun command to pull up 1 `Scheduler` process as well as 8 `Worker` processes on the current node (no need to set `master_addr`, defaults to `127.0.0.1`; no need to set `node_rank` for single-machine):
 
 ```bash
 EXEC_PATH=$(pwd)
@@ -197,7 +197,7 @@ epoch: 0, step: 30, loss is 1.0437132
 
 The following is an example of executing 2-machine, 8-card training, with each machine executing the startup of 4 Workers:
 
-The script [msrun_1.sh](https://atomgit.com/mindspore/docs/blob/master/docs/sample_code/startup_method/msrun_1.sh) is executed on node 1 and uses the msrun command to pull up 1 `Scheduler` process and 4 `Worker` processes, configures `master_addr` as the IP address of node 1 (msrun automatically detects that the current node ip matches the `master_addr` and pulls up the `Scheduler` process). Set the current node to node 0 with `node_rank`:
+The script [msrun_1.sh](https://atomgit.com/mindspore/docs/blob/r2.9.0/docs/sample_code/startup_method/msrun_1.sh) is executed on node 1 and uses the msrun command to pull up 1 `Scheduler` process and 4 `Worker` processes, configures `master_addr` as the IP address of node 1 (msrun automatically detects that the current node ip matches the `master_addr` and pulls up the `Scheduler` process). Set the current node to node 0 with `node_rank`:
 
 ```bash
 EXEC_PATH=$(pwd)
@@ -216,7 +216,7 @@ echo "start training"
 msrun --worker_num=8 --local_worker_num=4 --master_addr=<node_1 ip address> --master_port=8118 --node_rank=0 --log_dir=msrun_log --join=True --cluster_time_out=300 net.py
 ```
 
-The script [msrun_2.sh](https://atomgit.com/mindspore/docs/blob/master/docs/sample_code/startup_method/msrun_2.sh) is executed on node 2 and uses the msrun command to pull up 4 `Worker` processes, configures `master_addr` as the IP address of node 1. Set the current node to node 0 with `node_rank`:
+The script [msrun_2.sh](https://atomgit.com/mindspore/docs/blob/r2.9.0/docs/sample_code/startup_method/msrun_2.sh) is executed on node 2 and uses the msrun command to pull up 4 `Worker` processes, configures `master_addr` as the IP address of node 1. Set the current node to node 0 with `node_rank`:
 
 ```bash
 EXEC_PATH=$(pwd)
@@ -308,9 +308,9 @@ if get_rank() == 7:
 ms.set_seed(1)
 ```
 
-> The [mindspore.communication.get_rank()](https://www.mindspore.cn/docs/en/master/api_python/communication/mindspore.communication.get_rank.html) interface needs to be called after the [mindspore.communication.init()](https://www.mindspore.cn/docs/en/master/api_python/communication/mindspore.communication.init.html) interface has completed its distributed initialization to get the rank information properly, otherwise `get_rank()` returns 0 by default.
+> The [mindspore.communication.get_rank()](https://www.mindspore.cn/docs/en/r2.9.0/api_python/communication/mindspore.communication.get_rank.html) interface needs to be called after the [mindspore.communication.init()](https://www.mindspore.cn/docs/en/r2.9.0/api_python/communication/mindspore.communication.init.html) interface has completed its distributed initialization to get the rank information properly, otherwise `get_rank()` returns 0 by default.
 
-After a breakpoint operation on a rank, it will cause the execution of that rank process to stop at the breakpoint and wait for subsequent interactions, while other unbroken rank processes will continue to run, which may lead to inconsistent running speed, so you can use the [mindspore.ops.communication.barrier()](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.communication.barrier.html) operator and the [mindspore.runtime.synchronize()](https://www.mindspore.cn/docs/en/master/api_python/runtime/mindspore.runtime.synchronize.html) to synchronize the running of all ranks, ensuring that other ranks block and wait, and that the stops of other ranks are released once the debugging rank continues to run. For example, in a standalone 8-card task, only rank 7 is broken and all other ranks are blocked:
+After a breakpoint operation on a rank, it will cause the execution of that rank process to stop at the breakpoint and wait for subsequent interactions, while other unbroken rank processes will continue to run, which may lead to inconsistent running speed, so you can use the [mindspore.ops.communication.barrier()](https://www.mindspore.cn/docs/en/r2.9.0/api_python/ops/mindspore.ops.communication.barrier.html) operator and the [mindspore.runtime.synchronize()](https://www.mindspore.cn/docs/en/r2.9.0/api_python/runtime/mindspore.runtime.synchronize.html) to synchronize the running of all ranks, ensuring that other ranks block and wait, and that the stops of other ranks are released once the debugging rank continues to run. For example, in a standalone 8-card task, only rank 7 is broken and all other ranks are blocked:
 
 ```python
 import pdb
@@ -363,7 +363,7 @@ Key invocation command: `taskset -c CPUA-CPUB python XXX.py`, which restricts th
 
     - Priority is given to CPU cores in the affinity pool; if the cores in the affinity pool are insufficient, cores in the non-affinity pool will be used.
     - It relies on commands such as `lscpu` and `npu-smi` to obtain hardware information. If command execution fails, allocation will be performed based only on available CPU resources.
-    - The method for obtaining the affinity relationship between CPUs and NPUs is consistent with the MindSpore interface `mindspore.runtime.set_cpu_affinity`, which can be referred to [mindspore.runtime.set_cpu_affinity](https://www.mindspore.cn/docs/en/master/api_python/runtime/mindspore.runtime.set_cpu_affinity.html).
+    - The method for obtaining the affinity relationship between CPUs and NPUs is consistent with the MindSpore interface `mindspore.runtime.set_cpu_affinity`, which can be referred to [mindspore.runtime.set_cpu_affinity](https://www.mindspore.cn/docs/en/r2.9.0/api_python/runtime/mindspore.runtime.set_cpu_affinity.html).
 
 #### 2. Custom Core Binding
 
@@ -609,7 +609,7 @@ Usage:
 mindspore.runtime.set_cpu_affinity(True, bind_file="/path/to/bind.json")
 ```
 
-See the API reference: [mindspore.runtime.set_cpu_affinity](https://www.mindspore.cn/docs/en/master/api_python/runtime/mindspore.runtime.set_cpu_affinity.html).
+See the API reference: [mindspore.runtime.set_cpu_affinity](https://www.mindspore.cn/docs/en/r2.9.0/api_python/runtime/mindspore.runtime.set_cpu_affinity.html).
 
 > `set_cpu_affinity` supports two configuration methods with different CPU ID usage:
 >
@@ -629,7 +629,7 @@ Consistency checks:
 
 #### 5. Auto-generate JSON
 
-Use the script [gen_bind_json.py](https://atomgit.com/mindspore/docs/blob/master/docs/sample_code/set_affinity/gen_bind_json.py) to generate a unified JSON file:
+Use the script [gen_bind_json.py](https://atomgit.com/mindspore/docs/blob/r2.9.0/docs/sample_code/set_affinity/gen_bind_json.py) to generate a unified JSON file:
 
 ```bash
 python gen_bind_json.py -o bind.json

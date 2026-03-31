@@ -1,6 +1,6 @@
 # 训练高可用
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/feature/high_availability.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.9.0/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/r2.9.0/docs/mindformers/docs/source_zh_cn/feature/high_availability.md)
 
 ## 概述
 
@@ -151,7 +151,7 @@ YAML配置包含两部分：临终 CKPT 的保存及恢复配置和卡间副本�
 本章节以 Qwen3-8B 训练为例演示临终 CKPT 的使用。
 
 1. 先安装 MindSpore 和 MindIO
-2. 下载 MindSpore Transformers，修改 [pretrain_qwen3_8b.yaml](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/example/qwen3/pretrain_qwen3_8b.yaml) 配置文件，主要配置如下：
+2. 下载 MindSpore Transformers，修改 [pretrain_qwen3_8b.yaml](https://atomgit.com/mindspore/docs/blob/r2.9.0/docs/mindformers/docs/source_zh_cn/example/qwen3/pretrain_qwen3_8b.yaml) 配置文件，主要配置如下：
 
     ```yaml
     # runner config
@@ -266,7 +266,7 @@ YAML配置包含两部分：临终 CKPT 的保存及恢复配置和卡间副本�
 > 以下示例所展示的参数数值仅作为实验数据，请以真实训练数据为准。
 
 1. 先安装 [MindSpore](https://www.mindspore.cn/install)。
-2. 下载 MindSpore Transformers，使用的[pretrain_qwen3_8b.yaml](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/example/qwen3/pretrain_qwen3_8b.yaml)按照如下配置添加和修改参数：
+2. 下载 MindSpore Transformers，使用的[pretrain_qwen3_8b.yaml](https://atomgit.com/mindspore/docs/blob/r2.9.0/docs/mindformers/docs/source_zh_cn/example/qwen3/pretrain_qwen3_8b.yaml)按照如下配置添加和修改参数：
 
     Checkpoint 1.0配置：
 

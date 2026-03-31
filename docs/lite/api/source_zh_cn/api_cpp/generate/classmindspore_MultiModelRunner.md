@@ -1,6 +1,6 @@
 # Class MultiModelRunner
 
-\#include &lt;[multi_model_runner.h](https://atomgit.com/mindspore/mindspore-lite/blob/master/include/api/multi_model_runner.h)&gt;
+\#include &lt;[multi_model_runner.h](https://atomgit.com/mindspore/mindspore-lite/blob/r2.9.0/include/api/multi_model_runner.h)&gt;
 
 MultiModelRunner用于创建包含多个Model的mindir，并提供调度多个模型的方式。
 

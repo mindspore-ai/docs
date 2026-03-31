@@ -1,6 +1,6 @@
 # 工具
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/faq/tools.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.9.0/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/r2.9.0/docs/mindspore/source_zh_cn/faq/tools.md)
 
 ## 常见问题
 
@@ -17,6 +17,6 @@ A: 该错误通常是因为溢出检测功能所依赖的自定义算子与当�
 
   若暂时无法升级 CANN ，可关闭溢出检测Dump，转而使用：
   - 统计量 Dump：记录张量的最大值、最小值等信息，用于判断是否发生溢出；
-  - 全量 Dump 或选择性 Dump：保存中间张量数据，辅助离线分析数值异常，详细请参考[Dump功能调试](https://www.mindspore.cn/tutorials/zh-CN/master/debug/dump.html)。
+  - 全量 Dump 或选择性 Dump：保存中间张量数据，辅助离线分析数值异常，详细请参考[Dump功能调试](https://www.mindspore.cn/tutorials/zh-CN/r2.9.0/debug/dump.html)。
 
 通过上述方法，可有效规避该运行时错误，并继续完成溢出问题的排查。

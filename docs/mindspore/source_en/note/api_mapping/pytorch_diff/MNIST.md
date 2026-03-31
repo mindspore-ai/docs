@@ -1,6 +1,6 @@
 # Differences with torchvision.datasets.MNIST
 
-[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/MNIST.md)
+[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.9.0/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/r2.9.0/docs/mindspore/source_en/note/api_mapping/pytorch_diff/MNIST.md)
 
 ## torchvision.datasets.MNIST
 
@@ -30,7 +30,7 @@ class mindspore.dataset.MnistDataset(
     cache=None)
 ```
 
-For more information, see [mindspore.dataset.MnistDataset](https://mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.MnistDataset.html#mindspore.dataset.MnistDataset).
+For more information, see [mindspore.dataset.MnistDataset](https://mindspore.cn/docs/en/r2.9.0/api_python/dataset/mindspore.dataset.MnistDataset.html#mindspore.dataset.MnistDataset).
 
 ## Differences
 

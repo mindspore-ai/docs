@@ -1,8 +1,8 @@
 mindspore
 ============
 
-.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg
-    :target: https://atomgit.com/mindspore/docs/blob/master/docs/lite/api/source_zh_cn/api_cpp/mindspore.rst
+.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.9.0/resource/_static/logo_source.svg
+    :target: https://atomgit.com/mindspore/docs/blob/r2.9.0/docs/lite/api/source_zh_cn/api_cpp/mindspore.rst
     :alt: 查看源文件
 
 .. toctree::

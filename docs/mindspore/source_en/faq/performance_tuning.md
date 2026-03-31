@@ -1,13 +1,13 @@
 # Performance Tuning
 
-[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindspore/source_en/faq/performance_tuning.md)
+[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.9.0/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/r2.9.0/docs/mindspore/source_en/faq/performance_tuning.md)
 
 ## FAQ
 
 ### Q: What can I do if the network performance is abnormal and weight initialization takes a long time during training after MindSpore is installed?
 
 A: The `scipy 1.4` series versions may be used in the environment. Run the `pip list | grep scipy` command to view the scipy version and change the `scipy` version to that required by MindSpore. You can view the third-party library dependency in the `requirement.txt` file.
-<https://atomgit.com/mindspore/mindspore/blob/master/requirements.txt>
+<https://atomgit.com/mindspore/mindspore/blob/v2.9.0/requirements.txt>
 
 ### Q: How to choose the batchsize to achieve the best performance when training models on the Ascend chip?
 
