@@ -299,7 +299,7 @@ SlidingWindowAttention是一种稀疏注意力机制，通过限制每个token�
 ```yaml
 model_config:
   ...
-  window_size: (10, 0)  # 每个token向前关注10个tokens，向后不关注
+  window_size: [10, 0]  # 每个token向前关注10个tokens，向后不关注
   window_attn_skip_freq: 2  # 每2层有一个全注意力层
   ...
 ```

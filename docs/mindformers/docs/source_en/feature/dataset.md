@@ -749,7 +749,7 @@ train_dataset: &train_dataset
     shuffle: True
     dataset_ratios: [0.2, 0.8]
     samples_count: 1000
-    nums_per_dataset: [2000]
+    nums_per_dataset: [2000, 2000]
     sub_data_loader_args:
       stage: 'train'
       column_names: ["input_ids", "target_ids", "attention_mask"]

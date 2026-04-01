@@ -162,7 +162,7 @@ print(f"Convert finished, the output is saved to {output_path}")
 from safetensors.torch import save_file
 ```
 
-由于一个safentensors文件不能太大，所以需要事先设定一个值，将模型分为`split_num`份保存，该参数可以通过参数`--safetensor_split_num`传入。脚本里面存全部权重的变量为字典 `pt_param` ，首先把这个字典分成`split_num`份：
+由于一个safetensors文件不能太大，所以需要事先设定一个值，将模型分为`split_num`份保存，该参数可以通过参数`--safetensor_split_num`传入。脚本里面存全部权重的变量为字典 `pt_param` ，首先把这个字典分成`split_num`份：
 
 ``` python
 def split_dict(d, n):
@@ -174,7 +174,7 @@ def split_dict(d, n):
     k, m = divmod(len(items), n)
     return [dict(items[i * k + min(i, m):(i + 1) * k + min(i + 1, m)]) for i in range(n)]
 
-split_dicts = split_dict(pt_param, split_num) # 将整个模型的权重分割成多个safentensors进行保存
+split_dicts = split_dict(pt_param, split_num) # 将整个模型的权重分割成多个safetensors进行保存
 ```
 
 转换为safetensors格式时，需要一个 `model.safetensors.index.json` 文件来记录模型的每一层权重保存在了哪里，所以需要在保存权重的时候记录这些信息：

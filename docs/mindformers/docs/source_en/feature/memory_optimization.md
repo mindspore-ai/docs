@@ -87,7 +87,7 @@ The fine-grained activations SWAP technology offers high flexibility in usage. D
 
   ```yaml
   context:
-    memory_optimize_level=O0
+    memory_optimize_level: O0
   ```
 
 - Only support Ascend backend
