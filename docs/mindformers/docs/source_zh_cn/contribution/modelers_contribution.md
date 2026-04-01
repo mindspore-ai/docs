@@ -66,7 +66,7 @@ openmind_hub.upload_folder(
     "AutoConfig": "configuration_model.MyConfig",
     "AutoModel": "modeling_model.MyModel",
     "AutoModelForCausalLM": "modeling_model.MyModelForCausalLM",
-  },
+  }
 }
 ```
 
@@ -82,7 +82,7 @@ tokenizer.save_pretrained("./my_model", save_json=True)
 {
   "auto_map": {
     "AutoTokenizer": ["tokenization_model.MyTokenizer", "tokenization_model.MyFastTokenizer"]
-  },
+  }
 }
 ```
 

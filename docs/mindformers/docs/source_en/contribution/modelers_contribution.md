@@ -66,7 +66,7 @@ In order for the Auto class to be able to find the user-defined model class when
     "AutoConfig": "configuration_model.MyConfig",
     "AutoModel": "modeling_model.MyModel",
     "AutoModelForCausalLM": "modeling_model.MyModelForCausalLM",
-  },
+  }
 }
 ```
 
@@ -82,7 +82,7 @@ And add auto mapping to the saved tokenizer_config.json:.
 {
   "auto_map": {
     "AutoTokenizer": ["tokenization_model.MyTokenizer", "tokenization_model.MyFastTokenizer"]
-  },
+  }
 }
 ```
 
