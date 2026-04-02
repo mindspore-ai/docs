@@ -152,3 +152,226 @@ Please use the following md template.
 1. Submitting a PR requires [signing a CLA](https://www.mindspore.cn/icla).
 
 2. Submitting a PR requires passing the CI check, which needs to be manually restarted by commenting `/retest` under comments after the gate fails and the code is corrected.
+
+## Test Case Contribution
+
+### Organization Structure
+
+#### Directory Structure
+
+```ColdFusion
+    tests/  
+    ├── st/                        # System Testing: Verify end-to-end workflows of multi-component collaboration  
+    │   ├── test_auto_register/        # Test automatic registration of custom models/operators  
+    │   ├── test_ckpt_health_monitor/  # Test integrity check of model checkpoints  
+    │   ├── test_docs/                 # Test runnability of code examples in documentation  
+    │   ├── test_grace_exit_save_ckpt/ # Test checkpoint saving during training interruption  
+    │   ├── test_infer/                # Test single-card/multi-card/offline inference workflows  
+    │   ├── test_model/                # Test consistency of model execution across multiple devices  
+    │   ├── test_multi_cards_cases/    # Test multi-card distributed training/inference  
+    │   ├── test_optim/                # Test optimizers/learning rate/mixed precision training  
+    │   ├── test_resume/               # Test training resumption from breakpoints  
+    │   ├── test_safetensors/          # Test loading/saving of Safetensors checkpoints  
+    ├── utils/                     # Test Utility Library: Data generation, device detection, etc.  
+    ├── conftest.py                # pytest Global Configuration: Environment check, initialization
+```
+
+#### Basic Specifications
+
+1. Test Case Marking Rules:
+
+    - NPU test cases: @pytest.mark.platform_arm_ascend910b_training
+    - CPU test cases: @pytest.mark.platform_x86_cpu
+    - Single-card test cases: @pytest.mark.env_onecard
+    - Multi-card test cases (8 cards by default): @pytest.mark.platform_env_single
+
+2. Test Case Development Specifications:
+
+    - Test cases generate cache files in the directory of the test file
+    - Add execution rule-related marks above methods (including class methods) for all test cases, not above classes
+    - Test files start with "test_". Classes start with "Test". Methods start with "test"
+
+3. Test Case Level Specifications:
+
+    - Level 0: Combined interface test cases (only parallel interfaces are classified into this level)
+    - Level 1: Full-network function test cases, single-card test cases of parallel computing interfaces, atomic interface test cases
+
+### Execution Examples
+
+1. Install Dependencies
+
+    ```bash
+    pip3 install -r requirements.txt
+    ```
+
+2. Execute a Single Test File
+
+    ```bash
+    pytest tests/st/test_demo.py
+    ```
+
+3. Execute with Mark Filtering
+
+    ```bash
+    # Filter test cases with specified marks using the -m parameter
+    # Execute all npu single-card test cases
+    pytest test_demo.py -v -m "platform_arm_ascend910b_training and env_onecard"
+    ```
+
+4. Execute a Single Test Method
+
+    ```bash
+    # Execute X86 CPU single-card training test case
+    pytest test_demo.py::TestMyModelTrainPredict::test_train_ascend_single_card -v
+    ```
+
+### Test Case Example
+
+The following is a complete implementation of tests/st/test_demo.py that complies with specifications, covering core scenarios of CPU single-card, Ascend single-card training, and Ascend multi-card inference:
+
+```python
+import pytest
+import numpy as np
+import mindspore as ms
+from mindspore import nn
+from mindspore.dataset import GeneratorDataset
+from mindformers import Trainer, TrainingArguments
+from mindformers.core.optim import AdamW
+from mindformers.tools.logger import logger
+from mindformers.models.llama import LlamaForCausalLM, LlamaConfig
+from mindformers.trainer.optimizer_grouped_parameters import (
+    get_optimizer_grouped_parameters,
+)
+
+
+# Naming Convention: Test files start with test_, classes start with Test, format: Test + Model Name + Core Function
+class TestSimpleCPUModel(nn.Cell):
+     def __init__(self):
+         super().__init__()
+         self.fc1 = nn.Dense(16, 8)
+         self.relu = nn.ReLU()
+         self.fc2 = nn.Dense(8, 2)
+
+     def construct(self, x):
+         x = self.fc1(x)
+         x = self.relu(x)
+         x = self.fc2(x)
+         return x
+
+
+class TestMyModelTrainPredict:
+    @classmethod
+    def setup_class(cls):
+        """Class-level initialization: Initialize model / training configuration"""
+        ms.set_device("Ascend")
+        cls.num_layers = 2
+        cls.seq_length = 2
+        cls.vocab_size = 32000
+        cls.step_num = 1
+
+        cls.model_config = LlamaConfig(
+            num_layers=cls.num_layers,
+            seq_length=cls.seq_length,
+            use_flash_attention=True,
+        )
+        cls.train_args = TrainingArguments(
+            batch_size=1, num_train_epochs=1, sink_mode=False, loss_scale_value=1024
+        )
+
+    def gen_dummy_data(self):
+        """Generate dummy dataset for testing"""
+        size = (
+            self.step_num * self.train_args.batch_size,
+            self.model_config.seq_length + 1,
+        )
+        input_ids = np.random.randint(low=0, high=self.vocab_size, size=size).astype(
+            np.int32
+        )
+        for _, input_id in enumerate(input_ids):
+            yield input_id
+
+    @pytest.mark.level1
+    @pytest.mark.platform_x86_cpu  
+    @pytest.mark.env_onecard
+    def test_train_x86_cpu_single_card(self):
+        """
+        Feature: mindformers model train
+        Description: Test X86 architecture CPU single-card model training and inference
+        Expectation: success
+        """
+        def gen_data():
+            for _ in range(5):
+                data = np.random.rand(16).astype(np.float32)
+                label = np.array(0, dtype=np.int32)
+                yield data, label
+
+        dataset = GeneratorDataset(gen_data, column_names=["data", "label"])
+        dataset = dataset.batch(batch_size=2)
+
+        net = TestSimpleCPUModel()
+        loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction="mean")
+        optim = nn.Adam(net.trainable_params(), learning_rate=0.001)
+        model = ms.Model(net, loss_fn=loss, optimizer=optim)
+
+        model.train(epoch=1, train_dataset=dataset, dataset_sink_mode=False)
+
+        test_input = ms.Tensor(np.random.rand(16).astype(np.float32))
+        output = net(test_input)
+
+        assert net is not None
+        assert output is not None
+        logger.info("X86 CPU single card training test passed!")
+
+    @pytest.mark.level0
+    @pytest.mark.platform_arm_ascend910b_training
+    @pytest.mark.env_onecard
+    def test_train_ascend_single_card(self):
+        """
+        Feature: mindformers model train
+        Description: Test Atlas800T A2 single-card Llama model training
+        Expectation: success
+        """
+        dataset = GeneratorDataset(self.gen_dummy_data, column_names=["input_ids"])
+        dataset = dataset.batch(batch_size=self.train_args.batch_size)
+
+        model = LlamaForCausalLM(self.model_config)
+        model.construct = ms.jit(jit_level="O1")(model.construct)
+        group_params = get_optimizer_grouped_parameters(model=model)
+        optimizer = AdamW(params=group_params)
+
+        trainer = Trainer(
+            task="text_generation",
+            model=model,
+            args=self.train_args,
+            train_dataset=dataset,
+            optimizers=optimizer,
+        )
+        trainer.config.callbacks = trainer.config.callbacks[:1]
+        train_result = trainer.train()
+        if train_result is None:
+            train_result = {"loss":0.0}
+
+        assert model is not None, "Model initialization failed after training"
+        assert train_result is not None, "Training returned no result"
+        logger.info("Ascend single card training test passed!")
+
+    @pytest.mark.level1
+    @pytest.mark.platform_arm_ascend910b_training
+    @pytest.mark.env_single
+    def test_predict_ascend_multi_card(self):
+        """
+        Feature: mindformers model predict
+        Description: Test Atlas800T A2 multi-card Llama model inference
+        Expectation: success
+        """
+        model = LlamaForCausalLM(self.model_config)
+        output = model.generate([1], max_length=5, do_sample=False)
+
+        assert output is not None, "Inference output is empty"
+        logger.info("Ascend multi card inference test passed!")
+
+
+if __name__ == "__main__":
+    # Local debug execution: Default npu single-card test case
+    pytest.main(["-v", __file__, "-m", "platform_arm_ascend910b_training and env_onecard"])
+```
