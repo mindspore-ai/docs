@@ -114,7 +114,7 @@ Checkpoint 1.0配置：
 ```yaml
 use_legacy_format: True
 
-use_checkpoint_health_monitor : True
+use_checkpoint_health_monitor: True
 
 monitor_config:
   monitor_on: True
