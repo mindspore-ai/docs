@@ -87,7 +87,7 @@ INFO - Formative select_comm_recompute: {'ffn_norm\.norm': [[4, 5, 5, 5, 5], [5,
 
   ```yaml
   context:
-    memory_optimize_level=O0
+    memory_optimize_level: O0
   ```
 
 - 仅支持Ascend后端

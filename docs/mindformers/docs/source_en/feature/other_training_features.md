@@ -327,7 +327,7 @@ Example:
 ```yaml
 model_config:
   ...
-  window_size: (10, 0)  # Each token focuses on 10 tokens forward and not backward
+  window_size: [10, 0]  # Each token focuses on 10 tokens forward and not backward
   window_attn_skip_freq: 2  # There is a full attention layer every 2 layers
   ...
 ```

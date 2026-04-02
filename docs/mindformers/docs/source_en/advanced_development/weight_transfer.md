@@ -66,25 +66,25 @@ Partial code of Qwen3PreTrainedModel is as follows:
 ```python
 class Qwen3PreTrainedModel(PreTrainedModel, ModelMixin):
 
- config_class = Qwen3Config
- base_model_prefix = "Qwen3"
+    config_class = Qwen3Config
+    base_model_prefix = "Qwen3"
 
- weight_mapping = [
-     ('model.embed_tokens.', 'embedding.word_embeddings.'),
-     ('.self_attn.q_proj.', '.self_attention.linear_q.'),
-     ('.self_attn.k_proj.', '.self_attention.linear_k.'),
-     ('.self_attn.v_proj.', '.self_attention.linear_v.'),
-     ('.self_attn.o_proj.', '.self_attention.linear_proj.'),
-     ('.self_attn.q_norm.', '.self_attention.q_layernorm.'),
-     ('.self_attn.k_norm.', '.self_attention.k_layernorm.'),
-     ('.mlp.gate_proj.', '.mlp.gating.'),
-     ('.mlp.down_proj.', '.mlp.linear_fc2.'),
-     ('.mlp.up_proj.', '.mlp.hidden.'),
-     ('.post_attention_layernorm.', '.pre_mlp_layernorm.'),
-     ('model.norm.', 'decoder.final_layernorm.'),
-     ('lm_head.', 'output_layer.'),
-     ('model.layers.', 'decoder.layers.')
- ]
+    weight_mapping = [
+        ('model.embed_tokens.', 'embedding.word_embeddings.'),
+        ('.self_attn.q_proj.', '.self_attention.linear_q.'),
+        ('.self_attn.k_proj.', '.self_attention.linear_k.'),
+        ('.self_attn.v_proj.', '.self_attention.linear_v.'),
+        ('.self_attn.o_proj.', '.self_attention.linear_proj.'),
+        ('.self_attn.q_norm.', '.self_attention.q_layernorm.'),
+        ('.self_attn.k_norm.', '.self_attention.k_layernorm.'),
+        ('.mlp.gate_proj.', '.mlp.gating.'),
+        ('.mlp.down_proj.', '.mlp.linear_fc2.'),
+        ('.mlp.up_proj.', '.mlp.hidden.'),
+        ('.post_attention_layernorm.', '.pre_mlp_layernorm.'),
+        ('model.norm.', 'decoder.final_layernorm.'),
+        ('lm_head.', 'output_layer.'),
+        ('model.layers.', 'decoder.layers.')
+    ]
 ```
 
 ## Verifying Successful Weight Loading
