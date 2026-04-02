@@ -368,7 +368,7 @@ def plot_waveform(waveform, sr, title="Waveform"):
     axes.plot(time_axis, waveform[0], linewidth=1)
     axes.grid(True)
     figure.suptitle(title)
-    plt.show(block=False)
+    plt.show()
 ```
 
 ```text
