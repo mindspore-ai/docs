@@ -26,7 +26,7 @@ The following describes how to prepare the environment for using the conversion 
 
 1. System environment required for running the conversion tool
 
-    In this example, the Linux operating system is used. Ubuntu 18.04.02 LTS is recommended.
+    In this example, the Linux operating system is used. Ubuntu is recommended.
 
 2. Obtain the conversion tool
 
@@ -773,7 +773,7 @@ For the complete demo code built in this example, click [Download here](https://
 
 #### Environment Preparation
 
-- [CMake](https://cmake.org/download/) >= 3.18.3
+- [CMake](https://cmake.org/download/) >= 3.22.3
 
 - [GNU Arm Embedded Toolchain](https://developer.arm.com/downloads/-/gnu-rm)  >= 10-2020-q4-major-x86_64-linux
 

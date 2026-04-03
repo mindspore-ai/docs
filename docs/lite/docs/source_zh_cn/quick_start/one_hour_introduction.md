@@ -437,10 +437,10 @@ mindspore-lite-{version}-linux-x64
 
 1. 环境要求
 
-    - 系统环境：Linux x86_64，推荐使用Ubuntu 18.04.02 LTS
+    - 系统环境：Linux x86_64，推荐使用Ubuntu
     - C++编译依赖
         - [GCC](https://gcc.gnu.org/releases.html) >= 7.3.0
-        - [CMake](https://cmake.org/download/) >= 3.12
+        - [CMake](https://cmake.org/download/) >= 3.22.3
 
 2. 获得版本发布件
 
@@ -482,7 +482,7 @@ mindspore-lite-{version}-linux-x64
     打开上一步创建的`CMakeLists.txt`，粘贴如下内容，其中每句话的含义见注释：
 
     ```text
-    cmake_minimum_required(VERSION 3.12)  # cmake版本要求最低3.12
+    cmake_minimum_required(VERSION 3.22.3)  # cmake版本要求最低3.22.3
     project(Demo)  # 工程名为Demo
 
     # gcc 版本要求大于等于7.3.0
@@ -1141,7 +1141,7 @@ mindspore-lite-{version}-win-x64
     - 系统环境：Windows 7，Windows 10；64位。
 
     - MinGW 编译依赖
-        - [CMake](https://cmake.org/download/) >= 3.18.3
+        - [CMake](https://cmake.org/download/) >= 3.22.3
         - 编译64位：[MinGW-W64 x86_64](https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win64/Personal%20Builds/mingw-builds/7.3.0/threads-posix/seh/x86_64-7.3.0-release-posix-seh-rt_v5-rev0.7z) = GCC-7.3.0
         - 编译32位：[MinGW-W64 i686](https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win32/Personal%20Builds/mingw-builds/7.3.0/threads-posix/dwarf/i686-7.3.0-release-posix-dwarf-rt_v5-rev0.7z) = GCC-7.3.0
 
@@ -1191,7 +1191,7 @@ mindspore-lite-{version}-win-x64
     打开上一步创建的`CMakeLists.txt`，粘贴如下内容，其中每句话的含义见注释：
 
     ```text
-    cmake_minimum_required(VERSION 3.12)  # cmake版本要求最低3.12
+    cmake_minimum_required(VERSION 3.22.3)  # cmake版本要求最低3.22.3
     project(Demo)  # 工程名为Demo
 
     # gcc 版本要求大于等于7.3.0

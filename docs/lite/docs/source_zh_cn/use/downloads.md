@@ -10,7 +10,7 @@
 
 - MindSpore Lite端侧推理：支持业界通用的CPU、Kirin NPU硬件设备，在HarmonyOS中是系统内置的轻量化AI引擎，面向全场景构建支持多处理器架构的开放AI架构，使能鸿蒙全场景智能应用，同时支持基于Android/iOS平台进行开发。
 
-其中Linux-x86_64、Linux-aarch64的包已在Linux发行版Euleros2.0、Centos7.8、Ubuntu18.04版本上经过测试验证。
+其中Linux-x86_64、Linux-aarch64的包已在Linux发行版Euleros2.0、Centos7.8、Ubuntu22.04版本上经过测试验证。
 
 ## 2.8.0
 

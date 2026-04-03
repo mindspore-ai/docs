@@ -85,9 +85,9 @@ For the sample code, please refer to [pass](https://atomgit.com/mindspore/mindsp
 
 - Environment Requirements
 
-    - System environment: Linux x86_64; Recommend Ubuntu 18.04.02 LTS
+    - System environment: Linux x86_64; Recommend Ubuntu
     - compilation dependencies:
-        - [CMake](https://cmake.org/download/) >= 3.18.3
+        - [CMake](https://cmake.org/download/) >= 3.22.3
         - [GCC](https://gcc.gnu.org/releases.html) >= 7.3.0
 
 - Compilation preparation

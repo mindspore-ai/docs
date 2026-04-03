@@ -10,7 +10,7 @@ For different user scenarios, the release packages of MindSpore Lite are mainly 
 
 - MindSpore Lite device-side inference: supports industry-standard CPUs and Kirin NPU hardware devices on the edge. As a lightweight AI engine built into HarmonyOS, it establishes an open AI architecture supporting multi-processor architectures for all scenarios, enabling HarmonyOS's full-scenario intelligent applications. It also supports development on Android/iOS platforms.
 
-The Linux-x86_64 and Linux-aarch64 target have been tested and verified on the Linux distribution versions Euleros2.0, Centos7.8 and Ubuntu18.04.
+The Linux-x86_64 and Linux-aarch64 target have been tested and verified on the Linux distribution versions Euleros2.0, Centos7.8 and Ubuntu22.04.
 
 ## 2.8.0
 

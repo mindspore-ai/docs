@@ -18,17 +18,17 @@
 
 ## 准备
 
-推荐使用Ubuntu 18.04 64位操作系统。
+推荐使用Ubuntu操作系统。
 
 ### 环境要求
 
-- 系统环境：Linux x86_64，推荐使用Ubuntu 18.04.02 LTS
+- 系统环境：Linux x86_64，推荐使用Ubuntu
 
 - 软件依赖
 
     - [GCC](https://gcc.gnu.org/releases.html) >= 7.3.0
 
-    - [CMake](https://cmake.org/download/) >= 3.18.3
+    - [CMake](https://cmake.org/download/) >= 3.22.3
 
     - [Git](https://git-scm.com/downloads) >= 2.28.0
 
