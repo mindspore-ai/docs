@@ -44,7 +44,7 @@ call converter_lite --fmk=MINDIR --modelFile=mobilenetv2.mindir --outputFile=mob
 
 - Android Studio >= 3.2 (推荐4.0以上版本)
 - NDK 21.3
-- [CMake](https://cmake.org/download) >= 3.18.3
+- [CMake](https://cmake.org/download) >= 3.22.3
 - Android SDK >= 26
 - JDK >= 1.8  
 

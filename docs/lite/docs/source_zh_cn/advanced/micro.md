@@ -26,7 +26,7 @@ MindSpore Lite针对MCUs部署硬件后端，提供了一种超轻量Micro AI部
 
 1. 转换工具运行所需的系统环境
 
-    本例采用Linux下的系统环境，推荐使用Ubuntu 18.04.02 LTS。
+    本例采用Linux下的系统环境，推荐使用Ubuntu。
 
 2. 获取转换工具
 
@@ -770,7 +770,7 @@ STM32F767芯片为Cortex-M7架构，可以通过以下两种方式获取该架�
 
 #### 环境准备
 
-- [CMake](https://cmake.org/download/) >= 3.18.3
+- [CMake](https://cmake.org/download/) >= 3.22.3
 
 - [GNU Arm Embedded Toolchain](https://developer.arm.com/downloads/-/gnu-rm)  >= 10-2020-q4-major-x86_64-linux
 

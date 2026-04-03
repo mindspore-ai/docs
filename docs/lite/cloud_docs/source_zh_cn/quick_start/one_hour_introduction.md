@@ -19,7 +19,7 @@ MindSpore Lite云侧推理仅支持在Linux环境部署运行。支持Atlas 200/
 ## 准备工作
 
 1. 环境要求
-    - 系统环境：Linux x86_64，推荐使用Ubuntu 18.04.02LTS
+    - 系统环境：Linux x86_64，推荐使用Ubuntu
 
 2. 下载发布件
 
@@ -156,7 +156,7 @@ export GLOG_v=2 # 0-DEBUG, 1-INFO, 2-WARNING, 3-ERROR, 4-CRITICAL, default level
 以下是通过CMake集成`libmindspore-lite.so`动态库时的示例代码。通过读取环境变量`LITE_HOME`以获取MindSpore Lite tar包解压后的头文件和库文件目录。
 
 ```cmake
-cmake_minimum_required(VERSION 3.14)
+cmake_minimum_required(VERSION 3.22.3)
 project(QuickStartCpp)
 
 if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" AND CMAKE_CXX_COMPILER_VERSION VERSION_LESS 7.3.0)

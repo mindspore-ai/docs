@@ -18,17 +18,17 @@ Details will be told after environment deployed and model training by running pr
 
 ## Environment Preparing
 
-Ubuntu 18.04 64-bit operating system on x86 platform is recommended.
+Ubuntu 64-bit operating system on x86 platform is recommended.
 
 ### Environment Requirements
 
-- The compilation environment supports Linux x86_64 only. Ubuntu 18.04.02 LTS is recommended.
+- The compilation environment supports Linux x86_64 only. Ubuntu LTS is recommended.
 
 - Software dependency
 
     - [GCC](https://gcc.gnu.org/releases.html) >= 7.3.0
 
-    - [CMake](https://cmake.org/download/) >= 3.18.3
+    - [CMake](https://cmake.org/download/) >= 3.22.3
 
     - [Git](https://git-scm.com/downloads) >= 2.28.0
 

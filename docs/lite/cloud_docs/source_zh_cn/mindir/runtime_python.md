@@ -10,7 +10,7 @@ MindSpore Lite云侧推理仅支持在Linux环境部署运行。支持Atlas 200/
 
 > 当MindSpore Lite与其他第三方框架共用时，请确保将其他第三方框架的导入操作放在`mindspore_lite.Model.build_from_file`和`mindspore_lite.ModelGroup.cal_max_size_of_workspace`方法调用之前，否则可能导致不可预见的问题。
 
-下面以Ubuntu 18.04为例，介绍了在Linux X86操作系统配合CPU硬件平台下如何使用Python云侧推理Demo：
+下面以Ubuntu为例，介绍了在Linux X86操作系统配合CPU硬件平台下如何使用Python云侧推理Demo：
 
 - 一键安装推理相关模型文件、MindSpore Lite及其所需的依赖，详情参见[一键安装](#一键安装)小节。
 
@@ -24,7 +24,7 @@ MindSpore Lite云侧推理仅支持在Linux环境部署运行。支持Atlas 200/
 
 ## 一键安装
 
-本环节以全新的Ubuntu 18.04为例，介绍在CPU环境的Linux-x86_64系统上，通过pip安装Python3.7版本的MindSpore Lite。
+本环节以全新的Ubuntu为例，介绍在CPU环境的Linux-x86_64系统上，通过pip安装Python3.7版本的MindSpore Lite。
 
 进入到[mindspore-lite/examples/cloud_infer/quick_start_python](https://atomgit.com/mindspore/mindspore-lite/tree/master/mindspore-lite/examples/cloud_infer/quick_start_python)目录下，以安装2.0.0版本的MindSpore Lite为例，执行`lite-cpu-pip.sh`脚本进行一键式安装。安装脚本会下载推理所需的模型和输入数据文件、安装MindSpore_Lite所需的依赖，以及下载并安装MindSpore Lite。
 
