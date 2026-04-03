@@ -144,7 +144,7 @@ parallel_config:
 
 #### 混合序列并行
 
-目前Ulysses和Ring Attention序列并行方案均存在一定局限性，Ring Attention序列并行方案虽然理论上序列长度能够无限拓展，但通信和计算带宽利用率较低，在序列块大小较低时性能劣于Ulysses序列并行方案。而Ulysses在GQA、MQA场景下的序列并行受Head数量限制，序列长度的扩展有限。混合序列并行融合了Ulysses和Ring Attention序列并行方案，可以解决上述缺陷。
+目前Ulysses和Ring Attention序列并行方案均存在一定局限性，Ring Attention序列并行方案虽然理论上序列长度能够无限拓展，但通信和计算带宽利用率较低，在序列块大小较低时性能劣于Ulysses序列并行方案。而Ulysses在GQA、MQA场景下的序列并行受Head数量限制，序列长度的扩展有限。混合序列并行融合了Ulysses序列并行方案（不再包含已经废弃的Ring Attention），可以解决上述缺陷。
 
 MindSpore Transformers已支持配置混合序列并行方案，可通过以下配置项使能：
 
