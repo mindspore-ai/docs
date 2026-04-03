@@ -47,7 +47,7 @@ In addition to the configuration file, when launching the `run_mindformer.py` sc
 
 ### Overview
 
-The gradient clipping algorithm can avoid the situation where the reverse gradient is too large and the optimal solution is skipped.
+The gradient clipping algorithm can prevent gradient explosion caused by excessively large negative gradients, thereby helping the model training converge more stably.
 
 ### Configuration and Usage
 

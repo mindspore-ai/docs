@@ -316,7 +316,7 @@ This chapter uses Qwen3-8B training as an example to demonstrate the use of rapi
 3. Configure environment variables:
 
    ```shell
-   export MS_ENABLE_TFT="TRE:1"
+   export MS_ENABLE_TFT="{TRE:1}"
    ```
 
 4. Run the following command to start training:

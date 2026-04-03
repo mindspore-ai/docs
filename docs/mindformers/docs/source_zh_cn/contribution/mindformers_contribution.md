@@ -45,10 +45,10 @@
 
 - 本地开发代码
 
-  `dev`为开发分支，请从`dev`分支拉取最新代码进行开发。在提交Pull Request时，请提交到`dev`分支。
+  `master`为开发分支，请从`master`分支拉取最新代码进行开发。在提交Pull Request时，请提交到`master`分支。
 
   ```shell
-  git checkout -b {新分支名称} origin/dev
+  git checkout -b {新分支名称} origin/master
   ```
 
 - 提交PR到MindSpore Transformers代码仓

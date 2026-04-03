@@ -45,10 +45,10 @@ Please follow this style for MindSpore Transformers review, maintenance and deve
 
 - Local Development Code
 
-  `dev` is the development branch. Please pull the latest code from `dev` branch for development. And submit it to the `dev` branch when you submit your Pull Request.
+  `master` is the development branch. Please pull the latest code from `master` branch for development. And submit it to the `master` branch when you submit your Pull Request.
 
   ```shell
-  git checkout -b {new branch name} origin/dev
+  git checkout -b {new branch name} origin/master
   ```
 
 - Submit PR to MindSpore Transformers code repository

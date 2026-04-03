@@ -316,7 +316,7 @@ YAML配置包含两部分：临终 CKPT 的保存及恢复配置和卡间副本�
 3. 配置环境变量：
 
    ```shell
-   export MS_ENABLE_TFT="TRE:1"
+   export MS_ENABLE_TFT="{TRE:1}"
    ```
 
 4. 运行以下命令，开启训练：
