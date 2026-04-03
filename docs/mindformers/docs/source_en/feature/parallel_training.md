@@ -144,7 +144,7 @@ For configuration method of distributed parallel parameters, refer to the conten
 
 #### Hybrid Sequence Parallelism
 
-Currently, both Ulysses and Ring Attention sequence parallel schemes have certain limitations. Although Ring Attention sequence parallel scheme can theoretically expand the sequence length infinitely, the communication and computation bandwidth utilization is low, and the performance is inferior to that of Ulysses sequence parallel scheme when the sequence block size is low. The sequence parallelism of Ulysses in GQA and MQA scenarios is limited by the number of Heads and the expansion of sequence length is limited. Hybrid sequence parallelism fuses Ulysses and Ring Attention sequence parallelism scheme, which can solve the above defects.
+Currently, both Ulysses and Ring Attention sequence parallel schemes have certain limitations. Although Ring Attention sequence parallel scheme can theoretically expand the sequence length infinitely, the communication and computation bandwidth utilization is low, and the performance is inferior to that of Ulysses sequence parallel scheme when the sequence block size is low. The sequence parallelism of Ulysses in GQA and MQA scenarios is limited by the number of Heads and the expansion of sequence length is limited. Hybrid sequence parallelism fuses Ulysses sequence parallelism scheme (No longer includes the deprecated Ring Attention), which can solve the above defects.
 
 MindSpore Transformers has support for configuring hybrid sequence parallel schemes, which can be enabled with the following configuration items:
 
