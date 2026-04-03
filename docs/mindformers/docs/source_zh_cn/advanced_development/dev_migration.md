@@ -22,7 +22,7 @@ MindSpore Transformers提供了[PretrainedConfig](https://www.mindspore.cn/mindf
 
 MindSpore Transformers的大模型基于MindSpore框架进行开发，其中开发者只需要关心模型网络本身的实现。
 
-MindSpore Transformers提供了[PretrainedModel](https://www.mindspore.cn/mindformers/docs/zh-CN/master/models/mindformers.models.PreTrainedModel.html)类，负责存储模型配置并处理加载、保存模型的方法。所有模型的类都应该继承于PretrainedModel类，并且模型的输入应该是统一的，即模型的`construct`方法的入参应该一致，具体入参和含义可以参考MindSpore Transformers中的Llama模型类[LlamaForCausalLM](https://www.mindspore.cn/mindformers/docs/zh-CN/master/models/mindformers.models.LlamaForCausalLM.html)。同时，模型类必须实现基类的一些抽象方法，包括：
+MindSpore Transformers提供了[PreTrainedModel](https://www.mindspore.cn/mindformers/docs/zh-CN/master/models/mindformers.models.PreTrainedModel.html)类，负责存储模型配置并处理加载、保存模型的方法。所有模型的类都应该继承于PreTrainedModel类，并且模型的输入应该是统一的，即模型的`construct`方法的入参应该一致，具体入参和含义可以参考MindSpore Transformers中的Llama模型类[LlamaForCausalLM](https://www.mindspore.cn/mindformers/docs/zh-CN/master/models/mindformers.models.LlamaForCausalLM.html)。同时，模型类必须实现基类的一些抽象方法，包括：
 
 - `prepare_inputs_for_generation`：为模型推理构建输入的方法。
 - `prepare_inputs_for_predict_layout`：为分布式加载模型权重构建虚拟输入的方法。
@@ -35,7 +35,7 @@ MindSpore Transformers提供了[PretrainedModel](https://www.mindspore.cn/mindfo
 
 分词器（Tokenizer）的作用是处理大语言模型的输入与输出。它在大语言模型的工作流程中是必需的。
 
-MindSpore Transformers提供了[PretrainedTokenizer](https://www.mindspore.cn/mindformers/docs/zh-CN/master/models/mindformers.models.PreTrainedTokenizer.html)类和[PretrainedTokenizerFast](https://www.mindspore.cn/mindformers/docs/zh-CN/master/models/mindformers.models.PreTrainedTokenizerFast.html)类，分别是纯Python的实现和使用Rust库的实现。后者实现的区别是：
+MindSpore Transformers提供了[PreTrainedTokenizer](https://www.mindspore.cn/mindformers/docs/zh-CN/master/models/mindformers.models.PreTrainedTokenizer.html)类和[PreTrainedTokenizerFast](https://www.mindspore.cn/mindformers/docs/zh-CN/master/models/mindformers.models.PreTrainedTokenizerFast.html)类，分别是纯Python的实现和使用Rust库的实现。后者实现的区别是：
 
 - 在进行批量处理时速度显著提高；
 - 额外包含一些在文本字符串和词元空间映射的方法（例如，获取包含给定字符的词元的索引或与给定词元相对应的字符跨度）

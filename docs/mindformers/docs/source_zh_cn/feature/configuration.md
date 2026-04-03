@@ -86,7 +86,7 @@ Context配置主要用于指定[mindspore.set_context](https://www.mindspore.cn/
 | moe_config.expert_num                | int         | 必选     | 无     | 设置路由专家数量。                                                                                                                    |
 | moe_config.shared_expert_num         | int         | 必选     | 无     | 设置共享专家数量。                                                                                                                    |
 | moe_config.moe_intermediate_size     | int         | 必选     | 无     | 设置专家层中间维度大小。                                                                                                              |
-| moe_config.capacity_factor           | int         | 必选     | 无     | 设置专家容量因子。                                                                                                                    |
+| moe_config.capacity_factor           | float       | 必选     | 无     | 设置专家容量因子。                                                                                                                    |
 | moe_config.num_experts_chosen        | int         | 必选     | 无     | 设置每个 token 选择专家数目。                                                                                                         |
 | moe_config.enable_sdrop              | bool        | 可选     | False  | 设置是否使能 token 丢弃策略`sdrop`，由于 MindSpore Transformers 的 MoE 是静态 shape 实现，所以不能保留所有 token。                    |
 | moe_config.aux_loss_factor           | list(float) | 可选     | 无     | 设置均衡性 loss 的权重。                                                                                                              |
