@@ -24,9 +24,9 @@ Performing inference with MindSpore Lite consists of the following main steps:
 
 - Environment requirements
 
-    - System environment: Linux x86_64, Ubuntu 18.04.02 LTS recommended
+    - System environment: Linux x86_64, Ubuntu recommended
     - Compilation dependencies:
-        - [CMake](https://cmake.org/download/) >= 3.18.3
+        - [CMake](https://cmake.org/download/) >= 3.22.3
         - [GCC](https://gcc.gnu.org/releases.html) >= 7.3.0
 
 - Compiling and building
@@ -65,7 +65,7 @@ Performing inference with MindSpore Lite consists of the following main steps:
 
     - System environment: Windows 7, Windows 10; 64-bit
     - Compilation dependencies:
-        - [CMake](https://cmake.org/download/) >= 3.18.3
+        - [CMake](https://cmake.org/download/) >= 3.22.3
         - [MinGW GCC](https://sourceforge.net/projects/mingw-w64/files/ToolchainstargettingWin64/PersonalBuilds/mingw-builds/7.3.0/threads-posix/seh/x86_64-7.3.0-release-posix-seh-rt_v5-rev0.7z/download) = 7.3.0
 
 - Compiling and building
@@ -108,7 +108,7 @@ The following is sample code when the `libmindspore-lite.so` static library is i
 > Since support for so library file handling was added when compiling MindSpore Lite, it is also necessary to link the `dl` library on the Linux platform.
 
 ```cmake
-cmake_minimum_required(VERSION 3.18.3)
+cmake_minimum_required(VERSION 3.22.3)
 project(QuickStartC)
 
 if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" AND CMAKE_CXX_COMPILER_VERSION VERSION_LESS 7.3.0)

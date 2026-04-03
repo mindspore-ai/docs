@@ -20,10 +20,10 @@ MindSpore Lite包含模块：
 
 ### 环境要求
 
-- 系统环境：Linux x86_64，推荐使用Ubuntu 18.04.02 LTS
+- 系统环境：Linux x86_64，推荐使用Ubuntu
 - C++编译依赖
     - [GCC](https://gcc.gnu.org/releases.html) >= 7.3.0
-    - [CMake](https://cmake.org/download/) >= 3.18.3
+    - [CMake](https://cmake.org/download/) >= 3.22.3
     - [Git](https://git-scm.com/downloads) >= 2.28.0
     - [Android_NDK](https://dl.google.com/android/repository/android-ndk-r20b-linux-x86_64.zip) >= r20
         - 配置环境变量：`export ANDROID_NDK=NDK路径`
@@ -273,7 +273,7 @@ python -c "import mindspore_lite"
 - 系统环境：Windows 7，Windows 10；64位。
 
 - MinGW 编译依赖
-    - [CMake](https://cmake.org/download/) >= 3.18.3
+    - [CMake](https://cmake.org/download/) >= 3.22.3
     - 编译64位：[MinGW-W64 x86_64](https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win64/Personal%20Builds/mingw-builds/7.3.0/threads-posix/seh/x86_64-7.3.0-release-posix-seh-rt_v5-rev0.7z) = GCC-7.3.0
     - 编译32位：[MinGW-W64 i686](https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win32/Personal%20Builds/mingw-builds/7.3.0/threads-posix/dwarf/i686-7.3.0-release-posix-dwarf-rt_v5-rev0.7z) = GCC-7.3.0
 
@@ -379,7 +379,7 @@ call build.bat lite 8
 - 系统环境：macOS 10.15.4及以上；64位。
 
 - 编译依赖
-    - [CMake](https://cmake.org/download/) >= 3.18.3
+    - [CMake](https://cmake.org/download/) >= 3.22.3
     - [Xcode](https://developer.apple.com/xcode/) == 11.4.1
     - [Git](https://git-scm.com/downloads) >= 2.28.0
 

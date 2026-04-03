@@ -19,7 +19,7 @@ In addition, users can use Python interface and Java interface of MindSpore Lite
 ## Preparation
 
 1. Environment requirements
-    - System environment: Linux x86_64, Ubuntu 18.04.02LTS recommended
+    - System environment: Linux x86_64, Ubuntu
 
 2. Download distributions
 
@@ -156,7 +156,7 @@ Users need to integrate the `mindspore-lite` library file inside the distributio
 The following is sample code when integrating the `libmindspore-lite.so` dynamic library via CMake. The environment variable `LITE_HOME` is read to get the unpacked header and library file directories of MindSpore Lite tar package.
 
 ```cmake
-cmake_minimum_required(VERSION 3.14)
+cmake_minimum_required(VERSION 3.22.3)
 project(QuickStartCpp)
 
 if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" AND CMAKE_CXX_COMPILER_VERSION VERSION_LESS 7.3.0)
