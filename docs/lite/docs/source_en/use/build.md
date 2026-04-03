@@ -20,10 +20,10 @@ Modules in MindSpore Lite:
 
 ### Environment Requirements
 
-- The compilation environment supports Linux x86_64 only. Ubuntu 18.04.02 LTS is recommended.
+- The compilation environment supports Linux x86_64 only. Ubuntu is recommended.
 - Compilation dependencies of c++:
     - [GCC](https://gcc.gnu.org/releases.html) >= 7.3.0
-    - [CMake](https://cmake.org/download/) >= 3.18.3
+    - [CMake](https://cmake.org/download/) >= 3.22.3
     - [Git](https://git-scm.com/downloads) >= 2.28.0
     - [Android_NDK](https://dl.google.com/android/repository/android-ndk-r20b-linux-x86_64.zip) >= r20
         - Configure environment variables: `export ANDROID_NDK=NDK path`.
@@ -273,7 +273,7 @@ After successful installation, you can use the command of `pip show mindspore_li
 - System environment: Windows 7, Windows 10; 64-bit.
 
 - MinGW compilation dependencies:
-    - [CMake](https://cmake.org/download/) >= 3.18.3
+    - [CMake](https://cmake.org/download/) >= 3.22.3
     - Compile 64-bit: [MinGW-W64 x86_64](https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win64/Personal%20Builds/mingw-builds/7.3.0/threads-posix/seh/x86_64-7.3.0-release-posix-seh-rt_v5-rev0.7z) = GCC-7.3.0
     - Compile 32-bit: [MinGW-W64 i686](https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win32/Personal%20Builds/mingw-builds/7.3.0/threads-posix/dwarf/i686-7.3.0-release-posix-dwarf-rt_v5-rev0.7z) = GCC-7.3.0
 
@@ -379,7 +379,7 @@ Finally, the following files will be generated in the `output/` directory:
 - System environment: macOS 10.15.4 and above ; 64-bit.
 
 - Compilation dependencies are:
-    - [CMake](https://cmake.org/download/) >= 3.18.3
+    - [CMake](https://cmake.org/download/) >= 3.22.3
     - [Xcode](https://developer.apple.com/xcode/) == 11.4.1
     - [Git](https://git-scm.com/downloads) >= 2.28.0
 

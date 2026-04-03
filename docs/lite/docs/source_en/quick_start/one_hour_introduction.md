@@ -437,10 +437,10 @@ In the previous section, the official inference test tool is used to perform the
 
 1. Environment Requirements
 
-    - System environment: Linux x86_64 (Ubuntu 18.04.02 LTS is recommended.)
+    - System environment: Linux x86_64 (Ubuntu is recommended.)
     - C++ build dependencies
         - [GCC](https://gcc.gnu.org/releases.html) >= 7.3.0
-        - [CMake](https://cmake.org/download/) >= 3.12
+        - [CMake](https://cmake.org/download/) >= 3.22.3
 
 2. Obtain the release package.
 
@@ -482,7 +482,7 @@ In the previous section, the official inference test tool is used to perform the
     Open the created `CMakeLists.txt` file and paste the following content.
 
     ```text
-    cmake_minimum_required(VERSION 3.12)  # The CMake version must be 3.12 or later.
+    cmake_minimum_required(VERSION 3.22.3)  # The CMake version must be 3.22.3 or later.
     project(Demo)  # The project name is Demo.
 
     # The GCC version must be 7.3.0 or later.
@@ -1141,7 +1141,7 @@ In the previous section, the official inference test tool is used to perform the
     - System environment: 64-bit Windows 7 or 64-bit Windows 10
 
     - MinGW build dependencies
-        - [CMake](https://cmake.org/download/) >= 3.18.3
+        - [CMake](https://cmake.org/download/) >= 3.22.3
         - 64-bit build: [MinGW-W64 x86_64](https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win64/Personal%20Builds/mingw-builds/7.3.0/threads-posix/seh/x86_64-7.3.0-release-posix-seh-rt_v5-rev0.7z) = GCC-7.3.0
         - 32-bit build: [MinGW-W64 i686](https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win32/Personal%20Builds/mingw-builds/7.3.0/threads-posix/dwarf/i686-7.3.0-release-posix-dwarf-rt_v5-rev0.7z) = GCC-7.3.0
 
@@ -1191,7 +1191,7 @@ In the previous section, the official inference test tool is used to perform the
     Open the created `CMakeLists.txt` file and paste the following content.
 
     ```text
-    cmake_minimum_required(VERSION 3.12)  # The CMake version must be 3.12 or later.
+    cmake_minimum_required(VERSION 3.22.3)  # The CMake version must be 3.22.3 or later.
     project(Demo)  # The project name is Demo.
 
     # The GCC version must be 7.3.0 or later.

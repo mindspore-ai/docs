@@ -10,7 +10,7 @@ MindSpore Lite cloud-side inference is supported for running in Linux environmen
 
 > When using MindSpore Lite together with other third-party frameworks, please ensure that the import actions of other third-party frameworks are placed before `mindspore_lite.Model.build_from_file` and `mindspore_lite.ModelGroup.cal_max_size_of_workspace`, otherwise it may lead to unexpected issues.
 
-The following is an example of how to use the Python Cloud-side Inference Demo on a Linux X86 operating system and a CPU hardware platform, using Ubuntu 18.04 as an example:
+The following is an example of how to use the Python Cloud-side Inference Demo on a Linux X86 operating system and a CPU hardware platform, using Ubuntu as an example:
 
 - One-click installation of inference-related model files, MindSpore Lite and its required dependencies. See the [One-click installation](#one-click-installation) section for details.
 
@@ -24,7 +24,7 @@ The following is an example of how to use the Python Cloud-side Inference Demo o
 
 ## One-click Installation
 
-This session introduces the installation of MindSpore Lite for Python version 3.7 via pip on a Linux-x86_64 system with a CPU environment, taking the new Ubuntu 18.04 as an example.
+This session introduces the installation of MindSpore Lite for Python version 3.7 via pip on a Linux-x86_64 system with a CPU environment, taking the new Ubuntu as an example.
 
 Go to the [mindspore-lite/examples/cloud_infer/quick_start_python](https://atomgit.com/mindspore/mindspore-lite/tree/r2.9.0/mindspore-lite/examples/cloud_infer/quick_start_python) directory, and execute the `lite-cpu-pip.sh` script for a one-click installation, taking installation of MindSpore Lite version 2.0.0 as an example. Script installation needs to download the model required for inference and input data files, the dependencies required for MindSpore_Lite installation, and download and install MindSpore Lite.
 
