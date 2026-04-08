@@ -1841,6 +1841,11 @@ class ClassDocumenter(DocstringSignatureMixin, ModuleLevelDocumenter):  # type: 
                         mint_doc = re.sub(f'(>>> .*?){j[0]}', rf'\1{j[1]}', mint_doc)
                         ori_name = j[0].split('.')[-1]
                         trans_name = j[1].split('.')[-1]
+                        warning_content = rf""".. warning::
+        After version 2.9.0, this interface will be renamed to `{trans_name}`.
+"""
+                        if warning_content in mint_doc:
+                            mint_doc = mint_doc.replace(warning_content, '')
                         mint_doc = mint_doc.replace(ori_name, trans_name)
                         break
                 docstrings[i] = mint_doc
