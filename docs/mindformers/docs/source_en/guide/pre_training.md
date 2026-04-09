@@ -32,7 +32,7 @@ Based on actual operations, the basic pretraining process can be divided into th
 
 ## MindSpore Transformers-based Pretraining Practice
 
-Currently, MindSpore Transformers supports mainstream foundation models in the industry. In this practice, Qwen3-32B is used to demonstrate single-node training and multi-node training, respectively.
+Currently, MindSpore Transformers supports mainstream foundation models in the industry. In this practice, Qwen3-32B is used to demonstrate single-node training and multi-node training, respectively. For more training examples and recommended configurations by scenario, see the [Model Library](https://www.mindspore.cn/mindformers/docs/en/master/introduction/models.html).
 
 ### Preparing a Dataset
 
@@ -141,7 +141,3 @@ bash scripts/msrun_launcher.sh "run_mindformer.py \
 > The example code below assumes the **master node IP** is `192.168.1.1` and the current node's **Rank** is `0`. In actual execution, please set `master_ip` to the real **IP address** of the master node, and set `node_rank` to the **Rank** index of the current node.
 
 **Note**: During multi-node distributed training, some performance problems may occur. To ensure the efficiency and stability of the training process, you are advised to optimize and adjust the performance by referring to [Large Model Performance Optimization Guide](https://www.mindspore.cn/mindformers/docs/en/master/advanced_development/performance_optimization.html).
-
-## More Information
-
-For more training examples of different models, see [the models supported by MindSpore Transformers](https://www.mindspore.cn/mindformers/docs/en/master/introduction/models.html).

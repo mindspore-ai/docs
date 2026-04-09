@@ -12,7 +12,7 @@ MindSpore Transformers 提供了大模型推理能力，用户可以执行 `run_
 
 ### 1. 选择推理的模型
 
-根据需要的推理任务，选择不同的模型，如文本生成可以选择Qwen3等。
+根据需要的推理任务，选择不同的模型，如文本生成可以选择Qwen3等。更多关于不同模型的推理示例与各场景下的推荐配置，请参阅 [模型库](https://www.mindspore.cn/mindformers/docs/zh-CN/master/introduction/models.html)。
 
 ### 2. 准备模型文件
 
@@ -157,7 +157,3 @@ bash scripts/msrun_launcher.sh "run_mindformer.py \
 ```
 
 推理结果查看方式，与多卡推理相同。
-
-## 更多信息
-
-更多关于不同模型的推理示例，请访问[MindSpore Transformers 已支持模型库](https://www.mindspore.cn/mindformers/docs/zh-CN/master/introduction/models.html)。

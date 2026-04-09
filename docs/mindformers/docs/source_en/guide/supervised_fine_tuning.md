@@ -42,6 +42,8 @@ To handle exceptions such as training interruptions, MindSpore Transformers offe
 
 MindSpore Transformers currently supports mainstream large-scale models in the industry. This guide uses the Qwen3-8B model as an example.
 
+If you need to use other models or learn recommended configurations for different scenarios, refer to the [Model Library](https://www.mindspore.cn/mindformers/docs/en/master/introduction/models.html).
+
 ### Downloading Model Weights
 
 MindSpore Transformers supports loading Hugging Face model weights, enabling direct loading of weights downloaded from the Hugging Face model hub. For details, refer to [MindSpore Transformers-Safetensors Weights](https://www.mindspore.cn/mindformers/docs/en/master/feature/safetensors.html).

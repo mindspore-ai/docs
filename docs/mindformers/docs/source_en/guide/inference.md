@@ -12,7 +12,7 @@ The inference process can be categorized into the following steps:
 
 ### 1. Models of Selective Inference
 
-Depending on the required inference task, different models are chosen, e.g. for text generation one can choose Qwen3.
+Depending on the required inference task, different models are chosen, e.g. for text generation one can choose Qwen3. For more inference examples of different models and recommended configurations by scenario, see the [Model Library](https://www.mindspore.cn/mindformers/docs/en/master/introduction/models.html).
 
 ### 2. Preparing Model Files
 
@@ -157,7 +157,3 @@ bash scripts/msrun_launcher.sh "run_mindformer.py \
 ```
 
 Inference results are viewed in the same way as multi-card inference.
-
-## More Information
-
-For more inference examples of different models, see [the models supported by MindSpore Transformers](https://www.mindspore.cn/mindformers/docs/en/master/introduction/models.html).

@@ -42,6 +42,8 @@ MindSpore Transformers提供[一键启动脚本](https://www.mindspore.cn/mindfo
 
 MindSpore Transformers目前已经支持业界主流大模型，该实践流程选择Qwen3-8B模型为例。
 
+若需使用其他模型，或了解各模型在不同场景下的推荐配置，请参阅 [模型库](https://www.mindspore.cn/mindformers/docs/zh-CN/master/introduction/models.html)。
+
 ### 下载模型权重
 
 MindSpore Transformers提供加载Hugging Face模型权重的能力，支持直接加载从Hugging Face模型库中下载的模型权重。详细信息可以参考[MindSpore Transformers-Safetensors权重](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/safetensors.html)。

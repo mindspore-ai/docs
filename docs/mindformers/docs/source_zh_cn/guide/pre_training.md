@@ -32,7 +32,7 @@ MindSpore Transformers 提供[一键启动脚本](https://www.mindspore.cn/mindf
 
 ## 基于 MindSpore Transformers 的预训练实践
 
-MindSpore Transformers 目前已经支持业界主流大模型，本实践流程选择以 Qwen3-32B 展示单机训练和多机训练。
+MindSpore Transformers 目前已经支持业界主流大模型，本实践流程选择以 Qwen3-32B 展示单机训练和多机训练。更多训练示例与各场景下的推荐配置，请参阅 [模型库](https://www.mindspore.cn/mindformers/docs/zh-CN/master/introduction/models.html)。
 
 ### 数据集准备
 
@@ -141,7 +141,3 @@ bash scripts/msrun_launcher.sh "run_mindformer.py \
 > 此处样例代码假设主节点为`192.168.1.1`、当前Rank序号为`0`。实际执行时，请将`master_ip`设置为实际的主节点IP地址；将`node_rank`设置为当前节点的Rank序号。
 
 **注意**：在多机分布式训练的过程中，可能会遇到一些性能问题。为了确保训练过程的高效性和稳定性，建议参考[大模型性能调优指南](https://www.mindspore.cn/mindformers/docs/zh-CN/master/advanced_development/performance_optimization.html)，进行必要的性能优化和调整。
-
-## 更多信息
-
-更多关于不同模型的训练示例，请访问[MindSpore Transformers已支持模型库](https://www.mindspore.cn/mindformers/docs/zh-CN/master/introduction/models.html)。
