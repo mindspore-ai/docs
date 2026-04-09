@@ -62,7 +62,7 @@ MindSpore Transformers 预训练阶段当前已支持[Megatron格式的数据集
 
 - `jsonl`格式数据 转为 `bin`格式数据
 
-  MindSpore Transformers提供了数据预处理脚本`toolkit/data_preprocess/megatron/preprocess_indexed_dataset.py`用于将jsonl格式的原始文本预料转换成.bin或.idx文件。
+  MindSpore Transformers提供了数据预处理脚本`toolkit/data_preprocess/megatron/preprocess_indexed_dataset.py`用于将jsonl格式的原始文本语料转换成.bin或.idx文件。
 
   > 这里需要提前下载[Qwen3-32B](https://huggingface.co/Qwen/Qwen3-32B/blob/main/tokenizer.json)模型的tokenizer文件。
 

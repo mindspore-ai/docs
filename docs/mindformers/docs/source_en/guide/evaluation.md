@@ -4,7 +4,7 @@
 
 ## Overview
 
-The rapid development of Large Language Models (LLMs) has created a systematic need to evaluate their capabilities and limitations. Model evaluation has become essential infrastructure in the AI field. The mainstream model evaluation process is like an exam, where model capabilities are assessed through the accuracy rate of the model's answers to test papers (evaluation datasets). Common datasets such as CEVAL contain 52 different subject professional examination multiple-choice questions in Chinese, primarily evaluating the model's knowledge base. GSM8K consists of 8,501 high-quality elementary school math problems written by human problem setters, primarily evaluating the model's reasoning ability, and so on.
+The rapid development of Large Language Models (LLMs) has created a systematic need to evaluate their capabilities and limitations. Model evaluation has become essential infrastructure in the AI field. The mainstream model evaluation process is like an exam, where model capabilities are assessed through the accuracy rate of the model's answers to test papers (evaluation datasets). Common datasets such as CEval contain 52 different subject professional examination multiple-choice questions in Chinese, primarily evaluating the model's knowledge base. GSM8K consists of 8,501 high-quality elementary school math problems written by human problem setters, primarily evaluating the model's reasoning ability, and so on.
 
 In previous versions, MindSpore Transformers adapted the Harness evaluation framework for certain legacy architecture models. The latest version now supports the AISBench evaluation framework, meaning that in theory, any model supporting service-oriented deployment can be evaluated using AISBench.
 
@@ -45,7 +45,7 @@ pip3 install -e ./ --use-pep517
 
 #### Step 2 Dataset Download
 
-The official documentation provides download links for each dataset. Taking CEVAL as an example, you can find the download link in the [CEVAL documentation,](https://gitee.com/aisbench/benchmark/blob/master/ais_bench/benchmark/configs/datasets/ceval/README.md), and execute the following commands to download and extract the dataset to the specified path:
+The official documentation provides download links for each dataset. Taking CEval as an example, you can find the download link in the [CEval documentation,](https://gitee.com/aisbench/benchmark/blob/master/ais_bench/benchmark/configs/datasets/ceval/README.md), and execute the following commands to download and extract the dataset to the specified path:
 
 ```bash
 cd ais_bench/datasets
@@ -102,7 +102,7 @@ For more specific parameter descriptions, refer to [Interface Configuration Para
 
 #### Step 2 Start Evaluation via Command Line
 
-Determine the dataset task to be used. Taking CEVAL as an example, using the ceval_gen_5_shot_str dataset task, the command is as follows:
+Determine the dataset task to be used. Taking CEval as an example, using the ceval_gen_5_shot_str dataset task, the command is as follows:
 
 ```bash
 ais_bench --models vllm_api_general --datasets ceval_gen_5_shot_str --debug
@@ -164,7 +164,7 @@ ais_bench --models vllm_api_stream_chat --datasets gsm8k_gen_0_shot_cot_str_perf
 Parameter Description:
 
 - `--models`: Specifies the model task interface, i.e., vllm_api_stream_chat corresponding to the file name of the configuration changed in the previous step.
-- `--datasets`: Specifies the dataset task, i.e., the gsm8k_gen_0_shot_cot_str_perf dataset task, with a corresponding task file of the same name, where gsm8k refers to the dataset used, 0_shot means the question will not be repeated, str means non-chat output, and perf means performance testing
+- `--datasets`: Specifies the dataset task, i.e., the gsm8k_gen_0_shot_cot_str_perf dataset task, with a corresponding task file of the same name, where GSM8K refers to the dataset used, 0_shot means the question will not be repeated, str means non-chat output, and perf means performance testing
 - `--summarizer`: Specifies task statistical data
 - `--mode`: Specifies the task execution mode
 
@@ -198,7 +198,7 @@ After the evaluation is completed, performance evaluation results will be output
 
 In some datasets, we may want the model's output to conform to our expectations, so we can change the prompt.
 
-Taking ceval's gen_0_shot_str as an example, if we want the first token of the output to be the selected answer, we can modify the template in the following file:
+Taking CEval's gen_0_shot_str as an example, if we want the first token of the output to be the selected answer, we can modify the template in the following file:
 
 ```python
 # ais_bench/benchmark/configs/datasets/ceval/ceval_gen_0_shot_str.py Line 66 to 67
@@ -444,7 +444,7 @@ Harness evaluation supports single-device single-card, single-device multiple-ca
 
 ### Viewing the Evaluation Results
 
-After executing the evaluation command, the evaluation results will be printed out on the terminal. Taking gsm8k as an example, the evaluation results are as follows, where Filter corresponds to the way the matching model outputs results, n-shot corresponds to content format of dataset, Metric corresponds to the evaluation metric, Value corresponds to the evaluation score, and Stderr corresponds to the score error.
+After executing the evaluation command, the evaluation results will be printed out on the terminal. Taking GSM8K as an example, the evaluation results are as follows, where Filter corresponds to the way the matching model outputs results, n-shot corresponds to content format of dataset, Metric corresponds to the evaluation metric, Value corresponds to the evaluation score, and Stderr corresponds to the score error.
 
 | Tasks | Version | Filter           | n-shot | Metric      |   | Value  |   | Stderr |
 |-------|--------:|------------------|-------:|-------------|---|--------|---|--------|

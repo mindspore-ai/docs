@@ -12,7 +12,7 @@ MindSpore Transformers will write the model's training configuration, training s
 
 During the training process, MindSpore Transformers will generate a training log directory in the output directory (default is `./output`) by default: `./log`.
 
-When the training task is started using the `ms_run` method, an additional log directory will be generated in the output directory by default: `./msrun_log`.
+When the training task is started using the `msrun` method, an additional log directory will be generated in the output directory by default: `./msrun_log`.
 
 | Folder    | Description                                                                                                                                                                                                                                                                                                                                                                                 |
 |-----------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|

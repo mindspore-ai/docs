@@ -264,7 +264,7 @@ Megatron-LM 是一个面向大规模训练任务的成熟框架，具备高度�
     | `checkpoint-activations`       | 是否启用激活值检查点机制以减少显存     | 不支持配置                  |                          |
     | `moe-layer-recompute`          | MoE 层启用重计算            | 不支持配置                  |                          |
 
-**注意**：两个框架还有其他训练相关性较小的配置，MindSpore Transformer 详情参考[配置说明](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/configuration.html)，Megatron-LM 可通过执行命令`torchrun --nproc_per_node=1 pretrain_gpt.py --help`查看。
+**注意**：两个框架还有其他训练相关性较小的配置，MindSpore Transformers 详情参考[配置说明](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/configuration.html)，Megatron-LM 可通过执行命令`torchrun --nproc_per_node=1 pretrain_gpt.py --help`查看。
 
 ### 3.2 数据集对齐
 
@@ -418,7 +418,7 @@ Megatron-LM 是一个面向大规模训练任务的成熟框架，具备高度�
 
 - 结果对比
 
-  分别查看二者的输出日志，Megatron-LM 的日志位置为`example.sh`中的`logs/${logtime}.log`, MindSpore Transformer 的日志位置为`example.yaml`中的`output_dir`的`msrun_log/worker_0.log`。结果对比参考下表：
+  分别查看二者的输出日志，Megatron-LM 的日志位置为`example.sh`中的`logs/${logtime}.log`, MindSpore Transformers 的日志位置为`example.yaml`中的`output_dir`的`msrun_log/worker_0.log`。结果对比参考下表：
 
   | Megatron-LM     | MindSpore Transformers | 含义                                                                                                                                                             |
   |-----------------|------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------|

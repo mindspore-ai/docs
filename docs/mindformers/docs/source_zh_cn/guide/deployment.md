@@ -30,7 +30,7 @@ export vLLM_MODEL_BACKEND=MindFormers # use MindSpore Transformers
 export MINDFORMERS_MODEL_CONFIG=/path/to/yaml # 非MCore模型需要
 ```
 
-目前vLLM MindSpore可支持不同的模型后端，以上环境变量指定MindSpore Tranformers 作为对接模型套件。非MCore模型需要配置模型的yaml配置文件。
+目前vLLM MindSpore可支持不同的模型后端，以上环境变量指定MindSpore Transformers 作为对接模型套件。非MCore模型需要配置模型的yaml配置文件。
 更多环境变量可参考：[环境变量](https://www.mindspore.cn/vllm_mindspore/docs/zh-CN/master/user_guide/environment_variables/environment_variables.html)。
 
 准备好模型和环境变量后，即可开始推理。
