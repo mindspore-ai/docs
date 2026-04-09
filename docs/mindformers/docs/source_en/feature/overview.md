@@ -35,7 +35,7 @@ Supports large-scale, reliable large model training and tuning.
 | [Training Memory Optimization](https://www.mindspore.cn/mindformers/docs/en/master/feature/memory_optimization.html)                  | Recomputation and fine-grained activation SWAP to reduce peak memory.                          | Mcore/Legacy         |
 | [Data Skip and Health Monitoring](https://www.mindspore.cn/mindformers/docs/en/master/feature/skip_data_and_ckpt_health_monitor.html) | Data skip and checkpoint health monitoring for more robust training.                           | Mcore/Legacy         |
 | [Pre-trained Model Average (PMA) Weight Merge](https://www.mindspore.cn/mindformers/docs/en/master/feature/pma_fused_checkpoint.html) | Merge multiple checkpoints (PMA) and fused checkpoint saving.                                  | Mcore                |
-| [Other Training Features](https://www.mindspore.cn/mindformers/docs/en/master/feature/other_training_features.html)                   | Gradient accumulation, gradient clipping, CPU affinity, MoE droprate, RoPE/SwiGLU fusion, etc. | Mcore/Legacy         |
+| [Other Training Features](https://www.mindspore.cn/mindformers/docs/en/master/feature/other_training_features.html)                   | Gradient accumulation, gradient clipping, CPU affinity, MoE DropRate, RoPE/SwiGLU fusion, etc. | Mcore/Legacy         |
 
 ## Inference Features
 

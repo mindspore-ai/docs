@@ -69,7 +69,7 @@ output
 | no_save_optim          | 优化器权重保存功能开关（控制是否保存优化器权重信息）。默认值`True`。                                                          | bool |
 | async_save            | 是否异步执行权重保存。开启后保存操作不会阻塞训练主流程，提升训练效率，但需注意 I/O 资源竞争可能导致延迟写入。默认值`False`。                           | bool |
 | prefix                | 设置保存权重文件名的前缀。例如生成`CKP-100.ckpt`。若未配置，则使用默认值 `'CKP'`。                                           | str  |
-| save_remove_redundancy | 保存权重时是否去除模型权重的冗余，默认值为`False`。                                                                  | int  |
+| save_remove_redundancy | 保存权重时是否去除模型权重的冗余，默认值为`False`。                                                                  | bool |
 
 配置示例如下：
 

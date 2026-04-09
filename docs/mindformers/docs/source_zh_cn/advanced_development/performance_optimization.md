@@ -471,7 +471,7 @@ model:
 
 在分布式训练中，pipeline并行策略涉及到不同卡间的负载不均现象。
 
-在pipeline并行下，由于模型按层切分stage，使得首尾两个stage设计layer外的模块实现，如embedding、head、loss计算等模块，使得首尾两个stage的计算时长会高于中间stage，这是时间上的负载不均衡；而由于pipeline流水执行前反向的特性，最早执行的stage最晚释放所有内存，使得不同stage的内存消耗不同，越靠前的stage消耗内存越多，这是空间上的不均衡。
+在 pipeline 并行下，模型按层切分为多个 stage。首尾两个 stage 除主网络层外，还承担 embedding、head、loss 等模块，因此计算时长往往高于中间 stage，形成时间上的负载不均衡。另一方面，流水线前向与反向的执行顺序使得较早开始的 stage 可能更晚释放显存，各 stage 内存占用不同，越靠前的 stage 通常占用越多，形成空间上的负载不均衡。
 
 这种情况下可以通过配置模型层数偏移offset，来手动调整各个stage间的负载层数；
 

@@ -92,5 +92,5 @@ class Qwen3PreTrainedModel(PreTrainedModel, ModelMixin):
 参考[推理文档](../guide/inference.md)执行推理流程，然后查看日志。如果日志中出现以下内容，表明权重和网络完全匹配，权重已经完全加入到网络中。检验模型推理结果是否符合预期，若出现乱码情况，需要进一步定位，参考推理精度比对文档：
 
 ```text
-These parameters are not loaded in the network: {}'
+These parameters are not loaded in the network: {}
 ```

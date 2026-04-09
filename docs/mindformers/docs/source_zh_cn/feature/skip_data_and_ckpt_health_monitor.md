@@ -230,7 +230,7 @@ ckpt_name记录的是权重文件名，is_health记录的是对应权重的健�
 ]
 ```
 
-Checkpoint 2.0 下健康监测结果保存在`output_path/checkpoint/iteation_xxxxxx/common.json`中。
+Checkpoint 2.0 下健康监测结果保存在`output_path/checkpoint/iteration_xxxxxx/common.json`中。
 
 common.json记录数据如下：
 
