@@ -120,7 +120,11 @@ Environment variables, contribution, and FAQ
    :caption: Excellent Practice
    :hidden:
 
+   example/docker-installation
    example/distilled/distilled
+   example/convert_ckpt_to_megatron/convert_ckpt_to_megatron
+   example/model_test/model_test
+   example/finetune_with_glm4/finetune_with_glm4
 
 .. toctree::
    :glob:
