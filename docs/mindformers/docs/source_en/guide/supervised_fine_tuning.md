@@ -224,7 +224,7 @@ model:
 In the `model_config`, `pet_config` is the core configuration section for LoRA fine-tuning, used to specify LoRA-related parameters. The parameters are explained as follows:
 
 - **pet_type:** Specifies the type of Parameter-Efficient Tuning (PET) as LoRA. This means LoRA modules will be inserted into key layers of the model to reduce the number of parameters required for fine-tuning.
-- **lora_rank:** Defines the rank of the low-rank matrices. A smaller rank results in fewer parameters to update, reducing computational resource usage. Setting it to 16 is a common balance point, significantly reducing the parameter count while maintaining model performance.
+- **lora_rank:** Defines the rank of the low-rank matrices. A smaller rank results in fewer parameters to update, reducing computational resource usage. Setting it to 8 is a common balance point, significantly reducing the parameter count while maintaining model performance.
 - **lora_alpha:** Controls the scaling factor for weight updates in the LoRA module. This value determines the magnitude and impact of weight updates during fine-tuning. Setting it to 16 indicates a moderate scaling factor, helping to stabilize the training process.
 - **lora_dropout:** Sets the dropout probability in the LoRA module. Dropout is a regularization technique used to reduce the risk of overfitting. A value of 0.1 means there is a 10% chance of randomly “disabling” certain neural connections during training, which is particularly important when data is limited.
 - **lora_a_init:** Specifies the initialization method for the LoRA A matrix. Common choices include 'normal' and 'zeros'.

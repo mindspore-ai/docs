@@ -43,7 +43,7 @@ docker --version
 
 这样可以减少最终镜像大小，并提高构建效率。
 
-DockerFile的内容可参考[社区 issue](https://atomgit.com/mindspore/mindformers/issues/2231)
+Dockerfile的内容可参考[社区 issue](https://atomgit.com/mindspore/mindformers/issues/2231)
 
 并将其中的Dockerfile保存到本地。
 

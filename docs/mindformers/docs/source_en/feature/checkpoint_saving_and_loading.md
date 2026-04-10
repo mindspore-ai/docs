@@ -69,7 +69,7 @@ Users can control the weight saving behavior by modifying the relevant fields un
 | no_save_optim          | Optimizer weight saving function switch (controls whether to save optimizer weight information). Default to `True`.                                                                                                                                                              | bool |
 | async_save             | Whether to save weights asynchronously. Enabling this feature will not block the main training process, improving training efficiency. However, please note that I/O resource contention may cause write delays. Default to `False`.                                             | bool |
 | prefix                 | Set the prefix for the weight file name. For example, `CKP-100.ckpt` is generated. If not configured, default to `'CKP'`.                                                                                                                                                        | str  |
-| save_remove_redundancy | Whether to remove redundancy from model weights when saving. Default to `False`.                                                                                                                                                                                                 | int  |
+| save_remove_redundancy | Whether to remove redundancy from model weights when saving. Default to `False`.                                                                                                                                                                                                 | bool |
 
 Configuration example is as follows:
 

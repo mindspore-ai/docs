@@ -91,7 +91,7 @@ python3 -m vllm_mindspore.entrypoints vllm.entrypoints.openai.api_server --model
 
 ## 3. 使用lm-eval进行评测
 
-lm-eval是一个大型综合评测框架，适用于众多通用领域测试集（MMLU、CEVAL等），同时支持方便的自定义数据测试。
+lm-eval是一个大型综合评测框架，适用于众多通用领域测试集（MMLU、CEval等），同时支持方便的自定义数据测试。
 
 ### 3.1 处理数据集
 

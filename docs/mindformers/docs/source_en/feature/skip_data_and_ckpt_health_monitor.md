@@ -230,7 +230,7 @@ The ckpt_name records the weight file name, while is_health records the health s
 ]
 ```
 
-Under Checkpoint 2.0, the health monitoring results are saved in `output_path/checkpoint/iteation_xxxxxx/common.json`.
+Under Checkpoint 2.0, the health monitoring results are saved in `output_path/checkpoint/iteration_xxxxxx/common.json`.
 
 The recorded data of common.json is as follows:
 

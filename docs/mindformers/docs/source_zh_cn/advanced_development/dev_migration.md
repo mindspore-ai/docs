@@ -40,7 +40,7 @@ MindSpore Transformers提供了[PreTrainedTokenizer](https://www.mindspore.cn/mi
 - 在进行批量处理时速度显著提高；
 - 额外包含一些在文本字符串和词元空间映射的方法（例如，获取包含给定字符的词元的索引或与给定词元相对应的字符跨度）
 
-所有分词器的类应该继承于PretrainedTokenizer类或PretrainedTokenizerFast类，具体实现可以参考[LlamaTokenizer](https://www.mindspore.cn/mindformers/docs/zh-CN/master/models/mindformers.models.LlamaTokenizer.html)和[LlamaTokenizerFast](https://www.mindspore.cn/mindformers/docs/zh-CN/master/models/mindformers.models.LlamaTokenizerFast.html)。
+所有分词器的类应该继承于PreTrainedTokenizer类或PreTrainedTokenizerFast类，具体实现可以参考[LlamaTokenizer](https://www.mindspore.cn/mindformers/docs/zh-CN/master/models/mindformers.models.LlamaTokenizer.html)和[LlamaTokenizerFast](https://www.mindspore.cn/mindformers/docs/zh-CN/master/models/mindformers.models.LlamaTokenizerFast.html)。
 
 > 如果您的分词器与库内的分词器非常相似，可以复用该分词器的实现。
 
@@ -126,7 +126,7 @@ Llama3-8B与Llama2-7B拥有相同的模型结构，只有部分模型参数、�
 
 #### 分词器
 
-Llama3-8B重新实现了分词器。对照官方的实现，继承MindSpore Transformers中的PretrainedTokenizer实现Llama3Tokenizer。
+Llama3-8B重新实现了分词器。对照官方的实现，继承MindSpore Transformers中的PreTrainedTokenizer实现Llama3Tokenizer。
 
 #### 权重转换
 

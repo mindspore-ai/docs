@@ -40,7 +40,7 @@ MindSpore Transformers provides the [PreTrainedTokenizer](https://www.mindspore.
 - Faster batch processing.
 - Additional methods for mapping between text strings and lexical spaces. For example, the indexes of the lexical element containing a given character or the character spans corresponding to the given lexical element are obtained.
 
-All tokenizer classes must be inherited from the PretrainedTokenizer or PretrainedTokenizerFast class. For details, see [LlamaTokenizer](https://www.mindspore.cn/mindformers/docs/en/master/models/mindformers.models.LlamaTokenizer.html) and [LlamaTokenizerFast](https://www.mindspore.cn/mindformers/docs/en/master/models/mindformers.models.LlamaTokenizerFast.html).
+All tokenizer classes must be inherited from the PreTrainedTokenizer or PreTrainedTokenizerFast class. For details, see [LlamaTokenizer](https://www.mindspore.cn/mindformers/docs/en/master/models/mindformers.models.LlamaTokenizer.html) and [LlamaTokenizerFast](https://www.mindspore.cn/mindformers/docs/en/master/models/mindformers.models.LlamaTokenizerFast.html).
 
 > If your tokenizer is similar to that in the library, you can reuse that in the library.
 
@@ -126,7 +126,7 @@ After modifying the corresponding content in the `YAML` file of Llama2-7B, you c
 
 #### Tokenizer
 
-Llama3-8B re-implements the tokenizer. According to the official implementation, PretrainedTokenizer is inherited from MindSpore Transformers to implement Llama3Tokenizer.
+Llama3-8B re-implements the tokenizer. According to the official implementation, PreTrainedTokenizer is inherited from MindSpore Transformers to implement Llama3Tokenizer.
 
 #### Weight Conversion
 

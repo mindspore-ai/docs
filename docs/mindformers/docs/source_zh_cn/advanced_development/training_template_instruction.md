@@ -86,4 +86,4 @@ MindSpore Transformers对于不同训练场景提供了对应的配置模板，�
 
 ### 断点续训
 
-进行断点续训时，需要基于上次训练使用的yaml配置文件，修改load_checkpoint指定到上一次训练任务时保存的权重目录，即output_dir参数指定目录下的checkpoint目录，resume_training设置为True。详情参考[断点续训](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/resume_training.html)。
+进行断点续训时，需要基于上次训练使用的yaml配置文件，修改`load_checkpoint`，使其指向上一次训练任务时保存的权重目录，即`output_dir`参数指定目录下的`checkpoint`目录，`resume_training`设置为`True`。详情参考[断点续训](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/resume_training.html)。

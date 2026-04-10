@@ -471,7 +471,7 @@ Overhead: The pp interleave algorithm theoretically uses more memory, a space-fo
 
 In distributed training, the pipeline parallel strategy involves the phenomenon of load unevenness among different cards.
 
-Under pipeline parallelism, because the model is sliced into stages by layer, the first and last stages design modules outside the layer to realize, such as embedding, head, loss calculation and other modules, so that the computation time of the first and last stages is higher than that of the middle stage, which is the load imbalance in time. And due to the pipeline flow execution before the reverse characteristics that the earliest execution stage, the latest all the memory release, the memory consumption of different stages is different. The more front stage consumes more memory, which is spatial imbalance.
+Under pipeline parallelism, the model is partitioned into stages by layer. The first and last stages host modules beyond the main transformer stack—such as embedding, head, and loss—so their computation time is often longer than intermediate stages, causing temporal load imbalance. In addition, the forward–backward ordering of the pipeline means earlier stages may release memory later; memory use therefore differs across stages, with earlier stages typically consuming more, causing spatial load imbalance.
 
 In this case you can manually adjust the number of load layers between individual stages by configuring the model layer offset.
 
