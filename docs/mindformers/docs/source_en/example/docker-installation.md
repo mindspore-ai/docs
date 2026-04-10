@@ -43,7 +43,7 @@ If no version information is displayed, install the tool according to the offici
 
 This multiphase approach helps reduce the final image size and improve the build efficiency.
 
-For details about the Dockerfile content, see [Community Issues](https://gitee.com/mindspore/mindformers/issues/ICQ9JF).
+For details about the Dockerfile content, see [Community Issues](https://atomgit.com/mindspore/mindformers/issues/2231).
 
 Save Dockerfiles to the local PC.
 
