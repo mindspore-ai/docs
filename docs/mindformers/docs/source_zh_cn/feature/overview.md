@@ -35,7 +35,7 @@ MindSpore Transformers 在预训练、微调、推理与部署全流程中提供
 | [训练内存优化](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/memory_optimization.html)                          | 支持重计算与细粒度激活值 SWAP，降低训练峰值显存。                         | Mcore/Legacy |
 | [数据跳过和健康监测](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/skip_data_and_ckpt_health_monitor.html)         | 支持数据跳过与权重健康监测，提升训练鲁棒性。                              | Mcore/Legacy |
 | [Pre-trained Model Average 权重合并](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/pma_fused_checkpoint.html) | 支持多 checkpoint 权重合并（PMA）及融合保存。                      | Mcore        |
-| [其它训练特性](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/other_training_features.html)                      | 梯度累积、梯度裁剪、CPU 绑核、MoE Droprate、RoPE/SwiGLU 融合等。      | Mcore/Legacy |
+| [其它训练特性](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/other_training_features.html)                      | 梯度累积、梯度裁剪、CPU 绑核、MoE DropRate、RoPE/SwiGLU 融合等。      | Mcore/Legacy |
 
 ## 推理功能
 

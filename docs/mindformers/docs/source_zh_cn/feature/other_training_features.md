@@ -113,17 +113,17 @@ moe_config:
   ...
 ```
 
-## MoE Droprate打印
+## MoE DropRate 打印
 
 ### 概述
 
-在使用MoE（Mixture of Experts）容量方案进行模型训练时，为了提高效率和性能，系统可能会对某些token执行drop操作。通过启用droprate打印功能，用户可以在训练过程中实时监控这些drop操作的发生率，从而更好地理解模型的行为，并据此调整训练策略。此功能允许用户在训练过程中查看每一层的droprate情况。droprate是指在特定层中被drop掉的token的比例。通过观察droprate的变化趋势，可以帮助用户评估当前的训练参数设置是否合理，以及模型是否有效地利用了专家资源。
+在使用MoE（Mixture of Experts）容量方案进行模型训练时，为了提高效率和性能，系统可能会对某些token执行drop操作。通过启用 DropRate 打印功能，用户可以在训练过程中实时监控这些drop操作的发生率，从而更好地理解模型的行为，并据此调整训练策略。此功能允许用户在训练过程中查看每一层的 DropRate 情况。DropRate 是指在特定层中被drop掉的token的比例。通过观察 DropRate 的变化趋势，可以帮助用户评估当前的训练参数设置是否合理，以及模型是否有效地利用了专家资源。
 
 ### 配置与使用
 
 #### YAML 参数配置
 
-用户要启用droprate打印功能，需在配置文件中的 `moe_config` 项下配置 `callback_moe_droprate` 项，设置为`True`，在callback部分添加`MoEDropRateCallback`配置项，并设置模型相关参数`expert_num`、`capacity_factor`、`num_layers`、`mtp_depth`。示例：
+用户要启用 DropRate 打印功能，需在配置文件中的 `moe_config` 项下配置 `callback_moe_droprate` 项，设置为`True`，在callback部分添加`MoEDropRateCallback`配置项，并设置模型相关参数`expert_num`、`capacity_factor`、`num_layers`、`mtp_depth`。示例：
 
 ```yaml
 moe_config:
@@ -145,7 +145,7 @@ callback:
 
 | 参数                  | 描述                               | 取值说明                          |
 | --------------------- | ---------------------------------- | --------------------------------- |
-| callback_moe_droprate | 是否在callback中打印MoE Droprate。 | (bool, 可选) - 默认值：`False` 。 |
+| callback_moe_droprate | 是否在callback中打印MoE DropRate。 | (bool, 可选) - 默认值：`False` 。 |
 | expert_num            | 专家数量。                         | (int, 必选) - 默认值：`None`。    |
 | capacity_factor       | 容量因子。                         | (float, 必选) - 默认值：`None`。  |
 | num_layers            | 模型层数。                         | (int, 必选) - 默认值：`None`。    |

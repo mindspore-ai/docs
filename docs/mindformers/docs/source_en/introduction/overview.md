@@ -32,7 +32,7 @@ MindSpore Transformers adopted a completely new model architecture after version
 
 ## Training Capabilities
 
-MindSpore Transformer delivers efficient, stable, and user-friendly large-model training capabilities, covering both pre-training and fine-tuning scenarios while balancing performance and ecosystem compatibility. Core capabilities include:
+MindSpore Transformers delivers efficient, stable, and user-friendly large-model training capabilities, covering both pre-training and fine-tuning scenarios while balancing performance and ecosystem compatibility. Core capabilities include:
 
 **Multi-dimensional hybrid parallel training**
 

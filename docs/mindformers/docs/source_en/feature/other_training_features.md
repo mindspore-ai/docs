@@ -113,17 +113,17 @@ moe_config:
   ...
 ```
 
-## MoE Droprate Logging
+## MoE DropRate Logging
 
 ### Overview
 
-When training models using the MoE (Mixture of Experts) capacity scheme, certain tokens may be dropped to improve efficiency and performance. By enabling the droprate logging feature, users can monitor the occurrence rate of these drop operations in real-time during training, helping them better understand model behavior and adjust training strategies accordingly. This feature allows users to view the droprate for each layer during training. The droprate refers to the proportion of tokens dropped in a specific layer. Observing the trend of droprate changes can help users evaluate whether the current training parameters are reasonable and whether the model is effectively utilizing expert resources.
+When training models using the MoE (Mixture of Experts) capacity scheme, certain tokens may be dropped to improve efficiency and performance. By enabling the DropRate logging feature, users can monitor the occurrence rate of these drop operations in real-time during training, helping them better understand model behavior and adjust training strategies accordingly. This feature allows users to view the DropRate for each layer during training. DropRate refers to the proportion of tokens dropped in a specific layer. Observing the trend of DropRate changes can help users evaluate whether the current training parameters are reasonable and whether the model is effectively utilizing expert resources.
 
 ### Configuration and Usage
 
 #### YAML Parameter Configuration
 
-To enable the droprate logging feature, users need to configure the `callback_moe_droprate` parameter under the moe_config section in the configuration file and set it to `True`. Add the `MoEDropRateCallback` configuration item in the callback section and set model-related parameters such as `expert_num`, `capacity_factor`, `num_layers`, and `mtp_depth`. For example:
+To enable the DropRate logging feature, users need to configure the `callback_moe_droprate` parameter under the moe_config section in the configuration file and set it to `True`. Add the `MoEDropRateCallback` configuration item in the callback section and set model-related parameters such as `expert_num`, `capacity_factor`, `num_layers`, and `mtp_depth`. For example:
 
 ```yaml
 moe_config:
@@ -145,7 +145,7 @@ callback:
 
 | Parameter             | Description                                | Value Specification                  |
 | --------------------- | ------------------------------------------ | ------------------------------------ |
-| callback_moe_droprate | Whether to print MoE Droprate in callback. | (bool, optional) - Default:`False` . |
+| callback_moe_droprate | Whether to print MoE DropRate in callback. | (bool, optional) - Default:`False` . |
 | expert_num            | Number of experts.                         | (int, required) -  Default:`None`.   |
 | capacity_factor       | Capacity factor.                           | (float, required) - Default:`None`.  |
 | num_layers            | Number of model layers.                    | (int, required) - Default:`None`.    |

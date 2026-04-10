@@ -77,7 +77,7 @@ MindSpore Transformers支持了不同系列的预训练模型，例如Llama系�
 - **灵活配置**：允许同时加载多个bin数据文件，并通过采样比例参数控制不同数据源的混合权重；
 - **高效训练**：二进制存储格式大幅提升了IO效率，特别适合大规模预训练场景。
 
-MindSpore Transformers在预训练任务中支持直接加载Megatron的多源混合数据集格式。Megatron-LM使用者无需重复数据预处理步骤，只需通过指定bin文件路径即可快速启动训练。如果已有bin文件，可参照后续训练配置修改章节在训练YAML配置文件中进行配置；如果无bin文件，则需要对原始训练数据转换成bin文件。MindSpore MindFormers提供了将json格式的原始数据集处理成bin文件的脚本工具，并以wiki103数据集为例，提供了预处理的全过程。具体详见[数据集使用-Megatron数据集章节](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/dataset.html#megatron%E6%95%B0%E6%8D%AE%E9%9B%86)。
+MindSpore Transformers在预训练任务中支持直接加载Megatron的多源混合数据集格式。Megatron-LM使用者无需重复数据预处理步骤，只需通过指定bin文件路径即可快速启动训练。如果已有bin文件，可参照后续训练配置修改章节在训练YAML配置文件中进行配置；如果无bin文件，则需要对原始训练数据转换成bin文件。MindSpore Transformers提供了将json格式的原始数据集处理成bin文件的脚本工具，并以wiki103数据集为例，提供了预处理的全过程。具体详见[数据集使用-Megatron数据集章节](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/dataset.html#megatron%E6%95%B0%E6%8D%AE%E9%9B%86)。
 
 **微调数据处理**
 

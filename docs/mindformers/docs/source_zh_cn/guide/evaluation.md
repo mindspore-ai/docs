@@ -6,7 +6,7 @@
 
 大语言模型（LLM）的迅猛发展催生了对其能力边界与局限性的系统化评估需求。模型评测已成为AI领域不可或缺的基础设施。
 
-主流的模型评测流程就像考试，通过模型对试卷（评测数据集）的答题正确率来评估模型能力。常见数据集如ceval包含中文的52个不同学科职业考试选择题，主要评估模型的知识量；GSM8K由人类出题者编写的8500道高质量小学数学题组成，主要评估模型的推理能力等。
+主流的模型评测流程就像考试，通过模型对试卷（评测数据集）的答题正确率来评估模型能力。常见数据集如CEval包含中文的52个不同学科职业考试选择题，主要评估模型的知识量；GSM8K由人类出题者编写的8500道高质量小学数学题组成，主要评估模型的推理能力等。
 
 MindSpore Transformers在之前版本，对于部分Legacy架构的模型，适配了Harness评测框架。当前最新适配了AISBench评测框架，理论上支持服务化部署的模型，都能使用AISBench进行评测。
 
@@ -47,7 +47,7 @@ pip3 install -e ./ --use-pep517
 
 #### Step2 数据集下载
 
-官方文档提供各个数据集下载链接，以ceval为例可在[ceval文档](https://gitee.com/aisbench/benchmark/blob/master/ais_bench/benchmark/configs/datasets/ceval/README.md)中找到下载链接，执行以下命令下载解压数据集到指定路径：
+官方文档提供各个数据集下载链接，以CEval为例可在[CEval文档](https://gitee.com/aisbench/benchmark/blob/master/ais_bench/benchmark/configs/datasets/ceval/README.md)中找到下载链接，执行以下命令下载解压数据集到指定路径：
 
 ```bash
 cd ais_bench/datasets
@@ -104,7 +104,7 @@ models = [
 
 #### Step2 命令行启动评测
 
-确定采用的数据集任务，以ceval为例，采用ceval_gen_5_shot_str数据集任务，命令如下：
+确定采用的数据集任务，以CEval为例，采用ceval_gen_5_shot_str数据集任务，命令如下：
 
 ```bash
 ais_bench --models vllm_api_general --datasets ceval_gen_5_shot_str --debug
@@ -121,7 +121,7 @@ ais_bench --models vllm_api_general --datasets ceval_gen_5_shot_str --debug
 
 ### 性能评测流程
 
-性能与精度评测流程类似，不过更关心各请求各阶段的处理时间，通过精确记录每条请求的发送时间、各阶段返回时间及响应内容，系统地评估模型服务在实际部署环境中的响应延迟（如 TTFT、Token间延迟）、吞吐能力（如 QPS、TPUT）、并发处理能力等关键性能指标。以下以原始数据集gms8k进行性能评测为例。
+性能与精度评测流程类似，不过更关心各请求各阶段的处理时间，通过精确记录每条请求的发送时间、各阶段返回时间及响应内容，系统地评估模型服务在实际部署环境中的响应延迟（如 TTFT、Token间延迟）、吞吐能力（如 QPS、TPUT）、并发处理能力等关键性能指标。以下以原始数据集 GSM8K 进行性能评测为例。
 
 #### Step1 更改接口配置
 
@@ -166,7 +166,7 @@ ais_bench --models vllm_api_stream_chat --datasets gsm8k_gen_0_shot_cot_str_perf
 参数说明：
 
 - `--models`：指定了模型任务接口，即vllm_api_stream_chat，对应上一步更改的配置的文件名。
-- `--datasets`：指定了数据集任务，即gsm8k_gen_0_shot_cot_str_perf数据集任务，有对应的同名任务文件，其中的gsm8k指用的数据集，0_shot指问题不会重复，str是指非chat输出，perf是指做性能测试。
+- `--datasets`：指定了数据集任务，即gsm8k_gen_0_shot_cot_str_perf数据集任务，有对应的同名任务文件，其中的 GSM8K 指所用的数据集，0_shot指问题不会重复，str是指非chat输出，perf是指做性能测试。
 - `--summarizer`：指定了任务统计数据。
 - `--mode`：指定了任务执行模式。
 
@@ -200,7 +200,7 @@ ais_bench --models vllm_api_stream_chat --datasets gsm8k_gen_0_shot_cot_str_perf
 
 在某些数据集中，若希望模型的输出符合预期，那么可以更改prompt。
 
-以ceval的gen_0_shot_str为例，我们想让输出的第一个token就为选择的答案，可更改以下文件下的template：
+以CEval的gen_0_shot_str为例，我们想让输出的第一个token就为选择的答案，可更改以下文件下的template：
 
 ```python
 # ais_bench/benchmark/configs/datasets/ceval/ceval_gen_0_shot_str.py 66~76行
@@ -446,7 +446,7 @@ Harness评测支持单机单卡、单机多卡、多机多卡场景，每种场�
 
 ### 查看评测结果
 
-执行评测命令后，评测结果将会在终端打印出来。以gsm8k为例，评测结果如下，其中Filter对应匹配模型输出结果的方式，n-shot对应数据集内容格式，Metric对应评测指标，Value对应评测分数，Stderr对应分数误差。
+执行评测命令后，评测结果将会在终端打印出来。以 GSM8K 为例，评测结果如下，其中Filter对应匹配模型输出结果的方式，n-shot对应数据集内容格式，Metric对应评测指标，Value对应评测分数，Stderr对应分数误差。
 
 | Tasks | Version | Filter           | n-shot | Metric      |   | Value  |   | Stderr |
 |-------|--------:|------------------|-------:|-------------|---|--------|---|--------|
