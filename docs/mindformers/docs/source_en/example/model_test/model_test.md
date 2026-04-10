@@ -90,7 +90,7 @@ python3 -m vllm_mindspore.entrypoints vllm.entrypoints.openai.api_server --model
 
 ## 3. lm-eval Usage for Evaluation
 
-lm-eval is a large-scale comprehensive evaluation framework, which is applicable to many general-domain test sets (such as MMLU and CEVAL) and supports convenient custom data tests.
+lm-eval is a large-scale comprehensive evaluation framework, which is applicable to many general-domain test sets (such as MMLU and CEval) and supports convenient custom data tests.
 
 ### 3.1 Processing the Dataset
 
