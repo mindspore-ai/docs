@@ -12,3 +12,4 @@ c3fff95468eb5eb9c80a73534791b83e4cf2a220c9f0bc65f910c1c1eb1eaa65
 Ascend-cann-910b-ops_8.5.0_linux-aarch64.run
 @pytest.mark.platform_arm_ascend910b_training
 platform_arm_ascend910b_training
+Ascend-cann-kernels-910b_8
