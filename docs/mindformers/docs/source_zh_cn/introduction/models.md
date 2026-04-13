@@ -6,13 +6,13 @@
 
 | 模型名                                                                                                       | 支持规格                          |   模型类型   |     模型架构     |   最新支持版本   |
 |:----------------------------------------------------------------------------------------------------------|:------------------------------|:--------:|:------------:|:----------:|
-| [Qwen3](https://atomgit.com/mindspore/mindformers/tree/master/configs/qwen3)                              | 0.6B/1.7B/4B/8B/14B/32B       |  稠密LLM   |    Mcore     | 1.7.0、在研版本 |
-| [Qwen3-MoE](https://atomgit.com/mindspore/mindformers/tree/master/configs/qwen3_moe)                      | 30B-A3B/235B-A22B             |  稀疏LLM   |    Mcore     | 1.7.0、在研版本 |
-| [DeepSeek-V3](https://atomgit.com/mindspore/mindformers/tree/master/research/deepseek3)                   | 671B                          |  稀疏LLM   | Mcore/Legacy | 1.7.0、在研版本 |
-| [GLM4.5](https://atomgit.com/mindspore/mindformers/tree/master/configs/glm4_moe)                          | 106B-A12B/355B-A32B           |  稀疏LLM   |    Mcore     | 1.7.0、在研版本 |
-| [GLM4](https://atomgit.com/mindspore/mindformers/tree/master/configs/glm4)                                | 9B                            |  稠密LLM   | Mcore/Legacy | 1.7.0、在研版本 |
-| [Qwen2.5](https://atomgit.com/mindspore/mindformers/tree/master/research/qwen2_5)                         | 0.5B/1.5B/7B/14B/32B/72B      |  稠密LLM   |    Legacy    | 1.7.0、在研版本 |
-| [TeleChat2](https://atomgit.com/mindspore/mindformers/tree/master/research/telechat2)                     | 7B/35B/115B                   |  稠密LLM   |    Mcore     | 1.7.0、在研版本 |
+| [Qwen3](https://atomgit.com/mindspore/mindformers/tree/r1.9.0/configs/qwen3)                              | 0.6B/1.7B/4B/8B/14B/32B       |  稠密LLM   |    Mcore     | 1.7.0、在研版本 |
+| [Qwen3-MoE](https://atomgit.com/mindspore/mindformers/tree/r1.9.0/configs/qwen3_moe)                      | 30B-A3B/235B-A22B             |  稀疏LLM   |    Mcore     | 1.7.0、在研版本 |
+| [DeepSeek-V3](https://atomgit.com/mindspore/mindformers/tree/r1.9.0/research/deepseek3)                   | 671B                          |  稀疏LLM   | Mcore/Legacy | 1.7.0、在研版本 |
+| [GLM4.5](https://atomgit.com/mindspore/mindformers/tree/r1.9.0/configs/glm4_moe)                          | 106B-A12B/355B-A32B           |  稀疏LLM   |    Mcore     | 1.7.0、在研版本 |
+| [GLM4](https://atomgit.com/mindspore/mindformers/tree/r1.9.0/configs/glm4)                                | 9B                            |  稠密LLM   | Mcore/Legacy | 1.7.0、在研版本 |
+| [Qwen2.5](https://atomgit.com/mindspore/mindformers/tree/r1.9.0/research/qwen2_5)                         | 0.5B/1.5B/7B/14B/32B/72B      |  稠密LLM   |    Legacy    | 1.7.0、在研版本 |
+| [TeleChat2](https://atomgit.com/mindspore/mindformers/tree/r1.9.0/research/telechat2)                     | 7B/35B/115B                   |  稠密LLM   |    Mcore     | 1.7.0、在研版本 |
 | [Llama3.1](https://atomgit.com/mindspore/mindformers/tree/r1.7.0/research/llama3_1)                       | 8B/70B                        |  稠密LLM   |    Legacy    |   1.7.0    |
 | [Mixtral](https://atomgit.com/mindspore/mindformers/tree/r1.7.0/research/mixtral)                         | 8x7B                          |  稀疏LLM   |    Legacy    |   1.7.0    |
 | [CodeLlama](https://atomgit.com/mindspore/mindformers/blob/r1.5.0/docs/model_cards/codellama.md)          | 34B                           |  稠密LLM   |    Legacy    |   1.5.0    |

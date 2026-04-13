@@ -8,7 +8,7 @@ This case uses the MindSpore framework and MindSpore Transformers LLM suite to g
 
 ## 1. Environment Setup
 
-Set up the environment by referring to [MindSpore Transformers Installation Guidelines](https://www.mindspore.cn/mindformers/docs/en/master/installation.html).
+Set up the environment by referring to [MindSpore Transformers Installation Guidelines](https://www.mindspore.cn/mindformers/docs/en/r1.9.0/installation.html).
 
 ## 2. Dataset Preparations
 
@@ -148,11 +148,11 @@ Some important parameters:
 - `--dst_ckpt_strategy`: path of the distributed policy file of the target weights. In this case, the merged weights are complete weights and do not have a distributed policy. Therefore, set this parameter to `None`.
 - `--dst_ckpt_dir`: user-defined path for saving the target weights.
 
-For details about the parameters, see [Ckpt Weights | MindSpore Transformers Documentation | MindSpore Community](https://www.mindspore.cn/mindformers/docs/en/master/feature/ckpt.html).
+For details about the parameters, see [Ckpt Weights | MindSpore Transformers Documentation | MindSpore Community](https://www.mindspore.cn/mindformers/docs/en/r1.9.0/feature/ckpt.html).
 
 ### 3.4 Reverse Weight Conversion
 
-The weight format used in the training process is the MindSpore version. If you need to deploy the model using an inference framework such as vLLM, you need to convert the weight format to the Hugging Face format. The essence of weight conversion is to make the weight dictionary one-to-one correspond to the Hugging Face model dictionary. Therefore, the official script [convert_reversed.py](https://atomgit.com/mindspore/mindformers/blob/master/mindformers/models/glm2/convert_reversed.py) is modified to implement the conversion of the weight format and the mapping between dictionary names. Only the saving part needs to be modified. First, analyze the code. The function to be modified is `convert_ms_to_pt`.
+The weight format used in the training process is the MindSpore version. If you need to deploy the model using an inference framework such as vLLM, you need to convert the weight format to the Hugging Face format. The essence of weight conversion is to make the weight dictionary one-to-one correspond to the Hugging Face model dictionary. Therefore, the official script [convert_reversed.py](https://atomgit.com/mindspore/mindformers/blob/r1.9.0/mindformers/models/glm2/convert_reversed.py) is modified to implement the conversion of the weight format and the mapping between dictionary names. Only the saving part needs to be modified. First, analyze the code. The function to be modified is `convert_ms_to_pt`.
 
 ``` python
 print('saving pt ckpt....')

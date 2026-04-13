@@ -12,27 +12,27 @@ Based on actual operations, the basic pretraining process can be divided into th
 
 ### 1. Preparing a Dataset
 
-   The pretraining phase of MindSpore Transformers currently supports datasets in both [Megatron format](https://www.mindspore.cn/mindformers/docs/en/master/feature/dataset.html#megatron-dataset) and [MindRecord format](https://www.mindspore.cn/mindformers/docs/en/master/feature/dataset.html#mindrecord-dataset). Users can prepare the data according to the specific requirements of their tasks.
+   The pretraining phase of MindSpore Transformers currently supports datasets in both [Megatron format](https://www.mindspore.cn/mindformers/docs/en/r1.9.0/feature/dataset.html#megatron-dataset) and [MindRecord format](https://www.mindspore.cn/mindformers/docs/en/r1.9.0/feature/dataset.html#mindrecord-dataset). Users can prepare the data according to the specific requirements of their tasks.
 
 ### 2. Configuring File Preparation
 
-   The pretraining task in MindSpore Transformers is managed through a unified [configuration file](https://www.mindspore.cn/mindformers/docs/en/master/feature/configuration.html), allowing users to flexibly adjust various [training hyperparameters](https://www.mindspore.cn/mindformers/docs/en/master/feature/training_hyperparameters.html). In addition, pretraining performance can be further optimized using features such as [distributed parallel training](https://www.mindspore.cn/mindformers/docs/en/master/feature/parallel_training.html), [memory optimization](https://www.mindspore.cn/mindformers/docs/en/master/feature/memory_optimization.html), and [other training features](https://www.mindspore.cn/mindformers/docs/en/master/feature/other_training_features.html).
+   The pretraining task in MindSpore Transformers is managed through a unified [configuration file](https://www.mindspore.cn/mindformers/docs/en/r1.9.0/feature/configuration.html), allowing users to flexibly adjust various [training hyperparameters](https://www.mindspore.cn/mindformers/docs/en/r1.9.0/feature/training_hyperparameters.html). In addition, pretraining performance can be further optimized using features such as [distributed parallel training](https://www.mindspore.cn/mindformers/docs/en/r1.9.0/feature/parallel_training.html), [memory optimization](https://www.mindspore.cn/mindformers/docs/en/r1.9.0/feature/memory_optimization.html), and [other training features](https://www.mindspore.cn/mindformers/docs/en/r1.9.0/feature/other_training_features.html).
 
 ### 3. Launching the Training Task
 
-   MindSpore Transformers provides a convenient [one-click script](https://www.mindspore.cn/mindformers/docs/en/master/feature/start_tasks.html) to launch the pretraining task. During training, users can monitor the progress using [logging](https://www.mindspore.cn/mindformers/docs/en/master/feature/logging.html) and [visualization tools](https://www.mindspore.cn/mindformers/docs/en/master/feature/monitor.html).
+   MindSpore Transformers provides a convenient [one-click script](https://www.mindspore.cn/mindformers/docs/en/r1.9.0/feature/start_tasks.html) to launch the pretraining task. During training, users can monitor the progress using [logging](https://www.mindspore.cn/mindformers/docs/en/r1.9.0/feature/logging.html) and [visualization tools](https://www.mindspore.cn/mindformers/docs/en/r1.9.0/feature/monitor.html).
 
 ### 4. Saving a Model
 
-   Checkpoint files can be saved during training or after completion. Currently, MindSpore Transformers supports saving models in [Ckpt format](https://www.mindspore.cn/mindformers/docs/en/master/feature/ckpt.html) or [Safetensors format](https://www.mindspore.cn/mindformers/docs/en/master/feature/safetensors.html), which can be used for later tasks such as resuming training or fine-tuning.
+   Checkpoint files can be saved during training or after completion. Currently, MindSpore Transformers supports saving models in [Ckpt format](https://www.mindspore.cn/mindformers/docs/en/r1.9.0/feature/ckpt.html) or [Safetensors format](https://www.mindspore.cn/mindformers/docs/en/r1.9.0/feature/safetensors.html), which can be used for later tasks such as resuming training or fine-tuning.
 
 ### 5. Fault Recovery
 
-   To handle unexpected interruptions during training, MindSpore Transformers includes [training high availability](https://www.mindspore.cn/mindformers/docs/en/master/feature/high_availability.html) such as final-state saving and automatic recovery. It also supports [resuming training from checkpoints](https://www.mindspore.cn/mindformers/docs/en/master/feature/resume_training.html), improving training stability.
+   To handle unexpected interruptions during training, MindSpore Transformers includes [training high availability](https://www.mindspore.cn/mindformers/docs/en/r1.9.0/feature/high_availability.html) such as final-state saving and automatic recovery. It also supports [resuming training from checkpoints](https://www.mindspore.cn/mindformers/docs/en/r1.9.0/feature/resume_training.html), improving training stability.
 
 ## MindSpore Transformers-based Pretraining Practice
 
-Currently, MindSpore Transformers supports mainstream foundation models in the industry. In this practice, Qwen3-32B is used to demonstrate single-node training and multi-node training, respectively. For more training examples and recommended configurations by scenario, see the [Model Library](https://www.mindspore.cn/mindformers/docs/en/master/introduction/models.html).
+Currently, MindSpore Transformers supports mainstream foundation models in the industry. In this practice, Qwen3-32B is used to demonstrate single-node training and multi-node training, respectively. For more training examples and recommended configurations by scenario, see the [Model Library](https://www.mindspore.cn/mindformers/docs/en/r1.9.0/introduction/models.html).
 
 ### Preparing a Dataset
 
@@ -44,7 +44,7 @@ Currently, MindSpore Transformers supports Megatron dataset, which is typically 
 
 ### Data Preprocessing
 
-The MindSpore Transformers pre-training stage currently supports [Megatron format datasets](https://www.mindspore.cn/mindformers/docs/en/master/feature/dataset.html#megatron-dataset). Users can refer to the [Datasets](https://www.mindspore.cn/mindformers/docs/en/master/feature/dataset.html) section and use the tools provided by MindSpore to convert the original dataset into Megatron format.
+The MindSpore Transformers pre-training stage currently supports [Megatron format datasets](https://www.mindspore.cn/mindformers/docs/en/r1.9.0/feature/dataset.html#megatron-dataset). Users can refer to the [Datasets](https://www.mindspore.cn/mindformers/docs/en/r1.9.0/feature/dataset.html) section and use the tools provided by MindSpore to convert the original dataset into Megatron format.
 
 To create a Megatron-formatted dataset, two steps are required. First, convert the original text dataset into JSONL format data. Then, use the script provided by MindSpore Transformers to convert the JSONL format data into .bin and .idx files in Megatron format.
 
@@ -84,7 +84,7 @@ To create a Megatron-formatted dataset, two steps are required. First, convert t
 
 ### Single-Node Training
 
-Specify the configuration file [pretrain_qwen3_32b_4k.yaml](https://atomgit.com/mindspore/mindformers/blob/master/configs/qwen3/pretrain_qwen3_32b_4k.yaml) and after modifying the configuration, then start the [run_mindformer.py](https://atomgit.com/mindspore/mindformers/blob/master/run_mindformer.py) script in msrun mode to perform 8-device distributed training.
+Specify the configuration file [pretrain_qwen3_32b_4k.yaml](https://atomgit.com/mindspore/mindformers/blob/r1.9.0/configs/qwen3/pretrain_qwen3_32b_4k.yaml) and after modifying the configuration, then start the [run_mindformer.py](https://atomgit.com/mindspore/mindformers/blob/r1.9.0/run_mindformer.py) script in msrun mode to perform 8-device distributed training.
 
 The configuration provided on the warehouse is a 32B model with a large number of parameters, which makes it impossible to directly start pre-training in a single-machine environment. In this example, the model size is reduced to 0.6B to demonstrate single-machine training. Modify the following parameters in the configuration file while keeping the remaining parameters unchanged:
 
@@ -117,7 +117,7 @@ Here:
 - `parallel_config.pipeline_stage`: Set the number of pipeline parallel.
 - `parallel_config.micro_batch_num`: Set the pipeline parallel microbatch size, which should satisfy `parallel_config.micro_batch_num` >= `parallel_config.pipeline_stage` when `parallel_config.pipeline_stage` is greater than 1.
 
-For detailed instructions on launching the training task, refer to [Start Pre-training Task](https://atomgit.com/mindspore/mindformers/blob/master/configs/qwen3/README.md#3-启动预训练任务).
+For detailed instructions on launching the training task, refer to [Start Pre-training Task](https://atomgit.com/mindspore/mindformers/blob/r1.9.0/configs/qwen3/README.md#3-启动预训练任务).
 
 After the task is executed, the **checkpoint** folder is generated in the **mindformers/output** directory, and the model file (`.safetensors`) is saved in this folder.
 
@@ -140,4 +140,4 @@ bash scripts/msrun_launcher.sh "run_mindformer.py \
 
 > The example code below assumes the **master node IP** is `192.168.1.1` and the current node's **Rank** is `0`. In actual execution, please set `master_ip` to the real **IP address** of the master node, and set `node_rank` to the **Rank** index of the current node.
 
-**Note**: During multi-node distributed training, some performance problems may occur. To ensure the efficiency and stability of the training process, you are advised to optimize and adjust the performance by referring to [Large Model Performance Optimization Guide](https://www.mindspore.cn/mindformers/docs/en/master/advanced_development/performance_optimization.html).
+**Note**: During multi-node distributed training, some performance problems may occur. To ensure the efficiency and stability of the training process, you are advised to optimize and adjust the performance by referring to [Large Model Performance Optimization Guide](https://www.mindspore.cn/mindformers/docs/en/r1.9.0/advanced_development/performance_optimization.html).

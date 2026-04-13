@@ -59,7 +59,7 @@
 
 ## Qwen3模型权重转换适配样例
 
-在models/qwen3目录下新建utils.py文件，具体可参考[utils.py](https://atomgit.com/mindspore/mindformers/blob/master/mindformers/models/qwen3/utils.py)。
+在models/qwen3目录下新建utils.py文件，具体可参考[utils.py](https://atomgit.com/mindspore/mindformers/blob/r1.9.0/mindformers/models/qwen3/utils.py)。
 
 Qwen3PreTrainedModel部分代码如下：
 

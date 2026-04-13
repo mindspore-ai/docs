@@ -12,7 +12,7 @@ Please refer to [Checkpoint Health Monitor](#checkpoint-health-monitor) for the 
 
 > - The combination of data skipping function and health monitoring function can effectively solve the problem of data anomalies caused by abnormal global norm during the training process. Before use, please train normally for a period of time to determine the threshold of the global norm that needs to be set, the threshold of the number of consecutive anomalies, and the threshold of the embedding norm.
 > - Please note that training will only be interrupted when there are consecutive exceptions. If there is only one instance where it returns to normal, the cumulative count will be cleared. Therefore, please control the threshold setting.
-> - The data skipping function cannot be used in conjunction with the quick fault recovery function. Refer to the process level rescheduling recovery function in the [high availability feature](https://www.mindspore.cn/mindformers/docs/en/master/feature/high_availability.html).
+> - The data skipping function cannot be used in conjunction with the quick fault recovery function. Refer to the process level rescheduling recovery function in the [high availability feature](https://www.mindspore.cn/mindformers/docs/en/r1.9.0/feature/high_availability.html).
 
 ## Skipping Data
 
@@ -55,7 +55,7 @@ monitor_config:
 
 ### Conversion Example
 
-Assuming Qwen3-8B is taken as an example, use [pretrain_qwen3_8b.yaml](https://atomgit.com/mindspore/docs/tree/r2.9.0/docs/mindformers/docs/source_zh_cn/example/qwen3/pretrain_qwen3_8b.yaml) to add parameters according to the above [Configuration](#usage). Please refer to the [Qwen3 Document](https://atomgit.com/mindspore/mindformers/blob/master/configs/qwen3/README.md) for the remaining steps. Start training:
+Assuming Qwen3-8B is taken as an example, use [pretrain_qwen3_8b.yaml](https://atomgit.com/mindspore/docs/tree/r2.9.0/docs/mindformers/docs/source_zh_cn/example/qwen3/pretrain_qwen3_8b.yaml) to add parameters according to the above [Configuration](#usage). Please refer to the [Qwen3 Document](https://atomgit.com/mindspore/mindformers/blob/r1.9.0/configs/qwen3/README.md) for the remaining steps. Start training:
 
 ```shell
 bash scripts/msrun_launcher.sh "run_mindformer.py \
@@ -190,7 +190,7 @@ parallel_config:
 
 ### Conversion Example
 
-Assuming Qwen3-8B is taken as an example, use [pretrain_qwen3_8b.yaml](https://atomgit.com/mindspore/docs/tree/r2.9.0/docs/mindformers/docs/source_zh_cn/example/qwen3/pretrain_qwen3_8b.yaml) to add parameters and modify according to the above [Configuration](#usage-1). Please refer to the [Qwen3 Document](https://atomgit.com/mindspore/mindformers/blob/master/configs/qwen3/README.md) for the remaining steps. Start training:
+Assuming Qwen3-8B is taken as an example, use [pretrain_qwen3_8b.yaml](https://atomgit.com/mindspore/docs/tree/r2.9.0/docs/mindformers/docs/source_zh_cn/example/qwen3/pretrain_qwen3_8b.yaml) to add parameters and modify according to the above [Configuration](#usage-1). Please refer to the [Qwen3 Document](https://atomgit.com/mindspore/mindformers/blob/r1.9.0/configs/qwen3/README.md) for the remaining steps. Start training:
 
 ```shell
 bash scripts/msrun_launcher.sh "run_mindformer.py \
@@ -234,7 +234,7 @@ Under Checkpoint 2.0, the health monitoring results are saved in `output_path/ch
 
 The recorded data of common.json is as follows:
 
-The `ckpt_status` records the health status of the corresponding weights. In the record, 1 indicates unhealthy and 0 indicates healthy. The remaining data are training parameters for Checkpoint 2.0. For details, please refer to the [Checkpoint 2.0 documentation](https://www.mindspore.cn/mindformers/docs/en/master/feature/resume_training2.0.html).
+The `ckpt_status` records the health status of the corresponding weights. In the record, 1 indicates unhealthy and 0 indicates healthy. The remaining data are training parameters for Checkpoint 2.0. For details, please refer to the [Checkpoint 2.0 documentation](https://www.mindspore.cn/mindformers/docs/en/r1.9.0/feature/resume_training2.0.html).
 
 ```json
 {

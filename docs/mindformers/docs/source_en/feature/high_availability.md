@@ -35,7 +35,7 @@ Quick recovery and use instructions for malfunctions:
 > - The process-level rapid recovery feature can effectively reduce the time required to restart training after encountering abnormal global norms during the training process.
 > - Please train normally for a period of time before use to determine the threshold of the global norm that needs to be set.
 > - Once a global norm exceeding the set threshold is encountered, an exception will be thrown immediately, entering the fast recovery phase.
-> - The data skipping function cannot be used in conjunction with the quick fault recovery function. Refer to the data skipping function in [Data Skip](https://www.mindspore.cn/mindformers/docs/en/master/feature/skip_data_and_ckpt_health_monitor.html#skipping-data) function.
+> - The data skipping function cannot be used in conjunction with the quick fault recovery function. Refer to the data skipping function in [Data Skip](https://www.mindspore.cn/mindformers/docs/en/r1.9.0/feature/skip_data_and_ckpt_health_monitor.html#skipping-data) function.
 
 ## Instructions for Use
 

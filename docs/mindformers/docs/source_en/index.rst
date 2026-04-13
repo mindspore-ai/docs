@@ -11,7 +11,7 @@ Based on MindSpore's built-in parallel technology and component-based design, th
 - Support for configurable development of task components. Any module can be enabled by unified configuration, including model network, optimizer, learning rate policy, etc.;
 - Provide real-time visualization of training accuracy/performance monitoring indicators.
 
-Users can refer to `Overall Architecture <https://www.mindspore.cn/mindformers/docs/en/master/introduction/overview.html>`_ and `Model Library <https://www.mindspore.cn/mindformers/docs/en/master/introduction/models.html>`_ to get a quick overview of the MindSpore Transformers system architecture, and the list of supported foundation models.
+Users can refer to `Overall Architecture <https://www.mindspore.cn/mindformers/docs/en/r1.9.0/introduction/overview.html>`_ and `Model Library <https://www.mindspore.cn/mindformers/docs/en/r1.9.0/introduction/models.html>`_ to get a quick overview of the MindSpore Transformers system architecture, and the list of supported foundation models.
 
 The open-source code repository for MindSpore Transformers is located at `AtomGit | MindSpore/mindformers <https://atomgit.com/mindspore/mindformers>`_.
 
@@ -20,24 +20,24 @@ If you have any suggestions for MindSpore Transformers, please contact us via `i
 Full-process Developing with MindSpore Transformers
 -------------------------------------------------------------------------------------------
 
-MindSpore Transformers provides a unified one-click start for single- and multi-card training, fine-tuning, and inference. From getting started to going live, refer as needed to: `Training Guide <https://www.mindspore.cn/mindformers/docs/en/master/guide/llm_training.html>`_, `Pretraining <https://www.mindspore.cn/mindformers/docs/en/master/guide/pre_training.html>`_, `Supervised Fine-Tuning <https://www.mindspore.cn/mindformers/docs/en/master/guide/supervised_fine_tuning.html>`_, `Inference <https://www.mindspore.cn/mindformers/docs/en/master/guide/inference.html>`_, `Service Deployment <https://www.mindspore.cn/mindformers/docs/en/master/guide/deployment.html>`_, and `Evaluation <https://www.mindspore.cn/mindformers/docs/en/master/guide/evaluation.html>`_.
+MindSpore Transformers provides a unified one-click start for single- and multi-card training, fine-tuning, and inference. From getting started to going live, refer as needed to: `Training Guide <https://www.mindspore.cn/mindformers/docs/en/r1.9.0/guide/llm_training.html>`_, `Pretraining <https://www.mindspore.cn/mindformers/docs/en/r1.9.0/guide/pre_training.html>`_, `Supervised Fine-Tuning <https://www.mindspore.cn/mindformers/docs/en/r1.9.0/guide/supervised_fine_tuning.html>`_, `Inference <https://www.mindspore.cn/mindformers/docs/en/r1.9.0/guide/inference.html>`_, `Service Deployment <https://www.mindspore.cn/mindformers/docs/en/r1.9.0/guide/deployment.html>`_, and `Evaluation <https://www.mindspore.cn/mindformers/docs/en/r1.9.0/guide/evaluation.html>`_.
 
 Features description of MindSpore Transformers
 -------------------------------------------------------------------------------------------
 
-General capabilities, training capabilities (such as dataset, parallelism, resumable training, memory optimization, etc.), and inference and quantization are summarized by category in the `Features Overview <https://www.mindspore.cn/mindformers/docs/en/master/feature/overview.html>`_. Use it to quickly find and jump to the right documentation.
+General capabilities, training capabilities (such as dataset, parallelism, resumable training, memory optimization, etc.), and inference and quantization are summarized by category in the `Features Overview <https://www.mindspore.cn/mindformers/docs/en/r1.9.0/feature/overview.html>`_. Use it to quickly find and jump to the right documentation.
 
 Advanced developing with MindSpore Transformers
 -------------------------------------------------
 
-After you have basic training and inference in place, for model migration, precision and performance tuning, or accuracy comparison with a reference implementation, see the `Advanced Development Overview <https://www.mindspore.cn/mindformers/docs/en/master/advanced_development/overview.html>`_, which organizes all advanced development docs by diagnostics and optimization, model development and configuration, accuracy comparison, and API reference.
+After you have basic training and inference in place, for model migration, precision and performance tuning, or accuracy comparison with a reference implementation, see the `Advanced Development Overview <https://www.mindspore.cn/mindformers/docs/en/r1.9.0/advanced_development/overview.html>`_, which organizes all advanced development docs by diagnostics and optimization, model development and configuration, accuracy comparison, and API reference.
 
 Environment variables, contribution, and FAQ
 ----------------------------------------------
 
-- For environment variables used in running and debugging, see `Environment Variables Description <https://www.mindspore.cn/mindformers/docs/en/master/env_variables.html>`_.
-- To contribute, refer to the `MindSpore Transformers Contribution Guide <https://www.mindspore.cn/mindformers/docs/en/master/contribution/mindformers_contribution.html>`_ and the `Modelers Contribution Guide <https://www.mindspore.cn/mindformers/docs/en/master/contribution/modelers_contribution.html>`_.
-- For common issues, see the `Model-Related <https://www.mindspore.cn/mindformers/docs/en/master/faq/model_related.html>`_ and `Function-Related <https://www.mindspore.cn/mindformers/docs/en/master/faq/feature_related.html>`_ FAQ.
+- For environment variables used in running and debugging, see `Environment Variables Description <https://www.mindspore.cn/mindformers/docs/en/r1.9.0/env_variables.html>`_.
+- To contribute, refer to the `MindSpore Transformers Contribution Guide <https://www.mindspore.cn/mindformers/docs/en/r1.9.0/contribution/mindformers_contribution.html>`_ and the `Modelers Contribution Guide <https://www.mindspore.cn/mindformers/docs/en/r1.9.0/contribution/modelers_contribution.html>`_.
+- For common issues, see the `Model-Related <https://www.mindspore.cn/mindformers/docs/en/r1.9.0/faq/model_related.html>`_ and `Function-Related <https://www.mindspore.cn/mindformers/docs/en/r1.9.0/faq/feature_related.html>`_ FAQ.
 
 .. toctree::
    :glob:

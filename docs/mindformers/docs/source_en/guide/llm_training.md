@@ -64,7 +64,7 @@ MindSpore Transformers supports different series of pretraining models, such as 
   </tr>
 </table>
 
-In the preceding table, MindSpore Transformers provides out-of-the-box model configurations for released-level models. For other levels of models, MindSpore Transformers provides not only basic framework capabilities to support model development, but also a set of training configuration templates for developers. With these configuration templates, developers can quickly define and adjust model parameters (such as the number of layers, number of heads, and hidden layer dimension), implementing quick migration from released-level models to unsupported models and quick startup of pretraining tasks for custom models. For details, see [Training Configuration Template Instructions](https://www.mindspore.cn/mindformers/docs/en/master/advanced_development/training_template_instruction.html).
+In the preceding table, MindSpore Transformers provides out-of-the-box model configurations for released-level models. For other levels of models, MindSpore Transformers provides not only basic framework capabilities to support model development, but also a set of training configuration templates for developers. With these configuration templates, developers can quickly define and adjust model parameters (such as the number of layers, number of heads, and hidden layer dimension), implementing quick migration from released-level models to unsupported models and quick startup of pretraining tasks for custom models. For details, see [Training Configuration Template Instructions](https://www.mindspore.cn/mindformers/docs/en/r1.9.0/advanced_development/training_template_instruction.html).
 
 #### Preprocessing the Dataset
 
@@ -77,7 +77,7 @@ In the Megatron-LM training framework, a multi-source mixed dataset solution is 
 - **Flexible configuration**: Multiple bin data files can be loaded at the same time, and the sampling ratio parameter can be used to control the mixed weight of different data sources.
 - **Efficient training**: The binary storage format greatly improves I/O efficiency, which is especially suitable for large-scale pretraining scenarios.
 
-MindSpore Transformers can directly load the multi-source mixed dataset format for Megatron in pretraining tasks. Users of Megatron-LM do not need to repeat the data preprocessing step. They only need to specify the bin file path to quickly start training. If the bin file already exists, users can configure the file in the YAML training configuration file by referring to the subsequent sections. If no bin file exists, users need to convert the raw training data into a bin file. MindSpore Transformers provides a script tool for processing the raw dataset in JSON format into a bin file. The Wiki 103 dataset is used as an example to provide the entire preprocessing process. For details, see [Dataset > Megatron Dataset](https://www.mindspore.cn/mindformers/docs/en/master/feature/dataset.html#megatron-dataset).
+MindSpore Transformers can directly load the multi-source mixed dataset format for Megatron in pretraining tasks. Users of Megatron-LM do not need to repeat the data preprocessing step. They only need to specify the bin file path to quickly start training. If the bin file already exists, users can configure the file in the YAML training configuration file by referring to the subsequent sections. If no bin file exists, users need to convert the raw training data into a bin file. MindSpore Transformers provides a script tool for processing the raw dataset in JSON format into a bin file. The Wiki 103 dataset is used as an example to provide the entire preprocessing process. For details, see [Dataset > Megatron Dataset](https://www.mindspore.cn/mindformers/docs/en/r1.9.0/feature/dataset.html#megatron-dataset).
 
 **Processing Fine-Tuning Data**
 
@@ -86,7 +86,7 @@ In fine-tuning tasks of NLP models, the [Hugging Face community](https://hugging
 - **Online loading**: You can configure the YAML file to conveniently obtain the required dataset from the Hugging Face dataset repository, without the need to manually download or manage data files.
 - **Offline loading**: You can download the required dataset to the local PC in advance or process your own dataset, and then load the local data during fine-tuning. This way, fine-tuning tasks can proceed as usual even in the presence of adverse factors like unstable networks.
 
-For details, see [Dataset > Hugging Face Dataset](https://www.mindspore.cn/mindformers/docs/en/master/feature/dataset.html#hugging-face-dataset).
+For details, see [Dataset > Hugging Face Dataset](https://www.mindspore.cn/mindformers/docs/en/r1.9.0/feature/dataset.html#hugging-face-dataset).
 
 ### 2. Preparing Configuration Files
 
@@ -112,19 +112,19 @@ After completing the pretraining preparations, you can set MindSpore Transformer
     <td rowspan="3">Basic configurations</td>
     <td rowspan="3">You can specify the corresponding configuration items to start a simple training task based on the current model structure.</td>
     <td>Dataset</td>
-    <td><a href=https://www.mindspore.cn/mindformers/docs/en/master/feature/dataset.html target="_blank">Dataset usage</a></td>
+    <td><a href=https://www.mindspore.cn/mindformers/docs/en/r1.9.0/feature/dataset.html target="_blank">Dataset usage</a></td>
   </tr>
   <tr>
     <td>Parallelism configurations</td>
     <td>
-    <a href=https://www.mindspore.cn/mindformers/docs/en/master/feature/configuration.html#parallel-configuration target="_blank">Parallelism configuration items</a><br>
-    <a href=https://www.mindspore.cn/mindformers/docs/en/master/feature/parallel_training.html target="_blank">Parallelism configuration guide</a>
+    <a href=https://www.mindspore.cn/mindformers/docs/en/r1.9.0/feature/configuration.html#parallel-configuration target="_blank">Parallelism configuration items</a><br>
+    <a href=https://www.mindspore.cn/mindformers/docs/en/r1.9.0/feature/parallel_training.html target="_blank">Parallelism configuration guide</a>
     </td>
   </tr>
   <tr>
     <td>Hyperparameter training</td>
     <td>
-    <a href=https://www.mindspore.cn/mindformers/docs/en/master/feature/configuration.html#model-training-configuration target="_blank">Model training configuration</a>
+    <a href=https://www.mindspore.cn/mindformers/docs/en/r1.9.0/feature/configuration.html#model-training-configuration target="_blank">Model training configuration</a>
     </td>
   </tr>
   <tr>
@@ -132,21 +132,21 @@ After completing the pretraining preparations, you can set MindSpore Transformer
     <td rowspan="3">After the configurations are complete, the training status of executed training tasks can be detected to ensure continuity across multiple training tasks.</td>
     <td>Weight saving</td>
     <td>
-      <a href=https://www.mindspore.cn/mindformers/docs/en/master/feature/configuration.html#callbacks-configuration target="_blank">CheckPointMonitor under Callbacks configuration</a><br>
-      <a href=https://www.mindspore.cn/mindformers/docs/en/master/feature/safetensors.html target="_blank">Safetensors weight usage</a>
+      <a href=https://www.mindspore.cn/mindformers/docs/en/r1.9.0/feature/configuration.html#callbacks-configuration target="_blank">CheckPointMonitor under Callbacks configuration</a><br>
+      <a href=https://www.mindspore.cn/mindformers/docs/en/r1.9.0/feature/safetensors.html target="_blank">Safetensors weight usage</a>
     </td>
   </tr>
   <tr>
     <td>Resumable training</td>
     <td>
-      <a href=https://www.mindspore.cn/mindformers/docs/en/master/feature/resume_training.html target="_blank">Examples for resumable training after breakpoint</a><br>
-      <a href=https://www.mindspore.cn/mindformers/docs/en/master/feature/safetensors.html target="_blank">Safetensors weight usage</a>
+      <a href=https://www.mindspore.cn/mindformers/docs/en/r1.9.0/feature/resume_training.html target="_blank">Examples for resumable training after breakpoint</a><br>
+      <a href=https://www.mindspore.cn/mindformers/docs/en/r1.9.0/feature/safetensors.html target="_blank">Safetensors weight usage</a>
     </td>
   </tr>
   <tr>
     <td>Online monitoring</td>
     <td>
-      <a href=https://www.mindspore.cn/mindformers/docs/en/master/feature/monitor.html target="_blank">Training metrics monitoring</a>
+      <a href=https://www.mindspore.cn/mindformers/docs/en/r1.9.0/feature/monitor.html target="_blank">Training metrics monitoring</a>
     </td>
   </tr>
   <tr>
@@ -154,29 +154,29 @@ After completing the pretraining preparations, you can set MindSpore Transformer
     <td rowspan="4">By specifying these configuration items, you can monitor the health status of the training process, perform fast fault recovery, and optimize performance to ensure stable and high-performance training across different cluster scales.</td>
     <td>Health monitoring</td>
     <td>
-      <a href=https://www.mindspore.cn/mindformers/docs/en/master/feature/skip_data_and_ckpt_health_monitor.html target="_blank">Data skip and checkpoint health monitoring</a>
+      <a href=https://www.mindspore.cn/mindformers/docs/en/r1.9.0/feature/skip_data_and_ckpt_health_monitor.html target="_blank">Data skip and checkpoint health monitoring</a>
     </td>
   </tr>
   <tr>
     <td>Performance optimization</td>
     <td>
-      <a href=https://www.mindspore.cn/mindformers/docs/en/master/feature/memory_optimization.html target="_blank">Memory optimization</a><br>
-      <a href=https://www.mindspore.cn/mindformers/docs/en/master/advanced_development/performance_optimization.html target="_blank">Performance optimization guide</a>
+      <a href=https://www.mindspore.cn/mindformers/docs/en/r1.9.0/feature/memory_optimization.html target="_blank">Memory optimization</a><br>
+      <a href=https://www.mindspore.cn/mindformers/docs/en/r1.9.0/advanced_development/performance_optimization.html target="_blank">Performance optimization guide</a>
     </td>
   </tr>
   <tr>
     <td>Fast fault recovery</td>
     <td>
-      <a href=https://www.mindspore.cn/mindformers/docs/en/master/feature/high_availability.html target="_blank">High availability feature</a><br>
+      <a href=https://www.mindspore.cn/mindformers/docs/en/r1.9.0/feature/high_availability.html target="_blank">High availability feature</a><br>
     </td>
   </tr>
 </table>
 
-Except the preceding configuration items, all configuration items of training tasks are controlled by the [configuration file](https://www.mindspore.cn/mindformers/docs/en/master/feature/configuration.html). You can adjust them based on the configuration item description.
+Except the preceding configuration items, all configuration items of training tasks are controlled by the [configuration file](https://www.mindspore.cn/mindformers/docs/en/r1.9.0/feature/configuration.html). You can adjust them based on the configuration item description.
 
 ### 3. Starting a Training Task
 
-MindSpore Transformers supports single-node multi-device and multi-node multi-device distributed training. The cluster scale supports ultra-large-scale distributed training from single-node 8-device to single-node 10,000-device. For details about how to start a training task, see [Start Tasks](https://www.mindspore.cn/mindformers/docs/en/master/feature/start_tasks.html).
+MindSpore Transformers supports single-node multi-device and multi-node multi-device distributed training. The cluster scale supports ultra-large-scale distributed training from single-node 8-device to single-node 10,000-device. For details about how to start a training task, see [Start Tasks](https://www.mindspore.cn/mindformers/docs/en/r1.9.0/feature/start_tasks.html).
 
 ### 4. Monitoring Training Status
 
@@ -186,8 +186,8 @@ The pretraining phase may last for several weeks or months. You need to monitor 
 - **Precision**: loss function value and gradient norm (explosion/collapse prevention)
 - **Checkpoint**: saves the intermediate model status periodically (for example, every *N* steps) to prevent data loss caused by training interruption.
 
-MindSpore Transformers prints detailed logs for different monitoring values during training to check the intermediate status, and provides TensorBoard tools for online visualization. For details, see [Logs](https://www.mindspore.cn/mindformers/docs/en/master/feature/logging.html) and [Visualization tools](https://www.mindspore.cn/mindformers/docs/en/master/feature/monitor.html). After weights are saved at checkpoints or after the training is complete, the model weights will be saved to the specified directory. Currently, weights can be saved in [ckpt format](https://www.mindspore.cn/mindformers/docs/en/master/feature/ckpt.html) or [Safetensors format](https://www.mindspore.cn/mindformers/docs/en/master/feature/safetensors.html). The saved weights can be used for resumable retraining or fine-tuning.
+MindSpore Transformers prints detailed logs for different monitoring values during training to check the intermediate status, and provides TensorBoard tools for online visualization. For details, see [Logs](https://www.mindspore.cn/mindformers/docs/en/r1.9.0/feature/logging.html) and [Visualization tools](https://www.mindspore.cn/mindformers/docs/en/r1.9.0/feature/monitor.html). After weights are saved at checkpoints or after the training is complete, the model weights will be saved to the specified directory. Currently, weights can be saved in [ckpt format](https://www.mindspore.cn/mindformers/docs/en/r1.9.0/feature/ckpt.html) or [Safetensors format](https://www.mindspore.cn/mindformers/docs/en/r1.9.0/feature/safetensors.html). The saved weights can be used for resumable retraining or fine-tuning.
 
 ## Training Practices
 
-MindSpore Transformers provides detailed pretraining and fine-tuning processes and practices. For details, see [Pretraining](https://www.mindspore.cn/mindformers/docs/en/master/guide/pre_training.html) and [Fine-Tuning](https://www.mindspore.cn/mindformers/docs/en/master/guide/supervised_fine_tuning.html).
+MindSpore Transformers provides detailed pretraining and fine-tuning processes and practices. For details, see [Pretraining](https://www.mindspore.cn/mindformers/docs/en/r1.9.0/guide/pre_training.html) and [Fine-Tuning](https://www.mindspore.cn/mindformers/docs/en/r1.9.0/guide/supervised_fine_tuning.html).

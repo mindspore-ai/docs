@@ -77,4 +77,4 @@ optimizer:
 
 ### PmaAdamW优化器配置介绍
 
-有关PmaAdamW优化器配置相关内容，可参见 [MindSpore Transformers PmaAdamW 源码](https://atomgit.com/mindspore/mindformers/blob/master/mindformers/core/optim/pma_adamw.py) 的相关链接。
+有关PmaAdamW优化器配置相关内容，可参见 [MindSpore Transformers PmaAdamW 源码](https://atomgit.com/mindspore/mindformers/blob/r1.9.0/mindformers/core/optim/pma_adamw.py) 的相关链接。

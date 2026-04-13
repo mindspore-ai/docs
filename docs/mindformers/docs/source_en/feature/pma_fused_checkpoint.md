@@ -77,4 +77,4 @@ optimizer:
 
 ### PmaAdamW Optimizer Configuration Introduction
 
-For information on configuring the PmaAdamW optimizer, please refer to [MindSpore Transformers PmaAdamW Source Code](https://atomgit.com/mindspore/mindformers/blob/master/mindformers/core/optim/pma_adamw.py).
+For information on configuring the PmaAdamW optimizer, please refer to [MindSpore Transformers PmaAdamW Source Code](https://atomgit.com/mindspore/mindformers/blob/r1.9.0/mindformers/core/optim/pma_adamw.py).

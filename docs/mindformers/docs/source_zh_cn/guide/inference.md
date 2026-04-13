@@ -12,7 +12,7 @@ MindSpore Transformers 提供了大模型推理能力，用户可以执行 `run_
 
 ### 1. 选择推理的模型
 
-根据需要的推理任务，选择不同的模型，如文本生成可以选择Qwen3等。更多关于不同模型的推理示例与各场景下的推荐配置，请参阅 [模型库](https://www.mindspore.cn/mindformers/docs/zh-CN/master/introduction/models.html)。
+根据需要的推理任务，选择不同的模型，如文本生成可以选择Qwen3等。更多关于不同模型的推理示例与各场景下的推荐配置，请参阅 [模型库](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.9.0/introduction/models.html)。
 
 ### 2. 准备模型文件
 
@@ -20,7 +20,7 @@ MindSpore Transformers 提供了大模型推理能力，用户可以执行 `run_
 
 ### 3. 准备YAML配置文件
 
-用户需要配置一份YAML文件，来定义任务的所有配置。MindSpore Transformers提供了一份YAML配置模板，用户可以基于模板，根据实际场景自定义配置。详细可见[推理配置模板使用指南](https://www.mindspore.cn/mindformers/docs/zh-CN/master/advanced_development/yaml_config_inference.html)。
+用户需要配置一份YAML文件，来定义任务的所有配置。MindSpore Transformers提供了一份YAML配置模板，用户可以基于模板，根据实际场景自定义配置。详细可见[推理配置模板使用指南](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.9.0/advanced_development/yaml_config_inference.html)。
 
 ### 4. 执行推理任务
 
@@ -28,7 +28,7 @@ MindSpore Transformers 提供了大模型推理能力，用户可以执行 `run_
 
 ## 使用 run_mindformer 一键启动脚本推理
 
-单卡推理可以直接执行[run_mindformer.py](https://atomgit.com/mindspore/mindformers/blob/master/run_mindformer.py)脚本，多卡推理需要借助[scripts/msrun_launcher.sh](https://atomgit.com/mindspore/mindformers/blob/master/scripts/msrun_launcher.sh)来启动。
+单卡推理可以直接执行[run_mindformer.py](https://atomgit.com/mindspore/mindformers/blob/r1.9.0/run_mindformer.py)脚本，多卡推理需要借助[scripts/msrun_launcher.sh](https://atomgit.com/mindspore/mindformers/blob/r1.9.0/scripts/msrun_launcher.sh)来启动。
 
 run_mindformer.py的参数说明如下：
 
@@ -42,7 +42,7 @@ run_mindformer.py的参数说明如下：
 
 msrun_launcher.sh包括run_mindformer.py命令和推理卡数两个参数。
 
-下面将以Qwen3-8B为例介绍单卡和多卡推理的用法，推荐配置为[predict_qwen3.yaml](https://atomgit.com/mindspore/mindformers/blob/master/configs/qwen3/predict_qwen3.yaml)文件。
+下面将以Qwen3-8B为例介绍单卡和多卡推理的用法，推荐配置为[predict_qwen3.yaml](https://atomgit.com/mindspore/mindformers/blob/r1.9.0/configs/qwen3/predict_qwen3.yaml)文件。
 
 ### 配置修改
 
@@ -89,7 +89,7 @@ parallel_config:
   model_parallel: 2 # 修改为实际使用的卡数
 ```
 
-具体配置说明均可参考[yaml配置说明](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/configuration.html)。
+具体配置说明均可参考[yaml配置说明](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.9.0/feature/configuration.html)。
 
 ### 单卡推理
 
