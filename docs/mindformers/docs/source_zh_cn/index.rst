@@ -11,7 +11,7 @@ MindSpore Transformers套件基于MindSpore内置的多维混合并行技术和�
 - 支持任务组件配置化开发。任意模块可通过统一配置进行使能，包括模型网络、优化器、学习率策略等；
 - 提供训练精度/性能监控指标实时可视化能力等。
 
-用户可以参阅 `整体架构 <https://www.mindspore.cn/mindformers/docs/zh-CN/master/introduction/overview.html>`_ 和 `模型库 <https://www.mindspore.cn/mindformers/docs/zh-CN/master/introduction/models.html>`_ ，快速了解MindSpore Transformers的系统架构，以及所支持的大模型清单。
+用户可以参阅 `整体架构 <https://www.mindspore.cn/mindformers/docs/zh-CN/r1.9.0/introduction/overview.html>`_ 和 `模型库 <https://www.mindspore.cn/mindformers/docs/zh-CN/r1.9.0/introduction/models.html>`_ ，快速了解MindSpore Transformers的系统架构，以及所支持的大模型清单。
 
 MindSpore Transformers的开源仓库地址为 `AtomGit | MindSpore/mindformers <https://atomgit.com/mindspore/mindformers>`_ 。
 
@@ -20,24 +20,24 @@ MindSpore Transformers的开源仓库地址为 `AtomGit | MindSpore/mindformers 
 使用MindSpore Transformers进行大模型全流程开发
 -----------------------------------------------------
 
-MindSpore Transformers 提供统一的一键启动脚本，支持单卡/多卡训练、微调与推理。从入门到上线，可按需查阅：`训练指南 <https://www.mindspore.cn/mindformers/docs/zh-CN/master/guide/llm_training.html>`_、`预训练实践 <https://www.mindspore.cn/mindformers/docs/zh-CN/master/guide/pre_training.html>`_、`监督微调实践 <https://www.mindspore.cn/mindformers/docs/zh-CN/master/guide/supervised_fine_tuning.html>`_、`推理指南 <https://www.mindspore.cn/mindformers/docs/zh-CN/master/guide/inference.html>`_、`服务化部署指南 <https://www.mindspore.cn/mindformers/docs/zh-CN/master/guide/deployment.html>`_ 与 `评测指南 <https://www.mindspore.cn/mindformers/docs/zh-CN/master/guide/evaluation.html>`_。
+MindSpore Transformers 提供统一的一键启动脚本，支持单卡/多卡训练、微调与推理。从入门到上线，可按需查阅：`训练指南 <https://www.mindspore.cn/mindformers/docs/zh-CN/r1.9.0/guide/llm_training.html>`_、`预训练实践 <https://www.mindspore.cn/mindformers/docs/zh-CN/r1.9.0/guide/pre_training.html>`_、`监督微调实践 <https://www.mindspore.cn/mindformers/docs/zh-CN/r1.9.0/guide/supervised_fine_tuning.html>`_、`推理指南 <https://www.mindspore.cn/mindformers/docs/zh-CN/r1.9.0/guide/inference.html>`_、`服务化部署指南 <https://www.mindspore.cn/mindformers/docs/zh-CN/r1.9.0/guide/deployment.html>`_ 与 `评测指南 <https://www.mindspore.cn/mindformers/docs/zh-CN/r1.9.0/guide/evaluation.html>`_。
 
 MindSpore Transformers 功能特性说明
 -----------------------------------------------------
 
-预训练、微调与推理全流程中的通用能力、训练能力（如数据集、并行、断点续训、内存优化等）以及推理与量化能力，均在 `功能特性概述 <https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/overview.html>`_ 中按类汇总，可从中快速查找并跳转到对应说明文档。
+预训练、微调与推理全流程中的通用能力、训练能力（如数据集、并行、断点续训、内存优化等）以及推理与量化能力，均在 `功能特性概述 <https://www.mindspore.cn/mindformers/docs/zh-CN/r1.9.0/feature/overview.html>`_ 中按类汇总，可从中快速查找并跳转到对应说明文档。
 
 使用 MindSpore Transformers 进行高阶开发
 ------------------------------------------
 
-在完成基础训练与推理后，若需进行模型迁移、精度与性能调优或与标杆做精度对比，可参阅 `高阶开发概述 <https://www.mindspore.cn/mindformers/docs/zh-CN/master/advanced_development/overview.html>`_，其中按调试调优、模型开发与配置、精度对比及 API 参考分类整理了全部高阶开发文档。
+在完成基础训练与推理后，若需进行模型迁移、精度与性能调优或与标杆做精度对比，可参阅 `高阶开发概述 <https://www.mindspore.cn/mindformers/docs/zh-CN/r1.9.0/advanced_development/overview.html>`_，其中按调试调优、模型开发与配置、精度对比及 API 参考分类整理了全部高阶开发文档。
 
 环境变量、贡献与常见问题
 ------------------------------------
 
-- 运行与调试相关环境变量见 `环境变量说明 <https://www.mindspore.cn/mindformers/docs/zh-CN/master/env_variables.html>`_。
-- 参与开发可参考 `MindSpore Transformers 贡献指南 <https://www.mindspore.cn/mindformers/docs/zh-CN/master/contribution/mindformers_contribution.html>`_ 与 `魔乐社区贡献指南 <https://www.mindspore.cn/mindformers/docs/zh-CN/master/contribution/modelers_contribution.html>`_。
-- 常见问题见 `模型相关 <https://www.mindspore.cn/mindformers/docs/zh-CN/master/faq/model_related.html>`_ 与 `功能相关 <https://www.mindspore.cn/mindformers/docs/zh-CN/master/faq/feature_related.html>`_ FAQ。
+- 运行与调试相关环境变量见 `环境变量说明 <https://www.mindspore.cn/mindformers/docs/zh-CN/r1.9.0/env_variables.html>`_。
+- 参与开发可参考 `MindSpore Transformers 贡献指南 <https://www.mindspore.cn/mindformers/docs/zh-CN/r1.9.0/contribution/mindformers_contribution.html>`_ 与 `魔乐社区贡献指南 <https://www.mindspore.cn/mindformers/docs/zh-CN/r1.9.0/contribution/modelers_contribution.html>`_。
+- 常见问题见 `模型相关 <https://www.mindspore.cn/mindformers/docs/zh-CN/r1.9.0/faq/model_related.html>`_ 与 `功能相关 <https://www.mindspore.cn/mindformers/docs/zh-CN/r1.9.0/faq/feature_related.html>`_ FAQ。
 
 .. toctree::
    :glob:

@@ -64,7 +64,7 @@ MindSpore Transformers支持了不同系列的预训练模型，例如Llama系�
   </tr>
 </table>
 
-上述表中，MindSpore Transformers为发布级模型提供了开箱即用的模型配置，针对其他级别模型，MindSpore Transformers不仅提供了基础框架能力支撑模型开发，还为开发者提供了一套训练配置模板，通过该配置模板可以快速完成模型参数（如层数、头数、隐藏层维度等核心配置）的定义与调整，实现发布级规格模型向未支持规格模型的快速迁移以及自定义模型的预训练任务快速启动，详细可参见[训练配置模板使用说明](https://www.mindspore.cn/mindformers/docs/zh-CN/master/advanced_development/training_template_instruction.html)。
+上述表中，MindSpore Transformers为发布级模型提供了开箱即用的模型配置，针对其他级别模型，MindSpore Transformers不仅提供了基础框架能力支撑模型开发，还为开发者提供了一套训练配置模板，通过该配置模板可以快速完成模型参数（如层数、头数、隐藏层维度等核心配置）的定义与调整，实现发布级规格模型向未支持规格模型的快速迁移以及自定义模型的预训练任务快速启动，详细可参见[训练配置模板使用说明](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.9.0/advanced_development/training_template_instruction.html)。
 
 #### 数据集预处理
 
@@ -77,7 +77,7 @@ MindSpore Transformers支持了不同系列的预训练模型，例如Llama系�
 - **灵活配置**：允许同时加载多个bin数据文件，并通过采样比例参数控制不同数据源的混合权重；
 - **高效训练**：二进制存储格式大幅提升了IO效率，特别适合大规模预训练场景。
 
-MindSpore Transformers在预训练任务中支持直接加载Megatron的多源混合数据集格式。Megatron-LM使用者无需重复数据预处理步骤，只需通过指定bin文件路径即可快速启动训练。如果已有bin文件，可参照后续训练配置修改章节在训练YAML配置文件中进行配置；如果无bin文件，则需要对原始训练数据转换成bin文件。MindSpore Transformers提供了将json格式的原始数据集处理成bin文件的脚本工具，并以wiki103数据集为例，提供了预处理的全过程。具体详见[数据集使用-Megatron数据集章节](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/dataset.html#megatron%E6%95%B0%E6%8D%AE%E9%9B%86)。
+MindSpore Transformers在预训练任务中支持直接加载Megatron的多源混合数据集格式。Megatron-LM使用者无需重复数据预处理步骤，只需通过指定bin文件路径即可快速启动训练。如果已有bin文件，可参照后续训练配置修改章节在训练YAML配置文件中进行配置；如果无bin文件，则需要对原始训练数据转换成bin文件。MindSpore Transformers提供了将json格式的原始数据集处理成bin文件的脚本工具，并以wiki103数据集为例，提供了预处理的全过程。具体详见[数据集使用-Megatron数据集章节](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.9.0/feature/dataset.html#megatron%E6%95%B0%E6%8D%AE%E9%9B%86)。
 
 **微调数据处理**
 
@@ -86,7 +86,7 @@ MindSpore Transformers在预训练任务中支持直接加载Megatron的多源�
 - **在线加载**：可以通过配置YAML文件直接从 HuggingFace 数据集仓库中获取所需的数据集，无需手动下载和管理数据文件，方便快捷；
 - **离线加载**：可以提前将所需的数据集下载到本地或将自有数据集处理成 datasets 数据集，然后在微调过程中从本地加载数据，避免了网络不稳定等因素的影响，确保微调任务的顺利进行。
 
-具体处理方式，详见[数据集使用-HuggingFace数据集章节](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/dataset.html#hugging-face%E6%95%B0%E6%8D%AE%E9%9B%86)。
+具体处理方式，详见[数据集使用-HuggingFace数据集章节](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.9.0/feature/dataset.html#hugging-face%E6%95%B0%E6%8D%AE%E9%9B%86)。
 
 ### 2. 配置文件准备
 
@@ -112,19 +112,19 @@ MindSpore Transformers在预训练任务中支持直接加载Megatron的多源�
     <td rowspan="3">基础配置</td>
     <td rowspan="3">通过配置该部分配置，能够基于当前模型结构下，拉起一个简单的训练任务</td>
     <td>数据集</td>
-    <td><a href=https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/dataset.html target="_blank">数据集使用</a></td>
+    <td><a href=https://www.mindspore.cn/mindformers/docs/zh-CN/r1.9.0/feature/dataset.html target="_blank">数据集使用</a></td>
   </tr>
   <tr>
     <td>并行配置</td>
     <td>
-    <a href=https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/configuration.html#%E5%B9%B6%E8%A1%8C%E9%85%8D%E7%BD%AE target="_blank">并行配置项说明</a><br>
-    <a href=https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/parallel_training.html target="_blank">并行配置指南</a>
+    <a href=https://www.mindspore.cn/mindformers/docs/zh-CN/r1.9.0/feature/configuration.html#%E5%B9%B6%E8%A1%8C%E9%85%8D%E7%BD%AE target="_blank">并行配置项说明</a><br>
+    <a href=https://www.mindspore.cn/mindformers/docs/zh-CN/r1.9.0/feature/parallel_training.html target="_blank">并行配置指南</a>
     </td>
   </tr>
   <tr>
     <td>训练超参</td>
     <td>
-    <a href=https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/configuration.html#%E6%A8%A1%E5%9E%8B%E8%AE%AD%E7%BB%83%E9%85%8D%E7%BD%AE target="_blank">模型训练配置</a>
+    <a href=https://www.mindspore.cn/mindformers/docs/zh-CN/r1.9.0/feature/configuration.html#%E6%A8%A1%E5%9E%8B%E8%AE%AD%E7%BB%83%E9%85%8D%E7%BD%AE target="_blank">模型训练配置</a>
     </td>
   </tr>
   <tr>
@@ -132,21 +132,21 @@ MindSpore Transformers在预训练任务中支持直接加载Megatron的多源�
     <td rowspan="3">通过配置该部分配置，可支持训练任务执行后，对训练任务的训练状态进行感知，并保障多次训练任务的连贯</td>
     <td>权重保存</td>
     <td>
-      <a href=https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/configuration.html#callbacks%E9%85%8D%E7%BD%AE target="_blank">Callbacks配置CheckPointMonitor</a><br>
-      <a href=https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/safetensors.html target="_blank">Safetensors权重使用指南</a>
+      <a href=https://www.mindspore.cn/mindformers/docs/zh-CN/r1.9.0/feature/configuration.html#callbacks%E9%85%8D%E7%BD%AE target="_blank">Callbacks配置CheckPointMonitor</a><br>
+      <a href=https://www.mindspore.cn/mindformers/docs/zh-CN/r1.9.0/feature/safetensors.html target="_blank">Safetensors权重使用指南</a>
     </td>
   </tr>
   <tr>
     <td>断点续训</td>
     <td>
-      <a href=https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/resume_training.html target="_blank">断点续训示例</a><br>
-      <a href=https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/safetensors.html target="_blank">Safetensors权重使用指南</a>
+      <a href=https://www.mindspore.cn/mindformers/docs/zh-CN/r1.9.0/feature/resume_training.html target="_blank">断点续训示例</a><br>
+      <a href=https://www.mindspore.cn/mindformers/docs/zh-CN/r1.9.0/feature/safetensors.html target="_blank">Safetensors权重使用指南</a>
     </td>
   </tr>
   <tr>
     <td>在线监控</td>
     <td>
-      <a href=https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/monitor.html target="_blank">训练指标监控</a>
+      <a href=https://www.mindspore.cn/mindformers/docs/zh-CN/r1.9.0/feature/monitor.html target="_blank">训练指标监控</a>
     </td>
   </tr>
   <tr>
@@ -154,29 +154,29 @@ MindSpore Transformers在预训练任务中支持直接加载Megatron的多源�
     <td rowspan="4">通过配置该部分配置项，可支持训练过程的健康监测、故障快恢及性能调优，实现在不同集群规模下稳定并高性能训练</td>
     <td>健康监测</td>
     <td>
-      <a href=https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/skip_data_and_ckpt_health_monitor.html target="_blank">数据跳过与健康监测</a>
+      <a href=https://www.mindspore.cn/mindformers/docs/zh-CN/r1.9.0/feature/skip_data_and_ckpt_health_monitor.html target="_blank">数据跳过与健康监测</a>
     </td>
   </tr>
   <tr>
     <td>性能调优</td>
     <td>
-      <a href=https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/memory_optimization.html target="_blank">训练内存优化</a><br>
-      <a href=https://www.mindspore.cn/mindformers/docs/zh-CN/master/advanced_development/performance_optimization.html target="_blank">性能调优指南</a>
+      <a href=https://www.mindspore.cn/mindformers/docs/zh-CN/r1.9.0/feature/memory_optimization.html target="_blank">训练内存优化</a><br>
+      <a href=https://www.mindspore.cn/mindformers/docs/zh-CN/r1.9.0/advanced_development/performance_optimization.html target="_blank">性能调优指南</a>
     </td>
   </tr>
   <tr>
     <td>故障快恢</td>
     <td>
-      <a href=https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/high_availability.html target="_blank">高可用特性</a><br>
+      <a href=https://www.mindspore.cn/mindformers/docs/zh-CN/r1.9.0/feature/high_availability.html target="_blank">高可用特性</a><br>
     </td>
   </tr>
 </table>
 
-除去以上配置项，训练任务的所有配置项由[配置文件](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/configuration.html)统一控制，可根据配置项说明灵活调整设置。
+除去以上配置项，训练任务的所有配置项由[配置文件](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.9.0/feature/configuration.html)统一控制，可根据配置项说明灵活调整设置。
 
 ### 3. 启动训练任务
 
-MindSpore Transformers支持单机多卡、多机多卡分布式训练，集群规模支持从单机8卡至万卡的超大规模分布式训练，具体启动方式可参照文档[训练任务启动](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/start_tasks.html)启动预训练任务。
+MindSpore Transformers支持单机多卡、多机多卡分布式训练，集群规模支持从单机8卡至万卡的超大规模分布式训练，具体启动方式可参照文档[训练任务启动](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.9.0/feature/start_tasks.html)启动预训练任务。
 
 ### 4. 训练状态监控
 
@@ -186,8 +186,8 @@ MindSpore Transformers支持单机多卡、多机多卡分布式训练，集群�
 - **精度指标**：损失函数值、梯度范数（防爆炸/消失）；
 - **检查点检查**：定期保存模型中间状态（如每N步），防止训练中断导致数据丢失。
 
-针对不同的监控值，MindSpore Transformers在训练过程中会打印详尽的日志用于查看中间过程状态，并提供tensorboard工具进行在线可视化，以更加直观的方式呈现，详细请参照[日志](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/logging.html)与[可视化工具](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/monitor.html)文档。权重在中间保存检查点或训练完成后，模型权重将保存至指定路径。当前支持保存为[Ckpt 格式](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/ckpt.html)或[Safetensors 格式](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/safetensors.html)，后续可以使用保存的权重进行续训或微调等。
+针对不同的监控值，MindSpore Transformers在训练过程中会打印详尽的日志用于查看中间过程状态，并提供tensorboard工具进行在线可视化，以更加直观的方式呈现，详细请参照[日志](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.9.0/feature/logging.html)与[可视化工具](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.9.0/feature/monitor.html)文档。权重在中间保存检查点或训练完成后，模型权重将保存至指定路径。当前支持保存为[Ckpt 格式](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.9.0/feature/ckpt.html)或[Safetensors 格式](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.9.0/feature/safetensors.html)，后续可以使用保存的权重进行续训或微调等。
 
 ## 训练实践
 
-MindSpore Transformers提供了更为细致的预训练与微调流程及实践，详细参见[预训练实践](https://www.mindspore.cn/mindformers/docs/zh-CN/master/guide/pre_training.html)及[微调实践](https://www.mindspore.cn/mindformers/docs/zh-CN/master/guide/supervised_fine_tuning.html)。
+MindSpore Transformers提供了更为细致的预训练与微调流程及实践，详细参见[预训练实践](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.9.0/guide/pre_training.html)及[微调实践](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.9.0/guide/supervised_fine_tuning.html)。

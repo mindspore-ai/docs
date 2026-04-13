@@ -8,7 +8,7 @@
 
 ## 1. 环境搭建
 
-参考[MindSpore Transformers 环境安装](https://www.mindspore.cn/mindformers/docs/zh-CN/master/installation.html)搭建环境。
+参考[MindSpore Transformers 环境安装](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.9.0/installation.html)搭建环境。
 
 ## 2. 数据集准备
 
@@ -148,11 +148,11 @@ python mindformers/tools/transform_ckpt.py --src_ckpt_strategy SRC_CKPT_STRATEGY
 - `--dst_ckpt_strategy`：目标权重的分布式策略文件路径，此处因为合并后的权重为完整权重，没有分布式策略，所以填`None`。
 - `--dst_ckpt_dir`：自定义目标权重保存路径。
 
-详细参数解释可见[Ckpt权重 | MindSpore Transformers 文档 | 昇思MindSpore社区](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/ckpt.html)。
+详细参数解释可见[Ckpt权重 | MindSpore Transformers 文档 | 昇思MindSpore社区](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.9.0/feature/ckpt.html)。
 
 ### 3.4 权重反向转换
 
-由于训练过程中采用的是MindSpore版本的权重格式，如果需要用vLLM等推理框架进行部署的话，需要转换为Hugging Face权重格式。转换权重本质上是要让权重的字典与Hugging Face模型的字典一一对应。因此，我们在官方脚本 [convert_reversed.py](https://atomgit.com/mindspore/mindformers/blob/master/mindformers/models/glm2/convert_reversed.py) 的基础上进行改写，该脚本已经实现了权重格式的转换以及字典名的对应，仅需要修改的地方为保存的部分。首先分析代码，修改的函数为`convert_ms_to_pt`：
+由于训练过程中采用的是MindSpore版本的权重格式，如果需要用vLLM等推理框架进行部署的话，需要转换为Hugging Face权重格式。转换权重本质上是要让权重的字典与Hugging Face模型的字典一一对应。因此，我们在官方脚本 [convert_reversed.py](https://atomgit.com/mindspore/mindformers/blob/r1.9.0/mindformers/models/glm2/convert_reversed.py) 的基础上进行改写，该脚本已经实现了权重格式的转换以及字典名的对应，仅需要修改的地方为保存的部分。首先分析代码，修改的函数为`convert_ms_to_pt`：
 
 ``` python
 print('saving pt ckpt....')

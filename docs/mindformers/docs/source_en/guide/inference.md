@@ -12,7 +12,7 @@ The inference process can be categorized into the following steps:
 
 ### 1. Models of Selective Inference
 
-Depending on the required inference task, different models are chosen, e.g. for text generation one can choose Qwen3. For more inference examples of different models and recommended configurations by scenario, see the [Model Library](https://www.mindspore.cn/mindformers/docs/en/master/introduction/models.html).
+Depending on the required inference task, different models are chosen, e.g. for text generation one can choose Qwen3. For more inference examples of different models and recommended configurations by scenario, see the [Model Library](https://www.mindspore.cn/mindformers/docs/en/r1.9.0/introduction/models.html).
 
 ### 2. Preparing Model Files
 
@@ -20,7 +20,7 @@ Obtain the Hugging Face model file: weights, configurations, and tokenizers. Sto
 
 ### 3. YAML Configuration File Modification
 
-The user needs to configure a YAML file to define all the configurations of the task. MindSpore Transformers provides a YAML configuration template. Users can customize the configuration based on the template according to the actual scenario. For detailed information, please refer to the [Guide to Using Inference Configuration Templates](https://www.mindspore.cn/mindformers/docs/en/master/advanced_development/yaml_config_inference.html).
+The user needs to configure a YAML file to define all the configurations of the task. MindSpore Transformers provides a YAML configuration template. Users can customize the configuration based on the template according to the actual scenario. For detailed information, please refer to the [Guide to Using Inference Configuration Templates](https://www.mindspore.cn/mindformers/docs/en/r1.9.0/advanced_development/yaml_config_inference.html).
 
 ### 4. Executing Inference Tasks
 
@@ -28,7 +28,7 @@ Use the unified script `run_mindformer` to execute inference tasks.
 
 ## Inference Based on the run_mindformer Script
 
-For single-device inference, you can directly run [run_mindformer.py](https://atomgit.com/mindspore/mindformers/blob/master/run_mindformer.py). For multi-device inference, you need to run [scripts/msrun_launcher.sh](https://atomgit.com/mindspore/mindformers/blob/master/scripts/msrun_launcher.sh).
+For single-device inference, you can directly run [run_mindformer.py](https://atomgit.com/mindspore/mindformers/blob/r1.9.0/run_mindformer.py). For multi-device inference, you need to run [scripts/msrun_launcher.sh](https://atomgit.com/mindspore/mindformers/blob/r1.9.0/scripts/msrun_launcher.sh).
 
 The arguments to run_mindformer.py are described below:
 
@@ -42,7 +42,7 @@ The arguments to run_mindformer.py are described below:
 
 msrun_launcher.sh includes the run_mindformer.py command and the number of inference cards as two parameters.
 
-The following will describe the usage of single and multi-card inference using Qwen3-8B as an example, with the recommended configuration of the [predict_qwen3.yaml](https://atomgit.com/mindspore/mindformers/blob/master/configs/qwen3/predict_qwen3.yaml) file.
+The following will describe the usage of single and multi-card inference using Qwen3-8B as an example, with the recommended configuration of the [predict_qwen3.yaml](https://atomgit.com/mindspore/mindformers/blob/r1.9.0/configs/qwen3/predict_qwen3.yaml) file.
 
 ### Configuration Modification
 
@@ -89,7 +89,7 @@ parallel_config:
   model_parallel: 2 # Modify to the actual number of cards used
 ```
 
-For specific configuration instructions, please refer to [yaml Configuration Instructions](https://www.mindspore.cn/mindformers/docs/en/master/feature/configuration.html).
+For specific configuration instructions, please refer to [yaml Configuration Instructions](https://www.mindspore.cn/mindformers/docs/en/r1.9.0/feature/configuration.html).
 
 ### Single-Device Inference
 
