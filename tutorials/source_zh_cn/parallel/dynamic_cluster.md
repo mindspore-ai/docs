@@ -33,6 +33,7 @@ MindSpore**动态组网**特性通过**复用Parameter Server模式训练架构*
 | `MS_RETRY_INTERVAL_UPPER` | 节点间消息重试间隔上限，单位：秒。 | Integer | 默认为5秒 | 此数值代表节点每次重试发送消息的时间间隔上限，MindSpore会随机选择`MS_RETRY_INTERVAL_LOWER`和`MS_RETRY_INTERVAL_UPPER`之间的值作为间隔时间。此变量可以控制Scheduler节点的消息并发量。 |
 | `MS_DISABLE_HEARTBEAT` | 关闭集群中节点间心跳业务。 | Integer | 默认开启心跳业务 | 若设置为1，则关闭集群节点间心跳，此场景下Scheduler不会检测到Worker异常，集群不会被Scheduler控制退出。此变量可以降低Scheduler节点消息并发量。<br>在使用`gdb attach`指令调试时，建议开启此环境变量。 |
 | `MS_HEARTBEAT_RETRY_TIMEOUT` | 节点心跳重试超时时间，单位：秒。 | Integer | 默认为20秒 | Worker节点未收到Scheduler心跳回复后的重连超时阈值。若Worker在该时间内未重新建立与Scheduler的连接，将触发自身异常退出。建议配置`MS_NODE_TIMEOUT`值大于`MS_HEARTBEAT_RETRY_TIMEOUT`，确保Scheduler在`MS_NODE_TIMEOUT`窗口期内能够重新接收Worker的心跳消息，保障集群稳定运行。注意：当心跳功能关闭，或集群未采用Scheduler进程进行管理时，该环境变量配置不生效。 |
+| `MS_CPU_COMM_OP_TIMEOUT` | CPU通信算子超时时间，单位：秒。 | Integer | 默认为30秒 | 此数值代表CPU通信算子消息收发的超时时间，若在该时间内未完成消息交换，将触发异常退出。优先使用设置的`MS_CPU_COMM_OP_TIMEOUT`作为CPU通信算子超时时间。若未设置`MS_CPU_COMM_OP_TIMEOUT`，则使用`MS_NODE_TIMEOUT`设置的值，若两者都未设置，使用默认值。 |
 
 > 环境变量`MS_SCHED_HOST`、`MS_SCHED_PORT`、`MS_WORKER_NUM`内容需保持一致，否则会由于各进程配置不一致导致组网失败。
 
