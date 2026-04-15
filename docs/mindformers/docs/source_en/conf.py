@@ -325,6 +325,18 @@ for file in replace_list:
 #                     f.truncate()
 #                     f.write(new_content)
 
+with open(os.path.join(base_path, 'hyper_parallel/platform/mindspore/platform.py'), 'r+', encoding='utf-8') as f:
+    content = f.read()
+    old_content = """@staticmethod
+    def save_checkpoint(cell: Cell | dict, file_path: str, ckpt_format: str = "safetensors") -> None:"""
+    new_content = """from typing import Union
+    @staticmethod
+    def save_checkpoint(cell: Union[Cell, dict], file_path: str, ckpt_format: str = "safetensors") -> None:"""
+    content = content.replace(old_content, new_content)
+    f.seek(0)
+    f.truncate()
+    f.write(content)
+
 import mindformers
 
 # Copy source files of chinese python api from golden-stick repository.
