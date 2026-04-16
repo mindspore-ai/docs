@@ -70,7 +70,7 @@ In the preceding table, MindSpore Transformers provides out-of-the-box model con
 
 In natural language processing (NLP) tasks, data preprocessing is a key prerequisite for model training. It not only solves problems like noises and inconsistent formats (which contain special characters and garbled characters) in the raw data, but also converts the original text into a numerical form that can be understood by the model through structured conversion (such as tokenization and vectorization). Although general data preprocessing may include full-process operations such as collection, cleaning, and tokenization, the input data in this phase is assumed to have basic quality (that is, "clean" data). Therefore, the focus is on the core objective of **token conversion**.
 
-#### Processing Pretraining Data
+**Processing Pretraining Data**
 
 In the Megatron-LM training framework, a multi-source mixed dataset solution is provided for pretraining tasks. This solution converts raw data into tokens and uses the lightweight bin file format for persistent storage. This solution supports the following features:
 
