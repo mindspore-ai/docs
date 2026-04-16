@@ -48,6 +48,7 @@ extensions = [
     'sphinx.ext.coverage',
     'sphinx.ext.napoleon',
     'sphinx.ext.viewcode',
+    'sphinxcontrib.jquery',
     'myst_parser',
     'sphinx.ext.mathjax',
     'IPython.sphinxext.ipython_console_highlighting'
@@ -283,9 +284,6 @@ shutil.copy(os.path.join(os.getenv("MSC_PATH"), 'docs/en/quick_start.md'),
 # if not os.path.exists(os.path.join(moment_dir, 'RELEASE.md')):
 #     shutil.copy(os.path.join(os.getenv("MSC_PATH"), 'RELEASE.md'),
 #                 os.path.join(moment_dir, 'RELEASE.md'))
-
-sys.path.append(os.path.abspath('../../../../resource/search'))
-import search_code
 
 sys.path.append(os.path.abspath('../../../../resource/custom_directives'))
 from custom_directives import IncludeCodeDirective

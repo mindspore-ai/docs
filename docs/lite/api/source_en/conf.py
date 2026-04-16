@@ -54,6 +54,7 @@ extensions = [
     'sphinx.ext.coverage',
     'sphinx.ext.napoleon',
     'sphinx.ext.viewcode',
+    'sphinxcontrib.jquery',
     'myst_parser',
     'sphinx.ext.mathjax',
     'IPython.sphinxext.ipython_console_highlighting'
@@ -684,6 +685,3 @@ code_content_replace(original_code, new_code, value_h_path)
 #             file_data2 += line2
 #     with open(file_name2, 'w', encoding='utf-8') as p:
 #         p.write(file_data2)
-
-sys.path.append(os.path.abspath('../../../../resource/search'))
-import search_code

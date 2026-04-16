@@ -48,6 +48,7 @@ extensions = [
     'sphinx.ext.coverage',
     'sphinx.ext.napoleon',
     'sphinx.ext.viewcode',
+    'sphinxcontrib.jquery',
     'myst_parser',
     'nbsphinx',
     'sphinx.ext.mathjax',
@@ -284,9 +285,6 @@ with open('../../../../tools/generate_html/daily.json', 'r+', encoding='utf-8') 
 
 
 # import vllm_mindspore
-
-sys.path.append(os.path.abspath('../../../../resource/search'))
-import search_code
 
 sys.path.append(os.path.abspath('../../../../resource/custom_directives'))
 from custom_directives import IncludeCodeDirective

@@ -48,6 +48,7 @@ extensions = [
     'sphinx.ext.coverage',
     'sphinx.ext.napoleon',
     'sphinx.ext.viewcode',
+    'sphinxcontrib.jquery',
     'myst_parser',
     'nbsphinx',
     'sphinx.ext.mathjax',
@@ -107,6 +108,18 @@ layout_src = '../../../../resource/_static/layout.html'
 if os.path.exists(layout_target):
     os.remove(layout_target)
 shutil.copy(layout_src, layout_target)
+
+with open(os.path.join(os.path.dirname(sphinx_rtd_theme.__file__), 'breadcrumbs.html'), "r+", encoding="utf8") as f:
+    content = f.read()
+    content = content.replace(
+        '<li><a href="{{ pathto(master_doc) }}" class="icon icon-home" aria-label="Home"></a></li>',
+        '<li><a href="{{ pathto(master_doc) }}" class="icon icon-home" aria-label="Home"></a> &raquo;</li>')
+    content = content.replace(
+        '<li class="breadcrumb-item"><a href="{{ doc.link|e }}">{{ doc.title }}</a></li>',
+        '<li class="breadcrumb-item"><a href="{{ doc.link|e }}">{{ doc.title }}</a> &raquo;</li>')
+    f.seek(0)
+    f.truncate()
+    f.write(content)
 
 # Example configuration for intersphinx: refer to the Python standard library.
 intersphinx_mapping = {
@@ -268,9 +281,6 @@ giturl = 'https://atomgit.com/mindspore/'
 sys.path.append(os.path.abspath('../../../../resource/sphinx_ext'))
 import nbsphinx_mod
 
-sys.path.append(os.path.abspath('../../../../resource/search'))
-import search_code
-
 sys.path.append(os.path.abspath('../../../../resource/custom_directives'))
 from custom_directives import IncludeCodeDirective
 from myautosummary import MsPlatformAutoSummary, MsNoteAutoSummary, MsMathAutoSummary
@@ -292,9 +302,9 @@ des_release = "./RELEASE.md"
 with open(src_release, "r", encoding="utf-8") as f:
     data = f.read()
 if len(re.findall("\n## (.*?)\n",data)) > 1:
-    content = re.findall("(## [\s\S\n]*?)\n## ", data)
+    content = re.findall(r"(## [\s\S\n]*?)\n## ", data)
 else:
-    content = re.findall("(## [\s\S\n]*)", data)
+    content = re.findall(r"(## [\s\S\n]*)", data)
 #result = content[0].replace('# MindQuantum', '#', 1)
 with open(des_release, "w", encoding="utf-8") as p:
     p.write("# Release Notes\n\n")

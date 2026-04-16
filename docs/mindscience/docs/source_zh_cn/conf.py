@@ -48,6 +48,7 @@ extensions = [
     'sphinx.ext.coverage',
     'sphinx.ext.napoleon',
     'sphinx.ext.viewcode',
+    'sphinxcontrib.jquery',
     'myst_parser',
     'sphinx.ext.mathjax',
     'IPython.sphinxext.ipython_console_highlighting'
@@ -323,9 +324,6 @@ for file_name in md_name:
 from sphinx import directives
 with open('../_ext/overwriteobjectiondirective.txt', 'r', encoding="utf8") as f:
     exec(f.read(), directives.__dict__)
-
-sys.path.append(os.path.abspath('../../../../resource/search'))
-import search_code
 
 sys.path.append(os.path.abspath('../../../../resource/custom_directives'))
 from custom_directives import IncludeCodeDirective

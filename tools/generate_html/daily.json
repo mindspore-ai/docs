@@ -3,23 +3,23 @@
     "id" : 1 ,
     "name" : "lite",
     "branch" : "master",
-    "whl_path" : "/docs/mindspore-lite/lite/centos_x86/cloud_fusion/python39",
-    "whl_name" : "mindspore_lite-.*-cp39-cp39-linux_x86_64.whl$",
+    "whl_path" : "/mindspore-lite/newest/lite/centos_x86/cloud_fusion/python312",
+    "whl_name" : "mindspore_lite-.*-cp312-cp312-linux_x86_64.whl$",
     "environ" : "MSL_PATH",
     "uninstall_name" : "mindspore_lite",
     "tar_path" : "/docs/mindspore-lite/lite/centos_x86/",
     "tar_name" : "mindspore-lite-.*-linux-x64.tar.gz$",
-    "cloud_tar_path" : "/docs/mindspore-lite/lite/centos_x86/cloud_fusion/python39",
+    "cloud_tar_path" : "/mindspore-lite/newest/lite/centos_x86/cloud_fusion/python312",
     "cloud_tar_name" : "mindspore-lite-.*-linux-x64.tar.gz$",
-    "extra_whl_path" : "/docs/mindspore/cpu/x86_64",
-    "extra_whl_name" : "mindspore-.*-cp39-cp39-linux_x86_64.whl$"
+    "extra_whl_path" : "/mindspore/website/master/cpu/x86_64",
+    "extra_whl_name" : "mindspore-.*-cp312-cp312-linux_x86_64.whl$"
 },
 {
     "id" : 2 ,
     "name" : "mindspore",
     "branch" : "master",
-    "whl_path" : "/docs/mindspore/cpu/x86_64",
-    "whl_name" : "mindspore-.*-cp39-cp39-linux_x86_64.whl$",
+    "whl_path" : "/mindspore/website/master/cpu/x86_64",
+    "whl_name" : "mindspore-.*-cp312-cp312-linux_x86_64.whl$",
     "environ" : "MS_PATH",
     "uninstall_name" : "mindspore"
 },
@@ -46,7 +46,7 @@
         "/hyper-parallel/newest/any"
     ],
     "extra_whl_name" : [
-        "mindspore-.*-cp39-cp39-linux_x86_64.whl$",
+        "mindspore-.*-cp312-cp312-linux_x86_64.whl$",
         "hyper_parallel-.*-py3-none-any.whl"
     ]
 },
@@ -73,7 +73,7 @@
     "name" : "mindquantum",
     "branch" : "master",
     "whl_path" : "/mindquantum/newest/gpu/x86_64/cuda-11.1/",
-    "whl_name" : "mindquantum-.*-cp39-cp39-linux_x86_64.whl$",
+    "whl_name" : "mindquantum-.*-cp312-cp312-linux_x86_64.whl$",
     "environ" : "MQ_PATH",
     "uninstall_name" : "mindquantum"
 },

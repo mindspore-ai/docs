@@ -75,6 +75,18 @@ if os.path.exists(layout_target):
     os.remove(layout_target)
 shutil.copy(layout_src, layout_target)
 
+with open(os.path.join(os.path.dirname(sphinx_rtd_theme.__file__), 'breadcrumbs.html'), "r+", encoding="utf8") as f:
+    content = f.read()
+    content = content.replace(
+        '<li><a href="{{ pathto(master_doc) }}" class="icon icon-home" aria-label="Home"></a></li>',
+        '<li><a href="{{ pathto(master_doc) }}" class="icon icon-home" aria-label="Home"></a> &raquo;</li>')
+    content = content.replace(
+        '<li class="breadcrumb-item"><a href="{{ doc.link|e }}">{{ doc.title }}</a></li>',
+        '<li class="breadcrumb-item"><a href="{{ doc.link|e }}">{{ doc.title }}</a> &raquo;</li>')
+    f.seek(0)
+    f.truncate()
+    f.write(content)
+
 html_static_path = ['_static']
 
 sys.path.append(os.path.abspath('../../../../resource/sphinx_ext'))
@@ -86,15 +98,12 @@ def setup(app):
     app.add_js_file('js/lite.js')
     app.add_directive('includecode', IncludeCodeDirective)
 
-sys.path.append(os.path.abspath('../../../../resource/search'))
-import search_code
-
 try:
     src_release = os.path.join(os.getenv("MSL_PATH"), 'RELEASE.md')
     des_release = "./RELEASE.md"
     with open(src_release, "r", encoding="utf-8") as f:
         data = f.read()
-    content = re.findall("(## MindSpore Lite[\s\S\n]*?\n)## ", data)
+    content = re.findall(r"(## MindSpore Lite[\s\S\n]*?\n)## ", data)
     with open(des_release, "w", encoding="utf-8") as p:
         p.write("# Release Notes\n\n")
         p.write(content[0])

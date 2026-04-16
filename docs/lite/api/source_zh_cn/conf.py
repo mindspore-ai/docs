@@ -53,6 +53,7 @@ extensions = [
     'sphinx.ext.coverage',
     'sphinx.ext.napoleon',
     'sphinx.ext.viewcode',
+    'sphinxcontrib.jquery',
     'myst_parser',
     'sphinx.ext.mathjax',
     'IPython.sphinxext.ipython_console_highlighting'
@@ -380,11 +381,6 @@ import mindspore_lite
 autodoc_mock_imports = ['lite_boost', 'lite_boost.ops', 'lite_boost.parallel']
 
 sys.path.append(os.path.abspath('../../../../resource/sphinx_ext'))
-
-sys.path.append(os.path.abspath('../../../../resource/search'))
-import search_code
-
-
 
 # Add configrator for c++ api output.
 # Setup the breathe extension

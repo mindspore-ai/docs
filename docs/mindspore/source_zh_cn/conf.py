@@ -69,6 +69,8 @@ sys.path.append(os.path.abspath('../_ext'))
 import sphinx.ext.autosummary.generate as g
 
 from sphinx.ext import autodoc as sphinx_autodoc
+if not hasattr(sphinx_autodoc.directive.DocumenterBridge, 'filename_set'):
+    sphinx_autodoc.directive.DocumenterBridge.filename_set = set()
 # Modify default signatures for autodoc.
 autodoc_source_path = os.path.abspath(sphinx_autodoc.__file__)
 autodoc_source_re = re.compile(r'stringify_signature\(.*?\)')
@@ -201,6 +203,7 @@ extensions = [
     'sphinx.ext.coverage',
     'sphinx.ext.napoleon',
     'sphinx.ext.linkcode',
+    'sphinxcontrib.jquery',
     'sphinxcontrib.mermaid',
     'myst_parser',
     'nbsphinx',
@@ -269,6 +272,18 @@ if os.path.exists(layout_target):
     os.remove(layout_target)
 shutil.copy(layout_src, layout_target)
 
+with open(os.path.join(os.path.dirname(sphinx_rtd_theme.__file__), 'breadcrumbs.html'), "r+", encoding="utf8") as f:
+    content = f.read()
+    content = content.replace(
+        '<li><a href="{{ pathto(master_doc) }}" class="icon icon-home" aria-label="Home"></a></li>',
+        '<li><a href="{{ pathto(master_doc) }}" class="icon icon-home" aria-label="Home"></a> &raquo;</li>')
+    content = content.replace(
+        '<li class="breadcrumb-item"><a href="{{ doc.link|e }}">{{ doc.title }}</a></li>',
+        '<li class="breadcrumb-item"><a href="{{ doc.link|e }}">{{ doc.title }}</a> &raquo;</li>')
+    f.seek(0)
+    f.truncate()
+    f.write(content)
+
 html_search_language = 'zh'
 
 import jieba
@@ -296,10 +311,6 @@ with open(gfile_abs_path, "r", encoding="utf8") as f:
     data = f.read()
     data = data.replace(autosummary_re_line_old, autosummary_re_line_new)
     exec(data, g.__dict__)
-
-
-sys.path.append(os.path.abspath('../../../resource/search'))
-import search_code
 
 # Copy source files of chinese python api from mindspore repository.
 from sphinx.util import logging
@@ -636,8 +647,8 @@ for i in os.listdir(os.path.join(repo_path, 'mindspore/ops/op_def/yaml')):
     if i.endswith('_op.yaml') and '_grad' not in i:
         with open(os.path.join(repo_path, 'mindspore/ops/op_def/yaml', i), 'r+', encoding='utf-8') as f:
             op_content = f.read()
-            if re.findall('function:\n\s+?name: (.*)', op_content):
-                func_name_dict[re.findall('function:\n\s+?name: (.*)', op_content)[0]] = i.replace('_op.yaml', '')
+            if re.findall(r'function:\n\s+?name: (.*)', op_content):
+                func_name_dict[re.findall(r'function:\n\s+?name: (.*)', op_content)[0]] = i.replace('_op.yaml', '')
 
 import mindspore
 

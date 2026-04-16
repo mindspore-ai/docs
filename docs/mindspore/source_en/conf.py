@@ -108,6 +108,7 @@ extensions = [
     'sphinx.ext.coverage',
     'sphinx.ext.napoleon',
     "sphinx.ext.linkcode",
+    'sphinxcontrib.jquery',
     'sphinxcontrib.mermaid',
     'myst_parser',
     'nbsphinx',
@@ -182,6 +183,18 @@ layout_src = '../../../resource/_static/layout.html'
 if os.path.exists(layout_target):
     os.remove(layout_target)
 shutil.copy(layout_src, layout_target)
+
+with open(os.path.join(os.path.dirname(sphinx_rtd_theme.__file__), 'breadcrumbs.html'), "r+", encoding="utf8") as f:
+    content = f.read()
+    content = content.replace(
+        '<li><a href="{{ pathto(master_doc) }}" class="icon icon-home" aria-label="Home"></a></li>',
+        '<li><a href="{{ pathto(master_doc) }}" class="icon icon-home" aria-label="Home"></a> &raquo;</li>')
+    content = content.replace(
+        '<li class="breadcrumb-item"><a href="{{ doc.link|e }}">{{ doc.title }}</a></li>',
+        '<li class="breadcrumb-item"><a href="{{ doc.link|e }}">{{ doc.title }}</a> &raquo;</li>')
+    f.seek(0)
+    f.truncate()
+    f.write(content)
 
 # -- Options for Texinfo output -------------------------------------------
 
@@ -359,9 +372,6 @@ for i in decorator_list:
     except:
         print(f'替换{i[0]}下内容失败')
 
-sys.path.append(os.path.abspath('../../../resource/search'))
-import search_code
-
 # 发版本时这里启用
 # re_url = r"(((atomgit.com/mindspore/docs/mindspore-lite)|(atomgit.com/mindspore/docs)|(github.com/mindspore-ai/(mindspore|docs))|" + \
 #          r"(mindspore.cn/(docs|tutorials|lite))|(obs.dualstack.cn-north-4.myhuaweicloud)|" + \
@@ -427,7 +437,7 @@ def ops_interface_name():
     src_target_path = os.path.join(src_dir_en, 'mindspore.ops.primitive.rst')
     with open(src_target_path,'r',encoding='utf8') as f:
         content =  f.read()
-    primi_list = re.findall("    (mindspore\.ops\.\w*?)\n", content)
+    primi_list = re.findall(r"    (mindspore\.ops\.\w*?)\n", content)
 
     return primi_list
 
@@ -498,8 +508,8 @@ for i in os.listdir(os.path.join(repo_path, 'mindspore/ops/op_def/yaml')):
     if i.endswith('_op.yaml') and '_grad' not in i:
         with open(os.path.join(repo_path, 'mindspore/ops/op_def/yaml', i), 'r+', encoding='utf-8') as f:
             op_content = f.read()
-            if re.findall('function:\n\s+?name: (.*)', op_content):
-                func_name_dict[re.findall('function:\n\s+?name: (.*)', op_content)[0]] = i.replace('_op.yaml', '')
+            if re.findall(r'function:\n\s+?name: (.*)', op_content):
+                func_name_dict[re.findall(r'function:\n\s+?name: (.*)', op_content)[0]] = i.replace('_op.yaml', '')
 
 for cur, _, files in os.walk(des_sir):
     for i in files:
@@ -526,6 +536,17 @@ for cur, _, files in os.walk(des_sir):
                     f.seek(0)
                     f.truncate()
                     f.write(new_content)
+
+with open(os.path.join(base_path, 'mindspore/runtime/executor.py'), 'r+', encoding='utf-8') as f:
+    content = f.read()
+    old_content = '.. code-block::'
+    new_content = """.. code-block:: json
+    """
+    if new_content not in content:
+        content = content.replace(old_content, new_content)
+        f.seek(0)
+        f.truncate()
+        f.write(content)
 
 import mindspore
 
