@@ -6,89 +6,89 @@
 # Each line corresponds to a specified file or directory and maintainer by @ splitting.
 # The rules are applied from top to bottom, and the last matching rule will take effect.
 
-# If the file in PR does not match rule, the default maintainer xuzhenyoumi will be designated to conduct code review.
-* @xuzhenyoumi
+# If the file in PR does not match rule, the default maintainer gemini524 will be designated to conduct code review.
+* @gemini524
 
 # The maintainers of install.
 /install/ @nicholas_yhr @Hanshize
 /resource/release/ @nicholas_yhr @Hanshize
 
 # The maintainers of tutorials.
-/tutorials/source_zh_cn/beginner/ @zwiori @xuzhenyoumi
-/tutorials/source_zh_cn/compile/ @ginfung @xuzhenyoumi
-/tutorials/source_zh_cn/custom_program/custom_backend.md @limingqi107 @xuzhenyoumi
-/tutorials/source_zh_cn/custom_program/custom_pass.md @limingqi107 @xuzhenyoumi
-/tutorials/source_zh_cn/custom_program/op_custom.rst @chujinjin @xuzhenyoumi
-/tutorials/source_zh_cn/custom_program/operation/ @chujinjin @xuzhenyoumi
-/tutorials/source_zh_cn/custom_program/hook_program.ipynb @zwiori @xuzhenyoumi
-/tutorials/source_zh_cn/cv/ @zwiori @xuzhenyoumi
-/tutorials/source_zh_cn/dataset/ @jonyguo @xuzhenyoumi
-/tutorials/source_zh_cn/debug/error_analysis.rst @zwiori @xuzhenyoumi
-/tutorials/source_zh_cn/debug/error_analysis/ @zwiori @xuzhenyoumi
-/tutorials/source_zh_cn/debug/dryrun.md @limingqi107 @xuzhenyoumi
-/tutorials/source_zh_cn/debug/dump.md @DavidFFFan @xuzhenyoumi
-/tutorials/source_zh_cn/debug/profiler.md @changzherui1 @xuzhenyoumi
-/tutorials/source_zh_cn/debug/pynative.md @chujinjin @xuzhenyoumi
-/tutorials/source_zh_cn/debug/sdc.md @zhangbuxue @xuzhenyoumi
-/tutorials/source_zh_cn/generative/ @zwiori @xuzhenyoumi
-/tutorials/source_zh_cn/model_infer/introduction.md @liulili-huawei @xuzhenyoumi
-/tutorials/source_zh_cn/model_infer/ms_infer/ @liulili-huawei @xuzhenyoumi
-/tutorials/source_zh_cn/model_infer/ms_infer/ms_infer_quantization.md @hangangqiang @xuzhenyoumi
-/tutorials/source_zh_cn/model_infer/ms_infer/ms_infer_model_serving_infer.md @zlq2025 @horcham_zhq @xuzhenyoumi
-/tutorials/source_zh_cn/model_infer/lite_infer/ @YeFeng_24 @jjfeing @xuzhenyoumi
-/tutorials/source_zh_cn/model_migration/ @zwiori @xuzhenyoumi
-/tutorials/source_zh_cn/nlp/ @zwiori @xuzhenyoumi
-/tutorials/source_zh_cn/orange_pi/ @xing-yiren @xuzhenyoumi
-/tutorials/source_zh_cn/parallel/ @yangzhenzhang @xuzhenyoumi
-/tutorials/source_zh_cn/parallel/startup_method.rst @zhangyinxia @xuzhenyoumi
-/tutorials/source_zh_cn/parallel/msrun_launcher.md @zhangyinxia @xuzhenyoumi
-/tutorials/source_zh_cn/parallel/dynamic_cluster.md @zhangyinxia @xuzhenyoumi
-/tutorials/source_zh_cn/parallel/mpirun.md @zhangyinxia @xuzhenyoumi
-/tutorials/source_zh_cn/train_availability/ @zhangbuxue @xuzhenyoumi
-/tutorials/source_zh_cn/train_availability/fault_recover.md @zhangbuxue @xuzhenyoumi
-/tutorials/source_zh_cn/train_availability/graceful_exit.md @zhangbuxue @xuzhenyoumi
+/tutorials/source_zh_cn/beginner/ @zwiori @gemini524
+/tutorials/source_zh_cn/compile/ @ginfung @gemini524
+/tutorials/source_zh_cn/custom_program/custom_backend.md @limingqi107 @gemini524
+/tutorials/source_zh_cn/custom_program/custom_pass.md @limingqi107 @gemini524
+/tutorials/source_zh_cn/custom_program/op_custom.rst @chujinjin @gemini524
+/tutorials/source_zh_cn/custom_program/operation/ @chujinjin @gemini524
+/tutorials/source_zh_cn/custom_program/hook_program.ipynb @zwiori @gemini524
+/tutorials/source_zh_cn/cv/ @zwiori @gemini524
+/tutorials/source_zh_cn/dataset/ @jonyguo @gemini524
+/tutorials/source_zh_cn/debug/error_analysis.rst @zwiori @gemini524
+/tutorials/source_zh_cn/debug/error_analysis/ @zwiori @gemini524
+/tutorials/source_zh_cn/debug/dryrun.md @limingqi107 @gemini524
+/tutorials/source_zh_cn/debug/dump.md @DavidFFFan @gemini524
+/tutorials/source_zh_cn/debug/profiler.md @changzherui1 @gemini524
+/tutorials/source_zh_cn/debug/pynative.md @chujinjin @gemini524
+/tutorials/source_zh_cn/debug/sdc.md @zhangbuxue @gemini524
+/tutorials/source_zh_cn/generative/ @zwiori @gemini524
+/tutorials/source_zh_cn/model_infer/introduction.md @liulili-huawei @gemini524
+/tutorials/source_zh_cn/model_infer/ms_infer/ @liulili-huawei @gemini524
+/tutorials/source_zh_cn/model_infer/ms_infer/ms_infer_quantization.md @hangangqiang @gemini524
+/tutorials/source_zh_cn/model_infer/ms_infer/ms_infer_model_serving_infer.md @zlq2025 @horcham_zhq @gemini524
+/tutorials/source_zh_cn/model_infer/lite_infer/ @YeFeng_24 @jjfeing @gemini524
+/tutorials/source_zh_cn/model_migration/ @zwiori @gemini524
+/tutorials/source_zh_cn/nlp/ @zwiori @gemini524
+/tutorials/source_zh_cn/orange_pi/ @xing-yiren @gemini524
+/tutorials/source_zh_cn/parallel/ @yangzhenzhang @gemini524
+/tutorials/source_zh_cn/parallel/startup_method.rst @zhangyinxia @gemini524
+/tutorials/source_zh_cn/parallel/msrun_launcher.md @zhangyinxia @gemini524
+/tutorials/source_zh_cn/parallel/dynamic_cluster.md @zhangyinxia @gemini524
+/tutorials/source_zh_cn/parallel/mpirun.md @zhangyinxia @gemini524
+/tutorials/source_zh_cn/train_availability/ @zhangbuxue @gemini524
+/tutorials/source_zh_cn/train_availability/fault_recover.md @zhangbuxue @gemini524
+/tutorials/source_zh_cn/train_availability/graceful_exit.md @zhangbuxue @gemini524
 
 # The maintainers of MindSpore docs.
-/docs/mindspore/source_zh_cn/ @zwiori @xuzhenyoumi
-/docs/mindspore/source_zh_cn/_static/ @xuzhenyoumi
-/docs/mindspore/source_zh_cn/_templates/ @xuzhenyoumi
-/docs/mindspore/source_zh_cn/conf.py @xuzhenyoumi
-/docs/sample_code/ @zwiori @xuzhenyoumi
+/docs/mindspore/source_zh_cn/ @zwiori @gemini524
+/docs/mindspore/source_zh_cn/_static/ @gemini524
+/docs/mindspore/source_zh_cn/_templates/ @gemini524
+/docs/mindspore/source_zh_cn/conf.py @gemini524
+/docs/sample_code/ @zwiori @gemini524
 
 # The maintainers of MindSpore Lite docs.
-/docs/lite/docs/source_zh_cn/ @fatmouse007fatmouse007 @jjfeing @xuzhenyoumi
-/docs/lite/docs/source_zh_cn/_static/ @xuzhenyoumi
-/docs/lite/docs/source_zh_cn/conf.py @xuzhenyoumi
-/docs/lite/cloud_docs/source_zh_cn/ @YeFeng_24 @jjfeing @xuzhenyoumi
-/docs/lite/cloud_docs/source_zh_cn/_static/ @xuzhenyoumi
-/docs/lite/cloud_docs/source_zh_cn/conf.py @xuzhenyoumi
-/docs/lite/api/source_zh_cn/ @YeFeng_24 @jjfeing @xuzhenyoumi
-/docs/lite/api/source_zh_cn/_templates/ @xuzhenyoumi
-/docs/lite/api/source_zh_cn/conf.py @xuzhenyoumi
+/docs/lite/docs/source_zh_cn/ @fatmouse007fatmouse007 @jjfeing @gemini524
+/docs/lite/docs/source_zh_cn/_static/ @gemini524
+/docs/lite/docs/source_zh_cn/conf.py @gemini524
+/docs/lite/cloud_docs/source_zh_cn/ @YeFeng_24 @jjfeing @gemini524
+/docs/lite/cloud_docs/source_zh_cn/_static/ @gemini524
+/docs/lite/cloud_docs/source_zh_cn/conf.py @gemini524
+/docs/lite/api/source_zh_cn/ @YeFeng_24 @jjfeing @gemini524
+/docs/lite/api/source_zh_cn/_templates/ @gemini524
+/docs/lite/api/source_zh_cn/conf.py @gemini524
 
 # The maintainers of MindSpore Transformers docs.
-/docs/mindformers/docs/source_zh_cn/ @Lin-Bert @xuzhenyoumi
-/docs/mindformers/docs/source_zh_cn/feature/high_availability.md @zhangbuxue @xuzhenyoumi
-/docs/mindformers/docs/source_zh_cn/_templates/ @xuzhenyoumi
-/docs/mindformers/docs/source_zh_cn/conf.py @xuzhenyoumi
+/docs/mindformers/docs/source_zh_cn/ @Lin-Bert @gemini524
+/docs/mindformers/docs/source_zh_cn/feature/high_availability.md @zhangbuxue @gemini524
+/docs/mindformers/docs/source_zh_cn/_templates/ @gemini524
+/docs/mindformers/docs/source_zh_cn/conf.py @gemini524
 
 # The maintainers of vLLM-MindSpore Plugin docs.
-/docs/vllm_mindspore/docs/source_zh_cn/ @zlq2025 @horcham_zhq @xuzhenyoumi
-/docs/vllm_mindspore/docs/source_zh_cn/conf.py @xuzhenyoumi
+/docs/vllm_mindspore/docs/source_zh_cn/ @zlq2025 @horcham_zhq @gemini524
+/docs/vllm_mindspore/docs/source_zh_cn/conf.py @gemini524
 
 # The maintainers of MindStudio docs.
-/docs/mindstudio/docs/source_zh_cn/ @hwfuchao @xuzhenyoumi
-/docs/mindstudio/docs/source_zh_cn/conf.py @xuzhenyoumi
+/docs/mindstudio/docs/source_zh_cn/ @hwfuchao @gemini524
+/docs/mindstudio/docs/source_zh_cn/conf.py @gemini524
 
 # The maintainers of MindSpore Armour docs.
-/docs/mindarmour/docs/source_zh_cn/ @yyuse @xuzhenyoumi
-/docs/mindarmour/docs/source_zh_cn/conf.py @xuzhenyoumi
+/docs/mindarmour/docs/source_zh_cn/ @yyuse @gemini524
+/docs/mindarmour/docs/source_zh_cn/conf.py @gemini524
 
 # The maintainers of MindSpore Quantum docs.
-/docs/mindquantum/docs/source_zh_cn/ @dsdsdshe @xuzhenyoumi
-/docs/mindquantum/docs/source_zh_cn/_templates/ @xuzhenyoumi
-/docs/mindquantum/docs/source_zh_cn/conf.py @xuzhenyoumi
+/docs/mindquantum/docs/source_zh_cn/ @dsdsdshe @gemini524
+/docs/mindquantum/docs/source_zh_cn/_templates/ @gemini524
+/docs/mindquantum/docs/source_zh_cn/conf.py @gemini524
 
 # The maintainers of MSAdapter docs.
-/docs/msadapter/docs/source_zh_cn/ @lvyufenghw @xuzhenyoumi
-/docs/msadapter/docs/source_zh_cn/conf.py @xuzhenyoumi
+/docs/msadapter/docs/source_zh_cn/ @lvyufenghw @gemini524
+/docs/msadapter/docs/source_zh_cn/conf.py @gemini524
