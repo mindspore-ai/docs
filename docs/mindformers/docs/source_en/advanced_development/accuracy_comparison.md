@@ -49,7 +49,7 @@ The first step of the precision comparison process is to ensure that the two fra
 
 The configuration alignment aims to ensure that the two systems are as consistent as possible in the initial state, so that the forward output and gradient backpropagation can be compared.
 
-The following tables describe the configuration comparison with Megatron-LM.
+For each configuration parameter of Megatron-LM, the corresponding configuration parameters of MindSpore Transformers are shown in the following tables.
 
 - Model configurations
 
@@ -284,7 +284,7 @@ Both frameworks support loading the Megatron dataset. The dataset is preprocesse
 
    Place the dataset file `wiki.train.tokens` and the tokenization model file `tokenizer.json` in the `../dataset` directory, and create the `data.json` file by referring to [Megatron Dataset > Data Preprocessing](https://www.mindspore.cn/mindformers/docs/en/master/feature/dataset.html#data-preprocessing).
 
-   Run the following commands to convert the dataset file into a BIN file:
+   Use the following command to convert the dataset file into BIN format files. The environment variable `$MINDFORMERS_HOME` refers to the directory where the MindSpore Transformers source code is located. Please set it in advance.
 
    ```shell
    cd $MINDFORMERS_HOME
@@ -305,8 +305,6 @@ Both frameworks support loading the Megatron dataset. The dataset is preprocesse
    cd $MINDFORMERS_HOME/mindformers/dataset/blended_datasets
    make
    ```
-
-   `$MINDFORMERS_HOME` indicates the directory where the MindSpore Transformers source code is stored.
 
 #### 3.2.3 Configuring a Dataset
 
@@ -412,7 +410,7 @@ After the preceding steps are complete, you can start training and extract key d
 
 - Result comparison
 
-  View the output logs of the two models. The log path of Megatron-LM is `logs/${logtime}.log` in `example.sh`, and that of MindSpore Transformers is `msrun_log/worker_0.log` in `output_dir` of `example.yaml`. The following table lists the comparison results.
+  View the output logs of the two models. The log path of Megatron-LM is `logs/${logtime}.log` in `example.sh`; and that of MindSpore Transformers is `msrun_log/worker_0.log` in `output_dir` of `example.yaml`. The following table lists the comparison results.
 
   | Megatron-LM     | MindSpore Transformers | Description                                                                                                                                                            |
   |-----------------|------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------|
