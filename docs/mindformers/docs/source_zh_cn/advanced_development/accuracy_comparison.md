@@ -49,7 +49,7 @@ Megatron-LM 是一个面向大规模训练任务的成熟框架，具备高度�
 
 配置对齐的目标是保证两个系统在初始化状态下尽可能一致，从而使得后续的前向输出、梯度反向传播等比对具有可比性。
 
-以 Megatron-LM 为主的配置的对照情况如下各表所示：
+对于 Megatron-LM 的各项配置参数，MindSpore Transformers 相对应的配置参数如下各表所示：
 
 - 模型配置
 
@@ -264,7 +264,7 @@ Megatron-LM 是一个面向大规模训练任务的成熟框架，具备高度�
     | `checkpoint-activations`       | 是否启用激活值检查点机制以减少显存     | 不支持配置                  |                          |
     | `moe-layer-recompute`          | MoE 层启用重计算            | 不支持配置                  |                          |
 
-**注意**：两个框架还有其他训练相关性较小的配置，MindSpore Transformer 详情参考[配置说明](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.8.0/feature/configuration.html)，Megatron-LM 可通过执行命令`torchrun --nproc_per_node=1 pretrain_gpt.py --help`查看。
+**注意**：两个框架还有其他训练相关性较小的配置，MindSpore Transformers 详情参考[配置说明](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.8.0/feature/configuration.html)，Megatron-LM 可通过执行命令`torchrun --nproc_per_node=1 pretrain_gpt.py --help`查看。
 
 ### 3.2 数据集对齐
 
@@ -284,7 +284,7 @@ Megatron-LM 是一个面向大规模训练任务的成熟框架，具备高度�
 
    将数据集文件`wiki.train.tokens`和分词模型文件`tokenizer.json`放置在`../dataset`下，并参照[Megatron数据集-数据预处理](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.8.0/feature/dataset.html#%E6%95%B0%E6%8D%AE%E9%A2%84%E5%A4%84%E7%90%86)制作`data.json`文件。
 
-   使用以下命令将数据集文件转换为BIN格式文件。
+   使用以下命令将数据集文件转换为BIN格式文件。其中，环境变量 `$MINDFORMERS_HOME` 指 MindSpore Transformers 源代码所在的目录，请提前设置。
 
    ```shell
    cd $MINDFORMERS_HOME
@@ -306,11 +306,9 @@ Megatron-LM 是一个面向大规模训练任务的成熟框架，具备高度�
    make
    ```
 
-   其中，`$MINDFORMERS_HOME` 指 MindSpore Transformers 源代码所在的目录。
-
 #### 3.2.3 数据集配置
 
-本小节会将两个框架配置文件中的数据集配置项，进行对比和说明。
+本小节将对比和说明两个框架配置文件中的数据集配置项。
 
 - Megatron-LM:
 
@@ -418,7 +416,7 @@ Megatron-LM 是一个面向大规模训练任务的成熟框架，具备高度�
 
 - 结果对比
 
-  分别查看二者的输出日志，Megatron-LM 的日志位置为`example.sh`中的`logs/${logtime}.log`, MindSpore Transformer 的日志位置为`example.yaml`中的`output_dir`的`msrun_log/worker_0.log`。结果对比参考下表：
+  分别查看二者的输出日志，Megatron-LM 的日志位置为`example.sh`中的`logs/${logtime}.log`；MindSpore Transformers 的日志位置为`example.yaml`中的`output_dir`的`msrun_log/worker_0.log`。结果对比参考下表：
 
   | Megatron-LM     | MindSpore Transformers | 含义                                                                                                                                                             |
   |-----------------|------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------|
