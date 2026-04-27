@@ -64,11 +64,11 @@ for data in dataset:
 ```
 
 ```text
-[Tensor(shape=[2], dtype=Float64, value= [ 1.00000000e+00,  1.00000000e+00]), Tensor(shape=[1], dtype=Float64, value= [ 0.00000000e+00])]
-[Tensor(shape=[2], dtype=Float64, value= [ 1.00000000e+00,  1.00000000e+00]), Tensor(shape=[1], dtype=Float64, value= [ 0.00000000e+00])]
-[Tensor(shape=[2], dtype=Float64, value= [ 1.00000000e+00,  1.00000000e+00]), Tensor(shape=[1], dtype=Float64, value= [ 0.00000000e+00])]
-[Tensor(shape=[2], dtype=Float64, value= [ 1.00000000e+00,  1.00000000e+00]), Tensor(shape=[1], dtype=Float64, value= [ 0.00000000e+00])]
-[Tensor(shape=[2], dtype=Float64, value= [ 1.00000000e+00,  1.00000000e+00]), Tensor(shape=[1], dtype=Float64, value= [ 0.00000000e+00])]
+[Tensor(shape=[2], dtype=Float64, value= [1., 1.]), Tensor(shape=[1], dtype=Float64, value= [0.])]
+[Tensor(shape=[2], dtype=Float64, value= [1., 1.]), Tensor(shape=[1], dtype=Float64, value= [0.])]
+[Tensor(shape=[2], dtype=Float64, value= [1., 1.]), Tensor(shape=[1], dtype=Float64, value= [0.])]
+[Tensor(shape=[2], dtype=Float64, value= [1., 1.]), Tensor(shape=[1], dtype=Float64, value= [0.])]
+[Tensor(shape=[2], dtype=Float64, value= [1., 1.]), Tensor(shape=[1], dtype=Float64, value= [0.])]
 ```
 
 ```python
