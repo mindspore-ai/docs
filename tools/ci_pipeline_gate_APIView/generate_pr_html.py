@@ -673,14 +673,6 @@ def generate_samedfn_rst(samedfn_list):
             rst_content += '     -\n'
     return rst_content
 
-def recursive_chmod(path, mode):
-    for root, dirs, files in os.walk(path):
-        os.chmod(root, mode)
-        for d in dirs:
-            os.chmod(os.path.join(root, d), mode)
-        for f in files:
-            os.chmod(os.path.join(root, f), mode)
-
 def handle_config(pf_cn, pf_py, pf_yaml, pf_sum, target_path, repo_p, pr_need):
     """
     modify config content.
@@ -1332,11 +1324,10 @@ if __name__ == "__main__":
 
     # 修改权限
     pythonlib_dir = os.path.dirname(os.path.dirname(sphinx.__file__))
-    chmod_path = os.path.join(pythonlib_dir, 'sphinx')
-    recursive_chmod(chmod_path, 0o777)
 
     # 屏蔽sphinx 在python>=3.9时额外依赖引入的版本过高问题
     registry_target = os.path.join(pythonlib_dir, 'sphinx', 'registry.py')
+    os.chmod(registry_target, 0o777)
     with open(registry_target, 'r+', encoding='utf-8') as g:
         registry_content = g.read()
         registry_content = re.sub(r'([ ]+?)except VersionRequirementError as err:\n(?:.|\n|)+?from err',
