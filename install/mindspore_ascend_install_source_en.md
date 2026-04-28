@@ -229,7 +229,7 @@ LOCAL_ASCEND=/usr/local/Ascend # the root directory of run package
 
 # set environmet variables using script provided by CANN, swap "ascend-toolkit" with "nnae" if you are using CANN-nnae package instead
 source ${LOCAL_ASCEND}/cann/set_env.sh
-export ASCEND_CUSTOM_PATH=${LOCAL_ASCEND}/ascend-toolkit/
+export ASCEND_CUSTOM_PATH=${LOCAL_ASCEND}
 ```
 
 ## Compiling MindSpore
