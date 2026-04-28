@@ -30,11 +30,11 @@
 在Windows上使用Anaconda，请通过`开始 | Anaconda3 | Anaconda Promt`打开Anaconda命令行。
 
 根据您希望使用的Python版本，创建对应的Conda虚拟环境，并进入虚拟环境。
-如果您希望使用Python3.9.11版本：
+如果您希望使用Python3.10.20版本：
 
 ```bash
-conda create -c conda-forge -n mindspore_py39 -c conda-forge python=3.9.11
-conda activate mindspore_py39
+conda create -c conda-forge -n mindspore_py310 -c conda-forge python=3.10.20
+conda activate mindspore_py310
 ```
 
 ## 安装MindSpore

@@ -28,7 +28,7 @@ The following table lists the system environment and third-party dependencies re
 |Software|Version|Description|
 |-|-|-|
 |Debian series OS / openEuler series OS|Debianseries: Debian, Ubuntu, veLinux / openEuler serires: openEuler, CentOS, Kylin, BCLinux, UOS V20, AntOS, CTyunOS, CULinux, Tlinux, MTOS|Operating Systems compatible to MindSpore|
-|[Ascend AI processor software package](#installing-ascend-ai-processor-software-package)|CANN 8.5.0, CANN 8.3.RC1, CANN 8.2.RC1|Ascend platform AI computing library used by MindSpore|
+|[Ascend AI processor software package](#installing-ascend-ai-processor-software-package)|CANN 9.0.0, CANN 8.5.0, CANN 8.3.RC1|Ascend platform AI computing library used by MindSpore|
 |[Conda](#installing-conda)|Anaconda3 or Miniconda3|Python environment management tool|
 |[GCC](#installing-gcc)|7.3.0|C++ compiler for compiling MindSpore|
 
@@ -36,7 +36,7 @@ The following describes how to install the third-party dependencies.
 
 ### Installing Ascend AI processor software package
 
-To install Ascend software package community edition, the recommended version is `8.5.0` in [CANN community edition](https://www.hiascend.com/developer/download/community/result?module=cann), then choose relevant driver and firmware packages in [firmware and driver](https://www.hiascend.com/hardware/firmware-drivers/community). For installation guide, please refer to [Installation guide](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/850/quickstart/instg_quick.html).
+Ascend CANN `9.0.0` will be released soon.
 
 The default installation path of the installation package is `/usr/local/Ascend`. Ensure that the current user has the right to access the installation path `/usr/local/Ascend` of Ascend AI processor software package. If not, the root user needs to add the current user to the user group where `/usr/local/Ascend` is located.
 
@@ -46,8 +46,8 @@ Run the following command to install Miniconda.
 
 ```bash
 cd /tmp
-curl -O https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/Miniconda3-py39_25.7.0-2-Linux-$(arch).sh
-bash Miniconda3-py39_25.7.0-2-Linux-$(arch).sh -b
+curl -O https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/Miniconda3-py310_26.1.1-1-Linux-$(arch).sh
+bash Miniconda3-py310_26.1.1-1-Linux-$(arch).sh
 cd -
 . ~/miniconda3/etc/profile.d/conda.sh
 conda init bash
@@ -86,11 +86,11 @@ After the installation is complete, you can set up Tsinghua Source to accelerate
 
 Create a Conda virtual environment based on the Python version you want to use and activate the virtual environment.
 
-If you want to use Python 3.9.11:
+If you want to use Python 3.10.20:
 
 ```bash
-conda create -c conda-forge -n mindspore_py39 python=3.9.11 -y
-conda activate mindspore_py39
+conda create -c conda-forge -n mindspore_py310 python=3.10.20 -y
+conda activate mindspore_py310
 ```
 
 If you wish to use another version of Python, just change the Python version in the above command. Python 3.9, Python 3.10, Python 3.11 and Python 3.12 are currently supported.

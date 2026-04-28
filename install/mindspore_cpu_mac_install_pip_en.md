@@ -35,19 +35,19 @@ This document describes how to install MindSpore by pip in a macOS system with C
 
 Create a Conda virtual environment based on the Python version you want to use and go to the virtual environment.
 
-- If you want to use Python 3.9.11 (for 64-bit macOS 10.15 and 11.3):
+- If you want to use Python 3.10.20:
 
   ```bash
-  conda create -c conda-forge -n mindspore_py39 -c conda-forge python=3.9.11
-  conda activate mindspore_py39
+  conda create -c conda-forge -n mindspore_py310 -c conda-forge python=3.10.20
+  conda activate mindspore_py310
   ```
 
 ## Installing MindSpore
 
-First, refer to [Version List](https://www.mindspore.cn/versions) to select the version of MindSpore you want to install, and perform SHA-256 integrity check. Taking version 2.8.0 as an example, execute the following commands.
+First, refer to [Version List](https://www.mindspore.cn/versions) to select the version of MindSpore you want to install, and perform SHA-256 integrity check. Taking version 2.9.0 as an example, execute the following commands.
 
 ```bash
-export MS_VERSION=2.8.0
+export MS_VERSION=2.9.0
 ```
 
 Then run the following command to install MindSpore.
