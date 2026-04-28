@@ -153,7 +153,7 @@ for epoch in range(10):
 
 ## Running the Single-machine Eight-card Script
 
-Next, the corresponding scripts are invoked by commands, using the `msrun` startup method and the 8-card distributed training script as an example of distributed training:
+Next, the corresponding scripts are invoked by commands, using the `mpirun` startup method and the 8-card distributed training script as an example of distributed training:
 
 ```bash
 bash run.sh
@@ -186,4 +186,4 @@ epoch: 0, step: 100, loss is 0.6854114
 ...
 ```
 
-Other startup methods such as `mpirun` and `msrun` startup can be found in [startup methods](https://www.mindspore.cn/tutorials/en/master/parallel/startup_method.html).
+Other startup methods can be found in [startup methods](https://www.mindspore.cn/tutorials/en/master/parallel/startup_method.html).

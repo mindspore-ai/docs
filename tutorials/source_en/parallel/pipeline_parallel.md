@@ -210,7 +210,7 @@ for epoch in range(10):
 
 ### Running the Single-host with 8 Devices Script
 
-Next, the corresponding scripts are called by commands, using the `msrun` startup method and the 8-card distributed training script as an example of distributed training:
+Next, the corresponding scripts are called by commands, using the `mpirun` startup method and the 8-card distributed training script as an example of distributed training:
 
 ```bash
 bash run.sh
@@ -248,7 +248,7 @@ Tensor(shape=[8, 512], dtype=Float32, value=
 [  4.89746094e-01 3.56689453e-01 -4.90966797e-01 ... -3.30078125e-e01 -2.38525391e-01 7.33398438e-01]])
 ```
 
-Other startup methods such as dynamic cluster and `msrun` startup can be found in [startup methods](https://www.mindspore.cn/tutorials/en/master/parallel/startup_method.html).
+Other startup methods can be found in [startup methods](https://www.mindspore.cn/tutorials/en/master/parallel/startup_method.html).
 
 ## Inference Operation Practices
 
@@ -410,7 +410,7 @@ bash run_inference.sh
 
 ```
 
-After training, the log files are saved to the `pipeline_inference_logs` directory, where part of the file directory structure is as follows:
+After inference, the log files are saved to the `pipeline_inference_logs` directory, where part of the file directory structure is as follows:
 
 ```text
 
