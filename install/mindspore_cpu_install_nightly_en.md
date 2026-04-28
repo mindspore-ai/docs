@@ -18,8 +18,6 @@ MindSpore Nightly is a preview version which includes latest features and bugfix
 
 This document describes how to install MindSpore Nightly by pip on Linux in a CPU environment.
 
-In the process of confirming the system environment information, if you need to know how to install third-party dependent software, you can refer to the practice provided by the community - [Source code compilation and installation on Ubuntu (CPU) MindSpore](https://www.mindspore.cn/news/newschildren?id=365) in the third-party dependent software installation related section, hereby thank the community members [damon0626]( https://gitee.com/damon0626) sharing.
-
 ## Installing MindSpore and dependencies
 
 The following table lists the system environment and third-party dependencies required to install MindSpore.
