@@ -85,7 +85,7 @@ Restrictions:
 
 | Compare Operator | Supported Type|
 | :----------- |:--------|
-| `in` |`Number` in `Tuple`, `String` in `Tuple`, `Tensor` in `Tuple`, `Number` in `List`, `String` in `List`, `Tensor` in `List`, and `String` in `Dictionary`.|
+| `in` |`Number` in `Tuple`, `String` in `Tuple`, `Tensor` in `Tuple`, `Number` in `List`, `String` in `List`, `Tensor` in `List`, `String` in `Dictionary`, `Number` in `Dictionary`, constant `Tensor` in `Dictionary`, and `Tuple` in `Dictionary`.|
 | `not in` | Same as `in`. |
 | `is` | The value can only be `None`, `True`, or `False`. |
 | `is not` | The value can only be `None`, `True`, or `False`. |
