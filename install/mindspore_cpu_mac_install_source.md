@@ -25,7 +25,7 @@
 
     |芯片|计算架构|macOS版本|支持Python版本|支持Conda版本|
     |-|-|-|-|-|
-    |M1|ARM|11.3|Python 3.9-3.12|Mambaforge 或 Miniforge|
+    |M1|ARM|14.8.5|Python 3.9-3.12|Mambaforge 或 Miniforge|
     |Intel|x86_64|10.15/11.3|Python 3.9-3.12|Anaconda 或 MiniConda|
 
 - 确认安装与当前系统及芯片型号兼容的Conda版本。
@@ -33,7 +33,7 @@
     - 如果您喜欢Conda提供的完整能力，可以选择下载[Anaconda3](https://repo.anaconda.com/archive/)或[Mambaforge](https://github.com/conda-forge/miniforge)。
     - 如果您需要节省磁盘空间，或者喜欢自定义安装Conda软件包，可以选择下载[Miniconda3](https://repo.anaconda.com/miniconda/)或[Miniforge](https://github.com/conda-forge/miniforge)。
 
-- 确认安装[Xcode](https://xcodereleases.com/) (>=12.4 并且 <= 13.0) ，12.4(X86)及13.0(M1) 已测试。
+- 确认安装[Xcode](https://xcodereleases.com/)，12.4(X86)及13.4(M1) 已测试。
 
 - 确认安装`Command Line Tools for Xcode`。如果没有安装，可以使用 `sudo xcode-select --install` 命令安装。
 
@@ -53,11 +53,11 @@
 
 根据您希望使用的Python版本，创建对应的Conda虚拟环境，并进入虚拟环境。
 
-- 如果您希望使用Python3.9.11版本（适配64-bit macOS 10.15或11.3）：
+- 如果您希望使用Python3.10.20版本：
 
   ```bash
-  conda create -c conda-forge -n mindspore_py39 -c conda-forge python=3.9.11
-  conda activate mindspore_py39
+  conda create -c conda-forge -n mindspore_py310 -c conda-forge python=3.10.20
+  conda activate mindspore_py310
   ```
 
 ## 从代码仓下载源码

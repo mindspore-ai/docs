@@ -25,7 +25,7 @@ This document describes how to install MindSpore by compiling source code on mac
 
     |Chip|Architecture|macOS Version|Supported Python Version|Supported Conda Version|
     |-|-|-|-|-|
-    |M1|ARM|11.3|Python 3.9-3.12|Mambaforge or Miniforge|
+    |M1|ARM|14.8.5|Python 3.9-3.12|Mambaforge or Miniforge|
     |Intel|x86_64|10.15/11.3|Python 3.9-3.12|Anaconda or Miniconda|
 
 - Ensure that the Conda version is compatible with the current system and chip.
@@ -33,7 +33,7 @@ This document describes how to install MindSpore by compiling source code on mac
     - If you prefer the complete capabilities provided by Conda, you may download [Anaconda3](https://repo.anaconda.com/archive/) or [Mambaforge](https://github.com/conda-forge/miniforge).
     - If you want to save disk space or prefer customizing Conda installation package, you may download [Miniconda3](https://repo.anaconda.com/miniconda/) or [Miniforge](https://github.com/conda-forge/miniforge).
 
-- Ensure that [Xcode](https://xcodereleases.com/) (>=12.4 and <= 13.0) is installed, where 12.4(X86) and 13.0(m1) are verified.
+- Ensure that [Xcode](https://xcodereleases.com/) is installed, where 12.4(X86) and 13.4(m1) are verified.
 
 - Ensure that `Command Line Tools for Xcode` is installed. If not, use `sudo xcode-select --install` command to install Command Line Tools.
 
@@ -53,11 +53,11 @@ This document describes how to install MindSpore by compiling source code on mac
 
 Create a Conda virtual environment based on the Python version you want to use and go to the virtual environment.
 
-- If you want to use Python 3.9.11 (for 64-bit macOS 10.15 and 11.3):
+- If you want to use Python 3.10.20:
 
   ```bash
-  conda create -c conda-forge -n mindspore_py39 -c conda-forge python=3.9.11
-  conda activate mindspore_py39
+  conda create -c conda-forge -n mindspore_py310 -c conda-forge python=3.10.20
+  conda activate mindspore_py310
   ```
 
 ## Downloading Source Code from Code Repository

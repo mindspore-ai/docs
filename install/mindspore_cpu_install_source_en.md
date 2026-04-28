@@ -49,8 +49,8 @@ Install Miniconda:
 
 ```bash
 cd /tmp
-curl -O https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/Miniconda3-py39_25.7.0-2-Linux-$(arch).sh
-bash Miniconda3-py39_25.7.0-2-Linux-$(arch).sh -b
+curl -O https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/Miniconda3-py310_26.1.1-1-Linux-$(arch).sh
+bash Miniconda3-py310_26.1.1-1-Linux-$(arch).sh -b
 cd -
 . ~/miniconda3/etc/profile.d/conda.sh
 conda init bash
@@ -58,11 +58,11 @@ conda init bash
 
 After the installation is complete, you can set up Tsinghua source acceleration download for Conda, and see [here](https://mirrors.tuna.tsinghua.edu.cn/help/anaconda/).
 
-Create a virtual environment, taking Python 3.9.11 as an example:
+Create a virtual environment, taking Python 3.10.20 as an example:
 
 ```bash
-conda create -n mindspore_py39 python=3.9.11 -y
-conda activate mindspore_py39
+conda create -n mindspore_py310 python=3.10.20 -y
+conda activate mindspore_py310
 ```
 
 Run the following command to check the Python version.

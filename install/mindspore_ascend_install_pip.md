@@ -26,7 +26,7 @@
 |-|-|-|
 |Debian系列操作系统 / openEuler系列操作系统|Debian系列：Debian、Ubuntu、veLinux / openEuler系列：openEuler、CentOS、Kylin、BCLinux、UOS V20、AntOS、CTyunOS、CULinux、Tlinux、MTOS|编译和运行MindSpore的操作系统|
 |[Python](#安装python)|3.9-3.12|MindSpore的使用依赖Python环境|
-|[昇腾AI处理器配套软件包](#安装昇腾ai处理器配套软件包)|CANN 8.5.0、CANN 8.3.RC1、CANN 8.2.RC1|MindSpore使用的Ascend平台AI计算库|
+|[昇腾AI处理器配套软件包](#安装昇腾ai处理器配套软件包)|CANN 9.0.0、CANN 8.5.0、CANN 8.3.RC1|MindSpore使用的Ascend平台AI计算库|
 |[GCC](#安装gcc)|7.3.0|用于编译MindSpore的C++编译器|
 
 下面给出第三方依赖的安装方法。
@@ -39,8 +39,8 @@
 
 ```bash
 cd /tmp
-curl -O https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/Miniconda3-py39_25.7.0-2-Linux-$(arch).sh
-bash Miniconda3-py39_25.7.0-2-Linux-$(arch).sh -b
+curl -O https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/Miniconda3-py310_26.1.1-1-Linux-$(arch).sh
+bash Miniconda3-py310_26.1.1-1-Linux-$(arch).sh -b
 cd -
 . ~/miniconda3/etc/profile.d/conda.sh
 conda init bash
@@ -48,11 +48,11 @@ conda init bash
 
 安装完成后，可以为Conda设置清华源加速下载，参考[此处](https://mirrors.tuna.tsinghua.edu.cn/help/anaconda/)。
 
-创建虚拟环境，以Python 3.9.11为例：
+创建虚拟环境，以Python 3.10.20为例：
 
 ```bash
-conda create -n mindspore_py39 python=3.9.11 -y
-conda activate mindspore_py39
+conda create -n mindspore_py310 python=3.10.20 -y
+conda activate mindspore_py310
 ```
 
 可以通过以下命令查看Python版本。
@@ -69,7 +69,7 @@ python -m pip install -U pip
 
 ### 安装昇腾AI处理器配套软件包
 
-昇腾软件包社区版下载链接请前往[CANN社区版](https://www.hiascend.com/developer/download/community/result?module=cann)，推荐优先选择`8.5.0`版本，以及在[固件与驱动](https://www.hiascend.com/hardware/firmware-drivers/community)链接中获取对应的固件和驱动安装包，安装包的选择与安装方式请参照[安装指引文档](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/850/quickstart/instg_quick.html)。
+昇腾计算架构（CANN）`9.0.0`版本的下载链接即将发布。
 
 安装包默认安装路径为`/usr/local/Ascend`。安装后确认当前用户有权限访问昇腾AI处理器配套软件包的安装路径，若无权限，需要root用户将当前用户添加到`/usr/local/Ascend`所在的用户组。
 
@@ -109,10 +109,10 @@ pip install sympy protobuf attrs cloudpickle decorator ml-dtypes psutil scipy to
 
 ### 安装MindSpore
 
-首先参考[版本列表](https://www.mindspore.cn/versions)，选择想要安装的MindSpore版本，并进行SHA-256完整性校验。以2.8.0版本为例，执行以下命令。
+首先参考[版本列表](https://www.mindspore.cn/versions)，选择想要安装的MindSpore版本，并进行SHA-256完整性校验。以2.9.0版本为例，执行以下命令。
 
 ```bash
-export MS_VERSION=2.8.0
+export MS_VERSION=2.9.0
 ```
 
 然后执行以下命令安装MindSpore。

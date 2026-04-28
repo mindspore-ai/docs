@@ -37,11 +37,11 @@ This document describes how to install MindSpore Nightly by pip in a macOS syste
 
 Create a Conda virtual environment based on the Python version you want to use and go to the virtual environment.
 
-- If you want to use Python 3.9.11 (for 64-bit macOS 10.15 and 11.3):
+- If you want to use Python 3.10.20:
 
   ```bash
-  conda create -c conda-forge -n mindspore_py39 -c conda-forge python=3.9.11
-  conda activate mindspore_py39
+  conda create -c conda-forge -n mindspore_py310 -c conda-forge python=3.10.20
+  conda activate mindspore_py310
   ```
 
 ## Downloading and Installing MindSpore

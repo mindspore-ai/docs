@@ -96,8 +96,8 @@ If a different version of CUDA have been installed or the CUDA installation path
 
   ```bash
   cd /tmp
-  curl -O https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/Miniconda3-py39_25.7.0-2-Linux-$(arch).sh
-  bash Miniconda3-py39_25.7.0-2-Linux-$(arch).sh -b
+  curl -O https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/Miniconda3-py310_26.1.1-1-Linux-$(arch).sh
+  bash Miniconda3-py310_26.1.1-1-Linux-$(arch).sh -b
   cd -
   . ~/miniconda3/etc/profile.d/conda.sh
   conda init bash
@@ -105,11 +105,11 @@ If a different version of CUDA have been installed or the CUDA installation path
 
   After the installation is complete, you can set up Tsinghua source acceleration download for Conda, and see [here](https://mirrors.tuna.tsinghua.edu.cn/help/anaconda/).
 
-  Create a virtual environment, taking Python 3.9.11 as an example:
+  Create a virtual environment, taking Python 3.10.20 as an example:
 
   ```bash
-  conda create -n mindspore_py39 python=3.9.11 -y
-  conda activate mindspore_py39
+  conda create -n mindspore_py310 python=3.10.20 -y
+  conda activate mindspore_py310
   ```
 
 - Or install Python via APT with the following command.
@@ -118,16 +118,16 @@ If a different version of CUDA have been installed or the CUDA installation path
   sudo apt-get update
   sudo apt-get install software-properties-common -y
   sudo add-apt-repository ppa:deadsnakes/ppa -y
-  sudo apt-get install python3.9 python3.9-dev python3.9-distutils python3-pip -y
+  sudo apt-get install python3.10 python3.10-dev python3.10-distutils python3-pip -y
   # set new installed Python as default
-  sudo update-alternatives --install /usr/bin/python python /usr/bin/python3.9 100
+  sudo update-alternatives --install /usr/bin/python python /usr/bin/python3.10 100
   # install pip
   python -m pip install pip -i https://repo.huaweicloud.com/repository/pypi/simple
-  sudo update-alternatives --install /usr/bin/pip pip ~/.local/bin/pip3.9 100
+  sudo update-alternatives --install /usr/bin/pip pip ~/.local/bin/pip3.10 100
   pip config set global.index-url https://repo.huaweicloud.com/repository/pypi/simple
   ```
 
-  To install other Python versions, just change `3.9` in the command.
+  To install other Python versions, just change `3.10` in the command.
 
 Run the following command to check the Python version.
 
