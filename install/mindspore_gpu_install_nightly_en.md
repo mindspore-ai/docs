@@ -21,8 +21,6 @@ MindSpore Nightly is a preview version which includes latest features and bugfix
 
 This document describes how to install MindSpore Nightly by pip on Linux in a GPU environment.
 
-For details about how to install third-party dependency software when confirming the system environment information, see the third-party dependency software installation section in the [Experience source code compilation and install the MindSpore GPU version on Linux](https://www.mindspore.cn/news/newschildren?id=401) provided by the community. Thanks to the community member [Flying penguin](https://gitee.com/zhang_yi2020) for sharing.
-
 ## Installing MindSpore and dependencies
 
 The following table lists the system environment and third-party dependencies required to install MindSpore.
