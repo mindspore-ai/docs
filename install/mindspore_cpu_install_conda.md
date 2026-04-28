@@ -37,8 +37,8 @@
 
 ```bash
 cd /tmp
-curl -O https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/Miniconda3-py39_25.7.0-2-Linux-$(arch).sh
-bash Miniconda3-py39_25.7.0-2-Linux-$(arch).sh -b
+curl -O https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/Miniconda3-py310_26.1.1-1-Linux-$(arch).sh
+bash Miniconda3-py310_26.1.1-1-Linux-$(arch).sh -b
 cd -
 . ~/miniconda3/etc/profile.d/conda.sh
 conda init bash
@@ -73,11 +73,11 @@ sudo apt-get install gcc-9 -y
 
 根据您希望使用的Python版本，创建对应的Conda虚拟环境，并进入虚拟环境。
 
-如果您希望使用Python3.9.11版本，执行以下命令：
+如果您希望使用Python3.10.20版本，执行以下命令：
 
 ```bash
-conda create -c conda-forge -n mindspore_py39 python=3.9.11 -y
-conda activate mindspore_py39
+conda create -c conda-forge -n mindspore_py310 python=3.10.20 -y
+conda activate mindspore_py310
 ```
 
 如果希望使用其他版本Python，只需更改以上命令中的Python版本。当前支持Python 3.9、Python 3.10、Python 3.11和Python3.12。

@@ -92,8 +92,8 @@ sudo chmod a+r /usr/local/cuda-11.6/include/cudnn*.h /usr/local/cuda-11.6/lib64/
 
     ```bash
     cd /tmp
-    curl -O https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/Miniconda3-py39_25.7.0-2-Linux-$(arch).sh
-    bash Miniconda3-py39_25.7.0-2-Linux-$(arch).sh -b
+    curl -O https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/Miniconda3-py310_26.1.1-1-Linux-$(arch).sh
+    bash Miniconda3-py310_26.1.1-1-Linux-$(arch).sh -b
     cd -
     . ~/miniconda3/etc/profile.d/conda.sh
     conda init bash
@@ -101,11 +101,11 @@ sudo chmod a+r /usr/local/cuda-11.6/include/cudnn*.h /usr/local/cuda-11.6/lib64/
 
     安装完成后，可以为Conda设置清华源加速下载，参考[此处](https://mirrors.tuna.tsinghua.edu.cn/help/anaconda/)。
 
-    创建虚拟环境，以Python 3.9.11为例：
+    创建虚拟环境，以Python 3.10.20为例：
 
     ```bash
-    conda create -n mindspore_py39 python=3.9.11 -y
-    conda activate mindspore_py39
+    conda create -n mindspore_py310 python=3.10.20 -y
+    conda activate mindspore_py310
     ```
 
 - 通过APT安装Python，命令如下。
@@ -169,10 +169,10 @@ cd -
 
 ### 安装MindSpore
 
-首先参考[版本列表](https://www.mindspore.cn/versions)选择想要安装的MindSpore版本，并进行SHA-256完整性校验。以2.8.0版本为例，执行以下命令。
+首先参考[版本列表](https://www.mindspore.cn/versions)选择想要安装的MindSpore版本，并进行SHA-256完整性校验。以2.9.0版本为例，执行以下命令。
 
 ```bash
-export MS_VERSION=2.8.0
+export MS_VERSION=2.9.0
 ```
 
 然后执行以下命令安装MindSpore。

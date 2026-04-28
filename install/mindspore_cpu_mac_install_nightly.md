@@ -25,7 +25,7 @@ MindSpore Nightly是包含当前最新功能与bugfix的预览版本，但是可
 
     |芯片|计算架构|macOS版本|支持Python版本|支持Conda版本|
     |-|-|-|-|-|
-    |M1|ARM|11.3|Python 3.9-3.11|Mambaforge 或 Miniforge|
+    |M1|ARM|14.8.5|Python 3.9-3.11|Mambaforge 或 Miniforge|
     |Intel|x86_64|10.15/11.3|Python 3.9-3.11|Anaconda 或 MiniConda|
 
 - 确认安装与当前系统及芯片型号兼容的Conda版本。
@@ -37,11 +37,11 @@ MindSpore Nightly是包含当前最新功能与bugfix的预览版本，但是可
 
 根据您希望使用的Python版本，创建对应的Conda虚拟环境，并进入虚拟环境。
 
-- 如果您希望使用Python3.9.11版本（适配64-bit macOS 10.15或11.3）：
+- 如果您希望使用Python3.10.20版本：
 
   ```bash
-  conda create -c conda-forge -n mindspore_py39 -c conda-forge python=3.9.11
-  conda activate mindspore_py39
+  conda create -c conda-forge -n mindspore_py310 -c conda-forge python=3.10.20
+  conda activate mindspore_py310
   ```
 
 ## 下载安装MindSpore

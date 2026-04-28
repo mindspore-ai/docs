@@ -42,8 +42,8 @@ MindSpore Nightly是包含当前最新功能与bugfix的预览版本，但是可
 
   ```bash
   cd /tmp
-  curl -O https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/Miniconda3-py39_25.7.0-2-Linux-$(arch).sh
-  bash Miniconda3-py39_25.7.0-2-Linux-$(arch).sh -b
+  curl -O https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/Miniconda3-py310_26.1.1-1-Linux-$(arch).sh
+  bash Miniconda3-py310_26.1.1-1-Linux-$(arch).sh -b
   cd -
   . ~/miniconda3/etc/profile.d/conda.sh
   conda init bash
@@ -51,10 +51,10 @@ MindSpore Nightly是包含当前最新功能与bugfix的预览版本，但是可
 
   安装完成后，可以为Conda设置清华源加速下载，参考[此处](https://mirrors.tuna.tsinghua.edu.cn/help/anaconda/)。
 
-  创建虚拟环境，以Python 3.9.11为例：
+  创建虚拟环境，以Python 3.10.20为例：
 
   ```bash
-  conda create -n mindspore_py39 python=3.9.11 -y
+  conda create -n mindspore_py310 python=3.10.20 -y
   conda activate mindspore_py9
   ```
 
@@ -64,16 +64,16 @@ MindSpore Nightly是包含当前最新功能与bugfix的预览版本，但是可
   sudo apt-get update
   sudo apt-get install software-properties-common -y
   sudo add-apt-repository ppa:deadsnakes/ppa -y
-  sudo apt-get install python3.9 python3.9-dev python3.9-distutils python3-pip -y
+  sudo apt-get install python3.10 python3.10-dev python3.10-distutils python3-pip -y
   # 将新安装的Python设为默认
-  sudo update-alternatives --install /usr/bin/python python /usr/bin/python3.9 100
+  sudo update-alternatives --install /usr/bin/python python /usr/bin/python3.10 100
   # 安装pip
   python -m pip install pip -i https://repo.huaweicloud.com/repository/pypi/simple
-  sudo update-alternatives --install /usr/bin/pip pip ~/.local/bin/pip3.9 100
+  sudo update-alternatives --install /usr/bin/pip pip ~/.local/bin/pip3.10 100
   pip config set global.index-url https://repo.huaweicloud.com/repository/pypi/simple
   ```
 
-  若要安装其他Python版本，只需更改命令中的`3.9`。
+  若要安装其他Python版本，只需更改命令中的`3.10`。
 
 可以通过以下命令查看Python版本。
 

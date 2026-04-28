@@ -91,8 +91,8 @@ Run the following command to install Miniconda.
 
 ```bash
 cd /tmp
-curl -O https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/Miniconda3-py39_25.7.0-2-Linux-$(arch).sh
-bash Miniconda3-py39_25.7.0-2-Linux-$(arch).sh -b
+curl -O https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/Miniconda3-py310_26.1.1-1-Linux-$(arch).sh
+bash Miniconda3-py310_26.1.1-1-Linux-$(arch).sh -b
 cd -
 . ~/miniconda3/etc/profile.d/conda.sh
 conda init bash
@@ -140,11 +140,11 @@ cd -
 
 Create a Conda virtual environment based on the Python version you want to use and go to the virtual environment.
 
-If you want to use Python 3.9.11, execute the following command:
+If you want to use Python 3.10.20, execute the following command:
 
 ```bash
-conda create -c conda-forge -n mindspore_py39 python=3.9.11 -y
-conda activate mindspore_py39
+conda create -c conda-forge -n mindspore_py310 python=3.10.20 -y
+conda activate mindspore_py310
 ```
 
 If you wish to use another version of Python, just change the Python version in the above command. Python 3.9, Python 3.10 and Python 3.11 are currently supported.
