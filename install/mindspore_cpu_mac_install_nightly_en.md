@@ -25,7 +25,7 @@ This document describes how to install MindSpore Nightly by pip in a macOS syste
 
     |Chip|Architecture|macOS Version|Supported Python Version|Supported Conda Version|
     |-|-|-|-|-|
-    |M1|ARM|11.3|Python 3.9-3.11|Mambaforge or Miniforge|
+    |M1|ARM|14.8.5|Python 3.9-3.11|Mambaforge or Miniforge|
     |Intel|x86_64|10.15/11.3|Python 3.9-3.11|Anaconda or Miniconda|
 
 - Ensure that the Conda version is compatible with the current system and chip.
