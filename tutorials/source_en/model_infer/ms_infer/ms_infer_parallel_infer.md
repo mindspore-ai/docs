@@ -277,7 +277,8 @@ Starting with the original implementation of `nn.Dense` in MindSpore, we can bui
 
    In addition to MatMul, the embedding layer can also be parallelized. The embedding weights can be sharded across multiple devices, with each device responsible for mapping a different range of token IDs.
 
-   ![embedding2](./images/embedding2.png)
+   ![embedding1](./images/embedding1.png)
+   ![embedding2](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/source_zh_cn/model_infer/ms_infer/images/embedding2.png)
 
    Based on nn.Embedding, build an embedding layer for model parallelism.
 
