@@ -106,13 +106,15 @@ Note: The Numpy version used in the runtime environment must be no less than the
 
 ### Installing GCC
 
-- On Ubuntu 18.04, run the following commands to install.
+The following takes GCC 7 as example for how to install GCC on common operating systems:
+
+- On Ubuntu, run the following commands to install.
 
     ```bash
-    sudo apt-get install gcc-7 -y
+    sudo apt-get install gcc-7 g++-7 -y
     ```
 
-- On CentOS 7, run the following commands to install.
+- On CentOS, run the following commands to install.
 
     ```bash
     sudo yum install centos-release-scl
@@ -128,7 +130,7 @@ Note: The Numpy version used in the runtime environment must be no less than the
 - On EulerOS and openEuler, run the following commands to install.
 
     ```bash
-    sudo yum install gcc -y
+    sudo yum install gcc g++ -y
     ```
 
 ### Installing git tclsh patch NUMA and Flex

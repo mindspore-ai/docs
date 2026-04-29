@@ -106,13 +106,15 @@ pip install "numpy>=1.20.0,<2.0.0"
 
 ### 安装GCC
 
-- Ubuntu 18.04可以使用以下命令安装。
+下面以GCC 7为例，展示GCC在常用操作系统上的安装方式：
+
+- Ubuntu可以使用以下命令安装。
 
     ```bash
-    sudo apt-get install gcc-7 -y
+    sudo apt-get install gcc-7 g++-7 -y
     ```
 
-- CentOS 7可以使用以下命令安装。
+- CentOS可以使用以下命令安装。
 
     ```bash
     sudo yum install centos-release-scl
@@ -128,7 +130,7 @@ pip install "numpy>=1.20.0,<2.0.0"
 - EulerOS和openEuler可以使用以下命令安装。
 
     ```bash
-    sudo yum install gcc -y
+    sudo yum install gcc g++ -y
     ```
 
 ### 安装git tclsh patch NUMA Flex
@@ -155,7 +157,7 @@ pip install "numpy>=1.20.0,<2.0.0"
     git lfs install
     ```
 
-- CentOS 7使用以下命令安装。
+- CentOS使用以下命令安装。
 
     ```bash
     curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.rpm.sh | sudo bash

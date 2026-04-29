@@ -81,26 +81,32 @@ python --version
 
 ### 安装GCC
 
-可以通过以下命令安装GCC。
+下面以GCC 7为例，展示GCC在常用操作系统上的安装方式：
 
-```bash
-sudo apt-get install gcc-7 -y
-```
+- Ubuntu可以使用以下命令安装。
 
-如果要安装更高版本的GCC，使用以下命令安装GCC 8。
+    ```bash
+    sudo apt-get install gcc-7 g++-7 -y
+    ```
 
-```bash
-sudo apt-get install gcc-8 -y
-```
+- CentOS可以使用以下命令安装。
 
-或者安装GCC 9。
+    ```bash
+    sudo yum install centos-release-scl
+    sudo yum install devtoolset-7
+    ```
 
-```bash
-sudo apt-get install software-properties-common -y
-sudo add-apt-repository ppa:ubuntu-toolchain-r/test
-sudo apt-get update
-sudo apt-get install gcc-9 -y
-```
+    安装完成后，需要使用以下命令切换到GCC 7。
+
+    ```bash
+    scl enable devtoolset-7 bash
+    ```
+
+- EulerOS和openEuler可以使用以下命令安装。
+
+    ```bash
+    sudo yum install gcc g++ -y
+    ```
 
 ## 下载安装MindSpore
 

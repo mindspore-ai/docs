@@ -81,26 +81,32 @@ python --version
 
 ### Installing GCC
 
-Run the following commands to install GCC.
+The following takes GCC 7 as example for how to install GCC on common operating systems:
 
-```bash
-sudo apt-get install gcc-7 -y
-```
+- On Ubuntu, run the following commands to install.
 
-To install a later version of GCC, run the following command to install GCC 8.
+    ```bash
+    sudo apt-get install gcc-7 g++-7 -y
+    ```
 
-```bash
-sudo apt-get install gcc-8 -y
-```
+- On CentOS, run the following commands to install.
 
-Or install GCC 9.
+    ```bash
+    sudo yum install centos-release-scl
+    sudo yum install devtoolset-7
+    ```
 
-```bash
-sudo apt-get install software-properties-common -y
-sudo add-apt-repository ppa:ubuntu-toolchain-r/test
-sudo apt-get update
-sudo apt-get install gcc-9 -y
-```
+    After installation, run the following commands to switch to GCC 7.
+
+    ```bash
+    scl enable devtoolset-7 bash
+    ```
+
+- On EulerOS and openEuler, run the following commands to install.
+
+    ```bash
+    sudo yum install gcc g++ -y
+    ```
 
 ## Downloading and Installing MindSpore
 

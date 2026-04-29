@@ -6,7 +6,8 @@
     - [Installing dependencies](#installing-dependencies)
         - [Installing Python](#installing-python)
         - [Installing wheel setuptools PyYAML and Numpy](#installing-wheel-setuptools-pyyaml-and-numpy)
-        - [Installing GCC git tclsh patch and NUMA](#installing-gcc-git-tclsh-patch-and-numa)
+        - [Installing GCC](#installing-gcc)
+        - [Installing git tclsh patch NUMA and Flex](#installing-git-tclsh-patch-numa-and-flex)
         - [Installing CMake](#installing-cmake)
         - [Installing LLVM-optional](#installing-llvm-optional)
     - [Downloading the Source Code from the Code Repository](#downloading-the-source-code-from-the-code-repository)
@@ -84,28 +85,48 @@ pip install "numpy>=1.20.0,<2.0.0"
 
 The Numpy version used in the runtime environment must be no less than the Numpy version in the compilation environment to ensure the normal use of Numpy related capabilities in the framework.
 
-### Installing GCC git tclsh patch and NUMA
+### Installing GCC
 
-Run the following commands to install GCC, git, tclsh, patch and NUMA.
+The following takes GCC 7 as example for how to install GCC on common operating systems:
 
-```bash
-sudo apt-get install gcc-7 git tcl patch libnuma-dev -y
-```
+- On Ubuntu, run the following commands to install.
 
-To install a later version of GCC, run the following command to install GCC 8.
+    ```bash
+    sudo apt-get install gcc-7 g++-7 -y
+    ```
 
-```bash
-sudo apt-get install gcc-8 -y
-```
+- On CentOS, run the following commands to install.
 
-Or install GCC 9.
+    ```bash
+    sudo yum install centos-release-scl
+    sudo yum install devtoolset-7
+    ```
 
-```bash
-sudo apt-get install software-properties-common -y
-sudo add-apt-repository ppa:ubuntu-toolchain-r/test
-sudo apt-get update
-sudo apt-get install gcc-9 -y
-```
+    After installation, run the following commands to switch to GCC 7.
+
+    ```bash
+    scl enable devtoolset-7 bash
+    ```
+
+- On EulerOS and openEuler, run the following commands to install.
+
+    ```bash
+    sudo yum install gcc g++ -y
+    ```
+
+### Installing git tclsh patch NUMA and Flex
+
+- On Ubuntu 18.04, run the following commands to install.
+
+    ```bash
+    sudo apt-get install git tcl patch libnuma-dev flex -y
+    ```
+
+- On CentOS 7, EulerOS and openEuler, run the following commands to install.
+
+    ```bash
+    sudo yum install git tcl patch numactl-devel flex -y
+    ```
 
 ### Installing CMake
 
