@@ -186,7 +186,7 @@ epoch: 0 step: 50, loss is 1.8051043
 ...
 ```
 
-Other startup methods such as `mpirun` and `msrun` startup can be found in [startup methods](https://www.mindspore.cn/tutorials/en/r2.9.0/parallel/startup_method.html).
+Other startup methods can be found in [startup methods](https://www.mindspore.cn/tutorials/en/r2.9.0/parallel/startup_method.html).
 
 ### mint Operator Parallel Practice
 
@@ -338,7 +338,7 @@ epoch: 0 step: 50, forward_sum is 0.96655
 ...
 ```
 
-Other startup methods such as `mpirun` and `msrun` startup can be found in [startup methods](https://www.mindspore.cn/tutorials/en/r2.9.0/parallel/startup_method.html).
+Other startup methods can be found in [startup methods](https://www.mindspore.cn/tutorials/en/r2.9.0/parallel/startup_method.html).
 
 ## Higher-Order Operator-Level Parallel Practice
 
@@ -462,7 +462,7 @@ epoch: 0 step: 50, loss is 1.8051043
 ...
 ```
 
-Other startup methods such as `mpirun` and `msrun` startup can be found in [startup methods](https://www.mindspore.cn/tutorials/en/r2.9.0/parallel/startup_method.html).
+Other startup methods can be found in [startup methods](https://www.mindspore.cn/tutorials/en/r2.9.0/parallel/startup_method.html).
 
 ### Higher-Order mint Operator Parallel Practice
 
@@ -604,4 +604,4 @@ epoch: 0 step: 50, forward_sum is 0.96655
 ...
 ```
 
-Other startup methods such as `mpirun` and `msrun` startup can be found in [startup methods](https://www.mindspore.cn/tutorials/en/r2.9.0/parallel/startup_method.html).
+Other startup methods can be found in [startup methods](https://www.mindspore.cn/tutorials/en/r2.9.0/parallel/startup_method.html).
