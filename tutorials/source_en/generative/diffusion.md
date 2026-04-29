@@ -19,7 +19,6 @@ Before the experiment, install and import the required libraries (assuming you h
 ```python
 import math
 from functools import partial
-%matplotlib inline
 import matplotlib.pyplot as plt
 from tqdm.auto import tqdm
 import numpy as np
