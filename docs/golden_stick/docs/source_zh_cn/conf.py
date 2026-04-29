@@ -465,7 +465,7 @@ with open(des_release, "w", encoding="utf-8") as p:
 
 # re_url4 = r"(mindspore.cn/vllm_mindspore/[\w\d/_.-]*?)/(master)"
 
-# re_url5 = r"(((atomgit.com/mindspore/mindformers)|(mindspore.cn/mindformers))[\w\d/_.-]*?)/(dev)"
+# re_url5 = r"(((atomgit.com/mindspore/mindformers)|(mindspore.cn/mindformers))[\w\d/_.-]*?)/(master)"
 
 # 发版本时这里启用
 # for cur, _, files in os.walk(moment_dir):
