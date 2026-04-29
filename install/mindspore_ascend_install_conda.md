@@ -57,13 +57,15 @@ conda init bash
 
 ### 安装GCC
 
-- Ubuntu 18.04可以使用以下命令安装。
+下面以GCC 7为例，展示GCC在常用操作系统上的安装方式：
+
+- Ubuntu可以使用以下命令安装。
 
     ```bash
-    sudo apt-get install gcc-7 -y
+    sudo apt-get install gcc-7 g++-7 -y
     ```
 
-- CentOS 7可以使用以下命令安装。
+- CentOS可以使用以下命令安装。
 
     ```bash
     sudo yum install centos-release-scl
@@ -79,7 +81,7 @@ conda init bash
 - EulerOS和openEuler可以使用以下命令安装。
 
     ```bash
-    sudo yum install gcc -y
+    sudo yum install gcc g++ -y
     ```
 
 ### 创建并进入Conda虚拟环境

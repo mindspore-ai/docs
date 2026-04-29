@@ -28,6 +28,11 @@
 ## 创建并进入Conda虚拟环境
 
 在Windows上使用Anaconda，请通过`开始 | Anaconda3 | Anaconda Promt`打开Anaconda命令行。
+如果您使用的不是`Anaconda Promt`，而是标准的`cmd.exe`，请执行以下命令初始化Conda环境：
+
+```bash
+conda init cmd.exe
+```
 
 根据您希望使用的Python版本，创建对应的Conda虚拟环境，并进入虚拟环境。
 如果您希望使用Python3.10.20版本：

@@ -4,6 +4,7 @@
 
 - [Installing MindSpore in CPU by pip-macOS](#installing-mindspore-in-cpu-by-pip-macos)
     - [System Environment Information Confirmation](#system-environment-information-confirmation)
+    - [Installing Conda](#installing-conda)
     - [Creating and Accessing the Conda Virtual Environment](#creating-and-accessing-the-conda-virtual-environment)
     - [Installing MindSpore](#installing-mindspore)
     - [Installation Verification](#installation-verification)
@@ -30,6 +31,19 @@ This document describes how to install MindSpore by pip in a macOS system with C
 
     - If you prefer the complete capabilities provided by Conda, you may download [Anaconda3](https://repo.anaconda.com/archive/) or [Mambaforge](https://github.com/conda-forge/miniforge).
     - If you want to save disk space or prefer customizing Conda installation package, you may download [Miniconda3](https://repo.anaconda.com/miniconda/) or [Miniforge](https://github.com/conda-forge/miniforge).
+
+## Installing Conda
+
+Run the following command to install Miniconda.
+
+```bash
+cd /tmp
+curl -O https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/Miniconda3-latest-MacOSX-$(arch).sh
+bash Miniconda3-latest-MacOSX-$(arch).sh
+source ~/.zshrc
+```
+
+After the installation is complete, you can set up Tsinghua Source to accelerate the download for Conda, and refer to [Here](https://mirrors.tuna.tsinghua.edu.cn/help/anaconda/).
 
 ## Creating and Accessing the Conda Virtual Environment
 
