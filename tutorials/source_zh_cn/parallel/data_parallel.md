@@ -147,7 +147,7 @@ for epoch in range(10):
 
 ## 运行单机8卡脚本
 
-接下来通过命令调用对应的脚本，以8卡的分布式训练脚本为例，使用`msrun`启动方式进行分布式训练：
+接下来通过命令调用对应的脚本，以8卡的分布式训练脚本为例，使用`mpirun`启动方式进行分布式训练：
 
 ```bash
 bash run.sh
@@ -175,4 +175,4 @@ epoch: 0 step: 150, loss is 2.2822685
 ...
 ```
 
-其他启动方式如`mpirun`、`msrun`的启动可参考[启动方式](https://www.mindspore.cn/tutorials/zh-CN/master/parallel/startup_method.html)。
+其他启动方式可参考[启动方式](https://www.mindspore.cn/tutorials/zh-CN/master/parallel/startup_method.html)。

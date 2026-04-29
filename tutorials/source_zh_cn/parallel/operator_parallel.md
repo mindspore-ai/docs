@@ -186,7 +186,7 @@ epoch: 0 step: 50, loss is 1.8051043
 ...
 ```
 
-其他启动方式如`mpirun`、`msrun`的启动可参考[启动方式](https://www.mindspore.cn/tutorials/zh-CN/master/parallel/startup_method.html)。
+其他启动方式可参考[启动方式](https://www.mindspore.cn/tutorials/zh-CN/master/parallel/startup_method.html)。
 
 ### mint算子并行实践
 
@@ -338,7 +338,7 @@ epoch: 0 step: 50, forward_sum is 0.96655
 ...
 ```
 
-其他启动方式如`mpirun`、`msrun`的启动可参考[启动方式](https://www.mindspore.cn/tutorials/zh-CN/master/parallel/startup_method.html)。
+其他启动方式可参考[启动方式](https://www.mindspore.cn/tutorials/zh-CN/master/parallel/startup_method.html)。
 
 ## 高阶算子级并行实践
 
@@ -462,7 +462,7 @@ epoch: 0 step: 50, loss is 1.8051043
 ...
 ```
 
-其他启动方式如`mpirun`、`msrun`的启动可参考[启动方式](https://www.mindspore.cn/tutorials/zh-CN/master/parallel/startup_method.html)。
+其他启动方式可参考[启动方式](https://www.mindspore.cn/tutorials/zh-CN/master/parallel/startup_method.html)。
 
 ### 高阶mint算子并行实践
 
@@ -604,4 +604,4 @@ epoch: 0 step: 50, forward_sum is 0.96655
 ...
 ```
 
-其他启动方式如`mpirun`、`msrun`的启动可参考[启动方式](https://www.mindspore.cn/tutorials/zh-CN/master/parallel/startup_method.html)。
+其他启动方式可参考[启动方式](https://www.mindspore.cn/tutorials/zh-CN/master/parallel/startup_method.html)。

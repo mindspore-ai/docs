@@ -210,7 +210,7 @@ for epoch in range(10):
 
 ### 运行单机8卡脚本
 
-接下来通过命令调用对应的脚本，以`msrun`启动方式，8卡的分布式训练脚本为例，进行分布式训练：
+接下来通过命令调用对应的脚本，以`mpirun`启动方式，8卡的分布式训练脚本为例，进行分布式训练：
 
 ```bash
 bash run.sh
@@ -248,7 +248,7 @@ Tensor(shape=[8, 512], dtype=Float32, value=
 [  4.89746094e-01 3.56689453e-01 -4.90966797e-01 ... -3.30078125e-e01 -2.38525391e-01 7.33398438e-01]])
 ```
 
-其他启动方式如`mpirun`、`msrun`的启动可参考[启动方式](https://www.mindspore.cn/tutorials/zh-CN/master/parallel/startup_method.html)。
+其他启动方式可参考[启动方式](https://www.mindspore.cn/tutorials/zh-CN/master/parallel/startup_method.html)。
 
 ## 推理操作实践
 
@@ -402,7 +402,7 @@ print(logits.asnumpy())
 
 ### 运行单机8卡脚本
 
-接下来通过命令调用对应的脚本，以`msrun`启动方式，8卡的分布式推理脚本为例，进行分布式训练：
+接下来通过命令调用对应的脚本，以`msrun`启动方式，8卡的分布式推理脚本为例，进行分布式推理：
 
 ```bash
 
@@ -410,7 +410,7 @@ bash run_inference.sh
 
 ```
 
-训练完后，日志文件保存到`pipeline_inference_logs`目录下，其中部分文件目录结构如下：
+推理完后，日志文件保存到`pipeline_inference_logs`目录下，其中部分文件目录结构如下：
 
 ```text
 
