@@ -1,6 +1,6 @@
 [
     {
-        "version": "master",
+        "version": "r2.9.0",
         "label": {
             "zh": "MindSpore",
             "en": "MindSpore"
@@ -10,50 +10,50 @@
             "zh": [
                 {
                     "label": "Developer Notes",
-                    "url": "/docs/zh-CN/master/features/index.html",
-                    "id": "master-features"
+                    "url": "/docs/zh-CN/r2.9.0/features/index.html",
+                    "id": "r2.9.0-features"
                 },
                 {
                     "label": "API",
-                    "url": "/docs/zh-CN/master/api_python/index.html",
-                    "id": "master-api_python"
+                    "url": "/docs/zh-CN/r2.9.0/api_python/index.html",
+                    "id": "r2.9.0-api_python"
                 },
                 {
                     "label": "FAQ",
-                    "url": "/docs/zh-CN/master/faq/installation.html",
-                    "id": "master-faq"
+                    "url": "/docs/zh-CN/r2.9.0/faq/installation.html",
+                    "id": "r2.9.0-faq"
                 },
                 {
                     "label": "Release Notes",
-                    "url": "/docs/zh-CN/master/RELEASE.html"
+                    "url": "/docs/zh-CN/r2.9.0/RELEASE.html"
                 }
             ],
             "en": [
                 {
                     "label": "Developer Notes",
-                    "url": "/docs/en/master/features/index.html",
-                    "id": "master-features"
+                    "url": "/docs/en/r2.9.0/features/index.html",
+                    "id": "r2.9.0-features"
                 },
                 {
                     "label": "API",
-                    "url": "/docs/en/master/api_python/index.html",
-                    "id": "master-api_python"
+                    "url": "/docs/en/r2.9.0/api_python/index.html",
+                    "id": "r2.9.0-api_python"
                 },
                 {
                     "label": "FAQ",
-                    "url": "/docs/en/master/faq/installation.html",
-                    "id": "master-faq"
+                    "url": "/docs/en/r2.9.0/faq/installation.html",
+                    "id": "r2.9.0-faq"
                 },
                 {
                     "label": "Release Notes",
-                    "url": "/docs/en/master/RELEASE.html"
+                    "url": "/docs/en/r2.9.0/RELEASE.html"
                 }
             ]
         },
         "theme": "theme-tutorials"
     },
     {
-        "version": "master",
+        "version": "r2.9.0",
         "label": {
             "zh": "教程",
             "en": "Tutorials"
@@ -62,7 +62,7 @@
         "theme": "theme-docs"
     },
     {
-        "version": "master",
+        "version": "r2.9.0",
         "label": {
             "zh": "MindSpore Lite",
             "en": "MindSpore Lite"
@@ -72,120 +72,57 @@
             "zh": [
                 {
                     "label": "概述",
-                    "url": "/lite?version=master"
+                    "url": "/lite?version=r2.9.0"
                 },
                 {
                     "label": "下载",
-                    "url": "/lite/docs/zh-CN/master/use/downloads.html"
+                    "url": "/lite/docs/zh-CN/r2.9.0/use/downloads.html"
                 },
                 {
                     "label": "端侧推理",
-                    "url": "/lite/docs/zh-CN/master/index.html"
+                    "url": "/lite/docs/zh-CN/r2.9.0/index.html"
                 },
                 {
                     "label": "云侧推理",
-                    "url": "/lite/cloud_docs/zh-CN/master/index.html"
+                    "url": "/lite/cloud_docs/zh-CN/r2.9.0/index.html"
                 },
                 {
                     "label": "API",
-                    "url": "/lite/api/zh-CN/master/index.html"
+                    "url": "/lite/api/zh-CN/r2.9.0/index.html"
                 }
             ],
             "en": [
                 {
                     "label": "Overview",
-                    "url": "/lite/en?version=master"
+                    "url": "/lite/en?version=r2.9.0"
                 },
                 {
                     "label": "Downloads",
-                    "url": "/lite/docs/en/master/use/downloads.html"
+                    "url": "/lite/docs/en/r2.9.0/use/downloads.html"
                 },
                 {
                     "label": "Device-side Inference",
-                    "url": "/lite/docs/en/master/index.html"
+                    "url": "/lite/docs/en/r2.9.0/index.html"
                 },
                 {
                     "label": "Cloud-side Inference",
-                    "url": "/lite/cloud_docs/en/master/index.html"
+                    "url": "/lite/cloud_docs/en/r2.9.0/index.html"
                 },
                 {
                     "label": "API",
-                    "url": "/lite/api/en/master/index.html"
+                    "url": "/lite/api/en/r2.9.0/index.html"
                 }
             ]
         },
         "theme": "theme-lite"
     },
     {
-        "version": "master",
-        "label": {
-            "zh": "MindSpore Golden Stick",
-            "en": "MindSpore Golden Stick"
-        },
-        "repo_name": "golden_stick",
-        "theme": "theme-docs"
-    },
-    {
-        "version": "master",
-        "label": {
-            "zh": "MindSpore Armour",
-            "en": "MindSpore Armour"
-        },
-        "repo_name": "mindarmour",
-        "theme": "theme-docs"
-    },
-    {
-        "version": "master",
-        "label": {
-            "zh": "MindSpore Quantum",
-            "en": "MindSpore Quantum"
-        },
-        "repo_name": "mindquantum",
-        "theme": "theme-docs"
-    },
-    {
-        "version": "master",
+        "version": "r1.9.0",
         "label": {
             "zh": "MindSpore Transformers",
             "en": "MindSpore Transformers"
         },
         "repo_name": "mindformers",
-        "theme": "theme-docs"
-    },
-    {
-        "version": "master",
-        "label": {
-            "zh": "vLLM-MindSpore Plugin",
-            "en": "vLLM-MindSpore Plugin"
-        },
-        "repo_name": "vllm_mindspore",
-        "theme": "theme-docs"
-    },
-    {
-        "version": "master",
-        "label": {
-            "zh": "MindStudio",
-            "en": "MindStudio"
-        },
-        "repo_name": "mindstudio",
-        "theme": "theme-docs"
-    },
-    {
-        "version": "master",
-        "label": {
-            "zh": "MSAdapter",
-            "en": "MSAdapter"
-        },
-        "repo_name": "msadapter",
-        "theme": "theme-docs"
-    },
-    {
-        "version": "master",
-        "label": {
-            "zh": "MindSpore Science",
-            "en": "MindSpore Science"
-        },
-        "repo_name": "mindscience",
         "theme": "theme-docs"
     }
 ]
