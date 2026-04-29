@@ -249,7 +249,7 @@ If the network model requires overriding TrainOneStepCell:
             ...
     ```
 
-2. The new method is not inherits from TrainOneStepCell, you need add the following code in `__init__` method(don't change parameter's name), and using in the `construct` method. The sample code is as follows:
+2. The new method does not inherit from TrainOneStepCell, you need add the following code in `__init__` method(don't change parameter's name), and using in the `construct` method. The sample code is as follows:
 
     ```python
     from mindspore.utils import ExitByRequest
