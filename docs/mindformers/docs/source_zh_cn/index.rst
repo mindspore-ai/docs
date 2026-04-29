@@ -151,3 +151,11 @@ MindSpore Transformers 功能特性说明
 
    faq/model_related
    faq/feature_related
+
+.. toctree::
+ 	:glob:
+ 	:maxdepth: 1
+ 	:caption: RELEASE NOTES
+ 	:hidden:
+ 	 
+ 	RELEASE
