@@ -57,13 +57,15 @@ After the installation is complete, you can set up Tsinghua Source to accelerate
 
 ### Installing GCC
 
-- On Ubuntu 18.04, run the following commands to install.
+The following takes GCC 7 as example for how to install GCC on common operating systems:
+
+- On Ubuntu, run the following commands to install.
 
     ```bash
-    sudo apt-get install gcc-7 -y
+    sudo apt-get install gcc-7 g++-7 -y
     ```
 
-- On CentOS 7, run the following commands to install.
+- On CentOS, run the following commands to install.
 
     ```bash
     sudo yum install centos-release-scl
@@ -79,7 +81,7 @@ After the installation is complete, you can set up Tsinghua Source to accelerate
 - On EulerOS and openEuler, run the following commands to install.
 
     ```bash
-    sudo yum install gcc -y
+    sudo yum install gcc g++ -y
     ```
 
 ### Creating and Accessing the Conda Virtual Environment

@@ -6,7 +6,8 @@
     - [安装依赖软件](#安装依赖软件)
         - [安装Python](#安装python)
         - [安装wheel setuptools PyYAML和Numpy](#安装wheel-setuptools-pyyaml和numpy)
-        - [安装GCC git tclsh patch和NUMA](#安装gcc-git-tclsh-patch和numa)
+        - [安装GCC](#安装gcc)
+        - [安装git tclsh patch NUMA Flex](#安装git-tclsh-patch-numa-flex)
         - [安装CMake](#安装cmake)
         - [安装LLVM-可选](#安装llvm-可选)
     - [从代码仓下载源码](#从代码仓下载源码)
@@ -86,28 +87,48 @@ pip install "numpy>=1.20.0,<2.0.0"
 
 运行环境使用的Numpy版本需不小于编译环境的Numpy版本，以保证框架内Numpy相关能力的正常使用。
 
-### 安装GCC git tclsh patch和NUMA
+### 安装GCC
 
-可以通过以下命令安装GCC、git、tclsh、patch和NUMA。
+下面以GCC 7为例，展示GCC在常用操作系统上的安装方式：
 
-```bash
-sudo apt-get install gcc-7 git tcl patch libnuma-dev -y
-```
+- Ubuntu可以使用以下命令安装。
 
-如果要安装更高版本的GCC，使用以下命令安装GCC 8。
+    ```bash
+    sudo apt-get install gcc-7 g++-7 -y
+    ```
 
-```bash
-sudo apt-get install gcc-8 -y
-```
+- CentOS可以使用以下命令安装。
 
-或者安装GCC 9。
+    ```bash
+    sudo yum install centos-release-scl
+    sudo yum install devtoolset-7
+    ```
 
-```bash
-sudo apt-get install software-properties-common -y
-sudo add-apt-repository ppa:ubuntu-toolchain-r/test
-sudo apt-get update
-sudo apt-get install gcc-9 -y
-```
+    安装完成后，需要使用以下命令切换到GCC 7。
+
+    ```bash
+    scl enable devtoolset-7 bash
+    ```
+
+- EulerOS和openEuler可以使用以下命令安装。
+
+    ```bash
+    sudo yum install gcc g++ -y
+    ```
+
+### 安装git tclsh patch NUMA Flex
+
+- Ubuntu 18.04可以使用以下命令安装。
+
+    ```bash
+    sudo apt-get install git tcl patch libnuma-dev flex -y
+    ```
+
+- CentOS 7，EulerOS和openEuler可以使用以下命令安装。
+
+    ```bash
+    sudo yum install git tcl patch numactl-devel flex -y
+    ```
 
 ### 安装CMake
 
