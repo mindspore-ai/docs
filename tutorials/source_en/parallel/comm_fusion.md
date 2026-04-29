@@ -50,7 +50,7 @@ MindSpore provides two interfaces to enable communication fusion, each of which 
     net.comm_fusion(config=config)
     ```
 
-    In auto-parallel or semi-auto-parallel scenario, the user can utilize the [comm_fusion](https://www.mindspore.cn/docs/en/r2.9.0/api_python/mindspore/mindspore.Parameter.html#mindspore.Parameter.comm_fusion) parameter provided by this interface to set the parallel strategy when configuring the parallel strategy via `set_auto_parallel_context`, with inputs in the format {"communication_type": {"mode":str, "config": None int or list}}. For details, see `comm_fusion` in [Parallel Configuration](https://www.mindspore.cn/docs/en/r2.5.0/api_python/mindspore/mindspore.set_auto_parallel_context.html). This configuration method is preferred in this scenario.
+    In automatic or semi-automatic parallel scenarios, when users configure parallel strategies using `net = AutoParallel(net, parallel_mode="semi_auto")`, they can utilize `config` parameter in the [comm_fusion](https://www.mindspore.cn/docs/en/r2.9.0/api_python/mindspore/mindspore.Parameter.html#mindspore.Parameter.comm_fusion) provided by the top-level `AutoParallel` class to set the parallel strategy. The input format is {"communication_type": {'mode': str, "config": None, int, or list}}. For details, see `comm_fusion` in [Parallel Configuration](https://www.mindspore.cn/docs/en/r2.9.0/api_python/parallel/mindspore.parallel.auto_parallel.AutoParallel.html). This configuration method is preferred in this scenario.
 
 2. Use the interface provided by `Cell`
 
