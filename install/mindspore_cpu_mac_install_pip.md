@@ -4,6 +4,7 @@
 
 - [pip方式安装MindSpore CPU版本-macOS](#pip方式安装mindspore-cpu版本-macos)
     - [确认系统环境信息](#确认系统环境信息)
+    - [安装Conda](#安装conda)
     - [创建并进入Conda虚拟环境](#创建并进入conda虚拟环境)
     - [安装MindSpore](#安装mindspore)
     - [验证是否成功安装](#验证是否成功安装)
@@ -30,6 +31,19 @@
 
     - 如果您喜欢Conda提供的完整能力，可以选择下载[Anaconda3](https://repo.anaconda.com/archive/)或[Mambaforge](https://github.com/conda-forge/miniforge)。
     - 如果您需要节省磁盘空间，或者喜欢自定义安装Conda软件包，可以选择下载[Miniconda3](https://repo.anaconda.com/miniconda/)或[Miniforge](https://github.com/conda-forge/miniforge)。
+
+## 安装Conda
+
+执行以下命令安装Miniconda。
+
+```bash
+cd /tmp
+curl -O https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/Miniconda3-latest-MacOSX-$(arch).sh
+bash Miniconda3-latest-MacOSX-$(arch).sh
+source ~/.zshrc
+```
+
+安装完成后，可以为Conda设置清华源加速下载，参考[此处](https://mirrors.tuna.tsinghua.edu.cn/help/anaconda/)。
 
 ## 创建并进入Conda虚拟环境
 

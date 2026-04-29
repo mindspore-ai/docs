@@ -4,7 +4,9 @@
 
 - [源码编译方式安装MindSpore CPU版本-macOS](#源码编译方式安装mindspore-cpu版本-macos)
     - [确认系统环境信息](#确认系统环境信息)
+    - [安装Conda](#安装conda)
     - [创建并进入Conda虚拟环境](#创建并进入conda虚拟环境)
+    - [确认安装Python依赖](#确认安装python依赖)
     - [从代码仓下载源码](#从代码仓下载源码)
     - [编译MindSpore](#编译mindspore)
     - [安装MindSpore](#安装mindspore)
@@ -41,13 +43,18 @@
 
 - 确认安装[patch 2.5](https://ftp.gnu.org/gnu/patch/)。如果没有安装，可以使用 `brew install patch` 命令安装。
 
-- 确认安装[wheel 0.32.0及以上版本](https://pypi.org/project/wheel/)。如果没有安装，可以使用 `conda install wheel` 命令安装。
+## 安装Conda
 
-- 确认安装[PyYAML](https://pypi.org/project/pyyaml/) (>=6.0 并且 <= 6.0.2)。如果没有安装，可以使用 `conda install pyyaml` 命令安装。
+执行以下命令安装Miniconda。
 
-- 确认安装[autoconf](https://ftp.gnu.org/gnu/autoconf/)。如果没有安装，可以使用 `brew install autoconf` 命令安装。
+```bash
+cd /tmp
+curl -O https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/Miniconda3-latest-MacOSX-$(arch).sh
+bash Miniconda3-latest-MacOSX-$(arch).sh
+source ~/.zshrc
+```
 
-- 确认安装[Numpy](https://pypi.org/project/numpy/) (>=1.19.3 并且 <= 1.26.4)。如果没有安装，可以使用 `conda install numpy` 命令安装。
+安装完成后，可以为Conda设置清华源加速下载，参考[此处](https://mirrors.tuna.tsinghua.edu.cn/help/anaconda/)。
 
 ## 创建并进入Conda虚拟环境
 
@@ -59,6 +66,18 @@
   conda create -c conda-forge -n mindspore_py310 -c conda-forge python=3.10.20
   conda activate mindspore_py310
   ```
+
+## 确认安装Python依赖
+
+在用于编译MindSpore的Python环境中，确认下列Python库已经安装：
+
+- 确认安装[wheel 0.32.0及以上版本](https://pypi.org/project/wheel/)。如果没有安装，可以使用 `conda install wheel` 命令安装。
+
+- 确认安装[PyYAML](https://pypi.org/project/pyyaml/) (>=6.0 并且 <= 6.0.2)。如果没有安装，可以使用 `conda install pyyaml` 命令安装。
+
+- 确认安装[autoconf](https://ftp.gnu.org/gnu/autoconf/)。如果没有安装，可以使用 `brew install autoconf` 命令安装。
+
+- 确认安装[Numpy](https://pypi.org/project/numpy/) (>=1.19.3 并且 <= 1.26.4)。如果没有安装，可以使用 `conda install numpy` 命令安装。
 
 ## 从代码仓下载源码
 
