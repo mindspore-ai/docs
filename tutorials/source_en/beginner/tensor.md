@@ -58,9 +58,9 @@ There are multiple methods for creating tensors. When building a tensor, you can
     from mindspore.common.initializer import One, Normal
 
     # Initialize a tensor with ones
-    tensor1 = mindspore.tensor(shape=(2, 2), dtype=mindspore.float32, init=One())
+    tensor1 = mindspore.tensor(shape=(2, 2), dtype=mindspore.float32, init=One()).init_data()
     # Initialize a tensor from normal distribution
-    tensor2 = mindspore.tensor(shape=(2, 2), dtype=mindspore.float32, init=Normal())
+    tensor2 = mindspore.tensor(shape=(2, 2), dtype=mindspore.float32, init=Normal()).init_data()
 
     print("tensor1:\n", tensor1)
     print("tensor2:\n", tensor2)
