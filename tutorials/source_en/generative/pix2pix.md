@@ -343,7 +343,7 @@ steps_per_epoch = dataset.get_dataset_size()
 loss_f = nn.BCEWithLogitsLoss()
 l1_loss = nn.L1Loss()
 
-def forword_dis(reala, realb):
+def forward_dis(reala, realb):
     lambda_dis = 0.5
     fakeb = net_generator(reala)
     pred0 = net_discriminator(reala, fakeb)
@@ -352,7 +352,7 @@ def forword_dis(reala, realb):
     loss_dis = loss_d * lambda_dis
     return loss_dis
 
-def forword_gan(reala, realb):
+def forward_gan(reala, realb):
     lambda_gan = 0.5
     lambda_l1 = 100
     fakeb = net_generator(reala)
@@ -367,8 +367,8 @@ d_opt = nn.Adam(net_discriminator.trainable_params(), learning_rate=get_lr(),
 g_opt = nn.Adam(net_generator.trainable_params(), learning_rate=get_lr(),
                 beta1=0.5, beta2=0.999, loss_scale=1)
 
-grad_d = value_and_grad(forword_dis, None, net_discriminator.trainable_params())
-grad_g = value_and_grad(forword_gan, None, net_generator.trainable_params())
+grad_d = value_and_grad(forward_dis, None, net_discriminator.trainable_params())
+grad_g = value_and_grad(forward_gan, None, net_generator.trainable_params())
 
 def train_step(reala, realb):
     loss_dis, d_grads = grad_d(reala, realb)
