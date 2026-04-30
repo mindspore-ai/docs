@@ -260,7 +260,6 @@ class Block(nn.Cell):
     def __init__(self, dim, dim_out, groups=1):
         super().__init__()
         self.proj = nn.Conv2d(dim, dim_out, 3, pad_mode="pad", padding=1)
-        self.proj = c(dim, dim_out, 3, padding=1, pad_mode='pad')
         self.norm = nn.GroupNorm(groups, dim_out)
         self.act = nn.SiLU()
 

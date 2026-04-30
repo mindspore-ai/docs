@@ -975,9 +975,9 @@ def train_step(x, gt_loc, gt_label, num_matched_boxes):
     return loss
 
 print("=================== Starting Training =====================")
-iterator = dataset.create_tuple_iterator(num_epochs=60)
 for epoch in range(60):
     network.set_train(True)
+    iterator = dataset.create_tuple_iterator()
     begin_time = time.time()
     for step, (image, get_loc, gt_label, num_matched_boxes) in enumerate(iterator):
         loss = train_step(image, get_loc, gt_label, num_matched_boxes)
@@ -993,66 +993,66 @@ print("=================== Training Success =====================")
 ```text
 
 =================== Starting Training =====================
-Epoch:[1/60], loss:1365.3849 , time:42.76231384277344s
-Epoch:[2/60], loss:1350.9009 , time:43.63900399208069s
-Epoch:[3/60], loss:1325.2102 , time:48.01434779167175s
-Epoch:[4/60], loss:1297.8125 , time:40.65014576911926s
-Epoch:[5/60], loss:1269.7281 , time:40.627623081207275s
-Epoch:[6/60], loss:1240.8068 , time:42.14572191238403s
-Epoch:[7/60], loss:1210.52 , time:41.091148853302s
-Epoch:[8/60], loss:1178.0127 , time:41.88719820976257s
-Epoch:[9/60], loss:1142.2338 , time:41.147764444351196s
-Epoch:[10/60], loss:1101.929 , time:42.21702218055725s
-Epoch:[11/60], loss:1055.7747 , time:40.66824555397034s
-Epoch:[12/60], loss:1002.66125 , time:40.70291781425476s
-Epoch:[13/60], loss:942.0149 , time:42.10250663757324s
-Epoch:[14/60], loss:874.245 , time:41.27074885368347s
-Epoch:[15/60], loss:801.06055 , time:40.62501621246338s
-Epoch:[16/60], loss:725.4527 , time:41.78050708770752s
-Epoch:[17/60], loss:651.15564 , time:40.619580030441284s
-Epoch:[18/60], loss:581.7435 , time:41.07759237289429s
-Epoch:[19/60], loss:519.85223 , time:41.74708104133606s
-Epoch:[20/60], loss:466.71866 , time:40.79696846008301s
-Epoch:[21/60], loss:422.35846 , time:40.40337634086609s
-Epoch:[22/60], loss:385.95758 , time:41.0706627368927s
-Epoch:[23/60], loss:356.3252 , time:41.02973508834839s
-Epoch:[24/60], loss:332.2302 , time:41.101938009262085s
-Epoch:[25/60], loss:312.56158 , time:40.12760329246521s
-Epoch:[26/60], loss:296.3943 , time:40.62085247039795s
-Epoch:[27/60], loss:282.99237 , time:42.20474720001221s
-Epoch:[28/60], loss:271.7844 , time:40.27843761444092s
-Epoch:[29/60], loss:262.32687 , time:40.6625394821167s
-Epoch:[30/60], loss:254.28302 , time:41.42288422584534s
-Epoch:[31/60], loss:247.38882 , time:40.49200940132141s
-Epoch:[32/60], loss:241.44067 , time:41.48827362060547s
-Epoch:[33/60], loss:236.28123 , time:41.1355299949646s
-Epoch:[34/60], loss:231.78201 , time:40.45781660079956s
-Epoch:[35/60], loss:227.84433 , time:40.92684364318848s
-Epoch:[36/60], loss:224.38614 , time:40.89856195449829s
-Epoch:[37/60], loss:221.34372 , time:41.585039138793945s
-Epoch:[38/60], loss:218.66156 , time:40.8972954750061s
-Epoch:[39/60], loss:216.29553 , time:42.22093486785889s
-Epoch:[40/60], loss:214.20854 , time:40.75188755989075s
-Epoch:[41/60], loss:212.36868 , time:41.51768183708191s
-Epoch:[42/60], loss:210.74985 , time:40.3460476398468s
-Epoch:[43/60], loss:209.32901 , time:40.65240502357483s
-Epoch:[44/60], loss:208.08626 , time:41.250218629837036s
-Epoch:[45/60], loss:207.00375 , time:40.334686040878296s
-Epoch:[46/60], loss:206.06656 , time:40.822086811065674s
-Epoch:[47/60], loss:205.2609 , time:40.492422103881836s
-Epoch:[48/60], loss:204.57387 , time:41.39555335044861s
-Epoch:[49/60], loss:203.9947 , time:40.29546666145325s
-Epoch:[50/60], loss:203.51189 , time:39.61115860939026s
-Epoch:[51/60], loss:203.11642 , time:41.232492446899414s
-Epoch:[52/60], loss:202.79791 , time:40.896180152893066s
-Epoch:[53/60], loss:202.54779 , time:40.62282419204712s
-Epoch:[54/60], loss:202.35779 , time:40.751235485076904s
-Epoch:[55/60], loss:202.2188 , time:41.790447473526s
-Epoch:[56/60], loss:202.12277 , time:41.371476888656616s
-Epoch:[57/60], loss:202.05978 , time:41.00389575958252s
-Epoch:[58/60], loss:202.02513 , time:40.384965658187866s
-Epoch:[59/60], loss:202.00772 , time:40.91265916824341s
-Epoch:[60/60], loss:201.9999 , time:41.31216502189636s
+Epoch:[1/60], loss:1084.2246, time:48.28s
+Epoch:[2/60], loss:1074.5833, time:1.17s
+Epoch:[3/60], loss:1057.466, time:1.34s
+Epoch:[4/60], loss:1039.1564, time:1.17s
+Epoch:[5/60], loss:1020.39136, time:1.14s
+Epoch:[6/60], loss:1001.2112, time:1.12s
+Epoch:[7/60], loss:981.3954, time:1.13s
+Epoch:[8/60], loss:960.5829, time:1.17s
+Epoch:[9/60], loss:938.3111, time:1.17s
+Epoch:[10/60], loss:914.03754, time:1.41s
+Epoch:[11/60], loss:887.1648, time:1.19s
+Epoch:[12/60], loss:857.09436, time:1.14s
+Epoch:[13/60], loss:823.3103, time:1.21s
+Epoch:[14/60], loss:785.5007, time:1.15s
+Epoch:[15/60], loss:743.6947, time:1.11s
+Epoch:[16/60], loss:698.3748, time:1.15s
+Epoch:[17/60], loss:650.54346, time:1.11s
+Epoch:[18/60], loss:601.61707, time:1.22s
+Epoch:[19/60], loss:553.25183, time:1.31s
+Epoch:[20/60], loss:507.06317, time:1.26s
+Epoch:[21/60], loss:464.34048, time:1.17s
+Epoch:[22/60], loss:425.9206, time:1.16s
+Epoch:[23/60], loss:392.1363, time:1.21s
+Epoch:[24/60], loss:362.93405, time:1.34s
+Epoch:[25/60], loss:337.9763, time:1.15s
+Epoch:[26/60], loss:316.7796, time:1.13s
+Epoch:[27/60], loss:298.82678, time:1.11s
+Epoch:[28/60], loss:283.61578, time:1.10s
+Epoch:[29/60], loss:270.6984, time:1.11s
+Epoch:[30/60], loss:259.69116, time:1.11s
+Epoch:[31/60], loss:250.27646, time:1.13s
+Epoch:[32/60], loss:242.18495, time:1.11s
+Epoch:[33/60], loss:235.2056, time:1.14s
+Epoch:[34/60], loss:229.16031, time:1.14s
+Epoch:[35/60], loss:223.90137, time:1.12s
+Epoch:[36/60], loss:219.31937, time:1.14s
+Epoch:[37/60], loss:215.3158, time:1.15s
+Epoch:[38/60], loss:211.81061, time:1.15s
+Epoch:[39/60], loss:208.74066, time:1.12s
+Epoch:[40/60], loss:206.05034, time:1.14s
+Epoch:[41/60], loss:203.68988, time:1.14s
+Epoch:[42/60], loss:201.62753, time:1.12s
+Epoch:[43/60], loss:199.82202, time:1.11s
+Epoch:[44/60], loss:198.25531, time:1.15s
+Epoch:[45/60], loss:196.8952, time:1.21s
+Epoch:[46/60], loss:195.72305, time:1.15s
+Epoch:[47/60], loss:194.71819, time:1.17s
+Epoch:[48/60], loss:193.86075, time:1.16s
+Epoch:[49/60], loss:193.1398, time:1.17s
+Epoch:[50/60], loss:192.54681, time:1.19s
+Epoch:[51/60], loss:192.05583, time:1.15s
+Epoch:[52/60], loss:191.66376, time:1.14s
+Epoch:[53/60], loss:191.35524, time:1.15s
+Epoch:[54/60], loss:191.11957, time:1.12s
+Epoch:[55/60], loss:190.95055, time:1.13s
+Epoch:[56/60], loss:190.83101, time:1.32s
+Epoch:[57/60], loss:190.75786, time:1.22s
+Epoch:[58/60], loss:190.71272, time:1.12s
+Epoch:[59/60], loss:190.69243, time:1.12s
+Epoch:[60/60], loss:190.68198, time:1.12s
 =================== Training Success =====================
 ```
 
@@ -1133,31 +1133,31 @@ loading annotations into memory...
 Done (t=0.00s)
 creating index...
 index created!
-Loading and preparing results...
-DONE (t=0.47s)
+.Loading and preparing results...
+DONE (t=0.77s)
 creating index...
 index created!
 Running per image evaluation...
 Evaluate annotation type *bbox*
-DONE (t=0.97s).
+DONE (t=1.06s).
 Accumulating evaluation results...
-DONE (t=0.20s).
- Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.003
- Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.006
+DONE (t=0.32s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.011
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.023
  Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.000
  Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.000
- Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.052
- Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.016
- Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.005
- Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.037
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.010
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.039
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.023
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.042
  Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.071
  Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.000
- Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.057
- Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.328
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.060
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.327
 
 ========================================
 
-mAP: 0.0025924737758294216
+mAP: 0.011283055118663923
 ```
 
 ## Reference
