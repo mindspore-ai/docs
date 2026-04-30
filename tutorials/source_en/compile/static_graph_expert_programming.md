@@ -722,9 +722,9 @@ class BackwardNet(nn.Cell):
         return grads
 
 x = mindspore.tensor(np.array(1), mindspore.int32)
-graph_forword_net = ForwardNet()
-graph_backword_net = BackwardNet(graph_forword_net)
-graph_mode_grads = graph_backword_net(x)
+graph_forward_net = ForwardNet()
+graph_backward_net = BackwardNet(graph_forward_net)
+graph_mode_grads = graph_backward_net(x)
 output_except = (mindspore.tensor(np.array(3), mindspore.int32),)
 assert np.all(graph_mode_grads == output_except)
 ```

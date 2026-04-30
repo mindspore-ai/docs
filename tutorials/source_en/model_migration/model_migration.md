@@ -10,11 +10,11 @@ Before conducting a formal code migration, you need to do some simple analysis o
 
 In general, only hardware-related code sections have to be migrated to MindSpore, for example:
 
-- Related to model input, including model parameter loading, dataset packaging, etc;
+- Related to model input, including model parameter loading, dataset packing, etc;
 - Code for model construction and execution;
 - Related to model output, including model parameter saving, etc.
 
-Third parties that compute on the CPU like Numpy, OpenCV, as well as Python operations like Configuration and Tokenizer that don't require elevation or GPU processing, can directly reuse the original code.
+Third parties that compute on the CPU like Numpy, OpenCV, as well as Python operations like Configuration and Tokenizer that don't require Ascend or GPU processing, can directly reuse the original code.
 
 ## Dataset Packing
 
@@ -22,7 +22,7 @@ MindSpore provides a variety of typical open source datasets for parsing and rea
 
 ### Customized Data Loading GeneratorDataset
 
-In migration scenarios, the most common way to load data is [GeneratorDataset](https://www.mindspore.cn/docs/en/r2.9.0/api_python/dataset/mindspore.dataset.GeneratorDataset.html#mindspore.dataset.GeneratorDataset), which can be directly docked to the MindSpore model for training and inference by simply packing the Python iterator.
+In migration scenarios, the most common way to load data is [GeneratorDataset](https://www.mindspore.cn/docs/en/r2.9.0/api_python/dataset/mindspore.dataset.GeneratorDataset.html#mindspore.dataset.GeneratorDataset), which can be directly connected to the MindSpore model for training and inference by simply packing the Python iterator.
 
 ```python
 import numpy as np
@@ -49,7 +49,7 @@ dataset = ds.GeneratorDataset(source=MyDataset(), column_names=["data", "label"]
 train_dataset = dataset.batch(batch_size=2, drop_remainder=True, num_parallel_workers=num_parallel_workers)
 ```
 
-A typical dataset is constructed as above: to construct a Python class, there must be \_\_getitem\_\_ and \_\_len\_\_\_ methods, which represent the size of the data taken at each step of the iteration and the size of the entire dataset traversed once, respectively, where index represents the index of the data taken at each step, and which is incremented sequentially when shuffle=False, and randomly disrupted when shuffle=True.
+A typical dataset is constructed as above: to construct a Python class, there must be \_\_getitem\_\_ and \_\_len\_\_ methods, which represent the size of the data taken at each step of the iteration and the size of the entire dataset traversed once, respectively, where index represents the index of the data taken at each step, and which is incremented sequentially when shuffle=False, and randomly shuffled when shuffle=True.
 
 GeneratorDataset needs to contain at least:
 
@@ -134,7 +134,7 @@ for i in net.get_parameters():
 </tr>
 </table>
 
-MindSpore and PyTorch build models in pretty much the same way, and the differences in the use of operators can be found in the [API Differences document](https://www.mindspore.cn/docs/en/r2.9.0/note/api_mapping/pytorch_api_mapping.html).
+MindSpore and PyTorch build models are largely similar, and the differences in the use of operators can be found in the [API Differences document](https://www.mindspore.cn/docs/en/r2.9.0/note/api_mapping/pytorch_api_mapping.html).
 
 #### Model Saving and Loading
 
@@ -313,7 +313,7 @@ The following is an example of Trainer in MindSpore, which contains training and
 ```python
 import mindspore as ms
 from mindspore import nn
-from mindspore.amp import StaticLossScaler, all_finite
+from mindspore.amp import StaticLossScaler
 from mindspore.communication import init, get_group_size
 
 class Trainer:
@@ -378,7 +378,7 @@ class Trainer:
             # Save the model and optimizer weights for the current epoch
             ms.save_checkpoint(self.net, f"epoch_{epoch}.ckpt")
             ms.save_checkpoint(self.opt, f"opt_{epoch}.ckpt")
-            # Reasoning and saving the best checkpoints
+            # Inference and saving the best checkpoints
             if self.run_eval:
                 eval_dataset = self.eval_dataset.create_dict_iterator(num_epochs=1)
                 self.net.set_train(False)
