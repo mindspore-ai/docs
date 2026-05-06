@@ -368,14 +368,12 @@ with open(os.path.join(base_path, 'mindformers/pynative/distributed/tensor_paral
 
 with open(os.path.join(base_path, 'hyper_parallel/core/dtensor/_mesh_layout.py'), 'r+', encoding='utf-8') as f:
     content = f.read()
-    old_content = """@classmethod
-    def from_sizes_strides(
-        cls, sizes: tuple[int, ...], strides: tuple[int, ...] | None = None"""
-    new_content = """from typing import Tuple, Optional
-    @classmethod
-    def from_sizes_strides(
-        cls, sizes: Tuple[int, ...], strides: Optional[Tuple[int, ...]] = None"""
+    old_content = 'from typing import Any, Union'
+    new_content = 'from typing import Any, Union, Tuple, Optional'
+    old_content1 = 'strides: tuple[int, ...] | None = None,'
+    new_content1 = 'strides: Optional[Tuple[int, ...]] = None,'
     content = content.replace(old_content, new_content)
+    content = content.replace(old_content1, new_content1)
     f.seek(0)
     f.truncate()
     f.write(content)
