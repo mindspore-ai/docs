@@ -41,7 +41,7 @@ MindSpore Transformers 高可用特性提供了如下几个功能：
 
 高可用特性开关由环境变量使能，YAML 配置文件中不单独设置开关。但对于要求卡间存在副本关系的高可用特性，YAML 文件需要能配置出两张卡的权重和优化器状态一致，详见本文档中的[副本关系配置](#副本关系配置)章节。
 
-依赖MindIO组件的高可用特性需用户安装 MindIO TFT SDK 包，详细请参考[在计算节点安装 MindIO TFT SDK](https://www.hiascend.com/document/detail/zh/mindx-dl/600/clusterscheduling/ref/mindiottp/mindiotft011.html)。
+依赖MindIO组件的高可用特性需用户安装 MindIO TFT SDK 包。
 
 ### 环境变量配置
 
