@@ -1,6 +1,6 @@
 # Typedef mindspore::MSKernelCallBack
 
-\#include &lt;[types.h](https://atomgit.com/mindspore/mindspore-lite/blob/r2.9.0/include/api/types.h)&gt;
+\#include &lt;[types.h](https://atomgit.com/mindspore/mindspore-lite/blob/r2.9/include/api/types.h)&gt;
 
 ```cpp
 using MSKernelCallBack = std::function<bool(const std::vector<MSTensor> &inputs, const std::vector<MSTensor> &outputs, const MSCallBackParam &opInfo)>

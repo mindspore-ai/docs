@@ -1,6 +1,6 @@
 # Class Serialization
 
-\#include &lt;[serialization.h](https://atomgit.com/mindspore/mindspore-lite/blob/r2.9.0/include/api/serialization.h)&gt;
+\#include &lt;[serialization.h](https://atomgit.com/mindspore/mindspore-lite/blob/r2.9/include/api/serialization.h)&gt;
 
 Serialization类汇总了模型文件读写的方法。
 

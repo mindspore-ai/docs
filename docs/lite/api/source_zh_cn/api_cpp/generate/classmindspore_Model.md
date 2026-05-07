@@ -1,6 +1,6 @@
 # Class Model
 
-\#include &lt;[model.h](https://atomgit.com/mindspore/mindspore-lite/blob/r2.9.0/include/api/model.h)&gt;
+\#include &lt;[model.h](https://atomgit.com/mindspore/mindspore-lite/blob/r2.9/include/api/model.h)&gt;
 
 Model定义了MindSpore中的模型，便于计算图管理。
 
