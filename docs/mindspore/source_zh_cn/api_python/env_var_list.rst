@@ -973,7 +973,7 @@ Dump调试
      - "{HCCL_WATCHDOG:1,HCCL_STATUS_SAVE:1}"。HCCL_WATCHDOG：使用一个线程监控集合通信域内是否存在故障，默认开启。HCCL_STATUS_SAVE：使用一个线程记录集合通信算子执行状态，默认关闭。
      - 仅限在 Ascend 后端开启图模式，且 jit_level 设置为 "O0" 或 "O1"。使用 HCCL_STATUS_SAVE 功能时，可以同时配置 HCCL_STATUS_SAVE_CONFIG 字段，配置形式为 `JSON` 文件（例如：{HCCL_STATUS_SAVE:1,HCCL_STATUS_SAVE_CONFIG='./abc.json'}）。文件内容： `{"HCCL_STATUS_SAVE_PATH": str, "HCCL_STATUS_SAVE_INTERVAL": int}` ，其中 HCCL_STATUS_SAVE_PATH 为通信算子执行状态文件保存路径（绝对路径，否则保存在默认路径 `/tmp` 下），HCCL_STATUS_SAVE_INTERVAL 为保存文件间隔。如果不配置 HCCL_STATUS_SAVE_CONFIG，默认保存在 `/tmp` 目录下，保存间隔30秒。
    * - MS_ENABLE_TFT
-     - 使能训练故障容错（Training Fault Tolerance）功能，大多数功能依赖 `MindIO TFT <https://www.hiascend.com/document/detail/zh/mindx-dl/600/clusterscheduling/ref/mindiottp/mindiotft001.html>`_ 组件。
+     - 使能训练故障容错（Training Fault Tolerance）功能。
      - String
      - "{TTP:1,UCE:1,ARF:1,TSP:1}"。TTP (Try To Persist)：临终 CKPT 功能、UCE (Uncorrectable Memory Error)：UCE 故障容错恢复功能、TRE (Training Result Error)：训练结果异常恢复功能、ARF (Air Refuelling)：进程级重调度恢复功能、TSP(Training Step Pause)：训练迭代暂停、RSC (Register Stop/Start Controller)： POD级重调度功能。上述特性可以分开使能，如果只想启用其中的某一个功能，则将对应的值设置为 1 即可。（开启 UCE 或者 ARF 功能时，默认开启 TTP 功能。TRE 功能不可以与 UCE 或 ARF 功能同时使用。仅开启 RSC （当前版本必须依赖MindX）时，其他训练故障容错功能不生效。）
      - 仅限在 Ascend 后端开启图模式，且 jit_level 设置为 "O0" 或 "O1"。
