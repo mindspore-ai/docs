@@ -704,6 +704,7 @@ pattern = r"^(.*?\n## .*?)(?=\n## )"
 match = re.search(pattern, data, flags=re.DOTALL)
 content = match.group(1).rstrip()
 content = re.sub(r"^[\s\S]*?(?=\n## )", "", content, flags=re.DOTALL).lstrip('\n')
+content = content.replace('en-US', 'en')
 
 with open(des_release, "w", encoding="utf-8") as p:
     # 发版本时这里启用
