@@ -97,6 +97,12 @@
 |--------|------------------|
 | CANN 9.0.0 | TBD |
 
+**配套资料**
+
+|   版本说明和接口变更   |   安装   |      教程      |  文档    |  API|
+|    ---  |    ---   |       ---      |     ---     |     ---      |
+|   [ReleaseNotes](https://www.mindspore.cn/docs/zh-CN/r2.9.0/RELEASE.html)   | [安装指南](https://atomgit.com/mindspore/docs/tree/r2.9.0/install)  |  [快速上手](https://www.mindspore.cn/tutorials/zh-CN/r2.9.0/beginner/quick_start.html)      <br> [实践案例](https://www.mindspore.cn/tutorials/zh-CN/r2.9.0/cv.html)  | [MindSpore](https://www.mindspore.cn/docs/zh-CN/r2.9.0/index.html) |  [MindSpore](https://www.mindspore.cn/docs/zh-CN/r2.9.0/api_python/mindspore.html)  |
+
 ## 2.8.0
 
 | 组件        | 硬件平台          | 操作系统          | Python版本   | 链接                                                                                                                                                                                        | SHA-256                                                          |
