@@ -6,7 +6,7 @@
 
 ## 概述
 
-本教程基于[LeNet训练示例代码](https://atomgit.com/mindspore/mindspore-lite/tree/r2.9.0/mindspore-lite/examples/train_lenet_cpp)，演示在Android设备上训练一个LeNet。
+本教程基于[LeNet训练示例代码](https://atomgit.com/mindspore/mindspore-lite/tree/r2.9/mindspore-lite/examples/train_lenet_cpp)，演示在Android设备上训练一个LeNet。
 
 端侧训练流程如下：
 
