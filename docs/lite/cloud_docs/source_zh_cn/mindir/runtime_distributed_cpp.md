@@ -22,7 +22,7 @@ MindSpore Lite云侧分布式推理仅支持在Linux环境部署运行，支持�
 
 ## 准备工作
 
-1. 下载云侧分布式推理C++示例代码，请选择设备类型：[Ascend](https://atomgit.com/mindspore/mindspore-lite/tree/r2.9.0/mindspore-lite/examples/cloud_infer/ascend_ge_distributed_cpp)。后文将该目录称为示例代码目录。
+1. 下载云侧分布式推理C++示例代码，请选择设备类型：[Ascend](https://atomgit.com/mindspore/mindspore-lite/tree/r2.9/mindspore-lite/examples/cloud_infer/ascend_ge_distributed_cpp)。后文将该目录称为示例代码目录。
 
 2. 通过MindSpore切分，并导出分布式MindIR模型，将其存放至示例代码目录。如需快速体验，可下载已切分的两个Matmul模型文件[Matmul0.mindir](https://download.mindspore.cn/model_zoo/official/lite/quick_start/Matmul0.mindir)、[Matmul1.mindir](https://download.mindspore.cn/model_zoo/official/lite/quick_start/Matmul1.mindir)。
 
@@ -69,7 +69,7 @@ device_list.push_back(device_info);
 
 ## 模型创建、加载与编译
 
-与[MindSpore Lite云侧单卡推理](https://www.mindspore.cn/lite/cloud_docs/zh-CN/r2.9.0/mindir/runtime_cpp.html)一致，分布式推理的主入口是[Model](https://www.mindspore.cn/lite/api/zh-CN/r2.9.0/generate/classmindspore_Model.html)接口，可进行模型加载、编译和执行。对于Ascend设备，使用[Model::LoadConfig](https://www.mindspore.cn/lite/api/zh-CN/r2.9.0/generate/classmindspore_Model.html#loadconfig)接口载入配置文件[config_file.ini](https://atomgit.com/mindspore/mindspore-lite/blob/r2.9.0/mindspore-lite/examples/cloud_infer/ascend_ge_distributed_cpp/config_file.ini)。最后，调用[Model::Build](https://www.mindspore.cn/lite/api/zh-CN/r2.9.0/generate/classmindspore_Model.html#build-2)接口来实现模型加载与模型编译，示例代码如下：
+与[MindSpore Lite云侧单卡推理](https://www.mindspore.cn/lite/cloud_docs/zh-CN/r2.9.0/mindir/runtime_cpp.html)一致，分布式推理的主入口是[Model](https://www.mindspore.cn/lite/api/zh-CN/r2.9.0/generate/classmindspore_Model.html)接口，可进行模型加载、编译和执行。对于Ascend设备，使用[Model::LoadConfig](https://www.mindspore.cn/lite/api/zh-CN/r2.9.0/generate/classmindspore_Model.html#loadconfig)接口载入配置文件[config_file.ini](https://atomgit.com/mindspore/mindspore-lite/blob/r2.9/mindspore-lite/examples/cloud_infer/ascend_ge_distributed_cpp/config_file.ini)。最后，调用[Model::Build](https://www.mindspore.cn/lite/api/zh-CN/r2.9.0/generate/classmindspore_Model.html#build-2)接口来实现模型加载与模型编译，示例代码如下：
 
 ```c++
 mindspore::Model model;

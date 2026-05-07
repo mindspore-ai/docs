@@ -48,7 +48,7 @@ This tutorial describes how MindSpore Lite compiles and uses custom fusion passe
 
 2. The ONNX model file is available.
 
-3. The custom pass is implemented. For sample code, see [example](https://atomgit.com/mindspore/mindspore-lite/tree/r2.9.0/mindspore-lite/examples/converter_acl_custom_pass).
+3. The custom pass is implemented. For sample code, see [example](https://atomgit.com/mindspore/mindspore-lite/tree/r2.9/mindspore-lite/examples/converter_acl_custom_pass).
 
 Different from the [device-side registration mechanism](https://www.mindspore.cn/lite/docs/en/r2.9.0/advanced/third_party/converter_register.html), the parameters for the registration position need to be modified:
 

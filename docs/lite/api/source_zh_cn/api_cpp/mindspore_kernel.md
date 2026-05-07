@@ -84,7 +84,7 @@ virtual schema::QuantType quant_type()
 
 ## KernelInterface
 
-\#include <[kernel_interface.h](https://atomgit.com/mindspore/mindspore-lite/blob/r2.9.0/mindspore-lite/include/kernel_interface.h)>
+\#include <[kernel_interface.h](https://atomgit.com/mindspore/mindspore-lite/blob/r2.9/mindspore-lite/include/kernel_interface.h)>
 
 算子扩展能力基类。
 
