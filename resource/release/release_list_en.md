@@ -97,6 +97,12 @@
 |--------|------------------|
 | CANN 9.0.0 | TBD |
 
+**Related Documents**
+
+|   Releasenotes and API Updates   |   Installation  |      Tutorials      |  Document    |  API|
+|    ---  |    ---   |       ---      |     ---     |     ---      |
+|   [ReleaseNotes](https://www.mindspore.cn/docs/en/r2.9.0/RELEASE.html)   | [Installation Guide](https://atomgit.com/mindspore/docs/tree/r2.9.0/install)  |  [Quick Start](https://www.mindspore.cn/tutorials/en/r2.9.0/beginner/quick_start.html)      <br> [Practical Cases](https://www.mindspore.cn/tutorials/en/r2.9.0/cv.html)  | [MindSpore](https://www.mindspore.cn/docs/en/r2.9.0/index.html)|  [MindSpore](https://www.mindspore.cn/docs/en/r2.9.0/api_python/mindspore.html) |
+
 ## 2.8.0
 
 | Module Name                           | Hardware Platform   | Operating System          | Python Version   | Download Links                                                                                                                                                                                 | SHA-256                                                          |
