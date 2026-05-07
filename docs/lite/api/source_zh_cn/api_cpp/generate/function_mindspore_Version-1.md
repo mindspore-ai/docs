@@ -4,7 +4,7 @@
 |-----------------------|--------|--------|
 | std::string Version()     |    ✕    |    √    |
 
-\#include &lt;[types.h](https://atomgit.com/mindspore/mindspore-lite/blob/r2.9.0/include/api/types.h)&gt;
+\#include &lt;[types.h](https://atomgit.com/mindspore/mindspore-lite/blob/r2.9/include/api/types.h)&gt;
 
 ```cpp
 std::string Version()

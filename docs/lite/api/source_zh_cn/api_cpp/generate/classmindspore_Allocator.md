@@ -1,6 +1,6 @@
 # Class Allocator
 
-\#include &lt;[allocator.h](https://atomgit.com/mindspore/mindspore-lite/blob/r2.9.0/include/api/allocator.h)&gt;
+\#include &lt;[allocator.h](https://atomgit.com/mindspore/mindspore-lite/blob/r2.9/include/api/allocator.h)&gt;
 
 内存管理基类。
 

@@ -528,7 +528,7 @@
 ````markdown
 # class Model
 
-\#include &lt;[model.h](https://atomgit.com/mindspore/mindspore-lite/blob/r2.9.0/include/api/model.h)&gt;
+\#include &lt;[model.h](https://atomgit.com/mindspore/mindspore-lite/blob/r2.9/include/api/model.h)&gt;
 
 Model定义了MindSpore中的模型，便于计算图管理。
 
@@ -574,7 +574,7 @@ Status BuildTransferLearning(GraphCell backbone, GraphCell head, const std::shar
 
 ### 注意事项
 
-1. 文档开篇需给出接口所在头文件地址，例如：`\#include &lt;[model.h](https://atomgit.com/mindspore/mindspore-lite/blob/r2.9.0/include/api/model.h)&gt;`。
+1. 文档开篇需给出接口所在头文件地址，例如：`\#include &lt;[model.h](https://atomgit.com/mindspore/mindspore-lite/blob/r2.9/include/api/model.h)&gt;`。
 2. 构造函数和析构函数不要合并写在一个代码块内，需分开写在不同章节。
 3. 如果有多个构造函数，也需要写在不同的代码块内。
 4. 接口顺序和头文件中声明顺序保持一致。

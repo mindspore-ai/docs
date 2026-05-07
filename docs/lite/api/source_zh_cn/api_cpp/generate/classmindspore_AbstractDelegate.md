@@ -1,6 +1,6 @@
 # Class AbstractDelegate
 
-\#include &lt;[delegate_api.h](https://atomgit.com/mindspore/mindspore-lite/blob/r2.9.0/include/api/delegate_api.h)&gt;
+\#include &lt;[delegate_api.h](https://atomgit.com/mindspore/mindspore-lite/blob/r2.9/include/api/delegate_api.h)&gt;
 
 `AbstractDelegate`定义了MindSpore Lite 创建Delegate（抽象类）。
 
