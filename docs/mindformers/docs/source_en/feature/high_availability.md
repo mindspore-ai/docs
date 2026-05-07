@@ -41,7 +41,7 @@ Quick recovery and use instructions for malfunctions:
 
 The high availability feature switch is enabled by an environment variable, and the switch is not set separately in the YAML configuration file. For high availability functions which depend on replica relationship between cards, the YAML file needs to be able to configure the weights and optimizer states to be the same for both cards, as detailed in the [Replica Relationships Configuration](#replica-relationships-configuration) section of this document.
 
-For high availability functions which depend on MindIO, the user needs to install the MindIO TFT SDK package. Please refer to [Install MindIO TFT SDK on compute nodes](https://www.hiascend.com/document/detail/zh/mindx-dl/600/clusterscheduling/ref/mindiottp/mindiotft011.html).
+For high availability functions which depend on MindIO, the user needs to install the MindIO TFT SDK package.
 
 ### Environment Variable Configuration
 
