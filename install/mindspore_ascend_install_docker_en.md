@@ -42,7 +42,7 @@ The following table outlines the system requirements for deploying MindSpore usi
 
 ## Installing Ascend AI processor software package
 
-Ascend CANN `9.0.0` will be released soon.
+Ascend CANN `9.0.0` and installation instructions are available via [Quick install](https://www.hiascend.com/cann/download).
 
 The default installation path of the installation package is `/usr/local/Ascend`. Ensure that the current user has the right to access the installation path `/usr/local/Ascend` of Ascend AI processor software package. If not, the root user needs to add the current user to the user group where `/usr/local/Ascend` is located.
 

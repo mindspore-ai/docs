@@ -80,7 +80,7 @@ python --version
 
 ### 安装昇腾AI处理器配套软件包
 
-昇腾计算架构（CANN）`9.0.0`版本的下载链接即将发布。
+昇腾计算架构（CANN）`9.0.0`版本的下载链接与安装指南请前往[快速安装](https://www.hiascend.com/cann/download)页面获取。
 
 安装包默认安装路径为`/usr/local/Ascend`。安装后确认当前用户有权限访问昇腾AI处理器配套软件包的安装路径，若无权限，需要root用户将当前用户添加到`/usr/local/Ascend`所在的用户组。
 
