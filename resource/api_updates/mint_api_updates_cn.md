@@ -1,5 +1,13 @@
 # mindspore.mint API接口变更
 
+2.9.0版本与2.8.0版本相比，MindSpore中`mindspore.mint`API接口的添加、删除和支持平台的更改信息如下表所示。
+
+|API|变更状态|概述|支持平台|类别
+|:----|:----|:----|:----|:----
+[mindspore.mint.distributed.recv_object_list](https://mindspore.cn/docs/zh-CN/r2.9.0/api_python/mint/mindspore.mint.distributed.recv_object_list.html#mindspore.mint.distributed.recv_object_list)|New|从源进程同步接收Python对象列表。|r2.9.0: Ascend|mindspore.mint.distributed
+[mindspore.mint.distributed.send_object_list](https://mindspore.cn/docs/zh-CN/r2.9.0/api_python/mint/mindspore.mint.distributed.send_object_list.html#mindspore.mint.distributed.send_object_list)|New|将输入的Python对象列表同步发送到目的卡上。|r2.9.0: Ascend|mindspore.mint.distributed
+[mindspore.mint.optim.FusedAdamW](https://mindspore.cn/docs/zh-CN/r2.9.0/api_python/mint/mindspore.mint.optim.FusedAdamW.html#mindspore.mint.optim.FusedAdamW)|New|Fused Adaptive Moment Estimation Weight Decay（FusedAdamW）算法的实现。|r2.9.0: Ascend|算法
+
 2.8.0版本与2.7.2版本相比，MindSpore中`mindspore.mint`API接口的添加、删除和支持平台的更改信息如下表所示。
 
 |API|变更状态|概述|支持平台|类别
