@@ -1,5 +1,13 @@
 # mindspore.mint API Interface Change
 
+Compared with the version 2.8.0, the added, deleted and supported platforms change information of `mindspore.mint` operators in version 2.9.0, is shown in the following table.
+
+|API|Status|Description|Support Platform|Class
+|:----|:----|:----|:----|:----
+[mindspore.mint.optim.FusedAdamW](https://mindspore.cn/docs/en/r2.9.0/api_python/mint/mindspore.mint.optim.FusedAdamW.html#mindspore.mint.optim.FusedAdamW)|New|Implements Adam Weight Decay algorithm.|r2.9.0: Ascend|Algorithms
+[mindspore.mint.distributed.recv_object_list](https://mindspore.cn/docs/en/r2.9.0/api_python/mint/mindspore.mint.distributed.recv_object_list.html#mindspore.mint.distributed.recv_object_list)|New|Receive picklable objects from the specified source rank synchronously.|r2.9.0: Ascend|mindspore.mint.distributed
+[mindspore.mint.distributed.send_object_list](https://mindspore.cn/docs/en/r2.9.0/api_python/mint/mindspore.mint.distributed.send_object_list.html#mindspore.mint.distributed.send_object_list)|New|Send picklable objects to the specified destination rank synchronously.|r2.9.0: Ascend|mindspore.mint.distributed
+
 Compared with the version 2.7.2, the added, deleted and supported platforms change information of `mindspore.mint` operators in version 2.8.0, is shown in the following table.
 
 |API|Status|Description|Support Platform|Class
