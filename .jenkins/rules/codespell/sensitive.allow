@@ -13,3 +13,5 @@ Ascend-cann-910b-ops_8.5.0_linux-aarch64.run
 @pytest.mark.platform_arm_ascend910b_training
 platform_arm_ascend910b_training
 Ascend-cann-kernels-910b_8
+2.9.0-910b-ubuntu22.04-py3.11
+CHIP_ARCH=910b
