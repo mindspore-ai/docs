@@ -40,7 +40,7 @@
     "whl_path" : "/mindformers/version/",
     "whl_name" : "mindformers-.*-py3-none-any.whl$",
     "environ" : "MFM_PATH",
-    "uninstall_name" : "mindformers",
+    "uninstall_name" : ["mindformers", "hyper_parallel"],
     "extra_whl_path" : [
         "/mindspore/website/master/cpu/x86_64",
         "/hyper-parallel/newest/any"
