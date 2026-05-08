@@ -95,7 +95,7 @@
 
 |  CANN version | Installation guide |
 |--------|------------------|
-| CANN 9.0.0 | TBD |
+| CANN 9.0.0 | [Installation guide](https://www.hiascend.com/cann/download) |
 
 **Related Documents**
 
