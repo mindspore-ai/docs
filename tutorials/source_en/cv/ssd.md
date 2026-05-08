@@ -285,6 +285,7 @@ def preprocess_fn(img_id, image, box, is_training):
 ### Creating a Dataset
 
 ```python
+import sys
 from mindspore import Tensor
 from mindspore.dataset import MindDataset
 from mindspore.dataset.vision import Decode, HWC2CHW, Normalize, RandomColorAdjust
@@ -292,6 +293,8 @@ from mindspore.dataset.vision import Decode, HWC2CHW, Normalize, RandomColorAdju
 
 def create_ssd_dataset(mindrecord_file, batch_size=32, device_num=1, rank=0,
                        is_training=True, num_parallel_workers=1, use_multiprocessing=True):
+    if sys.platform == "darwin":
+        use_multiprocessing = False
     """Create SSD dataset with MindDataset."""
     dataset = MindDataset(mindrecord_file, columns_list=["img_id", "image", "annotation"], num_shards=device_num,
                           shard_id=rank, num_parallel_workers=num_parallel_workers, shuffle=is_training)
