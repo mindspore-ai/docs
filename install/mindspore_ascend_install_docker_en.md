@@ -3,13 +3,20 @@
 <!-- TOC -->
 
 - [Installing MindSpore in Ascend by Docker](#installing-mindspore-in-ascend-by-docker)
-    - [System Environment Information Confirmation](#system-environment-information-confirmation)
-    - [Installing Ascend AI processor software package](#installing-ascend-ai-processor-software-package)
-    - [Obtaining MindSpore Image](#obtaining-mindspore-image)
-    - [Running MindSpore Image](#running-mindspore-image)
-    - [Installation Verification](#installation-verification)
-    - [Version Update](#version-update)
-    - [Notes](#notes)
+    - [Supported Tags and Dockerfile Usage](#supported-tags-and-dockerfile-usage)
+        - [Tag Specification](#tag-specification)
+        - [Image Repository Address](#image-repository-address)
+    - [Quick Start](#quick-start)
+        - [Obtaining MindSpore Image](#obtaining-mindspore-image)
+        - [Building Arguments](#building-arguments)
+        - [Building MindSpore Image](#building-mindspore-image)
+        - [Running MindSpore Container](#running-mindspore-container)
+        - [Installation Verification](#installation-verification)
+        - [Version Update](#version-update)
+        - [Notes](#notes)
+        - [How to Extend for Custom Development](#how-to-extend-for-custom-development)
+    - [Supported Hardware](#supported-hardware)
+    - [License](#license)
 
 <!-- /TOC -->
 
@@ -19,102 +26,105 @@
 
 This document describes how to install MindSpore by Docker on Linux in an Ascend environment.
 
-The Docker image of MindSpore is hosted on [Huawei SWR](https://support.huaweicloud.com/swr/index.html).
+## Supported Tags and Dockerfile Usage
 
-The current support for containerized build options is as follows:
+### Tag Specification
 
-| Hardware   | Docker Namespace   | Image Name             | Label                       | Note                                       |
-| :--------- | :------------------------ | :------------------------ | :----------------------- | :--------------------------------------- |
-| Atlas Training Series‌| `mindspore` | `mindspore-ascend-a1` | `x.y.z` | The production environment of MindSpore Ascend x.y.z together with the corresponding version of Ascend Data Center Solution. |
-| Atlas A2 Training Series‌| `mindspore` | `mindspore-ascend-a2` | `x.y.z` | The production environment of MindSpore Ascend x.y.z together with the corresponding version of Ascend Data Center Solution. |
+Tags follow this format:
 
-> `x.y.z` corresponds to the MindSpore version number. For example, when MindSpore version 2.9.0 is installed, `x.y.z` should be written as 2.9.0.
-
-## System Environment Information Confirmation
-
-The following table outlines the system requirements for deploying MindSpore using Docker.
-
-|Software Name|Version|Function|
-|-|-|-|
-|Debian series OS / openEuler series OS|Debianseries: Debian, Ubuntu, veLinux / openEuler serires: openEuler, CentOS, Kylin, BCLinux, UOS V20, AntOS, CTyunOS, CULinux, Tlinux, MTOS|‌Recommended OS for MindSpore Container Deployment|
-|[Ascend AI processor software package](#installing-ascend-ai-processor-software-package)|CANN 9.0.0, CANN 8.5.0, CANN 8.3.RC1|Ascend platform AI computing library used by MindSpore|
-|Docker | Docker 18.03+ |Provides lightweight containerization environment for isolated deployment and cross-platform execution of MindSpore and its dependencies|
-
-## Installing Ascend AI processor software package
-
-Ascend CANN `9.0.0` and installation instructions are available via [Quick install](https://www.hiascend.com/cann/download).
-
-The default installation path of the installation package is `/usr/local/Ascend`. Ensure that the current user has the right to access the installation path `/usr/local/Ascend` of Ascend AI processor software package. If not, the root user needs to add the current user to the user group where `/usr/local/Ascend` is located.
-
-## Obtaining MindSpore Image
-
-For the `Ascend` backend, you can directly use the following command to obtain the latest stable image:
-
-```bash
-docker pull swr.cn-south-1.myhuaweicloud.com/mindspore/{image_name}:{tag}
+```text
+<MindSpore Version>-<Hardware Info (Chip)>-<Operating System>-<Python Version>
 ```
 
-of which,
+| Field | Example Values | Description |
+|-------|---------------|-------------|
+| MindSpore Version | 2.9.0 | Corresponds to the version identifier in MindSpore official release tags |
+| Hardware Info (Chip) | see below | Ascend chip model identifier |
+| Operating System | ubuntu22.04 / openeuler24.03 | Operating system distribution and version used in the base image |
+| Python Version | py3.11 | Major Python version built into the image |
 
-- `{image_name}` corresponds to the image name in the above table. For Atlas Training Series A1 products, download the `mindspore-ascend-a1` image; for Atlas A2 Training Series products, download the `mindspore-ascend-a2` image.
-- `{tag}` corresponds to the label in the above table.
+> Tips: System architecture is automatically detected via Docker Manifest, no need to specify in the tag.
 
-To install MindSpore 2.9.0 on Atlas Training Platform, use the following command:
+### Image Repository Address
 
-```bash
-docker pull swr.cn-south-1.myhuaweicloud.com/mindspore/mindspore-ascend-a1:2.9.0
+MindSpore Ascend images are hosted on Huawei Cloud SWR image repository:
+
+```text
+swr.cn-south-1.myhuaweicloud.com/mindspore/mindspore
 ```
 
-To install MindSpore 2.9.0 on Atlas A2 Training Platform, use the following command:
+**Full Image Example:**
 
-```bash
-docker pull swr.cn-south-1.myhuaweicloud.com/mindspore/mindspore-ascend-a2:2.9.0
+```text
+swr.cn-south-1.myhuaweicloud.com/mindspore/mindspore:2.9.0-910b-ubuntu22.04-py3.11
 ```
 
-## Running MindSpore Image
+## Quick Start
 
-Execute the following command to start the Docker container instance:
+### Obtaining MindSpore Image
+
+For `Ascend` backend, you can directly use the following command to obtain the latest stable image:
 
 ```bash
-docker run -it --ipc=host --privileged \
-               --device=/dev/davinci0 \
-               --device=/dev/davinci1 \
-               --device=/dev/davinci2 \
-               --device=/dev/davinci3 \
-               --device=/dev/davinci4 \
-               --device=/dev/davinci5 \
-               --device=/dev/davinci6 \
-               --device=/dev/davinci7 \
-               --device=/dev/davinci_manager \
-               --device=/dev/devmm_svm \
-               --device=/dev/hisi_hdc \
-               -v /usr/local/bin/npu-smi:/usr/local/bin/npu-smi \
-               -v /usr/local/Ascend/driver:/usr/local/Ascend/driver \
-               -v /etc/ascend_install.info:/etc/ascend_install.info \
-               -v /var/log/npu/:/usr/slog \
-               -v /usr/bin/hccn_tool:/usr/bin/hccn_tool \
-               -v /etc/hccn.conf:/etc/hccn.conf \
-               swr.cn-south-1.myhuaweicloud.com/mindspore/{image_name}:{tag} \
-               /bin/bash
+docker pull swr.cn-south-1.myhuaweicloud.com/mindspore/mindspore:<MindSpore Version>-<Hardware Info (Chip)>-<Operating System>-<Python Version>
 ```
 
-of which,
+To install MindSpore 2.9.0 on Atlas A2 Training Platform, with Ubuntu 22.04 operating system, use the following command:
 
-- `{image_name}` corresponds to the image name in the above table. For Atlas Training Series A1 products, use `mindspore-ascend-a1` image; for Atlas A2 Training Series products, use `mindspore-ascend-a2` image.
-- `{tag}` corresponds to the label in the above table.
-- Description for parameters are listed below:
+```bash
+docker pull swr.cn-south-1.myhuaweicloud.com/mindspore/mindspore:2.9.0-910b-ubuntu22.04-py3.11
+```
 
-|Parameter|Description|
-|-|-|
-|--device|Mapping devices to the container. <br> /dev/davinciX: NPU device, X represents device ID, e.g. davinci0. <br> /dev/davinci_manager: Management device for NPU. <br> /dev/hisi_hdc: Management device for HDC. <br> /dev/devmm_svm: Management device for device memory.|
-|-v /usr/local/bin/npu-smi:/usr/local/bin/npu-smi|Mapping NPU management interface `npu-smi` to the container.|
-|-v /usr/local/Ascend/driver:/usr/local/Ascend/driver|Mapping host directory "/usr/local/Ascend/driver" to the container.|
-|-v /etc/ascend_install.info:/etc/ascend_install.info|Mapping installation log for CANN software packages to the container.|
-|-v /var/log/npu/:/usr/slog|Mapping NPU log to the container.|
-|-v /usr/bin/hccn_tool:/usr/bin/hccn_tool|Mapping NPU communication configuration tool `hccn_tool` to the container.|
-|-v /etc/hccn.conf:/etc/hccn.conf|Mapping hccn configuration file to the container.|
+To install MindSpore 2.9.0 on Atlas A3 Training Platform, with OpenEuler 24.04 operating system, use the following command:
 
-## Installation Verification
+```bash
+docker pull swr.cn-south-1.myhuaweicloud.com/mindspore/mindspore:2.9.0-a3-openeuler24.03-py3.11
+```
+
+### Building Arguments
+
+| Parameter | Description | Required | Source | Example Values |
+|-----------|-------------|----------|--------|----------------|
+| CANN_VERSION | Ascend CANN toolkit version | Yes | CANN image tag | 9.0.0 |
+| CHIP_ARCH | Ascend chip architecture identifier | Yes | Tag specification | see below |
+| OS_SYSTEM | Base image operating system and version | Yes | Tag specification | ubuntu22.04 / openeuler24.03 |
+| PY_VERSION | Python version built into the base image | Yes | Tag specification | py3.11 |
+| MINDSPORE_VERSION | MindSpore version number | Yes | MindSpore repository releases | 2.9.0 |
+| PIP_INDEX_URL | pip installation source URL (default: Huawei Cloud mirror) | No | PyPI mirror source | https://mirrors.huaweicloud.com/repository/pypi/simple |
+
+### Building MindSpore Image
+
+```bash
+docker build \
+--build-arg CANN_VERSION=9.0.0 \
+--build-arg CHIP_ARCH=910b \
+--build-arg OS_SYSTEM=ubuntu22.04 \
+--build-arg PY_VERSION=py3.11 \
+--build-arg MINDSPORE_VERSION=2.9.0 \
+--build-arg PIP_INDEX_URL=https://mirrors.huaweicloud.com/repository/pypi/simple \
+-t mindspore:2.9.0-910b-ubuntu22.04-py3.11 \
+-f Dockerfile .
+```
+
+### Running MindSpore Container
+
+```bash
+docker run \
+    --privileged \
+    --name mindspore_container \
+    --device /dev/davinci1 \
+    --device /dev/davinci_manager \
+    --device /dev/devmm_svm \
+    --device /dev/hisi_hdc \
+    -v /usr/local/dcmi:/usr/local/dcmi \
+    -v /usr/local/bin/npu-smi:/usr/local/bin/npu-smi \
+    -v /usr/local/Ascend/driver/lib64/:/usr/local/Ascend/driver/lib64/ \
+    -v /usr/local/Ascend/driver/version.info:/usr/local/Ascend/driver/version.info \
+    -v /etc/ascend_install.info:/etc/ascend_install.info \
+    -it mindspore:tag bash
+```
+
+### Installation Verification
 
 After entering the MindSpore container according to the above steps, to test whether the Docker container is working properly, please execute the following Python code and check the output:
 
@@ -168,7 +178,7 @@ The outputs should be the same as:
 
 So far, it means MindSpore Ascend has been installed by Docker successfully.
 
-## Version Update
+### Version Update
 
 When you need to update the MindSpore version:
 
@@ -176,14 +186,10 @@ When you need to update the MindSpore version:
 - directly use the following command to obtain the latest stable image:
 
     ```bash
-    docker pull swr.cn-south-1.myhuaweicloud.com/mindspore/{image_name}:{tag}
+    docker pull swr.cn-south-1.myhuaweicloud.com/mindspore/mindspore:<MindSpore Version>-<Hardware Info (Chip)>-<Operating System>-<Python Version>
     ```
 
-    of which,
-
-    - `{tag}` corresponds to the label in the above table.
-
-## Notes
+### Notes
 
 - When deploying containers in non-root user mode, it is essential to verify that the target NPU device is not occupied by other unprivileged containers. After startup, execute the `npu-smi` info command to check device status. If the target NPU device is already allocated to another non-root container, the following error will occur, You can add `-u root  --privileged` when creating the container.
 
@@ -191,3 +197,37 @@ When you need to update the MindSpore version:
     DrvMngGetConsoleLogLevel failed. (g_conLogLevel=3)
     dcmi model initialized failed, because the device is used. ret is -802
 ```
+
+### How to Extend for Custom Development
+
+```bash
+# Use MindSpore image as base image, add user software
+FROM swr.cn-south-1.myhuaweicloud.com/mindspore/mindspore:2.9.0-910b-ubuntu22.04-py3.11
+
+RUN apt update -y && \
+    apt install -y gcc g++
+
+# Install additional dependencies
+RUN pip install pandas scikit-learn
+
+# Copy user code
+WORKDIR /workspace
+COPY . /workspace
+
+CMD ["python", "train.py"]
+```
+
+## Supported Hardware
+
+| Chip Series | Product Examples | Architecture |
+|-------------|-----------------|--------------|
+| Atlas A2 | Atlas 800T A2, Atlas 900 A2 PoD | Auto-detected (ARM64/x86_64) |
+| Atlas A3 | Atlas 800T A3 | Auto-detected (ARM64/x86_64) |
+
+> Tips: Use the `docker manifest inspect` command to view the system architectures supported by an image.
+
+## License
+
+View the [license information](https://atomgit.com/mindspore/mindspore/blob/master/LICENSE) for MindSpore included in these images.
+
+As with all container images, pre-installed software packages (Python, system libraries, etc.) may be subject to their respective licenses.
