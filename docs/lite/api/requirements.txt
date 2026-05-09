@@ -6,4 +6,4 @@ exhale == 0.2.3
 breathe == 4.35.0
 numpy
 jieba
-mistune == 2.0.4
+mistune == 3.2.1
