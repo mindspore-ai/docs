@@ -6,4 +6,4 @@ numpy
 nbsphinx == 0.8.11
 IPython
 jieba
-mistune == 2.0.4
+mistune == 3.2.1
