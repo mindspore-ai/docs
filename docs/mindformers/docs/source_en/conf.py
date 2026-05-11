@@ -330,24 +330,6 @@ with open(os.path.join(base_path, 'mindformers/pynative/distributed/style.py'), 
     f.truncate()
     f.write(content)
 
-with open(os.path.join(base_path, 'mindformers/pynative/distributed/tensor_parallel.py'), 'r+', encoding='utf-8') as f:
-    content = f.read()
-    old_content = """def __init__(
-            self,
-            *,
-            input_layouts: Placement | None = None,
-            output_layouts: Placement | None = None,"""
-    new_content = """from typing import Union
-    def __init__(
-            self,
-            *,
-            input_layouts: Union[Placement, None] = None,
-            output_layouts: Union[Placement, None] = None,"""
-    content = content.replace(old_content, new_content)
-    f.seek(0)
-    f.truncate()
-    f.write(content)
-
 import mindformers
 
 # Copy source files of chinese python api from golden-stick repository.
