@@ -99,12 +99,11 @@ from custom_directives import IncludeCodeDirective
 # Fix some dl-label lack class='simple'
 from docutils.writers import _html_base
 
-with open(_html_base.__file__, "r+", encoding="utf-8") as f:
+with open(_html_base.__file__, "r", encoding="utf-8") as f:
     code_str = f.read()
-    old_str = '''        if self.is_compactable(node):
-            classes.append('simple')'''
-    new_str = '''        if classes == []:
-            classes.append('simple')'''
+    old_str = '''        classes = ['simple'] if self.is_compactable(node) else []'''
+    new_str = '''        classes = node.setdefault('classes', [])
+            classes = ['simple'] if classes == [] else []'''
     code_str = code_str.replace(old_str, new_str)
     exec(code_str, _html_base.__dict__)
 
@@ -134,6 +133,18 @@ layout_src = '../../../../resource/_static/layout.html'
 if os.path.exists(layout_target):
     os.remove(layout_target)
 shutil.copy(layout_src, layout_target)
+
+with open(os.path.join(os.path.dirname(sphinx_rtd_theme.__file__), 'breadcrumbs.html'), "r+", encoding="utf8") as f:
+    content = f.read()
+    content = content.replace(
+        '<li><a href="{{ pathto(master_doc) }}" class="icon icon-home" aria-label="Home"></a></li>',
+        '<li><a href="{{ pathto(master_doc) }}" class="icon icon-home" aria-label="Home"></a> &raquo;</li>')
+    content = content.replace(
+        '<li class="breadcrumb-item"><a href="{{ doc.link|e }}">{{ doc.title }}</a></li>',
+        '<li class="breadcrumb-item"><a href="{{ doc.link|e }}">{{ doc.title }}</a> &raquo;</li>')
+    f.seek(0)
+    f.truncate()
+    f.write(content)
 
 from myautosummary import MsPlatformAutoSummary, MsNoteAutoSummary, MsCnAutoSummary, MsCnPlatformAutoSummary, MsCnNoteAutoSummary
 
