@@ -3,14 +3,15 @@
 <!-- TOC -->
 
 - [Docker方式安装MindSpore Ascend版本](#docker方式安装mindspore-ascend版本)
-    - [支持的 Tags 及 Dockerfile 使用方法](#支持的-tags-及-dockerfile-使用方法)
-        - [Tag 规范](#tag-规范)
+    - [支持的Tags及Dockerfile使用方法](#支持的tags及dockerfile使用方法)
+        - [Tag规范](#tag规范)
         - [镜像仓库地址](#镜像仓库地址)
     - [快速开始](#快速开始)
         - [获取MindSpore镜像](#获取mindspore镜像)
+        - [运行MindSpore容器](#运行mindspore容器)
         - [构建参数](#构建参数)
-        - [构建 MindSpore 镜像](#构建-mindspore-镜像)
-        - [运行 MindSpore 容器](#运行-mindspore-容器)
+        - [构建MindSpore镜像](#构建mindspore镜像)
+        - [运行自构建MindSpore容器](#运行自构建mindspore容器)
         - [验证是否安装成功](#验证是否安装成功)
         - [升级MindSpore版本](#升级mindspore版本)
         - [注意事项](#注意事项)
@@ -26,9 +27,9 @@
 
 本文档介绍如何在Ascend环境的Linux系统上，使用Docker方式快速安装MindSpore。
 
-## 支持的 Tags 及 Dockerfile 使用方法
+## 支持的Tags及Dockerfile使用方法
 
-### Tag 规范
+### Tag规范
 
 Tag 遵循以下格式：
 
@@ -81,32 +82,7 @@ docker pull swr.cn-south-1.myhuaweicloud.com/mindspore/mindspore:2.9.0-910b-ubun
 docker pull swr.cn-south-1.myhuaweicloud.com/mindspore/mindspore:2.9.0-a3-openeuler24.03-py3.11
 ```
 
-### 构建参数
-
-| 参数               | 说明                               | 必填 | 参考来源              | 示例值                                                |
-|------------------|----------------------------------|----|-------------------|----------------------------------------------------|
-| CANN_VERSION     | 昇腾 CANN 工具包版本                    | 是  | CANN 镜像标签         | 9.0.0                                              |
-| CHIP_ARCH        | 昇腾芯片架构标识                         | 是  | Tag 规范             | 参考下文                                   |
-| OS_SYSTEM        | 基础镜像操作系统及版本                      | 是  | Tag 规范             | ubuntu22.04 / openeuler24.03                      |
-| PY_VERSION       | 基础镜像内置 Python 版本                 | 是  | Tag 规范             | py3.11                           |
-| MINDSPORE_VERSION | MindSpore 版本号                       | 是  | MindSpore 仓库发行版         | 2.9.0                                              |
-| PIP_INDEX_URL    | pip 安装源地址（默认华为云源）                 | 否  | PyPI 镜像源          | https://mirrors.huaweicloud.com/repository/pypi/simple |
-
-### 构建 MindSpore 镜像
-
-```bash
-docker build \
---build-arg CANN_VERSION=9.0.0 \
---build-arg CHIP_ARCH=910b \
---build-arg OS_SYSTEM=ubuntu22.04 \
---build-arg PY_VERSION=py3.11 \
---build-arg MINDSPORE_VERSION=2.9.0 \
---build-arg PIP_INDEX_URL=https://mirrors.huaweicloud.com/repository/pypi/simple \
--t mindspore:2.9.0-910b-ubuntu22.04-py3.11 \
--f Dockerfile .
-```
-
-### 运行 MindSpore 容器
+### 运行MindSpore容器
 
 ```bash
 docker run \
@@ -121,8 +97,55 @@ docker run \
     -v /usr/local/Ascend/driver/lib64/:/usr/local/Ascend/driver/lib64/ \
     -v /usr/local/Ascend/driver/version.info:/usr/local/Ascend/driver/version.info \
     -v /etc/ascend_install.info:/etc/ascend_install.info \
-    -it mindspore:tag bash
+    -it swr.cn-south-1.myhuaweicloud.com/mindspore/mindspore:2.9.0-a3-openeuler24.03-py3.11 bash
 ```
+
+### 构建参数
+
+| 参数               | 说明                               | 必填 | 参考来源              | 示例值                                                |
+|------------------|----------------------------------|----|-------------------|----------------------------------------------------|
+| CANN_VERSION     | 昇腾 CANN 工具包版本                    | 是  | CANN 镜像标签         | 9.0.0                                              |
+| CHIP_ARCH        | 昇腾芯片架构标识                         | 是  | Tag 规范             | 参考下文                                   |
+| OS_SYSTEM        | 基础镜像操作系统及版本                      | 是  | Tag 规范             | ubuntu22.04 / openeuler24.03                      |
+| PY_VERSION       | 基础镜像内置 Python 版本                 | 是  | Tag 规范             | py3.11                           |
+| MINDSPORE_VERSION | MindSpore 版本号                       | 是  | [MindSpore 仓库发行版](https://atomgit.com/mindspore/mindspore/releases)         | 2.9.0                                              |
+| PIP_INDEX_URL    | pip 安装源地址（默认华为云源）                 | 否  | PyPI 镜像源          | https://mirrors.huaweicloud.com/repository/pypi/simple |
+
+### 构建MindSpore镜像
+
+```bash
+docker build \
+    --build-arg CANN_VERSION=9.0.0 \
+    --build-arg CHIP_ARCH=910b \
+    --build-arg OS_SYSTEM=ubuntu22.04 \
+    --build-arg PY_VERSION=py3.11 \
+    --build-arg MINDSPORE_VERSION=2.9.0 \
+    --build-arg PIP_INDEX_URL=https://mirrors.huaweicloud.com/repository/pypi/simple \
+    -t mindspore:2.9.0-910b-ubuntu22.04-py3.11 \
+    -f Dockerfile .
+```
+
+### 运行自构建MindSpore容器
+
+```bash
+docker run \
+    --privileged \
+    --name mindspore_container \
+    --device /dev/davinci1 \
+    --device /dev/davinci_manager \
+    --device /dev/devmm_svm \
+    --device /dev/hisi_hdc \
+    -v /usr/local/dcmi:/usr/local/dcmi \
+    -v /usr/local/bin/npu-smi:/usr/local/bin/npu-smi \
+    -v /usr/local/Ascend/driver/lib64/:/usr/local/Ascend/driver/lib64/ \
+    -v /usr/local/Ascend/driver/version.info:/usr/local/Ascend/driver/version.info \
+    -v /etc/ascend_install.info:/etc/ascend_install.info \
+    -it mindspore:{tag} bash
+```
+
+其中：
+
+- `{tag}`对应上述构建MindSpore镜像操作中指定的标签，例如`mindspore:2.9.0-910b-ubuntu22.04-py3.11`。
 
 ### 验证是否安装成功
 
