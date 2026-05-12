@@ -17,12 +17,12 @@ from mindspore.dataset import MnistDataset
 
 ## Processing a Dataset
 
-MindSpore provides Pipeline-based [Data Engine](https://www.mindspore.cn/docs/zh-CN/r2.9.0/features/data_engine.html) and achieves efficient data preprocessing through [Data Loading and Processing](https://www.mindspore.cn/tutorials/en/r2.9.0/beginner/dataset.html). In this tutorial, we use the Mnist dataset and pre-process dataset by using the data transformations provided by `mindspore.dataset`, after automatically downloaded.
+MindSpore provides Pipeline-based [Data Engine](https://www.mindspore.cn/docs/en/r2.9.0/features/data_engine.html) and achieves efficient data preprocessing through [Data Loading and Processing](https://www.mindspore.cn/tutorials/en/r2.9.0/beginner/dataset.html). In this tutorial, we use the MNIST dataset and pre-process dataset by using the data transformations provided by `mindspore.dataset`, after automatic downloaded.
 
 > The sample code in this chapter relies on `download`, which can be installed by using the command `pip install download`. If this document is run as Notebook, you need to restart the kernel after installation to execute subsequent code.
 
 ```python
-# Download data from open datasets\n",
+# Download data from open datasets
 from download import download
 
 url = "https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/" \
@@ -42,12 +42,12 @@ The directory structure of MNIST Dataset is as following:
 
 ```text
 MNIST_Data
-└── train
-    ├── train-images-idx3-ubyte (60000 training images)
-    ├── train-labels-idx1-ubyte (60000 training labels)
+├── train
+│   ├── train-images-idx3-ubyte (60000 training images)
+│   └── train-labels-idx1-ubyte (60000 training labels)
 └── test
     ├── t10k-images-idx3-ubyte (10000 test images)
-    ├── t10k-labels-idx1-ubyte (10000 test labels)
+    └── t10k-labels-idx1-ubyte (10000 test labels)
 ```
 
 After the data is downloaded, the dataset object is obtained.
@@ -67,7 +67,7 @@ print(train_dataset.get_col_names())
 ['image', 'label']
 ```
 
-Dataset in MindSpore uses the Data Processing Pipeline, which requires specifying operations such as map, batch, and shuffle. Here we use map to transform the image data and labels by scaling the input image to 1/255 and normalizing it according to the mean value of 0.1307 and the standard deviation value of 0.3081, and then the processed dataset is packed into a batch of size 64.
+Dataset in MindSpore uses the Data Processing Pipeline, which requires specifying operations such as map, batch, and shuffle. Here we use map to transform the image data and labels by scaling the input image to 1/255 and normalizing it according to the mean value of 0.1307 and the standard deviation of 0.3081, and then the processed dataset is packed into a batch of size 64.
 
 ```python
 def datapipe(dataset, batch_size):
@@ -120,7 +120,7 @@ For more detailed information, see [Data Loading and Processing](https://www.min
 
 ## Building Network
 
-`mindspore.nn` class is the base class for building all networks and is the basic unit of the network. When the user needs to customize the network, you can inherit the `nn.Cell` class and override the `__init__` method and the `construct` method. `__init__` contains the definitions of all network layers, and `construct` contains the transformation process of the data ([Tensor](https://www.mindspore.cn/tutorials/en/r2.9.0/beginner/tensor.html)).
+`mindspore.nn.Cell` class is the base class for building all networks and is the basic unit of the network. When you needs to customize the network, you can inherit this class and override the `__init__` method and the `construct` method. `__init__` contains the definitions of all network layers, and `construct` contains the transformation process of the data ([Tensor](https://www.mindspore.cn/tutorials/en/r2.9.0/beginner/tensor.html)).
 
 ```python
 # Define model
@@ -164,15 +164,15 @@ For more detailed information, see [Model](https://www.mindspore.cn/tutorials/en
 
 In model training, a complete training process (step) requires the following three steps:
 
-1. **Forward calculation**: model predicts results (logits) and finds the prediction loss (loss) with the correct label (label).
-2. **Backpropagation**: Using an automatic differentiation mechanism, the gradients of the model parameters (parameters) with respect to the loss are automatically found.
-3. **Parameter optimization**: update the gradient to the parameter.
+1. **Forward computation**: model predicts results (logits) and computes the prediction loss (loss) with the correct label (label).
+2. **Backpropagation**: Using an automatic differentiation mechanism, the gradients of the model parameters (parameters) with respect to the loss are automatically computed.
+3. **Parameter optimization**: update the parameters with the gradients.
 
-MindSpore uses a functional automatic differentiation mechanism, implemented through the steps above:
+To implement the steps above using MindSpore's functional automatic differentiation mechanism:
 
-1. Define forward calculation function.
-2. Obtain the gradient calculation function by function transformation, calling [value_and_grad](https://www.mindspore.cn/docs/en/r2.9.0/api_python/mindspore/mindspore.value_and_grad.html) for details.
-3. Define training functions, set to training mode by calling [set_train](https://www.mindspore.cn/docs/en/r2.9.0/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.set_train) for setting of training mode, and perform forward computation, back propagation and parameter optimization.
+1. Define forward computation function.
+2. Obtain the gradient computation function by function transformation, calling [value_and_grad](https://www.mindspore.cn/docs/en/r2.9.0/api_python/mindspore/mindspore.value_and_grad.html) for details.
+3. Define training functions, set to training mode by calling [set_train](https://www.mindspore.cn/docs/en/r2.9.0/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.set_train), and perform forward computation, backpropagation and parameter optimization.
 
 ```python
 # Instantiate loss function and optimizer
@@ -205,7 +205,7 @@ def train(model, dataset):
             print(f"loss: {loss:>7f}  [{current:>3d}/{size:>3d}]")
 ```
 
-In addition to training, we define test functions that are used to evaluate the performance of the model.
+In addition to training, we define a test function that is used to evaluate the performance of the model.
 
 ```python
 def test(model, dataset, loss_fn):
@@ -222,7 +222,7 @@ def test(model, dataset, loss_fn):
     print(f"Test: \n Accuracy: {(100*correct):>0.1f}%, Avg loss: {test_loss:>8f} \n")
 ```
 
-The training process requires several iterations of the dataset, and one complete iteration is called an epoch. In each round, the training set is traversed for training and the test set is used for prediction at the end. The loss value and prediction accuracy (Accuracy) of each round are printed, and it can be seen that the loss is decreasing and Accuracy is increasing.
+The training process requires several iterations over the dataset, and one complete iteration is called an epoch. In each round, the training set is traversed for training and the test set is used for prediction at the end. The loss value and prediction accuracy (Accuracy) of each round are printed, and it can be seen that the loss is decreasing and Accuracy is increasing.
 
 ```python
 epochs = 3
@@ -282,7 +282,7 @@ Test:
 Done!
 ```
 
-For the detailed information, see [Train](https://www.mindspore.cn/tutorials/en/r2.9.0/beginner/train.html).
+For detailed information, see [Train](https://www.mindspore.cn/tutorials/en/r2.9.0/beginner/train.html).
 
 ## Saving a Model
 
