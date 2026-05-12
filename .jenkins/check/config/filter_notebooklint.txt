@@ -1,1 +1,3 @@
 "docs/tutorials/source_zh_cn/cv/resnet50.ipynb"
+"docs/tutorials/source_zh_cn/beginner/dataset.ipynb"
+"docs/tutorials/source_zh_cn/beginner/tensor.ipynb"
