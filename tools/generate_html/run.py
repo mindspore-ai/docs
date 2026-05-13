@@ -540,6 +540,8 @@ def main(version, user, pd, WGETDIR, release_url, generate_list, api_detect):
         # 安装各个组件需要的依赖
         install_req_cmd = ["pip", "install", "-r", "requirements.txt"]
         subprocess.run(install_req_cmd)
+        sys.path.append(os.path.join(DOCDIR, '../../resource/sphinx_ext'))
+        import sphinx_replace
 
         try:
             if replace_flag:
