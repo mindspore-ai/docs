@@ -4,9 +4,9 @@
 
 # Building a Network
 
-The neural network model consists of neural network layers and Tensor operations. [mindspore.nn](https://www.mindspore.cn/docs/en/r2.9.0/api_python/mindspore.nn.html) provides common neural network layer implementations, and the [Cell](https://www.mindspore.cn/docs/en/r2.9.0/api_python/nn/mindspore.nn.Cell.html) class in MindSpore is the base class for building all networks and is the basic unit of the network. `Cell`, a neural network model, is composed of different sub-`Cells`. Using such a nested structure, the neural network structure can be constructed and managed simply by using object-oriented programming thinking.
+The neural network model consists of neural network layers and Tensor operations. [mindspore.nn](https://www.mindspore.cn/docs/en/r2.9.0/api_python/mindspore.nn.html) provides common neural network layer implementations, and the [Cell](https://www.mindspore.cn/docs/en/r2.9.0/api_python/nn/mindspore.nn.Cell.html) class in MindSpore is the base class for building all networks and is the basic unit of the network. A neural network model can be represented as a `Cell` , which is composed of different sub-`Cells` . Using such a nested structure, the neural network structure can be constructed and managed simply by using object-oriented programming thinking.
 
-In the following we will construct a neural network model for the Mnist dataset classification.
+In the following we will construct a neural network model for the MNIST dataset classification.
 
 ```python
 import mindspore
@@ -15,7 +15,7 @@ from mindspore import nn, ops
 
 ## Defining a Model Class
 
-When define a neural network, we can inherit the `nn.Cell` class, instantiate and manage the state of the sub-Cell in the `__init__` method, and implement the Tensor operation in the `construct` method.
+When defining a neural network, we can inherit the `nn.Cell` class, instantiate and manage the state of the sub-Cell in the `__init__` method, and implement the Tensor operation in the `construct` method.
 
 > `construct` means neural network (computational graph) construction. For more details, see [Accelerating with Static Graphs](https://www.mindspore.cn/tutorials/en/r2.9.0/beginner/accelerate_with_static_graph.html).
 
@@ -115,7 +115,7 @@ print(flat_image.shape)
 
 ### nn.Dense
 
-[nn.Dense](https://www.mindspore.cn/docs/en/r2.9.0/api_python/nn/mindspore.nn.Dense.html) is the fully connected layer, which linearly transforms the input by using weights and deviations.
+[nn.Dense](https://www.mindspore.cn/docs/en/r2.9.0/api_python/nn/mindspore.nn.Dense.html) is the fully connected layer, which linearly transforms the input by using weights and biases.
 
 ```python
 layer1 = nn.Dense(in_channels=28*28, out_channels=20)
@@ -129,7 +129,7 @@ print(hidden1.shape)
 
 ### nn.ReLU
 
-[nn.ReLU](https://www.mindspore.cn/docs/en/r2.9.0/api_python/nn/mindspore.nn.ReLU.html) layer adds a nonlinear activation function to the network, to help the neural network learn various complex features.
+[nn.ReLU](https://www.mindspore.cn/docs/en/r2.9.0/api_python/nn/mindspore.nn.ReLU.html) layer adds a nonlinear activation function to the network to help the neural network learn various complex features.
 
 ```python
 print(f"Before ReLU: {hidden1}\n\n")
@@ -197,7 +197,7 @@ pred_probab = softmax(logits)
 
 ## Model Parameters
 
-The internal neural network layer of the network has weight parameters and bias parameters (e.g. `nn.Dense`), which are continuously optimized during the training process, and the parameter names and corresponding parameter details can be obtained through `model.parameters_and_names()`.
+The internal neural network layers of the network have weight parameters and bias parameters (e.g. `nn.Dense`), which are continuously optimized during the training process, and the parameter names and corresponding parameter details can be obtained through `model.parameters_and_names()`.
 
 ```python
 print(f"Model structure: {model}\n\n")

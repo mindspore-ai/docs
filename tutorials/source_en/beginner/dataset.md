@@ -6,7 +6,7 @@
 
 Data is the foundation of deep learning, and high-quality data input is beneficial to the entire deep neural network.
 
-MindSpore provides Pipeline-based [Data Engine](https://www.mindspore.cn/docs/en/r2.9.0/features/data_engine.html) and achieves efficient data preprocessing through `Dataset`, `Transforms` and `Batch` operator. The pipeline nodes are:
+MindSpore provides Pipeline-based [Data Engine](https://www.mindspore.cn/docs/en/r2.9.0/features/data_engine.html) and achieves efficient data preprocessing through `Dataset`, `Transforms` and `Batch` operators. The pipeline nodes are:
 
 1. Dataset is the start of Pipeline and is used to load raw data to memory. `mindspore.dataset` provides [built-in dataset interfaces](https://www.mindspore.cn/docs/en/r2.9.0/api_python/mindspore.dataset.loading.html) for loading text, image, audio, etc., and provides [interfaces](https://www.mindspore.cn/docs/en/r2.9.0/api_python/mindspore.dataset.loading.html#user-defined) for loading customized datasets.
 
@@ -43,7 +43,7 @@ For those datasets that MindSpore does not support yet, it is suggested to load 
 
 A random-accessible dataset is one that implements the `__getitem__` and `__len__` methods, which represents a map from indices/keys to data samples.
 
-For example, when access a dataset with `dataset[idx]`, it should read the idx-th data inside the dataset content.
+For example, when accessing a dataset with `dataset[idx]`, it should read the idx-th data inside the dataset content.
 
 ```python
 # Random-accessible object as input source
@@ -88,9 +88,9 @@ for data in dataset:
 
 #### Iterable Dataset
 
-An iterable dataset is one that implements the `__iter__` and `__next__` methods, which represents an iterator to return data samples gradually. This type of datasets is suitable for cases where random access are expensive or forbidden.
+An iterable dataset is one that implements the `__iter__` and `__next__` methods, which represents an iterator to return data samples gradually. This type of datasets is suitable for cases where random access is expensive or forbidden.
 
-For example, when access a dataset with `iter(dataset)`, it should return a stream of data from a database or a remote server.
+For example, when accessing a dataset with `iter(dataset)`, it should return a stream of data from a database or a remote server.
 
 The following constructs a simple iterator and loads it into `GeneratorDataset`.
 
@@ -125,9 +125,9 @@ for d in dataset:
 
 #### Generator
 
-Generator also belongs to iterable dataset types, and it can be a Python's generator to return data until the generator throws a `StopIteration` exception.
+Generator also belongs to iterable dataset types, and it uses Python's generator type to return data until the generator throws a `StopIteration` exception.
 
-Example constructs a generator and loads it into the 'GeneratorDataset'.
+The example below constructs a generator and loads it into the 'GeneratorDataset'.
 
 ```python
 # Generator
@@ -135,7 +135,7 @@ def my_generator(start, end):
     for i in range(start, end):
         yield i
 
-# since a generator instance can be only itered once, we need to wrapper it by lambda to generate multiple instances
+# since a generator instance can be only iterated once, we need to wrap it by lambda to generate multiple instances
 dataset = GeneratorDataset(source=lambda: my_generator(3, 6), column_names=["data"])
 
 for d in dataset:
@@ -189,7 +189,7 @@ for data in dataset:
 
 ### Common Datasets
 
-We use the **Mnist** dataset as a sample to introduce the loading method by using `mindspore.dataset` .
+We use the MNIST dataset as a sample to introduce the loading method by using `mindspore.dataset` .
 
 The interface provided by `mindspore.dataset` **only supports decompressed data files**, so we use the `download` library to download the dataset and decompress it.
 
@@ -210,7 +210,7 @@ Extracting zip file...
 Successfully downloaded / unzipped to ./
 ```
 
-After the compressed file is deleted and loaded directly, you can see that its data type is MnistDataset.
+After downloading and extracting, load directly, you can see that its data type is MnistDataset.
 
 ```python
 train_dataset = MnistDataset("MNIST_Data/train", shuffle=False)
@@ -221,7 +221,7 @@ print(type(train_dataset))
 <class 'mindspore.dataset.engine.datasets_vision.MnistDataset'>
 ```
 
-Use iterator to loop and output data. Define a visualization function below to iterate through 9 images in the Mnist dataset for display.
+Use iterator to loop and output data. Define a visualization function below to iterate through 9 images in the MNIST dataset for display.
 
 ```python
 def visualize(dataset):
@@ -260,7 +260,7 @@ Usually, the directly-loaded raw data cannot be directly fed into the neural net
 
 `mindspore.dataset` provides built-in data transforms: [vision transforms](https://www.mindspore.cn/docs/en/r2.9.0/api_python/mindspore.dataset.transforms.html#module-mindspore.dataset.vision), [nlp transforms](https://www.mindspore.cn/docs/en/r2.9.0/api_python/mindspore.dataset.transforms.html#module-mindspore.dataset.text), [audio transforms](https://www.mindspore.cn/docs/en/r2.9.0/api_python/mindspore.dataset.transforms.html#module-mindspore.dataset.audio).
 
-For example, `Rescale`, `Normalize`, and `HWC2CHW` operations are used for **data** in the Mnist dataset, and `TypeCast` operations are used for **label**.
+For example, `Rescale`, `Normalize`, and `HWC2CHW` operations are used for **data** in the MNIST dataset, and `TypeCast` operations are used for **label**.
 
 1. Rescale: The `Rescale` transform is used to resize the image pixel values and consists of two parameters: rescale (scaling factor) and shift (shift factor). Each pixel of the image will be adjusted according to these two parameters and the output pixel value will be $output_{i} = input_{i} * rescale + shift$.
 
@@ -289,7 +289,7 @@ for data in train_dataset:
 
 ### User-defined Transforms
 
-For example, user-defined `Rescale`, user-defined `Normalize`, and user-defined `HWC2CHW` operations are used for **data** in the Mnist dataset, and user-defined `TypeCast` operations are used for **label**.
+For example, user-defined `Rescale`, user-defined `Normalize`, and user-defined `HWC2CHW` operations are used for **data** in the MNIST dataset, and user-defined `TypeCast` operations are used for **label**.
 
 ```python
 train_dataset = MnistDataset('MNIST_Data/train')
@@ -344,7 +344,7 @@ After the dataset is loaded and processed, the data is generally acquired in an 
 
 The default type of data to be accessed is `Tensor`. If `output_numpy=True` is set, the type of data to be accessed is `Numpy`.
 
-The following shows the output of the `creat_tuple_interator` iterator.
+The following shows the output of the `create_tuple_iterator` iterator.
 
 ```python
 data = ([1, 2, 3, 4, 5, 6, 7, 8], [0, 1, 0, 1, 0, 1, 0, 1])
@@ -362,7 +362,7 @@ for data in dataset.create_tuple_iterator():
 [Tensor(shape=[2], dtype=Int32, value= [14, 16]), Tensor(shape=[2], dtype=Int32, value= [0, 1])]
 ```
 
-The following shows the output of the `creat_dict_interator` iterator.
+The following shows the output of the `create_dict_iterator` iterator.
 
 ```python
 data = ([1, 2, 3, 4, 5, 6, 7, 8], [0, 1, 0, 1, 0, 1, 0, 1])
