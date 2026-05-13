@@ -50,7 +50,7 @@ There are multiple methods for creating tensors. When building a tensor, you can
 
     When `init` is used to initialize a tensor, the `init`, `shape`, and `dtype` parameters can be transferred.
 
-    - `init`: supports the subclass of [initializer](https://mindspore.cn/docs/en/master/api_python/mindspore.common.initializer.html). For example, [One()](https://www.mindspore.cn/docs/en/master/api_python/mindspore.common.initializer.html#mindspore.common.initializer.One) and [Normal()](https://www.mindspore.cn/docs/en/master/api_python/mindspore.common.initializer.html#mindspore.common.initializer.Normal) below.
+    - `init`: supports subclasses of [initializer](https://mindspore.cn/docs/en/master/api_python/mindspore.common.initializer.html). For example, [One()](https://www.mindspore.cn/docs/en/master/api_python/mindspore.common.initializer.html#mindspore.common.initializer.One) and [Normal()](https://www.mindspore.cn/docs/en/master/api_python/mindspore.common.initializer.html#mindspore.common.initializer.Normal) below.
     - `shape`: supports `list`, `tuple`, and `int`.
     - `dtype`: supports [mindspore.dtype](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.dtype.html#mindspore.dtype).
 
@@ -75,7 +75,7 @@ There are multiple methods for creating tensors. When building a tensor, you can
      [-0.00113699  0.00081491]]
     ```
 
-    The `init` is used for delayed initialization in parallel mode. Usually, it is not recommended to use `init` interface to initialize parameters.
+    `init` is used for delayed initialization in parallel mode. Usually, it is not recommended to use `init` interface to initialize parameters.
 
 - **Inheriting attributes of another tensor to form a new tensor**
 
@@ -101,11 +101,11 @@ There are multiple methods for creating tensors. When building a tensor, you can
 
 Tensor attributes include shape, data type, transposed tensor, item size, number of bytes occupied, dimension, size of elements, and stride per dimension.
 
-- shape: the shape of `Tensor`, a tuple.
+- shape: the shape of `Tensor`, which is a tuple.
 
-- dtype: the dtype of `Tensor`, a data type of MindSpore.
+- dtype: the dtype of `Tensor`, which is a data type of MindSpore.
 
-- itemsize: the number of bytes occupied by each element in `Tensor`, which is an integer.
+- itemsize: the number of bytes each element in `Tensor` occupies, which is an integer.
 
 - nbytes: the total number of bytes occupied by `Tensor`, which is an integer.
 
@@ -238,7 +238,7 @@ Tensor and NumPy can be converted to each other.
 
 ### Tensor to NumPy
 
-Use [Tensor.asnumpy()](https://www.mindspore.cn/docs/en/master/api_python/mindspore/Tensor/mindspore.Tensor.asnumpy.html) to convert Tensor to NumPy, which is same as tensor building.
+Use [Tensor.asnumpy()](https://www.mindspore.cn/docs/en/master/api_python/mindspore/Tensor/mindspore.Tensor.asnumpy.html) to convert Tensor to NumPy.
 
 ```python
 t = mindspore.tensor([1., 1., 1., 1., 1.])
@@ -254,7 +254,7 @@ n: [1. 1. 1. 1. 1.] <class 'numpy.ndarray'>
 
 ### NumPy to Tensor
 
-Use [Tensor.from_numpy()](https://www.mindspore.cn/docs/en/master/api_python/mindspore/Tensor/mindspore.Tensor.asnumpy.html) to convert NumPy to Tensor, which operates via memory sharing (zero-copy) for better performance, with the constraint that input NumPy arrays must be memory-contiguous (verifiable with numpy.iscontiguous()).
+Use [Tensor.from_numpy()](https://www.mindspore.cn/docs/en/master/api_python/mindspore/Tensor/mindspore.Tensor.from_numpy.html) to convert NumPy to Tensor. This method shares memory (zero-copy) for better performance, but requires the input NumPy array to be memory-contiguous (verifiable with numpy.iscontiguous()).
 
 ```python
 n = np.ones(5)
@@ -272,7 +272,7 @@ n: [2. 2. 2. 2. 2.] <class 'numpy.ndarray'>
 t: [2. 2. 2. 2. 2.] <class 'mindspore.common.tensor.Tensor'>
 ```
 
-Use [mindspore.tensor()](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.tensor.html) for direct creation results in data copying.
+Using [mindspore.tensor()](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.tensor.html) for direct creation results in data copying.
 
 ```python
 n = np.ones(5)
