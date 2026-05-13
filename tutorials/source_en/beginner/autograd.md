@@ -4,7 +4,7 @@
 
 # Automatic Differentiation
 
-The training of the neural network mainly uses the back propagation algorithm. Model predictions (logits) and the correct labels are fed into the loss function to obtain the loss, and then the back propagation calculation is performed to obtain the gradients, which are finally updated to the model parameters. Automatic differentiation is able to calculate the value of the derivative of a derivable function at a point and is a generalization of the backpropagation algorithm. The main problem solved by automatic differentiation is to decompose a complex mathematical operation into a series of simple basic operations. The function shields the user from a large number of derivative details and processes, which greatly reduces the threshold of using the framework.
+Neural network training mainly uses the back propagation algorithm. Model predictions (logits) and the correct labels are fed into the loss function to obtain the loss, and then back propagation is performed to compute the gradients, which are finally used to update the model parameters. Automatic differentiation is able to calculate the value of the derivative of a derivable function at a point and is a generalization of the backpropagation algorithm. The main problem solved by automatic differentiation is to decompose a complex mathematical operation into a series of simple basic operations. This capability shields the user from a large number of derivative details and processes, which greatly reduces the threshold of using the framework.
 
 MindSpore uses the design philosophy of functional auto-differentiation to provide auto-differentiation interfaces [mindspore.grad](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.grad.html) and [mindspore.value_and_grad](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.value_and_grad.html) that are closer to the mathematical semantics. We introduce it below by using a simple single-level linear transform model.
 
@@ -55,7 +55,7 @@ print(loss)
 
 ## Differential Functions and Gradient Computing
 
-In order to optimize the model parameters, find the derivatives of the parameters with respect to loss: $\frac{\partial \operatorname{loss}}{\partial w}$ and $\frac{\partial \operatorname{loss}}{\partial b}$. At this point we call the `ops.grad` function to get the differential function of `function`.
+In order to optimize the model parameters, find the derivatives of loss with respect to the parameters: $\frac{\partial \operatorname{loss}}{\partial w}$ and $\frac{\partial \operatorname{loss}}{\partial b}$. At this point we call the `ops.grad` function to get the differential function of `function`.
 
 Two input parameters of `grad` function are used here:
 
@@ -88,7 +88,7 @@ print(grads)
 
 ## Stop Gradient
 
-Generally, the derivative is obtained by taking the derivative of loss with respect to the parameter, so that the output of function is only one term of loss. When we want the function to output more than one term, the differential function will find the derivative of all output terms with respect to the parameter. In this case, if you want to truncate the gradient of an output term or eliminate the effect of a Tensor on the gradient, you need to use Stop Gradient operation.
+Generally, the derivative is obtained by taking the derivative of loss with respect to the parameter, so that the output of the function has only one term of loss. When we want the function to output more than one term, the differential function will find the derivative of all output terms with respect to the parameter. In this case, if you want to truncate the gradient of an output term or eliminate the effect of a Tensor on the gradient, you need to use Stop Gradient operation.
 
 Here we change `function` to `function_with_logits` that outputs both loss and z to obtain the differentiation function and execute it.
 
@@ -114,7 +114,7 @@ print(grads)
   [ 1.32618928e+00,  1.01589143e+00,  1.04216456e+00]]), Tensor(shape=[3], dtype=Float32, value= [ 1.32618928e+00,  1.01589143e+00,  1.04216456e+00]))
 ```
 
-You can see that the gradient values corresponding to $w$ and $b$ have changed. At this point, if you want to block out the effect of z on the gradient, i.e., still only find the derivative of the parameter with respect to loss, you can use the [mindspore.ops.stop_gradient](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.stop_gradient.html) interface to truncate the gradient here. We add the `function` implementation to `stop_gradient` and execute it.
+You can see that the gradient values corresponding to $w$ and $b$ have changed. At this point, if you want to block out the effect of z on the gradient, i.e., still only find the derivative of loss with respect to the parameter, you can use the [mindspore.ops.stop_gradient](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.stop_gradient.html) interface to truncate the gradient here. We add the `function` implementation to `stop_gradient` and execute it.
 
 ```python
 def function_stop_gradient(x, y, w, b):
@@ -194,7 +194,7 @@ model = Network()
 loss_fn = nn.BCEWithLogitsLoss()
 ```
 
-Once completed, the calls to the neural network and loss function need to be encapsulated into a forward computing function due to the need to use functional automatic differentiation.
+Once completed, the calls to the neural network and loss function need to be encapsulated into a forward computing function. This is required for using functional automatic differentiation.
 
 ```python
 # Define forward function
@@ -206,7 +206,7 @@ def forward_fn(x, y):
 
 Once completed, we use the `value_and_grad` interface to obtain the differentiation function for computing the gradient.
 
-Since Cell is used to encapsulate the neural network model and the model parameters are internal properties of Cell, we do not need to use `grad_position` to specify the derivation of the function inputs at this point, so we configure it as `None`. When derive the model parameters, we use the `weights` parameter and use the `model.trainable_params()` method to retrieve the parameters from the Cell that can be derived.
+Since Cell is used to encapsulate the neural network model and the model parameters are internal properties of Cell, we do not need to use `grad_position` to specify the derivation of the function inputs at this point, so we configure it as `None`. When deriving the model parameters, we use the `weights` parameter and use the `model.trainable_params()` method to retrieve the parameters from the Cell that can be derived.
 
 ```python
 grad_fn = mindspore.value_and_grad(forward_fn, None, weights=model.trainable_params())
@@ -226,4 +226,4 @@ print(grads)
   [ 3.26189250e-01,  1.58914644e-02,  4.21645455e-02]]), Tensor(shape=[3], dtype=Float32, value= [ 3.26189250e-01,  1.58914644e-02,  4.21645455e-02]))
 ```
 
-Executing the differentiation function, and we can see that the gradient value is the same as the gradient value obtained from the previous `function`.
+Executing the differentiation function, we can see that the gradient value is the same as the gradient value obtained from the previous `function`.

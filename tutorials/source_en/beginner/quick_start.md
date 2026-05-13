@@ -120,7 +120,7 @@ For more detailed information, see [Data Loading and Processing](https://www.min
 
 ## Building Network
 
-`mindspore.nn.Cell` class is the base class for building all networks and is the basic unit of the network. When you need to customize the network, you can inherit this class and override the `__init__` method and the `construct` method. `__init__` contains the definitions of all network layers, and `construct` contains the transformation process of the data ([Tensor](https://www.mindspore.cn/tutorials/en/master/beginner/tensor.html)).
+The `mindspore.nn.Cell` class is the base class for building all networks and is the basic unit of the network. When you need to customize the network, you can inherit this class and override the `__init__` method and the `construct` method. `__init__` contains the definitions of all network layers, and `construct` contains the transformation process of the data ([Tensor](https://www.mindspore.cn/tutorials/en/master/beginner/tensor.html)).
 
 ```python
 # Define model
@@ -165,7 +165,7 @@ For more detailed information, see [Model](https://www.mindspore.cn/tutorials/en
 In model training, a complete training process (step) requires the following three steps:
 
 1. **Forward computation**: model predicts results (logits) and computes the prediction loss (loss) with the correct label (label).
-2. **Backpropagation**: Using an automatic differentiation mechanism, the gradients of the model parameters (parameters) with respect to the loss are automatically computed.
+2. **Backpropagation**: Using an automatic differentiation mechanism, the gradients of the loss with respect to the model parameters are automatically computed.
 3. **Parameter optimization**: update the parameters with the gradients.
 
 To implement the steps above using MindSpore's functional automatic differentiation mechanism:
@@ -222,7 +222,7 @@ def test(model, dataset, loss_fn):
     print(f"Test: \n Accuracy: {(100*correct):>0.1f}%, Avg loss: {test_loss:>8f} \n")
 ```
 
-The training process requires several iterations over the dataset, and one complete iteration is called an epoch. In each round, the training set is traversed for training and the test set is used for prediction at the end. The loss value and prediction accuracy (Accuracy) of each round are printed, and it can be seen that the loss is decreasing and Accuracy is increasing.
+The training process requires several iterations over the dataset, and one complete iteration is called an epoch. In each epoch, the training set is traversed for training and the test set is used for prediction at the end. The loss value and prediction accuracy (Accuracy) of each epoch are printed, and it can be seen that the loss is decreasing and Accuracy is increasing.
 
 ```python
 epochs = 3
