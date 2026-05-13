@@ -48,7 +48,7 @@ There are multiple methods for creating tensors. When building a tensor, you can
 
 - **Generating a tensor by using init**
 
-    When `init` is used to initialize a tensor, the `init`, `shape`, and `dtype` parameters can be transferred.
+    When `init` is used to initialize a tensor, the `init`, `shape`, and `dtype` parameters can be passed.
 
     - `init`: supports subclasses of [initializer](https://mindspore.cn/docs/en/r2.9.0/api_python/mindspore.common.initializer.html). For example, [One()](https://www.mindspore.cn/docs/en/r2.9.0/api_python/mindspore.common.initializer.html#mindspore.common.initializer.One) and [Normal()](https://www.mindspore.cn/docs/en/r2.9.0/api_python/mindspore.common.initializer.html#mindspore.common.initializer.Normal) below.
     - `shape`: supports `list`, `tuple`, and `int`.
@@ -75,7 +75,7 @@ There are multiple methods for creating tensors. When building a tensor, you can
      [-0.00113699  0.00081491]]
     ```
 
-    `init` is used for delayed initialization in parallel mode. Usually, it is not recommended to use `init` interface to initialize parameters.
+    `init` is used for delayed initialization in parallel mode. Usually, it is not recommended to use the `init` interface to initialize parameters.
 
 - **Inheriting attributes of another tensor to form a new tensor**
 

@@ -8,7 +8,7 @@ Data is the foundation of deep learning, and high-quality data input is benefici
 
 MindSpore provides Pipeline-based [Data Engine](https://www.mindspore.cn/docs/en/r2.9.0/features/data_engine.html) and achieves efficient data preprocessing through `Dataset`, `Transforms` and `Batch` operators. The pipeline nodes are:
 
-1. Dataset is the start of Pipeline and is used to load raw data to memory. `mindspore.dataset` provides [built-in dataset interfaces](https://www.mindspore.cn/docs/en/r2.9.0/api_python/mindspore.dataset.loading.html) for loading text, image, audio, etc., and provides [interfaces](https://www.mindspore.cn/docs/en/r2.9.0/api_python/mindspore.dataset.loading.html#user-defined) for loading customized datasets.
+1. Dataset is the start of the Pipeline and is used to load raw data to memory. `mindspore.dataset` provides [built-in dataset interfaces](https://www.mindspore.cn/docs/en/r2.9.0/api_python/mindspore.dataset.loading.html) for loading text, image, audio, etc., and provides [interfaces](https://www.mindspore.cn/docs/en/r2.9.0/api_python/mindspore.dataset.loading.html#user-defined) for loading customized datasets.
 
 2. Data transforms perform further transformation operations on data in memory. [mindspore.dataset.transforms](https://www.mindspore.cn/docs/en/r2.9.0/api_python/mindspore.dataset.transforms.html#module-mindspore.dataset.transforms) provides general data transformation operations, [mindspore.dataset.transforms.vision](https://www.mindspore.cn/docs/en/r2.9.0/api_python/mindspore.dataset.transforms.html#module-mindspore.dataset.vision) provides image data transformation operations, [mindspore.dataset.transforms.text](https://www.mindspore.cn/docs/en/r2.9.0/api_python/mindspore.dataset.transforms.html#module-mindspore.dataset.text) provides text data transformation operations, and [mindspore.dataset.transforms.audio](https://www.mindspore.cn/docs/en/r2.9.0/api_python/mindspore.dataset.transforms.html#module-mindspore.dataset.audio) provides audio data transformation operations.
 
@@ -88,7 +88,7 @@ for data in dataset:
 
 #### Iterable Dataset
 
-An iterable dataset is one that implements the `__iter__` and `__next__` methods, which represents an iterator to return data samples gradually. This type of datasets is suitable for cases where random access is expensive or forbidden.
+An iterable dataset is one that implements the `__iter__` and `__next__` methods, which represents an iterator to return data samples gradually. This type of dataset is suitable for cases where random access is expensive or forbidden.
 
 For example, when accessing a dataset with `iter(dataset)`, it should return a stream of data from a database or a remote server.
 
@@ -127,7 +127,7 @@ for d in dataset:
 
 Generator also belongs to iterable dataset types, and it uses Python's generator type to return data until the generator throws a `StopIteration` exception.
 
-The example below constructs a generator and loads it into the 'GeneratorDataset'.
+The example below constructs a generator and loads it into the `GeneratorDataset`.
 
 ```python
 # Generator
@@ -152,7 +152,7 @@ for d in dataset:
 
 For those datasets that MindSpore does not support yet, it is suggested to convert the dataset into `MindRecord` format and load it through the [mindspore.dataset.MindDataset](https://www.mindspore.cn/docs/en/r2.9.0/api_python/dataset/mindspore.dataset.MindDataset.html) interface.
 
-Firstly, create a new `MindRecord` format dataset using the `MindRecord` format interface **FileWriter**, where each sample contains three fields: `file_name`, `label`, and `data`.
+First, create a new `MindRecord` format dataset using the `MindRecord` format interface **FileWriter**, where each sample contains three fields: `file_name`, `label`, and `data`.
 
 ```python
 if os.path.exists("./test.mindrecord"):
@@ -248,7 +248,7 @@ visualize(train_dataset)
 
 ## Transforms on Dataset
 
-Usually, the directly-loaded raw data cannot be directly fed into the neural network for training, and we need to preprocess the data at this time. MindSpore provides different kinds of data transforms that can be used with the Data Processing Pipeline for data preprocessing. All Transforms can be passed in via the `map` method to process the specified data columns.
+Usually, the raw data cannot be directly fed into the neural network for training, and we need to preprocess the data at this time. MindSpore provides different kinds of data transforms that can be used with the Data Processing Pipeline for data preprocessing. All Transforms can be passed in via the `map` method to process the specified data columns.
 
 1. The `map` operation can add data transforms to a specified column of a dataset, apply the data transforms to each element of the column's data, and return a new dataset containing the transformed elements.
 

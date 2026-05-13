@@ -20,13 +20,17 @@ The overall architecture of MindSpore is as follows:
 
 ### Design Philosophy
 
-MindSpore is a full-scenario deep learning framework designed to achieve three major goals: easy development, efficient execution, and unified deployment across all scenarios. Easy development is reflected in API friendliness and low debugging difficulty; efficient execution includes computational efficiency, data preprocessing efficiency, and distributed training efficiency; full-scenario means the framework simultaneously supports cloud, edge, and device-side scenarios.
+MindSpore is a full-scenario deep learning framework designed to achieve three major goals: easy development, efficient execution, and unified deployment across all scenarios.
+
+- Easy development: API friendliness and low debugging difficulty.
+- Efficient execution: computational efficiency, data preprocessing efficiency, and distributed training efficiency.
+- Full-scenario: the framework simultaneously supports cloud, edge, and device-side scenarios.
 
 ## Introduction to Huawei Ascend AI Full-Stack Solution
 
-Ascend computing is a full-stack AI computing infrastructure and application based on Ascend series processors. It includes the Ascend series chips, Atlas series hardware, CANN chip enablement, MindSpore AI framework, ModelArts, and MindX application enablement.
+Ascend computing is a full-stack AI computing infrastructure and application based on the Ascend series processors. It includes the Ascend series chips, Atlas series hardware, CANN chip enablement, MindSpore AI framework, ModelArts, and MindX application enablement.
 
-The Huawei Atlas AI computing solution is based on Ascend series AI processors. It uses various product forms such as modules, cards, edge stations, servers, and clusters to build a full-scenario AI infrastructure solution oriented to device, edge, and cloud. It covers data center and intelligent edge solutions, as well as the entire inference and training processes in the deep learning field.
+The Huawei Atlas AI computing solution is based on the Ascend series AI processors. It uses various product forms such as modules, cards, edge stations, servers, and clusters to build a full-scenario AI infrastructure solution oriented toward device, edge, and cloud. It covers data center and intelligent edge solutions, as well as the entire inference and training processes in the deep learning field.
 
 The Ascend AI full-stack is shown below:
 
@@ -45,7 +49,7 @@ For details, click [Huawei Ascend official website](https://e.huawei.com/en/prod
 
 We welcome every developer to the MindSpore community to contribute to this full-scenario AI framework.
 
-- **MindSpore official website**: provides comprehensive MindSpore information, including installation, tutorials, documents, community, resources, and news ([learn more](https://www.mindspore.cn/en)).
+- **MindSpore official website**: A comprehensive resource for MindSpore information, including installation, tutorials, documents, community, resources, and news ([learn more](https://www.mindspore.cn/en)).
 - **MindSpore code**:
 
     - [MindSpore AtomGit](https://atomgit.com/mindspore/mindspore): You can track the latest progress of MindSpore by clicking Watch, Star, and Fork. You can also discuss issues and commit code.

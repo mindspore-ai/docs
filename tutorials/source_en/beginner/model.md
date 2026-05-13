@@ -6,7 +6,7 @@
 
 The neural network model consists of neural network layers and Tensor operations. [mindspore.nn](https://www.mindspore.cn/docs/en/r2.9.0/api_python/mindspore.nn.html) provides common neural network layer implementations, and the [Cell](https://www.mindspore.cn/docs/en/r2.9.0/api_python/nn/mindspore.nn.Cell.html) class in MindSpore is the base class for building all networks and is the basic unit of the network. A neural network model can be represented as a `Cell` , which is composed of different sub-`Cells` . Using such a nested structure, the neural network structure can be constructed and managed simply by using object-oriented programming thinking.
 
-In the following we will construct a neural network model for the MNIST dataset classification.
+Next, we will construct a neural network model for the MNIST dataset classification.
 
 ```python
 import mindspore
@@ -58,7 +58,7 @@ Network<
   >
 ```
 
-We construct an input data and call the model directly to obtain a two-dimensional Tensor output that contains the original predicted values for each category.
+We construct input data and call the model directly to obtain a two-dimensional Tensor output that contains the original predicted values for each category.
 
 > The `model.construct()` method cannot be called directly.
 
@@ -88,7 +88,7 @@ Predicted class: [4]
 
 ## Model Layers
 
-In this section, we decompose each layer of the neural network model constructed in the previous section. First we construct a random data (3 images of 28x28) with shape (3, 28, 28) and pass through each neural network layer in turn to observe its effect.
+In this section, we decompose each layer of the neural network model constructed in the previous section. First we construct random data (3 images of 28x28) with shape (3, 28, 28) and pass through each neural network layer in turn to observe its effect.
 
 ```python
 input_image = ops.ones((3, 28, 28), mindspore.float32)

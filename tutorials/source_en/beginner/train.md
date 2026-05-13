@@ -90,7 +90,7 @@ Hyperparameters can be adjusted to control the model training and optimization p
 
 $$w_{t+1}=w_{t}-\eta \frac{1}{n} \sum_{x \in \mathcal{B}} \nabla l\left(x, w_{t}\right)$$
 
-In the formula, $n$ is the batch size, and $η$ is a learning rate. In addition, $w_{t}$ is the weight parameter in the training batch t, and $\nabla l$ is the derivative of the loss function. In addition to the gradient itself, the two factors directly determine the weight update of the model. From the perspective of the optimization itself, the two factors are the most important parameters that affect the convergence of the model performance. Generally, the following hyperparameters are defined for training:
+In the formula, $n$ is the batch size, and $η$ is a learning rate. In addition, $w_{t}$ is the weight parameter in the training batch t, and $\nabla l$ is the derivative of the loss function. In addition to the gradient itself, these two factors (batch size and learning rate) directly determine the weight update of the model. From the perspective of the optimization itself, they are the most important parameters that affect the convergence of the model performance. Generally, the following hyperparameters are defined for training:
 
 - **Epoch**: specifies number of times that the dataset is traversed during training.
 
@@ -116,7 +116,7 @@ loss_fn = nn.CrossEntropyLoss()
 
 ### Optimizer
 
-Model optimization is the process of adjusting the model parameters at each training step to reduce model error, and MindSpore offers several implementations of optimization algorithms called Optimizers. The optimizer internally defines the parameter optimization process of the model (i.e., how the gradient is updated to the model parameters), and all optimization logic is encapsulated in the optimizer object. Here, we use the SGD (Stochastic Gradient Descent) optimizer.
+Model optimization is the process of adjusting the model parameters at each training step to reduce model error, and MindSpore offers several implementations of optimization algorithms called Optimizers. The optimizer internally defines the parameter optimization process of the model (i.e., how the gradient is used to update the model parameters), and all optimization logic is encapsulated in the optimizer object. Here, we use the SGD (Stochastic Gradient Descent) optimizer.
 
 We obtain the trainable parameters of the model via the `model.trainable_params()` method and pass in the learning rate hyperparameter to initialize the optimizer.
 
@@ -132,7 +132,7 @@ optimizer = nn.SGD(model.trainable_params(), learning_rate=learning_rate)
 
 ## Training and Evaluation
 
-Once the hyperparameters, loss function and optimizer are set, we can loop the input data to train the model. A complete iterative loop of a data set is called an epoch. Each epoch of performing training consists of two steps.
+Once the hyperparameters, loss function and optimizer are set, we can loop the input data to train the model. A complete iterative loop of a data set is called an epoch. Each training epoch consists of two steps.
 
 1. Training: iterate over the training dataset and try to converge to the best parameters.
 2. Validation/Testing: iterate over the test dataset to check if model performance improves.
@@ -185,7 +185,7 @@ def test_loop(model, dataset, loss_fn):
     print(f"Test: \n Accuracy: {(100*correct):>0.1f}%, Avg loss: {test_loss:>8f} \n")
 ```
 
-We pass the instantiated loss function and optimizer into `train_loop` and `test_loop`, train it for 3 rounds and output loss and Accuracy to see the performance change.
+We pass the instantiated loss function and optimizer into `train_loop` and `test_loop`, train it for 3 epochs and output loss and Accuracy to see the performance change.
 
 ```python
 loss_fn = nn.CrossEntropyLoss()
