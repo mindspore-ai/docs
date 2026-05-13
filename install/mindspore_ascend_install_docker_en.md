@@ -8,9 +8,10 @@
         - [Image Repository Address](#image-repository-address)
     - [Quick Start](#quick-start)
         - [Obtaining MindSpore Image](#obtaining-mindspore-image)
+        - [Running MindSpore Container](#running-mindspore-container)
         - [Building Arguments](#building-arguments)
         - [Building MindSpore Image](#building-mindspore-image)
-        - [Running MindSpore Container](#running-mindspore-container)
+        - [Running local build MindSpore Container](#running-local-build-mindspore-container)
         - [Installation Verification](#installation-verification)
         - [Version Update](#version-update)
         - [Notes](#notes)
@@ -81,31 +82,6 @@ To install MindSpore 2.9.0 on Atlas A3 Training Platform, with OpenEuler 24.04 o
 docker pull swr.cn-south-1.myhuaweicloud.com/mindspore/mindspore:2.9.0-a3-openeuler24.03-py3.11
 ```
 
-### Building Arguments
-
-| Parameter | Description | Required | Source | Example Values |
-|-----------|-------------|----------|--------|----------------|
-| CANN_VERSION | Ascend CANN toolkit version | Yes | CANN image tag | 9.0.0 |
-| CHIP_ARCH | Ascend chip architecture identifier | Yes | Tag specification | see below |
-| OS_SYSTEM | Base image operating system and version | Yes | Tag specification | ubuntu22.04 / openeuler24.03 |
-| PY_VERSION | Python version built into the base image | Yes | Tag specification | py3.11 |
-| MINDSPORE_VERSION | MindSpore version number | Yes | MindSpore repository releases | 2.9.0 |
-| PIP_INDEX_URL | pip installation source URL (default: Huawei Cloud mirror) | No | PyPI mirror source | https://mirrors.huaweicloud.com/repository/pypi/simple |
-
-### Building MindSpore Image
-
-```bash
-docker build \
---build-arg CANN_VERSION=9.0.0 \
---build-arg CHIP_ARCH=910b \
---build-arg OS_SYSTEM=ubuntu22.04 \
---build-arg PY_VERSION=py3.11 \
---build-arg MINDSPORE_VERSION=2.9.0 \
---build-arg PIP_INDEX_URL=https://mirrors.huaweicloud.com/repository/pypi/simple \
--t mindspore:2.9.0-910b-ubuntu22.04-py3.11 \
--f Dockerfile .
-```
-
 ### Running MindSpore Container
 
 ```bash
@@ -121,8 +97,55 @@ docker run \
     -v /usr/local/Ascend/driver/lib64/:/usr/local/Ascend/driver/lib64/ \
     -v /usr/local/Ascend/driver/version.info:/usr/local/Ascend/driver/version.info \
     -v /etc/ascend_install.info:/etc/ascend_install.info \
-    -it mindspore:tag bash
+    -it swr.cn-south-1.myhuaweicloud.com/mindspore/mindspore:2.9.0-a3-openeuler24.03-py3.11 bash
 ```
+
+### Building Arguments
+
+| Parameter | Description | Required | Source | Example Values |
+|-----------|-------------|----------|--------|----------------|
+| CANN_VERSION | Ascend CANN toolkit version | Yes | CANN image tag | 9.0.0 |
+| CHIP_ARCH | Ascend chip architecture identifier | Yes | Tag specification | see below |
+| OS_SYSTEM | Base image operating system and version | Yes | Tag specification | ubuntu22.04 / openeuler24.03 |
+| PY_VERSION | Python version built into the base image | Yes | Tag specification | py3.11 |
+| MINDSPORE_VERSION | MindSpore version number | Yes | [MindSpore repository releases](https://atomgit.com/mindspore/mindspore/releases) | 2.9.0 |
+| PIP_INDEX_URL | pip installation source URL (default: Huawei Cloud mirror) | No | PyPI mirror source | https://mirrors.huaweicloud.com/repository/pypi/simple |
+
+### Building MindSpore Image
+
+```bash
+docker build \
+    --build-arg CANN_VERSION=9.0.0 \
+    --build-arg CHIP_ARCH=910b \
+    --build-arg OS_SYSTEM=ubuntu22.04 \
+    --build-arg PY_VERSION=py3.11 \
+    --build-arg MINDSPORE_VERSION=2.9.0 \
+    --build-arg PIP_INDEX_URL=https://mirrors.huaweicloud.com/repository/pypi/simple \
+    -t mindspore:2.9.0-910b-ubuntu22.04-py3.11 \
+    -f Dockerfile .
+```
+
+### Running a locally built MindSpore Container
+
+```bash
+docker run \
+    --privileged \
+    --name mindspore_container \
+    --device /dev/davinci1 \
+    --device /dev/davinci_manager \
+    --device /dev/devmm_svm \
+    --device /dev/hisi_hdc \
+    -v /usr/local/dcmi:/usr/local/dcmi \
+    -v /usr/local/bin/npu-smi:/usr/local/bin/npu-smi \
+    -v /usr/local/Ascend/driver/lib64/:/usr/local/Ascend/driver/lib64/ \
+    -v /usr/local/Ascend/driver/version.info:/usr/local/Ascend/driver/version.info \
+    -v /etc/ascend_install.info:/etc/ascend_install.info \
+    -it mindspore:{tag} bash
+```
+
+Where,
+
+- `{tag}` corresponds to the label designated when building MindSpore image, for example, `mindspore:2.9.0-910b-ubuntu22.04-py3.11`.
 
 ### Installation Verification
 
