@@ -17,9 +17,9 @@ from mindspore.dataset import MnistDataset
 
 ## Processing a Dataset
 
-MindSpore provides Pipeline-based [Data Engine](https://www.mindspore.cn/docs/en/master/features/data_engine.html) and achieves efficient data preprocessing through [Data Loading and Processing](https://www.mindspore.cn/tutorials/en/master/beginner/dataset.html). In this tutorial, we use the MNIST dataset and pre-process dataset by using the data transformations provided by `mindspore.dataset`, after automatic downloaded.
+MindSpore provides Pipeline-based [Data Engine](https://www.mindspore.cn/docs/en/master/features/data_engine.html) and achieves efficient data preprocessing through [Data Loading and Processing](https://www.mindspore.cn/tutorials/en/master/beginner/dataset.html). In this tutorial, we use the MNIST dataset and pre-process dataset by using the data transformations provided by `mindspore.dataset`, after it is automatically downloaded.
 
-> The sample code in this chapter relies on `download`, which can be installed by using the command `pip install download`. If this document is run as Notebook, you need to restart the kernel after installation to execute subsequent code.
+> The sample code in this chapter relies on `download`, which can be installed by using the command `pip install download`. If this document is run as a Notebook, you need to restart the kernel after installation to execute subsequent code.
 
 ```python
 # Download data from open datasets
@@ -38,7 +38,7 @@ Extracting zip file...
 Successfully downloaded / unzipped to ./
 ```
 
-The directory structure of MNIST Dataset is as following:
+The directory structure of MNIST Dataset is as follows:
 
 ```text
 MNIST_Data
@@ -67,7 +67,7 @@ print(train_dataset.get_col_names())
 ['image', 'label']
 ```
 
-Dataset in MindSpore uses the Data Processing Pipeline, which requires specifying operations such as map, batch, and shuffle. Here we use map to transform the image data and labels by scaling the input image to 1/255 and normalizing it according to the mean value of 0.1307 and the standard deviation of 0.3081, and then the processed dataset is packed into a batch of size 64.
+Dataset in MindSpore uses the Data Processing Pipeline, which requires specifying operations such as map, batch, and shuffle. Here we use map to transform the image data and labels: scaling the input image to 1/255 and normalizing it with a mean of 0.1307 and a standard deviation of 0.3081. The processed dataset is then packed into a batch of size 64.
 
 ```python
 def datapipe(dataset, batch_size):
@@ -90,7 +90,7 @@ train_dataset = datapipe(train_dataset, 64)
 test_dataset = datapipe(test_dataset, 64)
 ```
 
-[create_tuple_iterator](https://www.mindspore.cn/docs/en/master/api_python/dataset/dataset_method/iterator/mindspore.dataset.Dataset.create_tuple_iterator.html) or [create_dict_iterator](https://www.mindspore.cn/docs/en/master/api_python/dataset/dataset_method/iterator/mindspore.dataset.Dataset.create_dict_iterator.html) could be used to iterate over the dataset, printing the shape and dtype for `image` and `label`.
+[create_tuple_iterator](https://www.mindspore.cn/docs/en/master/api_python/dataset/dataset_method/iterator/mindspore.dataset.Dataset.create_tuple_iterator.html) or [create_dict_iterator](https://www.mindspore.cn/docs/en/master/api_python/dataset/dataset_method/iterator/mindspore.dataset.Dataset.create_dict_iterator.html) can be used to iterate over the dataset, printing the shape and dtype for `image` and `label`.
 
 ```python
 for image, label in test_dataset.create_tuple_iterator():
@@ -120,7 +120,7 @@ For more detailed information, see [Data Loading and Processing](https://www.min
 
 ## Building Network
 
-`mindspore.nn.Cell` class is the base class for building all networks and is the basic unit of the network. When you needs to customize the network, you can inherit this class and override the `__init__` method and the `construct` method. `__init__` contains the definitions of all network layers, and `construct` contains the transformation process of the data ([Tensor](https://www.mindspore.cn/tutorials/en/master/beginner/tensor.html)).
+`mindspore.nn.Cell` class is the base class for building all networks and is the basic unit of the network. When you need to customize the network, you can inherit this class and override the `__init__` method and the `construct` method. `__init__` contains the definitions of all network layers, and `construct` contains the transformation process of the data ([Tensor](https://www.mindspore.cn/tutorials/en/master/beginner/tensor.html)).
 
 ```python
 # Define model
