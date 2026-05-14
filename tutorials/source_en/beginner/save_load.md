@@ -27,7 +27,7 @@ def network():
 
 ## Saving and Loading the Model Weight
 
-Save model by using the [mindspore.save_checkpoint](https://www.mindspore.cn/docs/en/r2.9.0/api_python/mindspore/mindspore.save_checkpoint.html) interface, and specify the saving path by passing in the network:
+Save the model by using the [mindspore.save_checkpoint](https://www.mindspore.cn/docs/en/r2.9.0/api_python/mindspore/mindspore.save_checkpoint.html) interface, passing in the network and specifying the save path:
 
 ```python
 model = network()
@@ -52,7 +52,7 @@ print(param_not_load)
 
 ## Saving and Loading MindIR
 
-In addition to Checkpoint, MindSpore provides a unified Intermediate Representation (IR) for cloud side (training) and end side (inference). Models can be saved as MindIR directly by using the `export` interface (only support strict graph mode).
+In addition to Checkpoint, MindSpore provides a unified Intermediate Representation (IR) for cloud side (training) and end side (inference). Models can be saved as MindIR directly by using the `export` interface (only supported in strict graph mode).
 
 ```python
 mindspore.set_context(mode=mindspore.GRAPH_MODE, jit_syntax_level=mindspore.STRICT)
@@ -61,7 +61,7 @@ inputs = Tensor(np.ones([1, 1, 28, 28]).astype(np.float32))
 mindspore.export(model, inputs, file_name="model", file_format="MINDIR")
 ```
 
-> MindIR saves both Checkpoint and model structure, so it needs to define the input Tensor to get the input shape.
+> MindIR saves both Checkpoint and model structure, so you need to define the input Tensor to get the input shape.
 
 The existing MindIR model can be easily loaded through the `load` interface and passed into [mindspore.nn.GraphCell](https://www.mindspore.cn/docs/en/r2.9.0/api_python/nn/mindspore.nn.GraphCell.html) for inference.
 
