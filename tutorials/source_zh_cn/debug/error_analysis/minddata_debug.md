@@ -564,7 +564,7 @@ for data in dataset:
 
 ```python
 ms.set_seed(1)
-ms.dataset.GeneratorDataset(Loader(), ["data"], shuffle=False)
+ms.dataset.GeneratorDataset(Gen(), ["data"], shuffle=False)
 ```
 
 多次运行结果保持一致，可以看到第1条数据和第3条数据出现的除零的结果。间接可以说明，在第1条和第3条数据的计算上存在异常导致出现了inf的数值。
@@ -609,7 +609,7 @@ for data_index, data in enumerate(dataset.create_tuple_iterator(output_numpy=Tru
     if(np.isinf(data).any()):             # Checking for inf values
         print("np.isinf index: ", data_index) # Prints the index of the sample if there is an inf value
     if(np.isnan(data).any()):             # Checking for nan values
-        print("np.isinf index: ", data_index) # Prints an index of samples with nan values
+        print("np.isnan index: ", data_index) # Prints an index of samples with nan values
 ```
 
 ## 数据处理常见问题分析

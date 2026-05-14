@@ -362,7 +362,7 @@ class add_reduce_kernel_attr : public AotKernelData {
 };
 ```
 
-Here, we define the following variables in the attribute class `add_kernel`:
+Here, we define the following variables in the attribute class `add_reduce_kernel_attr`:
 
 - `axis` : member variable, type is `int64_t`;
 - `keep_dim` : member variable, type is `bool`.
@@ -399,7 +399,7 @@ Here, we need an intermediate variable `workspace` to record the intermediate re
 In addition, we need to obtain the values of two attributes, `axis` and `keep_dim`, as follows:
 
 1. Create a pointer to an `add_reduce_kernel_attr` object: `add_reduce_kernel_attr *kernel_ptr = new add_reduce_kernel_attr`.
-2. Retrieve the attribute values from `extra` and store them in the member variables of `kernel_ptr`: `kernel_data_ptr->axis = extra->Attr<int64_t>("axis"); kernel_data_ptr->keep_dim = extra->Attr<bool>("keep_dim");`. Here, `reduce_axis` and `keep_dim` are of type `int` and `bool` respectively. We use the corresponding template function of `extra->Attr<T>(std::string name)` to obtain the value of the attribute with the given type.
+2. Retrieve the attribute values from `extra` and store them in the member variables of `kernel_ptr`: `kernel_data_ptr->axis = extra->Attr<int64_t>("axis"); kernel_data_ptr->keep_dim = extra->Attr<bool>("keep_dim");`. Here, `axis` and `keep_dim` are of type `int` and `bool` respectively. We use the corresponding template function of `extra->Attr<T>(std::string name)` to obtain the value of the attribute with the given type.
     - The supported types for `T` in step 2 are `bool`, `string`, `int64_t`, `float`, `std::vector<int64_t>`, `std::vector<float>`, `std::vector<std::vector<int64_t>>`, and `std::vector<std::vector<float>>`.
 3. Store `kernel_ptr` in `extra` for use during operator calculation: `extra->SetKernelData(kernel_ptr)`.
 

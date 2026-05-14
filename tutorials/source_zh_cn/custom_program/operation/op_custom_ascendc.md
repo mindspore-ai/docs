@@ -418,7 +418,7 @@ extern "C" std::vector<TypeId> FuncNameInferType(std::vector<TypeId> type_ids, A
       out1_shape.emplace_back(shapes[0][0]);
       // 输出shape的第1维从属性值中获取
       out1_shape.emplace_back(extra->Attr<int64_t>("attr_k"));
-      // 算子由两个输出，且两个输出的shape相同
+      // 算子有两个输出，且两个输出的shape相同
       res_output_shape.emplace_back(out1_shape);
       res_output_shape.emplace_back(out1_shape);
       return res_output_shape;

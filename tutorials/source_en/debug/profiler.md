@@ -184,7 +184,7 @@ export MS_PROFILER_OPTIONS='
 "output_path": "/XXX",
 "activities": ["CPU", "NPU"],
 "with_stack": true,
-"aic_metrics": "AicoreNone",
+"aic_metrics": "AiCoreNone",
 "l2_cache": false,
 "profiler_level": "Level0"}'
 ```
@@ -386,17 +386,17 @@ The specific field and meaning of other performance data files can be referred t
 
 ## Performance Tuning Case
 
-In the process of large model training, due to some unpredictable introduction, the model has some performance deterioration problems, such as slow operator calculation time, communication speed and slow card. The root cause of performance degradation needs to be identified and the problem addressed.
+In the process of large model training, due to some unforeseen factors, the model has some performance deterioration problems, such as slow operator calculation time, communication speed and slow card. The root cause of performance degradation needs to be identified and the problem addressed.
 
 ![profiler_process.png](images/profiler_process.png)
 
-The most important thing in performance tuning is to apply the right medicine to the problem, delimit the problem first, and then perform targeted tuning to the problem.
+The most important thing in performance tuning is to identify the root cause before applying targeted fixes, delimit the problem first, and then perform targeted tuning.
 
-The first to use [MindStudio Insight](https://www.hiascend.com/document/detail/zh/mindstudio/80RC1/useguide/firstpage_0003.html) visualization tools and bound performance issues. The results of delimiting are usually divided into three aspects: computation, scheduling and communication.
+First, use [MindStudio Insight](https://www.hiascend.com/document/detail/zh/mindstudio/80RC1/useguide/firstpage_0003.html) visualization tools to narrow down performance issues. The results of delimiting are usually divided into three aspects: computation, scheduling and communication.
 
 Finally, users can tune performance based on expert advice from MindStudio Insight. Re-run the training after each tuning, collect performance data, and use the MindStudio Insight tool to see if the tuning method produced results. Repeat this process until the performance issue is resolved.
 
-MindStudio Insight provides a wealth of tuning and analysis methods, visualizing the real software and hardware operation data, analyzing performance data in multiple dimensions, locating performance bottlenecks, and supporting visual cluster performance analysis of the scale of heckcal, kcal and above.
+MindStudio Insight provides a wealth of tuning and analysis methods, visualizing the real software and hardware operation data, analyzing performance data in multiple dimensions, locating performance bottlenecks, and supporting visual cluster performance analysis of the scale of hundred-card, thousand-card and above.
 
 The user imports the performance data collected in the previous step into MindStudio Insight and uses the visualization capabilities to analyze the performance data according to the following process.
 
@@ -412,7 +412,7 @@ You can learn about each module through the overview interface.
 
 | legend           | Meaning      |
 |--------------|---------|
-| Total compute time        | Total kernel time on the ascending device |
+| Total compute time        | Total kernel time on the Ascend device |
 | pure computing time     | pure computing time = Total computing time - Communication time (overwritten)    |
 | Communication duration (overwritten) | The duration of the communication that is overwritten, that is, the duration of the computation and communication at the same time    |
 | communication duration (not covered)  | The communication duration that is not covered, that is, the pure communication duration  |
@@ -438,7 +438,7 @@ When the data indicator phenomenon indicates a **scheduling** problem, it is nec
 
 On the timeline screen, select the connection type of HostToDevice. HostToDevice shows the downward execution relationship of CANN layer operators to AscendHardware operators and the downward execution relationship of CANN layer operators to HCCL communication operators for locating scheduling problems.
 
-The connection of HostToDevice usually has two forms, inclined and vertical. The following figure shows a case of scheduling problems. If the connection of HostToDevice is inclined as shown on the left, it indicates that the scheduling task is arranged properly during this time period, and the ascending device performs calculation and communication tasks at full load. If the HostToDevice cable is vertical as shown on the right, it indicates that the ascending device quickly completes the tasks sent by the CPU and performs calculation and communication tasks under full load. This generally indicates a scheduling problem.
+The connection of HostToDevice usually has two forms, inclined and vertical. The following figure shows a case of scheduling problems. If the connection of HostToDevice is inclined as shown on the left, it indicates that the scheduling task is arranged properly during this time period, and the Ascend device performs calculation and communication tasks at full load. If the HostToDevice cable is vertical as shown on the right, it indicates that the Ascend device quickly completes the tasks sent by the CPU and performs calculation and communication tasks under full load. This generally indicates a scheduling problem.
 
 #### Communication Problems
 
@@ -463,4 +463,4 @@ schedule configuration related parameters have 5 parameters: wait, warmup, activ
 
 #### schedule and step Configuration Mismatch Problem
 
-Normally, the schedule configuration should be less than the number of model training times, that is, repeat*(wait+warmup+active)+skip_first should be less than the number of model training times. If the schedule configuration is greater than the number of model training times, Profiler will throw an exception warning, but this will not interrupt the model training, but there may be incomplete data collection and analysis.
+Normally, the schedule configuration should be less than the number of model training times, that is, repeat*(wait+warmup+active)+skip_first should be less than the number of model training times. If the schedule configuration is greater than the number of model training times, Profiler will throw an exception warning, but this will not interrupt the model training, there may be incomplete data collection and analysis.

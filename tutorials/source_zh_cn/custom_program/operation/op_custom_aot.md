@@ -156,7 +156,7 @@ g++ --shared -fPIC -o add.so add.cc
 
 编写测试用例test_custom_aot.py：
 
-```text
+```python
 import numpy as np
 import mindspore as ms
 import mindspore.ops as ops
@@ -317,7 +317,7 @@ def attr(self, name=None, param_type=None, value_type=None, default_value=None, 
 
 ## AOT类型自定义算子进阶用法用例
 
-下面我们用一个Add和ReduceSum的融合算子用例来介绍AOT类型自定义算子的进阶用法。该算子先把两个输入相加，在对某个轴计算求和操作，其基本计算逻辑如下：
+下面我们用一个Add和ReduceSum的融合算子用例来介绍AOT类型自定义算子的进阶用法。该算子先把两个输入相加，再对某个轴计算求和操作，其基本计算逻辑如下：
 
 ```python
 tmp = Add(input_1, input_2)
@@ -347,7 +347,7 @@ class add_reduce_kernel_attr : public AotKernelData {
 };
 ```
 
-这里我们在属性类`add_kernel`定义了：
+这里我们在属性类`add_reduce_kernel_attr`定义了：
 
 - `axis`：成员变量，类型为`int64_t`；
 - `keep_dim`：成员变量，类型为`bool`；
@@ -384,7 +384,7 @@ extern "C" int CustomKernelInit(int *ndims, int64_t **shapes, const char **dtype
 另外我们需要获得两个属性`axis`和`keep_dim`的值，操作方式如下：
 
 1. 创建一个`add_reduce_kernel_attr`对象指针：`add_reduce_kernel_attr *kernel_ptr = new add_reduce_kernel_attr`。
-2. 从`extra`中获取对应属性的值贮存在`kernel_ptr`中的成员变量中：`kernel_data_ptr->axis = extra->Attr<int64_t>("axis"); kernel_data_ptr->keep_dim = extra->Attr<bool>("keep_dim");`。这里`reduce_axis`和`keep_dim`分别为`int`和`bool`类型，我们用`extra->Attr<T>(std::string name)`接口的对应模板获取该类型属性的值。
+2. 从`extra`中获取对应属性的值贮存在`kernel_ptr`中的成员变量中：`kernel_data_ptr->axis = extra->Attr<int64_t>("axis"); kernel_data_ptr->keep_dim = extra->Attr<bool>("keep_dim");`。这里`axis`和`keep_dim`分别为`int`和`bool`类型，我们用`extra->Attr<T>(std::string name)`接口的对应模板获取该类型属性的值。
     - 这里`T`支持类型为：`bool`、`string`、`int64_t`、`float`、`std::vector<int64_t>`、`std::vector<float>`、`std::vector<std::vector<int64_t>>`和`std::vector<std::vector<float>>`。
 3. 将`kernel_ptr`放入`extra`中，供算子计算时使用：`extra->SetKernelData(kernel_ptr)`。
 

@@ -1,6 +1,6 @@
 # CustomOpBuilder: Integrating ASDSIP FFT Operators Using AsdSipFFTOpRunner
 
-[![View Source File](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/tutorials/source_en/custom_program/operation/op_customopbuilder.md)
+[![View Source File](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/tutorials/source_en/custom_program/operation/op_customopbuilder_asdsip.md)
 
 ## Overview
 
@@ -26,7 +26,7 @@ source /usr/local/Ascend/nnal/asdsip/set_env.sh &> /dev/null
 
 ## Integrating the FftC2C Operator
 
-Here we use `ms::pynative::RunLaunchAsdSipFFTAtbOp` to integrate the operator and call the function interface through `ms::pynative::PyboostRunner::Call`:
+Here we use `ms::pynative::RunAsdSipFFTOp` to integrate the operator and call the function interface through `ms::pynative::PyboostRunner::Call`:
 
 ```cpp
 #include "ms_extension/api.h"
