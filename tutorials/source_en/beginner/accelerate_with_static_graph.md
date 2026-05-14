@@ -1,6 +1,6 @@
 [![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/tutorials/source_en/beginner/accelerate_with_static_graph.md)
 
-[Introduction](https://www.mindspore.cn/tutorials/en/master/beginner/introduction.html) || [Quick Start](https://www.mindspore.cn/tutorials/en/master/beginner/quick_start.html) || [Tensor](https://www.mindspore.cn/tutorials/en/master/beginner/tensor.html) || [Data Loading and Processing](https://www.mindspore.cn/tutorials/en/master/beginner/dataset.html) || [Model](https://www.mindspore.cn/tutorials/en/master/beginner/model.html) || [Autograd](https://atomgit.com/mindspore/docs/blob/master/tutorials/source_en/beginner/autograd.md) || [Train](https://www.mindspore.cn/tutorials/en/master/beginner/train.html) || [Save and Load](https://www.mindspore.cn/tutorials/en/master/beginner/save_load.html) || **Accelerating with Static Graphs**
+[Introduction](https://www.mindspore.cn/tutorials/en/master/beginner/introduction.html) || [Quick Start](https://www.mindspore.cn/tutorials/en/master/beginner/quick_start.html) || [Tensor](https://www.mindspore.cn/tutorials/en/master/beginner/tensor.html) || [Data Loading and Processing](https://www.mindspore.cn/tutorials/en/master/beginner/dataset.html) || [Model](https://www.mindspore.cn/tutorials/en/master/beginner/model.html) || [Autograd](https://www.mindspore.cn/tutorials/en/master/beginner/autograd.html) || [Train](https://www.mindspore.cn/tutorials/en/master/beginner/train.html) || [Save and Load](https://www.mindspore.cn/tutorials/en/master/beginner/save_load.html) || **Accelerating with Static Graphs**
 
 # Accelerating with Static Graphs
 
@@ -10,7 +10,7 @@ The AI compilation framework is divided into two modes of operation: dynamic gra
 
 ### Dynamic Graph Mode
 
-Dynamic graphs are characterized by the construction of the computational graph and computation occurring at the same time (Define by run), which is in line with Python interpreted execution. When defining a Tensor in the computational graph, its value is computed and determined, so it is more convenient to debug the model, and can get the value of the intermediate results in real time, but it is difficult to optimize the whole computational graph because the fact that all the nodes need to be saved.
+Dynamic graphs are characterized by the construction of the computational graph and computation occurring at the same time (Define by run), which is in line with Python interpreted execution. When defining a Tensor in the computational graph, its value is computed and determined, making it convenient to debug the model and get intermediate results in real time. However, it is difficult to optimize the whole computational graph because all nodes need to be saved.
 
 In MindSpore, dynamic graph mode is also known as PyNative mode. Due to the interpreted execution of dynamic graphs, it is recommended to use dynamic graph mode during script development and network process debugging.
 If you need to manually control the framework to use PyNative mode, you can configure it with the following code:
@@ -135,9 +135,9 @@ Usually, due to the flexibility of dynamic graphs, we choose to use PyNative mod
 
 ### Decorator-based Startup Method
 
-MindSpore provides a jit decorator that can be used to modify Python functions or member functions of Python classes so that they can be compiled into computational graphs, which improves the speed of operation through graph optimization and other techniques. At this point we can simply accelerate the graph compilation for the modules we want to optimize for performance, while the rest of the model, which still uses interpreted execution, does not lose the flexibility of dynamic graphs. Regardless of whether the global context is set to static graph mode or dynamic graph mode, the part modified by the jit will always run in static graph mode.
+MindSpore provides a jit decorator that can be used to decorate Python functions or member functions of Python classes so that they can be compiled into computational graphs, which improves the speed of operation through graph optimization and other techniques. At this point we can simply accelerate the graph compilation for the modules we want to optimize for performance, while the rest of the model, which still uses interpreted execution, does not lose the flexibility of dynamic graphs. Regardless of whether the global context is set to static graph mode or dynamic graph mode, the part decorated by the jit will always run in static graph mode.
 
-When you need to accelerate the compilation of some of Tensor operations, you can use the jit decorator on the function it defines, and the module is automatically compiled into a static graph when the function is called. Note that jit decorators can only be used to modify functions, not classes. The example is as follows:
+When you need to accelerate the compilation of some of Tensor operations, you can use the jit decorator on the function you define, and the module is automatically compiled into a static graph when the function is called. Note that jit decorators can only be used to decorate functions, not classes. The example is as follows:
 
 ```python
 import numpy as np
@@ -192,7 +192,7 @@ print(output)
    0.10143848 -0.0200909  -0.09724037  0.0114444 ]]
 ```
 
-In addition to using modifiers, jit methods can also be called using function transformations, as shown in the following example:
+In addition to using decorators, jit methods can also be called using function transformations, as shown in the following example:
 
 ```python
 import numpy as np
@@ -247,7 +247,7 @@ print(output)
   -0.1572069  -0.14151613 -0.04531277  0.07521383]]
 ```
 
-When we need to accelerate a part of the neural network, we can use the jit modifier directly on the construct method, and the module is automatically compiled as a static graph when the instantiated object is called. The example is as follows:
+When we need to accelerate a part of the neural network, we can use the jit decorator directly on the construct method, and the module is automatically compiled as a static graph when the instantiated object is called. The example is as follows:
 
 ```python
 import numpy as np
