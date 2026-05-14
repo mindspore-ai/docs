@@ -179,7 +179,7 @@ Network<
 In model training, a complete training process (STEP) requires the realization of the following three steps:
 
 1. **Forward computation**: the model predicts the results, and with the correct label to find the predicted loss.
-2. **Backpropagation**: automatically solves for the gradients of the model parameters with respect to the loss, using an automatic differentiation mechanism.
+2. **Backpropagation**: automatically solves for the gradients of the loss with respect to the model parameters, using an automatic differentiation mechanism.
 3. **Parameter optimization**: update the gradients to the parameters.
 
 MindSpore uses a functional automatic differentiation mechanism, so for the above steps need to be implemented:
@@ -236,7 +236,7 @@ def test(model, dataset, loss_fn):
     print(f"Test: \n Accuracy: {(100*correct):>0.1f}%, Avg loss: {test_loss:>8f} \n")
 ```
 
-The training process requires multiple iterations of the dataset, and a complete iteration is called a round (epoch). In each round, the training set is traversed for training and at the end the test set is used for prediction. Printing the loss value and prediction accuracy for each round, we can see that the loss is decreasing and Accuracy is increasing.
+The training process requires multiple iterations of the dataset, and a complete iteration is called an epoch. In each epoch, the training set is traversed for training, and at the end, the test set is used for prediction. Printing the loss value and prediction accuracy for each epoch, we can see that the loss is decreasing and accuracy is increasing.
 
 ```python
 epochs = 3
