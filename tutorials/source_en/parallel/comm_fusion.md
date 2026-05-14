@@ -10,7 +10,7 @@ MindSpore supports the fusion of three common communication operators ([AllReduc
 
 ### Basic Principle
 
-This section firstly introduces the relationship between computation and communication in distributed training with the example of data parallelism, and secondly introduces the necessity of communication fusion in distributed training scenarios.
+This section first introduces the relationship between computation and communication in distributed training with the example of data parallelism, and second introduces the necessity of communication fusion in distributed training scenarios.
 
 #### Computation and Communication in Distributed Training
 
