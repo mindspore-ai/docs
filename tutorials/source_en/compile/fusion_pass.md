@@ -9,7 +9,7 @@ Operator fusion combines multiple independent operators into a larger, more comp
 Specifically:
 
 - Minimize the storage and transmission of intermediate results, effectively reducing memory access overhead.
-- Fuse multiple operators reduces the number of computations, which can significantly enhance computational efficiency on parallel computing devices like NPUs.
+- Fuse multiple operators to reduce the number of computations, which can significantly enhance computational efficiency on parallel computing devices like NPUs.
 
 Currently, MindSpore supports two fusion methods:
 
@@ -27,7 +27,7 @@ To support these scenarios, we provide relevant interfaces for operator fusion o
 ## Debugging Interfaces
 
 Currently, operator fusion-related optimization passes are included in the graph kernel optimization module.
-The environment variable `MS_DEV_GRAPH_KERNEL_FLAGS` provides controlling the switches for related graph optimization passes, including:
+The environment variable `MS_DEV_GRAPH_KERNEL_FLAGS` provides control over the switches for related graph optimization passes, including:
 
 ### Specifying Optimization Level  
 
@@ -68,7 +68,7 @@ Users have two ways to obtain the corresponding pass names during debugging, or 
 
 ### Through IR Names
 
-If users have dumped the relevant IR, they can obtain the related fusion pass name from the IR name. For example, if the IR name is `hwopt ge_unify_mindir_pm_44_add_layer_norm_fusion_0559.ir`, the pass name `add_layer_norm_fusion` can be extracted from the ir name.
+If users have dumped the relevant IR, they can obtain the related fusion pass name from the IR name. For example, if the IR name is `hwopt_ge_unify_mindir_pm_44_add_layer_norm_fusion_0559.ir`, the pass name `add_layer_norm_fusion` can be extracted from the IR name.
 
 ### Through INFO Messages
 

@@ -9,7 +9,7 @@
 Common data transformation operations include:
 
 - `.filter(...)`: Filter multiple data sets based on specified conditions and retain samples that meet the expected conditions.
-- `.project(...)`: Sort multiple data columns or delete unnecessary data columns.
+- `.project(...)`: Select multiple data columns or delete unnecessary data columns.
 - `.rename(...)`: Rename specified data columns to facilitate data characteristic labelling.
 - `.shuffle(...)`: Divide a data buffer and shuffle the data within the buffer.
 - `.skip(...)`: Skip the first n samples in the dataset.
@@ -223,7 +223,7 @@ for data in train_dataset:
 
 MindSpore provides a lightweight data processing way, called Eager mode.
 
-In the Eager mode, transforms is executed in the form of a functional call. The code will be simpler and the results are obtained immediately. It is recommended to be used in lightweight scenarios such as small data augmentation experiments and model inference.
+In the Eager mode, transforms are executed in the form of a functional call. The code will be simpler and the results are obtained immediately. It is recommended for lightweight scenarios such as small data augmentation experiments and model inference.
 
 ![eagermode1](./images/eager_mode_en.jpeg)
 
