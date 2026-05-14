@@ -4,13 +4,13 @@
 
 MindSpore Dataset provides two types of data processing capabilities: pipeline mode and lightweight mode.
 
-1. Pipeline mode: provides the concurrent data processing pipeline capability based on C++ Runtime. Users can define processes such as dataset loading, data transforms, and data batch process to implement efficient dataset loading, processing, and batching. In addition, the concurrency and cache can be adjusted to provide training data with zero Bottle Neck for NPU card training.
+1. Pipeline mode: provides the concurrent data processing pipeline capability based on C++ Runtime. Users can define processes such as dataset loading, data transforms, and data batch processing to implement efficient dataset loading, processing, and batching. In addition, the concurrency and cache can be adjusted to provide training data with zero bottleneck for NPU card training.
 
 2. Lightweight mode: Users can perform data transform operations (e.g. Resize, Crop, HWC2CHW, etc.). Data processing of a single sample is performed.
 
 ## Pipeline Mode
 
-Dataset pipeline defined by an API is used. After a training process is run, the dataset cyclically loads data from the dataset, processes data, and batch data, and then iterators for training.
+Dataset pipeline defined by an API is used. After a training process is run, the dataset cyclically loads data from the dataset, processes data, and batches data, and then iterates for training.
 
 ![MindSpore Dataset Pipeline](https://www.mindspore.cn/docs/en/master/_images/dataset_pipeline_en.png)
 
@@ -126,8 +126,8 @@ You can directly use the data transform operation to process a piece of data. Th
 
 Data transform operations ([vision transform](https://www.mindspore.cn/docs/en/master/api_python/mindspore.dataset.transforms.html#module-mindspore.dataset.vision), [nlp transform](https://www.mindspore.cn/docs/en/master/api_python/mindspore.dataset.transforms.html#module-mindspore.dataset.text), [audio transform](https://www.mindspore.cn/docs/en/master/api_python/mindspore.dataset.transforms.html#module-mindspore.dataset.audio)) can be used directly like calling a common function. Common usage is: first initialize the data transformation object, then call the data transformation operation method, pass in the data to be processed, and finally get the result of the process. For more examples, see [Lightweight Data Transformation](https://www.mindspore.cn/tutorials/en/master/dataset/eager.html#lightweight-data-transformation).
 
-## Other Feature
+## Other Features
 
 ### Supporting Python Objects in Dataset Pipeline
 
-Dataset pipeline accepts any Python type as input for some operations(such as user-defined dataset `GeneratorDataset`, user-defined `map` augmentation operation, `batch(per_batch_map=...)`. See [Supporting Python Objects in Dataset Pipeline](https://www.mindspore.cn/tutorials/en/master/dataset/python_objects.html).
+Dataset pipeline accepts any Python type as input for some operations (such as user-defined dataset `GeneratorDataset`, user-defined `map` augmentation operation, `batch(per_batch_map=...)`). See [Supporting Python Objects in Dataset Pipeline](https://www.mindspore.cn/tutorials/en/master/dataset/python_objects.html).

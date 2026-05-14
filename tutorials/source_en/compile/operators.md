@@ -14,7 +14,7 @@ Arithmetic operators and assignment operators support the `Number` and `Tensor` 
 
 Notes:
 
-- In native python, the `~` operator get the bitwise inversion of its integer argument; in MindSpore, the `~` redefined to get logic not for `Tensor(Bool)`.
+- In native Python, the `~` operator gets the bitwise inversion of its integer argument; in MindSpore, `~` is redefined to get logical NOT for `Tensor(Bool)`.
 
 ## Binary Arithmetic Operators
 
@@ -79,7 +79,7 @@ Constraints:
 
 Restrictions:
 
-- The left operand of operator `and` or `or` must be able to be converted to boolean value. For example, left operand can not be Tensor with multiple elements. If the left operand of `and` or `or` is variable `Tensor`, the right operand must also be single-element `Tensor` with the same type. Otherwise, there is no requirement for right operand.
+- The left operand of operator `and` or `or` must be able to be converted to a boolean value. For example, the left operand cannot be a Tensor with multiple elements. If the left operand of `and` or `or` is a variable `Tensor`, the right operand must also be a single-element `Tensor` with the same type. Otherwise, there is no requirement for the right operand.
 
 ## Compare Operators
 
@@ -101,5 +101,5 @@ Restrictions:
 - For operators `<`, `<=`, `>`, `>=`, `!=`, if all operators are of `number` type, value of Number can't be `bool`.
 - For operators `<`, `<=`, `>`, `>=`, `!=`, `==`, if all operands are of `number` type, operations between  `float64` and `int32` are not supported.
 - For operators `<`, `<=`, `>`, `>=`, `!=`, `==`, if either operand is of `tensor` type, left and right operands can't both be `bool` value.
-- For operator `==`, if all operands are of `number` type,  support both `number` have `bool` value, not support only one `number` has `bool` value.
-- For operators `!=`, `==`, all supported types but `mstype` can compare with `none`.
+- For operator `==`, if all operands are of `number` type, both `number` operands can have `bool` values, but having only one `number` with a `bool` value is not supported.
+- For operators `!=`, `==`, all supported types except `mstype` can be compared with `None`.
