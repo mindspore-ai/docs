@@ -184,7 +184,7 @@ If you need to run interleaved pipeline scheduling, you also need to configure:`
 
 ```python
 import mindspore as ms
-import mindspore.parallel.auto_parallel import AutoParallel
+from mindspore.parallel.auto_parallel import AutoParallel
 
 parallel_net = AutoParallel(train_one_step, parallel_mode="semi_auto")
 parallel_net.pipeline(stages=2, interleave=True)

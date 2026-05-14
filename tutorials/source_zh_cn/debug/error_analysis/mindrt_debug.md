@@ -58,7 +58,7 @@ ValueError: Cannot join the return values of different branches, perhaps you nee
 Shape Join Failed: shape1 = (2, 3, 4, 5), shape2 = ().
 ```
 
-由报错信息可知，报错原因是if语句不同分支返回值的维度shape不一致：一个是`2*3*4*5`的四位Tensor，另一个是标量，导致编译报错。
+由报错信息可知，报错原因是if语句不同分支返回值的维度shape不一致：一个是`2*3*4*5`的四维Tensor，另一个是标量，导致编译报错。
 
 参考实例链接：
 

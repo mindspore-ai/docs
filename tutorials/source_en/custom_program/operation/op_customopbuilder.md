@@ -215,4 +215,4 @@ Running the above script produces the following result:
 ## More Usage Scenarios
 
 - [Integrating ATB Operators Using AtbOpRunner](https://www.mindspore.cn/tutorials/en/r2.9.0/custom_program/operation/op_customopbuilder_atb.html): Introduces methods for quickly integrating ATB operators as custom operators.
-- [Integrating ASDSIP FFT Operators Using AsdSipFFTOpRunner](https://www.mindspore.cn/tutorials/zh-CN/r2.9.0/custom_program/operation/op_customopbuilder_asdsip.html): Introduces methods for quickly integrating ASDSIP FFT operators as custom operators.
+- [Integrating ASDSIP FFT Operators Using AsdSipFFTOpRunner](https://www.mindspore.cn/tutorials/en/r2.9.0/custom_program/operation/op_customopbuilder_asdsip.html): Introduces methods for quickly integrating ASDSIP FFT operators as custom operators.

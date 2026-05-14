@@ -16,7 +16,7 @@ MindSpore Dump功能已陆续迁移到[msprobe工具](https://atomgit.com/Ascend
 
 ## 配置指南
 
-MindSpore在不同后端下支持的Dump功能不完全相同，需要的配置文件和以及生成的数据格式也不同，因此需要根据运行的后端选择对应的Dump配置：
+MindSpore在不同后端下支持的Dump功能不完全相同，需要的配置文件和生成的数据格式也不同，因此需要根据运行的后端选择对应的Dump配置：
 
 - [Ascend下ms_backend后端Dump](#ascend下ms_backend后端dump)
 - [CPU/GPU后端Dump](#cpugpu后端dump)
@@ -381,7 +381,7 @@ x, w],    pri_format: NC1HWC0, pad: (0, 0, 0, 0), visited: true, pad_mod: same, 
        : (<Float16xNC1HWC0[const vector][32, 16, 13, 13, 16]>, <Float16xFracZ[const vector][144, 24, 16, 16]>) -> (<Float32xNC1HWC0[const vector][32, 24, 13, 13, 16]>)
        : full_name_with_scope: (Default/network-WithLossCell/_backbone-AlexNet/conv3-Conv2d/Conv2D-op12)
        ...
-       # In file ./tain_alexnet.py(175)/        x = self.conv3(x)/
+       # In file ./train_alexnet.py(175)/        x = self.conv3(x)/
        ...
 ```
 
@@ -710,7 +710,7 @@ x, w],    pri_format: NC1HWC0, pad: (0, 0, 0, 0), visited: true, pad_mod: same, 
        : (<Float16xNC1HWC0[const vector][32, 16, 13, 13, 16]>, <Float16xFracZ[const vector][144, 24, 16, 16]>) -> (<Float32xNC1HWC0[const vector][32, 24, 13, 13, 16]>)
        : full_name_with_scope: (Default/network-WithLossCell/_backbone-AlexNet/conv3-Conv2d/Conv2D-op12)
        ...
-       # In file ./tain_alexnet.py(175)/        x = self.conv3(x)/
+       # In file ./train_alexnet.py(175)/        x = self.conv3(x)/
        ...
 ```
 
@@ -758,7 +758,7 @@ numpy.load("Conv2D.Conv2D-op12.0.0.1623124369613540.output.0.DefaultFormat.npy")
 ## 注意事项
 
 - `bfloat16`类型的算子保存到`npy`文件时，会转换成`float32`类型。
-- Dump仅支持bool、int、int8、in16、int32、int64、uint、uint8、uint16、uint32、uint64、float、float16、float32、float64、bfloat16、double、complex64、complex128类型数据的保存。
+- Dump仅支持bool、int、int8、int16、int32、int64、uint、uint8、uint16、uint32、uint64、float、float16、float32、float64、bfloat16、double、complex64、complex128类型数据的保存。
 - complex64和complex128仅支持保存为npy文件，不支持保存为统计值信息。
 - Print算子内部有一个输入参数为string类型，string类型不属于Dump支持的数据类型，所以在脚本中包含Print算子时，会有错误日志，这不会影响其他类型数据的保存。
 - 默认情况下，Dump会忽略算子的无效输出，比如Send/Print算子的输出、FlashAttentionScore算子的第三个预留输出等。如果需要保留这些无效输出，可以将环境变量`MINDSPORE_DUMP_IGNORE_USELESS_OUTPUT`设置为`0`。详情请参阅[环境变量-Dump调试](https://www.mindspore.cn/docs/zh-CN/r2.9.0/api_python/env_var_list.html#dump%E8%B0%83%E8%AF%95)。
