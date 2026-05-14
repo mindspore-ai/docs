@@ -12,9 +12,9 @@ Call: `int(x=0, base=10)`, converted to decimal by default.
 
 Input parameter:
 
-- `x` - the object need to be converted to integer, the valid type of x includes `int`, `float`, `bool`, `str`, `Tensor` and third-party object (such as `numpy.ndarray`).
+- `x` - the object that needs to be converted to an integer. The valid types of `x` include `int`, `float`, `bool`, `str`, `Tensor`, and third-party objects (such as `numpy.ndarray`).
 
-- `base` - the base to convert. `base` is only allowed when `x` is constant `str`.
+- `base` - the base to convert. `base` is only allowed when `x` is a constant `str`.
 
 Return value: the converted integer.
 
@@ -60,7 +60,7 @@ Function: Return the floating-point number based on the input number or string.
 
 Calling: `float(x=0)`.
 
-Input parameter: `x` - the object need to be converted to floating number, the valid types of x include `int`, `float`, `bool`, `str`, `Tensor` and third-party object (such as `numpy.ndarray`).
+Input parameter: `x` - the object that needs to be converted to a floating-point number. The valid types of `x` include `int`, `float`, `bool`, `str`, `Tensor`, and third-party objects (such as `numpy.ndarray`).
 
 Return value: the converted floating-point number.
 
@@ -103,7 +103,7 @@ Function: Return the boolean value based on the input.
 
 Calling: `bool(x=false)`
 
-Input parameter: `x` - the object need to be converted to boolean value, the valid type of x includes `int`, `float`, `bool`, `str`, `list`, `tuple`, `dict`, `Tensor` and third-party object (such as `numpy.ndarray`).
+Input parameter: `x` - the object that needs to be converted to a boolean value. The valid types of `x` include `int`, `float`, `bool`, `str`, `list`, `tuple`, `dict`, `Tensor`, and third-party objects (such as `numpy.ndarray`).
 
 Return value: the converted boolean scalar.
 
@@ -145,7 +145,7 @@ Function: Return the string value based on the input.
 
 Calling: `str(x='')`
 
-Input parameter: `x` - the object need to be converted to string value, the valid type of x includes `int`, `float`, `bool`, `str`, `list`, `tuple`, `dict`, `Tensor` and third-party object (such as `numpy.ndarray`).
+Input parameter: `x` - the object that needs to be converted to a string value. The valid types of `x` include `int`, `float`, `bool`, `str`, `list`, `tuple`, `dict`, `Tensor`, and third-party objects (such as `numpy.ndarray`).
 
 Return value: string converted from `x`.
 
@@ -188,7 +188,7 @@ Function: Return a tuple based on the input object.
 
 Calling: `tuple(x=())`.
 
-Input parameter: `x` - the object that need to be converted to tuple, the valid type of x includes `list`, `tuple`, `dict`, `Tensor` or third-party object (such as `numpy.ndarray`).
+Input parameter: `x` - the object that needs to be converted to a tuple. The valid types of `x` include `list`, `tuple`, `dict`, `Tensor`, or third-party objects (such as `numpy.ndarray`).
 
 Return value: tuple with elements of `x`, `x` is cut based on zero dimension.
 
@@ -228,7 +228,7 @@ Function: Return a list based on the input object.
 
 Calling: `list(x=())`.
 
-Input parameter: `x` - the object that need to be converted to list, the valid type of x includes `list`, `tuple`, `dict`, `Tensor` or third-party object (such as `numpy.ndarray`).
+Input parameter: `x` - the object that needs to be converted to a list. The valid types of `x` include `list`, `tuple`, `dict`, `Tensor`, or third-party objects (such as `numpy.ndarray`).
 
 Return value: list with elements of `x`, `x` is cut based on zero dimension.
 
@@ -300,11 +300,11 @@ Calling: `getattr(x, attr, default)`.
 
 Input parameter:
 
-- `x` - The object to get attribute, `x` can be all types that graph mode supports. Third-party library types are also supported when the JIT syntax support level option is 'Lax'.
+- `x` - The object to get the attribute from. `x` can be all types that graph mode supports. Third-party library types are also supported when the JIT syntax support level option is 'LAX'.
 
-- `attr` - The name of the attribute, the type of `attr` should be `str`.
+- `attr` - The name of the attribute. The type of `attr` should be `str`.
 
-- `default` - Optional input. If `x` do not have `attr`, `default` will be returned. `default` can be all types that graph mode supports. Third-party library types are also supported when the JIT syntax support level option is 'Lax'. If `default` is not set and `x` does not have attribute `attr`, AttributeError will be raised.
+- `default` - Optional input. If `x` does not have `attr`, `default` will be returned. `default` can be all types that graph mode supports. Third-party library types are also supported when the JIT syntax support level option is 'LAX'. If `default` is not set and `x` does not have the attribute `attr`, AttributeError will be raised.
 
 Return value: Target attribute or `default`.
 
@@ -355,11 +355,11 @@ Calling: `hasattr(x, attr)`.
 
 Input parameter:
 
-- `x` - The object to get attribute, `x` can be all types that graph mode supports. Third-party library types are also supported when the JIT syntax support level option is 'Lax'.
+- `x` - The object to check the attribute. `x` can be all types that graph mode supports. Third-party library types are also supported when the JIT syntax support level option is 'LAX'.
 
-- `attr` - The name of the attribute, the type of `attr` should be `str`.
+- `attr` - The name of the attribute. The type of `attr` should be `str`.
 
-Return value: boolean value indicates whether `x` has `attr`.
+Return value: A boolean value indicating whether `x` has `attr`.
 
 For example:
 
@@ -505,13 +505,13 @@ w_is_ndarray:True
 
 ## all
 
-Function: Judge whether all of the elements in the input is true.
+Function: Determines whether all elements in the input are true.
 
 Calling: `all(x)`.
 
-Input parameter: - `x` - Iterable object, the valid types include `list`, `tuple`, `dict`, `Tensor` and third-party object (such as `numpy.ndarray`).
+Input parameter: - `x` - Iterable object. The valid types include `list`, `tuple`, `dict`, `Tensor`, and third-party objects (such as `numpy.ndarray`).
 
-Return value: boolean, return `True` if all elements are `True`, otherwise `False`.
+Return value: A boolean value. Returns `True` if all elements are `True`, otherwise `False`.
 
 For example:
 
@@ -563,13 +563,13 @@ i:  False
 
 ## any
 
-Function: Judge whether any of the elements in the input is true.
+Function: Determines whether any element in the input is true.
 
 Calling: `any(x)`.
 
-Input parameter: - `x` - Iterable object, the valid types include `list`, `tuple`, `dict`, `Tensor` and third-party object (such as `numpy.ndarray`).
+Input parameter: - `x` - Iterable object. The valid types include `list`, `tuple`, `dict`, `Tensor`, and third-party objects (such as `numpy.ndarray`).
 
-Return value: boolean, return `False` if all elements are `False`, otherwise `True`. Elements count as `True` except for 0, null, and `False`.
+Return value: A boolean value. Returns `False` if all elements are `False`, otherwise `True`. Elements count as `True` except for 0, null, and `False`.
 
 For example:
 
@@ -625,9 +625,9 @@ Calling: `round(x, digit=0)`
 
 Input parameter:
 
-- `x` - the object to rounded, the valid types include `int`, `float`, `bool`, `Tensor` and third-party object that defines magic function `__round__()`.
+- `x` - the object to be rounded. The valid types include `int`, `float`, `bool`, `Tensor`, and third-party objects that define the magic function `__round__()`.
 
-- `digit` - the number of decimal places to round, the default value is 0. `digit` can be `int` object or `None`. If `x` is `Tensor`, then `round()` does not support input `digit`.
+- `digit` - the number of decimal places to round. The default value is 0. `digit` can be an `int` object or `None`. If `x` is `Tensor`, then `round()` does not support the input `digit`.
 
 Return value: the value after rounding.
 
@@ -678,9 +678,9 @@ Function: Return the maximum of inputs.
 
 Calling: `max(*data)`.
 
-Input parameter: - `*data` - If `*data` is single input, `max` will compare all elements within `data` and `data` must be iterable object. If there are multiple inputs, then `max()` will compare each of them. The valid types of `data` include `int`, `float`, `bool`, `list`, `tuple`, `dict`, `Tensor` and third-party object (such as `numpy.ndarray`).
+Input parameter: - `*data` - If `*data` is a single input, `max` will compare all elements within `data` and `data` must be an iterable object. If there are multiple inputs, then `max()` will compare each of them. The valid types of `data` include `int`, `float`, `bool`, `list`, `tuple`, `dict`, `Tensor`, and third-party objects (such as `numpy.ndarray`).
 
-Return value: boolean, the maximum of the inputs.
+Return value: The maximum of the inputs.
 
 For example:
 
@@ -727,9 +727,9 @@ Function: Return the minimum of inputs.
 
 Calling: `min(*data)`.
 
-Input parameter: - `*data` - If `*data` is single input, then `min()` will compare all elements within `data` and `data` must be iterable object. If there are multiple inputs, then `min()` will compare each of them. The valid types of `data` include `int`, `float`, `bool`, `list`, `tuple`, `dict`, `Tensor` and third-party object (such as `numpy.ndarray`).
+Input parameter: - `*data` - If `*data` is a single input, then `min()` will compare all elements within `data` and `data` must be an iterable object. If there are multiple inputs, then `min()` will compare each of them. The valid types of `data` include `int`, `float`, `bool`, `list`, `tuple`, `dict`, `Tensor`, and third-party objects (such as `numpy.ndarray`).
 
-Return value: boolean, the minimum of the inputs.
+Return value: The minimum of the inputs.
 
 For example:
 
@@ -778,7 +778,7 @@ Calling: `sum(x, n=0)`.
 
 Input parameter:
 
-- `x` - iterable with numbers, the valid types include `list`, `tuple`, `Tensor` and third-party object (such as `numpy.ndarray`).
+- `x` - an iterable with numbers. The valid types include `list`, `tuple`, `Tensor`, and third-party objects (such as `numpy.ndarray`).
 
 - `n` - the number that will be added to the sum of `x`, which is assumed to be 0 if not given.
 
@@ -827,7 +827,7 @@ Function: Return the absolute value of the input.
 
 Calling: `abs(x)`.
 
-Input parameter: - `x` - The valid types of `x` include `int`, `float`, `bool`, `complex`, `Tensor` and third-party object (such as `numpy.ndarray`).
+Input parameter: - `x` - The valid types of `x` include `int`, `float`, `bool`, `complex`, `Tensor`, and third-party objects (such as `numpy.ndarray`).
 
 Return value: the absolute value of the input.
 
@@ -909,7 +909,7 @@ Function: Packs elements in the corresponding positions in multiple sequences in
 
 Calling: `zip(sequence, ...)`.
 
-Input parameter: `sequence` - One or more sequences (`Tuple` or `List`)`.
+Input parameter: `sequence` - One or more sequences (`Tuple` or `List`).
 
 Return value: Return a new sequence.
 
@@ -1030,7 +1030,7 @@ n:((0, Tensor(shape=[2], dtype=Int64, value= [1, 2])), (1, Tensor(shape=[2], dty
 
 ## super
 
-Function: Calls a method of the parent class (super class). Generally, the method of the parent class is called after `super`.
+Function: Calls a method of the parent class (super class) through the proxy object returned by `super()`.
 
 Calling:
 
@@ -1133,7 +1133,7 @@ Function: Prints logs.
 
 Calling: `print(arg, ...)`.
 
-Input parameter: `arg` - Information to be printed (`int`, `float`, `bool`, `String` or `Tensor`, or third-party library data types).
+Input parameter: `arg` - Information to be printed (`int`, `float`, `bool`, `str` or `Tensor`, or third-party library data types).
 
 Return value: none
 
@@ -1161,7 +1161,7 @@ Tensor(shape=[3], dtype=Int32, value=[1 2 3])
 
 ## filter
 
-Function: According to the provided function to judge the elements of a sequence. Each element is passed into the function as a parameter in turn, and the elements whose return result is not 0 or False form a new sequence.
+Function: Filters elements of a sequence based on the provided function. Each element is passed into the function as a parameter in turn, and the elements whose return result is not 0 or False form a new sequence.
 
 Calling: `filter(func, sequence)`
 
@@ -1207,7 +1207,7 @@ ret2:[7, 9]
 
 Function: Output the type of the input parameter.
 
-Valid inputs: number, list, tuples, dict, numpy.ndarray, constant Tensor.
+Valid inputs: Number, List, Tuple, Dict, numpy.ndarray, constant Tensor.
 
 Examples of code usage are as follows:
 

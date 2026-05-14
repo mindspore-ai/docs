@@ -6,7 +6,7 @@
 
 ### raise Statements
 
-Support the use of `raise` to trigger an exception. `raise` syntax format: `raise[Exception [, args]]`. The `Exception` in the statement is the type of the exception, and the `args` is the user-supplied argument to the exception, usually a string or other object. The following types of errors are supported: NoExceptionType, UnknownError, ArgumentError, NotSupportError, NotExistsError, DeviceProcessError, AbortedError, IndexError, ValueError, TypeError, KeyError, AttributeError, NameError, AssertionError, BaseException, KeyboardInterrupt, Exception, StopIteration, OverflowError, ZeroDivisionError, EnvironmentError, IOError, OSError, ImportError, MemoryError, UnboundLocalError, RuntimeError, NotImplementedError, IndentationError, RuntimeWarning.
+Supports the use of `raise` to trigger an exception. `raise` syntax format: `raise[Exception [, args]]`. The `Exception` in the statement is the type of the exception, and `args` is the user-supplied argument to the exception, usually a string or other object. The following types of errors are supported: NoExceptionType, UnknownError, ArgumentError, NotSupportError, NotExistsError, DeviceProcessError, AbortedError, IndexError, ValueError, TypeError, KeyError, AttributeError, NameError, AssertionError, BaseException, KeyboardInterrupt, Exception, StopIteration, OverflowError, ZeroDivisionError, EnvironmentError, IOError, OSError, ImportError, MemoryError, UnboundLocalError, RuntimeError, NotImplementedError, IndentationError, RuntimeWarning.
 
 The raise syntax in graph mode does not support variables of type `Dict`.
 
@@ -216,7 +216,7 @@ Parameter: `cond` - Variables of `bool` type and constants of `bool`, `List`, `T
 
 Restrictions:
 
-- If `cond` is not a constant, the variable or constant assigned to a same sign in different branches should have same data type. If the data type of assigned variables or constants is `Tensor`, the variables and constants should have same shape and element type.
+- If `cond` is not a constant, the variable or constant assigned to the same sign in different branches should have the same data type. If the data type of assigned variables or constants is `Tensor`, the variables and constants should have the same shape and element type.
 
 - In the graph mode, variables must be defined before use. Defining them inside control flow and using them externally will result in an error, as shown in Example 4.
 
@@ -241,7 +241,7 @@ ret = test_cond(x, y)
 print('ret:{}'.format(ret))
 ```
 
-The data type of `m` returned by the `if` branch and `n` returned by the `else` branch must be same.
+The data type of `m` returned by the `if` branch and `n` returned by the `else` branch must be the same.
 
 The result is as follows:
 
@@ -272,7 +272,7 @@ ret = test_cond(x, y)
 print('ret:{}'.format(ret))
 ```
 
-The variable or constant `m` assigned to `out` in `if` branch and the variable or constant `n` assigned to out in `false` branch must have same data type.
+The variable or constant `m` assigned to `out` in the `if` branch and the variable or constant `n` assigned to `out` in the `else` branch must have the same data type.
 
 The result is as follows:
 
@@ -300,7 +300,7 @@ ret = test_cond(x, y)
 print('ret:{}'.format(ret))
 ```
 
-The variable or constant `m` assigned to `out` in `if` branch and the variable or constant `init` initially assigned to `out` must have same data type.
+The variable or constant `m` assigned to `out` in the `if` branch and the variable or constant `init` initially assigned to `out` must have the same data type.
 
 The result is as follows:
 
@@ -342,7 +342,7 @@ Parameter: `sequence` - Iterative sequences (`Tuple`, `List`, `range` and so on)
 
 Restrictions:
 
-- The total number of graph operations is a multiple of number of iterations of the `for` loop. Excessive number of iterations of the `for` loop may cause the graph to occupy more memory than usage limit.
+- The total number of graph operations is a multiple of the number of iterations of the `for` loop. An excessive number of iterations of the `for` loop may cause the graph to occupy more memory than the usage limit.
 
 - The `for...else...` statement is not supported.
 
@@ -404,7 +404,7 @@ Parameter: `cond` - Variables of `bool` type and constants of `bool`, `list`, `t
 
 Restrictions:
 
-- If `cond` is not a constant, the variable or constant assigned to a same sign inside body of `while` and outside body of `while` should have same data type.If the data type of assigned variables or constants is `Tensor`, the variables and constants should have same shape and element type.
+- If `cond` is not a constant, the variable or constant assigned to the same sign inside the body of `while` and outside the body of `while` should have the same data type. If the data type of assigned variables or constants is `Tensor`, the variables and constants should have the same shape and element type.
 
 - The `while...else...` statement is not supported.
 
@@ -429,7 +429,7 @@ ret = test_cond(1, 5)
 print('ret:{}'.format(ret))
 ```
 
-The data type of `m` returned inside `while` and data type of `n` returned outside `while` must have same data type.
+The data type of `m` returned inside `while` and the data type of `n` returned outside `while` must be the same.
 
 The result is as follows:
 
@@ -460,7 +460,7 @@ ret = test_cond(1, 5)
 print('ret:{}'.format(ret))
 ```
 
-The variable `ops1` assigned to `out` inside `while` and the variable or constant `init` initially assigned to `out` must have same data type.
+The variable `ops1` assigned to `out` inside `while` and the variable or constant `init` initially assigned to `out` must have the same data type.
 
 The result is as follows:
 
@@ -516,7 +516,7 @@ ret:6
 Instructions:
 
 - Functions can support no return value, and no return value means that the default function return value is None.
-- `Construct` function of the outermost network and the inner network function is support kwargs, like:`def construct(**kwargs):`.
+- `Construct` function of the outermost network and the inner network function supports kwargs, like:`def construct(**kwargs):`.
 - Mixed use of variable argument and non-variable argument is supported, like:`def function(x, y, *args)` and `def function(x = 1, y = 1, **kwargs)`.
 
 #### lambda Expression
@@ -585,7 +585,7 @@ n:7
 
 #### Function Parameters
 
-- Default parameter value: The default value set to `Tensor` type data is currently not supported, and `int`, `float`, `bool`, `None`, `str`, `tuple`, `list`, `dict` type data is supported.
+- Default parameter value: The default value set to `Tensor` type data is currently not supported, and `int`, `float`, `bool`, `None`, `str`, `tuple`, `list`, and `dict` type data are supported.
 - Variable parameters: Inference and training of networks with variable parameters are supported.
 - Key-value pair parameter: Functions with key-value pair parameters cannot be used for backward propagation.
 - Variable key-value pair parameter: Functions with variable key-value pairs cannot be used for backward propagation.
@@ -636,7 +636,7 @@ TypeError: The 'generators' supports 1 'comprehension' in ListComp/GeneratorExp,
 
 #### Dict Comprehension
 
-Dict comprehension is used to generate lists. Usage: `{key, value for loop if statements}`.
+Dict comprehension is used to generate dictionaries. Usage: `{key: value for loop if statements}`.
 
 The example is as follows:
 
@@ -686,7 +686,7 @@ TypeError: The 'generators' supports 1 'comprehension' in DictComp/GeneratorExp,
 
 #### Generator Expression
 
-Generator expressions are used to generate lists. Usage: `(arg for loop if statements)`.
+Generator expressions are used to generate generators. Usage: `(arg for loop if statements)`.
 
 For example:
 
@@ -714,7 +714,7 @@ Usage restrictions are the same as list comprehension, i.e., the use of multiple
 
 In graph mode, the `with` statement is supported with limitations. The `with` statement requires that the object must have two magic methods: `__enter__()` and `__exit__()`.
 
-It is worth noting that the class used in the with statement needs to be decorated with a decorator@ms.jit_class or inherited from nn. Cell, and more on this can be found in [Calling the Custom Class](https://www.mindspore.cn/tutorials/en/r2.9.0/compile/static_graph_expert_programming.html#using-jit-class).
+It is worth noting that the class used in the with statement needs to be decorated with `@ms.jit_class` or inherited from `nn.Cell`. For more details, see [Calling the Custom Class](https://www.mindspore.cn/tutorials/en/r2.9.0/compile/static_graph_expert_programming.html#using-jit-class).
 
 For example:
 

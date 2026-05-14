@@ -152,7 +152,7 @@ The following demonstrates the use of automatic data augmentation based on callb
 
 The following is an example of implementing AutoAugment on an ImageNet dataset.
 
-The data augmentation policy for the ImageNet dataset contains 25 sub-strategies, each of which contains two transformations. A combination of sub-strategies is randomly selected for each image in a batch, and each transformation in the sub-strategy is determined by predetermined probability.
+The data augmentation policy for the ImageNet dataset contains 25 sub-strategies, each of which contains two transformations. A combination of sub-strategies is randomly selected for each image in a batch, and each transformation in the sub-strategy is determined by a predetermined probability.
 
 Users can use the `RandomSelectSubpolicy` interface of the `mindspore.dataset.vision` module in MindSpore to implement AutoAugment, and the standard data augmentation method in ImageNet classification training is divided into the following steps:
 
@@ -352,7 +352,7 @@ Users can use the `RandomSelectSubpolicy` interface of the `mindspore.dataset.vi
 
 ![augment](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.9.0/tutorials/source_en/dataset/images/auto_augmentation.png)
 
-The running result can be seen that the augmentation effect of each image in the batch, the vertical direction represents 5 images of 1 batch, and the horizontal direction represents 5 batches.
+The running result shows the augmentation effect of each image in the batch. The vertical direction represents 5 images of 1 batch, and the horizontal direction represents 5 batches.
 
 ## References
 
