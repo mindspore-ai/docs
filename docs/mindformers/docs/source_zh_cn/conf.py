@@ -368,6 +368,7 @@ if len(re.findall("\n## (.*?)\n",data)) > 1:
     content = re.findall("(## [\s\S\n]*?)\n## ", data)
 else:
     content = re.findall("(## [\s\S\n]*)", data)
+content[0] = content[0].replace('---\n', '<div style="border-bottom: 1px solid #ccc; margin: 20px 0;"></div>\n')
 #result = content[0].replace('# MindSpore', '#', 1)
 with open(des_release, "w", encoding="utf-8") as p:
     p.write("# Release Notes"+"\n\n")
