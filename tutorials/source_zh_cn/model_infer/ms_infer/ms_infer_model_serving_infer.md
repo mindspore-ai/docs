@@ -127,7 +127,7 @@ git lfs install
 git clone https://huggingface.co/Qwen/Qwen2.5-7B-Instruct
 ```
 
-若在拉取过程中，执行`git lfs install失败`，可以参考vLLM-MindSpore插件 [FAQ](https://www.mindspore.cn/vllm_mindspore/docs/zh-CN/master/faqs/faqs.html) 进行解决。
+若在拉取过程中，执行`git lfs install`失败，可以参考vLLM-MindSpore插件 [FAQ](https://www.mindspore.cn/vllm_mindspore/docs/zh-CN/master/faqs/faqs.html) 进行解决。
 
 ### 启动服务
 

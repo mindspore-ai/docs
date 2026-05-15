@@ -130,7 +130,7 @@ If `git lfs install` fails during the pull process, refer to the vLLM-MindSpore 
 
 ### Starting a Service
 
-Before launching the model, user need to set the following environment variables:  
+Before launching the model, users need to set the following environment variables:  
 
 ```bash
 export VLLM_MS_MODEL_BACKEND=MindFormers # use MindSpore Transformers as model backend.

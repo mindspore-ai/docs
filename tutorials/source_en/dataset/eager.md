@@ -1,4 +1,4 @@
-# Data Operation/Data transformation
+# Data Operation/Data Transformation
 
 [![View Source On AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.9.0/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/r2.9.0/tutorials/source_en/dataset/eager.md)
 
@@ -33,7 +33,7 @@ class MyDataset:
 
 loader = MyDataset()
 
-# find sampler which value < 4
+# find samples whose value < 4
 dataset = GeneratorDataset(source=loader, column_names=["data"], shuffle=False)
 filtered_dataset = dataset.filter(lambda x: x < 4, input_columns=["data"])
 print("filtered_dataset", list(filtered_dataset))

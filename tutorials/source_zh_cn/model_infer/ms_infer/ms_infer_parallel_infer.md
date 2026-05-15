@@ -652,7 +652,7 @@ class Qwen2Attention(nn.Cell):
 +        self.q_proj = Qwen2ColParallelLinear(
             input_size=self.hidden_size,
             output_size=self.q_size,
-            param_dtype=self.param_dtype
+            param_dtype=self.param_dtype,
             bias=True
         )
 -        self.k_proj = Qwen2Linear(
@@ -686,7 +686,7 @@ class Qwen2Attention(nn.Cell):
         )
 
     def construct(self, hidden_state: Tensor, positions: Tensor, batch_valid_length: Tensor,
-                        is_prefill, bool, layer_idx: int, k_cache: Tensor, v_cache: Tensor,
+                        is_prefill: bool, layer_idx: int, k_cache: Tensor, v_cache: Tensor,
                         slot_mapping: Tensor, block_tables: Tensor, attn_mask: Tensor,
                         q_seq_lens: Tensor) -> Tensor:
         bs, seq_len, hidden_dim = hidden_state.shape

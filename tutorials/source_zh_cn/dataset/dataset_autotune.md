@@ -52,9 +52,9 @@ print("tuning interval:", ds.config.get_autotune_interval())
 
 ## 约束
 
-- Profiling性能分析和自动数据加速无法同时开启，因为Profilling的其他处理会干扰自动数据加速进程。如果同时开启这两个功能，则会有一条警告信息提示用户检查是否为误操作。因此在使用Dataset AutoTune时，用户需要确保关闭Profiling功能。
+- Profiling性能分析和自动数据加速无法同时开启，因为Profiling的其他处理会干扰自动数据加速进程。如果同时开启这两个功能，则会有一条警告信息提示用户检查是否为误操作。因此在使用Dataset AutoTune时，用户需要确保关闭Profiling功能。
 - 如果同时启动了[数据异构加速](https://www.mindspore.cn/tutorials/zh-CN/r2.9.0/dataset/dataset_offload.html)和自动数据加速，当有数据节点通过AutoTune进行异构硬件加速时，自动数据加速将不能保存数据管道配置并以警告日志提醒，因为此时实际运行的数据管道并不是预先定义的数据管道。
-- 如果数据处理管道包含不支持反序列化的节点（如用户自定义Python函数、GeneratorDataset），则使用保存的优化配置文件进行反序列化时将产生错误。此时推荐用户根据调优配置文件的内容手动修改数据管道的配置已达到加速的目的。
+- 如果数据处理管道包含不支持反序列化的节点（如用户自定义Python函数、GeneratorDataset），则使用保存的优化配置文件进行反序列化时将产生错误。此时推荐用户根据调优配置文件的内容手动修改数据管道的配置以达到加速的目的。
 - 在分布式多卡训练启动自动数据加速时，`set_enable_autotune()` 需要在集群初始化完成后才能执行（mindspore.communication.management.init()），否则自动数据加速只会识别到ID为0的设备，且只会生成单个调优文件（预期生成文件数量应与设备数量相等），见以下样例：
 
     在分布式多卡训练场景，需要在集群初始化完成后才启动自动数据加速：
@@ -98,7 +98,7 @@ print("tuning interval:", ds.config.get_autotune_interval())
 # dataset.py of ResNet in ModelZoo
 # models/official/cv/resnet/src/dataset.py
 
-def create_dataset(...)
+def create_dataset(...):
     """
     create dataset for train or test
     """
@@ -167,7 +167,7 @@ epoch time: 17116.234 ms, per step time: 9.129 ms
   [WARNING] [auto_tune.cc:236 IsDSaBottleneck] Utilization: 2.24% < 75% threshold, dataset pipeline performance needs tuning.
   ```
 
-  原因主要是数据处理管道生成数据的速度较慢，网络侧很快就会读取完生成的数据，基于此情况，自动数据加速模块调整可MapOp(ID:3)的工作线程数（"num_parallel_workers"）与BatchOp(ID:2)操作内部队列深度（"prefetch_size"）。
+  原因主要是数据处理管道生成数据的速度较慢，网络侧很快就会读取完生成的数据，基于此情况，自动数据加速模块调整了MapOp(ID:3)的工作线程数（"num_parallel_workers"）与BatchOp(ID:2)操作内部队列深度（"prefetch_size"）。
 
   ```text
   [WARNING] [auto_tune.cc:297 Analyse] Op (MapOp(ID:3)) is slow, input connector utilization=0.975806, output connector utilization=0.298387, diff= 0.677419 > 0.35 threshold.
@@ -176,7 +176,7 @@ epoch time: 17116.234 ms, per step time: 9.129 ms
   [WARNING] [auto_tune.cc:263 RequestConnectorCapacityChange] Added request to change "prefetch_size" of Operator: BatchOp(ID:2)From old value: [1] to new value: [5].
   ```
 
-  提高了数据处理管道的并行性，加快了速度处理的速度，整体的step time得到了可观的减少。
+  提高了数据处理管道的并行性，加快了数据处理的速度，整体的step time得到了可观的减少。
 
   ```text
   epoch: 1 step: 1875, loss is 1.1544309
@@ -205,7 +205,7 @@ epoch time: 17116.234 ms, per step time: 9.129 ms
 
 `filepath_prefix`参数会根据当前训练环境处于单卡或多卡，自动生成对应卡号的JSON文件。
 
-例如，配置 `filepath_prefix='autotune_out'` ：
+例如，配置`filepath_prefix='autotune_out'` ：
 
 - 在4卡训练环境下，会得到4个调优文件：autotune_out_0.json、autotune_out_1.json、autotune_out_2.json、autotune_out_3.json，对应着4个卡上数据集管道的调优配置情况；
 - 在单卡环境下，会得到autotune_out_0.json，对应着此卡上数据管道的调优配置情况。
@@ -240,7 +240,7 @@ import mindspore.dataset as ds
 new_dataset = ds.deserialize("/path/to/autotune_out_0.json")
 ```
 
-此处得到的 `new_dataset` 将包含上述JSON样例中从Cifar到Batch的数据集加载设置。
+此处得到的`new_dataset` 将包含上述JSON样例中从Cifar到Batch的数据集加载设置。
 
 ### 在进行下一次训练之前
 

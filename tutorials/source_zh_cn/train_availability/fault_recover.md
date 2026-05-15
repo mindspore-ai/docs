@@ -106,7 +106,7 @@ model = Model(net, loss_fn=loss, optimizer=optim)  # Model封装
 
 [mindspore.train.CheckpointConfig](https://www.mindspore.cn/docs/zh-CN/r2.9.0/api_python/train/mindspore.train.CheckpointConfig.html) 支持根据迭代次数进行配置，主要参数如下：
 
-- `save_checkpoint_steps`：表示每隔多少个step保存一个Checkpoint文件，默认值为1。（dataset_sink_mode开启时，表示每隔多少个epoch保存一个Checkpoint文件）
+- `save_checkpoint_steps`：表示每隔多少个step保存一个Checkpoint文件，默认值为1。（`dataset_sink_mode`开启时，表示每隔多少个epoch保存一个Checkpoint文件）
 - `keep_checkpoint_max`：表示最多保存多少个Checkpoint文件，默认值为5。
 
 在迭代过程正常结束时，会默认保存最后一个step的Checkpoint文件。
