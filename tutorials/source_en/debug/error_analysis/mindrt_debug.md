@@ -58,7 +58,7 @@ ValueError: Cannot join the return values of different branches, perhaps you nee
 Shape Join Failed: shape1 = (2, 3, 4, 5), shape2 = ().
 ```
 
-According to the error message, the dimension shapes of the return values of different branches of the if statement are different. One is a 4-bit tensor of `2*3*4*5`, and the other is a scalar. As a result, a build error is reported.
+According to the error message, the dimension shapes of the return values of different branches of the if statement are different. One is a 4-dimensional tensor of `2*3*4*5`, and the other is a scalar. As a result, a build error is reported.
 
 For details, visit the following website:
 

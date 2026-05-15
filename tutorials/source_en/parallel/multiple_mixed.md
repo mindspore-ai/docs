@@ -126,7 +126,7 @@ net_with_grads_new = AutoParallel(net_with_grads, parallel_mode="recursive_progr
 net_with_grads_new.hsdp()
 net_with_grads_new.full_batch = True
 net_with_grads_new.pipeline(stages=2, scheduler="1f1b")
-model = ms.Model(net_with_grads, optimizer=optimizer)
+model = ms.Model(net_with_grads_new, optimizer=optimizer)
 model.train(10, data_set, callbacks=[loss_cb], dataset_sink_mode=True)
 ```
 

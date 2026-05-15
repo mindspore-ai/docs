@@ -27,7 +27,7 @@ aclnnStatus aclxxXxx(void * workspace, uint64_t workspaceSize, aclOpExecutor * e
 
 2. Ascend C自定义算子
 
-    若算子是用户基于Ascend C开发的自定义算子，则需将算子编译结果路径添加环境变量`ASCEND_CSUTOM_OPP_PATH`中，例如：
+    若算子是用户基于Ascend C开发的自定义算子，则需将算子编译结果路径添加环境变量`ASCEND_CUSTOM_OPP_PATH`中，例如：
 
     ```shell
     export ASCEND_CUSTOM_OPP_PATH={build_out_path}/build_out/_CPack_Package/Linux/External/custom_opp_euleros_aarch64.run/packages/vendors/{your_custom_name}:$ASCEND_CUSTOM_OPP_PATH

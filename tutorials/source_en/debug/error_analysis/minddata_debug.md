@@ -240,7 +240,7 @@ data (8, 8, 3)
 data (8, 8, 48)
 ```
 
-#### Way Two: Debugging Map Operation Through Data Pipline Debugging Mode
+#### Way Two: Debugging Map Operation Through Data Pipeline Debugging Mode
 
 We can also turn on the dataset pipline debug mode by calling the [set_debug_mode](https://mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.config.set_debug_mode.html) .
 When debug mode is enabled, the random seed is set to 1 if it is not already set, so that executing the dataset pipeline in debug mode can yield deterministic results.
@@ -566,7 +566,7 @@ Setting the random seed with `set_seed` to produce a fixed random number to achi
 
 ```python
 ms.set_seed(1)
-ms.dataset.GeneratorDataset(Loader(), ["data"], shuffle=False)
+ms.dataset.GeneratorDataset(Gen(), ["data"], shuffle=False)
 ```
 
 The results are consistent across multiple runs, as can be seen by the division by zero results that occur for the 1st and 3rd data. Indirectly, it can be shown that there is an anomaly in the computation of the 1st and 3rd data that leads to the value of inf.
@@ -579,7 +579,7 @@ The results are consistent across multiple runs, as can be seen by the division 
 
 #### A Quick Check of the Results Using a Tool Such as NumPy
 
-In the previous example, the amount of data is small enough that you can basically check the code to find out where the anomalies are. For some large high-dimensional arrays, it is less convenient to check the code or print the values. At this time, you can configure MindSpoer's dataset to return data in the form of NumPy, and use some of NumPy's commonly used means of checking the contents of the array to check whether there are abnormal values in the array.
+In the previous example, the amount of data is small enough that you can basically check the code to find out where the anomalies are. For some large high-dimensional arrays, it is less convenient to check the code or print the values. At this time, you can configure MindSpore's dataset to return data in the form of NumPy, and use some of NumPy's commonly used means of checking the contents of the array to check whether there are abnormal values in the array.
 
 The following example constructs a large, high-dimensional array and performs random operations on the values in it.
 
@@ -611,7 +611,7 @@ for data_index, data in enumerate(dataset.create_tuple_iterator(output_numpy=Tru
     if(np.isinf(data).any()):             # Checking for inf values
         print("np.isinf index: ", data_index) # Prints the index of the sample if there is an inf value
     if(np.isnan(data).any()):             # Checking for nan values
-        print("np.isinf index: ", data_index) # Prints an index of samples with nan values
+        print("np.isnan index: ", data_index) # Prints an index of samples with nan values
 ```
 
 ## Analyzing Common Data Processing Problems

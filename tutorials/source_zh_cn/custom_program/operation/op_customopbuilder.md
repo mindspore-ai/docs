@@ -146,7 +146,7 @@ static ms::Tensor Eval(const ms::Tensor &x, const ms::Tensor &y, const ms::Tenso
 
 - **调用阶段**：这是`FrontendTask`执行的主体流程。
 - **核心功能**：由用户推导并构造输出张量，然后创建一个`CustomAdd3`对象，在调用`runner->Run`方法时会自动下发下一级流水线任务(`DeviceTask`)。
-- **注意**：`PyboostRunner`继承自`std::enable_shared_from_this`，所以`CustomAdd3`也要创建成共享指针。使用共享指针是为了在异步多级流水中延长该对象的声明周期。
+- **注意**：`PyboostRunner`继承自`std::enable_shared_from_this`，所以`CustomAdd3`也要创建成共享指针。使用共享指针是为了在异步多级流水中延长该对象的生命周期。
 
 #### 5. 定义算子函数入口
 
