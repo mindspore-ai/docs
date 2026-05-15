@@ -16,7 +16,7 @@ MindSpore supports loading data by constructing customized classes or customized
 
 A random-accessible dataset implements the `__getitem__` and `__len__` methods, which represents a map from indices/keys to data samples.
 
-For example, when access a dataset with `dataset[idx]` , it should read the idx-th data inside the dataset content.
+For example, when accessing a dataset with `dataset[idx]` , it should read the idx-th data inside the dataset content.
 
 ```python
 import numpy as np
@@ -88,7 +88,7 @@ for d in dataset:
 
 Generator also belongs to iterable dataset types, and it can be a Python's generator to return data until the generator throws a `StopIteration` exception.
 
-Example constructs a generator and loads it into the `GeneratorDataset`.
+This example constructs a generator and loads it into the `GeneratorDataset`.
 
 ```python
 # Generator
@@ -409,7 +409,7 @@ According to the preceding information, the customized sampler reads the sample 
 
 Users can define a sampler class, which contains `__init__`, `__getitem__` and `__len__` methods.
 
-The following example defines a sampler with index ids `[3, 4, 3, 2, 0, 11, 5, 5, 5, 9, 1, 11, 11, 11, 11, 8]` which will be applied to a custom dataset and display the read data.
+The following example defines a sampler with index ids `[3, 4, 3, 2, 0, 11, 5, 5, 5, 9, 1, 11, 11, 11, 11, 8]` which will be applied to a custom dataset and displays the read data.
 
 ```python
 import mindspore.dataset as ds

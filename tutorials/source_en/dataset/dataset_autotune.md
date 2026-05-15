@@ -98,7 +98,7 @@ To enable Dataset AutoTune, only one statement is needed.
 # dataset.py of ResNet in ModelZoo
 # models/official/cv/resnet/src/dataset.py
 
-def create_dataset(...)
+def create_dataset(...):
     """
     create dataset for train or test
     """

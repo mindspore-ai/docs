@@ -150,7 +150,7 @@ Note:
 
 - The use of `spilling=True`:
 
-    - `spilling=True` indicates that the remaining data is written to disks when the memory space is insufficient. Therefore, ensure that you have the writing permission and the sufficient disk space on the configured disk path is to store the cache data that spills to the disk. Note that if no spilling path is set when cache server starts, setting `spilling=True` will raise an error when calling the API.
+    - `spilling=True` indicates that the remaining data is written to disks when the memory space is insufficient. Therefore, ensure that you have write permission and sufficient disk space on the configured disk path to store the cache data that spills to the disk. Note that if no spilling path is set when cache server starts, setting `spilling=True` will raise an error when calling the API.
 
     - `spilling=False` indicates that no data is written once the configured memory space is used up on the cache server.
 
@@ -253,7 +253,7 @@ data = data.map(input_columns=["image"], operations=rescale_op, cache=test_cache
 
 num_iter = 0
 for item in data.create_dict_iterator(num_epochs=1):  # each data is a dictionary
-    # in this example, each dictionary has a keys "image"
+    # in this example, each dictionary has a key "image"
     print("{} image shape: {}".format(num_iter, item["image"].shape))
     num_iter += 1
 ```
@@ -443,7 +443,7 @@ During the single-node multi-device distributed training, the cache operation al
     Drop session successfully for server on port 50052
     ```
 
-7. Stop the cache server, after using the cache server, you can stop it.
+7. Stop the cache server. After using the cache server, you can stop it.
 
     ```bash
     $ dataset-cache --stop
