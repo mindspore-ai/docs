@@ -2,17 +2,17 @@
 
 [![View Source On AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.9.0/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/r2.9.0/tutorials/source_en/dataset/cache.md)
 
-Data cache refers to caching a dataset in local memory to speed up the reading of the dataset, and is suitable for situations that require multiple accesses to a remote dataset or multiple reads of a dataset from disk.
+Data cache refers to caching a dataset in local memory to speed up the reading of the dataset, and is suitable for scenarios that require multiple accesses to a remote dataset or multiple reads of a dataset from disk.
 
 If the memory space is insufficient to cache all datasets, you can configure a cache operation to cache the remaining data to disks.
 
 The cache operation depends on the cache server started on the current node. Functioning as a daemon process and independent of the training script, the cache server is mainly used to manage cached data, including storing, querying, and loading data, and writing cached data when the cache is not hit.
 
-Currently, the cache service supports only <b>single-node cache<b>. That is, the client and server are deployed on the same machine. This service can be used in the following scenarios:
+Currently, the cache service supports only <b>single-node cache</b>. That is, the client and server are deployed on the same machine. This service can be used in the following scenarios:
 
 - Cache the loaded original dataset.
 
-    You can use the cache in the dataset loading operation. The loaded data is stored in the cache server. If the same data is required subsequently, the data can be directly load from the cache server, avoiding repeated loading from the disk.
+    You can use the cache in the dataset loading operation. The loaded data is stored in the cache server. If the same data is required subsequently, the data can be directly loaded from the cache server, avoiding repeated loading from the disk.
 
     ![cache on leaf pipeline](./images/cache_dataset.png)
 
@@ -30,7 +30,7 @@ Currently, the cache service supports only <b>single-node cache<b>. That is, the
 
 ### 1. Start the Cache Server
 
-Before using the single-node cache serve, you need to enter the following command at the command line to start the cache server:
+Before using the single-node cache service, you need to enter the following command at the command line to start the cache server:
 
 ```bash
 dataset-cache --start
@@ -292,7 +292,7 @@ dataset-cache --destroy_session 780643335
 Drop session successfully for server on port 50052
 ```
 
-The preceding command is used to destroy the cache with the session ID 1456416665 on the server with the port number 50052.
+The preceding command is used to destroy the cache with the session ID 780643335 on the server with the port number 50052.
 
 If you choose not to destroy the cache, the cached data still exists in the cache session. You can use the cache when starting the training script next time.
 
@@ -452,13 +452,13 @@ During the single-node multi-device distributed training, the cache operation al
 
 ## Cache Acceleration
 
-In order to share large data sets among multiple servers and alleviate the disk space requirements of a single server, users can usually choose to use NFS (Network File System), such as HUAWEI CLOUD-NFS Storage Server.
+In order to share large datasets among multiple servers and alleviate the disk space requirements of a single server, users can usually choose to use NFS (Network File System), such as HUAWEI CLOUD-NFS Storage Server.
 
-However, access to NFS datasets is often expensive, resulting in longer training sessions by using NFS datasets.
+However, accessing NFS datasets is often expensive, resulting in longer training sessions when using NFS datasets.
 
-In order to improve the training performance of the NFS dataset, we can choose to use a cache service to cache the dataset in memory as Tensor. Once cached, post-sequence epochs can read data directly from memory, avoiding the overhead of accessing remote NAS.
+To improve the training performance of the NFS dataset, we can choose to use a cache service to cache the dataset in memory as Tensor. Once cached, subsequent epochs can read data directly from memory, avoiding the overhead of accessing remote NAS.
 
-It should be noted that in the data processing process of the training process, and the dataset usually needs to be **augmented** with randomness after being **read**, such as `RandomCropDecodeResize`. If the cache is added to the operation with randomness, it will cause the results of the first enhancement operation to be cached, and the results read from the cache server in the later sequence are the first cached data, resulting in the loss of data randomness and affecting the accuracy of the training network.
+It should be noted that during the data processing process of training, the dataset usually needs to be **augmented** with randomness after being **read**, such as `RandomCropDecodeResize`. If the cache is added to the operation with randomness, the results of the first augmentation operation will be cached, and the results read from the cache server in subsequent epochs will be the first cached data, resulting in the loss of data randomness and affecting the accuracy of the training network.
 
 Therefore, we can choose to add a cache directly after the data set **reads** the operation. This section takes this approach, using the MobileNetV2 network as a sample for an example.
 
@@ -570,7 +570,7 @@ Therefore, we can choose to add a cache directly after the data set **reads** th
     ...
     ```
 
-    A comparison of the average time per epoch on the GPU server for both cases, using cache and not using cache, is shown in the following table::
+    A comparison of the average time per epoch on the GPU server for both cases, using cache and not using cache, is shown in the following table:
 
     ```text
     | 4p, MobileNetV2, imagenet2012            | without cache | with cache |
@@ -579,7 +579,7 @@ Therefore, we can choose to add a cache directly after the data set **reads** th
     | average epoch time (exclude first epoch) | 458s          | 421s       |
     ```
 
-    You can see that after using the cache, the completion time of the first epoch increases more than if the cache is not used, which is mainly due to the overhead of writing cache data to the cache server. However, each subsequent epoch after caching data writes can get a large performance gain. Therefore, the greater the total number of episodes trained, the more pronounced the benefits of using the cache.
+    You can see that after using the cache, the completion time of the first epoch increases more than if the cache is not used, which is mainly due to the overhead of writing cache data to the cache server. However, each subsequent epoch after caching data writes can get a large performance gain. Therefore, the greater the total number of epochs trained, the more pronounced the benefits of using the cache.
 
     Taking running 200 epochs as an example, using caching can reduce the total end-to-end training time from 92791 seconds to 87163 seconds, saving a total of about 5628 seconds.
 
@@ -601,7 +601,7 @@ However, we may **not benefit from cache** in the following scenarios:
 
 - The system memory is insufficient or the cache is not hit, resulting in poor cache service time performance. You can check whether the available system memory is sufficient and set a proper cache size before using the cache.
 - Too much cache spilling will deteriorate the time performance. Therefore, try not to spill cache to disks when datasets that support random access (such as `ImageFolderDataset`) are used for data loading.
-- Using cache on NLP network such as Bert does not perform. In the NLP scenarios, there are usually no high complexity data augmentation operations like decode.
+- Using cache on NLP networks such as BERT does not perform well. In NLP scenarios, there are usually no high-complexity data augmentation operations like decode.
 - There is expectable startup overhead when using cache in non-mappable datasets like `TFRecordDataset`. According to the current design, it is required to cache all rows to the cache server before the first epoch of training. So the first epoch time can be longer than the non-cache case.
 
 ## Limitations

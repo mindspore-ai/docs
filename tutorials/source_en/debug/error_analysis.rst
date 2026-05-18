@@ -63,7 +63,7 @@ Traceback processing, including Python stack information, error types and error 
 
    As shown in figure ②, the error type is \ ``TypeError``\, that is, parameter type error. The error description is the cause of the error. The number of parameters in the function is not correct, and the number of input parameters is required to be 2, but the actual number of parameters provided is 3.
 
--  Error messages related to networkdevelopers
+-  Error messages related to network developers
 
    As shown in figure ③, it contains \ ``The Traceback of Net Construct Code``\ and other error messages related to network developers. \ ``The Traceback of Net Construct Code``\ is the C++ back-end compilation error location mapped to the Python front-end code call stack, printed in reverse order, corresponding to the \ ``construct``\ function or \ ``@ms_function``\ decorator-modified function in the neural network.
 
@@ -207,7 +207,7 @@ Network execution debugging is the corresponding debugging capability provided b
 |                           | metrics                                  | When the training is finished,                                                                              |                                                       |
 |                           |                                          | metrics can be used to evaluate the training results.                                                       |                                                       |
 |                           |                                          | A variety of metrics are provided for evaluation,                                                           |                                                       |
-|                           |                                          | such as: accuracy, loss, preci sion, recall, F1.                                                            |                                                       |
+|                           |                                          | such as: accuracy, loss, precision, recall, F1.                                                            |                                                       |
 +---------------------------+------------------------------------------+-------------------------------------------------------------------------------------------------------------+-------------------------------------------------------+
 |                           | print\_ interface                        | The print\_ interface prints out the Tensor or                                                              | `print\_ interface introduction <https://www.minds    |
 |                           |                                          | string information entered by the user.                                                                     | pore.cn/docs/en/r2.9.0/api_python/ops/                |

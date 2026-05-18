@@ -128,10 +128,10 @@ MindSpore supports different Dump functionalities under various modes, as shown 
     - `common_dump_settings`:
 
         - `op_debug_mode`: This attribute is used for operator overflow or operator exception debugging. 0: save all operators or specified operators; 3: only save overflow operators; 4: only save input of the exception operator. Set it to 0 when the data is dumped. If it is not set to 0, only the data of the overflow operator or exception operator will be dumped. Default: 0.
-        - `dump_mode`: 0: all operator data in the network dumped out; 1: the operator data specified in Dump `"kernels"`; 2: dump target and its contents using [mindspore.set_dump](https://www.mindspore.cn/docs/en/r2.9.0/api_python/mindspore/mindspore.set_dump.html). Specified data dump is supported only when "dump_mode' is set to `0`.
+        - `dump_mode`: 0: all operator data in the network dumped out; 1: the operator data specified in Dump `"kernels"`; 2: dump target and its contents using [mindspore.set_dump](https://www.mindspore.cn/docs/en/r2.9.0/api_python/mindspore/mindspore.set_dump.html). Specified data dump is supported only when "dump_mode" is set to `0`.
         - `path`: The absolute path to Dump saved data.
         - `net_name`: The customized net name: "ResNet50".
-        - `iteration`: Specify the iterations of data required to be dumped, type is string. Use "|" to separate the step data of different intervals to be saved. For example, "0 | 5-8 | 100-120" represents dump the data of the 1st, 6th to 9th, and 101st to 121st steps. If iteration set to "all", data of every iteration will be dumped. Specified iteration dump is supported only when "op_debug_mode" is set to `0` or `3`, not supported when when "op_debug_mode" is set to `4`.
+        - `iteration`: Specify the iterations of data required to be dumped, type is string. Use "|" to separate the step data of different intervals to be saved. For example, "0 | 5-8 | 100-120" represents dump the data of the 1st, 6th to 9th, and 101st to 121st steps. If iteration set to "all", data of every iteration will be dumped. Specified iteration dump is supported only when "op_debug_mode" is set to `0` or `3`, not supported when "op_debug_mode" is set to `4`.
         - `saved_data`: Specify what data is to be dumped, type is string. Use "tensor" to indicate complete tensor data Dumped, use "statistic" to dump tensor statistics, use "full" to dump both tensor data and statistics. Default setting is "tensor". Statistic dump is only supported when "op_debug_mode" is set to `0`.
         - `input_output`: 0: dump input and output of kernel, 1:dump input of kernel, 2:dump output of kernel. When `op_debug_mode` is set to 3, `input_output` can only be set to save both the operator's inputs and outputs. Only input of kernel can be saved when "op_debug_mode" is set to `4`.
         - `kernels`: This item can be configured in three formats:
@@ -146,8 +146,8 @@ MindSpore supports different Dump functionalities under various modes, as shown 
             - "min": represents the minimum value of the elements in tensor, supporting both device and host statistics;
             - "avg": represents the average value of elements in tensor, supporting device and host statistics;
             - "count": represents the number of the elements in tensor;
-            - "negative zero count": represents the number of the elements which is less then zero in tensor;
-            - "positive zero count": represents the number of the elements which is greater then zero in tensor;
+            - "negative zero count": represents the number of the elements which is less than zero in tensor;
+            - "positive zero count": represents the number of the elements which is greater than zero in tensor;
             - "nan count": represents the number of `Nan` elements in the tensor;
             - "negative inf count": represents the number of `-Inf` elements in the tensor;
             - "positive inf count": represents the number of `+Inf` elements in the tensor;
@@ -381,7 +381,7 @@ x, w],    pri_format: NC1HWC0, pad: (0, 0, 0, 0), visited: true, pad_mod: same, 
        : (<Float16xNC1HWC0[const vector][32, 16, 13, 13, 16]>, <Float16xFracZ[const vector][144, 24, 16, 16]>) -> (<Float32xNC1HWC0[const vector][32, 24, 13, 13, 16]>)
        : full_name_with_scope: (Default/network-WithLossCell/_backbone-AlexNet/conv3-Conv2d/Conv2D-op12)
        ...
-       # In file ./tain_alexnet.py(175)/        x = self.conv3(x)/
+       # In file ./train_alexnet.py(175)/        x = self.conv3(x)/
        ...
 ```
 
@@ -456,10 +456,10 @@ Generate the numpy.array data.
     - `common_dump_settings`:
 
         - `op_debug_mode`: This attribute is used for operator overflow or operator exception debugging. 0 is the only supported mode in CPU/GPU Dump backend, which means saving all operators or specified operators;
-        - `dump_mode`: 0: all operator data in the network dumped out; 1: the operator data specified in Dump `"kernels"`; 2: dump target and its contents using [mindspore.set_dump](https://www.mindspore.cn/docs/en/r2.9.0/api_python/mindspore/mindspore.set_dump.html). Specified data dump is supported only when "dump_mode' is set to `0`.
+        - `dump_mode`: 0: all operator data in the network dumped out; 1: the operator data specified in Dump `"kernels"`; 2: dump target and its contents using [mindspore.set_dump](https://www.mindspore.cn/docs/en/r2.9.0/api_python/mindspore/mindspore.set_dump.html). Specified data dump is supported only when "dump_mode" is set to `0`.
         - `path`: The absolute path to Dump saved data.
         - `net_name`: The customized net name: "ResNet50".
-        - `iteration`: Specify the iterations of data required to be dumped, type is string. Use "|" to separate the step data of different intervals to be saved. For example, "0 | 5-8 | 100-120" represents dump the data of the 1st, 6th to 9th, and 101st to 121st steps. If iteration is set to "all", data of every iteration will be dumped. Specified iteration dump is supported only when "op_debug_mode" is set to `0` or `3`, not supported when when "op_debug_mode" is set to `4`.
+        - `iteration`: Specify the iterations of data required to be dumped, type is string. Use "|" to separate the step data of different intervals to be saved. For example, "0 | 5-8 | 100-120" represents dump the data of the 1st, 6th to 9th, and 101st to 121st steps. If iteration is set to "all", data of every iteration will be dumped. Specified iteration dump is supported only when "op_debug_mode" is set to `0` or `3`, not supported when "op_debug_mode" is set to `4`.
         - `saved_data`: Specify what data is to be dumped, type is string. Use "tensor" to indicate complete tensor data Dumped, use "statistic" to dump tensor statistics, use "full" to dump both tensor data and statistics. Using "statistic" or "full" on CPU will result in exception. Default setting is "tensor". Statistic dump is only supported when "op_debug_mode" is set to `0`.
         - `input_output`: 0: dump input and output of kernel, 1: dump input of kernel, 2: dump output of kernel. Only input of kernel can be saved when "op_debug_mode" is set to `4`.
         - `kernels`: This item can be configured in three formats:
@@ -474,8 +474,8 @@ Generate the numpy.array data.
             - "min": represents the minimum value of the elements in tensor;
             - "avg": represents the average value of elements in tensor;
             - "count": represents the number of the elements in tensor;
-            - "negative zero count": represents the number of the elements which is less then zero in tensor;
-            - "positive zero count": represents the number of the elements which is greater then zero in tensor;
+            - "negative zero count": represents the number of the elements which is less than zero in tensor;
+            - "positive zero count": represents the number of the elements which is greater than zero in tensor;
             - "nan count": represents the number of `Nan` elements in the tensor;
             - "negative inf count": represents the number of `-Inf` elements in the tensor;
             - "positive inf count": represents the number of `+Inf` elements in the tensor;
@@ -710,7 +710,7 @@ x, w],    pri_format: NC1HWC0, pad: (0, 0, 0, 0), visited: true, pad_mod: same, 
        : (<Float16xNC1HWC0[const vector][32, 16, 13, 13, 16]>, <Float16xFracZ[const vector][144, 24, 16, 16]>) -> (<Float32xNC1HWC0[const vector][32, 24, 13, 13, 16]>)
        : full_name_with_scope: (Default/network-WithLossCell/_backbone-AlexNet/conv3-Conv2d/Conv2D-op12)
        ...
-       # In file ./tain_alexnet.py(175)/        x = self.conv3(x)/
+       # In file ./train_alexnet.py(175)/        x = self.conv3(x)/
        ...
 ```
 

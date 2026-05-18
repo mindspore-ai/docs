@@ -89,7 +89,7 @@ class Network(nn.Cell):
         logits = self.layer3(x)
         return logits
 
-with no_init_parameters:
+with no_init_parameters():
     net = Network()
     optimizer = nn.SGD(net.trainable_params(), 1e-2)
 net.layer1.set_comm_fusion(0)

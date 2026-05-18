@@ -186,7 +186,7 @@ export MS_PROFILER_OPTIONS='
 "output_path": "/XXX",
 "activities": ["CPU", "NPU"],
 "with_stack": true,
-"aic_metrics": "AicoreNone",
+"aic_metrics": "AiCoreNone",
 "l2_cache": false,
 "profiler_level": "Level0"}'
 ```
@@ -235,7 +235,7 @@ mstx.range_end(range_id)
 性能数据采集完成后，原始数据会按照以下目录结构进行存储：
 
 > - 以下数据文件用户无需打开查看，可根据[MindStudio Insight用户指南](https://www.hiascend.com/document/detail/zh/mindstudio/80RC1/msinsightug/msascendinsightug/AscendInsight_0002.html)指导进行性能数据的查看和分析。
-> - 以下是结果文件全集。MindSpore Profiler接口将框架侧的数据与CANN Profling的数据关联整合，形成trace、kernel以及memory等性能数据文件于`ASCEND_PROFILER_OUTPUT`目录下。实际文件数量和内容根据用户的参数配置以及实际的训练场景生成。如果用户没有使能相关参数或是训练中没有涉及到相关场景，则不会生成对应的数据文件。  
+> - 以下是结果文件全集。MindSpore Profiler接口将框架侧的数据与CANN Profiling的数据关联整合，形成trace、kernel以及memory等性能数据文件于`ASCEND_PROFILER_OUTPUT`目录下。实际文件数量和内容根据用户的参数配置以及实际的训练场景生成。如果用户没有使能相关参数或是训练中没有涉及到相关场景，则不会生成对应的数据文件。  
 
 ```sh
 └── localhost.localdomain_*_ascend_ms  // 采集、解析结果目录，命名格式：{worker_name}_{时间戳}_ascend_ms，默认情况下{worker_name}为{hostname}_{pid}
@@ -279,16 +279,16 @@ mstx.range_end(range_id)
     ├── logs                           // MindSpore Profiler接口解析的日志文件
     └── PROF_000001_20230628101435646_FKFLNPEPPRRCFCBA  // CANN层的性能数据，命名格式：PROF_{数字}_{时间戳}_{字符串}，data_simplification=True 时，仅保留此目录下的原始性能数据，删除其他数据
           ├── analyze                  // 多卡或集群等存在通信的场景配置 profiler_level=ProfilerLevel.Level1 或 profiler_level=ProfilerLevel.Level2 生成
-          ├── device_{Rank_ID}         // CANN Profling采集的device侧的性能数据
-          ├── host                     // CANN Profling采集的host侧的性能数据
-          ├── mindstudio_profiler_log  // CANN Profling解析的日志文件，data_simplification=True 时删除此目录
-          └── mindstudio_profiler_output  // CANN Profling解析的性能数据，data_simplification=True 时删除此目录
+          ├── device_{Rank_ID}         // CANN Profiling采集的device侧的性能数据
+          ├── host                     // CANN Profiling采集的host侧的性能数据
+          ├── mindstudio_profiler_log  // CANN Profiling解析的日志文件，data_simplification=True 时删除此目录
+          └── mindstudio_profiler_output  // CANN Profiling解析的性能数据，data_simplification=True 时删除此目录
 ```
 
 `ASCEND_PROFILER_OUTPUT`目录下各文件详细说明如下文所示。
 
 > - `FRAMEWORK` 为框架侧的性能原始数据，无需关注。
-> - `PROF` 目录下为CANN Profling采集的性能数据，主要保存在 `mindstudio_profiler_output` 目录下。
+> - `PROF` 目录下为CANN Profiling采集的性能数据，主要保存在 `mindstudio_profiler_output` 目录下。
 
 ### ascend_mindspore_profiler_{Rank_ID}.db
 
@@ -393,7 +393,7 @@ mstx.range_end(range_id)
 
 然后，用户可以根据MindStudio Insight进行性能调优，每次调优后重跑训练，采集性能数据，并使用MindStudio Insight工具查看调优手段是否产生效果。重复这个过程，直到解决性能问题。
 
-MindStudio Insight提供了丰富的调优分析手段，可视化呈现真实软硬件运行数据，多维度分析性能数位，定位性能瓶颈点，支持百卡、千卡及以上规模的可视化集群性能分析。
+MindStudio Insight提供了丰富的调优分析手段，可视化呈现真实软硬件运行数据，多维度分析性能数据，定位性能瓶颈点，支持百卡、千卡及以上规模的可视化集群性能分析。
 
 用户在MindStudio Insight中导入上一步采集的性能数据，根据下述流程使用可视化能力分析性能数据。
 
@@ -485,4 +485,4 @@ schedule配置相关参数有5个：wait、warmup、active、repeat、skip_first
 
 #### schedule与step配置不匹配问题
 
-正常来说schedule的配置应小于模型训练的次数，即repeat*(wait+warmup+active)+skip_first应小于模型训练的次数。如果schedule的配置大于模型训练的次数，Profiler会抛出异常警告，但这并不会打断模型训练，但可能存在采集解析的数据不全的情况。
+正常来说schedule的配置应小于模型训练的次数，即repeat*(wait+warmup+active)+skip_first应小于模型训练的次数。如果schedule的配置大于模型训练的次数，Profiler会抛出异常警告，但这并不会打断模型训练，可能存在采集解析的数据不全的情况。

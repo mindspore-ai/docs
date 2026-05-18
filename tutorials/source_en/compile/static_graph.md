@@ -4,7 +4,7 @@
 
 ## Overview
 
-In Just-In-Time Compilation (JIT) mode, Python code is not executed by the Python interpreter.Instead, the code is compiled into a static
+In Just-In-Time Compilation (JIT) mode, Python code is not executed by the Python interpreter. Instead, the code is compiled into a static
 computation graph, and then the static computation graph is executed.
 
 In static graph mode, MindSpore converts Python source code into Intermediate Representation IR by means of source code conversion and
@@ -29,16 +29,16 @@ Just-In-Time (JIT) compilation can be achieved using the [JIT interface](https:/
 about the definition of `Cell`, click [Cell API document](https://www.mindspore.cn/docs/en/r2.9.0/api_python/nn/mindspore.nn.Cell.html).
 
 Due to syntax parsing restrictions, the supported data types, syntax, and related operations during graph building are not completely
-consistent with the Python syntax. As a result, some usage is restricted. Borrowing the traditional JIT compilation idea, considers
+consistent with the Python syntax. As a result, some usage is restricted. Borrowing the traditional JIT compilation idea, MindSpore considers
 the unification of static and dynamic graphs from the perspective of graph mode and extends the syntax capabilities of graph patterns. The
 static graph provides a syntax experience close to that of the dynamic graph, so as to realize the unity of dynamic and static. In order to
 facilitate users to choose whether to extend the static graph syntax, the JIT syntax support level option \'jit_syntax_level\' is provided,
-and its value must be in the range of \[STRICT,LAX\], and selecting \'STRICT\' is considered to use the basic syntax and do not extend the
+and its value must be in the range of \[STRICT,LAX\]. Selecting \'STRICT\' means using the basic syntax without extending the
 static graph syntax. The default value is \'LAX\'. All backends are supported at all
 levels.
 
-- STRICT: Only basic syntaxes is supported, and execution performance is optimal. Can be used for MindIR load and export.
-- LAX: Supporting more complex syntaxes, compatible with all Python syntax as much as possible. Cannot be used for MindIR load and
+- STRICT: Only basic syntaxes are supported, and execution performance is optimal. Can be used for MindIR load and export.
+- LAX: Supports more complex syntaxes, compatible with all Python syntax as much as possible. Cannot be used for MindIR load and
     export due to some syntax that may not be able to be exported.
 
 The following describes the data types, syntax, and related operations supported during static graph building. These rules apply only to JIT
@@ -57,12 +57,12 @@ is compiled into an intermediate representation graph, and the program does not 
 representation through abstract deduction. This makes it impossible to guarantee that we will get the values of all intermediate representation
 nodes at compile time. Constants and variables are distinguished by their true values in the compiler.
 
-- Constant: The amount of value that can be obtained during compilation.
-- Variable: The amount of value that cannot be obtained during compilation.
+- Constant: The value that can be obtained during compilation.
+- Variable: The value that cannot be obtained during compilation.
 
 #### Constants Generate Scenes
 
-- Scalars, lists, and tuples entered as graph mode are constants
+- Scalars, lists, and tuples entered as graph mode inputs are constants
     (without using the mutable interface). For example:
 
     ``` python
@@ -84,7 +84,7 @@ nodes at compile time. Constants and variables are distinguished by their true v
 
     In the above code, the inputs `a`, `b`, `c` are constants.
 
-- The result of the constant operation is constant. For example:
+- The result of a constant operation is a constant. For example:
 
     ``` python
     import mindspore
@@ -123,8 +123,8 @@ nodes at compile time. Constants and variables are distinguished by their true v
     ```
 
     In the above code, `a` and `b` are constants of Tensor generated in
-    the graph mode, so the result of their calculation is also constant.
-    However, if one of them is a variable, its return value will also be
+    the graph mode, so the result of their calculation is also a constant.
+    However, if one of them is a variable, the return value will also be
     a variable.
 
 #### Variables Generate Scenes
@@ -173,12 +173,12 @@ nodes at compile time. Constants and variables are distinguished by their true v
 
     In the above code, `a` is the Tensor input as the graph pattern, so
     it is a variable. But `b` is a tuple that is input to the graph
-    schema, not a Tensor type, and even if its internal elements are
+    pattern, not a Tensor type. Even if its internal elements are
     Tensor, `b` is a constant.
 
-- What is calculated by variables is the variable
+- What is calculated by variables is a variable
 
-    If a quantity is the output of an operator, then it is in most cases
+    If a quantity is the output of an operator, then in most cases it is a
     variable. For example:
 
     ``` python
@@ -198,8 +198,8 @@ nodes at compile time. Constants and variables are distinguished by their true v
     ret = net(a, b)
     ```
 
-    In this case , `c` is the result of calculations of `a` and `b` ,
-    and the inputs `a` and `b` used for the calculation are variables ,
+    In this case, `c` is the result of calculations of `a` and `b`,
+    and the inputs `a` and `b` used for the calculation are variables,
     so `c` is also a variable.
 
 ### Data Types
@@ -211,13 +211,13 @@ Currently, the following built-in `Python` data types are supported:
 
 ##### Number
 
-Supporting `int`, `float`, and `bool`, but does not support `complex` numbers.
+Supports `int`, `float`, and `bool`, but does not support `complex` numbers.
 
 `Number` can be defined on the network. That is, the syntax `y = 1`, `y = 1.2`, and `y = True` are supported.
 
-When the data is a constant, the value of the data can be achieved at compile time, the forcible conversion to `Number` is supported in the
+When the data is a constant, the value of the data can be obtained at compile time, and the forcible conversion to `Number` is supported in the
 network. The syntax `y = int(x)`, `y = float(x)`, and `y = bool(x)` are supported. When the data is a variable, i.e., you can get the value only
-at runtime. It also supports data type conversion using built-in
+at runtime, it also supports data type conversion using built-in
 functions [Python Built-in Functions](https://www.mindspore.cn/tutorials/en/r2.9.0/compile/python_builtin_functions.html)
 such as int(), float() and bool(). For example:
 
@@ -245,7 +245,7 @@ res[0]: 11
 res[1]: 10
 ```
 
-Supporting returning Number. For example:
+Supports returning Number. For example:
 
 ``` python
 import mindspore
@@ -269,10 +269,10 @@ The results are as follows:
 
 ##### String
 
-`String` can be constructed on the network, i.e., support for using quotes (`'` or `"`) to create strings such as `x = 'abcd'` or
-`y = "efgh"`. Convert constants to strings by means of `str()`. Support string concatenation, truncation, and the use of membership operators
-(`in` or `not in`) to determine whether a string contains the specified character. Support for formatting string output by inserting a value
-into a string with the string format `%s`. Support for using the format string function `str.format()` in constant scenarios.
+`String` can be constructed on the network, i.e., supports using quotes (`'` or `"`) to create strings such as `x = 'abcd'` or
+`y = "efgh"`. Converts constants to strings by means of `str()`. Supports string concatenation, truncation, and the use of membership operators
+(`in` or `not in`) to determine whether a string contains the specified character. Supports formatting string output by inserting a value
+into a string with the string format `%s`. Supports using the format string function `str.format()` in constant scenarios.
 
 For example:
 
@@ -309,7 +309,7 @@ The basic usage scenarios of \'List\' are as follows:
 
 - The graph mode supports creating `Lists` in graph.
 
-    Support creating `List` objects within graph mode, and the elements
+    Supports creating `List` objects within graph mode, and the elements
     of the `List` objects can contain any of the types supported by the
     graph mode, as well as multiple levels of nesting. For example:
 
@@ -328,7 +328,7 @@ The basic usage scenarios of \'List\' are as follows:
           return d
     ```
 
-    The above sample code, all `List` objects can be created normally.
+    In the above sample code, all `List` objects can be created normally.
 
 - The graph mode supports returning `List`
 
@@ -371,8 +371,8 @@ The basic usage scenarios of \'List\' are as follows:
     output = net()  # output: [4, 3, 2, 1]
     ```
 
-    It should be noted that the list returned in the following pattern in the basic scenario is not the same object as the list of global
-    variables, and when \'JIT_SYNTAX_LEVEL\' is set to \'LAX\', the returned object and the global object are unified objects.
+    It should be noted that the list returned in the basic scenario is not the same object as the list of global
+    variables. When \'JIT_SYNTAX_LEVEL\' is set to \'LAX\', the returned object and the global object are the same object.
 
 - Graph mode supports `List` as input
 
@@ -406,8 +406,8 @@ The basic usage scenarios of \'List\' are as follows:
 
         Basic syntax: `element = list_object[index]`.
 
-        Basic semantics: Extract the element in the \'List\' object in
-        the \'index\' bit (\'index\' starts at 0). Supporting multi-level index values.
+        Basic semantics: Extract the element in the \'List\' object at
+        the \'index\' position (\'index\' starts at 0). Supports multi-level index values.
 
         Index value \'index\' supported types include \'int\', \'Tensor\', and \'slice\'. Among them, inputs of type \'int\'
         and \'Tensor\' can support constants and variables, and \'slice\' internal data must be constants that can be determined
@@ -447,11 +447,11 @@ The basic usage scenarios of \'List\' are as follows:
 
         Basic syntax: `list_object[index] = target_element`.
 
-        Basic semantics: Assign the element in the \'List\' object at bit \'index\' to \'target_element\' (\'index\' starts at 0).
-        Support for multi-tier index assignment.
+        Basic semantics: Assign the element in the \'List\' object at position \'index\' to \'target_element\' (\'index\' starts at 0).
+        Supports multi-level index assignment.
 
         Index value \'index\' supported types include \'int\', \'Tensor\', and \'slice\'. Among them, inputs of type \'int\'
-        and \'Tensor\' can support constants and variables, and the internal data of \'slice\' must be constant that can be
+        and \'Tensor\' can support constants and variables, and the internal data of \'slice\' must be constants that can be
         determined at compile time.
 
         The index assignment object \'target_element\' supports all data types supported by graph modes.
@@ -490,7 +490,7 @@ The basic usage scenarios of \'List\' are as follows:
 
         Basic syntax: `list_object.append(target_element)`.
 
-        Basic semantics: Append the element \'target_element\' to the last list_object\' of the \'List\' object.
+        Basic semantics: Append the element \'target_element\' to the end of the \'List\' object \'list_object\'.
 
         Currently, \'List.append\' does not support the inplace operation, and a new object will be generated after append
         element. This operation will support the inplace operation in the future.
@@ -523,9 +523,9 @@ The basic usage scenarios of \'List\' are as follows:
 
         Basic syntax: `list_object.clear()`.
 
-        Base semantics: Empty the elements contained in the \'List\' object \'list_object\'.
+        Base semantics: Clear all elements contained in the \'List\' object \'list_object\'.
 
-        Currently, \'List.clear\' does not support inplace, and a new object will be generated after clear list. This operation will
+        Currently, \'List.clear\' does not support inplace, and a new object will be generated after clearing the list. This operation will
         support inplace in the future.
 
         Examples are as follows:
@@ -595,9 +595,9 @@ The basic usage scenarios of \'List\' are as follows:
 
         Basic semantics: Remove the \'index\' element of the \'List\' object \'list_object\' from the \'list_object\' and return the element.
 
-        The \'index\' requires that it must be a constant \'int\', and when \'list_object\' has a length of \'list_obj_size\',
-        \'index\' has a value range of \'\[-list_obj_size,list_obj_size-1\]\'. \'index\' is a negative
-        number representing the number of digits from back to front. When no \'index\' is entered, the default value is -1, i.e. the
+        The \'index\' requires that it must be a constant \'int\'. When \'list_object\' has a length of \'list_obj_size\',
+        \'index\' has a value range of \'\[-list_obj_size,list_obj_size-1\]\'. A negative
+        \'index\' represents the number of positions from back to front. When no \'index\' is entered, the default value is -1, i.e. the
         last element is removed.
 
         ``` python
@@ -660,10 +660,10 @@ The basic usage scenarios of \'List\' are as follows:
 
         Basic semantics: insert \'target_obj\' into the \'index\' bit of \'list_object\'.
 
-        The \'index\' requirement must be a constant \'int\'. If the length of \'list_object\' is \'list_obj_size\'.
-        When \'index \<-list_obj_size\', insert the first place in \'List\'.
+        The \'index\' requirement must be a constant \'int\'. If the length of \'list_object\' is \'list_obj_size\',
+        when \'index \<-list_obj_size\', insert at the first position in \'List\'.
         When \'index \>= list_obj_size\', insert at the end of \'List\'. A
-        negative \'index\' represents the number of digits from back to front.
+        negative \'index\' represents the number of positions from back to front.
 
         Examples are as follows:
 
@@ -805,24 +805,24 @@ be modified, but indexed access to elements in the tuple `Tuple` is supported, a
 
 ##### Dictionary
 
-`Dictionary` can be constructed on the network. Each key value `key:value` is separated by a colon `:`, and each key value pair is
+`Dictionary` can be constructed on the network. Each key-value pair `key:value` is separated by a colon `:`, and each key-value pair is
 separated by a comma `,`. The entire dictionary contains the key-value
 pairs using curly braces `{}`. That is, the syntax `y = {"a": 1, "b": 2}` is supported.
 
-The `key` is unique, and if there are multiple identical `keys` in the dictionary, the duplicate `keys` are finalized with the last one and the
-value `value` can be non-unique. The key `key` needs to be guaranteed to be immutable. Currently, the `key` can be `String`, `Number`, constant
-`Tensor`, or `Tuple` that contains these types. The `value` can be `Number`, `Tuple`, `Tensor`, `List` or `Dictionary`.
+The `key` is unique, and if there are multiple identical `keys` in the dictionary, the duplicate `keys` are finalized with the last one. The
+`value` can be non-unique. The key `key` needs to be guaranteed to be immutable. Currently, the `key` can be `String`, `Number`, constant
+`Tensor`, or `Tuple` that contains these types. The `value` can be `Number`, `Tuple`, `Tensor`, `List`, or `Dictionary`.
 
 - Supported APIs
 
-    `keys`: extracts all `key` values from `dict` to form `Tuple` and return it.
+    `keys`: extracts all `key` values from `dict` to form a `Tuple` and returns it.
 
-    `values`: extracts all `value` values from `dict` to form `Tuple` and return it.
+    `values`: extracts all `value` values from `dict` to form a `Tuple` and returns it.
 
-    `items`: extracts `Tuple` composed of each pair of `value` values and `key` values in `dict` to form `List` and return it.
+    `items`: extracts `Tuple` objects composed of each pair of `key` and `value` in `dict` to form a `List` and returns it.
 
-    `get`: `dict.get(key[, value])` returns the `value` value corresponding to the specified `key`, if the specified `key` does
-    not exist, the default value `None` or the set default value `value` is returned .
+    `get`: `dict.get(key[, value])` returns the `value` corresponding to the specified `key`. If the specified `key` does
+    not exist, the default value `None` or the specified default value `value` is returned.
 
     `clear`: removes all elements in `dict`.
 
@@ -830,11 +830,11 @@ value `value` can be non-unique. The key `key` needs to be guaranteed to be immu
 
     `update`: `dict1.update(dict2)` updates the elements in `dict2` to `dict1`.
 
-    `fromkeys`: `dict.fromkeys(seq([, value]))` is used to create a new `Dictionary`, using the elements in the sequence `seq` as the `key`
-    of the `Dictionary`, and the `value` is initial value corresponding to all `key`.
+    `fromkeys`: `dict.fromkeys(seq([, value]))` creates a new `Dictionary`, using the elements in the sequence `seq` as the `key`
+    of the `Dictionary`, and the `value` is the initial value corresponding to all `key`s.
 
-    The example is as follows, where the \'x\' and \'new_dict\' in the return value are a \'Dictionary\', and the support is extended under
-    the JIT syntax support level option LAX in graph mode, for more advanced use of Dictionary, please refer to the
+    The example is as follows, where \'x\' and \'new_dict\' in the return value are \'Dictionary\' objects. The support is extended under
+    the JIT syntax support level option LAX in graph mode. For more advanced usage of Dictionary, please refer to the
     [Supporting the high-level usage of Dictionary](#supporting-the-high-level-usage-of-dictionary) section
     of this article.
 
@@ -889,10 +889,10 @@ Currently, MindSpore supports the following user-defined data types:
 
 For details of `Tensor`, click [Tensor API document](https://mindspore.cn/docs/en/r2.9.0/api_python/mindspore/mindspore.Tensor.html#mindspore-tensor).
 
-Supporting creating and using Tensor. The ways to create a `Tensor`
-include using [tensor function interface](https://www.mindspore.cn/docs/en/r2.9.0/api_python/mindspore/mindspore.tensor.html#mindspore.tensor)
+Supports creating and using Tensor. The ways to create a `Tensor`
+include using the [tensor function interface](https://www.mindspore.cn/docs/en/r2.9.0/api_python/mindspore/mindspore.tensor.html#mindspore.tensor)
 and using the class \'ms.Tensor\' interface. It is recommended to use
-the former because users can specify the required dtype. The code case is as follows.
+the former because users can specify the required dtype. The code example is as follows:
 
 ``` python
 import mindspore
@@ -921,7 +921,7 @@ The results are as follows:
 ##### Primitive
 
 Currently, `Primitive` and its subclass instances can be constructed in
-construct.
+the construct function.
 
 For example:
 
@@ -936,7 +936,7 @@ class Net(nn.Cell):
 
    @mindspore.jit
    def construct(self, x):
-      reduce_sum = ops.ReduceSum(True) #`Primitive` and its subclass instances can be constructed in construct.
+      reduce_sum = ops.ReduceSum(True) # Primitive and its subclass instances can be constructed in the construct function
       ret = reduce_sum(x, axis=2)
       return ret
 
@@ -1001,7 +1001,7 @@ Using attribute references as l-values in Cell instances of MindSpore requires t
 - The modified attribute belongs to this `cell` object, i.e. it must be `self.xxx`.
 - The attribute is initialized in Cell\'s \'\*\*init\*\*\' function and is of type Parameter.
 
-When the JIT syntax support level option is \'LAX\', can support attribute modification in more situations, see
+When the JIT syntax support level option is \'LAX\', attribute modification in more situations is supported. See
 [Support Attribute Setting and Modification](#supporting-property-setting-and-modification).
 
 Examples are as follows:
@@ -1036,7 +1036,7 @@ ret:1
 
 #### Index Value
 
-Index value of a sequence `Tuple`, `List`, `Dictionary`, `Tensor` which called subscription in Python.
+Index value of a sequence `Tuple`, `List`, `Dictionary`, or `Tensor`, which is called subscription in Python.
 
 Index value of `Tuple` refers to chapter [Tuple](#tuple) of this page.
 
@@ -1094,13 +1094,13 @@ Python built-in functions. For more details, please refer to [Python Built-in Fu
 
 ### Network Definition
 
-#### Network Input parameters
+#### Network Input Parameters
 
-While calculating gradient for outermost network, only `Tensor` input could be calculated, input of other type will be ignored.
+While calculating gradients for the outermost network, only `Tensor` inputs can be calculated. Inputs of other types will be ignored.
 
-The code example is shown below. Among the input parameter `(x, y,  z)` of outermost network, `x` and `z` are `Tensor` type but `y` is not.
-While `grad_net` calculating gradient of the input parameters `(x, y, z)` for the network, gradient of `y` is automatically ignored.
-Only gradients of `x` and `z` are calculated, and `(grad_x, grad_y)` is returned.
+The code example is shown below. Among the input parameters `(x, y, z)` of the outermost network, `x` and `z` are `Tensor` type but `y` is not.
+When `grad_net` calculates gradients of the input parameters `(x, y, z)` for the network, the gradient of `y` is automatically ignored.
+Only gradients of `x` and `z` are calculated, and `(grad_x, grad_z)` is returned.
 
 ``` python
 import mindspore
@@ -1476,7 +1476,7 @@ Combining view and in-place operations improves memory efficiency and computatio
         out_jit = grad(net)(ms.Tensor([3, 4]), ms.Tensor(5))
         ```
 
-        Since `x` comes from two branches and the view region it represents is not uniquely determined, such scenarios does not supported. It will throw a RuntimeError error:
+        Since `x` comes from two branches and the view region it represents is not uniquely determined, such scenarios are not supported. It will throw a RuntimeError:
 
         ```text
         RuntimeError: In backpropagation, inplace modification of the output of view operations within control flow is not supported.
@@ -1486,7 +1486,7 @@ Combining view and in-place operations improves memory efficiency and computatio
 
         When using view and in-place operators together in the computation graph, the actual execution of the backward graph may involve additional operators compared to Pynative Mode, potentially affecting execution performance. Therefore, it is advisable to use this combination cautiously in complex scenarios.
 
-    2. Automatic differentiation for `UnstackExtView` and other view operators that output a tuple of multiple Tensors is not supported in the view inplace scenario.
+    2. Automatic differentiation for `UnstackExtView` and other view operators that output a tuple of multiple Tensors is not supported in the view in-place scenario.
 
 ## Syntax Constraints of Basic Syntaxes
 
@@ -1519,7 +1519,7 @@ compilation problems can be found in [Network compilation](https://www.mindspore
     AttributeError: ClassMember: 'Namespace:__main__..<Net>' object has no attribute 'y'
     ```
 
-2. Class methods modified by `classmethod` in `nn.Cell` are not
+2. Class methods decorated by `classmethod` in `nn.Cell` are not
     supported. For example:
 
     ``` python
@@ -1628,7 +1628,7 @@ compilation problems can be found in [Network compilation](https://www.mindspore
 ## AST Extended Syntaxes (LAX level)
 
 The following mainly introduces the static graph syntax supported by the
-current extension base on AST compilation.
+current extension based on AST compilation.
 
 ### Calling the Third-party Libraries
 
@@ -1641,7 +1641,7 @@ current extension base on AST compilation.
         variable `MS_JIT_MODULES`. For more details, please refer to
         [Environment Variables](https://www.mindspore.cn/docs/en/r2.9.0/api_python/env_var_list.html).
 
-- Supporting data types of third-party libraries, allowing calling and returning objects of third-party libraries.
+- Supports data types of third-party libraries, allowing calling and returning objects of third-party libraries.
 
     The code example is as follows.
 
@@ -1668,7 +1668,7 @@ current extension base on AST compilation.
     [5 7 9]
     ```
 
-- Supporting calling methods of third-party libraries.
+- Supports calling methods of third-party libraries.
 
     The code example is as follows.
 
@@ -1694,7 +1694,7 @@ current extension base on AST compilation.
     (2, 2)
     ```
 
-- Supporting creating Tensor instances by using the data types of the
+- Supports creating Tensor instances by using the data types of the
     third-party library NumPy.
 
     The code example is as follows.
@@ -1791,8 +1791,8 @@ is overloaded: \[\'+\', \'-\',
 in\', \'y=x\[0\]\'\].
 For more details, please refer to
 [Operators](https://www.mindspore.cn/tutorials/en/r2.9.0/compile/operators.html).
-When getting unsupported input type, those operators need to use
-extended static graph syntax to support, and make the output consistent with the output in the pynative mode.
+When getting unsupported input types, those operators need to use
+extended static graph syntax to support them, and make the output consistent with the output in the pynative mode.
 
 The code example is as follows.
 
@@ -1840,11 +1840,11 @@ The results are as follows:
 True
 ```
 
-`tuple` in `tuple` is an unsupported operation in original graph mode, and will be supported by static graph syntax.
+`tuple` in `tuple` is an unsupported operation in the original graph mode, and will be supported by static graph syntax.
 
 ### Base Type
 
-Use the JIT Fallback feature to extend support for Python\'s native data types \'List\', \'Dictionary\', \'None\'.
+Use the JIT Fallback feature to extend support for Python\'s native data types: \'List\', \'Dictionary\', and \'None\'.
 
 #### Supporting List Inplace Modification Operations
 
@@ -1988,7 +1988,7 @@ The specific usage scenarios are as follows:
 
 \'None\' is a special value in Python that represents null and can be assigned to any variable. Functions that do not have a return value
 statement are considered to return \'None\'. At the same time, \'None\' is also supported as the input parameter or return value of the top
-graph or subgraph. Support \'None\' as a subscript of a slice as input to \'List\', \'Tuple\', \'Dictionary\'.
+graph or subgraph. Support \'None\' as a subscript of a slice as input to \'List\', \'Tuple\', or \'Dictionary\'.
 
 Examples are as follows:
 
@@ -2073,7 +2073,7 @@ x:
 ### Built-in Functions Support More Data Types
 
 Extend the support for built-in functions. Python built-in functions
-perfectly support more input types, such as third-party library data types.
+support more input types, such as third-party library data types.
 
 For example, in the following example, \'x.asnumpy()\' and
 \'np.ndarray\' are both types supported by extensions. More support for
@@ -2100,7 +2100,7 @@ assert out
 
 In order to improve the support of Python standard syntax, realize dynamic and static unification, and extend the support for more data
 types in the use of control flow statements. Control flow statements refer to flow control statements such as \'if\', \'for\', and \'while\'.
-Theoretically, by extending the supported syntax, it is also supported in control flow scenarios. The code use cases are as follows:
+Theoretically, by extending the supported syntax, it is also supported in control flow scenarios. The code example is as follows:
 
 ``` python
 import numpy as np
@@ -2212,8 +2212,8 @@ shape is (2, 2)
     net.m is 3
     ```
 
-    Note that the self object supports property modification and setting. If no attribute is defined in \'\*\*init\*\*\', align the
-    PYNATIVE mode, and the graph mode also allows this attribute to be set. For example:
+    Note that the self object supports property modification and setting. If no attribute is defined in \'\*\*init\*\*\', aligning with
+    PYNATIVE mode, the graph mode also allows this attribute to be set. For example:
 
     ``` python
     import mindspore
@@ -2242,7 +2242,7 @@ shape is (2, 2)
 
 - Set and modify Cell objects and jit_class objects in the static graph
 
-    Supporting property modification of objects jit_class graph mode,
+    Supports property modification of jit_class objects in graph mode,
     such as:
 
     ``` python
@@ -2299,7 +2299,7 @@ assert out == 2
 
 For syntax supported by the runtime extensions, nodes are generated that cannot be derived by type, such as dynamically created Tensors, which
 are called `Any` types. Because this type cannot be inferred correctly at compile time, the `Any` type will be operated on with a default
-maximum precision of float64 to prevent loss of precision. In order to better optimize performance, it is necessary to reduce the generation of
+maximum precision of float64 to prevent loss of precision. To better optimize performance, it is necessary to reduce the generation of
 `Any` type data. When the user can clearly know the specific type that will be generated by the extended syntax, we recommend using Annotation
 to specify the corresponding Python statement type, thereby determining
 the type of the interpretation node and avoiding the generation of `Any` type.
@@ -2356,7 +2356,7 @@ y4 value is 2.0, dtype is Float32
 In the above example, you can see the difference related to creating \'Tensor\'. Due to the lack of Annotation indication in the Tensor
 class, y3 and y4 cannot infer the correct type and can only perform operations in the highest precision float64. For y2, the corresponding
 type for JIT Fallback was specified through Annotation during Tensor creation, allowing it to perform operations according to the specified
-type. y1 created the Tensor using the tensor function interface and passed the dtype parameter as an Annotation indication, avoiding the
+type. y1 creates the Tensor using the tensor function interface and passes the dtype parameter as an Annotation indication, avoiding the
 generation of `Any` type.
 
 ## Syntax Constraints of Extended Syntaxes
@@ -2368,7 +2368,7 @@ When using the static graph extension support syntax, note the following points:
 2. When extending the static graph syntax, more syntax is supported,
     but the execution performance may be affected and is not optimal.
 3. When extending the static graph syntax, more syntax is supported,
-    and the ability to import and export cannot be used with MindIR due to use Python.
+    and the ability to import and export cannot be used with MindIR due to the use of Python.
 
 ## Syntax Based on Bytecode Graph Construction
 
@@ -2455,6 +2455,6 @@ In file /workspace/test_pijit.py:5
     if x > 0:
 ```
 
-In the above example, `x` is a variable, so the `if` control flow cannot be included in the graph. With `fullgraph=True` set to enforce graph compilation, the program throws an exception indicating that data-dependent conditional control flow is not supported since the graph cannot be constructed; if this parameter is not set, the control flow will trigger a graph break and fall back to Python for execution.
+In the above example, `x` is a variable, so the `if` control flow cannot be included in the graph. With `fullgraph=True` set to enforce graph compilation, the program throws an exception indicating that data-dependent conditional control flow is not supported since the graph cannot be constructed. If this parameter is not set, the control flow will trigger a graph break and fall back to Python for execution.
 
 4. When constructing graphs based on bytecode, Python 3.12 and higher versions are currently not supported.
