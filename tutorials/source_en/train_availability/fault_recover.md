@@ -106,12 +106,12 @@ model = Model(net, loss_fn=loss, optimizer=optim)  # Model encapsulation
 
 [mindspore.train.CheckpointConfig](https://www.mindspore.cn/docs/en/master/api_python/train/mindspore.train.CheckpointConfig.html) supports configuration based on the number of iterations, with the following main parameters:
 
-- `save_checkpoint_steps`: indicates how many steps to save a Checkpoint file. The default value is 1. (When dataset_sink_mode is enabled, this indicates how many epochs elapse between saving each checkpoint file.)
+- `save_checkpoint_steps`: indicates how many steps to save a Checkpoint file. The default value is 1. (When `dataset_sink_mode` is enabled, this indicates how many epochs elapse between saving each checkpoint file.)
 - `keep_checkpoint_max`: indicates the maximum number of Checkpoint files to be saved. The default value is 5.
 
-If the iteration strategy script ends normally, the Checkpoint file of the last step is saved by default.
+When the iteration process ends normally, the Checkpoint file of the last step is saved by default.
 
-During model training, the `callbacks` parameter in `Model.train` is used to pass in the object `ModelCheckpoint` of saving model (used in conjunction with `mindspore.train.CheckpointConfig`), which generates Checkpoint file.
+During model training, the `callbacks` parameter in `Model.train` is used to pass in the `ModelCheckpoint` object for saving the model (used in conjunction with `mindspore.train.CheckpointConfig`), which generates Checkpoint file.
 
 ### User-defined Saved Data
 

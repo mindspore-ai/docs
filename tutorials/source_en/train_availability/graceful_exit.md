@@ -1,4 +1,4 @@
-# Training Process Exit Gracefully
+# Training Process Graceful Exit
 
 [![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/tutorials/source_en/train_availability/graceful_exit.md)
 
@@ -134,11 +134,11 @@ class LeNet5(nn.Cell):
         return x
 ```
 
-## Environment Variable And Callback Function
+## Environment Variable and Callback Function
 
 ### Environment Variable
 
-Using Training process Graceful Exit requires setting the environment variable `MS_ENABLE_GRACEFUL_EXIT` to `1`. This environment variable can control the synchronization operator into the graph to ensure that all training processes can exit synchronously.
+Using Training Process Graceful Exit requires setting the environment variable `MS_ENABLE_GRACEFUL_EXIT` to `1`. This environment variable can control the synchronization operator to be inserted into the graph to ensure that all training processes can exit synchronously.
 
 ```bash
 export MS_ENABLE_GRACEFUL_EXIT=1
@@ -146,7 +146,7 @@ export MS_ENABLE_GRACEFUL_EXIT=1
 
 ### Callback Function
 
-In addition to the above of environment variable, it also needs to configure the callback function `OnRequestExit` , and specify the path to the graceful exit configuration file with the parameter `config_file`. This callback function will check if there is a graceful exit json file in the specified path at every training step begin. If the file exists, and the `GracefulExit` is `1` , it will save checkpoint and exit training process at current step end.
+In addition to the above environment variable, it also needs to configure the callback function `OnRequestExit`, and specify the path to the graceful exit configuration file with the parameter `config_file`. This callback function will check if there is a graceful exit json file in the specified path at the beginning of every training step. If the file exists, and the `GracefulExit` is `1`, it will save checkpoint and exit training process at the end of the current step.
 
 The `GracefulExit` in the configuration file is dynamically configured during training. Generally, the keyword is modified when suboptimal devices exist in the training cluster and the training process needs to exit.
 
@@ -189,7 +189,7 @@ def graceful_exit_case():
 
 ## Starting Training
 
-Using `msrun` to start training.
+Use `msrun` to start training.
 
 ```bash
 msrun --worker_num=8 --local_worker_num=8 --master_addr=127.0.0.1 --master_port=10970 --join=True --log_dir=./comm_subgraph_logs graceful_exit_case.py
@@ -249,7 +249,7 @@ If the network model requires overriding TrainOneStepCell:
             ...
     ```
 
-2. The new method does not inherit from TrainOneStepCell, you need add the following code in `__init__` method(don't change parameter's name), and using in the `construct` method. The sample code is as follows:
+2. The new method does not inherit from TrainOneStepCell, you need to add the following code in `__init__` method(don't change parameter's name), and use it in the `construct` method. The sample code is as follows:
 
     ```python
     from mindspore.utils import ExitByRequest
@@ -269,4 +269,4 @@ If the network model requires overriding TrainOneStepCell:
                 grads = self.graceful_exit.exit_by_request(grads, self.init_param, self.exit_param)
             loss = F.depend(loss, self.optimizer(grads))
             ...
-   ```
+    ```

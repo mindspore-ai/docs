@@ -71,7 +71,7 @@ import mindspore.common.dtype as mstype
 import mindspore.dataset.vision as vision
 import mindspore.dataset.transforms as transforms
 
-dataset = ds.ImageFolder(dir)
+dataset = ds.ImageFolderDataset(data_dir)
 type_cast_op = transforms.TypeCast(mstype.int32)
 image_ops = [vision.RandomCropDecodeResize(train_image_size),
              vision.RandomHorizontalFlip(prob=0.5),
