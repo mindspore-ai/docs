@@ -171,7 +171,7 @@ Users can use the `RandomSelectSubpolicy` interface of the `mindspore.dataset.vi
     PARAMETER_MAX = 10
 
     def float_parameter(level, maxval):
-        return float(level) * maxval /  PARAMETER_MAX
+        return float(level) * maxval / PARAMETER_MAX
 
     def int_parameter(level, maxval):
         return int(level * maxval / PARAMETER_MAX)
@@ -306,7 +306,7 @@ Users can use the `RandomSelectSubpolicy` interface of the `mindspore.dataset.vi
                      vision.CenterCrop(image_size)]
         type_cast_op = transforms.TypeCast(ms.int32)
 
-        # map images and labes
+        # map images and labels
         dataset = dataset.map(operations=[vision.Resize(256), vision.CenterCrop(image_size)], input_columns="image")
         dataset = dataset.map(operations=trans, input_columns="image")
         dataset = dataset.map(operations=type_cast_op, input_columns="label")

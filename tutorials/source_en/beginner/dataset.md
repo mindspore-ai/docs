@@ -8,15 +8,15 @@ Data is the foundation of deep learning, and high-quality data input is benefici
 
 MindSpore provides Pipeline-based [Data Engine](https://www.mindspore.cn/docs/en/r2.9.0/features/data_engine.html) and achieves efficient data preprocessing through `Dataset`, `Transforms` and `Batch` operators. The pipeline nodes are:
 
-1. Dataset is the start of the Pipeline and is used to load raw data to memory. `mindspore.dataset` provides [built-in dataset interfaces](https://www.mindspore.cn/docs/en/r2.9.0/api_python/mindspore.dataset.loading.html) for loading text, image, audio, etc., and provides [interfaces](https://www.mindspore.cn/docs/en/r2.9.0/api_python/mindspore.dataset.loading.html#user-defined) for loading customized datasets.
+1. Dataset is the start of the Pipeline and is used to load raw data into memory. `mindspore.dataset` provides [built-in dataset interfaces](https://www.mindspore.cn/docs/en/r2.9.0/api_python/mindspore.dataset.loading.html) for loading text, image, audio, etc., and provides [interfaces](https://www.mindspore.cn/docs/en/r2.9.0/api_python/mindspore.dataset.loading.html#user-defined) for loading customized datasets.
 
 2. Data transforms perform further transformation operations on data in memory. [mindspore.dataset.transforms](https://www.mindspore.cn/docs/en/r2.9.0/api_python/mindspore.dataset.transforms.html#module-mindspore.dataset.transforms) provides general data transformation operations, [mindspore.dataset.transforms.vision](https://www.mindspore.cn/docs/en/r2.9.0/api_python/mindspore.dataset.transforms.html#module-mindspore.dataset.vision) provides image data transformation operations, [mindspore.dataset.transforms.text](https://www.mindspore.cn/docs/en/r2.9.0/api_python/mindspore.dataset.transforms.html#module-mindspore.dataset.text) provides text data transformation operations, and [mindspore.dataset.transforms.audio](https://www.mindspore.cn/docs/en/r2.9.0/api_python/mindspore.dataset.transforms.html#module-mindspore.dataset.audio) provides audio data transformation operations.
 
-3. The dataset batch operation is used to batch the transformed data group for the final neural network training. The batch operation is performed on the dataset object. The interface can be referred to [batch operator](https://www.mindspore.cn/docs/en/r2.9.0/api_python/dataset/mindspore.dataset.MindDataset.html#batch);
+3. The dataset batch operation is used to batch the transformed data group for the final neural network training. The batch operation is performed on the dataset object. Refer to [batch operator](https://www.mindspore.cn/docs/en/r2.9.0/api_python/dataset/mindspore.dataset.MindDataset.html#batch) for the interface;
 
-4. Dataset iterators output the final data iteratively. The interface can be referred to [iterator](https://www.mindspore.cn/docs/en/r2.9.0/api_python/dataset/mindspore.dataset.MindDataset.html#iterator).
+4. Dataset iterators output the final data iteratively. Refer to [iterator](https://www.mindspore.cn/docs/en/r2.9.0/api_python/dataset/mindspore.dataset.MindDataset.html#iterator) for the interface.
 
-In addition, MindSpore's domain development library also provides a large number of preloaded datasets that can be downloaded and used with one click through the API. This tutorial will provide a detailed explanation of different dataset loading methods: custom datasets, standard format datasets, and common datasets, data transforms and batch methods.
+In addition, MindSpore's domain development library also provides a large number of preloaded datasets that can be downloaded and used with one click through the API. This tutorial will provide a detailed explanation of different dataset loading methods (custom datasets, standard format datasets, and common datasets), data transforms, and batch methods.
 
 ```python
 import os
@@ -31,17 +31,17 @@ import matplotlib.pyplot as plt
 
 ## Loading a Dataset
 
-The [mindspore.dataset](https://www.mindspore.cn/docs/en/r2.9.0/api_python/mindspore.dataset.html) module provides loading APIs for custom datasets, standard format datasets, and commonly used publicly datasets.
+The [mindspore.dataset](https://www.mindspore.cn/docs/en/r2.9.0/api_python/mindspore.dataset.html) module provides loading APIs for custom datasets, standard format datasets, and commonly used public datasets.
 
 ### Customizing Dataset
 
 For those datasets that MindSpore does not support yet, it is suggested to load data by constructing customized classes or customized generators. [GeneratorDataset](https://www.mindspore.cn/docs/en/r2.9.0/api_python/dataset/mindspore.dataset.GeneratorDataset.html) can help to load dataset based on the logic inside these classes/functions.
 
-`GeneratorDataset` supports constructing customized datasets from random-accessible objects, iterable objects and Python generator, which are explained in detail below.
+`GeneratorDataset` supports constructing customized datasets from random-accessible objects, iterable objects and Python generators, which are explained in detail below.
 
 #### Random-accessible Dataset
 
-A random-accessible dataset is one that implements the `__getitem__` and `__len__` methods, which represents a map from indices/keys to data samples.
+A random-accessible dataset is one that implements the `__getitem__` and `__len__` methods, which represents a mapping from indices/keys to data samples.
 
 For example, when accessing a dataset with `dataset[idx]`, it should read the idx-th data inside the dataset content.
 
@@ -88,7 +88,7 @@ for data in dataset:
 
 #### Iterable Dataset
 
-An iterable dataset is one that implements the `__iter__` and `__next__` methods, which represents an iterator to return data samples gradually. This type of dataset is suitable for cases where random access is expensive or forbidden.
+An iterable dataset is one that implements the `__iter__` and `__next__` methods, which represents an iterator that returns data samples gradually. This type of dataset is suitable for cases where random access is expensive or forbidden.
 
 For example, when accessing a dataset with `iter(dataset)`, it should return a stream of data from a database or a remote server.
 
@@ -125,7 +125,7 @@ for d in dataset:
 
 #### Generator
 
-Generator also belongs to iterable dataset types, and it uses Python's generator type to return data until the generator throws a `StopIteration` exception.
+Generator is also a type of iterable dataset, and it uses Python's generator type to return data until the generator throws a `StopIteration` exception.
 
 The example below constructs a generator and loads it into the `GeneratorDataset`.
 
@@ -189,7 +189,7 @@ for data in dataset:
 
 ### Common Datasets
 
-We use the MNIST dataset as a sample to introduce the loading method by using `mindspore.dataset` .
+We use the MNIST dataset as a sample to introduce the loading method by using `mindspore.dataset`.
 
 The interface provided by `mindspore.dataset` **only supports decompressed data files**, so we use the `download` library to download the dataset and decompress it.
 
@@ -210,7 +210,7 @@ Extracting zip file...
 Successfully downloaded / unzipped to ./
 ```
 
-After downloading and extracting, load directly, you can see that its data type is MnistDataset.
+After downloading and extracting, load it directly. You can see that its data type is MnistDataset.
 
 ```python
 train_dataset = MnistDataset("MNIST_Data/train", shuffle=False)
@@ -221,7 +221,7 @@ print(type(train_dataset))
 <class 'mindspore.dataset.engine.datasets_vision.MnistDataset'>
 ```
 
-Use iterator to loop and output data. Define a visualization function below to iterate through 9 images in the MNIST dataset for display.
+Use an iterator to loop and output data. Define a visualization function below to iterate through 9 images in the MNIST dataset for display.
 
 ```python
 def visualize(dataset):
@@ -258,13 +258,13 @@ Usually, the raw data cannot be directly fed into the neural network for trainin
 
 ### Built-in Transforms
 
-`mindspore.dataset` provides built-in data transforms: [vision transforms](https://www.mindspore.cn/docs/en/r2.9.0/api_python/mindspore.dataset.transforms.html#module-mindspore.dataset.vision), [nlp transforms](https://www.mindspore.cn/docs/en/r2.9.0/api_python/mindspore.dataset.transforms.html#module-mindspore.dataset.text), [audio transforms](https://www.mindspore.cn/docs/en/r2.9.0/api_python/mindspore.dataset.transforms.html#module-mindspore.dataset.audio).
+`mindspore.dataset` provides built-in data transforms: [vision transforms](https://www.mindspore.cn/docs/en/r2.9.0/api_python/mindspore.dataset.transforms.html#module-mindspore.dataset.vision), [text transforms](https://www.mindspore.cn/docs/en/r2.9.0/api_python/mindspore.dataset.transforms.html#module-mindspore.dataset.text), [audio transforms](https://www.mindspore.cn/docs/en/r2.9.0/api_python/mindspore.dataset.transforms.html#module-mindspore.dataset.audio).
 
 For example, `Rescale`, `Normalize`, and `HWC2CHW` operations are used for **data** in the MNIST dataset, and `TypeCast` operations are used for **label**.
 
 1. Rescale: The `Rescale` transform is used to resize the image pixel values and consists of two parameters: rescale (scaling factor) and shift (shift factor). Each pixel of the image will be adjusted according to these two parameters and the output pixel value will be $output_{i} = input_{i} * rescale + shift$.
 
-2. Normalize: The `Normalize` transform is used for normalization of the input image and consists of three parameters: mean (the mean value of each channel in the image), std (the standard deviation of each channel in the image), and is_hwc ( bool, decide the format of input image. If True, input format is (height, width, channel), otherwise (channel, height, width). Default: True). Each channel of the image will be adjusted according to `mean` and `std`, and the formula is $output_{c} = \frac{input_{c} - mean_{c}}{std_{c}}$, where $c$ represents the channel index.
+2. Normalize: The `Normalize` transform is used for normalization of the input image and consists of three parameters: mean (the mean value of each channel in the image), std (the standard deviation of each channel in the image), and is_hwc (bool, decide the format of input image. If True, input format is (height, width, channel), otherwise (channel, height, width). Default: True). Each channel of the image will be adjusted according to `mean` and `std`, and the formula is $output_{c} = \frac{input_{c} - mean_{c}}{std_{c}}$, where $c$ represents the channel index.
 
 3. The `HWC2CHW` transform is used to convert the image format.
 
@@ -289,7 +289,7 @@ for data in train_dataset:
 
 ### User-defined Transforms
 
-For example, user-defined `Rescale`, user-defined `Normalize`, and user-defined `HWC2CHW` operations are used for **data** in the MNIST dataset, and user-defined `TypeCast` operations are used for **label**.
+For example, user-defined `Rescale`, `Normalize`, and `HWC2CHW` operations are used for **data** in the MNIST dataset, and a user-defined `TypeCast` operation is used for **label**.
 
 ```python
 train_dataset = MnistDataset('MNIST_Data/train')
@@ -318,9 +318,9 @@ for data in train_dataset:
 
 ## Batch Dataset
 
-Packing the dataset into a fixed size `batch` is a compromise method for model optimization using gradient descent with limited hardware resources, which can ensure the randomness of gradient descent and optimize the computational effort.
+Packing the dataset into a fixed size `batch` is a compromise approach for model optimization using gradient descent with limited hardware resources, which can ensure the randomness of gradient descent and optimize the computational effort.
 
-Generally we set a fixed batch size to divide the continuous data into several batches. The batched data is increased by one dimension, and the size is `batch_size`.
+Generally we set a fixed batch size to divide the continuous data into several batches. The batched data gains an additional dimension, and the size is `batch_size`.
 
 ![op-batch](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.9.0/tutorials/source_zh_cn/dataset/images/op_batch.png)
 
