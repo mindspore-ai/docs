@@ -16,7 +16,7 @@
 
 更多的环境变量信息，请查看：
 
-- [CANN 环境变量列表](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/81RC1beta1/index/index.html)
+- [CANN 环境变量列表](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/900/maintenref/envvar/envref_07_0001.html)
 - [MindSpore 环境变量列表](https://www.mindspore.cn/docs/zh-CN/master/api_python/env_var_list.html)
 - [MindSpore Transformers 环境变量列表](https://www.mindspore.cn/mindformers/docs/zh-CN/master/index.html)
 - [vLLM 环境变量列表](https://docs.vllm.ai/en/v0.11.0/serving/env_vars.html)
