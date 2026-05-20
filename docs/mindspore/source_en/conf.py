@@ -116,6 +116,11 @@ extensions = [
     'IPython.sphinxext.ipython_console_highlighting'
 ]
 
+autodoc_default_options = {
+    'members': True,
+    'inherited-members': False,
+}
+
 source_suffix = {
     '.rst': 'restructuredtext',
     '.md': 'markdown',
@@ -278,6 +283,8 @@ def get_param_func(func, args_str):
 def get_obj(obj):
     if isinstance(obj, type):
         if 'function Cell.__init__' in str(obj.__init__) and '__init__' not in obj.__dict__:
+            return None
+        elif 'function Enum.__init__' in str(obj.__init__) and '__init__' not in obj.__dict__:
             return None
         try:
             test_source = inspect_.getsource(obj.__init__)

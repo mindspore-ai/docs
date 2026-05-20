@@ -189,6 +189,8 @@ def get_param_func(func):
 
 def get_obj(obj):
     if isinstance(obj, type):
+        if 'function Enum.__init__' in str(obj.__init__) and '__init__' not in obj.__dict__:
+            return None
         return obj.__init__
 
     return obj
