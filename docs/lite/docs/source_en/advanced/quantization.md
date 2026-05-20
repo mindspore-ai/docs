@@ -292,7 +292,7 @@ bit_num=8
 
 [dynamic_quant_param]
 # If set to ALWC, it will enable activation perlayer and weight perchannel quantization. If set to ACWL, it will enable activation perchannel and weight perlayer quantization. Default value is ALWC.
-quant_strategy=ACWL
+quant_strategy=ALWC
 ```
 
 > In order to ensure quantization accuracy, dynamic quantization currently does not support setting the operation mode of the FP16.
@@ -496,7 +496,7 @@ The dynamic quantization parameter configuration is as follows:
 ```ini
 [dynamic_quant_param]
 # If set to ALWC, it will enable activation perlayer and weight perchannel quantization. If set to ACWL, it will enable activation perchannel and weight perlayer quantization. Default value is ALWC.
-quant_strategy=ACWL
+quant_strategy=ALWC
 ```
 
 ## Quantization Debugging
