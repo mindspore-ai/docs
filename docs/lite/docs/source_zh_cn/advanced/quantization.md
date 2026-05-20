@@ -292,7 +292,7 @@ bit_num=8
 
 [dynamic_quant_param]
 # If set to ALWC, it will enable activation perlayer and weight perchannel quantization. If set to ACWL, it will enable activation perchannel and weight perlayer quantization. Default value is ALWC.
-quant_strategy=ACWL
+quant_strategy=ALWC
 ```
 
 > 为了保证量化精度，目前动态量化不支持设置FP16的运行模式。
@@ -496,7 +496,7 @@ center_crop_height=224
 ```ini
 [dynamic_quant_param]
 # If set to ALWC, it will enable activation perlayer and weight perchannel quantization. If set to ACWL, it will enable activation perchannel and weight perlayer quantization. Default value is ALWC.
-quant_strategy=ACWL
+quant_strategy=ALWC
 ```
 
 ## 量化调试
