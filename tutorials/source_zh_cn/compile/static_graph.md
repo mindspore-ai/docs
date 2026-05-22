@@ -4,26 +4,24 @@
 
 ## 概述
 
-在即时编译（Just-In-Time
-Compilation，JIT）模式下，Python代码并不是由Python解释器直接执行，而是先将代码编译成静态计算图，再执行该静态计算图。
+在即时编译（Just-In-Time Compilation，JIT）模式下，Python代码并不是由Python解释器直接执行，而是先将代码编译成静态计算图，再执行该静态计算图。
 
 在静态图模式下，MindSpore通过源码转换的方式，将Python的源码转换成中间表达IR（Intermediate Representation），并在此基础上对IR图进行优化，最终在硬件设备上执行优化后的图。MindSpore使用基于图表示的函数式IR，称为MindIR。
 
-目前，将Python源码转换为中间表示（IR）的方法主要有三种：基于抽象语法树（Abstract
-Syntax Tree, AST）的解析、基于字节码（ByteCode）的解析，以及基于算子调用追踪（Trace）的方法。这三种模式在语法支持程度上存在一定差异。本文档将首先详细阐述基于抽象语法树（AST）场景下的语法支持情况，随后分别介绍基于字节码（ByteCode）和基于算子追踪（Trace）方式构建计算图时，语法支持的差异。
+目前，将Python源码转换为中间表示（IR）的方法主要有三种：基于抽象语法树（Abstract Syntax Tree, AST）的解析、基于字节码（ByteCode）的解析，以及基于算子调用追踪（Trace）的方法。这三种模式在语法支持程度上存在一定差异。本文档将首先详细阐述基于抽象语法树（AST）场景下的语法支持情况，随后分别介绍基于字节码（ByteCode）和基于算子追踪（Trace）方式构建计算图时，语法支持的差异。
 
-MindSpore的静态图执行过程实际包含两步，对应静态图的Define和Run阶段，但在实际使用中，在实例化的Cell对象被调用时用户并不会分别感知到这两阶段，MindSpore已将这两阶段均封装在Cell的`__call__`方法中，因此实际调用过程为：
+MindSpore的静态图执行过程实际包含两步，对应静态图的Define和Run阶段。但在实际使用中，在实例化的Cell对象被调用时用户并不会分别感知到这两个阶段，MindSpore已将这两个阶段均封装在Cell的`__call__`方法中，因此实际调用过程为：
 
 `model(inputs) = model.compile(inputs) + model.construct(inputs)`，其中`model`为实例化的Cell对象。
 
-即时编译可以使用 [JIT接口](https://www.mindspore.cn/docs/zh-CN/r2.9.0/api_python/mindspore/mindspore.jit.html)，或者通过设置`ms.set_context(mode=ms.GRAPH_MODE)`进入Graph模式，并在`Cell`类的`construct`函数中编写执行代码，此时`construct`函数的代码将会被编译成静态计算图。`Cell`定义详见[Cell API文档](https://www.mindspore.cn/docs/zh-CN/r2.9.0/api_python/nn/mindspore.nn.Cell.html)。
+即时编译可以使用[JIT接口](https://www.mindspore.cn/docs/zh-CN/r2.9.0/api_python/mindspore/mindspore.jit.html)，或者通过设置`ms.set_context(mode=ms.GRAPH_MODE)`进入Graph模式，并在`Cell`类的`construct`函数中编写执行代码，此时`construct`函数的代码将会被编译成静态计算图。`Cell`定义详见[Cell API文档](https://www.mindspore.cn/docs/zh-CN/r2.9.0/api_python/nn/mindspore.nn.Cell.html)。
 
-由于语法解析的限制，当前在编译构图时，支持的数据类型、语法以及相关操作并没有完全与Python语法保持一致，部分使用受限。借鉴传统JIT编译的思路，从图模式的角度考虑动静图的统一，扩展图模式的语法能力，使得静态图提供接近动态图的语法使用体验，从而实现动静统一。为了便于用户选择是否扩展静态图语法，提供了JIT语法支持级别选项`jit_syntax_level`，其值必须在\[STRICT，LAX\]范围内，选择`STRICT`则认为使用基础语法，不扩展静态图语法。默认值为`LAX`。全部级别都支持所有后端。
+由于语法解析的限制，当前在编译构图时，支持的数据类型、语法以及相关操作并没有完全与Python语法保持一致，部分使用受限。借鉴传统JIT编译的思路，从图模式的角度考虑动静图的统一，扩展图模式的语法能力，使得静态图提供接近动态图的语法使用体验，从而实现动静统一。为了便于用户选择是否扩展静态图语法，提供了JIT语法支持级别选项`jit_syntax_level`，其值必须在\[STRICT, LAX\]范围内，选择`STRICT`则认为使用基础语法，不扩展静态图语法。默认值为`LAX`。全部级别都支持所有后端。
 
 - STRICT: 仅支持基础语法，且执行性能最佳。可用于MindIR导入导出。
 - LAX: 支持更多复杂语法，最大程度地兼容Python语法。由于存在可能无法导出的语法，不能用于MindIR导入导出。
 
-本文主要介绍，在编译静态图时，支持的数据类型、语法以及相关操作，这些规则仅适用于即时编译模式，以下是基于抽象语法树（AST）的语法支持详情的介绍。
+本文主要介绍在编译静态图时支持的数据类型、语法以及相关操作，这些规则仅适用于即时编译模式，以下是基于抽象语法树（AST）的语法支持详情的介绍。
 
 ## AST基础语法（STRICT级别）
 
@@ -32,11 +30,11 @@ MindSpore的静态图执行过程实际包含两步，对应静态图的Define�
 在即时编译模式下，常量与变量是理解静态图语法的一个重要概念，很多语法在常量输入和变量输入情况下支持的方法与程度是不同的。因此，在介绍静态图具体支持的语法之前，本小节先会对静态图中常量与变量的概念进行说明。
 
 在静态图模式下，一段程序的运行会被分为编译期以及执行期。
-在编译期，程序会被编译成一张中间表示图，此时程序不会真正的执行，而是通过抽象推导的方式对中间表示进行静态解析。这使得在编译期时，我们无法保证能获取到所有中间表示中节点的值。
-常量和变量也就是通过能否在编译期获取到其真实值来区分的。
+在编译期，程序会被编译成一张中间表示图，此时程序不会真正地执行，而是通过抽象推导的方式对中间表示进行静态解析。这使得在编译期，无法保证能获取到所有中间表示中节点的值。
+常量和变量是通过能否在编译期获取到真实值来区分的。
 
-- 常量： 编译期内可以获取到值的量。
-- 变量： 编译期内无法获取到值的量。
+- 常量：编译期内可以获取到值的量。
+- 变量：编译期内无法获取到值的量。
 
 #### 常量产生场景
 
@@ -79,7 +77,7 @@ MindSpore的静态图执行过程实际包含两步，对应静态图的Define�
     ret = net()
     ```
 
-    上述代码中， `a`，`b`，`c`均为常量。
+    上述代码中，`a`、`b`、`c`均为常量。
 
 - 常量运算得到的结果为常量。例如：
 
@@ -99,7 +97,7 @@ MindSpore的静态图执行过程实际包含两步，对应静态图的Define�
     ret = net()
     ```
 
-    上述代码中，`a`、`b`均为图模式内产生的Tensor，因此其计算结果也是常量。但如果其中之一为变量，则返回值也为变量。
+    上述代码中，`a`、`b`均为图模式内产生的Tensor，因此它们的计算结果也是常量。但如果其中之一为变量，则返回值也为变量。
 
 #### 变量产生场景
 
@@ -142,7 +140,7 @@ MindSpore的静态图执行过程实际包含两步，对应静态图的Define�
     ret = net(a, b)
     ```
 
-    上述代码中，`a`是作为图模式输入的Tensor，因此其为变量。但`b`是作为图模式输入的元组，非Tensor类型，即使其内部的元素均为Tensor，`b`也是常量。
+    上述代码中，`a`是作为图模式输入的Tensor，因此`a`为变量。但`b`是作为图模式输入的元组，非Tensor类型，即使`b`内部的元素均为Tensor，`b`也是常量。
 
 - 通过变量计算得到的结果也是变量。
 
@@ -165,7 +163,7 @@ MindSpore的静态图执行过程实际包含两步，对应静态图的Define�
     ret = net(a, b)
     ```
 
-    在这种情况下，`c`是`a`和`b`计算来的结果，且用来计算的输入`a`、`b`均为变量，因此`c`也是变量。
+    在这种情况下，`c`是`a`和`b`计算得到的结果，且用来计算的输入`a`、`b`均为变量，因此`c`也是变量。
 
 ### 数据类型
 
@@ -230,7 +228,7 @@ print(res)
 
 ##### String
 
-支持在网络里构造`String`，即支持使用引号（`'`或`"`）来创建字符串，如`x = 'abcd'`或`y = "efgh"`。可以通过`str()`的方式进行将常量转换成字符串。支持字符串的连接、截取，以及使用成员运算符（`in`或`not in`）判断字符串是否包含指定的字符。支持格式化字符串的输出，将值插入到带有格式符`%s`的字符串中。支持在常量场景下使用格式化字符串函数`str.format()`。
+支持在网络里构造`String`，即支持使用引号（`'`或`"`）来创建字符串，如`x = 'abcd'`或`y = "efgh"`。可以通过`str()`的方式将常量转换成字符串。支持字符串的连接、截取，以及使用成员运算符（`in`或`not in`）判断字符串是否包含指定的字符。支持格式化字符串的输出，将值插入到带有格式符`%s`的字符串中。支持在常量场景下使用格式化字符串函数`str.format()`。
 
 例如：
 
@@ -260,7 +258,7 @@ res: ('H', 'Spore', 'Hello!MindSpore', 'MindSporeMindSpore', True, 'My name is M
 
 ##### List
 
-在`JIT_SYNTAX_LEVEL`设置为`LAX`的情况下，静态图模式可以支持部分`List`对象的inplace操作，具体介绍详见[支持列表就地修改操作](#支持列表就地修改操作)章节。
+在`JIT_SYNTAX_LEVEL`设置为`LAX`的情况下，静态图模式可以支持部分`List`对象的in-place操作，详见[支持列表就地修改操作](#支持列表就地修改操作)章节。
 
 `List`的基础使用场景如下：
 
@@ -283,12 +281,12 @@ res: ('H', 'Spore', 'Hello!MindSpore', 'MindSporeMindSpore', True, 'My name is M
           return d
     ```
 
-    上述示例代码中，所有的`List`对象都可以被正常的创建。
+    上述示例代码中，所有的`List`对象都可以被正常地创建。
 
 - 图模式支持返回`List`。
 
-    在MindSpore2.0版本之前，当图模式返回`List`
-    对象时，`List`会被转换为`Tuple`。MindSpore2.0版本已经可以支持返回`List`对象。例如：
+    在MindSpore 2.0版本之前，当图模式返回`List`
+    对象时，`List`会被转换为`Tuple`。MindSpore 2.0版本已经可以支持返回`List`对象。例如：
 
     ``` python
     import mindspore
@@ -305,7 +303,7 @@ res: ('H', 'Spore', 'Hello!MindSpore', 'MindSporeMindSpore', True, 'My name is M
     ```
 
     与图模式内创建`List`
-    相同，图模式返回的`List`对象可以包括任意图模式支持的类型，也支持多层嵌套。
+    相同，图模式返回的`List`对象可以包含任意图模式支持的类型，也支持多层嵌套。
 
 - 图模式支持从全局变量中获取`List`对象。
 
@@ -350,7 +348,7 @@ res: ('H', 'Spore', 'Hello!MindSpore', 'MindSporeMindSpore', True, 'My name is M
 
 - 图模式支持List的内置方法。
 
-    `List` 内置方法的详细介绍如下：
+    `List`内置方法的详细介绍如下：
 
     - List索引取值
 
@@ -402,8 +400,8 @@ res: ('H', 'Spore', 'Hello!MindSpore', 'MindSporeMindSpore', True, 'My name is M
 
         索引赋值对象`target_element`支持所有图模式支持的数据类型。
 
-        目前，`List`索引赋值不支持inplace操作，
-        索引赋值后将会生成一个新的对象。该操作后续将支持inplace操作。
+        目前，`List`索引赋值不支持in-place操作，
+        索引赋值后将会生成一个新的对象。`List`索引赋值后续将支持in-place操作。
 
         示例如下：
 
@@ -438,8 +436,8 @@ res: ('H', 'Spore', 'Hello!MindSpore', 'MindSporeMindSpore', True, 'My name is M
 
         基础语义：向`List`对象`list_object`的末尾追加元素`target_element`。
 
-        目前，`List.append`不支持inplace操作，
-        追加元素后将会生成一个新的对象。该操作后续将会支持inplace操作。
+        目前，`List.append`不支持in-place操作，
+        追加元素后将会生成一个新的对象。`List.append`后续将会支持in-place操作。
 
         示例如下：
 
@@ -471,8 +469,8 @@ res: ('H', 'Spore', 'Hello!MindSpore', 'MindSporeMindSpore', True, 'My name is M
 
         基础语义：清空`List`对象`list_object`中包含的所有元素。
 
-        目前，`List.clear`不支持inplace，
-        清空元素后将会生成一个新的对象。该操作后续将支持inplace。
+        目前，`List.clear`不支持in-place操作，
+        清空元素后将会生成一个新的对象。`List.clear`后续将支持in-place操作。
 
         示例如下：
 
@@ -541,8 +539,8 @@ res: ('H', 'Spore', 'Hello!MindSpore', 'MindSporeMindSpore', True, 'My name is M
         基础语义：将`List`对象`list_object`
         的第`index`个元素从`list_object`中删除，并返回该元素。
 
-        `index` 要求必须为常量`int`。
-        当`list_object`的长度为`list_obj_size`时，`index`的取值范围为：`[-list_obj_size，list_obj_size-1]`。`index`为负数时，代表从后往前的位数。当没有输入`index`时，默认值为-1，即删除最后一个元素。
+        `index`要求必须为常量`int`。
+        当`list_object`的长度为`list_obj_size`时，`index`的取值范围为：`[-list_obj_size, list_obj_size-1]`。`index`为负数时，代表从后往前的位数。当没有输入`index`时，默认值为-1，即删除最后一个元素。
 
         ``` python
         import mindspore
@@ -604,7 +602,7 @@ res: ('H', 'Spore', 'Hello!MindSpore', 'MindSporeMindSpore', True, 'My name is M
 
         基础语义：将`target_obj`插入到`list_object`的第`index`位。
 
-        `index`要求必须为常量`int`。如果`list_object`的长度为`list_obj_size`，当`index < -list_obj_size`时，插入到`List`的第一位；当`index >= list_obj_size`时，插入到`List`的最后。`index`为负数代表从后往前的位数。
+        `index`要求必须为常量`int`。如果`list_object`的长度为`list_obj_size`，当`index < -list_obj_size`时，插入到`List`的第一位；当`index >= list_obj_size`时，插入到`List`的最后。`index`为负数时，代表从后往前的位数。
 
         示例如下：
 
@@ -741,7 +739,7 @@ res: ('H', 'Spore', 'Hello!MindSpore', 'MindSporeMindSpore', True, 'My name is M
 
 ##### Dictionary
 
-支持在网络里构造字典`Dictionary`，每个键值`key:value`用冒号`:`分割，每个键值对之间用逗号`,`分割，整个字典使用大括号`{}`包含键值对，即支持语法`y = {"a": 1, "b": 2}`。
+支持在网络里构造字典`Dictionary`，每个键值`key:value`用冒号`:`分隔，每个键值对之间用逗号`,`分隔，整个字典使用大括号`{}`包含键值对，即支持语法`y = {"a": 1, "b": 2}`。
 
 键`key`是唯一的，如果字典中存在多个相同的`key`，则重复的`key`以最后一个作为最终结果；而值`value`可以不是唯一的。键`key`需要保证是不可变的。当前键`key`支持`String`、`Number`、常量`Tensor`以及只包含这些类型对象的`Tuple`；值`value`支持`Number`、`Tuple`、`Tensor`、`List`、`Dictionary`和`None`。
 
@@ -813,10 +811,9 @@ res: ('H', 'Spore', 'Hello!MindSpore', 'MindSporeMindSpore', True, 'My name is M
 
 ##### Tensor
 
-Tensor的属性与接口详见[Tensor
-API文档](https://mindspore.cn/docs/zh-CN/r2.9.0/api_python/mindspore/mindspore.Tensor.html#mindspore-tensor)。
+Tensor的属性与接口详见[Tensor API文档](https://mindspore.cn/docs/zh-CN/r2.9.0/api_python/mindspore/mindspore.Tensor.html#mindspore-tensor)。
 
-支持在静态图模式下创建和使用Tensor。创建方式有使用[tensor函数接口](https://www.mindspore.cn/docs/zh-CN/r2.9.0/api_python/mindspore/mindspore.tensor.html#mindspore.tensor)和使用`Tensor`类接口。推荐使用tensor函数接口，用户可以使用指定所需要的dtype类型。代码用例如下。
+支持在静态图模式下创建和使用Tensor。创建方式有使用[tensor函数接口](https://www.mindspore.cn/docs/zh-CN/r2.9.0/api_python/mindspore/mindspore.tensor.html#mindspore.tensor)和使用`Tensor`类接口。推荐使用tensor函数接口，用户可以指定所需要的dtype类型。代码用例如下。
 
 ``` python
 import mindspore
@@ -859,7 +856,7 @@ class Net(nn.Cell):
 
    @mindspore.jit
    def construct(self, x):
-      reduce_sum = ops.ReduceSum(True) #支持在construct里构造`Primitive`及其子类的实例
+      reduce_sum = ops.ReduceSum(True) # 支持在construct里构造`Primitive`及其子类的实例
       ret = reduce_sum(x, axis=2)
       return ret
 
@@ -877,26 +874,23 @@ ret.shape:(3, 4, 1, 6)
 
 当前不支持在网络调用`Primitive`及其子类相关属性和接口。
 
-当前已定义的`Primitive`详见[Primitive
-API文档](https://www.mindspore.cn/docs/zh-CN/r2.9.0/api_python/ops/mindspore.ops.Primitive.html#mindspore.ops.Primitive)。
+当前已定义的`Primitive`详见[Primitive API文档](https://www.mindspore.cn/docs/zh-CN/r2.9.0/api_python/ops/mindspore.ops.Primitive.html#mindspore.ops.Primitive)。
 
 ##### Cell
 
 当前支持在网络里构造`Cell`及其子类的实例，即支持语法`cell = Cell(args...)`。
 
-但在调用时，参数只能通过位置参数方式传入，不支持通过键值对方式传入，即不支持在语法`cell = Cell(arg_name=value)`。
+但在调用时，参数只能通过位置参数方式传入，不支持通过键值对方式传入，即不支持语法`cell = Cell(arg_name=value)`。
 
 当前不支持在网络调用`Cell`及其子类相关属性和接口，除非是在`Cell`自己的`construct`中通过`self`调用。
 
-`Cell`定义详见[Cell
-API文档](https://www.mindspore.cn/docs/zh-CN/r2.9.0/api_python/nn/mindspore.nn.Cell.html)。
+`Cell`定义详见[Cell API文档](https://www.mindspore.cn/docs/zh-CN/r2.9.0/api_python/nn/mindspore.nn.Cell.html)。
 
 ##### Parameter
 
 `Parameter`是变量张量，代表在训练网络时，需要被更新的参数。
 
-`Parameter`的定义和使用详见[Parameter
-API文档](https://www.mindspore.cn/docs/zh-CN/r2.9.0/api_python/mindspore/mindspore.Parameter.html#mindspore.Parameter)。
+`Parameter`的定义和使用详见[Parameter API文档](https://www.mindspore.cn/docs/zh-CN/r2.9.0/api_python/mindspore/mindspore.Parameter.html#mindspore.Parameter)。
 
 ### 运算符
 
@@ -949,7 +943,7 @@ ret:1
 
 #### 索引取值
 
-对序列`Tuple`、`List`、`Dictionary`、`Tensor`的索引取值操作(Python称为抽取)。
+对序列`Tuple`、`List`、`Dictionary`、`Tensor`的索引取值操作（Python称为抽取）。
 
 `Tuple`的索引取值请参考本文的[Tuple](#tuple)章节。
 
@@ -959,7 +953,7 @@ ret:1
 
 #### 调用
 
-所谓调用就是附带可能为空的一系列参数来执行一个可调用对象(例如：`Cell`、`Primitive`)。
+所谓调用就是附带可能为空的一系列参数来执行一个可调用对象（例如：`Cell`、`Primitive`）。
 
 示例如下：
 
@@ -1201,11 +1195,11 @@ In-place操作是指直接修改输入张量的内容，而不创建新的张量
     graph_grad_out:  ((Tensor(shape=[1], dtype=Float32, value= [ 6.00000000e+00]), Tensor(shape=[1], dtype=Float32, value= [ 2.00000000e+00])), (Tensor(shape=[1], dtype=Float32, value= [ 1.00000000e+00]), Tensor(shape=[1], dtype=Float32, value= [ 1.00000000e+00])))
     ```
 
-#### 支持view inplace场景
+#### 支持view in-place场景
 
-合理结合view操作和in-place操作，能够显著提升内存效率和优化计算速度，适用于处理大尺寸张量、部署资源受限的环境、计算密集型操作等场景。下面介绍静态图支持的view inplace场景。
+合理结合view操作和in-place操作，能够显著提升内存效率和优化计算速度，适用于处理大尺寸张量、部署资源受限的环境、计算密集型操作等场景。下面介绍静态图支持的view in-place场景。
 
-- 显式的view inplace场景
+- 显式的view in-place场景
 
     示例如下：
 
@@ -1269,9 +1263,9 @@ In-place操作是指直接修改输入张量的内容，而不创建新的张量
     assert np.allclose(np_x, ms_output.asnumpy())
     ```
 
-#### 有限支持view inplace场景反向
+#### 有限支持view in-place场景反向
 
-- 支持view inplace场景反向
+- 支持view in-place场景反向
 
     在静态图的自动微分中，梯度的传递依赖于节点的连边关系，而view和in-place类算子作为原地操作类算子，会影响节点的连边关系，进而可能影响梯度的传递。框架在计算图中同时存在view和in-place算子的场景下，对自动微分的支持是有限的。
 
@@ -1352,7 +1346,7 @@ In-place操作是指直接修改输入张量的内容，而不创建新的张量
         out_jit = grad(net)(ms.Tensor([3, 4]), ms.Tensor(5))
         ```
 
-        该用例中虽然`x`在不同分支中有不同的in-place操作，但是对每一个in-place操作，其原地更新的对象`x`是明确的，是通过`mint.select(input_abs, 0, 0)`计算产生，所以框架当前能支持该场景。
+        该用例中虽然`x`在不同分支中有不同的in-place操作，但是对每一个in-place操作，其原地更新的对象`x`是明确的，是通过`mint.select(input_abs, 0, 0)`计算产生，所以框架当前支持该场景。
 
 - view in-place场景反向异常
 
@@ -1382,16 +1376,16 @@ In-place操作是指直接修改输入张量的内容，而不创建新的张量
         out_jit = grad(net)(ms.Tensor([3, 4]), ms.Tensor(5))
         ```
 
-        由于x来自两个分支，表示的视图区域不唯一确定，当前方案不支持对这类场景的自动微分，会拦截报错，报错信息如下：
+        由于`x`来自两个分支，表示的视图区域不唯一确定，当前方案不支持对这类场景的自动微分，会拦截报错，报错信息如下：
 
         ```text
         RuntimeError: In backpropagation, inplace modification of the output of view operations within control flow is not supported.
         ```
 
-        对于这一类问题，可以通过将x.add_(2)分别添加在两个分支的view语句后来解决。对于复杂控制流，如果较难通过更改脚本明确in-place算子和view算子的对应关系，建议在静态图模式下，不使用view算子和in-place算子实现代码逻辑。
+        对于这一类问题，可以通过将`x.add_(2)`分别添加在两个分支的view语句后来解决。对于复杂控制流，如果较难通过更改脚本明确in-place算子和view算子的对应关系，建议在静态图模式下，不使用view算子和in-place算子实现代码逻辑。
         实际在执行view和in-place算子组合使用时的反向图时，可能会比动态图模式下执行的算子数增加，影响执行性能，复杂场景建议慎重使用。
 
-    2. 目前暂不支持 `UnstackExtView` 这一类输出为多个Tensor组成的Tuple类型的View算子，在view inplace场景下的自动微分。
+    2. 目前暂不支持 `UnstackExtView` 这一类输出为多个Tensor组成的Tuple类型的View算子，在view in-place场景下的自动微分。
 
 ## 基础语法的语法约束
 
@@ -1515,7 +1509,7 @@ In-place操作是指直接修改输入张量的内容，而不创建新的张量
 
 ## AST扩展语法（LAX级别）
 
-下面主要介绍基于抽象语法树构图场景下，当前扩展支持的静态图语法。
+下面主要介绍在基于抽象语法树构图场景下，当前扩展支持的静态图语法。
 
 ### 调用第三方库
 
@@ -1665,11 +1659,7 @@ assert out == 100
 
 ### 基础运算符支持更多数据类型
 
-在静态图语法重载了以下运算符: \[\'+\', \'-\',
-\'\*\',\'/\',\'//\',\'%\',\'\*\*\',\'\<\<\',\'\>\>\',\'&\',\'\|\',\'\^\',
-\'not\', \'==\', \'!=\', \'\<\', \'\>\', \'\<=\', \'\>=\', \'in\', \'not
-in\',
-\'y=x\[0\]\'\]。图模式重载的运算符详见[运算符](https://www.mindspore.cn/tutorials/zh-CN/r2.9.0/compile/operators.html)。列表中的运算符在输入图模式中不支持的输入类型时将使用扩展静态图语法支持，并使输出结果与动态图模式下的输出结果一致。
+在静态图语法重载了以下运算符：\[\'+\', \'-\', \'\*\',\'/\',\'//\',\'%\',\'\*\*\',\'\<\<\',\'\>\>\',\'&\',\'\|\',\'\^\',\'not\', \'==\', \'!=\', \'\<\', \'\>\', \'\<=\', \'\>=\', \'in\', \'not in\',\'y=x\[0\]\'\]。图模式重载的运算符详见[运算符](https://www.mindspore.cn/tutorials/zh-CN/r2.9.0/compile/operators.html)。列表中的运算符在输入图模式中不支持的输入类型时将使用扩展静态图语法支持，并使输出结果与动态图模式下的输出结果一致。
 
 代码用例如下。
 
@@ -1693,8 +1683,7 @@ print(ret)
 [5 7]
 ```
 
-上述例子中，`.asnumpy()`输出的数据类型:
-`numpy.ndarray`为运算符`+`在图模式中不支持的输入类型。因此`x.asnumpy() + y.asnumpy()`将使用扩展语法支持。
+上述例子中，`.asnumpy()`输出的数据类型`numpy.ndarray`为运算符`+`在图模式中不支持的输入类型。因此`x.asnumpy() + y.asnumpy()`将使用扩展语法支持。
 
 在另一个用例中：
 
@@ -1717,8 +1706,7 @@ print(net())
 True
 ```
 
-`tuple` in
-`tuple`在原本的图模式中是不支持的运算，现已使用扩展静态图语法支持。
+`tuple` in `tuple`在原本的图模式中是不支持的运算，现已使用扩展静态图语法支持。
 
 ### 基础类型
 
@@ -1726,7 +1714,7 @@ True
 
 #### 支持列表就地修改操作
 
-列表`List`以及元组`Tuple`是Python中最基本的序列内置类型，`List`与`Tuple`最核心的区别是`List`是可以改变的对象，而`Tuple`是不可以更改的。这意味着`Tuple`一旦被创建，就不可以在对象地址不变的情况下更改。而`List`则可以通过一系列inplace操作，在不改变对象地址的情况下，对对象进行修改。例如：
+列表`List`以及元组`Tuple`是Python中最基本的序列内置类型，`List`与`Tuple`最核心的区别是`List`是可以改变的对象，而`Tuple`是不可以更改的。这意味着`Tuple`一旦被创建，就不可以在对象地址不变的情况下更改。而`List`则可以通过一系列in-place操作，在不改变对象地址的情况下，对对象进行修改。例如：
 
 ``` python
 a = [1, 2, 3, 4]
@@ -1736,13 +1724,13 @@ a_after_id = id(a)
 assert a_id == a_after_id
 ```
 
-上述示例代码中，通过`append`这个inplace语法更改`List`对象的时候，其对象的地址并没有被修改。而`Tuple`是不支持这种inplace操作的。在`JIT_SYNTAX_LEVEL`设置为`LAX`的情况下，静态图模式可以支持部分`List`对象的inplace操作。
+上述示例代码中，通过`append`这个in-place语法更改`List`对象的时候，其对象的地址并没有被修改。而`Tuple`是不支持这种in-place操作的。在`JIT_SYNTAX_LEVEL`设置为`LAX`的情况下，静态图模式可以支持部分`List`对象的in-place操作。
 
 具体使用场景如下：
 
 - 支持从全局变量中获取原`List`对象。
 
-    在下面示例中，静态图获取到`List`对象，并在原有对象上进行了图模式支持的inplace操作`list.reverse()`,
+    在下面示例中，静态图获取到`List`对象，并在原有对象上进行了图模式支持的in-place操作`list.reverse()`,
     并将原有对象返回。可以看到图模式返回的对象与原有的全局变量对象id相同，即两者为同一对象。若`JIT_SYNTAX_LEVEL`设置为`STRICT`选项，则返回的`List`对象与全局对象为两个不同的对象。
 
     ``` python
@@ -1764,9 +1752,9 @@ assert a_id == a_after_id
 
 - 支持部分`List`内置函数的就地修改操作。
 
-    在`JIT_SYNTAX_LEVEL`设置为`LAX`的情况下，图模式部分`List`内置函数支持inplace。在
+    在`JIT_SYNTAX_LEVEL`设置为`LAX`的情况下，图模式部分`List`内置函数支持in-place。在
     `JIT_SYNTAX_LEVEL`为 `STRICT`
-    的情况下，所有方法均不支持inplace操作。
+    的情况下，所有方法均不支持in-place操作。
 
     目前，图模式支持的`List`就地修改内置方法有`extend`、`pop`、`reverse`以及`insert`。内置方法`append`、`clear`以及索引赋值暂不支持就地修改，后续版本将会支持。
 
@@ -1932,7 +1920,7 @@ x:
 
 ### 内置函数支持更多数据类型
 
-扩展内置函数的支持范围。Python内置函数完善支持更多输入类型，例如第三方库数据类型。
+扩展内置函数的支持范围。Python内置函数进一步支持更多输入类型，例如第三方库数据类型。
 
 例如下面的例子，`x.asnumpy()`和`np.ndarray`均是扩展支持的类型。更多内置函数的支持情况可见[Python内置函数](https://www.mindspore.cn/tutorials/zh-CN/r2.9.0/compile/python_builtin_functions.html)章节。
 
@@ -2148,12 +2136,9 @@ assert out == 2
 
 ### Annotation Type
 
-对于运行时的扩展支持的语法，会产生一些无法被类型推导出的节点，比如动态创建Tensor等。这种类型称为`Any`类型。因为该类型无法在编译时推导出正确的类型，所以这种`Any`将会以一种默认最大精度`float64`进行运算，防止其精度丢失。为了能更好地优化相关性能，需要减少`Any`类型数据的产生。当用户可以明确知道当前通过扩展支持的语句会产生具体类型的时候，我们推荐使用`Annotation @jit.typing:`的方式进行指定对应Python语句类型，从而确定解释节点的类型避免`Any`类型的生成。
+对于运行时的扩展支持的语法，会产生一些无法被类型推导出的节点，比如动态创建Tensor等。这种类型称为`Any`类型。因为该类型无法在编译时推导出正确的类型，所以这种`Any`将会以一种默认最大精度`float64`进行运算，防止精度丢失。为了能更好地优化相关性能，需要减少`Any`类型数据的产生。当用户可以明确知道当前通过扩展支持的语句会产生具体类型的时候，推荐使用`Annotation @jit.typing:`的方式指定对应Python语句类型，从而确定解释节点的类型，避免`Any`类型的生成。
 
-例如，[Tensor](https://www.mindspore.cn/docs/zh-CN/r2.9.0/api_python/mindspore/mindspore.Tensor.html#mindspore.Tensor)类和[tensor](https://www.mindspore.cn/docs/zh-CN/r2.9.0/api_python/mindspore/mindspore.tensor.html#mindspore.tensor)接口的区别就在于在`tensor`接口内部运用了Annotation
-Type机制。当`tensor`函数的`dtype`确定时，函数内部会利用`Annotation`指定输出类型从而避免`Any`类型的产生。`Annotation Type`的使用只需要在对应Python语句上面或者后面加上注释
-`# @jit.typing: () -> tensor_type[float32]` 即可，其中 `->` 后面的
-`tensor_type[float32]` 指示了被注释的语句输出类型。
+例如，[Tensor](https://www.mindspore.cn/docs/zh-CN/r2.9.0/api_python/mindspore/mindspore.Tensor.html#mindspore.Tensor)类和[tensor](https://www.mindspore.cn/docs/zh-CN/r2.9.0/api_python/mindspore/mindspore.tensor.html#mindspore.tensor)接口的区别就在于在`tensor`接口内部运用了Annotation Type机制。当`tensor`函数的`dtype`确定时，函数内部会利用`Annotation`指定输出类型从而避免`Any`类型的产生。`Annotation Type`的使用只需要在对应Python语句上面或者后面加上注释`# @jit.typing: () -> tensor_type[float32]`即可，其中`->`后面的`tensor_type[float32]` 指示了被注释的语句输出类型。
 
 代码用例如下。
 
@@ -2195,7 +2180,7 @@ y3 value is 2.0, dtype is Float64
 y4 value is 2.0, dtype is Float32
 ```
 
-上述例子，可以看到创建了`Tensor`的相关区别。对于`y3`、`y4`，因为`Tensor`类没有增加`Annotation`指示，`y3`、`y4`没有办法推出正确的类型，导致只能按照最高精度`float64`进行运算。
+上述例子中，可以看到创建`Tensor`方式的区别。对于`y3`、`y4`，因为`Tensor`类没有增加`Annotation`指示，`y3`、`y4`无法推导出正确的类型，导致只能按照最高精度`float64`进行运算。
 对于`y2`，由于创建`Tensor`时，通过`Annotation`指定了对应类型，使得其类型可以按照指定类型进行运算。
 对于`y1`，由于使用了`tensor`函数接口创建`Tensor`，传入的`dtype`参数作为`Annotation`的指定类型，所以也避免了`Any`类型的产生。
 
@@ -2211,7 +2196,7 @@ y4 value is 2.0, dtype is Float32
 
 基于字节码构建计算图的方式不支持宽松模式，其语法支持范围与静态图的严格模式基本一致，主要差异包括：
 
-1. 基于字节码构图时，若遇到不支持的语法，不会报错，而是会通过裂图的方式将不支持的部分转换成动态图的方式进行执行。因此，本文后续介绍的基于字节码构建计算图时不支持的语法，均指这些语法无法被编译到静态图中，网络的正常运行不会被影响。
+1. 基于字节码构图时，若遇到不支持的语法，不会报错，而是会通过裂图的方式将不支持的部分转换成动态图执行。因此，本文后续介绍的基于字节码构建计算图时不支持的语法，均指这些语法无法被编译到静态图中，网络的正常运行不会被影响。
 2. 基于字节码构图时，属性设置相关的副作用操作可以入图，例如：
 
 ``` python

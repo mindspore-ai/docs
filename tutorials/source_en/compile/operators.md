@@ -36,13 +36,13 @@ Notes:
 
 Restrictions:
 
-- If all operands are `number` type, operations between `float64` and `int32` are not supported. Operators including `+`, `-`, `*`, `/`, `%`, `**`, `//` all support left and right operands to be `bool` value.
-- If either operand is `tensor` type, left and right operands can't both be `bool` value.
-- The `*` operation on `list/tuple` and `number` means that `list/tuple` is copied from `number` and then concatenated. The data type inside `list` can be any data type supported by the graph mode, and multi-layer nesting is also supported. The data type in `tuple` must be `number`, `string`, `none`, and multi-layer nesting is also supported.
+- If all operands are `Number` type, operations between `float64` and `int32` are not supported. Operators including `+`, `-`, `*`, `/`, `%`, `**`, `//` all support left and right operands to be `bool` values.
+- If either operand is `Tensor` type, left and right operands can't both be `bool` value.
+- The `*` operation on `List/Tuple` and `Number` means that `List/Tuple` is copied from `Number` and then concatenated. The data type inside `List` can be any data type supported by the graph mode, and multi-layer nesting is also supported. The data type in `Tuple` must be `Number`, `String`, `None`, and multi-layer nesting is also supported.
 
 ## Assignment Operators
 
-| Assignment Operator | Supported Type,  |
+| Assignment Operator | Supported Type |
 | :----------- |:--------|
 | `=`          |All Built-in Python Types that MindSpore supported and MindSpore User-defined Data Types.|
 | `+=` |`Number` += `Number`, `String` += `String`, `Number` += `Tensor`, `Tensor` += `Number`, `Tuple` += `Tensor`, `Tensor` += `Tuple`, `List` += `Tensor`, `Tensor` += `List`, `List` += `List`, `Tensor` += `Tensor`, `Tuple` += `Tuple`.|
@@ -61,13 +61,13 @@ Restrictions:
 
 Constraints:
 
-- If all operands of  `AugAssign` are `number` type, value of Number can't be `bool`.
+- If all operands of `AugAssign` are `Number` type, the value of Number can't be `bool`.
 
-- If all operands of  `AugAssign` are `number` type, operations between  `float64` and `int32` are not supported.
+- If all operands of `AugAssign` are `Number` type, operations between `float64` and `int32` are not supported.
 
-- If either operand of  `AugAssign` is `tensor` type, left and right operands can't both be `bool` value.
+- If either operand of `AugAssign` is `Tensor` type, left and right operands can't both be `bool` value.
 
-- The `*=` operation on `list/tuple` and `number` means that `list/tuple` is copied from `number` and then concatenated, and the elements of the object within `list/tuple` can contain any of the types supported by the intentional pattern, and multiple levels of nesting are also supported.
+- The `*=` operation on `List/Tuple` and `Number` means that `List/Tuple` is copied from `Number` and then concatenated, and the elements of the object within `List/Tuple` can contain any of the types supported by the graph mode, and multiple levels of nesting are also supported.
 
 ## Logical Operators
 
@@ -75,7 +75,7 @@ Constraints:
 | :----------- |:--------|
 | `and` |`String`,  `Number`,  `Tuple`, `List` , `Dict`, `None`, `Scalar`, `Tensor`.|
 | `or` |`String`,  `Number`,  `Tuple`, `List` , `Dict`, `None`, `Scalar`, `Tensor`.|
-| `not` |`Number`, `tuple`, `List` and `Tensor` with only one element.|
+| `not` |`Number`, `Tuple`, `List` and `Tensor` with only one element.|
 
 Restrictions:
 
@@ -93,13 +93,13 @@ Restrictions:
 | <= | `Number` <= `Number`, `Number` <= `Tensor`, `Tensor` <= `Tensor`, `Tensor` <= `Number`. |
 | > | `Number` > `Number`, `Number` > `Tensor`, `Tensor` > `Tensor`, `Tensor` > `Number`. |
 | >= | `Number` >= `Number`, `Number` >= `Tensor`, `Tensor` >= `Tensor`, `Tensor` >= `Number`. |
-| != | `Number` != `Number` , `Number` != `Tensor`, `Tensor` != `Tensor`, `Tensor` != `Number`, `mstype` != `mstype`, `String` != `String`, `Tuple !` = `Tuple`, `List` != `List`. |
+| != | `Number` != `Number`, `Number` != `Tensor`, `Tensor` != `Tensor`, `Tensor` != `Number`, `mstype` != `mstype`, `String` != `String`, `Tuple` != `Tuple`, `List` != `List`. |
 | == | `Number` == `Number`, `Number` == `Tensor`, `Tensor` == `Tensor`, `Tensor` == `Number`, `mstype` == `mstype`, `String` == `String`, `Tuple` == `Tuple`, `List` == `List`. |
 
 Restrictions:
 
-- For operators `<`, `<=`, `>`, `>=`, `!=`, if all operators are of `number` type, value of Number can't be `bool`.
-- For operators `<`, `<=`, `>`, `>=`, `!=`, `==`, if all operands are of `number` type, operations between  `float64` and `int32` are not supported.
-- For operators `<`, `<=`, `>`, `>=`, `!=`, `==`, if either operand is of `tensor` type, left and right operands can't both be `bool` value.
-- For operator `==`, if all operands are of `number` type, both `number` operands can have `bool` values, but having only one `number` with a `bool` value is not supported.
+- For operators `<`, `<=`, `>`, `>=`, `!=`, if all operands are of `Number` type, the value of Number can't be `bool`.
+- For operators `<`, `<=`, `>`, `>=`, `!=`, `==`, if all operands are of `Number` type, operations between `float64` and `int32` are not supported.
+- For operators `<`, `<=`, `>`, `>=`, `!=`, `==`, if either operand is of `Tensor` type, left and right operands can't both be `bool` value.
+- For operator `==`, if all operands are of `Number` type, both `Number` operands can have `bool` values, but having only one `Number` with a `bool` value is not supported.
 - For operators `!=`, `==`, all supported types except `mstype` can be compared with `None`.
