@@ -106,23 +106,20 @@ git clone https://atomgit.com/mindspore/mindspore-lite.git
 
 - Configure environment variables
 
-    - After installing Ascend package, you need to export Runtime-related environment variables. `/usr/local/Ascend` of the `/LOCAL_ASCEND=/usr/local/Ascend` in the following command indicates the installation path of the package, so you need to change it to the actual installation path of the package.
+    - After installing Ascend package, you need to export Runtime-related environment variables. `/path/to/cann/install_path` of the `/LOCAL_ASCEND=/path/to/cann/install_path` in the following command indicates the installation path of the package, so you need to change it to the actual installation path of the package.
 
         ```bash
         # control log level. 0-DEBUG, 1-INFO, 2-WARNING, 3-ERROR, 4-CRITICAL, default level is WARNING.
         export GLOG_v=2
 
         # Conda environmental options
-        LOCAL_ASCEND=/usr/local/Ascend # the root directory of run package
+        LOCAL_ASCEND=/path/to/cann/install_path # the root directory of run package
 
         # lib libraries that the run package depends on
-        export LD_LIBRARY_PATH=${LOCAL_ASCEND}/ascend-toolkit/latest/lib64:${LOCAL_ASCEND}/driver/lib64:${LOCAL_ASCEND}/ascend-toolkit/latest/opp/op_impl/built-in/ai_core/tbe/op_tiling:${LD_LIBRARY_PATH}
+        export LD_LIBRARY_PATH=${LOCAL_ASCEND}/ascend-toolkit/latest/lib64:/usr/local/Ascend/driver/lib64:${LOCAL_ASCEND}/ascend-toolkit/latest/opp/built-in/op_impl/ai_core/tbe/op_tiling:${LD_LIBRARY_PATH}
 
-        # Environment variables that must be configured
-        export TBE_IMPL_PATH=${LOCAL_ASCEND}/ascend-toolkit/latest/opp/op_impl/built-in/ai_core/tbe            # TBE operator implementation tool path
-        export ASCEND_OPP_PATH=${LOCAL_ASCEND}/ascend-toolkit/latest/opp                                       # OPP path
-        export PATH=${LOCAL_ASCEND}/ascend-toolkit/latest/compiler/ccec_compiler/bin/:${PATH}                  # TBE operator compilation tool path
-        export PYTHONPATH=${TBE_IMPL_PATH}:${PYTHONPATH}                                                       # Python library that TBE implementation depends on
+        # Enable cann environment variable
+        source ${LOCAL_ASCEND}/ascend-toolkit/set_env.sh
         ```
 
 #### CPU
