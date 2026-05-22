@@ -46,7 +46,7 @@ The environment variable `MS_DEV_GRAPH_KERNEL_FLAGS` provides control over the s
 - **enable_cluster_ops**: Add specified operators to the set of operators participating in fusion based on the default fusion operator list. For example, setting `--enable_cluster_ops=MatMul` allows the MatMul operator to participate in fusion. The list of default fusion operators can be found in Appendix 2.
 - **disable_cluster_ops**: Prevent the specified operators from participating in the fusion set.
 - **enable_cluster_ops_only**: Allow only the specified operators to participate in the fusion set. When this option is set, the above two options are ignored.
-- **disable_fusion_pattern**: Prevent the specified fusion pattern from participating in the fusion set. The list of default fusion pattern can be found in Appendix 4.
+- **disable_fusion_pattern**: Prevent the specified fusion pattern from participating in the fusion set. The list of default fusion patterns can be found in Appendix 4.
 - **enable_fusion_pattern_only**: Allow only the specified fusion pattern to participate in the fusion set. When this option is set, the above option is ignored.
 
 ### Enabling or Disabling Automatic/Manual Fusion Pass  
@@ -59,8 +59,8 @@ The environment variable `MS_DEV_GRAPH_KERNEL_FLAGS` provides control over the s
 - **dump_as_text**: Save detailed information about key processes as text files in the `graph_kernel_dump` directory. Default value: `False`.
 - **enable_debug_mode**: Insert synchronization points before and after the graph kernelmod launch, and print debugging information if the launch fails. This is supported only for the GPU backend. Default value: `False`.
 
-> - With the format `"--key=value"`, multiple configuration items separated by space, multiple value items separated by commas, for example: export `MS_DEV_GRAPH_KERNEL_FLAGS='--enable_expand_ops=Square --enable_cluster_ops=MatMul,Add'`
-> - Support config json by `--path=example.json`. The json key-value pair is the character string corresponding to the key and value. For example: `export MS_DEV_GRAPH_KERNEL_FLAGS="--path=example.json"`, example.json: { "enable_expand_ops" : "Square" }.
+> - With the format `"--key=value"`, multiple configuration items are separated by spaces, and multiple value items are separated by commas, for example: export `MS_DEV_GRAPH_KERNEL_FLAGS='--enable_expand_ops=Square --enable_cluster_ops=MatMul,Add'`
+> - Supports JSON configuration via `--path=example.json`. The JSON key-value pairs correspond to the key and value strings. For example: `export MS_DEV_GRAPH_KERNEL_FLAGS="--path=example.json"`, example.json: { "enable_expand_ops" : "Square" }.
 
 ## Obtaining Pass Names
 
@@ -272,7 +272,7 @@ For individual passes, users can also confirm whether they are enabled through l
 | inference_qbmm_add_fusion           | Ascend   |
 | inference_qbmm_allreduce_add_fusion | Ascend   |
 
-## Appendix 4: List of Fusion Pattern for Relevant Backends
+## Appendix 4: List of Fusion Patterns for Relevant Backends
 
 | pattern name                        | Backend         |
 |-------------------------------------|-----------------|

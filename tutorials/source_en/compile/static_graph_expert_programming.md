@@ -2,7 +2,7 @@
 
 [![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/tutorials/source_en/compile/static_graph_expert_programming.md)
 
-This chapter introduces some commonly used advanced programming techniques for static graph optimization, which can effectively improve the compilation efficiency as well as the execution efficiency of static graphs, and make the program run more stably. For a basic introduction to static graphs compilation, see [Accelerating with Static Graphs](https://www.mindspore.cn/tutorials/en/master/beginner/accelerate_with_static_graph.html).
+This chapter introduces some commonly used advanced programming techniques for static graph optimization, which can effectively improve the compilation efficiency as well as the execution efficiency of static graphs, and make the program run more stably. For a basic introduction to static graph compilation, see [Accelerating with Static Graphs](https://www.mindspore.cn/tutorials/en/master/beginner/accelerate_with_static_graph.html).
 
 ## How to Optimize Compilation Performance
 
@@ -50,7 +50,7 @@ class PanGUAlphaWithLoss(nn.Cell):
     def construct(self, ...):
 ```
 
-Still taking the Pangu 13B network as an example, after applying the Lazy Inline scheme, the compute graph compilation size drops from 130,000+ nodes to 20,000+ nodes, and the compilation time drops from 3 hours to 20 minutes.
+Still taking the Pangu 13B network as an example, after applying the Lazy Inline scheme, the computational graph compilation size drops from 130,000+ nodes to 20,000+ nodes, and the compilation time drops from 3 hours to 20 minutes.
 
 #### More General Scenarios
 
@@ -135,7 +135,7 @@ As in the example above, add the `@lazy_inline` decorator to the `__init__` func
 
    As shown in the code above, an instance of `Block` in the network Model, whose attribute `x` has been modified after the initialization of that instance, will not be able to accurately reuse the same subgraph structure for that `Block` instance.
 
-2. In a scenario where the network structure of a Cell class contains multiple instances of the Cell_X class, and the network structure of each Cell_X class contains multiple instances of the Cell_Y class, if you add `@lazy_inline` to the `__init__` functions of both the Cell_X and Cell_Y classes, only the outermost Cell_X instances will be compiled into a reusable computation graph and delayed inline. The computation graph of the inner Cell_Y instance will still be inline. e.g.:
+2. In a scenario where the network structure of a Cell class contains multiple instances of the Cell_X class, and the network structure of each Cell_X class contains multiple instances of the Cell_Y class, if you add `@lazy_inline` to the `__init__` functions of both the Cell_X and Cell_Y classes, only the outermost Cell_X instances will be compiled into a reusable computation graph and delayed inline. The computation graph of the inner Cell_Y instance will still be inlined, e.g.:
 
    ```python
    from mindspore import nn, lazy_inline
@@ -619,7 +619,7 @@ The above sample corresponds to the need to batch process 100 sets of Tensor dat
 
 We consider a function to have a side effect if the result of its operation depends on or affects external state, e.g., if the function changes external global variables, if the result of the function depends on the value of a global variable. We consider an operator with side effects if the operator changes the value of an input parameter or if the output of the operator depends on the value of a global parameter.
 
-Side effects are categorized into memory side effects and IO side effects based on memory attributes and IO states. Currently memory side effects are mainly Assign, optimizer operator and so on, and IO side effects are mainly Print operator. For details, you can check the operator definitions. Memory side effect operators have side_effect_mem attribute in their definitions, and IO side effect operators have side_effect_io attribute in their definitions.
+Side effects are categorized into memory side effects and IO side effects based on memory attributes and IO states. Currently, memory side effects are mainly Assign, optimizer operators, and so on, and IO side effects are mainly Print operator. For details, you can check the operator definitions. Memory side effect operators have side_effect_mem attribute in their definitions, and IO side effect operators have side_effect_io attribute in their definitions.
 
 Depend is used to handle dependency operations. In most cases, if the operators have IO side effect or memory side effect, they will be executed according to the user semantics, and there is no need to additionally use the Depend operator to guarantee the execution order. In some cases, if two operators A and B have no sequential dependency and A must be executed before B, we recommend using Depend to specify their execution order. The usage is as follows:
 
@@ -682,7 +682,7 @@ In functional programming, a function that exchanges data with the outside world
 
 However, the value of the global variable may change, and if there is no real operator to save the value, there will be precision problems in some scenarios. In this case, the MindSpore framework inserts real operators that take up a certain amount of memory to save the values of global variables, thus avoiding precision problems.
 
-We provide the MS_DEV_SIDE_EFFECT_LOAD_ELIM switch to optimize the level of video memory usage, i.e. set export MS_DEV_SIDE_EFFECT_LOAD_ELIM=0/1/2/3.
+We provide the MS_DEV_SIDE_EFFECT_LOAD_ELIM switch to optimize the level of video memory usage, i.e., set export MS_DEV_SIDE_EFFECT_LOAD_ELIM=0/1/2/3.
 
 - When MS_DEV_SIDE_EFFECT_LOAD_ELIM is set to 0, it means that the real operator is inserted for all the Load operators inside the framework, i.e., it takes up the most video memory and ensures that there is no problem with network accuracy.
 - When MS_DEV_SIDE_EFFECT_LOAD_ELIM is set to 1 or no value is set (i.e., default mode), it indicates that real operators are inserted conservatively for scenarios where the Load operator inside the framework may have accuracy problems and ensures that there is no problem with network accuracy.
@@ -729,7 +729,7 @@ output_except = (mindspore.tensor(np.array(3), mindspore.int32),)
 assert np.all(graph_mode_grads == output_except)
 ```
 
-As in the above use case, save the intermediate file by setting the environment variable `MS_DEV_SAVE_GRAPHS` to 1, you can get the intermediate file IR, for easy viewing, we simplify the resulting intermediate file as follows:
+As in the above use case, save the intermediate file by setting the environment variable `MS_DEV_SAVE_GRAPHS` to 1, you can get the intermediate file IR. For easy viewing, we simplify the resulting intermediate file as follows:
 
 The IR file when the real operator is not inserted into the Load operator inside the framework is as follows, and you can see that there are 3 Load operators, all of which take the value of para2_param this global variable at different times, and this global variable will modify the value through the Assign operator. That is, the values taken by the 3 Loads are different. And if we do not insert the real operator into the Load operator, that is, we do not save the value of the global variable para2_param at different times, then the final result obtained is incorrect. That is, this case is set to 3 in the MS_DEV_SIDE_EFFECT_LOAD_ELIM, which has the least memory footprint, but the result has precision problems.
 

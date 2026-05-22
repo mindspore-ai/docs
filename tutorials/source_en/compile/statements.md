@@ -40,7 +40,7 @@ ValueError: x should be greater than y.
 
 ### assert Statements
 
-Supports the use of assert for exception checking, `assert` syntax format: `assert[Expression [, args]]`, where `Expression` is the judgment condition. If the condition is true, nothing will be done, while if the condition is false, an exception message of type `AssertError` will be thrown. The `args` are user-supplied exception arguments, which can usually be strings or other objects.
+Supports the use of `assert` for exception checking, `assert` syntax format: `assert[Expression [, args]]`, where `Expression` is the judgment condition. If the condition is true, nothing will be done, while if the condition is false, an exception message of type `AssertionError` will be thrown. The `args` are user-supplied exception arguments, which can usually be strings or other objects.
 
 ```python
 import mindspore
@@ -145,7 +145,7 @@ x:
 
 ### break Statements
 
-The `break` statement is used to terminate a loop statement, i.e., it stops execution of the loop statement even if the loop condition does not have a `False` condition or if the sequence is not fully recursive, usually used in `while` and `for` loops. In nested loops, the `break` statement stops execution of the innermost loop.
+The `break` statement is used to terminate a loop statement, i.e., it stops execution of the loop statement even if the loop condition does not have a `False` condition or if the sequence is not fully traversed, usually used in `while` and `for` loops. In nested loops, the `break` statement stops execution of the innermost loop.
 
 ```python
 import mindspore
@@ -348,7 +348,7 @@ Restrictions:
 
 - In graph mode, variables must be defined before use. If a variable is defined inside a control flow (e.g., a for loop) but used outside, an error will occur. See Example 2 for illustration.
 
-Example1:
+Example 1:
 
 ```python
 import numpy as np
