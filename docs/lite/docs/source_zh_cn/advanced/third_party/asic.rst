@@ -10,4 +10,3 @@
    
    dsp_info
    npu_info
-   tensorrt_info

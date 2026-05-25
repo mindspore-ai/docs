@@ -387,20 +387,6 @@ inline Status LoadConfig(const std::string &config_path)
 > op_name1=data_type:float16
 >
 > op_name2=data_type:float32
->
-> 在使用GPU推理时，用户可以使用`LoadConfig`接口进行TensorRT设置，配置文件内容及说明如下：
->
-> [ms_cache]
->
-> serialize_path=（序列化模型的存储路径）
->
-> [gpu_context]
->
-> input_shape=input_name:[input_dim]（模型输入维度，用于动态维度张量输入）
->
-> dynamic_dims=[min_dim~max_dim]（模型输入的动态维度范围，用于动态维度张量输入）
->
-> opt_dims=[opt_dim]（模型最优输入维度，用于动态维度张量输入）
 
 ### UpdateConfig
 

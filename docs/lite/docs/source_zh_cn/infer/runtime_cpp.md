@@ -116,7 +116,6 @@ if (gpu_device_info == nullptr) {
 }
 // GPU uses float16 operator as priority.
 gpu_device_info->SetEnableFP16(true);
-// Set NVIDIA device id, only valid when GPU backend is TensorRT.
 gpu_device_info->SetDeviceID(0);
 // The GPU device context needs to be push_back into device_list to work.
 device_list.push_back(gpu_device_info);
@@ -142,11 +141,6 @@ device_list.push_back(cpu_device_info);
 >   CL_HPP_TARGET_OPENCL_VERSION=120
 >
 >   CL_HPP_MINIMUM_OPENCL_VERSION=120
->
-> - 在`x86_64`上是基于TensorRT的GPU，TensorRT版本为6.0.1.5。
->
->   `SetEnableFP16`属性是否设置成功取决于当前设备的[CUDA计算能力](https://docs.nvidia.com/deeplearning/tensorrt/support-matrix/index.html#hardware-precision-matrix)。
->   `SetDeviceID`属性仅在TensorRT的GPU上有效，用于指定NVIDIA显卡。
 
 ### 配置使用Kirin NPU后端
 
@@ -398,8 +392,6 @@ delete model;
 使用MindSpore Lite进行推理时，如果需要对输入的shape进行Resize，则可以在已完成创建[Model](https://www.mindspore.cn/lite/api/zh-CN/master/generate/classmindspore_Model.html)与模型编译[Build](https://www.mindspore.cn/lite/api/zh-CN/master/generate/classmindspore_Model.html#build)之后调用Model的[Resize](https://www.mindspore.cn/lite/api/zh-CN/master/generate/classmindspore_Model.html#resize)接口，对输入的Tensor重新设置shape。
 
 > 某些网络是不支持可变维度，会提示错误信息后异常退出，比如，模型中有MatMul算子，并且MatMul的一个输入Tensor是权重，另一个输入Tensor是输入时，调用可变维度接口会导致输入Tensor和权重Tensor的Shape不匹配，最终导致推理失败。
->
-> TensorRT的GPU后端只支持在NHWC输入格式下的NHW维度的resize，且resize维度的shape值，不能大于创建的Model的输入shape值。
 
 下面[示例代码](https://atomgit.com/mindspore/mindspore-lite/blob/master/mindspore-lite/examples/runtime_cpp/main.cc#L321)演示如何对MindSpore Lite的输入Tensor进行Resize：
 

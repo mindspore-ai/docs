@@ -172,35 +172,6 @@ If you encounter an issue when using MindSpore Lite, you can view logs first. In
     - Analysis: In the inference phase, the event check after the OpenCL operator is executed is ignored to improve the performance. However, the event check is inserted into the Enqueue class function in the OpenCL by default. If an error occurs during the execution of the OpenCL operator, an error is returned in the map phase.
     - Solution: The OpenCL operator has a bug. You are advised to [commit an issue](https://atomgit.com/mindspore/mindspore-lite/issues) in the MindSpore Lite community to notify developers to fix and adapt the code.
 
-### TensorRT GPU Inference Issues
-
-#### Failed to Build a Graph
-
-1. If the model input is a dynamic shape or the model has a shape operator, the following error information about dimensions is displayed in the log:
-
-    ```cpp
-    ERROR [mindspore-lite/src/delegate/tensorrt/tensorrt_runtime.h:31] log] Parameter check failed at: optimizationProfile.cpp::setDimensions::119, condition: std::all_of(dims.d, dims.d + dims.nbDims, [](int x) { return x >= 0; })
-    ERROR [mindspore-lite/src/delegate/tensorrt/tensorrt_subgraph.cc:219] ParseInputDimsProfile] setDimensions of kMIN failed for input
-    ERROR [mindspore-lite/src/delegate/tensorrt/tensorrt_runtime.h:31] log] xxx: xxx size cannot have negative dimension, size = [-1]
-    ```
-
-    - Analysis: TensorRT GPU graph construction does not support models with dynamic shapes. Specifically, the input shape of the model contains -1 or the model contains the shape operator.
-    - Solution: When using the converter to convert the model to MS, set `--inputShape=<INPUTSHAPE>` in the [conversion command](https://www.mindspore.cn/lite/docs/en/master/converter/converter_tool.html#parameter-description) to specify the shape information of the input tensor. If you need to change the input shape during inference, you can set the [inputShapes](https://mindspore.cn/lite/docs/en/master/tools/benchmark_tool.html#parameter-description) parameter when using the benchmark tool or call the [Resize](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Model.html#resize) method when using MindSpore Lite for integration and development. Note: The shape dimension of the [Resize](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Model.html#resize) input must be less than or equal to the dimension of the [Build](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Model.html#build) model.
-
-#### Failed to Execute a Graph
-
-1. Offline broadcast operators do not support resizing. An error message is displayed, indicating that the input dimension of an operator does not match. For example:
-
-    ```cpp
-    ERROR [mindspore-lite/src/delegate/tensorrt/tensorrt_runtime.h:31] log] xxx: dimensions not compatible for xxx
-    ERROR [mindspore-lite/src/delegate/tensorrt/tensorrt_runtime.h:31] log] shapeMachine.cpp (252) - Shape Error in operator(): broadcast with incompatible Dimensions
-    ERROR [mindspore-lite/src/delegate/tensorrt/tensorrt_runtime.h:31] log] Instruction: CHECK_BROADCAST xx xx
-    ERROR [mindspore-lite/src/delegate/tensorrt/tensorrt_subgraph.cc:500] Execute] TensorRT execute failed.
-    ```
-
-    - Analysis: When an operator is in the offline converter, the operator is automatically broadcast offline by specifying `--inputShape=<INPUTSHAPE>`. Take the ones like operator as an example. 1 is broadcast to the corresponding constant tensor based on the input shape information. In this case, when the input is resized to different dimensions, an error is reported for operators (such as concat and matmul) that are sensitive to the input tensor dimensions on the network.
-    - Solution: Replace this type of operator with the input of a model, assign a value by copying the memory during inference, and specify the corresponding shape information during resizing.
-
 ### Kirin NPU Inference Issues
 
 #### Failed to Build a Graph
