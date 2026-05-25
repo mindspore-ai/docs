@@ -169,7 +169,7 @@ for i in range(4):
 plt.show()
 ```
 
-![](images/output_9_0.png)
+![output-9-0](images/output_9_0.png)
 
 ## Training the Models
 
@@ -552,7 +552,7 @@ The resnet50-best.ckpt file obtained by fine-tuning the model is used to make pr
 visualize_model(best_ckpt_path, dataset_val)
 ```
 
-![](images/transfer_learning_output_26_0.png)
+![transfer-learning-output-26-0](images/transfer_learning_output_26_0.png)
 
 ### Training with Fixed Features
 
@@ -694,4 +694,4 @@ The resnet50-best-freezing-param.ckpt file obtained by using the fixed features 
 visualize_model(best_ckpt_path, dataset_val)
 ```
 
-![](images/output_34_0.png)
+![output-34-0](images/output_34_0.png)

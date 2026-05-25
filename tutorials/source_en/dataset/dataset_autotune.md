@@ -52,7 +52,7 @@ print("tuning interval:", ds.config.get_autotune_interval())
 
 ## Constraints
 
-- Both Dataset Profiling and Dataset AutoTune cannot be enabled concurrently, since Profiling's additional processing interferes with Dataset AutoTune's optimization processing. If both of them are enabled at the same time, a warning message will prompt the user to check whether there is a mistake. Do ensure Profiling is disabled when using Dataset AutoTune.
+- Both Dataset Profiling and Dataset AutoTune cannot be enabled concurrently, since Profiling's additional processing interferes with Dataset AutoTune's optimization processing. If both of them are enabled at the same time, a warning message will prompt the user to check whether there is a mistake. Ensure Profiling is disabled when using Dataset AutoTune.
 - [Offload for Dataset](https://www.mindspore.cn/tutorials/en/master/dataset/dataset_offload.html) and Dataset AutoTune can be enabled simultaneously. If any dataset node has been offloaded for hardware acceleration, the more efficient dataset pipeline configuration file will not be stored and a warning will be logged, because the dataset pipeline that is actually running is not the predefined one.
 - If the Dataset pipeline consists of a node that does not support deserialization (e.g. user-defined Python functions, GeneratorDataset), any attempt to deserialize the saved and improved dataset pipeline configuration file will report an error. In this case, it is recommended to manually modify the dataset pipeline script based on the contents of the tuning configuration file to achieve the purpose of a more efficient dataset pipeline.
 - In the distributed training scenario, `set_enable_autotune()` must be called after cluster communication has been initialized (mindspore.communication.management.init()), otherwise AutoTune can only detect device with id 0 and create only one tuned file (the number of expected tuned files equal to the number of devices). See the following example:
@@ -203,7 +203,7 @@ Some analysis to explain the meaning of the log information:
 
 Since Dataset AutoTune was enabled to generate a more efficient dataset pipeline, the improved dataset pipeline can be serialized (by passing in the 'filepath_prefix' parameter) and saved to the JSON configuration file.
 
-After passing string to `filepath_prefix`, AutoTune will automatically generate JSON files corresponding to the device number according to the current training mode in a standalone or distributed environment.
+After passing a string to `filepath_prefix`, AutoTune will automatically generate JSON files corresponding to the device number according to the current training mode in a standalone or distributed environment.
 
 For example, configure `filepath_prefix='autotune_out'`.
 

@@ -518,7 +518,7 @@ class CommunicationHelper:
 COMMON_HELPER = None
 
 def init_communication():
-    TP+GROUP_NAME = "tp"
+    TP_GROUP_NAME = "tp"
     TP_SIZE = 2
 
     global COMMON_HELPER

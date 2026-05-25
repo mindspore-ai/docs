@@ -161,7 +161,7 @@ Image shape: (256, 3, 32, 32), Label shape: (256,)
 Labels: [3 2 7 6 0 4]
 ```
 
-![](images/output_6_1.png)
+![output-6-1](images/output_6_1.png)
 
 ## Building a Network
 

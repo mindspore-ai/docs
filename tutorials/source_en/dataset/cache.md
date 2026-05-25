@@ -144,7 +144,7 @@ Note:
 
 - The use of `size`:
 
-    - `size=0` indicates that the memory space used by the cache is not limited manually, but automatically controlled by the cache server according to system's total memory resources, and cache server's memory usage would be limited to within 80% of the total system memory.
+    - `size=0` indicates that the memory space used by the cache is not limited manually, but automatically controlled by the cache server according to the system's total memory resources, and the cache server's memory usage would be limited to within 80% of the total system memory.
 
     - Users can also manually set `size` to a proper value based on the idle memory of the machine. Note that before setting the `size` parameter, make sure to check the available memory of the system and the size of the dataset to be loaded. If the memory space occupied by the dataset-cache-server or the space of the dataset to be loaded exceeds the available memory of the system, it may cause problems such as machine downtime/restart, automatic shutdown of dataset-cache-server, and failure of training process execution.
 
@@ -604,7 +604,7 @@ However, we may **not benefit from cache** in the following scenarios:
 - The system memory is insufficient or the cache is not hit, resulting in poor cache service time performance. You can check whether the available system memory is sufficient and set a proper cache size before using the cache.
 - Too much cache spilling will deteriorate the time performance. Therefore, try not to spill cache to disks when datasets that support random access (such as `ImageFolderDataset`) are used for data loading.
 - Using cache on NLP networks such as BERT does not perform well. In NLP scenarios, there are usually no high-complexity data augmentation operations like decode.
-- There is expectable startup overhead when using cache in non-mappable datasets like `TFRecordDataset`. According to the current design, it is required to cache all rows to the cache server before the first epoch of training. So the first epoch time can be longer than the non-cache case.
+- There is expected startup overhead when using cache in non-mappable datasets like `TFRecordDataset`. According to the current design, it is required to cache all rows to the cache server before the first epoch of training. So the first epoch time can be longer than the non-cache case.
 
 ## Limitations
 

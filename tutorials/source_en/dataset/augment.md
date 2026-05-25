@@ -46,7 +46,7 @@ First, a sub-policy is randomly selected for each image with equal probability, 
 
 In the following code example, two sub-policies are preset.
 
-- Sub-policy 1 contains the `RandomRotation` and `RandomVerticalFlip`operations, whose probabilities are 0.5 and 1.0, respectively.
+- Sub-policy 1 contains the `RandomRotation` and `RandomVerticalFlip` operations, whose probabilities are 0.5 and 1.0, respectively.
 
 - Sub-policy 2 contains the `RandomRotation` and `RandomColorAdjust` operations, with the probabilities of 1.0 and 0.2, respectively.
 

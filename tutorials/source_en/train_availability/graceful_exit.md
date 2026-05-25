@@ -4,9 +4,9 @@
 
 ## Overview
 
-When there are suboptimal devices in the training cluster, saving checkpoint and exiting the cluster training process before the failure occurs can effectively prevent the loss of weight data when the cluster is damaged. This also avoids issues such as training data rollback and loading checkpoint rollback when training recovery, effectively preventing the waste of training resources.
+When there are suboptimal devices in the training cluster, saving checkpoint and exiting the cluster training process before the failure occurs can effectively prevent the loss of weight data when the cluster is damaged. This also avoids issues such as training data rollback and loading checkpoint rollback during training recovery, effectively preventing the waste of training resources.
 
-> This document describes how to use the process graceful exit. In order to illustrate the specific usage, the example of detecting the exit configuration message at the first training step and terminating the training process early is used. You can get the full sample code here: [process_graceful_exit](https://atomgit.com/mindspore/docs/tree/master/docs/sample_code/graceful_exit/) .
+> This document describes how to use the process graceful exit. In order to illustrate the specific usage, the example of detecting the exit configuration message at the first training step and terminating the training process early is used. You can get the full sample code here: [process_graceful_exit](https://atomgit.com/mindspore/docs/tree/master/docs/sample_code/graceful_exit/).
 
 `graceful_exit.py` is the training code, `train.sh` is the `msrun` startup script, and `graceful_exit.json` is the graceful exit config json file.
 
@@ -197,7 +197,7 @@ msrun --worker_num=8 --local_worker_num=8 --master_addr=127.0.0.1 --master_port=
 
 ## Analyzing the Results
 
-After training ends, the following WARNING log will be printed: `Graceful exit is triggered, stop training`. Eight directories named `rank_0` to `rank_7` will be generated in the current execution directory, each containing a `LeNet_train.ckpt` file (If the callback is configured to save a checkpoint).
+After training ends, the following WARNING log will be printed: `Graceful exit is triggered, stop training`. Eight directories named `rank_0` to `rank_7` will be generated in the current execution directory, each containing a `LeNet_train.ckpt` file (if the callback is configured to save a checkpoint).
 
 ```text
 ./rank_0
@@ -249,7 +249,7 @@ If the network model requires overriding TrainOneStepCell:
             ...
     ```
 
-2. The new method does not inherit from TrainOneStepCell, you need to add the following code in `__init__` method(don't change parameter's name), and use it in the `construct` method. The sample code is as follows:
+2. If the class does not inherit from TrainOneStepCell, you need to add the following code in the `__init__` method(don't change parameter's name), and use it in the `construct` method. The sample code is as follows:
 
     ```python
     from mindspore.utils import ExitByRequest

@@ -1,6 +1,6 @@
 # Custom Pass
 
-[![View Source File](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/tutorials/source_en/custom_program/custom_pass.md)
+[![View Source File](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/tutorials/source_en/custom_program/custom_pass.md)
 
 ## Overview
 
@@ -15,7 +15,7 @@ The implementation of custom pass requires completing the following steps:
 1. Reference `mindspore/include/custom_pass_api.h` header file.
 2. Inherit `PatternToPatternPass` class and implement `DefineSrcPattern`, `DefineDstPattern` and `CheckMatchedDAG` interfaces.
 3. Inherit `CustomPassPlugin` class and implement `GetPluginName`, `GetAvailablePassNames` and `CreatePass` interfaces.
-4. Register custom backend by using the `EXPORT_CUSTOM_PASS_PLUGIN` macro.
+4. Register custom pass plugin by using the `EXPORT_CUSTOM_PASS_PLUGIN` macro.
 
 Here, we implement a simple AddNegFusionPass and a custom Pass plugin to replace the Add operator and Neg operator with a Sub operator.
 
