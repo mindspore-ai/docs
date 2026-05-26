@@ -50,7 +50,7 @@ MindSpore提供两种接口来使能通信融合，下面分别进行介绍：
     net.comm_fusion(config=config)
     ```
 
-    在自动并行或半自动并行场景下，用户在通过`net = AutoParallel(net, parallel_mode="semi_auto")`来配置并行策略时，可以利用该顶层`AutoParallel`类提供的[comm_fusion](https://www.mindspore.cn/docs/zh-CN/r2.9.0/api_python/mindspore/mindspore.Parameter.html#mindspore.Parameter.comm_fusion)接口的参数`congfig`来设置并行策略，输入格式为{"通信类型": {"mode":str, "config": None int 或者 list}}。具体可以参考[并行配置](https://www.mindspore.cn/docs/zh-CN/r2.9.0/api_python/parallel/mindspore.parallel.auto_parallel.AutoParallel.html)中的`comm_fusion`。在这种场景下，优先推荐此种配置方法。
+    在自动并行或半自动并行场景下，用户在通过`net = AutoParallel(net, parallel_mode="semi_auto")`来配置并行策略时，可以利用该顶层`AutoParallel`类提供的[comm_fusion](https://www.mindspore.cn/docs/zh-CN/r2.9.0/api_python/mindspore/mindspore.Parameter.html#mindspore.Parameter.comm_fusion)接口的参数`config`来设置并行策略，输入格式为{"通信类型": {"mode": str, "config": None, int 或 list}}。具体可以参考[并行配置](https://www.mindspore.cn/docs/zh-CN/r2.9.0/api_python/parallel/mindspore.parallel.auto_parallel.AutoParallel.html)中的`comm_fusion`。在这种场景下，优先推荐此种配置方法。
 
 2. 利用`Cell`提供的接口
 

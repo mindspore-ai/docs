@@ -4,9 +4,9 @@
 
 ## Overview
 
-In distributed parallel training scenarios to train large-scale parameter models (e.g., GPT-3, Pangu-$\alpha$), data transmission of cross-device or even cross-node is a bottleneck that limits scalability as well as operator power utilization [1]. Communication fusion is an important method to improve network resource utilization and accelerate data transmission efficiency by encapsulating the communication operator of the same source and destination nodes for simultaneous execution to avoid the extra overhead caused by multiple single operator executions.
+In distributed parallel training scenarios to train large-scale parameter models (e.g., GPT-3, Pangu-$\alpha$), data transmission of cross-device or even cross-node is a bottleneck that limits scalability as well as computing power utilization [1]. Communication fusion is an important method to improve network resource utilization and accelerate data transmission efficiency by encapsulating the communication operator of the same source and destination nodes for simultaneous execution to avoid the extra overhead caused by multiple single operator executions.
 
-MindSpore supports the fusion of three common communication operators ([AllReduce](https://www.mindspore.cn/docs/en/r2.9.0/api_python/ops/mindspore.ops.AllReduce.html), [AllGather](https://www.mindspore.cn/docs/en/r2.9.0/api_python/ops/mindspore.ops.AllGather.html), and [ReduceScatter](https://www.mindspore.cn/docs/en/r2.9.0/api_python/ops/mindspore.ops.ReduceScatter.html)) in distributed training, and provides a simple and easy-to-use interface for user configuration. The communication fusion plays an important role in the long and steady training mission support.
+MindSpore supports the fusion of three common communication operators ([AllReduce](https://www.mindspore.cn/docs/en/r2.9.0/api_python/ops/mindspore.ops.AllReduce.html), [AllGather](https://www.mindspore.cn/docs/en/r2.9.0/api_python/ops/mindspore.ops.AllGather.html), and [ReduceScatter](https://www.mindspore.cn/docs/en/r2.9.0/api_python/ops/mindspore.ops.ReduceScatter.html)) in distributed training, and provides a simple and easy-to-use interface for user configuration. Communication fusion plays an important role in supporting long and steady training tasks.
 
 ### Basic Principle
 

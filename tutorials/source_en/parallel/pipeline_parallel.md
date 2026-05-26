@@ -245,7 +245,7 @@ out is:
 Tensor(shape=[8, 512], dtype=Float32, value=
 [[ 4.61914062e-01 5.78613281e-01 1.34995094e-01 ... 8.54492188e-02 7.91992188e-01 2.13378906e-01]
 ...
-[  4.89746094e-01 3.56689453e-01 -4.90966797e-01 ... -3.30078125e-e01 -2.38525391e-01 7.33398438e-01]])
+[  4.89746094e-01 3.56689453e-01 -4.90966797e-01 ... -3.30078125e-01 -2.38525391e-01 7.33398438e-01]])
 ```
 
 Other startup methods can be found in [startup methods](https://www.mindspore.cn/tutorials/en/r2.9.0/parallel/startup_method.html).
@@ -347,7 +347,7 @@ net.head.pipeline_stage = 3
 
 ### Inferring the Network
 
-Wrap the netork with `PipelineCellInference`, and specify the size of MicroBatch. `PipelineCellInference` splits input into several micro batch, then executes the network, and finally concats the results along the batch axis through `ops.Concat` operator.
+Wrap the network with `PipelineCellInference`, and specify the size of MicroBatch. `PipelineCellInference` splits input into several micro batch, then executes the network, and finally concats the results along the batch axis through `ops.Concat` operator.
 
 In the previous step, the parameter `embed` is shared by `self.word_embedding` and `self.head` layer, and these two layers are split into different stages.
 

@@ -122,7 +122,7 @@ from mindspore.parallel.nn import GradAccumulation
 loss_fn = nn.CrossEntropyLoss()
 loss_cb = train.LossMonitor(100)
 net = GradAccumulation(nn.WithLossCell(net, loss_fn), 4)
-# set paralllel mode and enable parallel optimizer
+# set parallel mode and enable parallel optimizer
 net = AutoParallel(net)
 net.hsdp()
 model = ms.Model(net, optimizer=optimizer)

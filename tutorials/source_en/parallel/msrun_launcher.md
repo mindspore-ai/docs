@@ -4,7 +4,7 @@
 
 ## Overview
 
-`msrun` is an encapsulation of the [Dynamic Cluster](https://www.mindspore.cn/tutorials/en/r2.9.0/parallel/dynamic_cluster.html) startup method. Users can use `msrun` to pull multi-process distributed tasks across nodes with a single command line instruction. Users can use `msrun` to pull up multi-process distributed tasks on each node with a single command line command, and there is no need to manually set [dynamic networking environment variables](https://www.mindspore.cn/tutorials/en/r2.9.0/parallel/dynamic_cluster.html). `msrun` supports both `Ascend`, `GPU` and `CPU` backends. As with the `Dynamic Cluster` startup, `msrun` has no dependencies on third-party libraries and configuration files.
+`msrun` is an encapsulation of the [Dynamic Cluster](https://www.mindspore.cn/tutorials/en/r2.9.0/parallel/dynamic_cluster.html) startup method. Users can use `msrun` to pull up multi-process distributed tasks across nodes with a single command line instruction, and there is no need to manually set [dynamic networking environment variables](https://www.mindspore.cn/tutorials/en/r2.9.0/parallel/dynamic_cluster.html). `msrun` supports both `Ascend`, `GPU` and `CPU` backends. As with the `Dynamic Cluster` startup, `msrun` has no dependencies on third-party libraries and configuration files.
 
 > - `msrun` is available after the user installs MindSpore, and the command `msrun --help` can be used to view the supported parameters.
 > - `msrun` supports `graph mode` as well as `PyNative mode`.
@@ -355,7 +355,7 @@ msrun --worker_num=8 --local_worker_num=8 --master_port=8118 --log_dir=msrun_log
 
 ### --bind_core (CPU Affinity Configuration)
 
-Key invocation command: `taskset -c CPUA-CPUB python XXX.py`, which restricts the Python process to run on CPU cores ranging from `CPUA` to `PUB`.
+Key invocation command: `taskset -c CPUA-CPUB python XXX.py`, which restricts the Python process to run on CPU cores ranging from `CPUA` to `CPUB`.
 
 #### 1. Automatic Core Binding (`--bind_core=True`)
 

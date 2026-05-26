@@ -4,7 +4,7 @@
 
 ## Overview
 
-In deep learning, one usually has to deal with the huge model problem, in which the total size of parameters in the model is beyond the device memory capacity. To efficiently train a huge model, one solution is to employ homogeneous accelerators for distributed training. When the size of a model is hundreds of GBs or several TBs, the number of required accelerators is too overwhelming for people to access, resulting in this solution being inapplicable. One alternative is Host+Device hybrid training. This solution simultaneously leveraging the huge memory in hosts and fast computation in accelerators, is a promisingly efficient method for addressing huge model problem.
+In deep learning, one usually has to deal with the huge model problem, in which the total size of parameters in the model is beyond the device memory capacity. To efficiently train a huge model, one solution is to employ homogeneous accelerators for distributed training. When the size of a model is hundreds of GBs or several TBs, the number of required accelerators is too overwhelming for people to access, resulting in this solution being inapplicable. One alternative is Host+Device hybrid training. This solution simultaneously leverages the huge memory in hosts and fast computation in accelerators, and is a promisingly efficient method for addressing huge model problem.
 
 In MindSpore, users can easily implement hybrid training by configuring trainable parameters and necessary operators to run on hosts, and other operators to run on accelerators.
 
@@ -28,7 +28,7 @@ A careful analysis of the special structure of the Wide & Deep model can be obta
 
 2. [mindspore.nn.Optimizer.target](https://www.mindspore.cn/docs/en/r2.9.0/api_python/nn/mindspore.nn.Optimizer.html#mindspore.nn.Optimizer.target): This attribute specifies whether the parameter should be updated on the host or on the device. The input type is str and can only be "CPU" or "Ascend".
 
-## Operator Practices
+## Operation Practices
 
 The following is an illustration of Host&Device heterogeneous operation using Ascend or GPU stand-alone 8-card as an example:
 

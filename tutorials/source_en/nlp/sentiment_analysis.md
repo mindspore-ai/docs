@@ -9,11 +9,11 @@ Sentiment classification is a classic task in natural language processing. It is
 ```text
 Input: This film is terrible
 Correct label: Negative
-Forecast label: Negative
+Predicted label: Negative
 
 Input: This film is great
 Correct label: Positive
-Forecast label: Positive
+Predicted label: Positive
 ```
 
 ## Data Preparation
@@ -157,7 +157,7 @@ len(imdb_train)
 25000
 ```
 
-After the IMDB dataset is loaded to the memory and built as an iteration object, you can use the [Generatordataset](https://www.mindspore.cn/docs/en/r2.9.0/api_python/dataset/mindspore.dataset.GeneratorDataset.html) API provided by `mindspore.dataset` to load the dataset iteration object and then perform data processing. The following encapsulates a function to load train and test using `GeneratorDataset`, and set `column_name` of the text and label in the dataset to `text` and `label`, respectively.
+After the IMDB dataset is loaded to the memory and built as an iteration object, you can use the [GeneratorDataset](https://www.mindspore.cn/docs/en/r2.9.0/api_python/dataset/mindspore.dataset.GeneratorDataset.html) API provided by `mindspore.dataset` to load the dataset iteration object and then perform data processing. The following encapsulates a function to load train and test using `GeneratorDataset`, and set `column_name` of the text and label in the dataset to `text` and `label`, respectively.
 
 ```python
 import mindspore.dataset as ds
@@ -182,7 +182,7 @@ imdb_train
 ### Loading Pre-trained Word Vectors
 
 A pre-trained word vector is a numerical representation of an input word. The `nn.Embedding` layer uses the table lookup mode to input the index in the vocabulary corresponding to the word to obtain the corresponding expression vector.
-Therefore, before model build, word vectors and vocabulary required by the Embedding layer need to be built. Here, we use the classic pre-trained word vectors, GloVe.
+Therefore, before building the model, word vectors and vocabulary required by the Embedding layer need to be built. Here, we use the classic pre-trained word vectors, GloVe.
 The data format is as follows:
 
 | Word |  Vector |
@@ -315,7 +315,7 @@ After the dataset is processed, we design the model structure for sentimental cl
 nn.Embedding -> nn.RNN -> nn.Dense
 ```
 
-The LSTM(Long short-term memory) variant that can avoid the RNN gradient vanishing problem is used as the feature extraction layer. The model is described as follows:
+The LSTM (Long Short-Term Memory) variant that can avoid the RNN gradient vanishing problem is used as the feature extraction layer. The model is described as follows:
 
 ### Embedding
 
@@ -341,7 +341,7 @@ The recurrent feature of the RNN matches the sequence feature (a sentence is a s
 
 ![RNN](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.9.0/tutorials/source_zh_cn/nlp/images/0-RNN.png)
 
-A structure of a single RNN Cell is simple, causing the gradient vanishing problem. Specifically, when a sequence in the RNN is relatively long, information of a sequence header is basically lost at a tail of the sequence. To solve this problem, the LSTM(Long short-term memory) is proposed. The gating mechanism is used to control the retention and discarding of information flows in each cycle. The following figure shows the disassembled LSTM structure.
+A structure of a single RNN Cell is simple, causing the gradient vanishing problem. Specifically, when a sequence in the RNN is relatively long, information of a sequence header is basically lost at a tail of the sequence. To solve this problem, the LSTM (Long Short-Term Memory) is proposed. The gating mechanism is used to control the retention and discarding of information flows in each cycle. The following figure shows the disassembled LSTM structure.
 
 ![LSTM](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.9.0/tutorials/source_zh_cn/nlp/images/0-LSTM.png)
 
