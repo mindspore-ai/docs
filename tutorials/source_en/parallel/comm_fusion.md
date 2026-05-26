@@ -18,7 +18,7 @@ The whole process of distributed training can be roughly divided into two proces
 
 As shown in the figure below, each node backs up the complete neural network model and uses the local dataset partition to train a mini-batch for forward and backward computation. The gradient obtained from the backward computation is synchronized across the nodes, and the training of the next mini-batch continues after synchronization, and so on, until the accuracy/loss reaches a threshold, or a certain number of epochs are trained. It can be seen that computation and communication alternate in the distributed training process. Work has been done on how to do pipelining of interdependent computation and transmission to reduce the percentage of cross-node data synchronization in the overall training duration [5][6], which will not be repeated here.
 
-![image](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.9.0/tutorials/source_zh_cn/parallel/images/data_parallel.png)
+![image](./images/data_parallel.png)
 
 #### The Necessity of Communication Fusion
 
@@ -79,7 +79,7 @@ The following introduces the configuration of two usage methods through the prac
 
 #### `comm_fusion` Parameter
 
-As shown in the following code, the `comm_fusion` parameter of the `set_auto_parallel_context` interface is used to configure the fusion mode for the `AllReduce` operator to be `auto`, implying that the fusion buffer size is set to 64MB by default.
+As shown in the following code, the `comm_fusion` interface of the `AutoParallel` class is used to configure the fusion mode for the `AllReduce` operator to be `auto`, implying that the fusion buffer size is set to 64MB by default.
 
 ```python
 from mindspore.communication import init
