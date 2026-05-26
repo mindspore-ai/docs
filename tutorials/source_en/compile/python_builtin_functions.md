@@ -2,7 +2,7 @@
 
 [![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.9.0/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/r2.9.0/tutorials/source_en/compile/python_builtin_functions.md)
 
-Python built-in functions supported by the current static graph mode include: `int`, `float`, `bool`, `str`, `tuple`, `list`, `dict`, `getattr`, `hasattr`, `len`, `isinstance`, `all`, `any`, `round`, `max`, `min`, `sum`, `abs`, `map`, `zip` , `range`, `enumerate`, `super`, `pow`, `print`, `filter`, `type`. The use of built-in functions in graph mode is similar to the corresponding Python built-in functions.
+Python built-in functions supported by the current static graph mode include: `int`, `float`, `bool`, `str`, `tuple`, `list`, `dict`, `getattr`, `hasattr`, `len`, `isinstance`, `all`, `any`, `round`, `max`, `min`, `sum`, `abs`, `map`, `zip`, `range`, `enumerate`, `super`, `pow`, `print`, `filter`, `type`. The use of built-in functions in graph mode is similar to the corresponding Python built-in functions.
 
 ## int
 
@@ -101,7 +101,7 @@ e:  -1.0
 
 Function: Return the boolean value based on the input.
 
-Calling: `bool(x=false)`
+Calling: `bool(x=False)`
 
 Input parameter: `x` - the object that needs to be converted to a boolean value. The valid types of `x` include `int`, `float`, `bool`, `str`, `list`, `tuple`, `dict`, `Tensor`, and third-party objects (such as `numpy.ndarray`).
 
@@ -511,7 +511,9 @@ Function: Determines whether all elements in the input are true.
 
 Calling: `all(x)`.
 
-Input parameter: - `x` - Iterable object. The valid types include `list`, `tuple`, `dict`, `Tensor`, and third-party objects (such as `numpy.ndarray`).
+Input parameter:
+
+- `x` - Iterable object. The valid types include `list`, `tuple`, `dict`, `Tensor`, and third-party objects (such as `numpy.ndarray`).
 
 Return value: A boolean value. Returns `True` if all elements are `True`, otherwise `False`.
 
@@ -569,7 +571,9 @@ Function: Determines whether any element in the input is true.
 
 Calling: `any(x)`.
 
-Input parameter: - `x` - Iterable object. The valid types include `list`, `tuple`, `dict`, `Tensor`, and third-party objects (such as `numpy.ndarray`).
+Input parameter:
+
+- `x` - Iterable object. The valid types include `list`, `tuple`, `dict`, `Tensor`, and third-party objects (such as `numpy.ndarray`).
 
 Return value: A boolean value. Returns `False` if all elements are `False`, otherwise `True`. Elements count as `True` except for 0, null, and `False`.
 
@@ -680,7 +684,9 @@ Function: Return the maximum of inputs.
 
 Calling: `max(*data)`.
 
-Input parameter: - `*data` - If `*data` is a single input, `max` will compare all elements within `data` and `data` must be an iterable object. If there are multiple inputs, then `max()` will compare each of them. The valid types of `data` include `int`, `float`, `bool`, `list`, `tuple`, `dict`, `Tensor`, and third-party objects (such as `numpy.ndarray`).
+Input parameter:
+
+- `*data` - If `*data` is a single input, `max` will compare all elements within `data` and `data` must be an iterable object. If there are multiple inputs, then `max()` will compare each of them. The valid types of `data` include `int`, `float`, `bool`, `list`, `tuple`, `dict`, `Tensor`, and third-party objects (such as `numpy.ndarray`).
 
 Return value: The maximum of the inputs.
 
@@ -729,7 +735,9 @@ Function: Return the minimum of inputs.
 
 Calling: `min(*data)`.
 
-Input parameter: - `*data` - If `*data` is a single input, then `min()` will compare all elements within `data` and `data` must be an iterable object. If there are multiple inputs, then `min()` will compare each of them. The valid types of `data` include `int`, `float`, `bool`, `list`, `tuple`, `dict`, `Tensor`, and third-party objects (such as `numpy.ndarray`).
+Input parameter:
+
+- `*data` - If `*data` is a single input, then `min()` will compare all elements within `data` and `data` must be an iterable object. If there are multiple inputs, then `min()` will compare each of them. The valid types of `data` include `int`, `float`, `bool`, `list`, `tuple`, `dict`, `Tensor`, and third-party objects (such as `numpy.ndarray`).
 
 Return value: The minimum of the inputs.
 
@@ -829,7 +837,9 @@ Function: Return the absolute value of the input.
 
 Calling: `abs(x)`.
 
-Input parameter: - `x` - The valid types of `x` include `int`, `float`, `bool`, `complex`, `Tensor`, and third-party objects (such as `numpy.ndarray`).
+Input parameter:
+
+- `x` - The valid types of `x` include `int`, `float`, `bool`, `complex`, `Tensor`, and third-party objects (such as `numpy.ndarray`).
 
 Return value: the absolute value of the input.
 

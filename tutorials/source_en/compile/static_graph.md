@@ -23,14 +23,14 @@ in the Cell `__call__` method, so the actual calling process is:
 
 `model(inputs) = model.compile(inputs) + model.construct(inputs)`, where `model` is the instantiated Cell object.
 
-Just-In-Time (JIT) compilation can be achieved using the [JIT interface](https://www.mindspore.cn/docs/en/r2.9.0/api_python/mindspore/mindspore.jit.html) . Another way is to use the Graph mode by setting
+Just-In-Time (JIT) compilation can be achieved using the [JIT interface](https://www.mindspore.cn/docs/en/r2.9.0/api_python/mindspore/mindspore.jit.html). Another way is to use the Graph mode by setting
 `ms.set_context(mode=ms.GRAPH_MODE)`, then write the code in the
 `construct` function of the `Cell` so that the code in the `construct` function will be compiled into a static computation graph. For details
 about the definition of `Cell`, click [Cell API document](https://www.mindspore.cn/docs/en/r2.9.0/api_python/nn/mindspore.nn.Cell.html).
 
 Due to syntax parsing restrictions, the supported data types, syntax, and related operations during graph building are not completely
 consistent with the Python syntax. As a result, some usage is restricted. Borrowing the traditional JIT compilation idea, MindSpore considers
-the unification of static and dynamic graphs from the perspective of graph mode and extends the syntax capabilities of graph patterns. The
+the unification of static and dynamic graphs from the perspective of graph mode and extends the syntax capabilities of graph mode. The
 static graph provides a syntax experience close to that of the dynamic graph, so as to realize the unity of dynamic and static. In order to
 facilitate users to choose whether to extend the static graph syntax, the JIT syntax support level option \'jit_syntax_level\' is provided,
 and its value must be in the range of \[STRICT,LAX\]. Selecting \'STRICT\' means using the basic syntax without extending the
@@ -55,7 +55,7 @@ graphs, this section first explains the concepts of constants and variables in s
 In static graph mode, the operation of a program is divided into compilation period and execution period. During compilation, the program
 is compiled into an intermediate representation graph, and the program does not actually execute, but statically parses the intermediate
 representation through abstract deduction. This makes it impossible to guarantee that we will get the values of all intermediate representation
-nodes at compile time. Constants and variables are distinguished by their true values in the compiler.
+nodes at compile time. Constants and variables are distinguished by their true values at compile time.
 
 - Constant: The value that can be obtained during compilation.
 - Variable: The value that cannot be obtained during compilation.
@@ -65,7 +65,7 @@ nodes at compile time. Constants and variables are distinguished by their true v
 - Scalars, lists, and tuples entered as graph mode inputs are constants
     (without using the mutable interface). For example:
 
-    ``` python
+    ```python
     import mindspore
     from mindspore import nn
 
@@ -86,7 +86,7 @@ nodes at compile time. Constants and variables are distinguished by their true v
 
 - The result of a constant operation is a constant. For example:
 
-    ``` python
+    ```python
     import mindspore
     from mindspore import nn
 
@@ -106,7 +106,7 @@ nodes at compile time. Constants and variables are distinguished by their true v
 
 - Constant operations obtain a constant result. For example:
 
-    ``` python
+    ```python
     import mindspore
     from mindspore import nn
 
@@ -132,7 +132,7 @@ nodes at compile time. Constants and variables are distinguished by their true v
 - The return value of all mutable interfaces is a variable (whether
     mutable is used outside the graph or inside the graph). For example:
 
-    ``` python
+    ```python
     import mindspore
     from mindspore import nn
 
@@ -155,7 +155,7 @@ nodes at compile time. Constants and variables are distinguished by their true v
 
 - Tensors that are inputs to static graphs are variables. For example:
 
-    ``` python
+    ```python
     import mindspore
     from mindspore import nn
 
@@ -171,17 +171,17 @@ nodes at compile time. Constants and variables are distinguished by their true v
     ret = net(a, b)
     ```
 
-    In the above code, `a` is the Tensor input as the graph pattern, so
+    In the above code, `a` is the Tensor input as the graph mode, so
     it is a variable. But `b` is a tuple that is input to the graph
     pattern, not a Tensor type. Even if its internal elements are
     Tensor, `b` is a constant.
 
-- What is calculated by variables is a variable
+- What is calculated by variables is a variable.
 
     If a quantity is the output of an operator, then in most cases it is a
     variable. For example:
 
-    ``` python
+    ```python
     import mindspore
     from mindspore import nn
 
@@ -216,12 +216,12 @@ Supports `int`, `float`, and `bool`, but does not support `complex` numbers.
 `Number` can be defined on the network. That is, the syntax `y = 1`, `y = 1.2`, and `y = True` are supported.
 
 When the data is a constant, the value of the data can be obtained at compile time, and the forcible conversion to `Number` is supported in the
-network. The syntax `y = int(x)`, `y = float(x)`, and `y = bool(x)` are supported. When the data is a variable, i.e., you can get the value only
+network. The syntaxes `y = int(x)`, `y = float(x)`, and `y = bool(x)` are supported. When the data is a variable, i.e., you can get the value only
 at runtime, it also supports data type conversion using built-in
 functions [Python Built-in Functions](https://www.mindspore.cn/tutorials/en/r2.9.0/compile/python_builtin_functions.html)
 such as int(), float() and bool(). For example:
 
-``` python
+```python
 import mindspore
 from mindspore import nn
 
@@ -247,7 +247,7 @@ res[1]: 10
 
 Supports returning Number. For example:
 
-``` python
+```python
 import mindspore
 from mindspore import nn
 
@@ -276,7 +276,7 @@ into a string with the string format `%s`. Supports using the format string func
 
 For example:
 
-``` python
+```python
 import mindspore
 from mindspore import nn
 
@@ -302,18 +302,18 @@ res: ('H', 'Spore', 'Hello!MindSpore', 'MindSporeMindSpore', True, 'My name is M
 
 ##### List
 
-When \'JIT_SYNTAX_LEVEL\' is set to \'LAX\', static graph mode can support the inplace operation of some \'List\' objects,
-see [Supporting List Inplace Modification Operations](#supporting-list-inplace-modification-operations).
+When \'JIT_SYNTAX_LEVEL\' is set to \'LAX\', static graph mode can support the in-place operation of some \'List\' objects,
+see [Supporting List Inplace Modification Operations](#supporting-list-in-place-modification-operations).
 
 The basic usage scenarios of \'List\' are as follows:
 
-- The graph mode supports creating `Lists` in graph.
+- The graph mode supports creating `List` in graph mode
 
     Supports creating `List` objects within graph mode, and the elements
     of the `List` objects can contain any of the types supported by the
     graph mode, as well as multiple levels of nesting. For example:
 
-    ``` python
+    ```python
     import numpy as np
     import mindspore
     from mindspore import nn
@@ -335,7 +335,7 @@ The basic usage scenarios of \'List\' are as follows:
     Before MindSpore version 2.0, `List` is converted to `Tuple` when the graph mode returns a `List` object. In MindSpore version 2.0,
     `List` objects can be returned. For example:
 
-    ``` python
+    ```python
     import mindspore
     from mindspore import nn
 
@@ -355,7 +355,7 @@ The basic usage scenarios of \'List\' are as follows:
 - The graph mode supports obtaining `List` objects from global
     variables
 
-    ``` python
+    ```python
     import mindspore
     from mindspore import nn
 
@@ -374,12 +374,12 @@ The basic usage scenarios of \'List\' are as follows:
     It should be noted that the list returned in the basic scenario is not the same object as the list of global
     variables. When \'JIT_SYNTAX_LEVEL\' is set to \'LAX\', the returned object and the global object are the same object.
 
-- Graph mode supports `List` as input
+- The graph mode supports `List` as input
 
     The graph mode supports `List` as input to static graphs. The elements of the `List` object used as input must be of an input type
     supported by the graph mode, which also supports multiple levels of nesting.
 
-    ``` python
+    ```python
     import mindspore
     from mindspore import nn
 
@@ -398,7 +398,7 @@ The basic usage scenarios of \'List\' are as follows:
     is always treated as a constant, regardless of the type of element
     inside it.
 
-- Graph mode supports built-in methods for List
+- The graph mode supports built-in methods for `List`
 
     The \'List\' built-in method is described in detail below:
 
@@ -415,7 +415,7 @@ The basic usage scenarios of \'List\' are as follows:
 
         Examples are as follows:
 
-        ``` python
+        ```python
         import mindspore
         from mindspore import nn
 
@@ -456,12 +456,12 @@ The basic usage scenarios of \'List\' are as follows:
 
         The index assignment object \'target_element\' supports all data types supported by graph modes.
 
-        Currently, the \'List\' index assignment does not support the inplace operation, and a new object will be generated after the
-        index is assigned. This operation will support the inplace operation in the future.
+        Currently, the \'List\' index assignment does not support the in-place operation, and a new object will be generated after the
+        index is assigned. This operation will support the in-place operation in the future.
 
         Examples are as follows:
 
-        ``` python
+        ```python
         import mindspore
         from mindspore import nn
 
@@ -492,12 +492,12 @@ The basic usage scenarios of \'List\' are as follows:
 
         Basic semantics: Append the element \'target_element\' to the end of the \'List\' object \'list_object\'.
 
-        Currently, \'List.append\' does not support the inplace operation, and a new object will be generated after append
-        element. This operation will support the inplace operation in the future.
+        Currently, \'List.append\' does not support the in-place operation, and a new object will be generated after append
+        element. This operation will support the in-place operation in the future.
 
         Examples are as follows:
 
-        ``` python
+        ```python
         import mindspore
         from mindspore import nn
 
@@ -523,14 +523,14 @@ The basic usage scenarios of \'List\' are as follows:
 
         Basic syntax: `list_object.clear()`.
 
-        Base semantics: Clear all elements contained in the \'List\' object \'list_object\'.
+        Basic semantics: Clear all elements contained in the \'List\' object \'list_object\'.
 
-        Currently, \'List.clear\' does not support inplace, and a new object will be generated after clearing the list. This operation will
-        support inplace in the future.
+        Currently, \'List.clear\' does not support in-place, and a new object will be generated after clearing the list. This operation will
+        support in-place in the future.
 
         Examples are as follows:
 
-        ``` python
+        ```python
         import mindspore
         from mindspore import nn
 
@@ -563,7 +563,7 @@ The basic usage scenarios of \'List\' are as follows:
 
         Examples are as follows:
 
-        ``` python
+        ```python
         import mindspore
         from mindspore import nn
 
@@ -596,11 +596,11 @@ The basic usage scenarios of \'List\' are as follows:
         Basic semantics: Remove the \'index\' element of the \'List\' object \'list_object\' from the \'list_object\' and return the element.
 
         The \'index\' requires that it must be a constant \'int\'. When \'list_object\' has a length of \'list_obj_size\',
-        \'index\' has a value range of \'\[-list_obj_size,list_obj_size-1\]\'. A negative
+        \'index\' has a value range of \'\[-list_obj_size, list_obj_size-1\]\'. A negative
         \'index\' represents the number of positions from back to front. When no \'index\' is entered, the default value is -1, i.e. the
         last element is removed.
 
-        ``` python
+        ```python
         import mindspore
         from mindspore import nn
 
@@ -632,7 +632,7 @@ The basic usage scenarios of \'List\' are as follows:
 
         Examples are as follows:
 
-        ``` python
+        ```python
         import mindspore
         from mindspore import nn
 
@@ -667,7 +667,7 @@ The basic usage scenarios of \'List\' are as follows:
 
         Examples are as follows:
 
-        ``` python
+        ```python
         import mindspore
         from mindspore import nn
 
@@ -705,11 +705,11 @@ be modified, but indexed access to elements in the tuple `Tuple` is supported, a
         parameter type, and input parameter `shape` of each `Cell` must be the same. The number of outputs of each `Cell` must be the
         same. The output type must be the same as the output `shape`.
     - The index `Tensor` is a scalar `Tensor` whose `dtype` is `int32`. The value range is `[-tuple_len, tuple_len)`.
-    - `CPU`, `GPU` and `Ascend` backend is supported.
+    - `CPU`, `GPU`, and `Ascend` backends are supported.
 
     An example of the `int` and `slice` indexes is as follows:
 
-    ``` python
+    ```python
     import numpy as np
     import mindspore
     from mindspore import nn
@@ -745,7 +745,7 @@ be modified, but indexed access to elements in the tuple `Tuple` is supported, a
 
     An example of the `Tensor` index is as follows:
 
-    ``` python
+    ```python
     import mindspore
     from mindspore import nn
 
@@ -779,7 +779,7 @@ be modified, but indexed access to elements in the tuple `Tuple` is supported, a
     Similar to the string `String`, tuples support combining using `+`
     and `*` to get a new tuple `Tuple`, for example:
 
-    ``` python
+    ```python
     import mindspore
     from mindspore import nn
 
@@ -838,7 +838,7 @@ The `key` is unique, and if there are multiple identical `keys` in the dictionar
     [Supporting the high-level usage of Dictionary](#supporting-the-high-level-usage-of-dictionary) section
     of this article.
 
-    ``` python
+    ```python
     import mindspore
     from mindspore import nn
 
@@ -894,7 +894,7 @@ include using the [tensor function interface](https://www.mindspore.cn/docs/en/r
 and using the class \'ms.Tensor\' interface. It is recommended to use
 the former because users can specify the required dtype. The code example is as follows:
 
-``` python
+```python
 import mindspore
 from mindspore import nn
 import numpy as np
@@ -925,7 +925,7 @@ the construct function.
 
 For example:
 
-``` python
+```python
 import mindspore
 from mindspore import nn, ops
 import numpy as np
@@ -986,7 +986,7 @@ For details about the definition of `Parameter`, click
 Arithmetic operators and assignment operators support the `Number` and
 `Tensor` operations, as well as the `Tensor` operations of different
 `dtype`. For more details, please refer to
-[Operators](https://www.mindspore.cn/tutorials/en/r2.9.0/compile/operators.html)
+[Operators](https://www.mindspore.cn/tutorials/en/r2.9.0/compile/operators.html).
 
 ### Primaries
 
@@ -996,7 +996,7 @@ Primaries represent the most tightly bound operations of the language.
 
 An attribute reference is a primary followed by a period and a name.
 
-Using attribute references as l-values in Cell instances of MindSpore requires the following requirements:
+Using attribute references as l-values in Cell instances of MindSpore has the following requirements:
 
 - The modified attribute belongs to this `cell` object, i.e. it must be `self.xxx`.
 - The attribute is initialized in Cell\'s \'\*\*init\*\*\' function and is of type Parameter.
@@ -1006,7 +1006,7 @@ When the JIT syntax support level option is \'LAX\', attribute modification in m
 
 Examples are as follows:
 
-``` python
+```python
 import mindspore
 from mindspore import nn
 
@@ -1050,7 +1050,7 @@ A call calls a callable object (e.g., `Cell` or `Primitive`) with a possibly emp
 
 For example:
 
-``` python
+```python
 import mindspore
 from mindspore import nn, ops
 import numpy as np
@@ -1088,7 +1088,7 @@ statement. For more details, please refer to
 ### Python Built-in Functions
 
 Currently supported Python built-in functions include `int`, `float`, `bool`, `str`, `list`, `tuple`, `getattr`, `hasattr`, `len`,
-`isinstance`, `all`, `any`, `round`, `max`, `min` , `sum`, `abs`, `partial`, `map`, `range`, `enumerate`, `super`, `pow`, `filter`. The
+`isinstance`, `all`, `any`, `round`, `max`, `min`, `sum`, `abs`, `partial`, `map`, `range`, `enumerate`, `super`, `pow`, `filter`. The
 use of built-in functions in graph mode is similar to the corresponding
 Python built-in functions. For more details, please refer to [Python Built-in Functions](https://www.mindspore.cn/tutorials/en/r2.9.0/compile/python_builtin_functions.html).
 
@@ -1102,7 +1102,7 @@ The code example is shown below. Among the input parameters `(x, y, z)` of the o
 When `grad_net` calculates gradients of the input parameters `(x, y, z)` for the network, the gradient of `y` is automatically ignored.
 Only gradients of `x` and `z` are calculated, and `(grad_x, grad_z)` is returned.
 
-``` python
+```python
 import mindspore
 from mindspore import nn
 
@@ -1368,7 +1368,7 @@ Combining view and in-place operations improves memory efficiency and computatio
 
 - Supported cases
 
-    Gradient propagation relies on node connections, which are affected by view/in-place operations. The framework's support for automatic differentiation is limited in scenarios where both view and inplace operators exist in the computation graph.
+    Gradient propagation relies on node connections, which are affected by view/in-place operations. The framework's support for automatic differentiation is limited in scenarios where both view and in-place operators exist in the computation graph.
 
     1. In-place operator modifies a tensor that is not the output of the view operator, even if both operators are used simultaneously. For example:
 
@@ -1497,7 +1497,7 @@ compilation problems can be found in [Network compilation](https://www.mindspore
 1. When an undefined class member is used in the `construct` function,
     `AttributeError` exception will be thrown. For example:
 
-    ``` python
+    ```python
     import mindspore
     from mindspore import nn
 
@@ -1522,7 +1522,7 @@ compilation problems can be found in [Network compilation](https://www.mindspore
 2. Class methods decorated by `classmethod` in `nn.Cell` are not
     supported. For example:
 
-    ``` python
+    ```python
     import mindspore
     from mindspore import nn
 
@@ -1553,7 +1553,7 @@ compilation problems can be found in [Network compilation](https://www.mindspore
 
     If you use the Try statement, the following example is used:
 
-    ``` python
+    ```python
     import mindspore
     from mindspore import nn
 
@@ -1597,7 +1597,7 @@ compilation problems can be found in [Network compilation](https://www.mindspore
 7. In graph mode, the modification of the attributes of the class outside the graph is not perceived, that is, the modification of the
     attributes of the class outside the graph will not take effect. For example:
 
-    ``` python
+    ```python
     import mindspore
     from mindspore import nn, ops
 
@@ -1636,7 +1636,7 @@ current extension based on AST compilation.
 
     1. Python built-in modules and Python standard libraries, such as `os`, `sys`, `math`, `time` and other modules.
     2. Third-party code libraries. Their module paths are under the `site-packages` directory of the Python installation directory,
-        which need to be installed first and then imported, such `numpy` and `scipy`. For a detailed list, please refer to the [third_party_modules](https://atomgit.com/mindspore/mindspore/blob/v2.9.0/mindspore/python/mindspore/graph/_parse/jit_fallback_modules/third_party_modules.py) file.
+        which need to be installed first and then imported, such as `numpy` and `scipy`. For a detailed list, please refer to the [third_party_modules](https://atomgit.com/mindspore/mindspore/blob/v2.9.0/mindspore/python/mindspore/graph/_parse/jit_fallback_modules/third_party_modules.py) file.
     3. Modules specified by the environment variable `MS_JIT_IGNORE_MODULES`. In contrast, there is the environment
         variable `MS_JIT_MODULES`. For more details, please refer to
         [Environment Variables](https://www.mindspore.cn/docs/en/r2.9.0/api_python/env_var_list.html).
@@ -1645,7 +1645,7 @@ current extension based on AST compilation.
 
     The code example is as follows.
 
-    ``` python
+    ```python
     import numpy as np
     import mindspore
     from mindspore import nn
@@ -1672,7 +1672,7 @@ current extension based on AST compilation.
 
     The code example is as follows.
 
-    ``` python
+    ```python
     from scipy import linalg
     import mindspore
     from mindspore import nn
@@ -1699,7 +1699,7 @@ current extension based on AST compilation.
 
     The code example is as follows.
 
-    ``` python
+    ```python
     import numpy as np
     import mindspore
     from mindspore import nn
@@ -1726,7 +1726,7 @@ current extension based on AST compilation.
 
     The code example is as follows.
 
-    ``` python
+    ```python
     import numpy as np
     import mindspore
     from mindspore import nn
@@ -1756,7 +1756,7 @@ Custom classes can be used in graph mode, and classes can be instantiated and ob
 For example, where \'GetattrClass\' is a user-defined class that does
 not use the \'@jit_class\' decoration and does not inherit \'nn. Cell\`.
 
-``` python
+```python
 import mindspore
 from mindspore import nn
 
@@ -1782,7 +1782,7 @@ out = net()
 assert out == 100
 ```
 
-### Basic Operators Support More Data Type
+### Basic Operators Support More Data Types
 
 In the syntax of graph mode, the following basic operators in the list
 is overloaded: \[\'+\', \'-\',
@@ -1796,7 +1796,7 @@ extended static graph syntax to support them, and make the output consistent wit
 
 The code example is as follows.
 
-``` python
+```python
 import mindspore
 from mindspore import nn
 
@@ -1821,7 +1821,7 @@ mode, `x.asnumpy() + y.asnumpy()` will be supported by static graph syntax.
 
 In another example:
 
-``` python
+```python
 import mindspore
 from mindspore import nn
 
@@ -1851,9 +1851,9 @@ Use the JIT Fallback feature to extend support for Python\'s native data types: 
 The list \'List\' and tuple \'Tuple\' are the most basic sequential built-in types in Python, and the core difference between \'List\' and
 \'Tuple\' is that \'List\' is an object that can be changed, while \'Tuple\' cannot be changed. This means that once \'Tuple\' is created,
 it cannot be changed without changing the object address. \'List\', on the other hand, can modify an object without changing its address
-through a series of inplace operations. For example:
+through a series of in-place operations. For example:
 
-``` python
+```python
 a = [1, 2, 3, 4]
 a_id = id(a)
 a.append(5)
@@ -1861,16 +1861,16 @@ a_after_id = id(a)
 assert a_id == a_after_id
 ```
 
-In the above example code, when you change the \'List\' object through the \'append\' inplace syntax, the address of the object is not changed.
-\'Tuple\' does not support this kind of inplace. With \'JIT_SYNTAX_LEVEL\' set to \'LAX\', static graph mode can support the
-inplace operation of some \'List\' objects.
+In the above example code, when you change the \'List\' object through the \'append\' in-place syntax, the address of the object is not changed.
+\'Tuple\' does not support this kind of in-place. With \'JIT_SYNTAX_LEVEL\' set to \'LAX\', static graph mode can support the
+in-place operation of some \'List\' objects.
 
 The specific usage scenarios are as follows:
 
 - Support for getting the original \'List\' object from a global variable
 
     In the following example, the static graph gets the \'List\' object,
-    performs the inplace operation \'list.reverse()\' supported by graph
+    performs the in-place operation \'list.reverse()\' supported by graph
     mode on the original object, and returns the original object. It can
     be seen that the object returned by the graph mode has the same ID
     as the original global variable object, that is, the two are the
@@ -1878,7 +1878,7 @@ The specific usage scenarios are as follows:
     option, the returned \'List\' object and the global object are two
     different objects.
 
-    ``` python
+    ```python
     import mindspore
     from mindspore import nn
 
@@ -1899,8 +1899,8 @@ The specific usage scenarios are as follows:
     functions
 
     With \'JIT_SYNTAX_LEVEL\' set to \'LAX\', the graph mode section
-    \'List\' built-in function supports inplace. In cases where
-    \'JIT_SYNTAX_LEVEL\' is \'STRICT\', none of the methods support the inplace operation.
+    \'List\' built-in function supports in-place. In cases where
+    \'JIT_SYNTAX_LEVEL\' is \'STRICT\', none of the methods support the in-place operation.
 
     Currently, the built-in methods for \'List\' in-place modification
     supported by graph mode are \'extend\', \'pop\', \'reverse\', and \'insert\'. The built-in methods \'append\', \'clear\' and index
@@ -1908,7 +1908,7 @@ The specific usage scenarios are as follows:
 
     Examples are as follows:
 
-    ``` python
+    ```python
     import mindspore
     from mindspore import nn
 
@@ -1931,7 +1931,7 @@ The specific usage scenarios are as follows:
 
     Examples are as follows:
 
-    ``` python
+    ```python
     import mindspore
     from mindspore import nn
 
@@ -1958,7 +1958,7 @@ The specific usage scenarios are as follows:
 
     Examples are as follows:
 
-    ``` python
+    ```python
     import mindspore
     from mindspore import nn
 
@@ -1992,7 +1992,7 @@ graph or subgraph. Support \'None\' as a subscript of a slice as input to \'List
 
 Examples are as follows:
 
-``` python
+```python
 import mindspore
 from mindspore import nn
 
@@ -2015,7 +2015,7 @@ The results are as follows:
 For functions with no return value, the \'None\' object is returned by
 default.
 
-``` python
+```python
 import mindspore
 from mindspore import nn
 
@@ -2041,7 +2041,7 @@ x:
 As in the example below, \'None\' is used as the default input parameter
 for the top graph.
 
-``` python
+```python
 import mindspore
 from mindspore import nn
 
@@ -2080,7 +2080,7 @@ For example, in the following example, \'x.asnumpy()\' and
 built-in functions can be found in the [Python built-in
 functions](https://www.mindspore.cn/tutorials/en/r2.9.0/compile/python_builtin_functions.html) section.
 
-``` python
+```python
 import numpy as np
 import mindspore
 from mindspore import nn
@@ -2102,7 +2102,7 @@ In order to improve the support of Python standard syntax, realize dynamic and s
 types in the use of control flow statements. Control flow statements refer to flow control statements such as \'if\', \'for\', and \'while\'.
 Theoretically, by extending the supported syntax, it is also supported in control flow scenarios. The code example is as follows:
 
-``` python
+```python
 import numpy as np
 import mindspore
 from mindspore import nn
@@ -2134,7 +2134,7 @@ The specific usage scenarios are as follows:
 
 In graph mode, you can set and modify the properties of custom class objects, such as:
 
-``` python
+```python
 import mindspore
 from mindspore import nn
 
@@ -2162,7 +2162,7 @@ obj.x is: 100
 
 In graph mode, you can set and modify the properties of third-party library objects, such as:
 
-``` python
+```python
 import numpy as np
 import mindspore
 from mindspore import nn
@@ -2187,7 +2187,7 @@ shape is (2, 2)
 
 - Make changes to the Cell\'s self object, for example:
 
-    ``` python
+    ```python
     import mindspore
     from mindspore import nn
 
@@ -2215,7 +2215,7 @@ shape is (2, 2)
     Note that the self object supports property modification and setting. If no attribute is defined in \'\*\*init\*\*\', aligning with
     PYNATIVE mode, the graph mode also allows this attribute to be set. For example:
 
-    ``` python
+    ```python
     import mindspore
     from mindspore import nn
 
@@ -2245,7 +2245,7 @@ shape is (2, 2)
     Supports property modification of jit_class objects in graph mode,
     such as:
 
-    ``` python
+    ```python
     import mindspore
     from mindspore import nn
 
@@ -2280,7 +2280,7 @@ shape is (2, 2)
 The static graph syntax supported by the extension also supports its use
 in derivation, such as:
 
-``` python
+```python
 import mindspore
 from mindspore import nn, ops
 
@@ -2315,7 +2315,7 @@ tensor_type\[float32\] after -\> indicates the output type of the annotated stat
 
 The code example is as follows.
 
-``` python
+```python
 import mindspore
 from mindspore import nn, ops
 
@@ -2389,7 +2389,7 @@ including:
     related to attribute settings can be included in the graph. For
     example:
 
-``` python
+```python
 import mindspore
 from mindspore import nn
 
@@ -2420,10 +2420,10 @@ net.attr:  [2 3 4]
 
 3\. When constructing graphs based on bytecode, control flow involving
 variable scenarios cannot be included in the graph. For related information on variables, please refer to
-[Variables Generate Scenes](https://www.mindspore.cn/tutorials/en/r2.9.0/compile/static_graph.html#variables-generate-scenes) .
+[Variables Generate Scenes](https://www.mindspore.cn/tutorials/en/r2.9.0/compile/static_graph.html#variables-generate-scenes).
 An example is as follows:
 
-``` python
+```python
 import mindspore
 
 @mindspore.jit(capture_mode="bytecode", fullgraph=True)
