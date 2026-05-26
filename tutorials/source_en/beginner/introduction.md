@@ -34,7 +34,7 @@ The Huawei Atlas AI computing solution is based on the Ascend series AI processo
 
 The Ascend AI full-stack is shown below:
 
-![Ascend full stack](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/source_en/beginner/images/introduction1.png)
+![Ascend full stack](./images/introduction1.png)
 
 The functions of each module are described as follows:
 

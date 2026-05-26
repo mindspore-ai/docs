@@ -3,14 +3,14 @@ set -e
 echo "=============================================================================================================="
 echo "Please run the script as: "
 echo "bash run_shard_function_example.sh RANK_SIZE"
-echo "For example: bash run_fusion_example.sh 8"
+echo "For example: bash run_shard_function_example.sh 8"
 echo "It is better to use the absolute path."
 echo "This example is expected to run on the Ascend environment."
 echo "=============================================================================================================="
 
 if [$# != 1]
 then
-    echo "Usage: bash run_shasrd_function_example.sh RANK_SIZE"
+    echo "Usage: bash run_shard_function_example.sh RANK_SIZE"
 exit 1
 fi
 

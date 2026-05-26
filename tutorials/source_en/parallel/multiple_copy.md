@@ -12,7 +12,7 @@ Usage Scenario: When there is model parallel in semi-automatic mode as well as i
 
 The data of input model is sliced according to the batch size dimension, thus modifying the existing single-copy form into a multi-copy form, so that when the underlying layer is communicating, the other copy carries out the computational operation without waiting, which ensures that the computation and communication times of multi-copy complement each other and improve the model performance. At the same time, splitting the data into a multi-copy form also reduces the number of parameter of the operator inputs and reduces the computation time of a single operator, which is helpful in improving the model performance.
 
-![Multi-copy parallel](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/source_zh_cn/parallel/images/multi_copy.png)
+![Multi-copy parallel](./images/multi_copy.png)
 
 ### Related Interfaces
 
@@ -101,7 +101,7 @@ with no_init_parameters():
 
 ### Training the Network
 
-In this step, we need to define the loss function and the training process, and in this section two interfaces need to be called to configure the gradient accumulation:
+In this step, we need to define the loss function and the training process, and in this section two interfaces need to be called to configure the multi-copy parallel:
 
 - First the LossCell needs to be defined. In this case the [nn.WithLossCell](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.WithLossCell.html) interface is called to wrap the network and loss functions.
 - It is then necessary to wrap a layer of [mindspore.parallel.nn.MicroBatchInterleaved](https://www.mindspore.cn/docs/en/master/api_python/parallel/mindspore.parallel.nn.MicroBatchInterleaved.html) around the LossCell and specify interleave_num size of 2. Refer to the relevant interfaces in the overview of this chapter for more details.
