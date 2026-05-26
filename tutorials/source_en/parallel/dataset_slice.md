@@ -14,9 +14,9 @@ When performing distributed training, taking image data as an example, when the 
 
 2. `dataset_strategy(config=((1, 1, 1, 8), (8,)))`: indicates dataset slicing strategy. For more details, refer to [AutoParallel Parallel Configuration](https://www.mindspore.cn/docs/en/r2.9.0/api_python/parallel/mindspore.parallel.auto_parallel.AutoParallel.html). The `dataset_strategy` interface has the following limitations:
 
-    - Each input is allowed to be sliced in at most one dimension. If `dataset_strategy(config=((1, 1, 1, 8), (8,)))` or `config=((1, 1, 1, 8), (1,))` is supported, each input is sliced in just one dimension at most, but not `config=((1, 1, 4, 2), (1,))`, whose first input is sliced into two dimensions.
+    - Each input is allowed to be sliced in at most one dimension. For example, `dataset_strategy(config=((1, 1, 1, 8), (8,)))` or `config=((1, 1, 1, 8), (1,))` is supported, where each input is sliced in just one dimension at most. However, `config=((1, 1, 4, 2), (1,))` is not supported because its first input is sliced into two dimensions.
 
-    - The input with the highest dimension, the number of slices, must be more than the other dimensions. If `config=((1, 1, 1, 8), (8,))` or `config=((1, 1, 1, 1), (1,))` is supported, the input with the most dimensions is the first one, with the number of slices of 8, and the rest of the inputs have no more than 8 slices, but not `config=((1, 1, 1, 1), (8,))`, whose input with the most dimensions is the first input with a slice of 1, but the second input has a cut of 8, which exceeds the slices of the first input.
+    - The input with the highest dimension must have a number of slices greater than or equal to those of other inputs. For example, `config=((1, 1, 1, 8), (8,))` or `config=((1, 1, 1, 1), (1,))` is supported. The input with the most dimensions is the first one, with 8 slices, and the rest of the inputs have no more than 8 slices. However, `config=((1, 1, 1, 1), (8,))` is not supported because the input with the most dimensions (the first input) has only 1 slice, but the second input has 8 slices, which exceeds the slice count of the first input.
 
 ## Operation Practices
 

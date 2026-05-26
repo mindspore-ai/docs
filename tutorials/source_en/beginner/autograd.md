@@ -55,7 +55,7 @@ print(loss)
 
 ## Differential Functions and Gradient Computing
 
-In order to optimize the model parameters, find the derivatives of loss with respect to the parameters: $\frac{\partial \operatorname{loss}}{\partial w}$ and $\frac{\partial \operatorname{loss}}{\partial b}$. At this point we call the `ops.grad` function to get the differential function of `function`.
+In order to optimize the model parameters, find the derivatives of loss with respect to the parameters: $\frac{\partial \operatorname{loss}}{\partial w}$ and $\frac{\partial \operatorname{loss}}{\partial b}$. At this point we call the `mindspore.grad` function to get the differential function of `function`.
 
 Two input parameters of `grad` function are used here:
 

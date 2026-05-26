@@ -38,7 +38,7 @@ When built-in operators cannot meet requirements during network development, you
      - Provides a unified Custom Primitive that calls user interfaces at various stages of operator execution.
      - Compiles and loads custom operator modules online, which can be directly applied to networks.
    * - Advantages
-     - Supports both Graph and PyNative mode , with operator scheduling and execution processes consistent with built-in operators, ensuring high performance.
+     - Supports both Graph and PyNative mode, with operator scheduling and execution processes consistent with built-in operators, ensuring high performance.
      - Enables operator development based on C++ tensors, offering a more intuitive custom execution process.
    * - Disadvantages
      - Has more interface restrictions, and the operator execution process is not visible to users.

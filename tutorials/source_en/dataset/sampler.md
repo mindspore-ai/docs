@@ -4,7 +4,7 @@
 
 ## Data Loading
 
-Data is the foundation of training. The `mindspore.dataset` module provides APIs for customised loading of datasets, as well as loading classes for public datasets.
+Data is the foundation of training. The `mindspore.dataset` module provides APIs for customized loading of datasets, as well as loading classes for public datasets.
 
 ### Customizing Dataset
 
