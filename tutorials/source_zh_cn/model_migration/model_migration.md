@@ -313,7 +313,7 @@ optimizer(grads)
 ```python
 import mindspore as ms
 from mindspore import nn
-from mindspore.amp import StaticLossScaler, all_finite
+from mindspore.amp import StaticLossScaler
 from mindspore.communication import init, get_group_size
 
 class Trainer:

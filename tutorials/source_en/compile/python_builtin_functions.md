@@ -285,6 +285,8 @@ print("c: ", c)
 print("d: ", d)
 ```
 
+The result is as follows:
+
 ```text
 a:  {}
 b:  {'a': 'a', 'b': 'b', 't': 't'}
@@ -1245,6 +1247,8 @@ print("e: ", e)
 print("f: ", f)
 print("g: ", g)
 ```
+
+The result is as follows:
 
 ```text
 a:  <class 'int'>

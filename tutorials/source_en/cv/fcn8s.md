@@ -28,7 +28,7 @@ The fully convolutional neural network mainly uses the following three technolog
 
     VGG-16 is used as the FCN backbone. The input of VGG-16 is a 224 x 224 RGB image, and the output is 1000 prediction values. VGG-16 accepts only fixed-size input, discards spatial coordinates, and generates non-spatial output. There are three fully-connected layers in total in the VGG-16, and the fully-connected layers may also be considered as convolutions covering an entire region. Converting a fully-connected layer into a convolutional layer can change a network output from a one-dimensional non-spatial output to a two-dimensional matrix, and generate a heatmap mapped to an input image by using the output.
 
-   ![fcn-3](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/source_zh_cn/cv/images/fcn_3.png)
+    ![fcn-3](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/source_zh_cn/cv/images/fcn_3.png)
 
 2. Upsampling
 

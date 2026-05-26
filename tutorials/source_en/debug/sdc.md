@@ -10,7 +10,7 @@ During model training, processors may encounter feature value detection anomalie
 
 ### Solution
 
-The Mindspore framework version 2.7.1 provides a combined detection scheme using feature value and CheckSum, which can more accurately locate silent faults. It samples parameter gradients for feature value detection. When multiple anomalies occur, CheckSum is triggered by a "strike out" mechanism to further locate the faulty device. Users can configure the combined detection through `MS_NPU_ASD_CONFIG`.
+The MindSpore framework version 2.7.1 provides a combined detection scheme using feature value and CheckSum, which can more accurately locate silent faults. It samples parameter gradients for feature value detection. When multiple anomalies occur, CheckSum is triggered by a "strike out" mechanism to further locate the faulty device. Users can configure the combined detection through `MS_NPU_ASD_CONFIG`.
 
 For information on configuring related environment variables, see **Feature Switches and Configuration**.
 

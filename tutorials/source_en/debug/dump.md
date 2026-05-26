@@ -240,7 +240,7 @@ After starting the training, the data objects saved under the Ascend ms_backend 
 - `task_id`: the id of the task.
 - `stream_id`: the id of the stream.
 - `timestamp`: the time stamp.
-- `input_output_index` : the index of input or output. For example, `output_0` means that the file is the data of the first output Tensor of the operator.
+- `input_output_index` : the index of input or output. For example, `output.0` means that the file is the data of the first output Tensor of the operator.
 - `slot`: the id of the slot.
 - `format`: the format of the data.
 - `dtype`: the original data type. When it is `bfloat16`, `int4` or `uint1`, the saved data in the `.npy` file is converted to `float32`, `int8` or `uint8` respectively.
@@ -563,7 +563,7 @@ After starting the training, the data objects saved by the CPU/GPU Dump include 
 - `task_id`: the id of the task.
 - `stream_id`: the id of the stream.
 - `timestamp`: the time stamp.
-- `input_output_index` : the index of input or output. For example, `output_0` means that the file is the data of the first output Tensor of the operator.
+- `input_output_index` : the index of input or output. For example, `output.0` means that the file is the data of the first output Tensor of the operator.
 - `slot`: the id of the slot.
 - `format`: the format of the data.
 - `data_id`: the id of constant data.

@@ -25,7 +25,7 @@ Considering that in actual parallel training, there may be requirements for trai
   
   - `Strategy Selection <https://www.mindspore.cn/tutorials/en/master/parallel/strategy_select.html>`_: Depending on the model size and data volume size, different parallel strategies can be selected to improve training efficiency and resource utilization.
   - `Sharding Techniques <https://www.mindspore.cn/tutorials/en/master/parallel/split_technique.html>`_: The sharding technique refers to the reduction of tensor rearranging to improve training efficiency by manually configuring the sharding strategy for certain key operators.
-  - `Multiply Copy <https://www.mindspore.cn/tutorials/en/master/parallel/multiple_copy.html>`_: Multi-copy refers to splitting a training batch into multiple ones in an iterative step to concurrently communicate and compute the model in parallel and improve resource utilization.
+  - `Multi-copy <https://www.mindspore.cn/tutorials/en/master/parallel/multiple_copy.html>`_: Multi-copy refers to splitting a training batch into multiple ones in an iterative step to concurrently communicate and compute the model in parallel and improve resource utilization.
   - `High Dimension Tensor Parallel <https://www.mindspore.cn/tutorials/en/master/parallel/high_dimension_tensor_parallel.html>`_: High dimension tensor parallelism refers to multi-dimensional slicing of activation and weight tensor for MatMul computation in model parallelism, which reduces the communication amount and improves the training efficiency by optimizing the slicing strategy.
 
 - Memory optimization: memory optimization includes gradient accumulation, recompute, dataset sharding, Host&Device heterogeneity and heterogeneous storage, with the main goal of saving memory space.

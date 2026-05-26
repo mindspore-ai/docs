@@ -52,6 +52,6 @@ This chapter will explain the inference deployment of MindSpore Lite through two
 
 2. Integrated deployment
 
-    By using the [MindSpore Lite inference API](https://www.mindspore.cn/lite/api/en/master/index.html) By completing the model inference integration obtained from the quasi exchange and passing the user inference input data code to the relevant API interface, MindSpore Lite's model inference can be implemented.
+    By using the [MindSpore Lite inference API](https://www.mindspore.cn/lite/api/en/master/index.html) to integrate model inference after conversion and passing the user inference input data to the relevant API interface, MindSpore Lite's model inference can be implemented.
 
-Among them, the reasoning tutorial for the `.ms` model can refer to [Quick Start of End Side Reasoning](https://www.mindspore.cn/lite/docs/en/master/quick_start/one_hour_introduction.html). For the inference tutorial of the `.mindir` model, you can refer to [using Python interface to perform cloud side inference](https://www.mindspore.cn/lite/cloud_docs/en/master/mindir/runtime_python.html).
+Among them, the inference tutorial for the `.ms` model can refer to [Quick Start of End Side Reasoning](https://www.mindspore.cn/lite/docs/en/master/quick_start/one_hour_introduction.html). For the inference tutorial of the `.mindir` model, you can refer to [using Python interface to perform cloud side inference](https://www.mindspore.cn/lite/cloud_docs/en/master/mindir/runtime_python.html).

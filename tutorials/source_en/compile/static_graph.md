@@ -883,7 +883,7 @@ The `key` is unique, and if there are multiple identical `keys` in the dictionar
 #### MindSpore User-defined Data Types
 
 Currently, MindSpore supports the following user-defined data types:
-`Tensor`, `Primitive`, and `Cell`.
+`Tensor`, `Primitive`, `Cell`, and `Parameter`.
 
 ##### Tensor
 

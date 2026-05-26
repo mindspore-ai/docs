@@ -111,7 +111,7 @@ model = Model(net, loss_fn=loss, optimizer=optim)  # Model encapsulation
 
 When the iteration process ends normally, the Checkpoint file of the last step is saved by default.
 
-During model training, the `callbacks` parameter in `Model.train` is used to pass in the `ModelCheckpoint` object for saving the model (used in conjunction with `mindspore.train.CheckpointConfig`), which generates Checkpoint file.
+During model training, the `callbacks` parameter in `Model.train` is used to pass in the `ModelCheckpoint` object for saving the model (used in conjunction with `mindspore.train.CheckpointConfig`), which generates Checkpoint files.
 
 ### User-defined Saved Data
 

@@ -38,7 +38,7 @@ init()
 ms.set_seed(1)
 ```
 
-`gradients_mean=True` is for the fact that during the backward computation, the framework internally aggregates the gradient values of the data parallel parameters scattered across multiple machines to get the global gradient values before passing them into the optimizer for updating. Framework will do the reduce sum for gradient by using `AllReduce(op=ReduceOp.SUM)`, then calculate the mean value in terms of the value of `gradients_mean`. (If it is set to true, the mean value is calculated, otherwise, the mean value is not calculated. Default: False).
+`gradients_mean=True` is for the fact that during the backward computation, the framework internally aggregates the gradient values of the data parallel parameters scattered across multiple machines to get the global gradient values before passing them into the optimizer for updating. The framework will do the reduce sum for gradient by using `AllReduce(op=ReduceOp.SUM)`, then calculate the mean value in terms of the value of `gradients_mean`. (If it is set to true, the mean value is calculated, otherwise, the mean value is not calculated. Default: False).
 
 ## Loading Datasets
 
