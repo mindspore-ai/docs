@@ -67,9 +67,9 @@ def create_dataset(batch_size):
     dataset = dataset.map(image_transforms, 'image')
     dataset = dataset.map(label_transform, 'label')
     # slice image
-    slice_patchs_img_op = ds.vision.SlicePatches(slice_h_num, slice_w_num)
+    slice_patches_img_op = ds.vision.SlicePatches(slice_h_num, slice_w_num)
     img_cols = ['img' + str(x) for x in range(slice_h_num * slice_w_num)]
-    dataset = dataset.map(operations=slice_patchs_img_op, input_columns="image", output_columns=img_cols)
+    dataset = dataset.map(operations=slice_patches_img_op, input_columns="image", output_columns=img_cols)
     dataset = dataset.project([img_cols[get_rank() % (slice_h_num * slice_w_num)], "label"])
     dataset = dataset.batch(batch_size)
     return dataset

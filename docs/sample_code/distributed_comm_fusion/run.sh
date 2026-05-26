@@ -16,4 +16,4 @@ fi
 export DATA_PATH=${EXEC_PATH}/MNIST_Data/train/
 
 msrun --worker_num=8 --local_worker_num=8 --master_addr=127.0.0.1 --master_port=10801 --join=True \
---log_dir=./log_output pytest -s fusion_example_cell.py
+--log_dir=./log_output python fusion_example_cell.py
