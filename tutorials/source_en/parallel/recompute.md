@@ -14,7 +14,7 @@ In order to reduce memory peaks, the recompute technique can not save the comput
 
 The recompute function is implemented as a forward operator that is recomputed according to the user's specified needs, copies the same operator, outputs it to the reverse operator, and deletes the continuous edge relationship between the original forward operator and the reverse operator. In addition, we need to ensure that the copied operator only begins to be evaluated when the corresponding inverse part is computed, so we need to insert control dependencies to ensure the order in which the operators are executed. As shown in the following figure:
 
-![](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.9.0/tutorials/source_zh_cn/parallel/images/recompute_image_0_zh.png)
+![](./images/recompute_image_0.png)
 
 *Figure: Forward and reverse diagram before and after the recompute function is enabled*
 
@@ -22,7 +22,7 @@ For user convenience, MindSpore currently provides not only a recompute interfac
 
 Taking the GPT-3 model as an example, the policy is set to recalculate the cell corresponding to the each layer, and then the output operator of the layer is set to non-recompute. The effect of recompute on the 72-layer GPT-3 network is shown in the following figure:
 
-![](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.9.0/tutorials/source_zh_cn/parallel/images/recompute_image_1_zh.png)
+![](./images/recompute_image_1.png)
 
 *Figure: Comparison of GPT-3 memory usage before and after recalculation function is enabled*
 
