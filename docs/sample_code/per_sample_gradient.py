@@ -25,7 +25,7 @@ def parse_args():
     """
     parser = argparse.ArgumentParser(description="MindSpore calculate per-example gradients!")
     parser.add_argument('--vmap', dest='vmap', action='store_true')
-    parser.add_argument("--data_dir", default="MNIST_Data/", type=str, help="Where dataset is be stored")
+    parser.add_argument("--data_dir", default="MNIST_Data/", type=str, help="Where dataset is stored")
     parser.add_argument("--epochs", default=1, type=int, help="number of total epochs to run")
     parser.add_argument("--lr", default=0.001, type=float, help="the learning rate of model's optimizer")
     parser.add_argument("--momentum", default=0.9, type=float, help="the momentum value of model's optimizer")
@@ -245,7 +245,7 @@ def main():
                   f"loss: {result}, " f"step time: {step_time}")
             step = step + 1
     train_time = time.time() - train_begin_time
-    print(f"Total time: {train_time} ms.")
+    print(f"Total time: {train_time} s.")
 
 if __name__ == "__main__":
     main()

@@ -3,3 +3,5 @@
 "docs/tools/ci_pipeline_gate_APIView"
 "docs/tools/link_detection/link_lint.py"
 "docs/docs/mindformers/docs/source_en/example/convert_ckpt_to_megatron/convert_ckpt_to_megatron/loader_core_mf.py"
+"docs/docs/sample_code/dataset_slice/train.py"
+"docs/docs/sample_code/per_sample_gradient.py"

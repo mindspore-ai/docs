@@ -1,8 +1,8 @@
 #!/bin/bash
 
 echo "=============================================================================================================="
-echo "Please run_advanced.sh the script as: "
-echo "bash run_advanced.sh"
+echo "Please run the script as: "
+echo "bash run_advanced_mint.sh"
 echo "=============================================================================================================="
 
 EXEC_PATH=$(pwd)

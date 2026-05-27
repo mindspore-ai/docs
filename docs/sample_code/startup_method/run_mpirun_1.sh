@@ -2,7 +2,7 @@
 
 echo "=========================================="
 echo "Please run the script as: "
-echo "bash run_dynamic_cluster.sh"
+echo "bash run_mpirun_1.sh"
 echo "==========================================="
 
 EXEC_PATH=$(pwd)

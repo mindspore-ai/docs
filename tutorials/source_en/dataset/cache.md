@@ -1,6 +1,6 @@
 # Single-Node Data Cache
 
-[![View Source On AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.9.0/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/r2.9.0/tutorials/source_en/dataset/cache.md)
+[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.9.0/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/r2.9.0/tutorials/source_en/dataset/cache.md)
 
 Data cache refers to caching a dataset in local memory to speed up the reading of the dataset, and is suitable for scenarios that require multiple accesses to a remote dataset or multiple reads of a dataset from disk.
 
