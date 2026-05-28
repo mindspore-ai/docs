@@ -116,7 +116,6 @@ if (gpu_device_info == nullptr) {
 }
 // GPU uses float16 operator as priority.
 gpu_device_info->SetEnableFP16(true);
-// Set NVIDIA device id, only valid when GPU backend is TensorRT.
 gpu_device_info->SetDeviceID(0);
 // The GPU device context needs to be push_back into device_list to work.
 device_list.push_back(gpu_device_info);
@@ -142,12 +141,6 @@ device_list.push_back(cpu_device_info);
 >   CL_HPP_TARGET_OPENCL_VERSION=120
 >
 >   CL_HPP_MINIMUM_OPENCL_VERSION=120
->
-> - On `x86_64`, the backend of GPU is based on TensorRT. The TensorRT version is 6.0.1.5.
->
->   Whether the attribute `SetEnableFP16` can be set successfully depends on the [CUDA computer capability](https://docs.nvidia.com/deeplearning/tensorrt/support-matrix/index.html#hardware-precision-matrix) of the current device.
->
->   The attribute `SetDeviceID` only valid for TensorRT, used to specify the NVIDIA device ID.
 
 ### Configuring the Kirin NPU Backend
 
@@ -399,8 +392,6 @@ delete model;
 When MindSpore Lite is used for inference, if the input shape needs to be resized, you can call the `Resize` API of [Model](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Model.html#class-model) to resize the shape of the input tensor after a model is created and built.
 
 > Some networks do not support variable dimensions. As a result, an error message is displayed and the model exits unexpectedly. For example, the model contains the MatMul operator, one input tensor of the MatMul operator is the weight, and the other input tensor is the input. If a variable dimension API is called, the input tensor does not match the shape of the weight tensor. As a result, the inference fails.
->
-> When the GPU backend is TensorRT, Resize only valid at dims NHW for NHWC format inputs, resize shape value should not be larger than the model inputs.
 
 The following sample code from [main.cc](https://atomgit.com/mindspore/mindspore-lite/blob/master/mindspore-lite/examples/runtime_cpp/main.cc#L321) demonstrates how to perform Resize on the input tensor of MindSpore Lite:
 

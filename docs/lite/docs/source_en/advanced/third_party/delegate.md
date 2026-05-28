@@ -4,7 +4,7 @@
 
 ## Overview
 
-Delegate of MindSpore Lite is used to support third-party AI frameworks (such as Kirin NPU, TensorRT) to quickly access the inference process in MindSpore Lite. Third-party frameworks can be implemented by users themselves, or other open source frameworks. Generally, the framework has the ability to build model online, that is, multiple operators can be built into a sub-graph and distributed to the device for inference. If the user wants to schedule other inference frameworks through MindSpore Lite, please refer to this article.
+Delegate of MindSpore Lite is used to support third-party AI frameworks (such as Kirin NPU) to quickly access the inference process in MindSpore Lite. Third-party frameworks can be implemented by users themselves, or other open source frameworks. Generally, the framework has the ability to build model online, that is, multiple operators can be built into a sub-graph and distributed to the device for inference. If the user wants to schedule other inference frameworks through MindSpore Lite, please refer to this article.
 
 ## Usage of Delegate
 
