@@ -27,7 +27,7 @@ Modules in MindSpore Lite:
     - [Git](https://git-scm.com/downloads) >= 2.28.0
     - [Android_NDK](https://dl.google.com/android/repository/android-ndk-r20b-linux-x86_64.zip) >= r20
         - Configure environment variables: `export ANDROID_NDK=NDK path`.
-    - [OpenHarmony_NDK](http://ci.openharmony.cn/workbench/cicd/dailybuild/dailylist)
+    - [OpenHarmony_NDK](https://dcp.openharmony.cn/workbench/cicd/dailybuild/dailylist)
         - Download OpenHarmony NDK: Go to OpenHarmony daily build web site, select "modality" as "ohos-sdk", then select any successfully built package to download. After downloading, the files in the unzipped package that begin with 'native' are OpenHarmony NDK.
         - Configure environment variables: `export OHOS_NDK=OHOS NDK path`, `export TOOLCHAIN_NAME=ohos`.
 - Compilation dependency of the Java API module (optional). If the JAVA_HOME environment variable is not set, this module will not be compiled:
