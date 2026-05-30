@@ -17,7 +17,7 @@ MindSpore**动态组网**特性通过**复用Parameter Server模式训练架构*
 | 环境变量 | 功能 | 类型&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | 取值 | 说明 |
 |:---------|:-----|:-----|:-----|:-----|
 | `MS_ROLE` | 指定本进程角色。 | String | <ul><li>MS_SCHED: 代表Scheduler进程，一个训练任务只启动一个Scheduler，负责组网，容灾恢复等，**不会执行训练代码**。</li><li>MS_WORKER: 代表Worker进程，一般设置分布式训练进程为此角色。</li><li>MS_PSERVER: 代表Parameter Server进程，只有在Parameter Server模式下此角色生效。</li></ul> | Worker和Parameter Server进程会向Scheduler进程注册从而完成组网。 |
-| `MS_SCHED_HOST` | 指定Scheduler的IP地址。 | String | 合法的IP地址。 | 当前版本还支持Ascend平台下的IPv6地址。 |
+| `MS_SCHED_HOST` | 指定Scheduler的IP地址。 | String | 合法的IP地址。 | 当前版本还支持Ascend平台下静态图场景的IPv6地址。 |
 | `MS_SCHED_PORT` | 指定Scheduler绑定端口号。 | Integer | 1024～65535范围内的端口号。 |-|
 | `MS_NODE_ID` | 指定本进程的ID，集群内唯一。 | String | 代表本进程的唯一ID，默认由MindSpore自动生成。 | MS_NODE_ID在以下情况需要设置，一般情况下无需设置，由MindSpore自动生成：<ul><li>开启容灾场景：容灾恢复时需要获取当前进程ID，从而向Scheduler重新注册。</li><li>开启GLOG日志重定向场景：为了保证各训练进程日志独立保存，需设置进程ID，作为日志保存路径后缀。</li><li>指定进程rank id场景：用户可通过设置MS_NODE_ID为某个整数，来指定本进程的rank id。</li></ul> |
 | `MS_WORKER_NUM` | 指定角色为MS_WORKER的进程数量。 | Integer | 大于0的整数。 | 用户启动的Worker进程数量应当与此环境变量值相等。若小于此数值，组网失败；若大于此数值，Scheduler进程会根据Worker注册先后顺序完成组网，多余的Worker进程会启动失败。 |
