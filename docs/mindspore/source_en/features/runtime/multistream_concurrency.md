@@ -22,7 +22,7 @@ The principles are as follows:
 
 In order to achieve the above effect of concurrent execution of multiple streams, multi-stream management is an important technique aimed at efficiently managing and scheduling the streams (Streams) on the computing devices to optimize the execution efficiency and resource utilization of the computational graph. Device multi-stream management ensures efficient concurrent execution of computing and communication tasks in a multi-computing resource environment through intelligent stream allocation and scheduling policies, thus improving overall performance.
 
-![stream_manager](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindspore/source_zh_cn/features/runtime/images/stream_manager.png)
+![stream_manager](./images/stream_manager.png)
 
 **Stream Manager** plays a central role. It is responsible for the creation, distribution and destruction of streams, ensuring that each computational task is executed on the appropriate stream. The stream manager schedules tasks to different streams based on the type and priority of the task and the load on the device to achieve optimal resource utilization and task concurrency.
 

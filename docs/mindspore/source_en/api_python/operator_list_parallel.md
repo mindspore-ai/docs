@@ -2,7 +2,7 @@
 
 [![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindspore/source_en/api_python/operator_list_parallel.md)
 
-| API name                                                     | constraints                                                  | Config layout constraints                                                  |
+| API name                                                     | Constraints                                                  | Config layout constraints                                                  |
 | :----------------------------------------------------------- | :----------------------------------------------------------- | :----------------------------------------------------------- |
 | [mindspore.ops.Abs](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.Abs.html) | None                                                         | Not support config layout                                 |
 | [mindspore.ops.ACos](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.ACos.html) | None                                                         | Not support config layout                                 |

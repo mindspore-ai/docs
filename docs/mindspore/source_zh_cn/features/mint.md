@@ -4,7 +4,7 @@
 
 ## 介绍
 
-随着cann推出aclnn类算子，mindspore存量的ops nn等API要进行适配优化，为了不影响原有API的行为同时保证兼容性，我们为此创建一个新的API目录来做这件事，新目录的名字mint的想法来自于linux is not unix。在mindspore.mint下，提供张量创建、计算、神经网络、通信等常用pytorch-like API。本文主要介绍mint类API支持范围和入参区别等。这部分API主要包含张量创建，随机采样，数学计算，神经网络，集群通信类。
+随着CANN推出aclnn类算子，MindSpore存量的ops nn等API要进行适配优化，为了不影响原有API的行为同时保证兼容性，我们为此创建一个新的API目录来做这件事，新目录的名字mint的想法来自于Linux is not Unix。在mindspore.mint下，提供张量创建、计算、神经网络、通信等常用PyTorch-like API。本文主要介绍mint类API支持范围和入参区别等。这部分API主要包含张量创建，随机采样，数学计算，神经网络，集群通信类。
 
 ### 张量创建
 
@@ -22,9 +22,9 @@
 
 #### 当前不支持的参数说明
 
-- `layout`：创建torch tensor时，一般默认layout是stride，即dense tensor。mindspore创建tensor时，默认是dense tensor，与torch 无差异。开发者无需设置。
-- `memory_format`：tensor的内存排布，默认都是NCHW格式。torch 提供channel_last格式即NHWC，在一些场景中，这样会有性能提升，但是泛化性和兼容性需要开发者实际测试和验证。使用mindspore开发，可不设置此参数。
-- `requires_grad`：由于框架自动微分求导机制不同，mindspore在tensor的属性中没有设置此参数。对于是否需要计算梯度，常用的parameter类提供了此参数。如果无需计算梯度，可参考[mindspore.ops.stop_gradient](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.stop_gradient.html)。
+- `layout`：创建PyTorch tensor时，一般默认layout是stride，即dense tensor。MindSpore创建tensor时，默认是dense tensor，与PyTorch无差异。开发者无需设置。
+- `memory_format`：tensor的内存排布，默认都是NCHW格式。PyTorch提供channel_last格式即NHWC，在一些场景中，这样会有性能提升，但是泛化性和兼容性需要开发者实际测试和验证。使用MindSpore开发，可不设置此参数。
+- `requires_grad`：由于框架自动微分求导机制不同，MindSpore在tensor的属性中没有设置此参数。对于是否需要计算梯度，常用的parameter类提供了此参数。如果无需计算梯度，可参考[mindspore.ops.stop_gradient](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.stop_gradient.html)。
 - `out`：指定输出张量，用于原地操作和内存优化。当提供 `out` 参数时，操作结果会直接写入到指定的张量中，而不是创建新的张量。当前未规划支持此参数。
 
 **代码示例**：
@@ -70,7 +70,7 @@ out参数差异参考张量创建。
 
 | torch.mul | mindspore.mint.mul | 说明 |
 |:---: |   :---:  | :---:|
-| `*size` (Tensor...) | `*size` (Tensor...) | 必选 |
+| `input` (Tensor...) | `input` (Tensor...) | 必选 |
 | `other` | `other`| 可选 |
 | `out` | 无 | 可选 |
 
@@ -91,9 +91,9 @@ out参数差异参考张量创建。
 
 ### 神经网络
 
-常用nn类，例如conv2d，参数均一致。
+常用nn类，例如Conv2d，参数均一致。
 
-| torch.conv2d | mindspore.mint.conv2d | 说明 |
+| torch.nn.Conv2d | mindspore.mint.nn.Conv2d | 说明 |
 |:---: |   :---:  | :---:|
 | `in_channels` (int) | `in_channels` (int) | 必选 |
 | `out_channels`(int) | `out_channels`(int) | 必选 |
@@ -121,8 +121,8 @@ dilation = (3, 1)
 - input = torch.rand(20,16,50,100)
 + input = mindspore.mint.rand(20,16,50,100)
 
-- model = torch.conv2d(16,33,(3,5),stride=(2, 1), padding=(4, 2), dilation=(3, 1))
-+ model = mindspore.mint.conv2d(16,33,(3,5),stride=(2, 1), padding=(4, 2), dilation=(3, 1))
+- model = torch.nn.Conv2d(16,33,(3,5),stride=(2, 1), padding=(4, 2), dilation=(3, 1))
++ model = mindspore.mint.nn.Conv2d(16,33,(3,5),stride=(2, 1), padding=(4, 2), dilation=(3, 1))
 
 output = model(input)
 ```
@@ -131,10 +131,10 @@ output = model(input)
 
 | API  | Args  |
 | :--- | :--- |
-| torch.nn.functional_dropout2d | input, p=0.5, training=True, inplace=False |
-| mindspore.mint.nn.functional_dropout2d | input, p=0.5, training=True|
+| torch.nn.functional.dropout2d | input, p=0.5, training=True, inplace=False |
+| mindspore.mint.nn.functional.dropout2d | input, p=0.5, training=True|
 
-torch废弃的参数，不支持，例如：
+PyTorch废弃的参数，不支持，例如：
 
 | torch.nn.MSELoss | 是否废弃 | mindspore.nn.MSELoss | 说明 |
 |:---: |  :--- |  :---:  | :---:|
@@ -148,7 +148,7 @@ torch废弃的参数，不支持，例如：
 
 | torch.distributed.all_gather | mindspore.mint.distributed.all_gather | 说明 |
 |:---: |   :---:  | :---:|
-| `tensor_list` (list[Tensor]) | `tensor_list` (list(Tensor)) | 必选 |
+| `tensor_list` (list[Tensor]) | `tensor_list` (list[Tensor]) | 必选 |
 | `tensor`(Tensor) | `tensor`(Tensor) | 可选 |
 | `group`(ProcessGroup) | `group` (ProcessGroup) | 可选 |
 | `async_op` (bool) | `async_op` (bool) | 可选 |

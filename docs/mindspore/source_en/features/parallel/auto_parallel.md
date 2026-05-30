@@ -7,7 +7,7 @@ The auto-parallel mode allows the user to automatically build the cost model and
 - Sharding Strategy Propagation Algorithm: propagation of parallel strategy from operators configured with parallel strategy to operators not configured. When propagating, the algorithm tries to pick the strategy that triggers the least amount of tensor rearranging communication.
 - Double Recursive Strategy Search Algorithm: Its cost model based on symbolic operations can be freely adapted to different accelerator clusters, and can generate optimal strategy fast for huge networks and large-scale multi-card slicing.
 
-Automatic Parallel Strategy Search is the strategy search algorithm based on the operator-level model parallel, and to understand the principles, it is first necessary to understand the basic concepts in MindSpore operator-level parallel: distributed operators, tensorarranging, and tensor rearranging. Operator-level parallel is an implementation of Single Program Multiple Data (SPMD). The same programis executed on different data slices.
+Automatic Parallel Strategy Search is the strategy search algorithm based on the operator-level model parallel, and to understand the principles, it is first necessary to understand the basic concepts in MindSpore operator-level parallel: distributed operators, tensor arranging, and tensor rearranging. Operator-level parallel is an implementation of Single Program Multiple Data (SPMD). The same program is executed on different data slices.
 
 MindSpore converts a stand-alone version of a program into a parallel version. The conversion is fine-grained, replacing each operator in the stand-alone version of the program with a distributed operator, while ensuring that the replacement is mathematically equivalent.
 
@@ -45,7 +45,7 @@ For two operators with data dependency (i.e., the output tensor of one operator 
 
 Given two inconsistent tensor arrangements of the same tensor, tensor rearrangement is able to convert the source arrangement to the destination arrangement while ensuring that the communication cost incurred by the conversion is minimized. The communication cost here refers to the amount of data communicated by each device.
 
-Taking two matrix multiplication operators as an example: Z = MatMul(X, W), O = MatMul(Z, Y). In order to make the tensor rearrangement work,the two matrix multiplication operators are configured with different sharding strategies that make the arrangement of tensor Z inconsistent. In the figure (a) below, the output tensor Z of the first matrix multiplication operator is sliced by rows, however, the second matrix multiplication operator requires the tensor Z to be complete, so the tensor rearrangement infers that the AllGather operator needs to be inserted here to complete the conversion <sup>[1]</sup>. In figure (b) below, the output tensor Z of the first matrix multiplication operator is sliced by rows, however, the second matrix multiplication operator requires that the tensor Z is sliced by columns, so the tensor rearrangement deduces that the AllToAll operator needs to be inserted here to complete the conversion.
+Taking two matrix multiplication operators as an example: Z = MatMul(X, W), O = MatMul(Z, Y). In order to make the tensor rearrangement work, the two matrix multiplication operators are configured with different sharding strategies that make the arrangement of tensor Z inconsistent. In the figure (a) below, the output tensor Z of the first matrix multiplication operator is sliced by rows, however, the second matrix multiplication operator requires the tensor Z to be complete, so the tensor rearrangement infers that the AllGather operator needs to be inserted here to complete the conversion <sup>[1]</sup>. In figure (b) below, the output tensor Z of the first matrix multiplication operator is sliced by rows, however, the second matrix multiplication operator requires that the tensor Z is sliced by columns, so the tensor rearrangement deduces that the AllToAll operator needs to be inserted here to complete the conversion.
 
 ![image](./images/tensor_redistribution.png)
 
@@ -98,7 +98,7 @@ The double recursive strategy search algorithm is a fully automatic operator-lev
 
 There are two core shortcomings of traditional automatic operator-level strategy search.
 
-1. The exponential slicing entail a large search space and traversing these potential search space is time-consuming.
+1. The exponential slicing entails a large search space and traversing these potential search space is time-consuming.
 2. It is necessary to conduct profiling in order to construct cost model and analyze different sharding strategies. However, profiling and analyzing profiling results will cost extra time.
 
 For the first problem, the double recursive strategy search algorithm summarizes its symmetric multi-order characteristics by abstracting the AI training cluster, so it can equivalently perform a recursive dichotomy to compress the search space due to the number of devices; on the other hand, the double recursive strategy search algorithm categorizes the communication cost of operators, compares the communication cost within the operators as well as the cost of rearrangement of the operators, and compresses the exponentially complex search complexity to a linear one by ranking the weights of the operators.

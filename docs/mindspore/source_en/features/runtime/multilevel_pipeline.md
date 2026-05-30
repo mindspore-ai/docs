@@ -6,7 +6,7 @@
 
 Runtime scheduling for an operator mainly includes the operations InferShape (including updating the shape), Resize (including tiling calculation and updating the memory size) and Launch (including memory request and release), which can only be sent to the device (NPU/GPU) after the host completes these operations. When the host processing speed can not keep up with the operator's device execution time, the device side will produce bubbles, resulting in the device arithmetic can not be maximized to use, affecting the overall performance. For this reason, MindSpore proposed a multi-stage runtime streaming issued to take full advantage of the resources of the host multi-threaded. These operations of host are disassembled into separate operation units and issued in a stream, which greatly improves the efficiency of host issuance.
 
-![rt_running](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindspore/source_zh_cn/features/runtime/images/rt_running.png)
+![rt_running](./images/rt_running.png)
 
 ## Basic Principle
 

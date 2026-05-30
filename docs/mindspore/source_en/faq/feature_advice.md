@@ -28,7 +28,7 @@ A: Compare through the following four aspects:
 
 - In terms of application scenarios: Graph mode requires the network structure to be built at the beginning, and then the framework performs entire graph optimization and execution. This mode is suitable to scenarios where the network is fixed and high performance is required.
 
-- In term of different hardware (such as `Ascend`, `GPU`, and `CPU`) resources: the two modes are supported.
+- In terms of different hardware (such as `Ascend`, `GPU`, and `CPU`) resources: the two modes are supported.
 
 - In terms of code debugging: since operators are executed line by line in PyNative mode, you can directly debug the Python code and view the `/api` output or execution result of the corresponding operator at any breakpoint in the code. In Graph mode, the network is built but not executed in the constructor function. Therefore, you cannot obtain the output of the corresponding operator at breakpoints in the `construct` function. You can only specify operators and print their output results, and then view the results after the network execution is completed.
 
@@ -36,21 +36,21 @@ A: Compare through the following four aspects:
 
 <br/>
 
-### Q: Does MindSpore run only on Huawei `Ascend`?
+### Q: Can a network script trained on GPU using MindSpore be directly used for training on Ascend without modification?
 
-A: MindSpore supports Huawei `Ascend`, `GPUs`, and `CPUs`, and supports heterogeneous computing.
+A: Yes. MindSpore provides unified APIs for Ascend/GPU/CPU. With operator support, network scripts can run across platforms without modification.
 
 <br/>
 
 ### Q: If MindSpore and PyTorch are installed in an environment, can the syntax of the two frameworks be used together in a Python file?
 
-A: You can use the two frameworks in a python file. Pay attention to the differences between types. For example, the tensor types created by the two frameworks are different, but the basic types of Python are general.
+A: You can use the two frameworks in a Python file. Pay attention to the differences between types. For example, the tensor types created by the two frameworks are different, but the basic types of Python are general.
 
 <br/>
 
 ### Q: Can MindSpore read a ckpt file of TensorFlow?
 
-A: The formats of  `ckpt` of MindSpore and `ckpt` of TensorFlow are not generic. Although both use the `Protocol` Buffers, the definition of `proto` are different. Currently, MindSpore cannot read the TensorFlow or Pytorch `ckpt` files.
+A: The formats of  `ckpt` of MindSpore and `ckpt` of TensorFlow are not generic. Although both use the `Protocol` Buffers, the definitions of `proto` are different. Currently, MindSpore cannot read the TensorFlow or Pytorch `ckpt` files.
 
 <br/>
 
@@ -60,9 +60,9 @@ A: Atlas 200/300/500 inference product requires a dedicated OM model. Use MindSp
 
 <br/>
 
-### Q: Does MindSpore only be run on Huawei own `Ascend`?
+### Q: Does MindSpore run only on Huawei's own `Ascend`?
 
-A: MindSpore supports Huawei's own `Ascend` in addition to `GPU` and `CPU`, which is support for heterogeneous computing power.
+A: MindSpore supports Huawei's own `Ascend` in addition to `GPU` and `CPU`, which supports heterogeneous computing power.
 
 <br/>
 
@@ -72,9 +72,9 @@ A: Due to hardware limitations of Protobuf, when exporting to ONNX formats, the 
 
 <br/>
 
-### Q: Does MindSpore have any plan on supporting heterogeneous computing hardwares?
+### Q: Does MindSpore have any plan on supporting heterogeneous computing hardware?
 
-A: MindSpore provides pluggable device management interface, so that developer could easily integrate other types of heterogeneous computing hardwares (like FPGA) to MindSpore. We welcome more backend support in MindSpore from the community.
+A: MindSpore provides pluggable device management interface, so that developer could easily integrate other types of heterogeneous computing hardware (like FPGA) to MindSpore. We welcome more backend support in MindSpore from the community.
 
 <br/>
 
@@ -140,4 +140,4 @@ A: NPU refers to a dedicated processor for neural network algorithms. Different 
 
 ### Q: What if I get stuck in model encryption process?
 
-A: First, figure out if the problem is due to the model size it self. As encryption usually costs time, we can estimate the expected time for encryption stage using model size and encryption speed of our machine. If the cost is far more than the expected time, we should consider the problem with secure random number generation by checking the status of system entropy pool. Using Linux as an example, we first query the system entropy threshold by executing `cat /proc/sys/kernel/random/read_wakeup_threshold`. Then we query the number of the currently available entropy using `cat /proc/sys/kernel/random/entropy_avail`. If the number of the currently available entropy is always smaller than system entropy threshold, we can confirm that the problem is caused by the lack of system entropy. In this case, we suggest launching the system entropy gathering and expansion service like `haveged`, in order to accelerate the update speed of system entropy pool.
+A: First, figure out if the problem is due to the model size itself. As encryption usually costs time, we can estimate the expected time for encryption stage using model size and encryption speed of our machine. If the cost is far more than the expected time, we should consider the problem with secure random number generation by checking the status of system entropy pool. Using Linux as an example, we first query the system entropy threshold by executing `cat /proc/sys/kernel/random/read_wakeup_threshold`. Then we query the number of the currently available entropy using `cat /proc/sys/kernel/random/entropy_avail`. If the number of the currently available entropy is always smaller than system entropy threshold, we can confirm that the problem is caused by the lack of system entropy. In this case, we suggest launching the system entropy gathering and expansion service like `haveged`, in order to accelerate the update speed of system entropy pool.

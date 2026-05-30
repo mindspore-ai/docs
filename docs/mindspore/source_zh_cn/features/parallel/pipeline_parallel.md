@@ -54,7 +54,7 @@ MindSpore的流水线并行实现了对执行序进行调整，来达到更优�
 
 为了提升流水线并行的效率，减少Bubble的占比，Megatron-LM提出了一种新的流水线并行调度策略：“interleaved pipeline”。传统的流水线并行通常会在一个stage上放置几个连续的模型层（如：Transformer层），如图3所示。而在interleaved pipeline调度中，每个stage会对非连续的模型层进行交错式的计算，以更多的通信量来进一步降低Bubble的占比，如图4所示。例如：传统流水线并行每个stage有2个模型层，即：stage0有第0-1层，stage1有第2-3层，stage2有第4-5层，stage3有第6-7层；在interleaved pipeline中，stage0有第0层和第4层，stage1有第1层和第5层，stage2有第2层和第6层，stage3有第3层和第7层。
 
-![mpp2.png](images/megatron.png)
+![interleaved pipeline](images/megatron.png)
 
 *图4:  interleaved pipeline调度*
 

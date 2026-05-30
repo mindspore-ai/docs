@@ -6,7 +6,7 @@ Mixed precision training refers to an operation policy in which different numeri
 
 ## Mechanism
 
-Floating-point data types include double-precision (FP64), single-precision (FP32), half-precision (FP16), and brain floating point (BF16). Each of them is represented by a sign bit, an exponent bit, and a floating-point bit. FP64 indicates that 8 bytes (64 bits) are used. FP32 indicates that 4 bytes (32 bits) are used. FP16 and BF16 indicate that 2 bytes (16 bits) are used. For details, see the following figure.
+Floating-point data types include double-precision (FP64), single-precision (FP32), half-precision (FP16), and brain floating point (BF16). Each of them is represented by a sign bit, exponent bits, and mantissa bits. FP64 indicates that 8 bytes (64 bits) are used. FP32 indicates that 4 bytes (32 bits) are used. FP16 and BF16 indicate that 2 bytes (16 bits) are used. For details, see the following figure.
 
 ![fp16-vs-fp32](./images/fp16_vs_fp32.png)
 

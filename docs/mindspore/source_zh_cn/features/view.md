@@ -230,5 +230,5 @@ view failed: The tensor is not contiguous. You can call .contiguous() to get a c
 | **对象数量** | 创建一个新的Tensor对象，与原始对象共享数据 | 不创建新对象，在原始对象上修改 |
 | **核心目的** | 高效地以不同“视角”访问数据 | 节省内存，在原数据上直接计算和更新 |
 
-关于更多view inplace特性的用法，请参考下面的文档：
-参考[view inplace](https://atomgit.com/mindspore/docs/blob/master/tutorials/source_zh_cn/compile/static_graph.md#view%E5%92%8Cin-place%E5%8A%9F%E8%83%BD)
+关于更多View和Inplace特性的用法，请参考下面的文档：
+参考[教程](https://www.mindspore.cn/tutorials/zh-CN/master/compile/static_graph.html#view%E5%92%8Cin-place%E5%8A%9F%E8%83%BD)

@@ -40,7 +40,7 @@ A: 可以参考如下几个步骤来降低CPU占用，进一步提升性能，�
 
 ### Q: 在`GeneratorDataset`中，看到有参数`shuffle`，在跑任务时发现`shuffle=True`和`shuffle=False`，两者没有区别，这是为什么？
 
-A: 开启`shuffle`，需要传入的`Dataset`是支持随机访问的（例如自定义的`Dataset`有`getitem`方法），如果是在自定义的`Dataset`里面通过`yeild`方式返回回来的数据，是不支持随机访问的，具体可查看[GeneratorDataset 示例](https://www.mindspore.cn/docs/zh-CN/master/api_python/dataset/mindspore.dataset.GeneratorDataset.html)章节。
+A: 开启`shuffle`，需要传入的`Dataset`是支持随机访问的（例如自定义的`Dataset`有`getitem`方法），如果是在自定义的`Dataset`里面通过`yield`方式返回回来的数据，是不支持随机访问的，具体可查看[GeneratorDataset 示例](https://www.mindspore.cn/docs/zh-CN/master/api_python/dataset/mindspore.dataset.GeneratorDataset.html)章节。
 
 <br/>
 
@@ -69,7 +69,7 @@ A: 自定义数据集`GeneratorDataset`不支持`PKSampler`采样逻辑。主要
 
 ### Q: MindSpore如何加载已有的预训练词向量？
 
-A: 可以在定义EmbedingLookup或者Embedding时候，把预训练的词向量传进来，把预训练的词向量封装成一个Tensor作为EmbeddingLookup初始值。
+A: 可以在定义EmbeddingLookup或者Embedding时候，把预训练的词向量传进来，把预训练的词向量封装成一个Tensor作为EmbeddingLookup初始值。
 
 <br/>
 
@@ -90,19 +90,19 @@ data['label'] = 1
 
 f = open("1.jpg", "rb")
 image_bytes = f.read()
-f.close
+f.close()
 
 data['data1'] = image_bytes
 
 f2 = open("2.jpg", "rb")
 image_bytes2 = f2.read()
-f2.close
+f2.close()
 
 data['data2'] = image_bytes2
 
 f3 = open("3.jpg", "rb")
 image_bytes3 = f3.read()
-f3.close
+f3.close()
 
 data['data3'] = image_bytes3
 
@@ -197,7 +197,7 @@ A: 首先上述报错指的是通过训练数据下发通道（TDT，train data 
 
         ```python
         ...
-        dataset = dataset.create_tuple_iteator(num_epochs=-1) # 此处如果要返回一个迭代器则num_epochs应该给1，但建议直接返回dataset
+        dataset = dataset.create_tuple_iterator(num_epochs=-1) # 此处如果要返回一个迭代器则num_epochs应该给1，但建议直接返回dataset
         return dataset
         ```
 
@@ -237,7 +237,7 @@ dataset2 = dataset1.map(***)
 dataset3 = dataset1.map(***)
 ```
 
-正确的写法如下所示，dataset3是由dataset2进性数据增强得到的，而不是在dataset1基础上进行数据增强操作得到。
+正确的写法如下所示，dataset3是由dataset2进行数据增强得到的，而不是在dataset1基础上进行数据增强操作得到。
 
 ```python
 dataset2 = dataset1.map(***)
@@ -324,8 +324,8 @@ A: 传入GeneratorDataset的自定义Dataset，在接口内部（如`__getitem__
     ```python
     # 依据上面的用例，对__getitem__函数可进行如下修改，直接返回Decode之后的数据，此后可以不需要通过map执行Decode操作
     def __getitem__(self, index):
-        # use Image.Open to open file, and convert to RGC
-        img_rgb = Image.Open(self.data[index]).convert("RGB")
+        # use Image.open to open file, and convert to RGB
+        img_rgb = Image.open(self.data[index]).convert("RGB")
         return (img_rgb, )
     ```
 

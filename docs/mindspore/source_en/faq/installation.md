@@ -129,7 +129,7 @@ A: It's probably due to the lack of shared libraries in current Python environme
 
 ### Q: How to change installation directory of the third party libraries?
 
-A: The third party library packages will be installed in build/mindspore/.mslib, and you can change the installation directory by setting the environment variable MSLIBS_CACHE_PATH, eg. `export MSLIBS_CACHE_PATH = ~/.mslib`.
+A: The third party library packages will be installed in build/mindspore/.mslib, and you can change the installation directory by setting the environment variable MSLIBS_CACHE_PATH, eg. `export MSLIBS_CACHE_PATH=~/.mslib`.
 
 <br/>
 
@@ -174,7 +174,7 @@ A: Currently, MindSpore only provides version matching relationships, which requ
 
 <br/>
 
-### Q: What should I do when the error message `No module named 'mindspore.version` is displayed when the use case is executed?
+### Q: What should I do when the error message `No module named 'mindspore.version'` is displayed when the use case is executed?
 
 A: When there is such an error, it is possible to execute a use case in the path that created the same name as the MindSpore installation package, causing Python to preferentially find the current directory when importing the package, and the current directory does not version.py the file. The solution is to rename the directory or exit the one- or multi-level directory upwards.
 
