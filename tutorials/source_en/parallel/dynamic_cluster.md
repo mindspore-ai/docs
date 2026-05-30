@@ -40,7 +40,7 @@ The relevant environment variables:
         <td align="left">Specifies the IP address of the Scheduler.</td>
         <td align="left" style="white-space:nowrap">String</td>
         <td align="left">Legal IP address.</td>
-        <td align="left">IPv6 addresses are only supported on `Ascend` platform in current version.</td>
+        <td align="left">IPv6 addresses are only supported in graph mode on the `Ascend` platform in the current version.</td>
     </tr>
     <tr>
         <td align="left" style="white-space:nowrap">MS_SCHED_PORT</td>
