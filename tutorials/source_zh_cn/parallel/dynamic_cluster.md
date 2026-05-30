@@ -40,7 +40,7 @@ MindSpore**动态组网**特性通过**复用Parameter Server模式训练架构*
         <td align="left">指定Scheduler的IP地址。</td>
         <td align="left" style="white-space:nowrap">String</td>
         <td align="left">合法的IP地址。</td>
-        <td align="left">当前版本还支持Ascend平台下的IPv6地址。</td>
+        <td align="left">当前版本还支持Ascend平台下静态图场景的IPv6地址。</td>
     </tr>
     <tr>
         <td align="left" style="white-space:nowrap">MS_SCHED_PORT</td>
