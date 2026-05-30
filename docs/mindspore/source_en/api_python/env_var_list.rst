@@ -546,7 +546,7 @@ Distributed Parallel
      - Specifies the IP address of the Scheduler.
      - String
      - Legal IP address.
-     - The current version does not support IPv6 addresses.
+     - IPv6 addresses are supported in graph mode.
    * - MS_SCHED_PORT
      - Specifies the Scheduler binding port number.
      - Integer
