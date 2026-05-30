@@ -61,7 +61,7 @@
 |[mindspore.CTCLossV2](https://www.mindspore.cn/docs/zh-CN/r2.9.0/api_python/ops/mindspore.ops.CTCLossV2.html)|✔️|✔️|✔️|
 |[mindspore.Cummax](https://www.mindspore.cn/docs/zh-CN/r2.9.0/api_python/ops/mindspore.ops.Cummax.html)|❌|✔️|✔️|
 |[mindspore.Cummin](https://www.mindspore.cn/docs/zh-CN/r2.9.0/api_python/ops/mindspore.ops.Cummin.html)|✔️|✔️|✔️|
-|[mindspore.CumSum](https://www.mindspore.cn/docs/zh-CN/r2.9.0/api_python/ops/mindspore.ops.CumSum.html)|✔️|✔️|️❌|
+|[mindspore.CumSum](https://www.mindspore.cn/docs/zh-CN/r2.9.0/api_python/ops/mindspore.ops.CumSum.html)|✔️|✔️|❌|
 |[mindspore.Diag](https://www.mindspore.cn/docs/zh-CN/r2.9.0/api_python/ops/mindspore.ops.Diag.html)|✔️|✔️|✔️|
 |[mindspore.Digamma](https://www.mindspore.cn/docs/zh-CN/r2.9.0/api_python/ops/mindspore.ops.Digamma.html)|❌|✔️|✔️|
 |[mindspore.Div](https://www.mindspore.cn/docs/zh-CN/r2.9.0/api_python/ops/mindspore.ops.Div.html)|✔️|✔️|✔️|

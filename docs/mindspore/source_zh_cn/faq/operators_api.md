@@ -110,11 +110,15 @@ A: 解决方案如下：
 具体代码：
 
 ```python
-set_context(mode=GRAPH_MODE)
-mindspore.set_device("Ascend")
-input_tensor=Tensor(np.array([[2,2],[2,2]]),mindspore.float32)
-expand_dims=ops.ExpandDims()
-output=expand_dims(input_tensor,0)
+import numpy as np
+import mindspore as ms
+from mindspore import ops, Tensor
+
+ms.set_context(mode=ms.GRAPH_MODE)
+ms.set_device("Ascend")
+input_tensor = Tensor(np.array([[2, 2], [2, 2]]), ms.float32)
+expand_dims = ops.ExpandDims()
+output = expand_dims(input_tensor, 0)
 ```
 
 A: 这边的问题是选择了Graph模式却使用了PyNative的写法，所以导致报错，MindSpore支持两种运行模式，在调试或者运行方面做了不同的优化:

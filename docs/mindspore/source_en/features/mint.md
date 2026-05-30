@@ -4,7 +4,7 @@
 
 ## Overview
 
-With the introduction of aclnn-class operators in cann, existing MindSpore APIs like ops and nn require adaptation and optimization. To preserve the behavior of existing APIs while ensuring compatibility, we have created a new API directory for this purpose. The name "mint" for this directory draws inspiration from the Linux motto "Linux is not unix". Under mindspore.mint, common pytorch-like APIs are provided for tensor creation, computation, neural networks, communication, and more. This article primarily introduces the scope of support for mint-class APIs and differences in input parameters. This set of APIs mainly includes tensor creation, random sampling, mathematical computation, neural networks, and cluster communication classes.
+With the introduction of aclnn-class operators in cann, existing MindSpore APIs like ops and nn require adaptation and optimization. To preserve the behavior of existing APIs while ensuring compatibility, we have created a new API directory for this purpose. The name "mint" for this directory draws inspiration from the Linux motto "Linux is not Unix". Under mindspore.mint, common pytorch-like APIs are provided for tensor creation, computation, neural networks, communication, and more. This article primarily introduces the scope of support for mint-class APIs and differences in input parameters. This set of APIs mainly includes tensor creation, random sampling, mathematical computation, neural networks, and cluster communication classes.
 
 ### Tensor Creation
 
@@ -22,7 +22,7 @@ Let's examine the key differences using the API empty:
 
 #### Description of Currently Unsupported Parameters
 
-- `layout`: When torch creates a tensor, the default layout is typically stride, i.e, a dense tensor. When MindSpore creates a tensor, the default is also a dense tensor, identical to torch. Developers do not need to set this.
+- `layout`: When torch creates a tensor, the default layout is typically stride, i.e., a dense tensor. When MindSpore creates a tensor, the default is also a dense tensor, identical to torch. Developers do not need to set this.
 - `memory_format`: The default memory layout for tensors is NCHW format. Torch provides the channel_last format (NHWC), which may offer performance improvements in certain scenarios. However, developers should conduct actual testing and verification to ensure its generalizability and compatibility. When developing with MindSpore, this parameter does not need to be set.
 - `requires_grad`: Due to differences in the framework's automatic differentiation mechanism, MindSpore does not include this parameter in its Tensor attributes. For determining whether gradient computation is required, the commonly used parameter class provides this parameter. If gradient computation is unnecessary, refer to [mindspore.ops.stop_gradient](https://www.mindspore.cn/docs/en/r2.9.0/api_python/ops/mindspore.ops.stop_gradient.html).
 - `out`: Specify the output tensor for in-place operations and memory optimization. When the `out` parameter is provided, the operation result is written directly to the specified tensor instead of creating a new one. Support for this parameter is currently not planned.
@@ -70,7 +70,7 @@ All basic arithmetic operations are now supported. For example, the multiplicati
 
 | torch.mul | mindspore.mint.mul | Explanation |
 |:---: |   :---:  | :---:|
-| `*size` (Tensor...) | `*size` (Tensor...) | Required |
+| `input` (Tensor...) | `input` (Tensor...) | Required |
 | `other` | `other`| Optional |
 | `out` | - | Optional |
 
@@ -91,9 +91,9 @@ The parameters currently unsupported by computational ops are similar to those f
 
 ### Neural Network
 
-Common nn classes, such as conv2d, share identical parameters.
+Common nn classes, such as Conv2d, share identical parameters.
 
-| torch.conv2d | mindspore.mint.conv2d | Explanation |
+| torch.nn.Conv2d | mindspore.mint.nn.Conv2d | Explanation |
 |:---: |   :---:  | :---:|
 | `in_channels` (int) | `in_channels` (int) | Required |
 | `out_channels`(int) | `out_channels`(int) | Required |
@@ -121,8 +121,8 @@ dilation = (3, 1)
 - input = torch.rand(20,16,50,100)
 + input = mindspore.mint.rand(20,16,50,100)
 
-- model = torch.conv2d(16,33,(3,5),stride=(2, 1), padding=(4, 2), dilation=(3, 1))
-+ model = mindspore.mint.conv2d(16,33,(3,5),stride=(2, 1), padding=(4, 2), dilation=(3, 1))
+- model = torch.nn.Conv2d(16,33,(3,5),stride=(2, 1), padding=(4, 2), dilation=(3, 1))
++ model = mindspore.mint.nn.Conv2d(16,33,(3,5),stride=(2, 1), padding=(4, 2), dilation=(3, 1))
 
 output = model(input)
 ```
@@ -131,12 +131,12 @@ Functions containing the `inplace` parameter are not yet fully supported. For ex
 
 | API  | Args  |
 | :--- | :--- |
-| torch.nn.functional_dropout2d | input, p=0.5, training=True, inplace=False |
-| mindspore.mint.nn.functional_dropout2d | input, p=0.5, training=True|
+| torch.nn.functional.dropout2d | input, p=0.5, training=True, inplace=False |
+| mindspore.mint.nn.functional.dropout2d | input, p=0.5, training=True|
 
 Deprecated parameters in Torch are not supported, for example:
 
-| torch.nn.MSELoss | Discontinued or not | mindspore.nn.MSELoss | Explanation |
+| torch.nn.MSELoss | Deprecated | mindspore.nn.MSELoss | Explanation |
 |:---: |  :--- |  :---:  | :---:|
 | `size_average`  | yes  | N.A | Not supported |
 | `reduce`  | yes  | N.A | Not supported |
@@ -148,7 +148,7 @@ Common operations such as `all_gather`, `all_reduce`, and `all_to_all` are now s
 
 | torch.distributed.all_gather | mindspore.mint.distributed.all_gather | Explanation |
 |:---: |   :---:  | :---:|
-| `tensor_list` (list[Tensor]) | `tensor_list` (list(Tensor)) | Required |
+| `tensor_list` (list[Tensor]) | `tensor_list` (list[Tensor]) | Required |
 | `tensor`(Tensor) | `tensor`(Tensor) | Optional |
 | `group`(ProcessGroup) | `group` (ProcessGroup) | Optional |
 | `async_op` (bool) | `async_op` (bool) | Optional |

@@ -646,7 +646,7 @@ class ParamNet(Cell):
 
     def construct(self):
         out1 = self.res1[0] + self.res1[1]
-        out2 = self.param_tuple[0] + self.param_tuple[1] + self.param_list[0] + self.param_listp[1]
+        out2 = self.param_tuple[0] + self.param_tuple[1] + self.param_list[0] + self.param_list[1]
         return out1, out2
 
 

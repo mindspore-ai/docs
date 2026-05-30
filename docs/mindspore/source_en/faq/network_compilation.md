@@ -12,7 +12,7 @@ A: Static graph mode can support a subset of common Python syntax to support the
 
 ### Q: What can I do if an error "'self.xx' should be initialized as a 'Parameter' type in the '`__init__`' function" is reported?
 
-A: If you want to assign for a class member such as `self.xx` in the function `construct`, `self.xx` must have been defined as a [Parameter](<https://www.mindspore.cn/docs/en/r2.9.0/api_python/mindspore/mindspore.Parameter.html>) type in the `__init__` function while the other types are not supported. But the local variable `xx` is not under the regulation.
+A: If you want to assign for a class member such as `self.xx` in the function `construct`, `self.xx` must have been defined as a [Parameter](https://www.mindspore.cn/docs/en/r2.9.0/api_python/mindspore/mindspore.Parameter.html) type in the `__init__` function while the other types are not supported. But the local variable `xx` is not under the regulation.
 
 <br/>
 
@@ -210,7 +210,7 @@ For example:
        In file /home/workspace/mindspore/build/package/mindspore/train/dataset_helper.py(98)/        return self.network(*outputs)/
     ```
 
-    The code call stack of the first separator points to 'x = self.bn1(x)' on line 265 in the network script file, and the code call stack of the second separator points to 'x = self.bn1(x)' in line 266 of the network script file. It can be seen that the operator FusionOp_BNTrainingUpdate_ReLUV2 is a fusion of these two lines of code.
+    The code call stack of the first separator points to 'x = self.bn1(x)' on line 265 in the network script file, and the code call stack of the second separator points to 'x = self.relu(x)' in line 266 of the network script file. It can be seen that the operator FusionOp_BNTrainingUpdate_ReLUV2 is a fusion of these two lines of code.
 
 - The operator Conv2DBackpropFilter reported an error and printed the following code:
 
@@ -232,7 +232,7 @@ For example:
 
 ### Q: Why does screen print `Start compiling and it will take a while. Please wait...` and `End compiling.` when running?
 
-A: When accelerated execution is required, MindSpore will convert Python source code into a function-style IR based on graph representation and do dome optimizations. This process is also known as the compilation process. When printing "Start compiling and it will take a while. Please wait...", MindSpore starts the graph compilation process. When printing "End compiling.", it means the graph compilation process is over.
+A: When accelerated execution is required, MindSpore will convert Python source code into a function-style IR based on graph representation and do some optimizations. This process is also known as the compilation process. When printing "Start compiling and it will take a while. Please wait...", MindSpore starts the graph compilation process. When printing "End compiling.", it means the graph compilation process is over.
 
 Currently there are the following two scenarios where the message will print:
 
@@ -648,7 +648,7 @@ class ParamNet(Cell):
 
     def construct(self):
         out1 = self.res1[0] + self.res1[1]
-        out2 = self.param_tuple[0] + self.param_tuple[1] + self.param_list[0] + self.param_listp[1]
+        out2 = self.param_tuple[0] + self.param_tuple[1] + self.param_list[0] + self.param_list[1]
         return out1, out2
 
 

@@ -6,8 +6,7 @@
 
 ### Q: MindSpore 2.7.2为什么只支持CANN 8.5.0版本？
 
-A: CANN 8.5.0版本组合包完成开源开放架构升级，由Toolkit+Ops两个组合包组成，解耦优化带来一系列命名、数量、使用关系，以及安装目录的变更，MindSpore 2.7.2版本需要与CANN 8.5.
-0配套使用，CANN旧版本的兼容将在MindSpore 2.8.0提供。
+A: CANN 8.5.0版本组合包完成开源开放架构升级，由Toolkit+Ops两个组合包组成，解耦优化带来一系列命名、数量、使用关系，以及安装目录的变更，MindSpore 2.7.2版本需要与CANN 8.5.0配套使用，CANN旧版本的兼容将在MindSpore 2.8.0提供。
 
 ## Pip安装
 
@@ -130,7 +129,7 @@ A: 可能是因为当前环境上的Python未包含动态库。编译MindSpore�
 
 ### Q: 如何改变第三方依赖库安装路径？
 
-A: 第三方依赖库的包默认安装在build/mindspore/.mslib目录下，可以设置环境变量MSLIBS_CACHE_PATH来改变安装目录，比如 `export MSLIBS_CACHE_PATH = ~/.mslib`。
+A: 第三方依赖库的包默认安装在build/mindspore/.mslib目录下，可以设置环境变量MSLIBS_CACHE_PATH来改变安装目录，比如 `export MSLIBS_CACHE_PATH=~/.mslib`。
 
 <br/>
 

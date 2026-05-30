@@ -12,7 +12,7 @@ A: During multi-scale training, when different `shape` are used to call `Cell` o
 
 ### Q: If a `tensor` of MindSpore whose `requires_grad=False` is set to `False` is converted into `numpy` for processing and then converted into `tensor`, will the computational graph and backward propagation be affected?
 
-A: In PyNative mode, if `numpy` is used for computation, gradient transfer will be interrupted. In the scenario where `requires_grad=False` is set to `False`, if the backward propagation of `tensor` is not transferred to other parameters, there is no impact. If `requires_grad=False` is set to `True`, there is an impact.
+A: In PyNative mode, if `numpy` is used for computation, gradient transfer will be interrupted. In the scenario where `requires_grad` is set to `False`, if the backward propagation of `tensor` is not transferred to other parameters, there is no impact. If `requires_grad` is set to `True`, there is an impact.
 
 <br/>
 
@@ -73,7 +73,7 @@ A: To change the value according to `epoch`, use [Dynamic LR Function](https://w
 
 ### Q: How do I modify parameters (such as the dropout value) on MindSpore?
 
-A: When building a network, use `if self.training: x = dropout(x)`. When inferring, set `network.set_train(False)` before execution to disable the dropout function. During training, set `network.set_train(mode_false)` to True to enable the dropout function.
+A: When building a network, use `if self.training: x = dropout(x)`. When inferring, set `network.set_train(False)` before execution to disable the dropout function. During training, set `network.set_train(True)` to enable the dropout function.
 
 <br/>
 
@@ -189,7 +189,7 @@ However, if the cache server is shut down abnormally, such as the cache service 
 
 - Delete socket files.
 
-    In general, socket files is located `/tmp/mindspore/cache`. Enter the folder, and execute the following command to delete socket files.
+    In general, socket files are located `/tmp/mindspore/cache`. Enter the folder, and execute the following command to delete socket files.
 
     ```text
     rm cache_server_p{port_number}
@@ -321,7 +321,7 @@ A: In MindSpore Ascend mode, if init is called first, all processes will be allo
 
 <br/>
 
-### Q: What should I do when an error `Stream isn't enough` is displayed during executing the model on the Ascend platform?
+### Q: What should I do when memory keeps growing during resnet50 training on a CPU ARM platform?
 
 A: When resnet50 training is performed on the CPU ARM, some operators are implemented based on the oneDNN library, and the oneDNN library achieves multi-threaded parallelism based on the libgomp library. Currently, there is a problem in libgomp where the number of threads configured for multiple parallel domains is different and the memory consumption continues to grow. The continuous growth of the memory can be controlled by configuring a uniform number of threads globally. For comprehensive performance considerations, it is recommended to configure a unified configuration to 1/4 of the number of physical cores, such as `export OMP_NUM_THREADS=32`.
 
@@ -498,7 +498,7 @@ A: In PyNative mode, you can use numpy native methods such as `set_printoptions`
 
 A: `Tensor.asnumpy()` will convert the Tensor to a NumPy ndarray. This tensor and the returned ndarray by `Tensor.asnumpy()` share the same underlying storage on the host side. On the host side, changes to Tensor will be reflected in the ndarray and vice versa. It should be noted that changes on the host side cannot be automatically synchronized to the device side. For example:
 
-```text
+```python
 import mindspore as ms
 x = ms.Tensor([1, 2, 3]) + ms.Tensor([4, 5, 6])
 y = x.asnumpy()

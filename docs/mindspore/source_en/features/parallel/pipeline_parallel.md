@@ -54,7 +54,7 @@ As shown in Figure 3, the reverse of the MicroBatch numbered 0 is performed imme
 
 In order to improve the efficiency of pipeline parallelism and reduce the proportion of bubbles, Megatron LM proposes a new pipeline parallel scheduling strategy called "interleaved pipeline". Traditional pipeline parallelism typically places several consecutive model layers (such as Transformer layers) on a stage, as shown in Figure 3. In the scheduling of interleaved pipeline, each stage performs interleaved calculations on non-continuous model layers to further reduce the proportion of bubbles with more communication, as shown in Figure 4. For example, in traditional pipeline parallelism, each stage has 2 model layers, namely: stage 0 has layers 0 and 1, stage 1 has layers 2 and 3, stage 2 has layers 4 and 5, and stage 3 has layers 6 and 7, while in interleaved pipeline, stage 0 has layers 0 and 4, stage 1 has layers 1 and 5, stage 2 has layers 2 and 6, and stage 3 has layers 3 and 7.
 
-![mpp2.png](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.9.0/docs/mindspore/source_zh_cn/features/parallel/images/megatron.png)
+![mpp2.png](./images/megatron.png)
 
 *Figure 4: Scheduler of Interleaved Pipeline*
 
@@ -62,7 +62,7 @@ In order to improve the efficiency of pipeline parallelism and reduce the propor
 
 MindSpore has made memory optimization based on Megatron LM interleaved pipeline scheduling by moving some forward execution sequences back, as shown in Figure 5, which can accumulate less MicroBatch memory during memory peak hours.
 
-![mpp2.png](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.9.0/docs/mindspore/source_zh_cn/features/parallel/images/mindspore.png)
+![mpp2.png](./images/mindspore.png)
 
 *Figure 5: MindSpore Scheduler of Interleaved Pipeline*
 
@@ -70,6 +70,6 @@ MindSpore has made memory optimization based on Megatron LM interleaved pipeline
 
 As shown in Figure 6, zero_bubble_v pipeline parallelism further improves pipeline parallel efficiency and reduces bubble rate by dividing the backward computation into gradient computation and parameter update. For consecutive model layers, the stage value first increases and then decreases, the pipeline_segment of the first half of layers is 0, and the pipeline_segment of the second half of layers is 1. For example, for 8 layers, when the stage size is 4, stage0 has layer0 and layer7, stage1 has layer1 and layer6, stage2 has layer2 and layer5, stage 3 has layer3 and layer4, the pipeline_segment of layer0 to layer3 is 0, and the pipeline_segment of layer4 to layer7 is 1.
 
-![mpp2.png](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.9.0/docs/mindspore/source_zh_cn/features/parallel/images/zero_bubble_v.png)
+![mpp2.png](./images/zero_bubble_v.png)
 
 *Figure 6: zero_bubble_v Pipeline Scheduler*

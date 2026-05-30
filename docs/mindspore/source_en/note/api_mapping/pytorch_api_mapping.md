@@ -27,7 +27,7 @@ The API mapping is also consistent in the following exception scenarios:
 The following is an example of the exception scenario 4.
 In PyTorch 2.1, torch.argmax has two API overloads in the form of torch.argmax(input) and torch.argmax(input, dim, keepdim=False), respectively, where torch.argmax(input) returns the index of the maximum value element in the input Tensor, and torch.argmax(input, dim, keepdim=False) returns the index of the maximum value of the input Tensor on the specified axis.
 
-mindspore.mint.argmax has only one API form, namely mindspore.mint.argmax(input, dim=None, keepdim=False), but mindspore.mint.argmax(input) and torch.argmax(input) have the same function. mindspore.mint.argmax(input, dim, keepdim) and torch.argmax(input, dim, keepdim)have the same function. Compared to torch.argmax, the default value of mindspore.ops.argmax parameter dim is set to None only to adapt the two API overload forms of torch.argmax, so the exception scenario 4 is also considered to be consistent API mapping.
+mindspore.mint.argmax has only one API form, namely mindspore.mint.argmax(input, dim=None, keepdim=False), but mindspore.mint.argmax(input) and torch.argmax(input) have the same function. mindspore.mint.argmax(input, dim, keepdim) and torch.argmax(input, dim, keepdim)have the same function. Compared to torch.argmax, the default value of mindspore.mint.argmax parameter dim is set to None only to adapt the two API overload forms of torch.argmax, so the exception scenario 4 is also considered to be consistent API mapping.
 
 ## General Difference Parameter Table
 

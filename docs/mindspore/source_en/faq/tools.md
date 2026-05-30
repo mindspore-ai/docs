@@ -18,6 +18,6 @@ To resolve this issue, consider the following approaches:
 
   If upgrading CANN is not immediately feasible, you can disable overflow detection Dump and instead use:
   - Statistic Dump: Records tensor statistics such as maximum and minimum values to help identify potential overflow;
-  - Full Dump or Selective Dump: Saves intermediate tensor data for offline analysis of numerical anomalies, detailed please refer to [Using Dump in the Graph Mode](https://www.mindspore.cn/tutorials/en/r2.9.0/debug/dump.html).
+  - Full Dump or Selective Dump: Saves intermediate tensor data for offline analysis of numerical anomalies. For details, please refer to [Using Dump in the Graph Mode](https://www.mindspore.cn/tutorials/en/r2.9.0/debug/dump.html).
 
 These workarounds can effectively avoid the runtime error while still enabling you to investigate overflow issues.

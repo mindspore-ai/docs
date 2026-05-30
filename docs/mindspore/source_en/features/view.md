@@ -230,5 +230,5 @@ view failed: The tensor is not contiguous. You can call .contiguous() to get a c
 | **Number of Objects** | Creates a new Tensor object that shares data with the original object | Does not create a new object, modifies it on the original object |
 | **Core Purpose** | Efficiently access data from different "perspectives" | Save memory, calculate and update directly on the original data |
 
-For more information on the usage of view inplace features, please refer to the following document:
-Reference [view inplace](https://atomgit.com/mindspore/docs/blob/r2.9.0/tutorials/source_en/compile/static_graph.md#view-and-in-place-operations)
+For more information on the usage of view and inplace features, please refer to the following document:
+Reference [tutorials](https://www.mindspore.cn/tutorials/en/r2.9.0/compile/static_graph.html#view-and-in-place-operations)

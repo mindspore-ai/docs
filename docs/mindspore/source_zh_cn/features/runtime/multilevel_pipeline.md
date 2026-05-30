@@ -14,6 +14,6 @@
 
 ![rt_pipeline](./images/rt_pipeline.png)
 
-1. 任务分解：将算子调度分解InferShape、Resize和Launch三个任务。
+1. 任务分解：将算子调度分解为InferShape、Resize和Launch三个任务。
 2. 队列创建：创建Infer Queue、Resize Queue和Launch Queue三个队列，用于承接第1步的三个任务。
 3. 流水调度：首算子收集到输入后，只需要将InferShape的task下发到Infer Queue，即可将算子的输出数据发给下一个算子，InferShape完成后将该算子的Resize task下发到Resize Queue，最后Resize完成后将LaunchKernel task下发到Launch Queue。

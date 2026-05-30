@@ -78,7 +78,7 @@ import mindspore.dataset.vision as vision
 #      ├── train-images-idx3-ubyte
 #      └── train-labels-idx1-ubyte
 root = "/path/to/dataset_directory/"
-ms_dataloader = ds.Cifar10Dataset(root, usage='test')
+ms_dataloader = ds.MnistDataset(root, usage='test')
 ms_dataloader = ms_dataloader.map(vision.Resize((32, 32)), ["image"])
 ms_dataloader = ms_dataloader.batch(32)
 ```

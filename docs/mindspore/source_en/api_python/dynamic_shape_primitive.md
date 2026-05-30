@@ -6,7 +6,7 @@
 >
 > Primitive interfaces outside of this list have limited support for dynamic shape functionality and may fail to execute. Additionally, in graph mode, dynamic shape functionality is also limited and may result in execution failures.
 >
-> If you encounter issues that the execution of dynamic shape operator fails, it is recommended to avoid introducing dynamic shape in the network. For example, you can adjust the inputs of primitive interfaces to construct a fully static shape network or confine dynamic shape to a local scope within the network.
+> If you encounter issues where the execution of a dynamic shape operator fails, it is recommended to avoid introducing dynamic shape in the network. For example, you can adjust the inputs of primitive interfaces to construct a fully static shape network or confine dynamic shape to a local scope within the network.
 
 | Operator name  | Ascend |  GPU  |   CPU  |
 | :--- |:-------- | :------- |:---------|
@@ -39,7 +39,7 @@
 |[mindspore.BesselI1e](https://www.mindspore.cn/docs/en/r2.9.0/api_python/ops/mindspore.ops.BesselI1e.html)|✔️|✔️|✔️|
 |[mindspore.BesselJ0](https://www.mindspore.cn/docs/en/r2.9.0/api_python/ops/mindspore.ops.BesselJ0.html)|❌|✔️|✔️|
 |[mindspore.BesselJ1](https://www.mindspore.cn/docs/en/r2.9.0/api_python/ops/mindspore.ops.BesselJ1.html)|❌|✔️|✔️|
-|[mindspore.BiasAdd](https://www.mindspore.cn/docs/en/r2.9.0/api_python/ops/mindspore.ops.BiasAdd.html)|✔️|✔️|️❌|
+|[mindspore.BiasAdd](https://www.mindspore.cn/docs/en/r2.9.0/api_python/ops/mindspore.ops.BiasAdd.html)|✔️|✔️|❌|
 |[mindspore.BinaryCrossEntropy](https://www.mindspore.cn/docs/en/r2.9.0/api_python/ops/mindspore.ops.BinaryCrossEntropy.html)|✔️|✔️|✔️|
 |[mindspore.BitwiseAnd](https://www.mindspore.cn/docs/en/r2.9.0/api_python/ops/mindspore.ops.BitwiseAnd.html)|✔️|✔️|✔️|
 |[mindspore.BitwiseOr](https://www.mindspore.cn/docs/en/r2.9.0/api_python/ops/mindspore.ops.BitwiseOr.html)|✔️|✔️|✔️|
@@ -61,7 +61,7 @@
 |[mindspore.CTCLossV2](https://www.mindspore.cn/docs/en/r2.9.0/api_python/ops/mindspore.ops.CTCLossV2.html)|✔️|✔️|✔️|
 |[mindspore.Cummax](https://www.mindspore.cn/docs/en/r2.9.0/api_python/ops/mindspore.ops.Cummax.html)|❌|✔️|✔️|
 |[mindspore.Cummin](https://www.mindspore.cn/docs/en/r2.9.0/api_python/ops/mindspore.ops.Cummin.html)|✔️|✔️|✔️|
-|[mindspore.CumSum](https://www.mindspore.cn/docs/en/r2.9.0/api_python/ops/mindspore.ops.CumSum.html)|✔️|✔️|️❌|
+|[mindspore.CumSum](https://www.mindspore.cn/docs/en/r2.9.0/api_python/ops/mindspore.ops.CumSum.html)|✔️|✔️|❌|
 |[mindspore.Diag](https://www.mindspore.cn/docs/en/r2.9.0/api_python/ops/mindspore.ops.Diag.html)|✔️|✔️|✔️|
 |[mindspore.Digamma](https://www.mindspore.cn/docs/en/r2.9.0/api_python/ops/mindspore.ops.Digamma.html)|❌|✔️|✔️|
 |[mindspore.Div](https://www.mindspore.cn/docs/en/r2.9.0/api_python/ops/mindspore.ops.Div.html)|✔️|✔️|✔️|
@@ -167,7 +167,7 @@
 |[mindspore.ReduceSum](https://www.mindspore.cn/docs/en/r2.9.0/api_python/ops/mindspore.ops.ReduceSum.html)|✔️|✔️|✔️|
 |[mindspore.Reshape](https://www.mindspore.cn/docs/en/r2.9.0/api_python/ops/mindspore.ops.Reshape.html)|✔️|✔️|✔️|
 |[mindspore.ResizeBicubic](https://www.mindspore.cn/docs/en/r2.9.0/api_python/ops/mindspore.ops.ResizeBicubic.html)|✔️|✔️|✔️|
-|[mindspore.ResizeBilinearV2](https://www.mindspore.cn/docs/en/r2.9.0/api_python/ops/mindspore.ops.ResizeBilinearV2.html)|✔️|✔️|️❌|
+|[mindspore.ResizeBilinearV2](https://www.mindspore.cn/docs/en/r2.9.0/api_python/ops/mindspore.ops.ResizeBilinearV2.html)|✔️|✔️|❌|
 |[mindspore.ReverseSequence](https://www.mindspore.cn/docs/en/r2.9.0/api_python/ops/mindspore.ops.ReverseSequence.html)|✔️|✔️|✔️|
 |[mindspore.ReverseV2](https://www.mindspore.cn/docs/en/r2.9.0/api_python/ops/mindspore.ops.ReverseV2.html)|✔️|✔️|✔️|
 |[mindspore.RightShift](https://www.mindspore.cn/docs/en/r2.9.0/api_python/ops/mindspore.ops.RightShift.html)|✔️|✔️|✔️|
@@ -196,7 +196,7 @@
 |[mindspore.Softplus](https://www.mindspore.cn/docs/en/r2.9.0/api_python/ops/mindspore.ops.Softplus.html)|✔️|✔️|✔️|
 |[mindspore.SoftShrink](https://www.mindspore.cn/docs/en/r2.9.0/api_python/ops/mindspore.ops.SoftShrink.html)|✔️|✔️|✔️|
 |[mindspore.Sort](https://www.mindspore.cn/docs/en/r2.9.0/api_python/ops/mindspore.ops.Sort.html)|✔️|❌|✔️|
-|[mindspore.Split](https://www.mindspore.cn/docs/en/r2.9.0/api_python/ops/mindspore.ops.Split.html)|✔️|✔️|️❌|
+|[mindspore.Split](https://www.mindspore.cn/docs/en/r2.9.0/api_python/ops/mindspore.ops.Split.html)|✔️|✔️|❌|
 |[mindspore.Sqrt](https://www.mindspore.cn/docs/en/r2.9.0/api_python/ops/mindspore.ops.Sqrt.html)|✔️|✔️|✔️|
 |[mindspore.Square](https://www.mindspore.cn/docs/en/r2.9.0/api_python/ops/mindspore.ops.Square.html)|✔️|✔️|✔️|
 |[mindspore.Squeeze](https://www.mindspore.cn/docs/en/r2.9.0/api_python/ops/mindspore.ops.Squeeze.html)|✔️|✔️|✔️|
@@ -215,7 +215,7 @@
 |[mindspore.Tril](https://www.mindspore.cn/docs/en/r2.9.0/api_python/ops/mindspore.ops.Tril.html)|✔️|✔️|✔️|
 |[mindspore.triu](https://www.mindspore.cn/docs/en/r2.9.0/api_python/ops/mindspore.ops.triu.html)|✔️|✔️|✔️|
 |[mindspore.Trunc](https://www.mindspore.cn/docs/en/r2.9.0/api_python/ops/mindspore.ops.Trunc.html)|✔️|✔️|✔️|
-|[mindspore.TruncateDiv](https://www.mindspore.cn/docs/en/r2.9.0/api_python/ops/mindspore.ops.TruncateDiv.html)|✔️|✔️|️❌|
+|[mindspore.TruncateDiv](https://www.mindspore.cn/docs/en/r2.9.0/api_python/ops/mindspore.ops.TruncateDiv.html)|✔️|✔️|❌|
 |[mindspore.UniformInt](https://www.mindspore.cn/docs/en/r2.9.0/api_python/ops/mindspore.ops.UniformInt.html)|❌|✔️|✔️|
 |[mindspore.UniformReal](https://www.mindspore.cn/docs/en/r2.9.0/api_python/ops/mindspore.ops.UniformReal.html)|❌|✔️|✔️|
 |[mindspore.Unique](https://www.mindspore.cn/docs/en/r2.9.0/api_python/ops/mindspore.ops.Unique.html)|✔️|✔️|✔️|
