@@ -524,7 +524,7 @@ Dump调试
      - 指定Scheduler的IP地址。
      - String
      - 合法的IP地址。
-     - 当前版本暂不支持IPv6地址。
+     - 静态图场景下支持IPv6地址。
    * - MS_SCHED_PORT
      - 指定Scheduler绑定端口号。
      - Integer
