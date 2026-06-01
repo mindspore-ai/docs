@@ -26,7 +26,7 @@ Pipeline parallel is the splitting of operators in a neural network into multipl
 
 As shown in Figure 1, the network of 4 layers of MatMul is split into 4 stages and distributed to 4 devices. In forward calculations, each machine sends the result to the next machine through the communication operator after calculating the MatMul on the machine, and at the same time, the next machine receives (Receive) the MatMul result of the previous machine through the communication operator, and starts to calculate the MatMul on the machine; In reverse calculation, after the gradient of the last machine is calculated, the result is sent to the previous machine, and at the same time, the previous machine receives the gradient result of the last machine and begins to calculate the reverse of the current machine.
 
-![](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindspore/source_zh_cn/features/parallel/images/pipeline_parallel_image_0_zh.png)
+![](images/pipeline_parallel_image_0.png)
 
 *Figure 1: Schematic diagram of graph splitting in pipeline parallel*
 
@@ -36,7 +36,7 @@ Simply splitting the model onto multiple devices does not bring about a performa
 
 As shown in Figure 2. The small batches are cut into 4 micro-batches, and the 4 micro-batches are executed on 4 groups to form a pipeline. The gradient aggregation of the micro-batch is used to update the parameters, where each device only stores and updates the parameters of the corresponding group. where the white ordinal number represents the index of the micro-batch.
 
-![](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindspore/source_zh_cn/features/parallel/images/pipeline_parallel_image_1_zh.png)
+![](images/pipeline_parallel_image_1.png)
 
 *Figure 2: Schematic diagram of a pipeline parallel execution timeline with MicroBatch*
 
@@ -46,7 +46,7 @@ In MindSpore's pipeline parallel implementation, the execution order has been ad
 
 As shown in Figure 3, the reverse of the MicroBatch numbered 0 is performed immediately after its forward execution, so that the memory of the intermediate result of the numbered 0 MicroBatch is freed earlier (compared to Figure 2), thus ensuring that the peak memory usage is lower than in the way of Figure 2.
 
-![](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindspore/source_zh_cn/features/parallel/images/pipeline_parallel_image_2_zh.png)
+![](images/pipeline_parallel_image_2.png)
 
 *Figure 3: MindSpore Pipeline Parallel Execution Timeline Diagram*
 
