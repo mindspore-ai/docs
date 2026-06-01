@@ -7,7 +7,7 @@
 ### Q: MindSpore安装完成，执行训练时发现网络性能异常，权重初始化耗时过长，怎么办？
 
 A: 可能与环境中使用了`scipy 1.4`系列版本有关，通过`pip list | grep scipy`命令可查看scipy版本，建议改成MindSpore要求的`scipy`版本。版本第三方库依赖可以在`requirement.txt`中查看。
-<https://atomgit.com/mindspore/mindspore/blob/r2.9.0/requirements.txt>
+<https://atomgit.com/mindspore/mindspore/blob/v2.9.0/requirements.txt>
 
 <br/>
 
