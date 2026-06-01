@@ -105,6 +105,8 @@ Using the MindSpore Lite inference framework primarily involves the following st
 
    lite_boost/introduction
    lite_boost/build_and_install
+   lite_boost/quick_start
+   lite_boost/model_support
 
 .. toctree::
    :glob:
