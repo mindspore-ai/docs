@@ -13,7 +13,7 @@ Device memory (hereinafter referred to as memory) is the most important resource
 
 ## Interfaces
 
-The memory management-related interfaces are detailed in [runtime interfaces](https://www.mindspore.cn/docs/en/r2.9.0/api_python/mindspore.runtime.html#memory), of which the two most important ones The two most important interfaces are the memory settings interface and the memory fragmentation management interface:
+The memory management-related interfaces are detailed in [runtime interfaces](https://www.mindspore.cn/docs/en/r2.9.0/api_python/mindspore.runtime.html#memory), of which the two most important interfaces are the memory settings interface and the memory fragmentation management interface:
 
 1. memory settings interface: [mindspore.runtime.set_memory](https://www.mindspore.cn/docs/en/r2.9.0/api_python/runtime/mindspore.runtime.set_memory.html#mindspore.runtime.set_memory), setting the memory parameters to be managed using the memory pool and the memory reuse algorithm.
 2. memory fragmentation management interface: [environment variable MS_ALLOC_CONF](https://www.mindspore.cn/docs/en/r2.9.0/api_python/env_var_list.html#graph-compilation-and-execution). The behavior is determined by whether the hardware driver has the ability to map virtual memory to physical memory, if it does, it is turned on by default, otherwise it is turned off by default. This can be forced to be turned off by export MS_ALLOC_CONF=“enable_vmm:false”.

@@ -108,11 +108,15 @@ A: In this case,
 ### Q: What can I do if the error message `Pynative run op ExpandDims failed` is displayed when the ExpandDims operator is used? The code is as follows:
 
 ```python
-set_context(mode=GRAPH_MODE)
-mindspore.set_device("Ascend")
-input_tensor=Tensor(np.array([[2,2],[2,2]]),mindspore.float32)
-expand_dims=ops.ExpandDims()
-output=expand_dims(input_tensor,0)
+import mindspore as ms
+import numpy as np
+from mindspore import ops, Tensor
+
+ms.set_context(mode=ms.GRAPH_MODE)
+ms.set_device("Ascend")
+input_tensor = Tensor(np.array([[2, 2], [2, 2]]), ms.float32)
+expand_dims = ops.ExpandDims()
+output = expand_dims(input_tensor, 0)
 ```
 
 A: The problem is that the Graph mode is selected but the PyNative mode is used. As a result, an error is reported. MindSpore supports the following running modes which are optimized in terms of debugging or running:

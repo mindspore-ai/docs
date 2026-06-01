@@ -40,7 +40,7 @@ A: You can refer to the following steps to reduce CPU consumption (mainly due to
 
 ### Q: Why there is no difference between the parameter `shuffle` in `GeneratorDataset`, and `shuffle=True` and `shuffle=False` when the task is run?
 
-A: If `shuffle` is enabled, the input `Dataset` must support random access (for example, the user-defined `Dataset` has the `getitem` method). If data is returned in `yeild` mode in the user-defined `Dataset`, random access is not supported. For details, see section [GeneratorDataset example](https://www.mindspore.cn/docs/en/r2.9.0/api_python/dataset/mindspore.dataset.GeneratorDataset.html).
+A: If `shuffle` is enabled, the input `Dataset` must support random access (for example, the user-defined `Dataset` has the `getitem` method). If data is returned in `yield` mode in the user-defined `Dataset`, random access is not supported. For details, see section [GeneratorDataset example](https://www.mindspore.cn/docs/en/r2.9.0/api_python/dataset/mindspore.dataset.GeneratorDataset.html).
 
 <br/>
 
@@ -69,7 +69,7 @@ A: The user-defined dataset `GeneratorDataset` does not support `PKSampler` samp
 
 ### Q: How does MindSpore load the existing pre-trained word vector?
 
-A: When defining EmbedingLookup or Embedding, you only need to transfer the pre-trained word vector and encapsulate the pre-trained word vector into a tensor as the initial value of EmbeddingLookup.
+A: When defining EmbeddingLookup or Embedding, you only need to transfer the pre-trained word vector and encapsulate the pre-trained word vector into a tensor as the initial value of EmbeddingLookup.
 
 <br/>
 
@@ -90,19 +90,19 @@ data['label'] = 1
 
 f = open("1.jpg", "rb")
 image_bytes = f.read()
-f.close
+f.close()
 
 data['data1'] = image_bytes
 
 f2 = open("2.jpg", "rb")
 image_bytes2 = f2.read()
-f2.close
+f2.close()
 
 data['data2'] = image_bytes2
 
 f3 = open("3.jpg", "rb")
 image_bytes3 = f3.read()
-f3.close
+f3.close()
 
 data['data3'] = image_bytes3
 
@@ -197,7 +197,7 @@ A: Firstly, above error refers to failed sending data to the device through the 
 
         ```python
         ...
-        dataset = dataset.create_tuple_iteator(num_epochs=-1) # Here, if you want to return an iterator, num_epochs should be 1, but it is recommended to return dataset directly
+        dataset = dataset.create_tuple_iterator(num_epochs=-1) # Here, if you want to return an iterator, num_epochs should be 1, but it is recommended to return dataset directly
         return dataset
         ```
 
@@ -253,7 +253,7 @@ A: If the DataLoader is considered as an API for receiving user-defined datasets
 
 ### Q: How do I debug a user-defined dataset when an error occurs?
 
-A: Generally, a user-defined dataset is imported to GeneratorDataset. If the user-defined dataset is incorrectly pointed to, you can use some methods for debugging (for example, adding printing information and printing the shape and dtype of the return value). The intermediate processing result of a user-defined dataset is numpy array. You are not advised to use it together with the MindSpore network computing operator. In addition, for the user-defined dataset, such as MyDataset shown below, after initialization, you can directly perform the following inritations (to simplify debugging and analyze problems in the original dataset, you do not need to import GeneratorDataset). The debugging complies with common Python syntax rules.
+A: Generally, a user-defined dataset is imported to GeneratorDataset. If the user-defined dataset is incorrectly pointed to, you can use some methods for debugging (for example, adding printing information and printing the shape and dtype of the return value). The intermediate processing result of a user-defined dataset is numpy array. You are not advised to use it together with the MindSpore network computing operator. In addition, for the user-defined dataset, such as MyDataset shown below, after initialization, you can directly perform the following iterations (to simplify debugging and analyze problems in the original dataset, you do not need to import GeneratorDataset). The debugging complies with common Python syntax rules.
 
 ```python
 Dataset = MyDataset()
@@ -323,8 +323,8 @@ A: The user-defined Dataset is passed into GeneratorDataset, and after reading t
     ```python
     # According to the above case, the __getitem__ function can be modified as follows to directly return the data after Decode. After that, there is no need to add Decode operation through the map operation.
     def __getitem__(self, index):
-        # use Image.Open to open file, and convert to RGC
-        img_rgb = Image.Open(self.data[index]).convert("RGB")
+        # use Image.open to open file, and convert to RGB
+        img_rgb = Image.open(self.data[index]).convert("RGB")
         return (img_rgb, )
     ```
 

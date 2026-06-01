@@ -81,7 +81,7 @@ The subnet range needs to include the IP addresses used by all machines.
 [ERROR] DEVICE [mindspore/ccsrc/runtime/device/gpu/gpu_device_manager.cc:27] InitDevice] Op Error: Failed to set current device id | Error Number: 0
 ```
 
-A: In the multi-machine scenario, each process card number needs to be calculated after the host side `AllGather`and `HOSTNAME`. If the same `HOSTNAME` is used between machines, the process card number will be calculated incorrectly, causing the card number to cross the boundary and the setting to fail. This can be resolved by setting the HOSTNAME of each machine to its respective IP address in the execution script:
+A: In the multi-machine scenario, each process card number needs to be calculated after the host side `AllGather` and `HOSTNAME`. If the same `HOSTNAME` is used between machines, the process card number will be calculated incorrectly, causing the card number to cross the boundary and the setting to fail. This can be resolved by setting the HOSTNAME of each machine to its respective IP address in the execution script:
 
 ```text
 export HOSTNAME=node_ip_address
@@ -147,7 +147,7 @@ The above command exports some environment variables that have been set on this 
 Ascend collective Error: "HcclCommInitRootInfo failed. | Error Number 2
 ```
 
-A: Currently, when training via OpenMPI, hccl needs to allocate about 300M device memory for each card within a communicator. The more communicators one card involved in, the more extra device memory needed. This probably cause memory issue.
+A: Currently, when training via OpenMPI, hccl needs to allocate about 300M device memory for each card within a communicator. The more communicators one card involved in, the more extra device memory needed. This probably will cause a memory issue.
 You can set `max_size` in `set_memory` to reduce variable memory for Ascend processes, so that hccl will have enough memory to create communicators.
 
 <br/>
@@ -184,7 +184,7 @@ A: This is because when starting the distributed framework with msrun and specif
 
 1. The input hostname is incorrect, or the hostname does not exist in DNS. You can manually query the DNS information in Linux by using the command `nslookup <hostname>` or `dig <hostname>`, or you can query the static DNS resolution on the environment by using the command `cat /etc/hosts`.
 2. DNS servers cannot be accessed normally. You can check the DNS server configuration in Linux with the command `cat /etc/resolv.conf`.
-3. The firewall or security software organizes DNS queries. You can use the commands `systemctl status firewalld` and `service iptables status` in Linux to query the firewall and iptable status.
+3. The firewall or security software blocks DNS queries. You can use the commands `systemctl status firewalld` and `service iptables status` in Linux to query the firewall and iptable status.
 
 <br/>
 
