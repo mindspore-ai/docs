@@ -69,13 +69,9 @@ MindSpore Lite模型转换工具提供了多种参数设置，用户可根据需
 | `--saveType=<SAVETYPE>` | 否 | 设定导出的模型为`mindir`模型或者`ms`模型。 | MINDIR、MINDIR_LITE | MINDIR_LITE | 端侧推理版本只有设置为MINDIR_LITE转出的模型才可以推理 |
 | `--optimize=<OPTIMIZE>` | 否 | 设定转换模型的过程所完成的优化。 | none、general、gpu_oriented、ascend_oriented | general | - |
 | `--inputDataFormat=<INPUTDATAFORMAT>` | 否 | 设定导出模型的输入format，只对四维输入有效。 | NHWC、NCHW | NHWC | - |
-| `--decryptKey=<DECRYPTKEY>` | 否 | 设定用于加载密文MindIR时的密钥，密钥用十六进制表示，只对`fmk`为MINDIR时有效。 | - | - | - |
-| `--decryptMode=<DECRYPTMODE>` | 否 | 设定加载密文MindIR的模式，只在指定了decryptKey时有效。 | AES-GCM、AES-CBC | AES-GCM | - |
 | `--inputDataType=<INPUTDATATYPE>` | 否 | 设定量化模型输入tensor的data type。仅当模型输入tensor的量化参数（scale和zero point）齐备时有效。默认与原始模型输入tensor的data type保持一致。 | FLOAT32、INT8、UINT8、DEFAULT | DEFAULT | - |
 | `--outputDataType=<OUTPUTDATATYPE>` | 否 | 设定量化模型输出tensor的data type。仅当模型输出tensor的量化参数（scale和zero point）齐备时有效。默认与原始模型输出tensor的data type保持一致。 | FLOAT32、INT8、UINT8、DEFAULT | DEFAULT | - |
 | `--outputDataFormat=<OUTPUTDATAFORMAT>` | 否 | 设定导出模型的输出format，只对四维输出有效。 | NHWC、NCHW | - | - |
-| `--encryptKey=<ENCRYPTKEY>` | 否 | 设定导出加密`ms`模型的密钥，密钥用十六进制表示。仅支持 AES-GCM，密钥长度仅支持16Byte。 | - | - | - |
-| `--encryption=<ENCRYPTION>` | 否 | 设定导出`ms`模型时是否加密，导出加密可保护模型完整性，但会增加运行时初始化时间。 | true、false | false | - |
 | `--infer=<INFER>` | 否 | 设定是否在转换完成时进行预推理。 | true、false | false | - |
 
 > - 参数名和参数值之间用等号连接，中间不能有空格。
@@ -85,7 +81,6 @@ MindSpore Lite模型转换工具提供了多种参数设置，用户可根据需
 > - `inputDataFormat`：一般在集成NCHW规格的三方硬件场景下，设为NCHW比NHWC会有较明显的性能提升。在其他场景下，用户也可按需设置。
 > - `configFile`配置文件采用`key=value`的方式定义相关参数，量化相关的配置参数详见[量化](https://www.mindspore.cn/lite/docs/zh-CN/master/advanced/quantization.html)，扩展功能相关的配置参数详见[扩展配置](https://www.mindspore.cn/lite/docs/zh-CN/master/advanced/third_party/converter_register.html#扩展配置)。
 > - `--optimize`该参数是用来设定在离线转换的过程中需要完成哪些特定的优化。如果该参数设置为none，那么在模型的离线转换阶段将不进行相关的图优化操作，相关的图优化操作将会在执行推理阶段完成。该参数的优点在于转换出来的模型由于没有经过特定的优化，可以直接部署到CPU/GPU/Ascend任意硬件后端；而带来的缺点是推理执行时模型的初始化时间增长。如果设置成general，表示离线转换过程会完成通用优化，包括常量折叠，算子融合等（转换出的模型只支持CPU/GPU后端，不支持Ascend后端）。如果设置成gpu_oriented，表示转换过程中会完成通用优化和针对GPU后端的额外优化（转换出来的模型只支持GPU后端）。如果设置成ascend_oriented，表示转换过程中只完成针对Ascend后端的优化（转换出来的模型只支持Ascend后端）。
-> - 加解密功能仅在[编译](https://www.mindspore.cn/lite/docs/zh-CN/master/use/build.html)时设置为`MSLITE_ENABLE_MODEL_ENCRYPTION=on`时生效，并且仅支持Linux x86平台。其中密钥为十六进制表示的字符串，Linux平台用户可以使用`xxd`工具对字节表示的密钥进行十六进制表达转换。需要注意的是，加解密算法在1.7版本进行了更新，导致新版的converter工具不支持对1.6及其之前版本的MindSpore Lite加密导出的模型进行转换。
 > - `--input_shape`参数以及dynamicDims参数在转换时会被存入模型中，在使用模型时可以调用model.get_model_info("input_shape")以及model.get_model_info("dynamic_dims")来获取。
 
 ### CPU模型编译优化

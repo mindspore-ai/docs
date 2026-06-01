@@ -12,11 +12,9 @@ Model定义了MindSpore中编译和运行的模型。
 
 | function                                                     | 云侧推理是否支持 | 端侧推理是否支持 |
 | ------------------------------------------------------------ |--------|--------|
-| [boolean build(final MappedByteBuffer buffer, int modelType, MSContext context, char[] decKey, String decMode, String croptoLibPath)](#build) | ✕    | √      |
+| [boolean build(final MappedByteBuffer buffer, int modelType, MSContext context)](#build) | ✕    | √      |
 | [boolean build(Graph graph, MSContext context, TrainCfg cfg)](#build) | ✕      | √      |
-| [boolean build(MappedByteBuffer buffer, MSContext context)](#build)                            | √      | √      |
-| [boolean build(String modelPath, int modelType, MSContext context, char[] decKey, String decMode, String croptoLibPath)](#build) | ✕    | √      |
-| [boolean build(String modelPath, int modelType, MSContext context)](#build) | √      | √      |
+| [boolean build(String modelPath, int modelType, MSContext context)](#build) |  ✕     | √      |
 | [boolean predict()](#predict)                                         | √      | √      |
 | [boolean runStep()](#runstep)                                         | ✕      | √      |
 | [boolean resize(List<MSTensor\> inputs, int[][] dims)](#resize)                                         | √      | √      |
@@ -58,25 +56,6 @@ public boolean build(Graph graph, MSContext context, TrainCfg cfg)
   是否编译成功。
 
 ```java
-public boolean build(final MappedByteBuffer buffer, int modelType, MSContext context, char[] decKey, String decMode, String croptoLibPath)
-```
-
-通过模型计算图内存块编译MindSpore模型。
-
-- 参数
-
-    - `buffer`: 模型计算图内存块。
-    - `modelType`: 模型计算图类型，可选有`MT_MINDIR_LITE`、`MT_MINDIR`，分别对应`ms`模型（`converter_lite`工具导出）和`mindir`模型（MindSpore导出或`converter_lite`工具导出）。端侧推理只支持`ms`模型推理，该入参值被忽略。云端推理支持`ms`和`mindir`模型推理，需要将该参数设置为模型对应的选项值。云侧推理对`ms`模型的支持，将在未来的迭代中删除，推荐通过`mindir`模型进行云侧推理。
-    - `context`: 运行时Context上下文。
-    - `decKey`: 模型解密秘钥。
-    - `decMode`: 模型解密算法，可选AES-GCM、AES-CBC。
-    - `croptoLibPath`: openssl库路径。
-
-- 返回值
-
-  是否编译成功。
-
-```java
 public boolean build(final MappedByteBuffer buffer, int modelType, MSContext context)
 ```
 
@@ -87,25 +66,6 @@ public boolean build(final MappedByteBuffer buffer, int modelType, MSContext con
     - `buffer`: 模型计算图内存块。
     - `modelType`: 模型计算图类型，可选有`MT_MINDIR_LITE`、`MT_MINDIR`，分别对应`ms`模型（`converter_lite`工具导出）和`mindir`模型（MindSpore导出或`converter_lite`工具导出）。端侧推理只支持`ms`模型推理，该入参值被忽略。云端推理支持`ms`和`mindir`模型推理，需要将该参数设置为模型对应的选项值。云侧推理对`ms`模型的支持，将在未来的迭代中删除，推荐通过`mindir`模型进行云侧推理。
     - `context`: 运行时Context上下文。
-
-- 返回值
-
-  是否编译成功。
-
-```java
-public boolean build(String modelPath, int modelType, MSContext context, char[] decKey, String decMode, String croptoLibPath)
-```
-
-通过模型计算图文件编译MindSpore MindIR模型。
-
-- 参数
-
-    - `modelPath`: 模型计算图文件。
-    - `modelType`: 模型计算图类型，可选有`MT_MINDIR_LITE`、`MT_MINDIR`，分别对应`ms`模型（`converter_lite`工具导出）和`mindir`模型（MindSpore导出或`converter_lite`工具导出）。端侧推理只支持`ms`模型推理，该入参值被忽略。云端推理支持`ms`和`mindir`模型推理，需要将该参数设置为模型对应的选项值。云侧推理对`ms`模型的支持，将在未来的迭代中删除，推荐通过`mindir`模型进行云侧推理。
-    - `context`: 运行时Context上下文。
-    - `decKey`: 模型解密秘钥。
-    - `decMode`: 模型解密算法，可选AES-GCM、AES-CBC。
-    - `croptoLibPath`: openssl库路径。
 
 - 返回值
 
