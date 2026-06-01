@@ -143,7 +143,7 @@ model = ms.train.Model(net=train_net, loss_fn=None, optimizer=None)
 
 ### Q: MindSpore如何实现早停功能？
 
-A：可以使用[EarlyStopping 方法](https://www.mindspore.cn/docs/zh-CN/master/api_python/train/mindspore.train.EarlyStopping.html)。
+A: 可以使用[EarlyStopping 方法](https://www.mindspore.cn/docs/zh-CN/master/api_python/train/mindspore.train.EarlyStopping.html)。
 
 <br/>
 
@@ -379,7 +379,7 @@ ValueError: numpy.ndarray size changed, may indicate binary incompatibility. Exp
 
 <br/>
 
-### Q：运行文档示例代码的过程中，遇到`matplotlib.pyplot.show()`或`plt.show()`无法执行怎么处理？
+### Q: 运行文档示例代码的过程中，遇到`matplotlib.pyplot.show()`或`plt.show()`无法执行怎么处理？
 
 A: 首先确认是否安装`matplotlib`，如果没有安装，可以在命令行中执行`pip install matplotlib`进行安装。
 
@@ -457,7 +457,7 @@ A: 此问题的原因为：用户未正确配置算子参数，导致算子申�
 
 ### Q: 如何理解报错提示中的"Ascend Error Message"？
 
- A: "Ascend Error Message"是MindSpore调用CANN(昇腾异构计算架构)接口时，CANN执行出错后抛出的故障信息，其中包含错误码和错误描述等信息，如下例子：
+A: "Ascend Error Message"是MindSpore调用CANN(昇腾异构计算架构)接口时，CANN执行出错后抛出的故障信息，其中包含错误码和错误描述等信息，如下例子：
 
 ```text
 Traceback (most recent call last):
@@ -499,7 +499,7 @@ A: 在PyNative动态图模式下，可以使用numpy原生方法如`set_printopt
 
 A: `Tensor.asnumpy()`会将Tensor本身转换为NumPy的ndarray。这个Tensor和`Tensor.asnumpy()`返回的ndarray共享host侧的内存地址，在host侧，对Tensor本身的修改会反映到相应的ndarray上，反之亦然。需要注意的是，host侧的修改无法自动同步到device侧。如：
 
-```text
+```python
 import mindspore as ms
 x = ms.Tensor([1, 2, 3]) + ms.Tensor([4, 5, 6])
 y = x.asnumpy()

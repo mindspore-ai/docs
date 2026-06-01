@@ -88,7 +88,7 @@ The original Atlas 200/300/500 inference product inference service built based o
 
 ### Q: What should I do when an error `/usr/bin/ld: warning: libxxx.so, needed by libmindspore.so, not found` prompts during application compiling?
 
-A: Find the directory where the missing dynamic library file is located.
+A: Find the directory where the missing dynamic library file is located, add the path to the environment variable `LD_LIBRARY_PATH`.
 
 <br/>
 
@@ -106,4 +106,4 @@ A: While Atlas 200/300/500 inference product software packages relied by MindSpo
 
 ### Q: How to configure AIPP files?
 
-A: AIPP (artistic intelligence pre-processing) AI preprocessing is used to complete image preprocessing on AI core, including changing image size, color gamut conversion (converting image format), subtracting mean / multiplication coefficient (changing image pixels). Real-time inference is performed after data processing. The related configuration introduction is complex. Please refer to [AIPP enable chapter of ATC tool](https://www.hiascend.com/document/detail/zh/canncommercial/800/devaids/devtools/atc/atlasatc_16_0017.html).
+A: AIPP (artificial intelligence pre-processing) AI preprocessing is used to complete image preprocessing on AI core, including changing image size, color gamut conversion (converting image format), subtracting mean / multiplication coefficient (changing image pixels). Real-time inference is performed after data processing. The related configuration introduction is complex. Please refer to [AIPP enable chapter of ATC tool](https://www.hiascend.com/document/detail/zh/canncommercial/800/devaids/devtools/atc/atlasatc_16_0017.html).

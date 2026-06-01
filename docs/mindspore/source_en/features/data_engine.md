@@ -26,7 +26,7 @@ MindSpore training data engine also provides efficient loading and sampling capa
 
 The design of MindSpore considers the efficiency, flexibility and adaptability of data processing in different scenarios. The whole data processing subsystem is divided into the following modules:
 
-![image](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindspore/source_zh_cn/features/images/data/architecture.png)
+![image](./images/data/architecture.png)
 
 - API: The data processing process is represented in MindSpore in the form of a graph, called a data graph. MindSpore provides Python API to define data graphs externally and implement graph optimization and graph execution internally.
 - Data Processing Pipeline: Data loading and pre-processing multi-step parallel pipeline, which consists of the following components.
@@ -38,8 +38,6 @@ The design of MindSpore considers the efficiency, flexibility and adaptability o
     - Data Augmentation Operations: Also called Tensor operators, used to perform specific transformations on the Tensor, such as `Decode`, `Resize`, `Crop`, `Pad` operations, which are usually called by the `map` operation in Dataset Operations.
 
 The results of the data augmentation are connected to the forward and backward computing system via a queue.
-
-Based on the above design, the data processing engine implements the following Pipeline process:
 
 In addition, due to the limited resources of device-side scenarios, MindSpore provides a set of more lightweight data processing Eager model, which can solve the problem that the data processing Pipeline of cloud-based scenarios is not applicable to the device-side. Users can directly perform data processing operations on a single image and then pass it into the model for inference.
 

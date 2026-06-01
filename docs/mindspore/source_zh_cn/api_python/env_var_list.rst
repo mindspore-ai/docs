@@ -224,13 +224,13 @@
      - Integer
      - 1：对未使用的Cell对象进行垃圾回收
 
-       不设置或其他值：不会显示调用垃圾回收机制
+       不设置或其他值：不会显式调用垃圾回收机制
      - 此环境变量后续将删除，不建议使用。
    * - MS_DEV_USE_PY_BPROP
-     - 指定算子的bprop使用python版本，不使用cpp expander
+     - 指定算子的bprop使用Python版本，不使用cpp expander
      - String
      - 算子名称，可以指定多个算子，以","分隔
-     - 实验性质的环境变量，如果不存在python版本的bprop函数，会执行出错
+     - 实验性质的环境变量，如果不存在Python版本的bprop函数，会执行出错
    * - MS_DEV_DISABLE_BPROP_CACHE
      - 关闭bprop缓存图功能
      - String
@@ -399,7 +399,7 @@
      - 仅限Ascend AI处理器环境，图编译等级为O0或O1流程使用。实验性质的环境变量。
 
    * - MS_SUPPORT_BINARY
-     - 控制是否支持在图模式下运行pyc或者so。
+     - 控制是否支持在图模式下运行.pyc或者.so。
      - Integer
      - 1：支持图模式下运行pyc或者so。
 
@@ -689,9 +689,9 @@ Dump调试
 
        0：不开启算子debug功能，删除算子编译缓存文件
 
-       1：生成TBE指令映射文件 `*.cce` 和python-cce映射文件 `*_loc.json` ，开启debug功能
+       1：生成TBE指令映射文件 `*.cce` 和Python-cce映射文件 `*_loc.json` ，开启debug功能
 
-       2：生成TBE指令映射文件 `*.cce` 和python-cce映射文件 `*_loc.json` ，开启debug功能，关闭编译优化开关，开启ccec调试功能（ccec编译器选项设置为-O0-g）
+       2：生成TBE指令映射文件 `*.cce` 和Python-cce映射文件 `*_loc.json` ，开启debug功能，关闭编译优化开关，开启ccec调试功能（ccec编译器选项设置为-O0-g）
 
        3：不开启算子debug功能，默认值
 
@@ -754,9 +754,9 @@ Dump调试
    * - GLOG_logtostderr
      - 控制日志的输出方式
      - Integer
-     - 1:日志输出到屏幕
+     - 1：日志输出到屏幕
 
-       0:日志输出到文件
+       0：日志输出到文件
 
        默认值：1
      - 与GLOG_log_dir一起使用
@@ -936,11 +936,11 @@ Dump调试
    * - PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION
      - 选择Protocol Buffers后端使用什么语言实现
      - String
-     - "cpp"：使用c++后端实现
+     - "cpp"：使用C++后端实现
 
-       "python"：使用python后端实现
+       "python"：使用Python后端实现
 
-       不设置或其他值：使用python后端实现
+       不设置或其他值：使用Python后端实现
      -
    * - ASCEND_OPP_PATH
      - OPP包安装路径
@@ -960,7 +960,7 @@ Dump调试
    * - ASCEND_TOOLKIT_PATH
      - TOOLKIT包安装路径
      - String
-     - 自定义算子包安装的绝对路径
+     - TOOLKIT包安装的绝对路径
      - 仅限Ascend AI处理器环境需要，一般提供给用户的环境已配置好，无需关心。
    * - CUDA_HOME
      - CUDA安装路径

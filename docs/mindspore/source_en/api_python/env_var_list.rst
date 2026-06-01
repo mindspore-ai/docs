@@ -57,7 +57,7 @@ Data Processing
      - True: Enable the check of disk space.
 
        False: Disable the check of disk space.
-     - Default: True, When creating MindRecords on shared storage using multiple concurrent operations, it is recommended to set it to False.
+     - Default: True. When creating MindRecords on shared storage using multiple concurrent operations, it is recommended to set it to False.
    * - MS_INDEPENDENT_DATASET
      - Whether to enable dataset independent process mode. Dataset will run in independent child processes. Only supports Linux platform.
      - String
@@ -90,7 +90,7 @@ Graph Compilation and Execution
    * - MS_DEV_JIT_SYNTAX_LEVEL
      - Specify the syntax support level of static graph mode.
      - Integer
-     - 0: Specify the syntax support level of static graph mode as STRICT level. Only basic syntaxes is supported, and execution performance is optimal. Can be used for MindIR load and export.
+     - 0: Specify the syntax support level of static graph mode as STRICT level. Only basic syntaxes are supported, and execution performance is optimal. Can be used for MindIR load and export.
 
        2: Specify the syntax support level of static graph mode as LAX level. More complex syntaxes are supported, compatible with all Python syntax as much as possible. Cannot be used for MindIR load and export due to some syntax that may not be able to be exported.
      -
@@ -98,7 +98,7 @@ Graph Compilation and Execution
      - Specify which modules in static graph mode require JIT static compilation, and their functions and methods will be compiled into static calculation graphs.
      - String
      - The module name, corresponding to the name of the imported top-level module. If there are more than one, separate them with commas. For example, `export MS_JIT_MODULES=mindflow,mindyolo`.
-     - By default, modules other than third-party libraries will be perform JIT static compilation, and MindSpore suites such as `mindflow` and `mindyolo` will not be treated as third-party libraries. If there is a module similar to MindSpore suites, which contains `nn.Cell`, `@ms.jit` decorated functions or functions to be compiled into static calculation graphs, you can configure the environment variable, so that the module will be perform JIT static compilation instead of being treated as third-party library.
+     - By default, modules other than third-party libraries will perform JIT static compilation, and MindSpore suites such as `mindflow` and `mindyolo` will not be treated as third-party libraries. If there is a module similar to MindSpore suites, which contains `nn.Cell`, `@ms.jit` decorated functions or functions to be compiled into static calculation graphs, you can configure the environment variable, so that the module will perform JIT static compilation instead of being treated as a third-party library.
    * - MS_JIT_IGNORE_MODULES
      - Specify which modules are treated as third-party libraries in static graph mode without JIT static compilation. Their functions and methods will be interpreted and executed.
      - String
@@ -145,7 +145,7 @@ Graph Compilation and Execution
 
        1: Conservatively do some memory optimization.
 
-       2: Under the premise of losing a certain amount of compilation performance, optimize the video memory as much as possible.
+       2: Optimize video memory as much as possible, at the cost of some compilation performance.
 
        3: The accuracy of the network is not guaranteed, and the memory consumption is minimal.
 
@@ -158,7 +158,7 @@ Graph Compilation and Execution
 
        1: Some intermediate files will be generated during graph compilation.
 
-       2: Based on level1, generate more IR files related to backend process.
+       2: Based on level 1, generate more IR files related to backend process.
 
        3: Based on level2, generate visualization computing graphs and detailed frontend IR graphs.
      -
@@ -230,14 +230,14 @@ Graph Compilation and Execution
      - The op which set by environment will use python bprop instead of cpp expander bprop
      - String
      - Op name, can set more than one name, split by ','
-     - Experimental environment variable. It will run fail when python bprop does not exist
+     - Experimental environment variable. It will fail to run when Python bprop does not exist
    * - MS_DEV_DISABLE_BPROP_CACHE
-     - Disable to use bprop's graph cache
+     - Disable the use of bprop's graph cache
      - String
-     - 'on', indicating that disable to use bprop's graph cache
+     - 'on', indicating that the use of bprop's graph cache is disabled
      - Experimental environment variable. When set env on, it will slow down building bprop's graph
    * - MS_ENABLE_GRACEFUL_EXIT
-     - Enable training process exit gracefully
+     - Enable graceful exit of the training process
      - Integer
      - 1: Enable graceful exit.
 
@@ -264,7 +264,7 @@ Graph Compilation and Execution
 
        pipeline: Whether to enable runtime pipeline, only effective in O0 or O1 mode, with a default value of true.
 
-       all_finite: Whether to enable Allfitine in overflow detection, only effective in O0 or O1 mode, with a default value of true.
+       all_finite: Whether to enable AllFinite in overflow detection, only effective in O0 or O1 mode, with a default value of true.
 
        memory_statistics: Whether to enable memory statistics, with a default value of false.
 
@@ -369,13 +369,13 @@ Graph Compilation and Execution
      -
 
    * - MS_DEV_HCCL_CONF
-     - Configure the memory allocation.
+     - Configure the HCCL communication buffer.
      - String
      - Configuration items, with the format of "key: value", multiple configuration items separated by commas, for example, "export MS_DEV_HCCL_CONF=enable_hccl_config:True,hccl_customized_default:100MB,hccl_list_config:0-1-2-3=200MB,hccl_stride_config:0-6:2=50MB".
 
-       enable_hccl_config: Whether to enable virtual memory, with a default value of false.
+       enable_hccl_config: Whether to enable HCCL configuration, with a default value of false.
 
-       hccl_customized_default: Set the virtual memory alignment size in MB.
+       hccl_customized_default: Set the default HCCL_BUFFSIZE in MB.
 
        hccl_list_config: Sets the HCCL_BUFFSIZE for the specified rank_list in MB.
 
@@ -399,7 +399,7 @@ Graph Compilation and Execution
      - Used only in the Ascend AI processor environment when the graph compilation level is O0 or O1. Experimental environment variables.
 
    * - MS_SUPPORT_BINARY
-     - Control whether support run pyc or so in graph mode.
+     - Control whether to support running .pyc or .so files in graph mode.
      - Integer
      - 1: Support run pyc or so in graph mode.
 
@@ -447,7 +447,7 @@ Dump Debugging
        "0": keep useless dump output.
      - Default value: "1". This environment variable takes effect only when MINDSPORE_DUMP_CONFIG is configured.
    * - MS_DEV_DUMP_BPROP
-     - Dump bprop ir file in current path
+     - Dump bprop IR file in the current path
      - String
      - 'on', indicating that dump bprop ir file in current path
      - Experimental environment variable.
@@ -521,9 +521,9 @@ Distributed Parallel
 
        Note: When the Ascend AI Processor is used, specified by user when a distributed case is executed.
      - Integer
-     - -1 or an positive integer: communication subgraph extraction and reuse is enabled. -1 means that default value will be used. A positive integer means that the user specified value will be used.
+     - -1 or a positive integer: communication subgraph extraction and reuse is enabled. -1 means that default value will be used. A positive integer means that the user specified value will be used.
 
-       Do not set or set other values:: communication subgraph extraction and reuse is turned off.
+       Do not set or set other values: communication subgraph extraction and reuse is turned off.
      -
    * - MS_HCCL_ZERO_COPY
      - Controls whether to enable HCCL zero-copy to reduce intra-chip memory copies during collective communication within a single server.
@@ -580,7 +580,7 @@ Distributed Parallel
      - Integers greater than 0.
      - The setting is only required in Parameter Server training mode.
    * - MS_INTERFERED_SAPP
-     - Turn on interfered sapp.
+     - Turn on interfered SAPP.
      - Integer
      - 1 for on. No setting or other value: off.
      -
@@ -629,7 +629,7 @@ Distributed Parallel
 
        sr_tag: The identity ID of different send-receive pairs when src and dest are the same.
    * - MS_CUSTOM_DEPEND_CONFIG_PATH
-     - Insert the control edge based on the configuration file xxx.json specified by the user, and use the primitive ops.Depend in MindSpore expresses the dependency control relationship.
+     - Insert the control edge based on the configuration file xxx.json specified by the user, and use the primitive ops.Depend in MindSpore to express the dependency control relationship.
      - String
      - This environment variable is only enabled in graph mode.
      - The fields contained in the json file have the following meanings:
@@ -645,12 +645,12 @@ Distributed Parallel
        depend_dest_list(List[string]): A list of terminal operator names that need to be inserted into control edges. They need to correspond one-to-one with the operators in depend_src_list in order, otherwise the action of inserting control edges will fail.
 
        delete_depend_list(List[string]): A list of operator names that need to be deleted. If the operator name does not exist or does not match the graph_id, the action of deleting the node will be invalid.
-   * - MS_DEV_ENABLE_PASS_CIRCEL_RECOVERY
-     - Control whether to enable the automatic detection of computational graph circle caused by parallel passes, and revert the modifications made by parallel passes to the computational graph.
+   * - MS_DEV_ENABLE_PASS_CIRCLE_RECOVERY
+     - Control whether to enable the automatic detection of computational graph circles caused by parallel passes, and revert the modifications made by parallel passes to the computational graph.
      - Integer
-     - 1: Enable the automatic detection of computational graph circle caused by parallel passes, and revert the modifications made by parallel passes to the computational graph.
+     - 1: Enable the automatic detection of computational graph circles caused by parallel passes, and revert the modifications made by parallel passes to the computational graph.
 
-       No setting or other value: Disable the automatic detection of computational graph circle caused by parallel passes, and revert the modifications made by parallel passes to the computational graph.
+       No setting or other value: Disable the automatic detection of computational graph circles caused by parallel passes, and revert the modifications made by parallel passes to the computational graph.
      -
 
 
@@ -910,7 +910,7 @@ Silent Data Corruption Detection
 
        cooldown: Feature value detection anomaly cooldown time and CheckSum execution time, in the format of a positive integer, in minutes, with a default value of 5
 
-       strikes_num: strikes_num: Number of times that feature value anomalies trigger CheckSum detection, with a default value of 3
+       strikes_num: Number of times that feature value anomalies trigger CheckSum detection, with a default value of 3
 
        strikes_window: Time window for counting the number of feature values detection anomalies, in the format of a positive integer, in minutes, with a default value of 480
 
@@ -938,13 +938,13 @@ Third-party Library
      - File path, which can be a relative path or an absolute path.
      -
    * - PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION
-     - Choose which language to use for the Protocol Buffers back-end implementation
+     - Choose which language to use for the Protocol Buffers backend implementation
      - String
-     - "cpp": implementation using c++ backend
+     - "cpp": implementation using C++ backend
 
-       "python": implementation using python back-end
+       "python": implementation using Python backend
 
-       No setting or other value: implementation using python backend
+       No setting or other value: implementation using Python backend
      -
    * - ASCEND_OPP_PATH
      - OPP package installation path
@@ -957,14 +957,14 @@ Third-party Library
      - Absolute path of the AICPU package installation
      - Required for Ascend AI processor environments only; the environment generally provided to the user is already configured and need not be concerned.
    * - ASCEND_CUSTOM_OPP_PATH
-     - the installation path of the custom operator package
+     - The installation path of the custom operator package
      - String
-     - the absolute path of custom operator package installation
+     - The absolute path of custom operator package installation
      - Required for Ascend AI processor environments only; the environment generally provided to the user is already configured and need not be concerned.
    * - ASCEND_TOOLKIT_PATH
      - TOOLKIT package installation path
      - String
-     - the absolute path of custom operator package installation
+     - The absolute path of TOOLKIT package installation
      - Required for Ascend AI processor environments only; the environment generally provided to the user is already configured and need not be concerned.
    * - CUDA_HOME
      - CUDA installation path

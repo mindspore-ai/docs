@@ -4,7 +4,7 @@
 
 ## Overview
 
-With the development of deep learning, network models are becoming larger and larger, such as trillions of parametric models have emerged in the field of NLP, and the model capacity far exceeds the memory capacity of a single device, making it impossible to train on a single card or data parallel.
+With the development of deep learning, network models are becoming larger and larger, such as trillion-parameter models have emerged in the field of NLP, and the model capacity far exceeds the memory capacity of a single device, making it impossible to train on a single card or data parallel.
 
 Operator-level parallelism is achieved by slicing the tensor involved in each operator in the network model. Logical data parallelism is used when only the data dimension is sliced, while logical model parallelism is used when only the model dimension is sliced. The training of large models is enabled by reducing the memory consumption of a single device.
 
@@ -25,8 +25,8 @@ Related interfaces:
     - `ops.Gather().add_prim_attr("manual_split", split_tuple)`: This interface configures the first input of the Gather operator to be non-uniformly sliced, which is only valid for axis=0. `split_tuple` is a tuple with elements of type int, the sum of the elements must be equal to the length of the 0th dimension of the first input in the Gather operator, and the number of tuples must be equal to the number of 0th dimensional slices of the first input in the Gather operator.
     - `ops.Gather().add_prim_attr("primitive_target", "CPU")`: This interface configures the Gather operator to execute on the CPU for heterogeneous scenarios.
     - `ops.Reshape().add_prim_attr("skip_redistribution")`: Do not apply tensor redistribution (For tensor redistribution, see [Basic Principle](#basic-principle)) before and after ops.Reshape.
-    - `ops.ReduceSum().add_prim_attr("cross_batch")`: This interface only supports Reduce operators. When cross_batch is configured, if the sliced axis is same as the calculated axis of reduce ops, the synchronization will not be added to each cards, which causes different result that is different from that of single card.
-    - `ops.TensorScatterUpdate().add_prim_attr("self_define_shard", True)`: When set `self_define_shard` to an operator, input/output layout can config to this operator (whatever this operator supports sharding). However, user needs to ensure the correctness of input/output layout and accuracy of operator.
+    - `ops.ReduceSum().add_prim_attr("cross_batch")`: This interface only supports Reduce operators. When cross_batch is configured, if the sliced axis is same as the calculated axis of reduce ops, the synchronization will not be added to each card, which produces a result different from that of a single card.
+    - `ops.TensorScatterUpdate().add_prim_attr("self_define_shard", True)`: When setting `self_define_shard` to an operator, input/output layout can be configured for this operator (regardless of whether this operator supports sharding). However, user needs to ensure the correctness of input/output layout and accuracy of operator.
 
 ## Basic Principle
 
@@ -41,10 +41,6 @@ Tensor Layout is used to describe the distribution information about the Tensor 
 If the two-dimensional matrix is sliced to four nodes, there are four types of slices: simultaneously slices both row and column, replication, row slicing + replication, and column slicing + replication, as shown below:
 
 Tensor Redistribution is used to handle the conversion between different Tensor Layouts, which can convert the Tensor from one layout to another in the cluster. All redistribution operations are decomposed into combinations of operators such as "set communication+split+concat". The following two figures illustrate several Tensor Redistribution operations.
-
-*Figure: Tensor is sliced to redistribution of two nodes*
-
-*Figure: Tensor is sliced to redistribution of four nodes*
 
 Users can set the sharding strategy of the operator by using the shard() interface, which describes how each dimension of each input tensor of the operator is sliced. For example, MatMul().shard(((a, b), (b, c))) means that MatMul has two input tensors, and the rows of the first input tensor are uniformly sliced in a copies and the columns are uniformly sliced in b copies. The rows of the second input tensor are uniformly sliced in b copies and the columns are uniformly sliced in c copies.
 
@@ -79,13 +75,13 @@ To cope with these complex scenarios, this tutorial introduces a higher-order op
 
 [Operator-level Parallelism](https://www.mindspore.cn/tutorials/en/master/parallel/operator_parallel.html) describes MindSpore basic slicing logic for tensors, but cannot express all the slicing scenarios. For example, for a 2D tensor "[[a0, a1, a2, a3], [a4, a5, a6, a7]]", the tensor layout is shown below:
 
-![image](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindspore/source_zh_cn/features/parallel/images/advanced_operator_parallel_view1.PNG)
+![image](./images/advanced_operator_parallel_view1.PNG)
 
 *Figure: Schematic of 2D tensor arrangement*
 
 It can be seen that the 0-axis of the tensor, e.g. "[a0, a1, a2, a3]" slices to the discontinuous card "[Rank0, Rank4, Rank2, Rank6]" and the tensor is sliced according to strategy=(2, 4), the arrangement should be as follows:
 
-![image](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindspore/source_zh_cn/features/parallel/images/advanced_operator_parallel_view2.PNG)
+![image](./images/advanced_operator_parallel_view2.PNG)
 
 *Figure: Schematic of a 2D tensor arranged according to a sharding strategy*
 
@@ -121,7 +117,7 @@ a_strategy = layout("mp", ("sp", "dp"))
 
 It can be seen that the "[a0, a1, a2, a3]" of the tensor a is sliced twice to the "sp" and "dp" axes of the device, so that the result comes out as:
 
-![image](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindspore/source_zh_cn/features/parallel/images/advanced_operator_parallel_view1.PNG)
+![image](./images/advanced_operator_parallel_view1.PNG)
 
 The following is exemplified by a concrete example in which the user computes a two-dimensional matrix multiplication over 8 cards: `Y = (X * W)` , where the devices are organized according to `2 * 2 * 2`, and the cut of X coincides with the cut of the tensor a. The code is as follows:
 
@@ -134,8 +130,8 @@ class DenseMatMulNet(nn.Cell):
     def __init__(self):
         super(DenseMatMulNet, self).__init__()
         layout = Layout((2, 2, 2), alias_name = ("dp", "sp", "mp"))
-        in_strategy = (layout("mp", ("sp", "dp")), layout(("sp", "dp"), "None"))
-        out_strategy = (layout(("mp", "sp", "dp"), "None"), )
+        in_strategy = (layout("mp", ("sp", "dp")), layout(("sp", "dp"), None))
+        out_strategy = (layout(("mp", "sp", "dp"), None), )
         self.matmul1 = ops.MatMul().shard(in_strategy, out_strategy)
     def construct(self, x, w):
         y = self.matmul1(x, w)

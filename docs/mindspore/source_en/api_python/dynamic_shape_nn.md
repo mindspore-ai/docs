@@ -6,7 +6,7 @@
 >
 > nn interfaces outside of this list have limited support for dynamic shape functionality and may fail to execute. Additionally, in graph mode, dynamic shape functionality is also limited and may result in execution failures.
 >
-> If you encounter issues that the execution of dynamic shape operator fails, it is recommended to avoid introducing dynamic shape in the network. For example, you can adjust the inputs of nn interfaces to construct a fully static shape network or confine dynamic shape to a local scope within the network.
+> If you encounter issues where the execution of a dynamic shape operator fails, it is recommended to avoid introducing dynamic shape in the network. For example, you can adjust the inputs of nn interfaces to construct a fully static shape network or confine dynamic shape to a local scope within the network.
 
 | API name  | Ascend |  GPU  |   CPU  |
 | :--- |:-------- | :------- |:---------|

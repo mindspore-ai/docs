@@ -1,4 +1,4 @@
-# Dynamic Shape Support Status of functional Interface
+# Dynamic Shape Support Status of Functional Interface
 
 [![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindspore/source_en/api_python/dynamic_shape_func.md)
 

@@ -6,7 +6,7 @@
 
 MindSpore utilizes jit (just-in-time) for performance optimization. The jit mode converts Python code to intermediate representation graphs (IR, Intermediate Representation) through AST tree parsing, Python bytecode parsing, or code execution tracing. We name it MindIR. The compiler optimizes this IR graph to achieve code optimization and improve runtime performance. In contrast to PyNative Mode, this JIT compilation mode is called Graph Mode.
 
-Python code written by developers runs in PyNative Mode mode by default. Functions can be decorated with the @mindspore.jit decorator to specify execution in Graph Mode. For documentation on the @mindspore.jit decorator, please refer to the [jit documentation](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.jit.html).
+Python code written by developers runs in PyNative mode by default. Developers can decorate functions with the @mindspore.jit decorator to specify execution in Graph Mode. For documentation on the @mindspore.jit decorator, please refer to the [jit documentation](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.jit.html).
 
 Graph Mode is roughly divided into 3 stages:
 
@@ -38,7 +38,7 @@ def foo(x, y):
 
 The corresponding abstract syntax tree is as follows:
 
-![Abstract Syntax Tree](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindspore/source_zh_cn/features/compile/images/ast.png)
+![Abstract Syntax Tree](./images/ast.png)
 
 By parsing the above abstract syntax tree, we obtain the following IR:
 
@@ -171,7 +171,7 @@ int main() {
 In AI framework computation graph compilers, the goal of inlining is similar, but the operation object changes from "functions" to "subgraphs". Suppose we have a Python program:
 
 ```python
-from mindspore
+import mindspore
 
 def f2(x: mindspore.Tensor, y: mindspore.Tensor):
     return x * 0.5 + y
