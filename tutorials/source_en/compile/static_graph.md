@@ -303,7 +303,7 @@ res: ('H', 'Spore', 'Hello!MindSpore', 'MindSporeMindSpore', True, 'My name is M
 ##### List
 
 When \'JIT_SYNTAX_LEVEL\' is set to \'LAX\', static graph mode can support the in-place operation of some \'List\' objects,
-see [Supporting List Inplace Modification Operations](#supporting-list-in-place-modification-operations).
+see [Supporting List Inplace Modification Operations](#supporting-list-inplace-modification-operations).
 
 The basic usage scenarios of \'List\' are as follows:
 
