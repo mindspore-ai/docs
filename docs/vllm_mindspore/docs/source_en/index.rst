@@ -123,6 +123,7 @@ Apache License 2.0, as found in the `LICENSE <https://atomgit.com/mindspore/vllm
 
    user_guide/supported_models/models_list/models_list
    user_guide/supported_features/features_list/features_list
+   user_guide/supported_features/graph_capture/graph_capture
    user_guide/supported_features/parallel/parallel
    user_guide/supported_features/quantization/quantization
    user_guide/supported_features/profiling/profiling
