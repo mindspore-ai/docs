@@ -66,8 +66,6 @@
 | `--enableFp16=<FP16PRIORITY>` | 可选 | 指定是否优先使用float16算子。 | Boolean | false | true、false | 暂不支持 |
 | `--timeProfiling=<TIMEPROFILING>`  | 可选 | 性能验证时生效，指定是否使用TimeProfiler打印每个算子的耗时。 | Boolean | false | true、false | 暂不支持 |
 | `--perfEvent=<PERFEVENT>` | 可选 | CPU性能验证时生效，指定PerfProfiler打印的CPU性能参数的具体内容，指定为CYCLE时，会打印算子的CPU周期数和指令条数；指定为CACHE时，会打印算子的缓存读取次数和缓存未命中次数；指定为STALL时，会打印CPU前端等待周期数和后端等待周期数。 | String | CYCLE | CYCLE/CACHE/STALL | 暂不支持 |
-| `--decryptKey=<DECRYPTKEY>` | 可选 | 用于解密文件的密钥，以十六进制字符表示。仅支持 AES-GCM，密钥长度仅支持16Byte。 | String | null | 注意密钥为十六进制表示的字符串，Linux平台用户可以使用`xxd`工具对字节表示的密钥进行十六进制表达转换。 | 暂不支持 |
-| `--cryptoLibPath=<CRYPTOLIBPATH>` | 可选 | OpenSSL加密库crypto的路径 | String | null | - | 暂不支持 |
 
 ### 使用示例
 
@@ -110,10 +108,4 @@ Mean bias of all nodes: 0%
 
 ```bash
 ./benchmark --modelFile=/path/to/model.mindir --inDataFile=/path/to/input.bin --inputShapes=1,32,32,1 --device=CPU --accuracyThreshold=3 --benchmarkDataFile=/path/to/output.out
-```
-
-如果输入的模型是加密模型，需要同时配置`decryptKey`和`cryptoLibPath`对模型解密后进行推理，使用如下命令：
-
-```bash
-./benchmark --modelFile=/path/to/encry_model.mindir --decryptKey="your decrypt key" --cryptoLibPath=/root/anaconda3/bin/openssl
 ```

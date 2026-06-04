@@ -76,11 +76,6 @@ MindSpore Lite云侧推理的Python接口模型转换提供了多种属性设置
 
 | Converter属性 | 返回值类型  | 对应模型离线转换的参数  |  说明  | 取值范围 | 备注 |
 | -------- | ----- | -------- | ----- | --- | ---- |
-| decrypt_key | str | `--decryptKey=<DECRYPTKEY>` | 设置用于加载密文MindIR时的密钥，密钥用十六进制表示，只对`fmk_type`为MINDIR时有效。 | - | - |
-| decrypt_mode | str | `--decryptMode=<DECRYPTMODE>` | 设置加载密文MindIR的模式，只在指定了`decrypt_key`时有效。 | "AES-GCM"、"AES-CBC" | - |
-| device | str | `--device=<DEVICE>` | 设置转换模型时的目标设备。使用场景是在Ascend设备上，如果你需要转换生成的模型调用Ascend后端执行推理，则设置该属性，若未设置，默认模型调用CPU后端推理。 | "Ascend" | - |
-| encrypt_key | str | `--encryptKey=<ENCRYPTKEY>` | 设置用于加密文件的密钥，以十六进制字符表示。仅支持当`decrypt_mode`是"AES-GCM"，密钥长度为16。 | - | - |
-| enable_encryption | bool | `--encryption=<ENCRYPTION>` | 导出模型时是否加密，导出加密可保护模型完整性，但会增加运行时初始化时间。 | True、False | - |
 | infer | bool | `--infer=<INFER>` | 是否在转换完成时进行预推理。 | True、False | - |
 | input_data_type | DataType | `--inputDataType=<INPUTDATATYPE>` | 设置量化模型输入Tensor的data type。仅当模型输入Tensor的量化参数（`scale`和`zero point`）都具备时有效。默认与原始模型输入Tensor的data type保持一致。 | DataType.FLOAT32、DataType.INT8、DataType.UINT8、DataType.UNKNOWN | - |
 | input_format | Format | `--inputDataFormat=<INPUTDATAFORMAT>` | 设置导出模型的输入format，只对四维输入有效。 | Format.NCHW、Format.NHWC | - |
@@ -90,8 +85,6 @@ MindSpore Lite云侧推理的Python接口模型转换提供了多种属性设置
 | save_type | ModelType | `--saveType=<SAVETYPE>` | 设置导出模型文件的类型。| ModelType.MINDIR | MINDIR模型使用MindSpore Lite云侧推理安装包 |
 | weight_fp16 | bool | `--fp16=<FP16>` | 设置在模型序列化时是否需要将float32数据格式的权重存储为float16数据格式。 | True、False | - |
 
-> - 加解密功能仅在[编译](https://www.mindspore.cn/lite/cloud_docs/zh-CN/master/use/build.html) 时设置为 `MSLITE_ENABLE_MODEL_ENCRYPTION=on` 时生效，并且仅支持Linux x86平台。其中密钥为十六进制表示的字符串，Linux平台用户可以使用 `xxd` 工具对字节表示的密钥进行十六进制表达转换。需要注意的是，加解密算法在1.7版本进行了更新，导致新版的Python接口不支持对1.6及其之前版本的MindSpore Lite加密导出的模型进行转换。
->
 > - `input_shape` 在以下场景下，用户可能需要设置该属性：
 >
 >   - 用法1：待转换模型的输入是动态shape，准备采用固定shape推理，则设置该属性为固定shape。设置之后，在对Converter后的模型进行推理时，默认输入的shape与该属性设置一样，无需再进行resize操作。

@@ -76,11 +76,6 @@ Detailed descriptions of the parameters and their correspondence to the paramete
 
 | Converter attributes | Types of attributes  | Parameters corresponding to the offline conversion of the model  | Description  | Value range | Remarks |
 | -------- | ----- | -------- | ------- | ---- | ---- |
-| decrypt_key | str | `--decryptKey=<DECRYPTKEY>` | Set the key used to load the cipher text MindIR. The key is expressed in hexadecimal and is only valid when `fmk_type` is MINDIR. | - | - |
-| decrypt_mode | str | `--decryptMode=<DECRYPTMODE>` | Set the mode to load cipher MindIR, only valid when `decrypt_key` is specified. | "AES-GCM", "AES-CBC" | - |
-| device | str | `--device=<DEVICE>` | Set target device when converting model. The use case is when on the Ascend device, if you need to the converted model to have the ability to use Ascend backend to perform inference, you can set the attribute. If it is not set, the converted model will use CPU backend to perform inference by default. | "Ascend" | - |
-| encrypt_key | str | `--encryptKey=<ENCRYPTKEY>` | Set the key used to encrypt the file, in hexadecimal characters. Only supported when `decrypt_mode` is "AES-GCM" and the key length is 16. | - | - |
-| enable_encryption | bool | `--encryption=<ENCRYPTION>` | Whether to encrypt the model when exporting. Exporting encryption protects model integrity, but increases runtime initialization time. | True, False | - |
 | infer | bool | `--infer=<INFER>` | Whether to perform pre-inference at the completion of the conversion. | True, False | - |
 | input_data_type | DataType | `--inputDataType=<INPUTDATATYPE>` | Set the data type of the quantized model input Tensor. Only valid if the quantization parameters (`scale` and `zero point`) of the model input Tensor are available. The default is to keep the same data type as the original model input Tensor. | DataType.FLOAT32, DataType.INT8, DataType.UINT8, DataType.UNKNOWN | - |
 | input_format | Format | `--inputDataFormat=<INPUTDATAFORMAT>` | Set the input format of the exported model, valid only for 4-dimensional inputs. | Format.NCHW, Format.NHWC | - |
@@ -90,8 +85,6 @@ Detailed descriptions of the parameters and their correspondence to the paramete
 | save_type | ModelType | `--saveType=<SAVETYPE>` | Required | Set the model type needs to be export. | ModelType.MINDIR | The MINDIR model uses the MindSpore Lite cloud-side inference installation package |
 | weight_fp16 | bool | `--fp16=<FP16>` | Set whether the weights in float32 data format need to be stored in float16 data format during model serialization. | True, False | - |
 
-> - The encryption and decryption function only takes effect when `MSLITE_ENABLE_MODEL_ENCRYPTION=on` is set at [compile](https://www.mindspore.cn/lite/cloud_docs/en/master/use/build.html) time and only supports Linux x86 platforms. `decrypt_key` and `encrypt_key` are string expressed in hexadecimal. Linux platform users can use the `xxd` tool to convert the key expressed in bytes into hexadecimal expressions.
->
 > - `input_shape` is an attribute that the user may need to set in the following scenarios:
 >
 >   - Usage 1: The input of the model to be converted is dynamic shape, and the fixed-shape inference is prepared, then this attribute is set to fixed-shape. After setting, when inference about the model after the Converter, the default input shape is the same as this attribute setting, and no resize operation is needed.

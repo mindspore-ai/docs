@@ -8,9 +8,9 @@ Serialization类汇总了模型文件读写的方法。
 
 | 函数                                                                 | 云侧推理是否支持 | 端侧推理是否支持 |
 |--------------------------------------------------------------------|--------|--------|
-| [static inline Status Load(const void *model_data, size_t data_size, ModelType model_type, Graph *graph, const Key &dec_key = {}, const std::string &dec_mode = kDecModeAesGcm)](#load)     |    ✕    |    √    |
-| [static inline Status Load(const std::string &file, ModelType model_type, Graph *graph, const Key &dec_key = {}, const std::string &dec_mode = kDecModeAesGcm)](#load-1)     |    ✕    |    √    |
-| [static inline Status Load(const std::vector\<std::string\> &files, ModelType model_type, std::vector\<Graph\> *graphs, const Key &dec_key = {}, const std::string &dec_mode = kDecModeAesGcm)](#load-2)     |    ✕    |    ✕    |
+| [static Status Load(const void *model_data, size_t data_size, ModelType model_type, Graph *graph)](#load)     |    ✕    |    √    |
+| [static inline Status Load(const std::string &file, ModelType model_type, Graph *graph)](#load-1)     |    ✕    |    √    |
+| [static inline Status Load(const std::vector\<std::string\> &files, ModelType model_type, std::vector\<Graph\> *graphs)](#load-2)     |    ✕    |    ✕    |
 | [static inline Status SetParameters(const std::map\<std::string, Buffer\> &parameters, Model *model)](#setparameters)     |    ✕    |    ✕    |
 | [static inline Status ExportModel(const Model &model, ModelType model_type, Buffer *model_data)](#exportmodel)     |    ✕    |    √    |
 | [static inline Status ExportModel(const Model &model, ModelType model_type, const std::string &model_file, QuantizationType quantization_type = kNoQuant, bool export_inference_only = true, std::vector\<std::string\> output_tensor_name = {})](#exportmodel-1)     |    ✕    |    √    |
@@ -21,8 +21,7 @@ Serialization类汇总了模型文件读写的方法。
 从内存缓冲区加载模型。
 
 ```cpp
-static inline Status Load(const void *model_data, size_t data_size, ModelType model_type, Graph *graph,
-            const Key &dec_key = {}, const std::string &dec_mode = kDecModeAesGcm)
+static inline Status Load(const void *model_data, size_t data_size, ModelType model_type, Graph *graph)
 ```
 
 - 参数
@@ -31,8 +30,6 @@ static inline Status Load(const void *model_data, size_t data_size, ModelType mo
     - `data_size`：模型数据字节数。
     - `model_type`：模型文件类型，可选有`ModelType::kMindIR`、`ModelType::kMindIR_Lite`、`ModelType::kOM`。
     - `graph`：输出参数，保存图数据的对象。
-    - `dec_key`：解密密钥，用于解密密文模型，密钥长度为16、24或32。
-    - `dec_mode`：解密模式，可选有`AES-GCM`、`AES-CBC`。
 
 - 返回值
 
@@ -43,8 +40,7 @@ static inline Status Load(const void *model_data, size_t data_size, ModelType mo
 从文件加载模型。
 
 ```cpp
-static inline Status Load(const std::string &file, ModelType model_type, Graph *graph, const Key &dec_key = {},
-            const std::string &dec_mode = kDecModeAesGcm)
+static inline Status Load(const std::string &file, ModelType model_type, Graph *graph)
 ```
 
 - 参数
@@ -52,8 +48,6 @@ static inline Status Load(const std::string &file, ModelType model_type, Graph *
     - `file`：模型文件路径。
     - `model_type`：模型文件类型，可选有`ModelType::kMindIR`、`ModelType::kMindIR_Lite`、`ModelType::kOM`。
     - `graph`：输出参数，保存图数据的对象。
-    - `dec_key`：解密密钥，用于解密密文模型，密钥长度为16、24或32。
-    - `dec_mode`：解密模式，可选有`AES-GCM`、`AES-CBC`。
 
 - 返回值
 
@@ -64,8 +58,7 @@ static inline Status Load(const std::string &file, ModelType model_type, Graph *
 从多个文件加载多个模型。
 
 ```cpp
-static inline Status Load(const std::vector<std::string> &files, ModelType model_type, std::vector<Graph> *graphs,
-            const Key &dec_key = {}, const std::string &dec_mode = kDecModeAesGcm)
+static inline Status Load(const std::vector<std::string> &files, ModelType model_type, std::vector<Graph> *graphs)
 ```
 
 - 参数
@@ -73,8 +66,6 @@ static inline Status Load(const std::vector<std::string> &files, ModelType model
     - `files`：多个模型文件路径，用vector存储。
     - `model_type`：模型文件类型，可选有`ModelType::kMindIR`、`ModelType::kMindIR_Lite`、`ModelType::kOM`。
     - `graphs`：输出参数，依次保存图数据的对象。
-    - `dec_key`：解密密钥，用于解密密文模型，密钥长度为16、24或32。
-    - `dec_mode`：解密模式，可选有`AES-GCM`、`AES-CBC`。
 
 - 返回值
 

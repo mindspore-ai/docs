@@ -66,8 +66,6 @@ Detailed parameter descriptions are provided below.
 | `--enableFp16=<FP16PRIORITY>` | Optional | Specify whether to give preference to float16 operator. | Boolean | false | true, false | Not supported at the moment |
 | `--timeProfiling=<TIMEPROFILING>`  | Optional | Take effect at performance verification, specifying whether to use TimeProfiler to print the time of each operator. | Boolean | false | true, false | Not supported at the moment |
 | `--perfEvent=<PERFEVENT>` | Optional | Take effect during CPU performance verification. Specify the specific content of the CPU performance parameters printed by PerfProfiler. When specified as CYCLE, the number of CPU cycles and the number of instructions of the operator will be printed. When specified as CACHE, the number of cache reads and the number of cache misses of the operator will be printed. When specified as STALL, the number of CPU front-end waiting cycles and the number of back-end waiting cycles will be printed. | String | CYCLE | CYCLE/CACHE/STALL | Not supported at the moment |
-| `--decryptKey=<DECRYPTKEY>` | Optional | The key used to decrypt the file, expressed in hexadecimal characters. Only AES-GCM is supported, and the key length is only 16Byte. | String | null | Note that the key is a hexadecimal representation of the string. Linux platform users can use the `xxd` tool to convert the byte representation of the key to hexadecimal expression. | Not supported at the moment |
-| `--cryptoLibPath=<CRYPTOLIBPATH>` | Optional | Path to the OpenSSL crypto library crypto | String | null | - | Not supported at the moment |
 
 ### Usage Examples
 
@@ -110,10 +108,4 @@ If you need to specify the dimension of the input data (e.g. input dimension is 
 
 ```bash
 ./benchmark --modelFile=/path/to/model.mindir --inDataFile=/path/to/input.bin --inputShapes=1,32,32,1 --device=CPU --accuracyThreshold=3 --benchmarkDataFile=/path/to/output.out
-```
-
-If the model is encryption model, inference is performed after both `decryptKey` and `cryptoLibPath` are configured to decrypt the model. For example:
-
-```bash
-./benchmark --modelFile=/path/to/encry_model.mindir --decryptKey="your decrypt key" --cryptoLibPath=/root/anaconda3/bin/openssl
 ```
