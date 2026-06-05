@@ -591,26 +591,6 @@ def code_content_replace(original_code, new_code, file_path):
         print(f"写入文件失败：{e}")
         return False
 
-original_code = '''
-using Key = struct MS_API Key {
-  size_t max_key_len = 32;
-  size_t len = 0;
-  unsigned char key[32] = {0};
-  Key() : len(0) {}
-  explicit Key(const char *dec_key, size_t key_len);
-};'''
-new_code = '''
-struct MS_API Key {
-  size_t max_key_len = 32;
-  size_t len = 0;
-  unsigned char key[32] = {0};
-  Key() : len(0) {}
-  explicit Key(const char *dec_key, size_t key_len);
-};
-
-using Key = Key;'''
-types_h_path = "../include/runtime/include/api/types.h"
-code_content_replace(original_code, new_code, types_h_path)
 
 original_code = '''
 /// \\brief Get the value with the given type from a node if it is a ValueNode.'''
