@@ -105,6 +105,8 @@ MindSpore Lite云侧推理主要用于服务侧设备的推理，可以兼容Min
 
    lite_boost/introduction
    lite_boost/build_and_install
+   lite_boost/quick_start
+   lite_boost/model_support
    
 .. toctree::
    :glob:
