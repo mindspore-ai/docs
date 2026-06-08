@@ -305,8 +305,8 @@ def main(version, user, pd, WGETDIR, release_url, generate_list, api_detect):
 
         # 卸载原来已有的安装包, 以防冲突
         if data[i]['uninstall_name']:
-            cmd_uninstall = [sys.executable, "-m", "pip", "uninstall", "-y", f"{data[i]['uninstall_name']}"]
-            subprocess.run(cmd_uninstall)
+            cmd_uninstall = [sys.executable, "pip", "uninstall", "-y", f"{data[i]['uninstall_name']}"]
+            subprocess.run(cmd_uninstall, shell=True, stdin=subprocess.DEVNULL)
 
         os.chdir(WHLDIR)
 
@@ -494,11 +494,7 @@ def main(version, user, pd, WGETDIR, release_url, generate_list, api_detect):
         for i in whls:
             if re.findall('mindspore-[0-9]', i) and "tar.gz" not in i:
                 cmd_install = [sys.executable, "-m", "pip", "install", i]
-                subprocess.run(cmd_install, shell=True, stdin=subprocess.DEVNULL)
-                break
-        for i in whls:
             if "mindspore_gs" in i:
-                continue
             if "mindpandas" in i and "cp38-cp38" in i:
                 os.rename(os.path.join(WHLDIR, i), os.path.join(WHLDIR, i.replace('cp38-cp38', 'cp37-cp37m')))
                 cmd_install = ["pip", "install", i.replace('cp38-cp38', 'cp37-cp37m')]
