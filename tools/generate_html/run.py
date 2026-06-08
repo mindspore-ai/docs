@@ -304,13 +304,9 @@ def main(version, user, pd, WGETDIR, release_url, generate_list, api_detect):
         generate_version_json(data[i]['name'], data[i]["branch"], data_b, flag_dev, target_version)
 
         # 卸载原来已有的安装包, 以防冲突
-        if data[i]['uninstall_name'] and isinstance(data[i]['uninstall_name'], str):
-            cmd_uninstall = ["pip", "uninstall", "-y", f"{data[i]['uninstall_name']}"]
+        if data[i]['uninstall_name']:
+            cmd_uninstall = [sys.executable, "-m", "pip", "uninstall", "-y", f"{data[i]['uninstall_name']}"]
             subprocess.run(cmd_uninstall)
-        elif isinstance(data[i]['uninstall_name'], list):
-            for uninstall_name in data[i]['uninstall_name']:
-                cmd_uninstall = ["pip", "uninstall", "-y", uninstall_name]
-                subprocess.run(cmd_uninstall)
 
         os.chdir(WHLDIR)
 
@@ -497,8 +493,8 @@ def main(version, user, pd, WGETDIR, release_url, generate_list, api_detect):
     if whls:
         for i in whls:
             if re.findall('mindspore-[0-9]', i) and "tar.gz" not in i:
-                cmd_install = ["pip", "install", i]
-                subprocess.run(cmd_install)
+                cmd_install = [sys.executable, "-m", "pip", "install", i]
+                subprocess.run(cmd_install, shell=True, stdin=subprocess.DEVNULL)
                 break
         for i in whls:
             if "mindspore_gs" in i:
