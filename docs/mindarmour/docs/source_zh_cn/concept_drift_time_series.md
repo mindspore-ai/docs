@@ -16,7 +16,7 @@
 3. 调用概念漂移检测函数。
 4. 查看结果。
 
-> 你可以在这里找到完整可运行的样例代码：<https://atomgit.com/mindspore-lab/mindarmour/blob/master/examples/reliability/concept_drift_time_series.py>。
+> 你可以在这里找到完整可运行的样例代码：<https://atomgit.com/mindspore/mindarmour/blob/master/examples/reliability/concept_drift_time_series.py>。
 
 ## 准备环节
 

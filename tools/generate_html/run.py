@@ -260,7 +260,7 @@ def main(version, user, pd, WGETDIR, release_url, generate_list, api_detect):
             repo_url = "https://atomgit.com/mindspore/mindspore-lite.git"
             repo_path = f"{REPODIR}/mindspore-lite"
         elif data[i]['environ'] == "MSC_PATH":
-            repo_url = "https://atomgit.com/mindspore-lab/mindscience.git"
+            repo_url = "https://atomgit.com/mindspore/mindscience.git"
             repo_path = f"{REPODIR}/mindscience"
         elif data[i]['name'] == "reinforcement":
             repo_url = "https://github.com/mindspore-lab/mindrl.git"
