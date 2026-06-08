@@ -16,7 +16,7 @@ The following is a simple example showing the overall process of detecting conce
 3. Call the concept drift detection function.
 4. View the execution result.
 
-> You can obtain the complete executable sample code at <https://atomgit.com/mindspore-lab/mindarmour/blob/master/examples/reliability/concept_drift_time_series.py>.
+> You can obtain the complete executable sample code at <https://atomgit.com/mindspore/mindarmour/blob/master/examples/reliability/concept_drift_time_series.py>.
 
 ## Preparations
 
