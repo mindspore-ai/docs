@@ -232,6 +232,8 @@ def get_param_func(func, args_str):
             source_code = inspect_.getsource(func)
             if func.__doc__:
                 source_code = source_code.replace(func.__doc__, '')
+            if "mindspore.runtime" in func.__module__ and "set_kernel" in func.__name__:
+                source_code = f"def {func.__name__}{inspect_.signature(func)}:"
             all_params_str = re.findall(r"def [\w_\d\-]+\(([\S\s]*?)(\):|\) ->.*?:)", source_code)
             if "@classmethod" in source_code:
                 all_params = re.sub("(self|cls)(, |,)?", '', all_params_str[0][0].replace("\n", ""))
