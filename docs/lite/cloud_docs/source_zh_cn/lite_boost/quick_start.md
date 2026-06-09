@@ -143,3 +143,11 @@ ASCEND_RT_VISIBLE_DEVICES=4,5 torchrun --nproc_per_node=2 your_script.py
 ### 参考
 
 Wan2.2仓库中的[generate.py](https://github.com/Wan-Video/Wan2.2/blob/main/generate.py)是未使用LiteBoost的原始推理脚本，用户可以将其与上方LiteBoost代码对照阅读差异，并据此修改以使能多卡并行推理。
+
+## 融合算子
+
+当前lite_boost 支持的融合算子列表：
+
+| 算子名称                    | 硬件            | 算子接口 |
+|-------------------------|---------------|------------|
+| [RainFusionAttention](https://atomgit.com/mindspore/mindspore-lite/blob/master/mindspore-lite/lite_boost/docs/ops/RainFusionAttention.md) | Atlas 800I A2 | lite_boost.ops.rain_fusion_attention<br/>lite_boost.ops.sparse_attention |
