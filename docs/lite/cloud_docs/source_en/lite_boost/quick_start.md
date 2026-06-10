@@ -143,3 +143,11 @@ The model is modified in-place and returned as-is, so all existing attributes an
 ### Reference
 
 The [generate.py](https://github.com/Wan-Video/Wan2.2/blob/main/generate.py) file from the Wan2.2 repository is the original inference script without LiteBoost. Users can compare it with the LiteBoost code above to understand the differences and modify it accordingly to enable multi-card parallel inference.
+
+## Fusion Operators
+
+Fusion operators currently supported by lite_boost:
+
+| Operator Name                | Hardware       | Operator Interface |
+|------------------------------|----------------|------------------------------|
+| [RainFusionAttention](https://atomgit.com/mindspore/mindspore-lite/blob/master/mindspore-lite/lite_boost/docs/ops/RainFusionAttention.md) | Atlas 800I A2 | lite_boost.ops.rain_fusion_attention<br/>lite_boost.ops.sparse_attention |
