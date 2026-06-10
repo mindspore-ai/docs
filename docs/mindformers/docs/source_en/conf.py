@@ -386,7 +386,7 @@ import shutil
 logger = logging.getLogger(__name__)
 
 src_dir_api = os.path.join(os.getenv("MFM_PATH"), 'docs/api/api_python_en')
-moment_dir=os.path.dirname(__file__)
+moment_dir = os.path.join(os.path.dirname(__file__), './static_graph/')
 
 for root,dirs,files in os.walk(src_dir_api):
     for file in files:
