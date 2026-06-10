@@ -6,7 +6,7 @@ MindSpore Transformers 自 **r2.0.0** 起以 **动态图（PyNative）实现** �
 :class: note
 
 - 动态图实现源码位于 `mindformers/pynative/`。
-- 当前动态图聚焦 **预训练 / 微调** 训练场景；推理、服务化部署、量化等能力仍由静态图提供，详见 [静态图实现](../static_graph/index.rst) 章节。
+- 当前动态图聚焦 **预训练 / 微调** 训练场景；推理、服务化部署、量化等能力仍由静态图提供，详见 [静态图实现](../static_graph/introduction/overview.md) 章节。
 ```
 
 ---
@@ -148,6 +148,6 @@ bash scripts/msrun_launcher.sh "run_mindformer.py --config <your_config.yaml> --
 
 ## 相关文档
 
-- 静态图提供的能力（推理 / 量化等）：[静态图实现](../static_graph/index.rst)
+- 静态图提供的能力（推理 / 量化等）：[静态图实现](../static_graph/introduction/overview.md)
 
 > 安装指南、快速开始、训练指南与各功能特性页正在补充中，将在后续提交里上线。

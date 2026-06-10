@@ -1,0 +1,26 @@
+<!-- __SG_DEPRECATED_BANNER__ -->
+
+```{admonition} Deprecated
+:class: warning
+
+This page belongs to the **Static Graph (GRAPH_MODE) Implementation** section and has been marked as deprecated. New features are primarily being developed in the "r2.0.0 Dynamic Graph Implementation" section. Please refer to the dynamic graph documentation first.
+```
+
+# Quantization
+
+[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_en/static_graph/feature/quantization.md)
+
+## Overview
+
+Quantization is an important technology for compressing foundation models. It converts floating-point parameters in a model into low-precision integer parameters to compress the parameters. As the parameters and specifications of a model increase, quantization can effectively reduce the model storage space and loading time during model deployment, improving the model inference performance.
+
+MindSpore Transformers integrates the MindSpore Golden Stick tool component to provide a unified quantization inference process, facilitating out-of-the-box use. Please refer to [MindSpore Golden Stick Installation Tutorial](https://www.mindspore.cn/golden_stick/docs/en/master/install.html) for installation and [MindSpore Golden Stick Application PTQ algorithm](https://www.mindspore.cn/golden_stick/docs/en/master/ptq/ptq.html) to quantify the models in MindSpore Transformers.
+
+## Model Support
+
+Currently, only the following models are supported, and the supported models are continuously being added.
+
+| Supported Model                                                                                                                   |
+|-----------------------------------------------------------------------------------------------------------------------------------|
+| [DeepSeek-V3](https://atomgit.com/mindspore/mindformers/blob/master/research/deepseek3/deepseek3_671b/predict_deepseek3_671b.yaml)     |
+| [DeepSeek-R1](https://atomgit.com/mindspore/mindformers/blob/master/research/deepseek3/deepseek_r1_671b/predict_deepseek_r1_671b.yaml) |
