@@ -3,12 +3,12 @@
 ```{admonition} 已废弃（Deprecated）
 :class: warning
 
-本页属于 **静态图（GRAPH_MODE）实现** 章节，已标记为废弃。新特性优先在「r2.0.0 动态图实现」章节演进，请优先查阅动态图相关文档。
+本章节为 **静态图（GRAPH_MODE）实现**，已标记为 **废弃（Deprecated）**。其内容沿用原 1.9.0 版本资料，去除了「模型库」与「安装」两章（已分别并入顶层「模型支持库」与「安装指南」）。新特性请优先查阅 `r2.0.0 动态图实现 <../../index.html>`_ 相关文档。
 ```
 
 # 整体架构
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/introduction/overview.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/static_graph/introduction/overview.md)
 
 ## 概述
 

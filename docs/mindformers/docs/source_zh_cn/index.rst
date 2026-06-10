@@ -52,4 +52,9 @@ MindSpore Transformers 的开源仓库地址为 `AtomGit | MindSpore/mindformers
    :caption: 静态图实现（Deprecated）
    :hidden:
 
-   静态图实现 <static_graph/index>
+   introduction/overview
+   guide/index
+   feature/index
+   advanced_development/index
+   example/index
+   env_variables
