@@ -254,18 +254,18 @@ copy_path = 'docs/api/api_python'
 src_dir_api = os.path.join(os.getenv("MFM_PATH"), copy_path)
 
 copy_list = []
-moment_dir=os.path.dirname(__file__)
+moment_dir = os.path.join(os.path.dirname(__file__), './static_graph/')
 
 for i in os.listdir(src_dir_api):
     if os.path.isfile(os.path.join(src_dir_api,i)):
-        if os.path.exists('./'+i):
-            os.remove('./'+i)
-        shutil.copy(os.path.join(src_dir_api,i),'./'+i)
+        if os.path.exists('./static_graph/'+i):
+            os.remove('./static_graph/'+i)
+        shutil.copy(os.path.join(src_dir_api,i),'./static_graph/'+i)
         copy_list.append(os.path.join(moment_dir,i))
     else:
-        if os.path.exists('./'+i):
-            shutil.rmtree('./'+i)
-        shutil.copytree(os.path.join(src_dir_api,i),'./'+i)
+        if os.path.exists('./static_graph/'+i):
+            shutil.rmtree('./static_graph/'+i)
+        shutil.copytree(os.path.join(src_dir_api,i),'./static_graph/'+i)
         copy_list.append(os.path.join(moment_dir,i))
 
 # Rename .rst file to .txt file for include directive.
