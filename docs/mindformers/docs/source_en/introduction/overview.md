@@ -1,5 +1,16 @@
 # Overall Structure
 
+Starting with **r2.0.0**, MindSpore Transformers has adopted a **dynamic graph (PyNative) implementation** as its primary development path. This chapter introduces the overall architecture, core modules, and training capabilities of the dynamic graph training stack, and provides a minimal starting point for implementation.
+
+```{admonition} The Limits of Dynamic Graph Capabilities
+:class: note
+
+- The source code for the dynamic graph is located in `mindformers/pynative/`.
+- The current dynamic graph focuses on **pre-training and fine-tuning** scenarios; capabilities such as inference, service deployment, and quantization are still provided by the static graph. For more details, see the [Static Graph Implementation](../static_graph/introduction/overview.md) section.
+```
+
+---
+
 [![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_en/introduction/overview.md)
 
 ## Overview

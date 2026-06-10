@@ -6,10 +6,12 @@ MindSpore Transformers 自 **r2.0.0** 起以 **动态图（PyNative）实现** �
 :class: note
 
 - 动态图实现源码位于 `mindformers/pynative/`。
-- 当前动态图聚焦 **预训练 / 微调** 训练场景；推理、服务化部署、量化等能力仍由静态图提供，详见 [静态图实现](../static_graph/introduction/overview.md) 章节。
+- 当前动态图聚焦 **预训练/微调** 训练场景；推理、服务化部署、量化等能力仍由静态图提供，详见 [静态图实现](../static_graph/introduction/overview.md) 章节。
 ```
 
 ---
+
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/introduction/overview.md)
 
 ## 概述
 
