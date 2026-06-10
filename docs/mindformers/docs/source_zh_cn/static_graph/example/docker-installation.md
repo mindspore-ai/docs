@@ -8,7 +8,7 @@
 
 # 制作 MindSpore Transformers 的 Docker 镜像的实践案例
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/example/docker-installation.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/static_graph/example/docker-installation.md)
 
 本案例将分享构建 **MindSpore Transformers** 的 Docker 镜像的实践，开发者可以参考本案例构建自己的镜像。
 
