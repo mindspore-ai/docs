@@ -7,7 +7,7 @@ MindSpore Transformers 套件的目标是构建一个大模型预训练、微调
 
    自 **r2.0.0** 起，MindSpore Transformers 以 **动态图（PyNative）实现** 作为演进主线，文档默认面向动态图。原有 **静态图（GRAPH_MODE）实现** 的资料整体迁入 `静态图实现 <static_graph/introduction/overview.html>`_ 章节并标记为废弃；推理、服务化部署、量化等动态图尚未覆盖的能力，请前往该章节查阅。
 
-   本章节为动态图文档框架的初始提交：目前仅提供「概述」一页，安装指南、训练指南与各功能特性页将在后续提交中补充。模型支持库、安装、贡献指南与 FAQ 沿用原有页面。
+   动态图文档正分批上线：未上线页面在正文中以「文档名」纯文本标注，正文将随后续提交上线；贡献指南与 FAQ 沿用原有页面。
 
 MindSpore Transformers 的开源仓库地址为 `AtomGit | MindSpore/mindformers <https://atomgit.com/mindspore/mindformers>`_ 。如有任何建议，请通过 `issue <https://atomgit.com/mindspore/mindformers/issues>`_ 与我们联系。
 
@@ -17,6 +17,7 @@ MindSpore Transformers 的开源仓库地址为 `AtomGit | MindSpore/mindformers
    :caption: 介绍
    :hidden:
 
+   quick_start/quick_start
    introduction/overview
    introduction/models
 
