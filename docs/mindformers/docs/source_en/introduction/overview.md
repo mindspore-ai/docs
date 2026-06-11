@@ -15,100 +15,141 @@ Starting with **r2.0.0**, MindSpore Transformers has adopted a **dynamic graph (
 
 ## Overview
 
-The overall architecture of MindSpore Transformers is as follows:
+The dynamic graph implementation adopts a **layered, modular** design:
 
-![/overall_architecture](./images/overall_architecture.png)
+- **Entry Layer**: Unified script `run_mindformer.py`, routes to dynamic graph trainer via `--mode 1` (the `config.mode == 1` branch in the source code of `run_mindformer.py`).
+- **Control Layer**: `mindformers.pynative.trainer.Trainer` is responsible for building the model/dataset/optimizer, and drives the training loop.
+- **Configuration Layer**: Centralized management of YAML configurations using dataclasses, with parsing and validation completed during loading.
+- **Capability Layer**: Implements multi-dimensional parallelism, fused operators, and memory optimization based on MindSpore's dynamic graph capabilities.
 
-MindSpore Transformers supports both Ascend's proprietary technology stack and actively embraces the open-source community. Users may integrate it into their own training and inference platforms or open-source components, as detailed below:
+First, look at the "Execution Flowchart", then the "Module Layering Diagram".
 
-1. Training platforms: [MindCluster](http://hiascend.com/software/mindcluster), third-party platforms
-2. Service components: [vLLM](https://www.mindspore.cn/mindformers/docs/en/master/guide/deployment.html)
-3. Communities: [Modelers](https://modelers.cn/), [Hugging Face](https://huggingface.co/)
+### Execution Flow
 
-MindSpore Transformers Southbound is based on MindSpore+Ascend's large-scale model technology stack, leveraging the MindSpore framework combined with CANN to optimize Ascend hardware for compatibility, providing a high-performance model training and inference experience.
+```text
+run_mindformer.py --mode 1            # Entry, PYNATIVE_MODE routing
+        │
+        ▼
+mindformers.pynative.trainer.Trainer  # Builds model/dataset/optimizer, drives training loop
+        │
+        ├── config/        YAML → dataclass configuration system
+        ├── base_models/   GPTModel (Unified interface for Dense/MoE)
+        ├── distributed/   Multi-dimensional parallelism and memory optimization
+        ├── optimizer/     AdamW/Muon
+        ├── loss/          Fused cross-entropy
+        ├── callback/      Weight saving, Loss/Metric monitoring
+        └── tools/         Monitoring & Profiling
+```
 
-MindSpore Transformers is primarily divided into the following modules:
+### Module Layering
 
-1. Unified Training and Inference Scheduling: Provides the launch script `msrun_launcher.sh` to centrally execute and schedule the distributed training and inference processes for all models within the suite.
-2. Registration/Configuration Layer: Implements factory-like functionality by interface type, enabling higher-level interface layers to initialise corresponding task interfaces and model interfaces based on configuration.
-3. Large Model Library: Offers a high-performance large model repository alongside foundational Transformer interfaces. This supports both user-configured model construction and custom development, catering to diverse development scenarios.
-4. Dataset: Encapsulates data loading interfaces for large model training and fine-tuning tasks, supporting Hugging Face datasets, Megatron datasets, and MindSpore's MindRecord datasets.
-5. Training Components: Provides foundational interfaces for training workflows, including learning rate strategies, optimisers, training callbacks, and training wrapper interfaces.
-6. Utility Layer: Offers data preprocessing tools, Hugging Face weight conversion utilities, and evaluation scripting tools.
-7. DFX (Design for X): Implements high-availability features such as fault diagnosis and monitoring, reducing the cost of recovery from training failures.
+The model side is divided into three layers from top to bottom: "Model → Transformer Components → Primitive Layer", corresponding one-to-one with the core module table below:
+
+```text
+base_models/gpt/  GPTModel (Unified interface for Dense/MoE, assembled via ModuleSpec)
+        │
+        ▼
+transformers/     Attention · MLA · MTP · TransformerLayer/Block · MLP · MoE
+        │                                   (router/experts/shared_experts)
+        ▼
+layers/           Linear · RMSNorm · SwiGlu · FlashAttention · Mask generation
+```
+
+> `base_models/common/embeddings` provides positional encodings such as RoPE, YaRN, etc., for use by the above layers.
+
+---
+
+## Core Modules
+
+The sub-modules of the dynamic graph implementation and their responsibilities are as follows:
+
+| Module | Path | Responsibility |
+|------|------|------|
+| Trainer | `pynative/trainer/` | Training controller `Trainer`: Builds model/data/optimizer, executes forward/backward, gradient synchronization, saving, and state tracking. |
+| Configuration | `pynative/config/` | Centralized configuration management via dataclasses, supports loading from YAML and validation. |
+| Distributed | `pynative/distributed/` | Device mesh construction and sharding for multi-dimensional parallelism, as well as various memory optimizations. |
+| Optimizer | `pynative/optimizer/` | `AdamW` and `Muon` optimizer implementations, supporting distributed synchronization and mixed precision. |
+| Loss | `pynative/loss/` | Dynamic graph fused cross-entropy `CrossEntropyLoss`, implemented via custom `_LogSoftmax` + `_NLLLoss` (with manual backward). |
+| Base Model | `pynative/base_models/gpt/` | General `GPTModel`, uniformly supports Dense and MoE, uses `ModuleSpec` mechanism to build models according to configuration; `common/embeddings` provides RoPE, YaRN and other positional encodings. |
+| Transformer Components | `pynative/transformers/` | Attention, MLA, MTP, TransformerLayer/Block, MLP, and MoE sub-modules. |
+| Primitive Layer | `pynative/layers/` | Fused operators such as Linear, LayerNorm/RMSNorm, SwiGlu, Flash Attention, mask generation, etc. |
+| Callback | `pynative/callback/` | Checkpoint saving, Loss monitoring, training metric monitoring, MaxLogits health check. |
+| Tools | `pynative/tools/` | Metric monitoring aggregation (`MonitorGroup`) and Profiling. |
+
+The following sections expand on the "Configuration" and "Distributed" modules, which contain more detailed information.
+
+### Configuration Module Dataclasses
+
+`pynative/config/` maps each section of YAML into independent dataclasses, facilitating validation and default value management. Commonly used configuration classes:
+
+| dataclass | Corresponding Responsibility |
+|---|---|
+| `CheckpointConfig` | Weight saving/loading |
+| `TrainingConfig` | Training steps, batch size, gradient accumulation, etc. |
+| `ParallelismConfig` | Multi-dimensional parallelism dimensions |
+| `OptimizerConfig` | Optimizer type and hyperparameters |
+| `LrSchedulerConfig` | Learning rate strategy |
+| `ModelConfig` | Model structure parameters |
+| `MonitorConfig` | Metric monitoring and visualization |
+
+### Distributed Module Capabilities
+
+`pynative/distributed/` undertakes both "parallelism sharding" and "memory optimization" responsibilities:
+
+- **Parallelism Dimensions**: DP (including FSDP/HSDP parameter sharding), TP, PP, CP, EP, SP. The device mesh is constructed based on the product of each dimension, satisfying `dp_replicate * dp_shard * cp * tp * pp == world_size` (`parallel_dims.py`).
+- **Memory Optimization**: Activation checkpointing, fine-grained SWAP, CPU offload.
+
+```{admonition} About pet (LoRA) and models subdirectories
+:class: warning
+
+The `pynative/pet/` and `pynative/models/` directories currently only contain `__init__.py` and have no implementation yet. LoRA fine-tuning is **not yet implemented** in the dynamic graph: when triggered, it will raise `NotImplementedError("Lora model is not implemented yet.")` in `trainer/utils.py`. For LoRA, please use the static graph implementation.
+```
+
+---
 
 ## Model Architecture
 
-MindSpore Transformers adopted a completely new model architecture after version 1.6.0. The original architecture (labelled Legacy) required separate model code implementations for each model, making maintenance and optimisation challenging. The new architecture (designated as Mcore) employs layered abstraction and modular implementation for large models based on the general Transformer architecture. This encompasses foundational layers such as Linear, Embedding, and Norm, alongside higher-level components including MoELayer, TransformerBlock, and the unified model interface GPTModel (General PreTrained Model). All modular interfaces leverage MindSpore's parallel capabilities for deep parallel optimisation, providing high-performance, ready-to-use interfaces externally. This supports flexible model construction through the ModuleSpec mechanism.
+The dynamic graph adopts a **hierarchical abstraction + modular** design: `GPTModel` (General PreTrained Model) serves as the unified model interface, composing modular interfaces downwards such as `TransformerBlock`, `MoELayer`, `Attention`, `Linear`, `Embedding`, `Norm`, etc., and freely combines them to build models through the `ModuleSpec` mechanism. All modules have undergone parallel and operator fusion optimizations based on MindSpore's dynamic graph.
+
+Models currently implemented in the dynamic graph include DeepSeek-V3 (MoE + MLA + MTP) and Qwen3 (Dense).
+
+---
 
 ## Training Capabilities
 
-MindSpore Transformers delivers efficient, stable, and user-friendly large-model training capabilities, covering both pre-training and fine-tuning scenarios while balancing performance and ecosystem compatibility. Core capabilities include:
+The dynamic graph training stack provides the following capabilities (configuration instructions for each capability will be supplemented in subsequent documentation):
 
-**Multi-dimensional hybrid parallel training**
+- **Multi-dimensional Hybrid Parallelism**: Flexible combination of data parallelism (including FSDP/HSDP parameter sharding), tensor parallelism (TP), pipeline parallelism (PP, supporting 1F1B and interleave), context parallelism (CP, Colossal method), expert parallelism (EP), and sequence parallelism (SP).
+- **Optimizers and Learning Rates**: AdamW, Muon; multiple learning rate strategies with warmup.
+- **Dataset**: Megatron blended multi-source dataset (`BlendedMegatronDatasetDataLoader`, preprocessed `.bin`/`.idx` files).
+- **Memory Optimization**: Activation checkpointing (full/selective), fine-grained SWAP, CPU offload.
+- **Checkpoints**: Sharded saving and loading in Safetensors format, supporting asynchronous saving and redundancy elimination.
+- **Stability and Observability**: Resuming training from checkpoints, gradient/parameter norm and Loss monitoring, MaxLogits numerical health checks, and Profiling.
 
-Supports flexible combinations of multiple parallelization strategies, including data parallelism, model parallelism, optimiser parallelism, pipeline parallelism, sequence parallelism, context parallelism, and MoE expert parallelism, enabling efficient distributed training for large-scale models.
+---
 
-**Support for Mainstream Open-Source Ecosystems**
+## Next Steps
 
-Pre-training phase: Direct loading of Megatron-LM multi-source hybrid datasets is supported, reducing data migration costs across platforms and frameworks.
+After reading the architecture, the minimal path to getting started is as follows.
 
-Fine-tuning phase: Deep integration with the Hugging Face ecosystem, supporting:
+**Single-card** (for debugging/validation):
 
-- Utilisation of Hugging Face SFT datasets;
-- Data preprocessing via Hugging Face Tokenizer;
-- Model instantiation by reading Hugging Face model configurations;
-- Loading native Hugging Face Safetensors weights;
+```bash
+python run_mindformer.py --config <your_config.yaml> --mode 1
+```
 
-Enables efficient, streamlined fine-tuning through zero-code, configuration-driven low-parameter fine-tuning capabilities.
+**Multi-card msrun launch** (actual training, taking 8 cards as an example):
 
-**Model Weight Usability**  
+```bash
+bash scripts/msrun_launcher.sh "run_mindformer.py --config <your_config.yaml> --mode 1"
+```
 
-Supports automatic weight partitioning and loading in distributed environments, eliminating the need for manual weight conversion. This significantly reduces debugging complexity during distributed strategy switching and cluster scaling operations, thereby enhancing training agility.
+`--mode 1` routes to the dynamic graph trainer. The complete "prepare configuration → launch → view results" process and end-to-end training configurations will be supplemented in subsequent documentation (Quick Start, Training Guide, feature-specific pages).
 
-**High Availability Training Assurance**  
+---
 
-Provides training status monitoring, rapid fault recovery, anomaly skipping, and resume-from-breakpoint capabilities. Enhances testability, maintainability, and reliability of training tasks, ensuring stable operation during extended training cycles.
+## Related Documentation
 
-**Low-Threshold Model Migration**
+- Capabilities provided by the static graph (inference/quantization, etc.): [Static Graph Implementation](../static_graph/introduction/overview.md)
 
-- Encapsulates high-performance foundational interfaces aligned with Megatron-LM design;
-- Provides model migration guides and accuracy comparison tutorials;
-- Supports Ascend toolchain's Cell-level dump debugging capabilities;
-- Enables low-threshold, high-efficiency model migration and construction.
-
-## Inference Capabilities
-
-MindSpore Transformers establishes an inference framework centred on ‘northbound ecosystem integration and southbound deep optimisation’. By leveraging open-source components, it delivers efficient and user-friendly deployment, quantisation, and evaluation capabilities, thereby accelerating the development and application of large-model inference:
-
-**Northbound Ecosystem Integration**
-
-- **Hugging Face Ecosystem Reuse**
-
-  Supports direct loading of Hugging Face open-source model configuration files, weights, and tokenisers, enabling configuration-ready, one-click inference initiation to lower migration and deployment barriers.
-
-- **Integration with vLLM Service Framework**
-
-  Supports integration with the vLLM service framework for service-oriented inference deployment. Supports core features including Continuous Batch, Prefix Cache, and Chunked Prefill, significantly enhancing throughput and resource utilisation.
-
-- **Support for Quantisation Inference**
-
-  Leveraging quantisation algorithms provided by the MindSpore Golden-Stick quantisation suite, Legacy models already support A16W8, A8W8, and A8W4 quantisation inference; Mcore models are expected to support A8W8 and A8W4 quantisation inference in the next release.
-
-- **Support for Open-Source Benchmark Evaluation**
-
-  Utilising the AISbench evaluation suite, models deployed via vLLM can be assessed across over 20 mainstream benchmarks including CEval, GSM8K, and AIME.
-
-**Southbound Deep Optimization**
-
-- **Multi-level Pipeline Operator Dispatch**
-
-  Leveraging MindSpore framework runtime capabilities, operator scheduling is decomposed into three pipeline tasks—InferShape, Resize, and Launch—on the host side. This fully utilises host multi-threading parallelism to enhance operator dispatch efficiency and reduce inference latency.
-
-- Dynamic-static hybrid execution mode
-
-  Default PyNative programming mode combined with JIT compilation compiles models into static computation graphs for accelerated inference. Supports one-click switching to PyNative dynamic graph mode for development and debugging.
-
-- Ascend high-performance operator acceleration
-
-  Supports deployment of inference acceleration and fusion operators provided by ACLNN, ATB, and MindSpore, achieving more efficient inference performance on Ascend platforms.
+> The Installation Guide, Quick Start, Training Guide, and feature-specific pages are being supplemented and will be available in subsequent submissions.

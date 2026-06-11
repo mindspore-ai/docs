@@ -18,7 +18,7 @@ MindSpore Transformers 自 **r2.0.0** 起以 **动态图（PyNative）实现** �
 动态图实现采用 **分层、模块化** 的设计：
 
 - **入口层**：统一脚本 `run_mindformer.py`，通过 `--mode 1` 路由到动态图训练器（源码 `run_mindformer.py` 中 `config.mode == 1` 分支）。
-- **总控层**：`mindformers.pynative.trainer.Trainer` 负责构建模型 / 数据集 / 优化器，并驱动训练循环。
+- **总控层**：`mindformers.pynative.trainer.Trainer` 负责构建模型/数据集/优化器，并驱动训练循环。
 - **配置层**：以数据类（dataclass）形式集中管理 YAML 配置，加载时完成解析与校验。
 - **能力层**：基于 MindSpore 的动态图能力实现多维并行、融合算子与显存优化。
 
@@ -30,12 +30,12 @@ MindSpore Transformers 自 **r2.0.0** 起以 **动态图（PyNative）实现** �
 run_mindformer.py --mode 1            # 入口，PYNATIVE_MODE 路由
         │
         ▼
-mindformers.pynative.trainer.Trainer  # 构建模型 / 数据集 / 优化器，驱动训练循环
+mindformers.pynative.trainer.Trainer  # 构建模型/数据集/优化器，驱动训练循环
         │
         ├── config/        YAML → dataclass 配置体系
-        ├── base_models/   GPTModel（Dense / MoE 统一接口）
+        ├── base_models/   GPTModel（Dense/MoE 统一接口）
         ├── distributed/   多维并行与显存优化
-        ├── optimizer/     AdamW / Muon
+        ├── optimizer/     AdamW/Muon
         ├── loss/          融合交叉熵
         ├── callback/      权重保存、Loss/指标监控
         └── tools/         监控与 Profiling
@@ -46,11 +46,11 @@ mindformers.pynative.trainer.Trainer  # 构建模型 / 数据集 / 优化器，�
 模型侧自上而下分为「模型 → Transformer 组件 → 基础层」三层，与下方核心模块表一一对应：
 
 ```text
-base_models/gpt/  GPTModel（Dense / MoE 统一接口，ModuleSpec 组装）
+base_models/gpt/  GPTModel（Dense/MoE 统一接口，ModuleSpec 组装）
         │
         ▼
 transformers/     Attention · MLA · MTP · TransformerLayer/Block · MLP · MoE
-        │                                   (router / experts / shared_experts)
+        │                                   (router/experts/shared_experts)
         ▼
 layers/           Linear · RMSNorm · SwiGlu · FlashAttention · 掩码生成
 ```
@@ -84,7 +84,7 @@ layers/           Linear · RMSNorm · SwiGlu · FlashAttention · 掩码生成
 
 | dataclass | 对应职责 |
 |---|---|
-| `CheckpointConfig` | 权重保存 / 加载 |
+| `CheckpointConfig` | 权重保存/加载 |
 | `TrainingConfig` | 训练步数、批大小、梯度累积等训练参数 |
 | `ParallelismConfig` | 多维并行维度 |
 | `OptimizerConfig` | 优化器类型与超参 |
@@ -96,7 +96,7 @@ layers/           Linear · RMSNorm · SwiGlu · FlashAttention · 掩码生成
 
 `pynative/distributed/` 同时承担「并行切分」与「显存优化」两类职责：
 
-- **并行维度**：DP（含 FSDP / HSDP 参数切分）、TP、PP、CP、EP、SP。设备网格依据各维度乘积构建，满足 `dp_replicate * dp_shard * cp * tp * pp == world_size`（`parallel_dims.py`）。
+- **并行维度**：DP（含 FSDP/HSDP 参数切分）、TP、PP、CP、EP、SP。设备网格依据各维度乘积构建，满足 `dp_replicate * dp_shard * cp * tp * pp == world_size`（`parallel_dims.py`）。
 - **显存优化**：重计算（activation checkpoint）、细粒度 SWAP、CPU offload。
 
 ```{admonition} 关于 pet（LoRA）与 models 子目录
@@ -122,7 +122,7 @@ layers/           Linear · RMSNorm · SwiGlu · FlashAttention · 掩码生成
 - **多维混合并行**：数据并行（含 FSDP/HSDP 参数切分）、张量并行（TP）、流水线并行（PP，支持 1F1B 与 interleave）、上下文并行（CP，Colossal 方法）、专家并行（EP）与序列并行（SP）的灵活组合。
 - **优化器与学习率**：AdamW、Muon；多种带 warmup 的学习率策略。
 - **数据集**：Megatron 多源混合数据集（`BlendedMegatronDatasetDataLoader`，预处理后的 `.bin`/`.idx`）。
-- **显存优化**：重计算（全量 / 选择性）、细粒度 SWAP、CPU offload。
+- **显存优化**：重计算（全量/选择性）、细粒度 SWAP、CPU offload。
 - **权重**：Safetensors 格式的分片保存与加载，支持异步保存与冗余消除。
 - **稳定性与可观测**：断点续训、梯度/参数范数与 Loss 监控、MaxLogits 数值健康监测与 Profiling。
 
@@ -132,7 +132,7 @@ layers/           Linear · RMSNorm · SwiGlu · FlashAttention · 掩码生成
 
 读完架构后，最小落地路径如下。
 
-**单卡直跑**（调试 / 验证用）：
+**单卡直跑**（调试/验证用）：
 
 ```bash
 python run_mindformer.py --config <your_config.yaml> --mode 1
@@ -150,6 +150,6 @@ bash scripts/msrun_launcher.sh "run_mindformer.py --config <your_config.yaml> --
 
 ## 相关文档
 
-- 静态图提供的能力（推理 / 量化等）：[静态图实现](../static_graph/introduction/overview.md)
+- 静态图提供的能力（推理/量化等）：[静态图实现](../static_graph/introduction/overview.md)
 
 > 安装指南、快速开始、训练指南与各功能特性页正在补充中，将在后续提交里上线。
