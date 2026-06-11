@@ -14,12 +14,6 @@
 | I-CN-M-02 | 文件命名 | 中文文档文件名与英文源码的模块对应 | 路径匹配检查 |
 | I-CN-M-03 | 接口数量 | 每个模块下的接口数量一致 | 统计对比 |
 
-### 常见问题
-
-- 中文文档缺少英文源码中存在的接口
-- 中文文档多了英文源码中不存在的接口
-- 模块层级不对应
-
 ## 接口定义一致性
 
 ### 函数/方法签名一致性
@@ -32,8 +26,6 @@
 | I-CN-D-04 | 参数类型 | `(Type)` | `(Type)` | 完全一致 |
 | I-CN-D-05 | 参数顺序 | 按定义顺序 | 按定义顺序 | 完全一致 |
 | I-CN-D-06 | 默认值 | `默认值： ``xxx`` 。` | `Default: ``xxx``.` | 完全一致 |
-| I-CN-D-07 | API别名 | 中文文档名 | 英文源码别名 | 允许别名映射，需标注并检查功能一致性 |
-| I-CN-D-08 | 函数签名差异 | 中文RST签名 | 英文源码签名 | 存在差异时需标记为"需人工确认"，检查参数名/类型/顺序/默认值 |
 
 ### 验证规则
 
@@ -44,78 +36,14 @@
 → 必须一致：参数名、类型、说明
 ```
 
-## API别名与重命名
-
-### 别名场景说明
-
-MindSpore中存在API别名机制，同一个功能可能以不同名称对外暴露。典型场景：
-
-1. **API重命名**：`dense` → `linear`（`ops.dense` 在2.9.0后更名为 `linear`）
-2. **模块别名**：`from mindspore.ops.functional import dense as linear`
-3. **YAML与代码不一致**：中文RST使用新名称，英文YAML/代码仍用旧名称
-
-### 别名识别方法
-
-```text
-1. 中文RST文件名 → 提取API名称（如 `linear.rst` → `linear`）
-2. 在英文源码中搜索别名导入语句
-3. 找到别名映射关系（如 `from X import Y as Z`）
-```
-
-**典型别名映射：**
-
-| 中文RST名称 | 英文源码别名 | 英文源码路径 |
-|-----------|-------------|-------------|
-| `linear.rst` | `dense` as `linear` | `mindspore/mint/nn/functional.py:103` |
-| `xxx_ext.rst` | `xxx_ext` as `xxx` | `mindspore/mint/__init__.py` |
-
-### 别名一致性检查
-
-| 编号 | 检查项 | 中文文档 | 英文源码 | 检查要求 |
-|-----|-------|---------|---------|-----------|
-| I-CN-AL-01 | 别名识别 | API名称 | 别名导入语句 | 识别到别名映射 |
-| I-CN-AL-02 | 功能对应 | 函数描述 | 函数描述 | 功能一致 |
-| I-CN-AL-03 | 参数对应 | 参数列表 | 参数列表 | 参数名/类型/顺序一致 |
-| I-CN-AL-04 | 返回值对应 | 返回说明 | 返回说明 | 语义一致 |
-| I-CN-AL-05 | 版本标注 | 废弃说明 | warning/note | 存在废弃说明则需对应 |
-
-### 函数签名差异处理
-
-| 编号 | 差异类型 | 中文RST | 英文源码 | 处理方式 |
-|-----|---------|---------|---------|----------|
-| I-CN-SG-01 | 参数数量不同 | 少参数 | 多参数 | 标记并说明版本变化 |
-| I-CN-SG-02 | 参数顺序不同 | 顺序A | 顺序B | 标记并说明版本变化 |
-| I-CN-SG-03 | 默认值不同 | `0` | `None` | 标记并说明版本变化 |
-| I-CN-SG-04 | 关键字参数差异 | 有 `*` | 无 `*` | 标记并说明版本变化 |
-
-**处理流程：**
-
-```text
-1. 发现中英文函数签名不一致
-   ↓
-2. 标记差异类型（I-CN-SG-0x）
-   ↓
-3. 检查是否为预期差异（如版本废弃导致参数移除）
-   ↓
-4. 在报告中标注"需人工确认"
-   ↓
-5. 建议检查版本兼容性说明
-```
-
-### 报告输出格式
-
-在一致性检查报告中，为别名/API差异新增专门章节：
-
-```markdown
-### API别名与签名差异（如适用）
-
-| 编号 | 类型 | 中文文档 | 英文源码 | 差异说明 |
-|------|------|----------|----------|----------|
-| I-CN-AL-01 | API别名 | `linear.rst` | `dense_doc.yaml` (`as linear`) | 存在别名映射，需检查功能一致性 |
-| I-CN-SG-01 | 参数差异 | `randn_like(input, *, dtype)` | `randn_like_ext(input, *, dtype, device)` | 中文RST少了 `device` 参数 |
-```
-
 ## 描述内容一致性
+
+以下"英文注释"泛指英文源文件中的对应内容，Python docstring 和 YAML 的字段名不同但映射关系一致：
+
+| 英文源类型 | 对应字段 |
+|-----------|---------|
+| Python docstring | Summary, Args, Returns, Raises |
+| YAML doc | `description`, `parameters`, `returns`, `raises` |
 
 ### Summary/描述一致性
 
@@ -281,28 +209,6 @@ MindSpore中存在API别名机制，同一个功能可能以不同名称对外�
     有多个函数签名，参数组合一致
 ```
 
-## 一致性检查流程
-
-```text
-1. 解析输入的文档类型
-   ↓
-2. 如果是中文文档，识别对应的英文源文件
-   ↓
-3. 读取英文源文件（代码注释/YAML/英文RST目录）
-   ↓
-4. 逐一对比以下内容：
-   - 模块结构
-   - 接口列表
-   - 参数定义（名称、类型、可选、默认值）
-   - 返回值说明
-   - 异常说明
-   - 特殊内容（Note、Warning、Examples）
-   ↓
-5. 记录所有不一致问题
-   ↓
-6. 输出到检查报告
-```
-
 ## PR中的中英文修改配对检查
 
 ### 检查场景
@@ -358,189 +264,21 @@ PR配对检查（增量视角）和一致性检查（存量视角）在实践中
 | I-PR-E-05 | 新增/修改示例 | 中文文档必须有对应修改 |
 | I-PR-E-06 | yaml修改 | 中文文档必须有对应修改 |
 
-### 配对识别方法
-
-#### 文件关联识别
-
-```text
-中文RST文件 ←→ 英文源文件（Python/C++/YAML）
-
-中文RST: docs/api_python/mindspore/nn/tanh.rst
-英文代码: mindspore/python/mindspore/nn/tanh.py
-
-中文RST: docs/api_python/mindspore/Tensor/mindspore.Tensor.gather.rst
-英文YAML: mindspore/onnx_ops_yaml/gather.yaml
-```
-
-#### 接口关联识别
-
-```text
-接口名称 → 文件路径
-
-mindspore.nn.Tanh → tanh.rst + tanh.py
-mindspore.Tensor.gather → mindspore.Tensor.gather.rst + gather.yaml
-mindspore.ops.abs → abs.rst + abs.py
-```
-
-### 检查流程
-
-```text
-1. 获取PR diff内容
-   ↓
-2. 识别所有文档修改文件（.rst, .py, .yaml, .md, .h, .cpp）
-   ↓
-3. 分类文件类型
-   - 中文RST文件（.rst, .md）
-   - 英文源文件（.py, .yaml, .h, .cpp）
-   ↓
-4. 建立文件关联
-   - 中文RST ↔ 英文源文件
-   - 接口名称映射
-   ↓
-5. 检查配对情况
-   - 中文有修改 → 英文是否有对应修改
-   - 英文有修改 → 中文是否有对应修改
-   ↓
-6. 记录不配对问题
-   ↓
-7. 输出到检查报告
-```
-
-### 特殊情况处理
-
-#### 纯新增接口
-
-- 中文RST新增接口 → 必须有英文代码注释
-- 英文代码新增接口 → 必须有中文RST文档
-
-#### 纯删除接口
-
-- 中文RST删除接口 → 应同步删除英文注释（或标记废弃）
-- 英文代码删除接口 → 应同步删除中文RST（或标记废弃）
-
-#### 仅修改描述
-
-- 中文描述修改 → 英文注释必须同步修改
-- 英文注释修改 → 中文RST必须同步修改
-
-#### 参数默认值修改
-
-- 中文RST修改默认值 → 英文注释必须同步修改
-- 英文注释修改默认值 → 中文RST必须同步修改
-
 ---
 
-## 英文代码文件查找规则
+## 别名场景一致性检查要点
 
-### 路径推断
+当通过 import 链发现别名映射时，额外检查以下内容：
 
-| 中文RST路径 | 推断英文代码路径 |
-|------------|----------------|
-| `docs/api_python/mindspore/nn/tanh.rst` | `mindspore/python/mindspore/nn/tanh.py` |
-| `docs/api_python/mindspore/ops/abs.py` | `mindspore/python/mindspore/ops/abs.py` |
-| `docs/api_python/mindspore/Tensor/mindspore.Tensor.gather.rst` | `mindspore/python/mindspore/common/tensor.py` (Tensor类) |
-
-### 英文文件类型
-
-| 类型 | 文件后缀 | 说明 |
-|-----|---------|------|
-| Python代码 | `.py` | 包含docstrings的Python代码 |
-| C++代码 | `.h`, `.cpp` | 包含 `///` 注释的C++代码 |
-| YAML配置 | `.yaml`, `.yml` | MindSpore算子/接口定义文件 |
-
-### 英文YAML文件查找
-
-当输入为中文RST时，需要查找对应的英文YAML文件：
-
-**典型路径映射：**
-
-```text
-中文RST: docs/api_python/mindspore/Tensor/mindspore.Tensor.gather.rst
-英文YAML: mindspore/onnx_ops_yaml/{op_name}.yaml 或对应yaml目录
-
-中文RST: docs/api_python/mindspore/ops/xxx.rst
-英文YAML: mindspore/python/mindspore/ops/yaml/{op_name}.yaml
-```
-
-**查找策略：**
-
-1. **根据API名称**：RST文件名中的接口名 → yaml目录搜索
-2. **根据模块路径**：与RST对应的yaml文件目录
-3. **根据算子名称**：MindSpore算子yaml定义文件
-4. **用户指定**：用户提供对应的英文yaml文件路径
-
-### 英文YAML与中文RST的对应关系
-
-#### YAML格式说明
-
-MindSpore部分接口（如Tensor方法）通过YAML文件自动生成，YAML中的配置对应RST文档内容。
-
-**典型YAML结构：**
-
-```yaml
-op_name:
-  description: |
-    接口功能描述
-
-  parameters:
-    - name: param1
-      type: Tensor
-      description: 参数1说明
-    - name: param2
-      type: int
-      description: 参数2说明
-
-  returns:
-    type: Tensor
-    description: 返回值说明
-
-  raises:
-    - ValueError: 参数错误说明
-
-  supported_platforms:
-    - Ascend
-    - GPU
-    - CPU
-
-  examples:
-    - 代码示例
-```
-
-#### 一致性检查要点
-
-| 检查项 | 中文RST | 英文YAML | 一致性要求 |
-|-------|---------|---------|-----------|
-| 描述 | `描述函数功能。` | `description:` | 语义一致 |
-| 参数名 | `**param1**` | `name: param1` | 完全一致 |
-| 参数类型 | `(Tensor)` | `type: Tensor` | 完全一致 |
-| 参数说明 | `参数1说明。` | `description:` | 语义一致 |
-| 返回类型 | `返回：Tensor` | `returns.type:` | 完全一致 |
-| 返回说明 | `返回说明。` | `returns.description:` | 语义一致 |
-| 异常 | `异常：ValueError` | `raises:` | 类型一致 |
-| 支持平台 | （不需要手写） | `supported_platforms:` | 自动对应 |
-| 示例 | `样例：` | `examples:` | 代码逻辑一致 |
-
-### YAML与代码注释的转换关系
-
-```text
-英文YAML文件 → 自动生成英文docstrings → 中文RST翻译
-
-YAML配置 → Python代码docstrings → 中文RST文档
-```
-
-**注意：** 中文RST文档的"样例"部分可能来自YAML的`examples`字段，而非代码注释。
-
+| 编号 | 检查项 | 说明 | 严重程度 |
+|-----|-------|------|---------|
+| I-CN-AL-01 | 类名/函数名差异 | 中文RST用别名（如 `Hardshrink`），英文源码用原名（如 `HShrink`），需确认功能完全一致 | 一般 |
+| I-CN-AL-02 | 模块重导出内容一致性 | 别名模块的 `__init__.py` 重导出时，需确认参数签名未被包装/修改 | 严重 |
+| I-CN-AL-03 | YAML 与 RST 名称匹配 | 中文RST使用新名称（如 `Hardshrink`），但 YAML doc 文件可能以原名命名（如 `hshrink_doc.yaml`），需检查两者是否对应同一接口 | 一般 |
+| I-CN-AL-04 | 废弃/重命名标注 | 如果别名因重命名引入，英文源码应有 `warning` 说明（如 `After version 2.9.0, this interface will be renamed to Hardshrink`） | 建议 |
 ---
 
 ## 英文RST目录文件一致性
-
-### 文件类型说明
-
-| 文件类型 | 后缀 | 说明 |
-|---------|------|------|
-| 英文代码注释 | `.py`, `.h`, `.cpp` | 代码中的docstrings |
-| 英文YAML | `.yaml`, `.yml` | 算子/接口定义配置 |
-| 英文RST目录 | `.rst` | API索引/目录文件 |
 
 ### 英文RST目录文件结构
 
@@ -669,7 +407,9 @@ Neural Network Cell
 
 1. 别名映射未识别（中文RST与英文源码名称不同但功能相同）
 2. 别名功能不一致（描述/参数/返回值不匹配）
-3. 函数签名差异未标注（版本变化导致的参数增减）
+3. 别名导入链未追溯（`mint.nn` 等模块通过 `__init__.py` 重导出，一致性检查需追踪到真实定义文件，而非仅检查 `method_doc` 中的简短 YAML）
+4. YAML doc 以原名命名（如 `hshrink_doc.yaml`），中文 RST 使用别名（如 `Hardshrink`），导致 YAML 搜索漏匹配
+5. 重命名标注缺失：一面标注了重命名 warning，另一面（原名或别名 RST）未标注
 
 ### 返回值/异常不一致
 
