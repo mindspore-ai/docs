@@ -76,52 +76,30 @@ bash scripts/fetch_pr.sh <token> <owner> <repo> <pr_number>
 1. **格式检查**：检查文档本身的格式和质量（如参数说明、返回值、异常等）
 2. **一致性检查**：检查中文API文档与英文源文件（Python/C++/YAML/RST目录）的对应关系
 
-根据输入文档的语言类型，选择对应的规则文件：
+#### API文档检查流程
 
-| 文档语言 | 规则文件 | 说明 |
-|---------|---------|------|
-| Python API中文文档（RST格式） | `rules/api_python_zh_rules.md` | Python类/函数RST文档 |
-| Python API英文注释（Python Docstring或YAML格式） | `rules/api_python_en_rules.md` | 检查Python docstrings、YAML配置 |
-| Python API中文与英文一致性 | `rules/api_python_consistency_rules.md` | Python API中文文档与英文源码的一致性检查 |
-| C++ API中文文档（MD格式） | `rules/api_cpp_zh_rules.md` | C++类/函数MD文档 |
-| C++ API英文注释 | `rules/api_cpp_en_rules.md` | 检查C++ `///` 注释 |
+1. **执行格式检查** → 按文档语言类型应用对应规则文件：
 
-#### 检查组合逻辑
+   - Python API中文文档（RST格式）：`rules/api_python_zh_rules.md`
+   - Python API英文注释（Python docstring/YAML）：`rules/api_python_en_rules.md`
+   - C++ API中文文档（MD格式）：`rules/api_cpp_zh_rules.md`
+   - C++ API英文注释：`rules/api_cpp_en_rules.md`
+   - PR 场景：对每个修改的文件分别应用对应规则
+   - **混合输入**：同时存在多种类型时，分别按各自规则执行
 
-- **中文API文档（RST/MD格式）**：
-    1. 应用对应规则文件检查格式：
+2. **查找对应源文件** → 按方向查找配对文件：
 
-        - Python类/函数RST文档：`rules/api_python_zh_rules.md`
-        - C++类/函数MD文档：`rules/api_cpp_zh_rules.md`
+   - **中文文档 → 找英文源**：按下文"英文源文件查找"方法定位（路径推断、YAML 搜索、别名链追踪、op 定义文件反查）
+   - **英文源 → 找中文 RST/MD**：
+      - 直接映射：原名按模块路径推断中文路径
+      - 别名场景：搜索各模块 `__init__.py` 中 `from X import 原名 as 别名`，所有别名的中文路径一并查找
 
-    2. 识别对应的英文源文件（.py对应RST，.yaml/.yml对应RST，.h/.cpp对应MD）
-    3. 应用 `rules/api_python_consistency_rules.md` 检查与英文的一致性
+3. **执行一致性检查** → 使用 `rules/api_python_consistency_rules.md`，按输入类型选择子检查项：
 
-- **Python API英文注释**：
-    1. 应用 `rules/api_python_en_rules.md` 检查注释格式
-    2. （如需与中文对应）使用 `rules/api_python_consistency_rules.md` 检查与中文文档的一致性
-
-- **C++ API英文注释**：
-    1. 应用 `rules/api_cpp_en_rules.md` 检查注释格式
-    2. （如需与中文对应）使用 `rules/api_python_consistency_rules.md` 检查与中文文档的一致性
-
-- **AtomGit PR链接**：
-    1. 获取PR中的所有文档修改（.rst, .py, .yaml, .md, .h, .cpp等）
-    2. 建立中文文档与英文源码的关联
-    3. 检查PR中是否有中文修改但无英文对应，或英文修改但无中文对应
-    4. 应用 `rules/api_python_consistency_rules.md` 中的"PR配对检查"规则
-    5. 对每个修改的中文RST/中文MD文件应用对应规则文件检查格式：
-
-        - 中文RST文件：`rules/api_python_zh_rules.md`
-        - 中文MD文件：`rules/api_cpp_zh_rules.md`
-
-    6. 对每个修改的Python代码、YAML文件应用 `rules/api_python_en_rules.md` 检查格式
-
-        - 对每个修改的C++头文件应用 `rules/api_cpp_en_rules.md` 检查格式
-
-    7. 特别检查英文RST目录文件的接口列表是否与中文RST对应
-
-- **混合输入**：分别按语言类型应用对应规则
+   - **中文RST ↔ 英文源码**：检查 Summary/Args/Returns/Raises 等字段的中英文对应关系（英文源可以是 Python docstring 或 YAML）
+   - **别名场景**：检查 AL-01~04（名称差异、重导出内容、YAML 名称匹配、废弃标注）
+   - **英文RST目录**：检查接口列表/数量/分组与中文RST一致
+   - **PR配对**：中文修改需有英文对应，英文修改需有中文对应
 
 #### 英文源文件查找
 
@@ -134,9 +112,10 @@ bash scripts/fetch_pr.sh <token> <owner> <repo> <pr_number>
 | YAML配置 | `.yaml`, `.yml` | MindSpore算子/接口定义文件（Tensor方法等） |
 | 英文RST目录 | `.rst` | API索引/目录文件（如 `mindspore.nn.rst`） |
 
-**典型路径映射：**
+**典型路径映射（含别名场景）：**
 
 ```text
+=== 直接映射 ===
 中文RST(Python): docs/api/api_python/mindspore/nn/tanh.rst
 英文Python代码: mindspore/python/mindspore/nn/tanh.py
 
@@ -154,6 +133,27 @@ bash scripts/fetch_pr.sh <token> <owner> <repo> <pr_number>
 
 中文MD(C++): mindspore/docs/api/cpp_api/classmindspore_1_1Tensor.md
 英文C++头文件: mindspore/core/include/mindspore/core/ops/tensor_impl.h
+
+=== 别名追踪映射 ===
+中文RST(Python): docs/api/api_python/mint/mindspore.mint.nn.Hardshrink.rst
+    ↓ 解析 mindspore.mint.nn.__init__.py:
+    from mindspore.nn.layer import HShrink as Hardshrink
+    ↓ 再解析 mindspore.nn.layer.__init__.py 或 activation.py:
+    class HShrink(Cell) 定义于 mindspore/python/mindspore/nn/layer/activation.py
+实际英文Python代码: mindspore/python/mindspore/nn/layer/activation.py (class HShrink)
+
+中文RST(Python): docs/api/api_python/mint/mindspore.mint.nn.functional.linear.rst
+    ↓ 解析 mindspore.mint.nn.functional.py:
+    from mindspore.ops.functional import dense as linear
+    ↓ dense 是 auto_generate 算子，对应 YAML doc 以原名命名
+实际英文YAML文档: mindspore/ops/op_def/yaml/doc/dense_doc.yaml
+
+中文RST(Python): docs/api/api_python/mint/mindspore.mint.nn.functional.fold.rst
+    ↓ 解析 mindspore.mint.nn.functional.py:
+    from mindspore.ops.auto_generate import fold_ext as fold
+    ↓ 按函数名 fold_ext 搜 doc 找不到，反查 op 定义文件:
+    col2im_ext_op.yaml 中 name: fold_ext
+实际英文YAML文档: mindspore/ops/op_def/yaml/doc/col2im_ext_doc.yaml
 ```
 
 **YAML文档类型说明：**
@@ -165,31 +165,37 @@ bash scripts/fetch_pr.sh <token> <owner> <repo> <pr_number>
 | function_doc(alternative) | `mindspore/ops/api_def/function_doc/` | 函数接口文档（备选） |
 | method_doc(alternative) | `mindspore/ops/api_def/method_doc/` | 方法接口文档（备选） |
 
-**查找策略：**
+**查找策略（优先级从高到低）：**
 
-1. 根据模块路径推断
-2. 根据API名称搜索YAML文档文件（优先搜索 `op_def/yaml/doc/` 目录）
-3. 用户指定路径
+1. **直接路径推断**：根据模块路径映射到对应 Python/YAML 文件
+2. **YAML 文档搜索**：根据 API 名称搜索 `op_def/yaml/doc/` 和 `api_def/function_doc/` 等目录
+3. **别名导入链追踪**：当直接推断和 YAML 搜索均未找到，或找到的内容不足以进行完整一致性检查时，必须追溯 import 别名链。具体做法：
+   - 解析 RST 文件名提取完整模块路径（如 `mindspore.mint.nn.Hardshrink`）
+   - 从最内层模块开始，读取其 `__init__.py`（如 `mindspore/mint/nn/__init__.py`）
+   - 搜索 `from X import Y as Z` 或 `from X import Z` 语句，匹配别名 `Z` 是否等于 API 名称
+   - 如果匹配，记录映射关系（`别名 → 真实类/函数名`），并继续解析真实导入路径的 `__init__.py`
+   - 递归追踪直到找到实际的类/函数定义所在文件（`class HShrink` 或 `def hardshrink`）
+   - 同时记录别名路径上的 YAML doc 文件（如 `hardshrink_doc.yaml`）用于辅助检查
+4. **YAML op 定义文件反查**：当第 3 步得到 auto_generate 函数名后，若按函数名搜 `*_doc.yaml` 找不到，搜索 `op_def/yaml/*_op.yaml` 中 `name:` 字段等于函数名的文件，其文件名前缀即为 doc 文件名：
 
-#### API文档检查流程
+   ```text
+   例: col2im_ext_op.yaml 中 name: fold_ext
+       → doc 文件为 col2im_ext_doc.yaml
+   ```
 
-1. **接收输入** → 解析输入类型和内容
-2. **判断检查组合** → 根据内容特征选择通用+教程或通用+API
-3. **执行格式检查** →
+5. **用户指定路径**
 
-    - 中文RST文件：使用 `rules/api_python_zh_rules.md`
-    - 中文MD文件：使用 `rules/api_cpp_zh_rules.md`
-    - Python代码：使用 `rules/api_python_en_rules.md`（Python部分）
-    - YAML文件：使用 `rules/api_python_en_rules.md`（YAML部分）
-    - C++头文件：使用 `rules/api_cpp_en_rules.md`
+### 4. 生成并保存报告
 
-4. **执行一致性检查** → 使用 `rules/api_python_consistency_rules.md` 检查中英文对应关系
-5. **生成报告** → 按照"输出格式"生成Markdown报告，在"基本信息"中列出本次使用的规则文件
-6. **保存文件** → 保存到本地并告知用户路径
+汇总所有检查结果，按照"输出格式"生成 Markdown 报告保存到本地，在"基本信息"中列出本次使用的规则文件，告知用户路径。
+
+- 多输入或混合输入都合并到 `report_{场景}.md`（如 `report_PR_1234.md`），文件已存在则覆盖
+- 报告内按输入源分章节（如 `## PR #1234`、`## 本地文件: xxx.rst`）
+- 默认保存到当前目录，或用户指定路径
 
 ## 输出格式
 
-生成Markdown格式的检查报告，保存到本地文件。
+生成Markdown格式的检查报告。
 
 ### 报告结构
 
@@ -248,10 +254,10 @@ bash scripts/fetch_pr.sh <token> <owner> <repo> <pr_number>
 
 | 编号 | 问题类型 | 优先级 | 位置 | 中文文档 | 英文源码 | 建议修复 |
 |------|----------|--------|------|----------|----------|----------|
-| I-CN-D-03 | 参数名不一致 | 严重 | 中文RST第X行 / Python代码第Y行 | `**input_data**` | `input_data` | 确保参数名完全一致 |
-| I-CN-A-03 | 参数类型不一致 | 严重 | 中文RST第X行 / Python代码第Y行 | `(Tensor)` | `(int)` | 确保参数类型一致 |
-| I-CN-S-01 | 描述语义差异 | 一般 | 中文RST第X行 / Python代码第Y行 | 中文描述... | 英文描述... | 保持描述语义一致 |
-| I-CN-T-02 | 返回值类型不一致 | 一般 | 中文RST第X行 / Python代码第Y行 | 返回：Tensor | Returns: int | 确保返回值类型一致 |
+| I-CN-D-03 | 参数名不一致 | 严重 | 中文RST第X行 / 英文源第Y行 | `**input_data**` | `input_data` | 确保参数名完全一致 |
+| I-CN-A-03 | 参数类型不一致 | 严重 | 中文RST第X行 / 英文源第Y行 | `(Tensor)` | `(int)` | 确保参数类型一致 |
+| I-CN-S-01 | 描述语义差异 | 一般 | 中文RST第X行 / 英文源第Y行 | 中文描述... | 英文描述... | 保持描述语义一致 |
+| I-CN-T-02 | 返回值类型不一致 | 一般 | 中文RST第X行 / 英文源第Y行 | 返回：Tensor | Returns: int | 确保返回值类型一致 |
 | I-PR-M-01 | 中文新增无英文对应 | 建议 | PR #123 | 新增 `xxx.rst` 文档 | 需在对应文件中添加注释 |
 
 ## 改进建议
@@ -261,16 +267,9 @@ bash scripts/fetch_pr.sh <token> <owner> <repo> <pr_number>
 3. [🟢低] 建议...
 ```
 
-### 输出文件
-
-- 多输入或混合输入都合并到 `report.md`，如果该文件已存在，确保本次结果写入成功
-- 报告内按输入源分章节（如 `## PR #1234`, `## 本地文件: xxx.rst`）
-- 默认保存到当前目录，或用户指定路径
-
 ## 注意事项
 
 - 对于PR链接，会分析PR中的文档变更部分
-- 多个输入源合并到一个报告，按输入源分章节
 - 检查过程会尽量获取页面完整内容
 - 图片使用本地路径时无法验证，会标记为"需人工确认"
 - 中文RST不包含示例，不需要检查样例部分

@@ -75,6 +75,7 @@ Python API注释必须符合 Python `doctest` 规范要求，示例中的 `>>>`�
 | I-PY-EF-09 | True/False | 使用大写 | 小写或中文 |
 | I-PY-EF-10 | 字符串引号 | 单引号或双引号一致 | 混用引号 |
 | I-PY-EF-11 | 数组格式 | `[1, 2, 3]` | 使用其他格式 |
+| I-PY-EF-12 | code-block指令 | `.. code-block::` 后空一行再接代码 | 直接接代码内容，导致解析失败 |
 
 **Python Examples正确格式示例：**
 
@@ -328,6 +329,7 @@ YAML文档包含以下主要字段：`description`（接口描述+签名）、`A
 |-----|-----|---------|------|
 | I-YA-W-01 | Warning | `.. warning::` + 内容 | description内 |
 | I-YA-W-02 | Note | `.. note::` + 内容 | description内 |
+| I-YA-W-03 | code-block | `.. code-block::` 后空一行再接代码 | description内 |
 
 ### 返回值格式
 
@@ -436,8 +438,8 @@ add:
 
 | 编号 | 检查项 | 正确格式 | 错误示例 |
 |-----|-------|---------|---------|
-| I-YA-R-01 | 函数引用 | `:func:`接口名` ` | 使用 `:class:` |
-| I-YA-R-02 | 类方法引用 | `:func:`Tensor.xxx` ` | 错误使用 |
+| I-YA-R-01 | 函数引用 | `` :func:`接口名` `` | 使用 `:class:` |
+| I-YA-R-02 | 类方法引用 | `` :func:`Tensor.xxx` `` | 错误使用 |
 | I-YA-R-03 | 完整路径 | 不需要加 `mindspore.` 前缀 | 多余前缀 |
 
 ### 图片引用格式
