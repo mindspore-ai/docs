@@ -1,17 +1,15 @@
 # 整体架构
 
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/introduction/overview.md)
+
 MindSpore Transformers 自 **r2.0.0** 起以 **动态图（PyNative）实现** 作为演进主线。本章介绍动态图训练栈的整体架构、核心模块与训练能力，并给出最小落地入口。
 
-```{admonition} 动态图的能力边界
-:class: note
-
-- 动态图实现源码位于 `mindformers/pynative/`。
-- 当前动态图聚焦 **预训练/微调** 训练场景；推理、服务化部署、量化等能力仍由静态图提供，详见 [静态图实现](../static_graph/introduction/overview.md) 章节。
-```
+> **动态图的能力边界**
+>
+> - 动态图实现源码位于 `mindformers/pynative/`。
+> - 当前动态图聚焦 **预训练/微调** 训练场景；尚未覆盖的能力由静态图承载，清单见 [静态图实现特性](../feature/static_graph_features.md)。
 
 ---
-
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/introduction/overview.md)
 
 ## 概述
 
@@ -99,11 +97,9 @@ layers/           Linear · RMSNorm · SwiGlu · FlashAttention · 掩码生成
 - **并行维度**：DP（含 FSDP/HSDP 参数切分）、TP、PP、CP、EP、SP。设备网格依据各维度乘积构建，满足 `dp_replicate * dp_shard * cp * tp * pp == world_size`（`parallel_dims.py`）。
 - **显存优化**：重计算（activation checkpoint）、细粒度 SWAP、CPU offload。
 
-```{admonition} 关于 pet（LoRA）与 models 子目录
-:class: warning
-
-`pynative/pet/` 与 `pynative/models/` 目录当前仅含 `__init__.py`，尚无实现。LoRA 微调在动态图下**暂未实现**：触发时会在 `trainer/utils.py` 抛出 `NotImplementedError("Lora model is not implemented yet.")`。如需 LoRA，请使用静态图实现。
-```
+> **关于 pet（LoRA）与 models 子目录**
+>
+> `pynative/pet/` 与 `pynative/models/` 目录当前仅含 `__init__.py`，尚无实现。LoRA 微调在动态图下**暂未实现**：触发时会在 `trainer/utils.py` 抛出 `NotImplementedError("Lora model is not implemented yet.")`。如需 LoRA，请使用静态图实现。
 
 ---
 
@@ -111,13 +107,13 @@ layers/           Linear · RMSNorm · SwiGlu · FlashAttention · 掩码生成
 
 动态图采用 **分层抽象 + 模块化** 的设计：以 `GPTModel`（General PreTrained Model）为统一模型接口，向下组合 `TransformerBlock`、`MoELayer`、`Attention`、`Linear`、`Embedding`、`Norm` 等模块化接口，并通过 `ModuleSpec` 机制自由组合搭建模型。所有模块基于 MindSpore 动态图进行了并行与算子融合优化。
 
-当前已在动态图实现的模型包括 DeepSeek-V3（MoE + MLA + MTP）与 Qwen3（Dense）。
+动态图已覆盖 Dense 与 MoE（含 MLA、MTP）两类模型结构，已实现的模型清单见 [模型支持库](./models.md)。
 
 ---
 
 ## 训练能力
 
-动态图训练栈提供以下能力（各能力的配置说明页将在后续文档中补充）：
+动态图训练栈提供以下能力（各能力一览见 [功能特性概述](../feature/overview.md)，配置说明页将随后续提交上线）：
 
 - **多维混合并行**：数据并行（含 FSDP/HSDP 参数切分）、张量并行（TP）、流水线并行（PP，支持 1F1B 与 interleave）、上下文并行（CP，Colossal 方法）、专家并行（EP）与序列并行（SP）的灵活组合。
 - **优化器与学习率**：AdamW、Muon；多种带 warmup 的学习率策略。
@@ -130,7 +126,7 @@ layers/           Linear · RMSNorm · SwiGlu · FlashAttention · 掩码生成
 
 ## 下一步
 
-读完架构后，最小落地路径如下。
+读完架构后，最小落地路径如下（以下命令均在 **mindformers 仓库根目录**下执行）。
 
 **单卡直跑**（调试/验证用）：
 
@@ -144,12 +140,15 @@ python run_mindformer.py --config <your_config.yaml> --mode 1
 bash scripts/msrun_launcher.sh "run_mindformer.py --config <your_config.yaml> --mode 1"
 ```
 
-`--mode 1` 即路由到动态图训练器。完整的「准备配置 → 启动 → 看结果」流程与端到端训练配置将在后续文档（快速开始、训练指南、各功能特性页）中补充。
+`--mode 1` 即路由到动态图训练器。完整的「准备配置 → 启动 → 看结果」三步流程见 [快速开始](../quick_start/quick_start.md)，训练指南与各功能特性页正文将随后续提交上线。
 
 ---
 
 ## 相关文档
 
+- 快速完成一个动态图训练任务：[快速开始](../quick_start/quick_start.md)
+- 各能力一览：[功能特性概述](../feature/overview.md)
+- 已支持的模型：[模型支持库](./models.md)
 - 静态图提供的能力（推理/量化等）：[静态图实现](../static_graph/introduction/overview.md)
 
-> 安装指南、快速开始、训练指南与各功能特性页正在补充中，将在后续提交里上线。
+> 安装指南、训练指南与各功能特性页正文将随后续提交上线。
