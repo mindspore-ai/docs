@@ -31,6 +31,42 @@ MindSpore Transformers 的开源仓库地址为 `AtomGit | MindSpore/mindformers
 .. toctree::
    :glob:
    :maxdepth: 1
+   :caption: 训练指南
+   :hidden:
+
+   guide/training
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: 功能特性
+   :hidden:
+
+   feature/overview
+   feature/start_task
+   feature/configuration
+   feature/logging
+   feature/dataset
+   feature/training_hyperparameters
+   feature/parallel_training
+   feature/memory_optimization
+   feature/save_and_load_checkpoint
+   feature/resume_training
+   feature/monitor
+   feature/other_training_features
+   feature/static_graph_features
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: 环境变量
+   :hidden:
+
+   env_variables
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
    :caption: 贡献指南
    :hidden:
 
