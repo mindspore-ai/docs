@@ -91,20 +91,6 @@ sys.path.append(os.path.abspath('../../../../resource/sphinx_ext'))
 sys.path.append(os.path.abspath('../../../../resource/custom_directives'))
 from custom_directives import IncludeCodeDirective
 
-source_dir = "../../docs/source_zh_cn/reference/"
-target_dir = "./reference/"
-os.makedirs(target_dir, exist_ok=True)
-
-for filename in os.listdir(source_dir):
-    source_file_path = os.path.join(source_dir, filename)
-    if not os.path.isfile(source_file_path):
-        continue
-    if "operator" in filename and "lite" in filename:
-        target_file_path = os.path.join(target_dir, filename)
-        if os.path.exists(target_file_path):
-            os.remove(target_file_path)
-        shutil.copy(source_file_path, target_file_path)
-
 source_dir = "../../docs/source_zh_cn/use/"
 target_dir = "./use/"
 os.makedirs(target_dir, exist_ok=True)
