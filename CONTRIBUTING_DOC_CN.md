@@ -61,7 +61,6 @@ MindSpore CI采用了Markdownlint、Pylint、Shellcheck、Cppcheck、Cpplint、T
 
 其中，Markdownlint是一款检查Markdown文件格式正确性的工具，可以根据设置的规则以及创建的新规则对Markdown文件进行全面的检查。MindSpore CI在默认配置的基础上，修改了如下规则：
 
-- MD007（无序列表缩进）规则将参数indent设置为4，表示无序列表内的所有内容需缩进4格写作。
 - MD009（行尾空格）规则将参数br_spaces设置为2，表示行尾可以有0个或2个空格。
 - MD029（有序列表的前缀序号）规则将参数style设置为ordered，表示有序列表的前缀序号需按顺序递增。
 
