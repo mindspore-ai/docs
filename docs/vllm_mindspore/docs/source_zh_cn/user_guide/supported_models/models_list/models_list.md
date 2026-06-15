@@ -12,8 +12,7 @@
 | GLM-4.5 | 已支持 | MindFormers | Atlas 800I A2 | [GLM-4.5](https://huggingface.co/zai-org/GLM-4.5), [GLM-4.5-Air](https://huggingface.co/zai-org/GLM-4.5-Air) |
 | GLM-4.1V-Thinking | 已支持 | Native | Atlas 800I A2 | [GLM-4.1V-9B-Thinking](https://huggingface.co/zai-org/GLM-4.1V-9B-Thinking) |
 | GLM-4 | 已支持 | MindFormers | Atlas 800I A2 | [GLM-4-9B-0414](https://huggingface.co/zai-org/GLM-4-9B-0414)、[GLM-4-32B-0414](https://huggingface.co/zai-org/GLM-4-32B-0414) |
-| Qwen3-VL | 已支持 | Native  | Atlas 800I A2 | [
-Qwen3-VL-2B](https://huggingface.co/Qwen/Qwen3-VL-2B-Instruct)、[Qwen3-VL-4B](https://huggingface.co/Qwen/Qwen3-VL-4B-Instruct)、[Qwen3-VL-8B](https://huggingface.co/Qwen/Qwen3-VL-8B-Instruct)、[Qwen3-VL-30B-A3B](https://huggingface.co/Qwen/Qwen3-VL-30B-A3B-Instruct)、[Qwen3-VL-235B-A22B](https://huggingface.co/Qwen/Qwen3-VL-235B-A22B-Instruct) |
+| Qwen3-VL | 已支持 | Native  | Atlas 800I A2 | [Qwen3-VL-2B](https://huggingface.co/Qwen/Qwen3-VL-2B-Instruct)、[Qwen3-VL-4B](https://huggingface.co/Qwen/Qwen3-VL-4B-Instruct)、[Qwen3-VL-8B](https://huggingface.co/Qwen/Qwen3-VL-8B-Instruct)、[Qwen3-VL-30B-A3B](https://huggingface.co/Qwen/Qwen3-VL-30B-A3B-Instruct)、[Qwen3-VL-235B-A22B](https://huggingface.co/Qwen/Qwen3-VL-235B-A22B-Instruct) |
 | Qwen3 | 已支持 | Native, MindFormers | Atlas 800I A2, Atlas 300I Duo |  [Qwen3-0.6B](https://huggingface.co/Qwen/Qwen3-0.6B)、[Qwen3-1.7B](https://huggingface.co/Qwen/Qwen3-1.7B)、[Qwen3-4B](https://huggingface.co/Qwen/Qwen3-4B)、[Qwen3-8B](https://huggingface.co/Qwen/Qwen3-8B)、[Qwen3-14B](https://modelers.cn/models/MindSpore-Lab/Qwen3-14B)、[Qwen3-32B](https://modelers.cn/models/MindSpore-Lab/Qwen3-32B) |
 | Qwen3-235B-A22B | 已支持 | Native, MindFormers | Atlas 800I A2 |  [Qwen3-235B-A22B](https://huggingface.co/Qwen/Qwen3-235B-A22B) |
 | Qwen3-30B-A3B | 测试中 | Native, MindFormers | Atlas 800I A2 |  [Qwen3-30B-A3B](https://huggingface.co/Qwen/Qwen3-30B-A3B) |
