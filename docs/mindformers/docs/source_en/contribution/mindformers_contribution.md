@@ -24,9 +24,8 @@ Please follow this style for MindSpore Transformers review, maintenance and deve
 
   We use MarkdownLint to check Markdown document format. The following rules are modified based on the default configuration:
 
-  1. MD007 (unordered list indent): the parameter indent is set to 4, indicating that all the contents of the unordered list need to be indented by 4 spaces.
-  2. MD009 (space at the end of the line): the parameter br_spaces is set to 2, indicating that there can be either 0 or 2 spaces at the end of the line.
-  3. MD029 (sequence number of ordered list): the parameter style is set to ordered, indicating ascending order.
+  1. MD009 (space at the end of the line): the parameter br_spaces is set to 2, indicating that there can be either 0 or 2 spaces at the end of the line.
+  2. MD029 (sequence number of ordered list): the parameter style is set to ordered, indicating ascending order.
 
 ### Fork-Pull Development Model Guide
 

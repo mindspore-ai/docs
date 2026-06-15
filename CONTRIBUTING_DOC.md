@@ -61,7 +61,6 @@ MindSpore CI uses check tools such as Markdownlint, Pylint, Shellcheck, Cppcheck
 
 Markdownlint is a tool for checking the markdown file format. You can use the tool to check the format based on the configured rules and new rules. MindSpore CI modifies the following rules based on the default configuration:
 
-- MD007 (unordered list indentation): The **indent** parameter is set to **4**, indicating that all content in the unordered list needs to be indented using four spaces.
 - MD009 (spaces at the line end): The **br_spaces** parameter is set to **2**, indicating that there can be 0 or 2 spaces at the end of a line.
 - MD029 (sequence numbers of an ordered list): The **style** parameter is set to **ordered**, indicating that the sequence numbers of the ordered list are in ascending order.
 
