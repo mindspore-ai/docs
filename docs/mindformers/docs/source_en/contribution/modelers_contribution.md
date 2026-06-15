@@ -8,7 +8,7 @@ Modelers Community is a model hosting platform where users can upload custom mod
 
 ### MindSpore Transformers Built-in Models
 
-If the custom model uses a built-in model provided by MindSpore Transformers, i.e. a model whose model code is located under mindformers/models, and no modifications have been made to the model's structure code. You only need to upload the weight file and configuration.
+If the custom model uses a built-in model provided by MindSpore Transformers (i.e., a model whose code is located under mindformers/models) and no modifications have been made to the model's structure code, you only need to upload the weight file and configuration.
 
 For example, if a user uses MindSpore Transformers built-in ChatGLM2 model, performs fine-tuning training, and wants to share the fine-tuned model weights, uploading the model configuration and weights file is sufficient.
 
