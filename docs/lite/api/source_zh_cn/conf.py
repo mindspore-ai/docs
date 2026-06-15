@@ -243,24 +243,40 @@ from sphinx.util import logging
 import shutil
 logger = logging.getLogger(__name__)
 
-copy_path = 'docs/api/lite_api_python'
-src_dir = os.path.join(os.getenv("MSL_PATH"), copy_path)
+copy_paths = [
+    ('docs/api/lite_api_python', 'mindspore_lite'),
+    ('mindspore_lite/lite_boost/docs/api/lite_boost_api_python', 'lite_boost')
+]
 
-copy_list = []
-
+file_source_map = {}
 present_path = os.path.dirname(__file__)
 
-for i in os.listdir(src_dir):
-    if os.path.isfile(os.path.join(src_dir,i)):
-        if os.path.exists('./'+i):
-            os.remove('./'+i)
-        shutil.copy(os.path.join(src_dir,i),'./'+i)
-        copy_list.append(os.path.join(present_path,i))
-    else:
-        if os.path.exists('./'+i):
-            shutil.rmtree('./'+i)
-        shutil.copytree(os.path.join(src_dir,i),'./'+i)
-        copy_list.append(os.path.join(present_path,i))
+for src_rel_path, model_name in copy_paths:
+    src_dir = os.path.join(os.getenv("MSL_PATH"), src_rel_path)
+    dst_base =os.path.join(present_path, model_name)
+
+    for i in os.listdir(src_dir):
+        src_file = os.path.join(src_dir, i)
+        dst_file = os.path.join(dst_base, i)
+
+        source_repo_rel = os.path.join(src_rel_path, i).replace('\\', '/')
+
+        if os.path.isfile(src_file):
+            os.makedirs(dst_base, exist_ok=True)
+            if os.path.exists(dst_file):
+                os.remove(dst_file)
+            shutil.copy(src_file, dst_file)
+            file_source_map[dst_file] = source_repo_rel
+        else:
+            if os.path.exist(dst_file):
+                shutil.rmtree(dst_file)
+            shutil.copytree(src_file, dst_file)
+            for root, _, sub_files in os.walk(dst_file):
+                for sub_f in sub_files:
+                    if sub_f.endswith('.rst'):
+                        full_dst = os.path.join(root, sub_f)
+                        rel_to_dst_base = os.path.relpath(full_dst, dst_base).replace('\\', '/')
+                        file_source_map[full_dst] = os.path.join(src_rel_path, rel_to_dst_base).replace('\\', '/')
 
 # add view
 import json
@@ -312,31 +328,32 @@ for cur, _, files in os.walk(present_path):
         #         print(f'打开{i}文件失败')
 
         # master使用
-        flag_copy = 0
-        if i.endswith('.rst'):
-            for j in copy_list:
-                if j in cur:
-                    flag_copy = 1
-                    break
-            if os.path.join(cur, i) in copy_list or flag_copy:
-                try:
-                    with open(os.path.join(cur, i), 'r+', encoding='utf-8') as f:
-                        content = f.read()
-                        new_content = content
-                        if '.. include::' in content and '.. automodule::' in content:
-                            continue
-                        if 'autosummary::' not in content and "\n=====" in content:
-                            re_view_ = re_view + copy_path + cur.split(present_path)[-1] + '/' + i + \
-                                       '\n    :alt: 查看源文件\n\n'
-                            new_content = re.sub('([=]{5,})\n', r'\1\n' + re_view_, content, 1)
-                        if new_content != content:
-                            f.seek(0)
-                            f.truncate()
-                            f.write(new_content)
-                except Exception:
-                    print(f'打开{i}文件失败')
+        if not i.endswith('.rst'):
+            continue
+        current_file_path = os.path.join(cur, i)
+        if current_file_path not in file_source_map:
+            continue
+        current_source_rel = file_source_map[current_file_path]
+        try:
+            with open(current_file_path, 'r+', encoding='utf-8') as f:
+                content = f.read()
+                if '.. include::' in content and '.. automodule::' in content:
+                    continue
+                if 'autosummary::' not in content and "\n=====" in content:
+                    re_view_ = (
+                        f"{re_view}{current_source_rel}"
+                        f"\n    :alt: 查看源文件\n\n"
+                    )
+                    new_content = re.sub('([=]{5,})\n', r'\1\n' + re_view_, content, count=1)
+                    if new_content != content:
+                        f.seek(0)
+                        f.truncate()
+                        f.write(new_content)
+        except Exception as e:
+            print(f"ERROR: 处理文件 {current_file_path} 失败: {e}")
 
-rst_files = set([i.replace('.rst', '') for i in glob.glob('mindspore_lite/*.rst', recursive=True)])
+all_rst_paths = glob.glob('mindspore_lite/*.rst', recursive=True) + glob.glob('lite_boost/*.rst', recursive=True)
+rst_files = set([i.replace('.rst', '') for i in all_rst_paths])
 
 def setup(app):
     app.add_directive('msplatformautosummary', MsPlatformAutoSummary)
@@ -348,6 +365,8 @@ def setup(app):
     app.add_directive('includecode', IncludeCodeDirective)
 
 import mindspore_lite
+
+autodoc_mock_imports = ['lite_boost', 'lite_boost.ops', 'lite_boost.parallel']
 
 sys.path.append(os.path.abspath('../../../../resource/sphinx_ext'))
 
