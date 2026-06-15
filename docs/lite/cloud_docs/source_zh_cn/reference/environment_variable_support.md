@@ -22,6 +22,7 @@
 |         ASCEND_CUSTOM_OPP_PATH         |                        Ascend C自定义算子安装路径                        |          文件路径           |     ""      |
 |            ASCEND_OPP_PATH             |                             Ascend算子路径                              |          文件路径           |     ""      |
 |     MSLITE_ENABLE_CLOUD_INFERENCE      |                            是否使能云侧推理                             |          "on"、""           |     ""      |
+|   MSLITE_ENABLE_SKIP_SUBMODULE_UPDATE  |                构建时是否跳过 git submodule update 步骤                 |         "on"、""（不跳过）         |     ""      |
 |               ENABLE_AKG               |                               是否使能AKG                               |          "on"、""           |     ""      |
 |             MS_CPU_FEATURE             |                               CPU指令架构                               |           avx512            |     ""      |
 | MS_DEV_GRAPH_KERNEL_SPLIT_DEBUG_TUNING |                              切图调试开关                               |           on、""            |     ""      |

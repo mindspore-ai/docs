@@ -861,6 +861,38 @@ timeout=-1
 timeout=50
 ```
 
+### 预推理
+
+预推理是指在模型创建（Build）成功后，立即使用随机生成的输入数据自动执行一次推理，用于检测模型功能是否正常。
+
+该功能通过配置文件开启，在配置文件的 `[common]` 节中设置 `enable_pre_inference=true` 即可启用：
+
+```ini
+[common]
+enable_pre_inference=true
+```
+
+启用后，调用 [Build](https://www.mindspore.cn/lite/api/zh-CN/master/generate/classmindspore_Model.html#build-3) 接口加载和编译模型时，底层会在模型编译成功后自动生成随机数据填充输入，并调用 [Predict](https://www.mindspore.cn/lite/api/zh-CN/master/generate/classmindspore_Model.html#predict) 执行一次推理（对应代码实现中的 `BuildAndRun` 函数）。如果推理失败，`Build` 接口将返回错误码，提示模型可能存在异常。
+
+预推理功能的使用方式与常规流程一致，仅需在配置文件中添加上述配置项，无需修改代码：
+
+```c++
+// 创建模型
+auto model = std::make_shared<mindspore::Model>();
+
+// 加载配置文件（开启预推理选项）
+model->LoadConfig(config_file);
+
+// Build 接口内部会自动执行预推理
+auto build_ret = model->Build(model_path, mindspore::kMindIR, context);
+if (build_ret != mindspore::kSuccess) {
+    std::cerr << "Build model failed, model may be abnormal." << std::endl;
+    return -1;
+}
+```
+
+> 预推理功能仅在 Linux 平台、非 Debug 编译模式下生效。对于存在动态维度（shape 中包含 -1）或输入 size 为 0 的模型，预推理会自动跳过，不进行检测。
+
 ## 实验特性
 
 ### 多后端异构能力

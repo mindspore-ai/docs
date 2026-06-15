@@ -22,6 +22,7 @@ This document lists the environment variables supported by MindSpore Lite along 
 |         ASCEND_CUSTOM_OPP_PATH         |    Installation path for custom Ascend operators    |          File path          |        ""         |
 |            ASCEND_OPP_PATH             |           Path to Ascend operator library           |          File path          |        ""         |
 |     MSLITE_ENABLE_CLOUD_INFERENCE      |             Enable cloud-side inference             |          "on", ""           |        ""         |
+|   MSLITE_ENABLE_SKIP_SUBMODULE_UPDATE  |    Skip git submodule update step during building     |        "on", "" (no skip)         |        ""         |
 |               ENABLE_AKG               |               Enable AKG optimization               |          "on", ""           |        ""         |
 |             MS_CPU_FEATURE             |          CPU instruction set architecture           |           avx512            |        ""         |
 | MS_DEV_GRAPH_KERNEL_SPLIT_DEBUG_TUNING |         Graph kernel splitting debug switch         |           on, ""            |        ""         |

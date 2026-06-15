@@ -9,6 +9,8 @@ This tutorial provides a sample program for MindSpore Lite to perform cloud-side
 MindSpore Lite cloud-side inference is supported for running in Linux environment deployment only. Atlas 200/300/500 inference product, Atlas inference series, Atlas training series and CPU hardware backends are supported.
 
 > When using MindSpore Lite together with other third-party frameworks, please ensure that the import actions of other third-party frameworks are placed before `mindspore_lite.Model.build_from_file` and `mindspore_lite.ModelGroup.cal_max_size_of_workspace`, otherwise it may lead to unexpected issues.
+>
+> The Python inference interface supports bfloat16 input and output data types, which depends on the `ml_dtypes` library. See the [bfloat16 Inference](#bfloat16-inference) section for details.
 
 The following is an example of how to use the Python Cloud-side Inference Demo on a Linux X86 operating system and a CPU hardware platform, using Ubuntu as an example:
 
@@ -21,6 +23,8 @@ The following is an example of how to use the Python Cloud-side Inference Demo o
 - For a description of Weight Update content, see the [Dynamic Weight Update](#dynamic-weight-update) section for details.
 
 - For a description of Subgraph Splitting Inference content, see the [Subgraph Splitting Inference](#subgraph-splitting-inference) section for details.
+- For a description of Pre-Inference content, see the [Pre-Inference](#pre-inference) section for details.
+- For a description of bfloat16 Inference content, see the [bfloat16 Inference](#bfloat16-inference) section for details.
 
 ## One-click Installation
 
@@ -276,4 +280,117 @@ for exec in execs:
     data = np.random.randn(*input.shape).astype(dtype_map[input.dtype])
     input.set_data_from_numpy(data)
   exec.predict(exec_inputs)
+```
+
+## Pre-Inference
+
+Pre-inference refers to automatically performing one inference with randomly generated input data immediately after the model is successfully created (build_from_file), which is used to verify whether the model functions properly.
+
+This feature can be enabled through a configuration file by setting `enable_pre_inference=true` in the `[common]` section:
+
+```ini
+[common]
+enable_pre_inference=true
+```
+
+After enabling, when calling the [build_from_file](https://www.mindspore.cn/lite/api/en/master/mindspore_lite/mindspore_lite.Model.html#mindspore_lite.Model.build_from_file) interface to load and compile the model, the underlying framework will automatically generate random data to fill the inputs and call [predict](https://www.mindspore.cn/lite/api/en/master/mindspore_lite/mindspore_lite.Model.html#mindspore_lite.Model.predict) once. If the inference fails, the `build_from_file` interface will return an error code, indicating that the model may be abnormal.
+
+The usage of the pre-inference feature is consistent with the normal workflow. You only need to add the configuration item to the configuration file without modifying the code:
+
+```python
+import mindspore_lite as mslite
+
+context = mslite.Context()
+context.target = ["ascend"]
+context.ascend.device_id = 0
+
+model = mslite.Model()
+# Pre-inference will be automatically performed inside build_from_file
+model.build_from_file(MODEL_PATH, mslite.ModelType.MINDIR, context, "config.ini")
+```
+
+> The pre-inference feature only takes effect on the Linux platform and under non-Debug compilation mode. For models with dynamic dimensions (shape contains -1) or input size of 0, pre-inference will be automatically skipped.
+
+## bfloat16 Inference
+
+bfloat16 (Brain Floating Point 16-bit) is a 16-bit floating-point format that has the same exponent width (8 bits) as float32, offering smaller memory footprint and faster computation at the cost of minimal precision loss. MindSpore Lite Python inference interface supports bfloat16 input and output data.
+
+### Installing Dependencies
+
+The `ml_dtypes` library (version >= 0.5.4) is required for using bfloat16 data type:
+
+```bash
+pip install ml_dtypes
+```
+
+### Creating bfloat16 Input Data
+
+Create bfloat16 numpy arrays and set them as model inputs:
+
+```python
+import ml_dtypes
+import numpy as np
+import mindspore_lite as mslite
+
+model = mslite.Model()
+model.build_from_file(MODEL_PATH, mslite.ModelType.MINDIR, context)
+
+inputs = model.get_inputs()
+# Create a bfloat16 numpy array as input
+in_data = np.ones(inputs[0].shape, dtype=ml_dtypes.bfloat16)
+inputs[0].set_data_from_numpy(in_data)
+```
+
+### Checking Tensor Data Type
+
+The data type of an input or output Tensor can be checked via the `dtype` attribute. The bfloat16 type corresponds to `mslite.DataType.BFLOAT16`:
+
+```python
+print(inputs[0].dtype)  # Output: DataType.BFLOAT16
+```
+
+### Getting bfloat16 Output
+
+After calling `predict` for inference, the output data obtained via `get_data_to_numpy()` will be automatically converted to a numpy array with `ml_dtypes.bfloat16` dtype:
+
+```python
+outputs = model.predict(inputs)
+out_data = outputs[0].get_data_to_numpy()  # dtype is ml_dtypes.bfloat16
+print(out_data.dtype)  # Output: bfloat16
+```
+
+### Complete Example
+
+The following is a complete example of inference with bfloat16 data type on the Ascend backend:
+
+```python
+import ml_dtypes
+import numpy as np
+import mindspore_lite as mslite
+
+# Create context
+context = mslite.Context()
+context.target = ["ascend"]
+context.ascend.device_id = 0
+
+# Load model
+model = mslite.Model()
+model.build_from_file(model_path="matmul_bf16.mindir", model_type=mslite.ModelType.MINDIR, context=context)
+
+# Prepare bfloat16 input data
+x = np.ones((2, 4), dtype=ml_dtypes.bfloat16)
+y = np.ones((4, 3), dtype=ml_dtypes.bfloat16)
+
+# Set inputs
+inputs = model.get_inputs()
+inputs[0].set_data_from_numpy(x)
+inputs[1].set_data_from_numpy(y)
+
+# Execute inference
+outputs = model.predict(inputs)
+
+# Get bfloat16 output
+out = outputs[0].get_data_to_numpy()
+print("Output dtype:", out.dtype)  # bfloat16
+print("Output data:", out)
 ```
