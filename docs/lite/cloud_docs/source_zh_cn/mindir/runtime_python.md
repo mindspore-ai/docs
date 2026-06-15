@@ -9,6 +9,8 @@
 MindSpore Lite云侧推理仅支持在Linux环境部署运行。支持Atlas 200/300/500推理产品、Atlas推理系列产品、Atlas训练系列产品和CPU硬件后端。
 
 > 当MindSpore Lite与其他第三方框架共用时，请确保将其他第三方框架的导入操作放在`mindspore_lite.Model.build_from_file`和`mindspore_lite.ModelGroup.cal_max_size_of_workspace`方法调用之前，否则可能导致不可预见的问题。
+>
+> Python推理接口支持bfloat16输入和输出数据类型，依赖`ml_dtypes`库，详情参见[bfloat16推理](#bfloat16推理)小节。
 
 下面以Ubuntu为例，介绍了在Linux X86操作系统配合CPU硬件平台下如何使用Python云侧推理Demo：
 
@@ -19,8 +21,9 @@ MindSpore Lite云侧推理仅支持在Linux环境部署运行。支持Atlas 200/
 - Python云侧推理Demo内容说明，详情参见[Demo内容说明](#demo内容说明)小节。
 
 - 动态权重更新内容说明，详情参见[动态权重更新](#动态权重更新)小节。
-
 - 子图切分推理内容说明，详情参见[子图切分推理](#子图切分推理)小节。
+- 预推理内容说明，详情参见[预推理](#预推理)小节。
+- bfloat16推理内容说明，详情参见[bfloat16推理](#bfloat16推理)小节。
 
 ## 一键安装
 
@@ -273,5 +276,118 @@ for exec in execs:
     data = np.random.randn(*input.shape).astype(dtype_map[input.dtype])
     input.set_data_from_numpy(data)
   exec.predict(exec_inputs)
+```
+
+## 预推理
+
+预推理是指在模型创建（build_from_file）成功后，立即使用随机生成的输入数据自动执行一次推理，用于检测模型功能是否正常。
+
+该功能通过配置文件开启，在配置文件中设置 `[common]` 节中的 `enable_pre_inference=true` 即可启用：
+
+```ini
+[common]
+enable_pre_inference=true
+```
+
+启用后，调用 [build_from_file](https://www.mindspore.cn/lite/api/zh-CN/master/mindspore_lite/mindspore_lite.Model.html#mindspore_lite.Model.build_from_file) 接口加载和编译模型时，底层会在模型编译成功后自动生成随机数据填充输入，并调用 [predict](https://www.mindspore.cn/lite/api/zh-CN/master/mindspore_lite/mindspore_lite.Model.html#mindspore_lite.Model.predict) 执行一次推理。如果推理失败，`build_from_file` 接口将返回错误码，提示模型可能存在异常。
+
+预推理功能的使用方式与常规流程一致，仅需在配置文件中添加上述配置项，无需修改代码：
+
+```python
+import mindspore_lite as mslite
+
+context = mslite.Context()
+context.target = ["ascend"]
+context.ascend.device_id = 0
+
+model = mslite.Model()
+# build_from_file 内部会自动执行预推理
+model.build_from_file(MODEL_PATH, mslite.ModelType.MINDIR, context, "config.ini")
+```
+
+> 预推理功能仅在 Linux 平台、非 Debug 编译模式下生效。对于存在动态维度（shape 中包含 -1）或输入 size 为 0 的模型，预推理会自动跳过，不进行检测。
+
+## bfloat16推理
+
+bfloat16（Brain Floating Point 16-bit）是一种16位浮点数格式，相比float16拥有与float32相同的指数位宽（8位），能以较低的精度损失换取更小的内存占用和更快的计算速度。MindSpore Lite Python推理接口支持bfloat16类型的输入和输出数据。
+
+### 安装依赖
+
+使用bfloat16数据类型需要安装`ml_dtypes`库（版本 >= 0.5.4）：
+
+```bash
+pip install ml_dtypes
+```
+
+### 创建bfloat16输入数据
+
+使用numpy创建bfloat16类型的数组，并设置为模型输入：
+
+```python
+import ml_dtypes
+import numpy as np
+import mindspore_lite as mslite
+
+model = mslite.Model()
+model.build_from_file(MODEL_PATH, mslite.ModelType.MINDIR, context)
+
+inputs = model.get_inputs()
+# 创建bfloat16类型的numpy数组作为输入
+in_data = np.ones(inputs[0].shape, dtype=ml_dtypes.bfloat16)
+inputs[0].set_data_from_numpy(in_data)
+```
+
+### 查看Tensor数据类型
+
+输入或输出Tensor的数据类型可以通过`dtype`属性查看，bfloat16类型对应`mslite.DataType.BFLOAT16`：
+
+```python
+print(inputs[0].dtype)  # 输出: DataType.BFLOAT16
+```
+
+### 获取bfloat16输出结果
+
+调用`predict`执行推理后，通过`get_data_to_numpy()`获取的输出数据会自动转换为`ml_dtypes.bfloat16`类型的numpy数组：
+
+```python
+outputs = model.predict(inputs)
+out_data = outputs[0].get_data_to_numpy()  # dtype为ml_dtypes.bfloat16
+print(out_data.dtype)  # 输出: bfloat16
+```
+
+### 完整示例
+
+以下是在Ascend后端上使用bfloat16数据类型进行推理的完整示例：
+
+```python
+import ml_dtypes
+import numpy as np
+import mindspore_lite as mslite
+
+# 创建上下文
+context = mslite.Context()
+context.target = ["ascend"]
+context.ascend.device_id = 0
+
+# 加载模型
+model = mslite.Model()
+model.build_from_file(model_path="matmul_bf16.mindir", model_type=mslite.ModelType.MINDIR, context=context)
+
+# 准备bfloat16输入数据
+x = np.ones((2, 4), dtype=ml_dtypes.bfloat16)
+y = np.ones((4, 3), dtype=ml_dtypes.bfloat16)
+
+# 设置输入
+inputs = model.get_inputs()
+inputs[0].set_data_from_numpy(x)
+inputs[1].set_data_from_numpy(y)
+
+# 执行推理
+outputs = model.predict(inputs)
+
+# 获取bfloat16输出
+out = outputs[0].get_data_to_numpy()
+print("Output dtype:", out.dtype)  # bfloat16
+print("Output data:", out)
 ```
 

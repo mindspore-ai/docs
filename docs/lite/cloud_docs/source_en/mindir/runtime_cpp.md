@@ -859,6 +859,38 @@ Config of waiting 50ms:
 timeout=50
 ```
 
+### Pre-Inference
+
+Pre-inference refers to automatically performing one inference with randomly generated input data immediately after the model is successfully created (Build), which is used to verify whether the model functions properly.
+
+This feature can be enabled through a configuration file by setting `enable_pre_inference=true` in the `[common]` section:
+
+```ini
+[common]
+enable_pre_inference=true
+```
+
+After enabling, when calling the [Build](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Model.html#build-3) interface to load and compile the model, the underlying framework will automatically generate random data to fill the inputs and call [Predict](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Model.html#predict) once (corresponding to the `BuildAndRun` function in the code implementation). If the inference fails, the `Build` interface will return an error code, indicating that the model may be abnormal.
+
+The usage of the pre-inference feature is consistent with the normal workflow. You only need to add the configuration item to the configuration file without modifying the code:
+
+```c++
+// Create model
+auto model = std::make_shared<mindspore::Model>();
+
+// Load configuration file (enable pre-inference option)
+model->LoadConfig(config_file);
+
+// Pre-inference will be automatically performed inside the Build interface
+auto build_ret = model->Build(model_path, mindspore::kMindIR, context);
+if (build_ret != mindspore::kSuccess) {
+    std::cerr << "Build model failed, model may be abnormal." << std::endl;
+    return -1;
+}
+```
+
+> The pre-inference feature only takes effect on the Linux platform and under non-Debug compilation mode. For models with dynamic dimensions (shape contains -1) or input size of 0, pre-inference will be automatically skipped.
+
 ## Experimental feature
 
 ### multi-backend runtime
