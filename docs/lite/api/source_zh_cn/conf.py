@@ -245,15 +245,15 @@ logger = logging.getLogger(__name__)
 
 copy_paths = [
     ('docs/api/lite_api_python', 'mindspore_lite'),
-    ('mindspore_lite/lite_boost/docs/api/lite_boost_api_python', 'lite_boost')
+    ('mindspore-lite/lite_boost/docs/api/lite_boost_api_python', 'lite_boost')
 ]
 
 file_source_map = {}
 present_path = os.path.dirname(__file__)
 
-for src_rel_path, model_name in copy_paths:
+for src_rel_path, module_name in copy_paths:
     src_dir = os.path.join(os.getenv("MSL_PATH"), src_rel_path)
-    dst_base =os.path.join(present_path, model_name)
+    dst_base =os.path.join(present_path, module_name)
 
     for i in os.listdir(src_dir):
         src_file = os.path.join(src_dir, i)
@@ -268,7 +268,7 @@ for src_rel_path, model_name in copy_paths:
             shutil.copy(src_file, dst_file)
             file_source_map[dst_file] = source_repo_rel
         else:
-            if os.path.exist(dst_file):
+            if os.path.exists(dst_file):
                 shutil.rmtree(dst_file)
             shutil.copytree(src_file, dst_file)
             for root, _, sub_files in os.walk(dst_file):
