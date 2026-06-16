@@ -34,7 +34,7 @@
 |[setuptools](#安装wheel-setuptools-pyyaml和numpy)|44.0及以上|MindSpore使用的Python包管理工具|
 |[PyYAML](#安装wheel-setuptools-pyyaml和numpy)|6.0-6.0.2|MindSpore里的算子编译功能依赖PyYAML模块|
 |[Numpy](#安装wheel-setuptools-pyyaml和numpy)|1.19.3-1.26.4|MindSpore里的Numpy相关功能依赖Numpy模块|
-|[GCC](#安装gcc-git-tclsh-patch和numa)|7.3.0-9.4.0|用于编译MindSpore的C++编译器|
+|[GCC](#安装gcc-git-tclsh-patch和numa)|7.3.0-11.3.0（优选7.3.0）|用于编译MindSpore的C++编译器|
 |[git](#安装gcc-git-tclsh-patch和numa)|-|MindSpore使用的源代码管理工具|
 |[CMake](#安装cmake)|3.22.3及以上|编译构建MindSpore的工具|
 |[tclsh](#安装gcc-git-tclsh-patch和numa)|-|MindSpore sqlite编译依赖|
