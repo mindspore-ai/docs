@@ -32,7 +32,7 @@ The following table lists the system environment and third-party dependencies re
 |[CUDA](#installing-cuda)|11.1 or 11.6|parallel computing architecture for MindSpore GPU|
 |[cuDNN](#installing-cudnn)|7.6.x or 8.0.x or 8.5.x|deep neural network acceleration library used by MindSpore GPU|
 |[Conda](#installing-conda)|Anaconda3 or Miniconda3|Python environment management tool|
-|[GCC](#installing-gcc)|7.3.0-9.4.0|C++ compiler for compiling MindSpore|
+|[GCC](#installing-gcc)|9.5.0-11.3.0 (preferred version 9.5.0)|C++ compiler for compiling MindSpore|
 |[TensorRT](#installing-tensorrt-optional)|7.2.2 or 8.4|high performance deep learning inference SDK used by MindSpore(optional, required for serving inference)|
 
 The following describes how to install the third-party dependencies.
@@ -45,7 +45,7 @@ The following only shows instructions for installing by runfile on Linux systems
 Before installing CUDA, you need to run the following commands to install related dependencies.
 
 ```bash
-sudo apt-get install linux-headers-$(uname -r) gcc-7
+sudo apt-get install linux-headers-$(uname -r) gcc-9
 ```
 
 The minimum required GPU driver version of CUDA 11.1 is 450.80.02. The minimum required GPU driver version of CUDA 11.6 is 510.39.01. You may run `nvidia-smi` command to confirm the GPU driver version. If the driver version does not meet the requirements, you should choose to install the driver during the CUDA installation. After installing the driver, you need to reboot your system.
@@ -102,19 +102,7 @@ After the installation is complete, you can set up Tsinghua source acceleration 
 
 ### Installing GCC
 
-Run the following commands to install GCC.
-
-```bash
-sudo apt-get install gcc-7 -y
-```
-
-To install a later version of GCC, run the following command to install GCC 8.
-
-```bash
-sudo apt-get install gcc-8 -y
-```
-
-Or install GCC 9.
+Run the following commands to install GCC 9.
 
 ```bash
 sudo apt-get install software-properties-common -y

@@ -37,7 +37,7 @@ The following table lists the system environment and third-party dependencies re
 |[setuptools](#installing-wheel-setuptools-pyyaml-and-numpy)|44.0 or later|Python package management tool used by MindSpore|
 |[PyYAML](#installing-wheel-setuptools-pyyaml-and-numpy)|6.0-6.0.2|PyYAML module that operator compilation in MindSpore depends on|
 |[Numpy](#installing-wheel-setuptools-pyyaml-and-numpy)|1.19.3-1.26.4|Numpy module that Numpy-related functions in MindSpore depends on|
-|[GCC](#installing-gcc)|7.3.0|C++ compiler for compiling MindSpore|
+|[GCC](#installing-gcc)|9.5.0-11.3.0 (preferred version 9.5.0)|C++ compiler for compiling MindSpore|
 |[git](#installing-git-tclsh-patch-numa-and-flex)|-|Source code management tool used by MindSpore|
 |[git-lfs](#installing-git-lfs)|-|Source code management tool used by MindSpore|
 |[CMake](#installing-cmake)|3.22.3 or later|Build tool for MindSpore|
@@ -106,25 +106,25 @@ Note: The Numpy version used in the runtime environment must be no less than the
 
 ### Installing GCC
 
-The following takes GCC 7 as example for how to install GCC on common operating systems:
+The following takes GCC 9 as example for how to install GCC on common operating systems:
 
 - On Ubuntu, run the following commands to install.
 
     ```bash
-    sudo apt-get install gcc-7 g++-7 -y
+    sudo apt-get install gcc-9 g++-9 -y
     ```
 
 - On CentOS, run the following commands to install.
 
     ```bash
     sudo yum install centos-release-scl
-    sudo yum install devtoolset-7
+    sudo yum install -y devtoolset-9-gcc devtoolset-9-gcc-c++ devtoolset-9-binutils
     ```
 
-    After installation, run the following commands to switch to GCC 7.
+    After installation, run the following commands to switch to GCC 9.
 
     ```bash
-    scl enable devtoolset-7 bash
+    scl enable devtoolset-9 bash
     ```
 
 - On EulerOS and openEuler, run the following commands to install.

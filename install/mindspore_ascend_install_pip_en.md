@@ -27,7 +27,7 @@ The following table lists the system environment and third-party dependencies re
 |Debian series OS / openEuler series OS|Debianseries: Debian, Ubuntu, veLinux / openEuler serires: openEuler, CentOS, Kylin, BCLinux, UOS V20, AntOS, CTyunOS, CULinux, Tlinux, MTOS|Operating Systems compatible to MindSpore|
 |[Python](#installing-python)|3.9-3.12|Python environment that MindSpore depends on|
 |[Ascend AI processor software package](#installing-ascend-ai-processor-software-package)|CANN 9.0.0, CANN 8.5.0, CANN 8.3.RC1|Ascend platform AI computing library used by MindSpore|
-|[GCC](#installing-gcc)|7.3.0|C++ compiler for compiling MindSpore|
+|[GCC](#installing-gcc)|9.5.0-11.3.0 (preferred version 9.5.0)|C++ compiler for compiling MindSpore|
 
 The following describes how to install the third-party dependencies.
 
@@ -82,25 +82,25 @@ pip install sympy protobuf attrs cloudpickle decorator ml-dtypes psutil scipy to
 
 ### Installing GCC
 
-The following takes GCC 7 as example for how to install GCC on common operating systems:
+The following takes GCC 9 as example for how to install GCC on common operating systems:
 
 - On Ubuntu, run the following commands to install.
 
     ```bash
-    sudo apt-get install gcc-7 g++-7 -y
+    sudo apt-get install gcc-9 g++-9 -y
     ```
 
 - On CentOS, run the following commands to install.
 
     ```bash
     sudo yum install centos-release-scl
-    sudo yum install devtoolset-7
+    sudo yum install -y devtoolset-9-gcc devtoolset-9-gcc-c++ devtoolset-9-binutils
     ```
 
-    After installation, run the following commands to switch to GCC 7.
+    After installation, run the following commands to switch to GCC 9.
 
     ```bash
-    scl enable devtoolset-7 bash
+    scl enable devtoolset-9 bash
     ```
 
 - On EulerOS and openEuler, run the following commands to install.

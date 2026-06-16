@@ -24,7 +24,7 @@ The following table lists the system environment and third-party dependencies re
 |-|-|-|
 |Ubuntu|18.04|OS for running MindSpore|
 |[Python](#installing-python)|3.9-3.12|Python environment that MindSpore depends|
-|[GCC](#installing-gcc)|7.3.0-9.4.0|C++ compiler for compiling MindSpore|
+|[GCC](#installing-gcc)|9.5.0-11.3.0 (preferred version 9.5.0)|C++ compiler for compiling MindSpore|
 
 The following describes how to install the third-party dependencies.
 
@@ -60,25 +60,25 @@ python --version
 
 ### Installing GCC
 
-The following takes GCC 7 as example for how to install GCC on common operating systems:
+The following takes GCC 9 as example for how to install GCC on common operating systems:
 
 - On Ubuntu, run the following commands to install.
 
     ```bash
-    sudo apt-get install gcc-7 g++-7 -y
+    sudo apt-get install gcc-9 g++-9 -y
     ```
 
 - On CentOS, run the following commands to install.
 
     ```bash
     sudo yum install centos-release-scl
-    sudo yum install devtoolset-7
+    sudo yum install -y devtoolset-9-gcc devtoolset-9-gcc-c++ devtoolset-9-binutils
     ```
 
-    After installation, run the following commands to switch to GCC 7.
+    After installation, run the following commands to switch to GCC 9.
 
     ```bash
-    scl enable devtoolset-7 bash
+    scl enable devtoolset-9 bash
     ```
 
 - On EulerOS and openEuler, run the following commands to install.
