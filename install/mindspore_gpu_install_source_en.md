@@ -38,7 +38,7 @@ The following table lists the system environment and third-party dependencies re
 |[setuptools](#installing-wheel-setuptools-pyyaml-and-numpy)|44.0 or later|Python package management tool used by MindSpore|
 |[PyYAML](#installing-wheel-setuptools-pyyaml-and-numpy)|6.0-6.0.2|PyYAML module that operator compilation in MindSpore depends on|
 |[Numpy](#installing-wheel-setuptools-pyyaml-and-numpy)|1.19.3-1.26.4|Numpy module that Numpy-related functions in MindSpore depends on|
-|[GCC](#installing-gcc-git-and-other-dependencies)|7.3.0-9.4.0|C++ compiler for compiling MindSpore|
+|[GCC](#installing-gcc-git-and-other-dependencies)|9.5.0-11.3.0 (preferred version 9.5.0)|C++ compiler for compiling MindSpore|
 |[git](#installing-gcc-git-and-other-dependencies)|-|source code management tools used by MindSpore|
 |[CMake](#installing-cmake)|3.22.2 or later|Compilation tool that builds MindSpore|
 |[Autoconf](#installing-gcc-git-and-other-dependencies)|2.69 or later|Compilation tool that builds MindSpore|
@@ -61,7 +61,7 @@ The following only shows instructions for installing by runfile on Linux systems
 Before installing CUDA, you need to run the following commands to install related dependencies.
 
 ```bash
-sudo apt-get install linux-headers-$(uname -r) gcc-7
+sudo apt-get install linux-headers-$(uname -r) gcc-9
 ```
 
 The minimum required GPU driver version of CUDA 11.1 is 450.80.02. The minimum required GPU driver version of CUDA 11.6 is 510.39.01. You may run `nvidia-smi` command to confirm the GPU driver version. If the driver version does not meet the requirements, you should choose to install the driver during the CUDA installation. After installing the driver, you need to reboot your system.
@@ -165,19 +165,13 @@ The Numpy version used in the runtime environment must be no less than the Numpy
 
 ### Installing GCC git and other dependencies
 
-Run the following commands to install GCC, git, Autoconf, Libtool, Automake, Flex, tclsh, patch and NUMA.
+Run the following commands to install git, Autoconf, Libtool, Automake, Flex, tclsh, patch and NUMA.
 
 ```bash
-sudo apt-get install gcc-7 git automake autoconf libtool tcl patch libnuma-dev flex -y
+sudo apt-get install git automake autoconf libtool tcl patch libnuma-dev flex -y
 ```
 
-To install a later version of GCC, run the following command to install GCC 8.
-
-```bash
-sudo apt-get install gcc-8 -y
-```
-
-Or install GCC 9.
+Run the following command to install GCC 9.
 
 ```bash
 sudo apt-get install software-properties-common -y

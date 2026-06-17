@@ -24,7 +24,7 @@
 |-|-|-|
 |Ubuntu|18.04|运行MindSpore的操作系统|
 |[Python](#安装python)|3.9-3.12|MindSpore的使用依赖Python环境|
-|[GCC](#安装gcc)|7.3.0-9.4.0|用于编译MindSpore的C++编译器|
+|[GCC](#安装gcc)|9.5.0-11.3.0 （优选9.5.0）|用于编译MindSpore的C++编译器|
 
 下面给出第三方依赖的安装方法。
 
@@ -60,25 +60,25 @@ python --version
 
 ### 安装GCC
 
-下面以GCC 7为例，展示GCC在常用操作系统上的安装方式：
+下面以GCC 9为例，展示GCC在常用操作系统上的安装方式：
 
 - Ubuntu可以使用以下命令安装。
 
     ```bash
-    sudo apt-get install gcc-7 g++-7 -y
+    sudo apt-get install gcc-9 g++-9 -y
     ```
 
 - CentOS可以使用以下命令安装。
 
     ```bash
     sudo yum install centos-release-scl
-    sudo yum install devtoolset-7
+    sudo yum install -y devtoolset-9-gcc devtoolset-9-gcc-c++ devtoolset-9-binutils
     ```
 
-    安装完成后，需要使用以下命令切换到GCC 7。
+    安装完成后，需要使用以下命令切换到GCC 9。
 
     ```bash
-    scl enable devtoolset-7 bash
+    scl enable devtoolset-9 bash
     ```
 
 - EulerOS和openEuler可以使用以下命令安装。

@@ -37,7 +37,7 @@
 |[setuptools](#安装wheel-setuptools-pyyaml和numpy)|44.0及以上|MindSpore使用的Python包管理工具|
 |[PyYAML](#安装wheel-setuptools-pyyaml和numpy)|6.0-6.0.2|MindSpore里的算子编译功能依赖PyYAML模块|
 |[Numpy](#安装wheel-setuptools-pyyaml和numpy)|1.19.3-1.26.4|MindSpore里的Numpy相关功能依赖Numpy模块|
-|[GCC](#安装gcc)|7.3.0|用于编译MindSpore的C++编译器|
+|[GCC](#安装gcc)|9.5.0-11.3.0（优选9.5.0）|用于编译MindSpore的C++编译器|
 |[git](#安装git-tclsh-patch-numa-flex)|-|MindSpore使用的源代码管理工具|
 |[git-lfs](#安装git-lfs)|-|MindSpore使用的源代码管理拓展工具|
 |[CMake](#安装cmake)|3.22.3及以上|编译构建MindSpore的工具|
@@ -106,25 +106,25 @@ pip install "numpy>=1.20.0,<2.0.0"
 
 ### 安装GCC
 
-下面以GCC 7为例，展示GCC在常用操作系统上的安装方式：
+下面以GCC 9为例，展示GCC在常用操作系统上的安装方式：
 
 - Ubuntu可以使用以下命令安装。
 
     ```bash
-    sudo apt-get install gcc-7 g++-7 -y
+    sudo apt-get install gcc-9 g++-9 -y
     ```
 
 - CentOS可以使用以下命令安装。
 
     ```bash
     sudo yum install centos-release-scl
-    sudo yum install devtoolset-7
+    sudo yum install -y devtoolset-9-gcc devtoolset-9-gcc-c++ devtoolset-9-binutils
     ```
 
-    安装完成后，需要使用以下命令切换到GCC 7。
+    安装完成后，需要使用以下命令切换到GCC 9。
 
     ```bash
-    scl enable devtoolset-7 bash
+    scl enable devtoolset-9 bash
     ```
 
 - EulerOS和openEuler可以使用以下命令安装。

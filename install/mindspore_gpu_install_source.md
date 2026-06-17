@@ -38,7 +38,7 @@
 |[setuptools](#安装wheel-setuptools-pyyaml和numpy)|44.0及以上|MindSpore使用的Python包管理工具|
 |[PyYAML](#安装wheel-setuptools-pyyaml和numpy)|6.0-6.0.2|MindSpore里的算子编译功能依赖PyYAML模块|
 |[Numpy](#安装wheel-setuptools-pyyaml和numpy)|1.19.3-1.26.4|MindSpore里的Numpy相关功能依赖Numpy模块|
-|[GCC](#安装gcc-git等依赖)|7.3.0-9.4.0|用于编译MindSpore的C++编译器|
+|[GCC](#安装gcc-git等依赖)|9.5.0-11.3.0（优选9.5.0）|用于编译MindSpore的C++编译器|
 |[git](#安装gcc-git等依赖)|-|MindSpore使用的源代码管理工具|
 |[CMake](#安装cmake)|3.22.2及以上|编译构建MindSpore的工具|
 |[Autoconf](#安装gcc-git等依赖)|2.69及以上|编译构建MindSpore的工具|
@@ -61,7 +61,7 @@ MindSpore GPU支持CUDA 11.1和CUDA 11.6。NVIDIA官方给出了多种安装方�
 在安装CUDA前需要先安装相关依赖，执行以下命令。
 
 ```bash
-sudo apt-get install linux-headers-$(uname -r) gcc-7
+sudo apt-get install linux-headers-$(uname -r) gcc-9
 ```
 
 CUDA 11.1要求最低显卡驱动版本为450.80.02；CUDA 11.6要求最低显卡驱动为510.39.01。可以执行`nvidia-smi`命令确认显卡驱动版本。如果驱动版本不满足要求，CUDA安装过程中可以选择同时安装驱动，安装驱动后需要重启系统。
@@ -165,19 +165,13 @@ pip install "numpy>=1.19.3,<=1.26.4"
 
 ### 安装GCC git等依赖
 
-可以通过以下命令安装GCC、git、Autoconf、Libtool、Automake、Flex、tclsh、patch和NUMA。
+可以通过以下命令安装git、Autoconf、Libtool、Automake、Flex、tclsh、patch和NUMA。
 
 ```bash
-sudo apt-get install gcc-7 git automake autoconf libtool tcl patch libnuma-dev flex -y
+sudo apt-get install git automake autoconf libtool tcl patch libnuma-dev flex -y
 ```
 
-如果要安装更高版本的GCC，使用以下命令安装GCC 8。
-
-```bash
-sudo apt-get install gcc-8 -y
-```
-
-或者安装GCC 9。
+使用以下命令安装GCC 9。
 
 ```bash
 sudo apt-get install software-properties-common -y

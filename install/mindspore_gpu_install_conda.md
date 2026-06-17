@@ -32,7 +32,7 @@
 |[CUDA](#安装cuda)|11.1或11.6|MindSpore GPU使用的并行计算架构|
 |[cuDNN](#安装cudnn)|7.6.x或8.0.x或8.5.x|MindSpore GPU使用的深度神经网络加速库|
 |[Conda](#安装conda)|Anaconda3或Miniconda3|Python环境管理工具|
-|[GCC](#安装gcc)|7.3.0-9.4.0|用于编译MindSpore的C++编译器|
+|[GCC](#安装gcc)|9.5.0-11.3.0 （优选9.5.0）|用于编译MindSpore的C++编译器|
 |[TensorRT](#安装tensorrt-可选)|7.2.2或8.4|MindSpore使用的高性能深度学习推理SDK（可选，Serving推理需要）|
 
 下面给出第三方依赖的安装方法。
@@ -45,7 +45,7 @@ MindSpore GPU支持CUDA 11.1和CUDA11.6。NVIDIA官方给出了多种安装方�
 在安装CUDA前需要先安装相关依赖，执行以下命令。
 
 ```bash
-sudo apt-get install linux-headers-$(uname -r) gcc-7
+sudo apt-get install linux-headers-$(uname -r) gcc-9
 ```
 
 CUDA 11.1要求最低显卡驱动版本为450.80.02；CUDA 11.6要求最低显卡驱动为510.39.01。可以执行`nvidia-smi`命令确认显卡驱动版本。如果驱动版本不满足要求，CUDA安装过程中可以选择同时安装驱动，安装驱动后需要重启系统。
@@ -102,19 +102,7 @@ conda init bash
 
 ### 安装GCC
 
-可以通过以下命令安装GCC。
-
-```bash
-sudo apt-get install gcc-7 -y
-```
-
-如果要安装更高版本的GCC，使用以下命令安装GCC 8。
-
-```bash
-sudo apt-get install gcc-8 -y
-```
-
-或者安装GCC 9。
+可以通过以下命令安装GCC 9。
 
 ```bash
 sudo apt-get install software-properties-common -y
