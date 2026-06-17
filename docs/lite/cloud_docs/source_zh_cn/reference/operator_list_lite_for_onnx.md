@@ -95,4 +95,4 @@
 | Triu                   | 上三角矩阵                                                   | Trilu（属性upper=1）                                         | -                                                            |
 | Unsqueeze              | 将输入张量添加一个新的维度                                   | Unsqueeze                                                    | -                                                            |
 | Where                  | 元素选择                                                     | NonZero、Where                                               | -                                                            |
-| 转换工具支持的其他算子 | -                                                            | Constant、Atan、Asin、Tan、Loop、Dropout、If、Identity、Int8GivenIntTensorFill、Int8GivenTensorFill、Int8Quantize、Int8Dequantize、LpNormalization | 转换工具支持，但不需要具体实现的算子，一般这类算子在转化工具中被优化而消失，如被融合掉或者使用其他算子代替。 |
+| 转换工具支持的其他算子 | -                                                            | Constant、Atan、Asin、Tan、Dropout、Identity、Int8GivenIntTensorFill、Int8GivenTensorFill、Int8Quantize、Int8Dequantize、LpNormalization | 转换工具支持，但不需要具体实现的算子，一般这类算子在转化工具中被优化而消失，如被融合掉或者使用其他算子代替。 |
