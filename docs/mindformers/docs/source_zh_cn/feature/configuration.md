@@ -245,7 +245,6 @@ training:
 | `pipeline_parallel_enable_dxdw_split` | `False`                | PP 中 dxdw 通信拆分                                        |
 | `sequence_parallel`                   | `False`                | 序列并行（SP）。**当前 SPMD 路径不使用此字段**：开启 TP 即自动启用 SP，暂不支持单独关闭 |
 | `expert_parallel`                     | `1`                    | 专家并行度（EP，MoE）                                         |
-| `expert_tensor_parallel`              | `1`                    | 专家张量并行度                                               |
 | `npu_nums_per_device`                 | `8`                    | 每设备的 NPU rank 数                                       |
 | `moe_token_dispatcher_type`           | `"alltoall"`           | MoE token 分发方式：`alltoall` / `alltoall_deredundancy`   |
 
@@ -264,7 +263,6 @@ parallelism:
   pipeline_parallel_overlap_b_f: True
   context_parallel: 1
   expert_parallel: 8                        # MoE：EP >= npu_nums_per_device
-  expert_tensor_parallel: 1
   npu_nums_per_device: 8
   moe_token_dispatcher_type: "alltoall_deredundancy"
 ```
