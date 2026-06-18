@@ -374,39 +374,23 @@ def main(version, user, pd, WGETDIR, release_url, generate_list, api_detect):
                 re_name = data[i]['whl_name'].replace('.whl', '\\.whl')
                 name = rf"{re_name}"
                 res = s.get(url, auth=(user, pd), verify=False)
-                if "mindspore" == data[i]['name'] or "lite" == data[i]['name']:
-                    if "mindspore" == data[i]['name']:
-                        whl_name_cp39 = "mindspore-2.10.0+20260609-cp39-cp39-linux_x86_64.whl"
-                    if "lite" == data[i]['name']:
-                        whl_name_cp39 = "mindspore_lite-2.10.0-cp39-cp39-linux_x86_64.whl"
-                    download_url = url + whl_name_cp39
-                    downloaded = requests.get(download_url, stream=True,
-                                              verify=False, timeout=30)
-                    with open(whl_name_cp39, 'wb') as fd:
-                        #shutil.copyfileobj(dowmloaded.raw, fd)
-                        for chunk in downloaded.iter_content(chunk_size=512):
-                            if chunk:
-                               fd.write(chunk)
-                    print(f"Download {whl_name_cp39} success!")
-                    time.sleep(1)
-                else:
-                    html = etree.HTML(res.text, parser=etree.HTMLParser())
-                    links = html.xpath("//a[@title]")
-                    if links:
-                        for link_ in links:
-                            title = link_.get("title", "")
-                            href = link_.get("href", "")
-                            if re.findall(name, title) and not os.path.exists(os.path.join(WHLDIR, title)):
-                                download_url = url+href
-                                downloaded = requests.get(download_url, stream=True, auth=(user, pd),
-                                                          verify=False, timeout=30)
-                                with open(title, 'wb') as fd:
-                                    #shutil.copyfileobj(dowmloaded.raw, fd)
-                                    for chunk in downloaded.iter_content(chunk_size=512):
-                                        if chunk:
-                                            fd.write(chunk)
-                                print(f"Download {title} success!")
-                                time.sleep(1)
+                html = etree.HTML(res.text, parser=etree.HTMLParser())
+                links = html.xpath("//a[@title]")
+                if links:
+                    for link_ in links:
+                        title = link_.get("title", "")
+                        href = link_.get("href", "")
+                        if re.findall(name, title) and not os.path.exists(os.path.join(WHLDIR, title)):
+                            download_url = url+href
+                            downloaded = requests.get(download_url, stream=True, auth=(user, pd),
+                                                      verify=False, timeout=30)
+                            with open(title, 'wb') as fd:
+                                #shutil.copyfileobj(dowmloaded.raw, fd)
+                                for chunk in downloaded.iter_content(chunk_size=512):
+                                    if chunk:
+                                        fd.write(chunk)
+                            print(f"Download {title} success!")
+                            time.sleep(1)
 
             # 下载其他需求的组件whl包
             if 'extra_whl_path' in data[i] and data[i]['extra_whl_path'] != "":
