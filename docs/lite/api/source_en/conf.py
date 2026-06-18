@@ -54,6 +54,7 @@ extensions = [
     'sphinx.ext.coverage',
     'sphinx.ext.napoleon',
     'sphinx.ext.viewcode',
+    'sphinxcontrib.jquery',
     'myst_parser',
     'sphinx.ext.mathjax',
     'IPython.sphinxext.ipython_console_highlighting'
@@ -103,6 +104,18 @@ layout_src = '../../../../resource/_static/layout.html'
 if os.path.exists(layout_target):
     os.remove(layout_target)
 shutil.copy(layout_src, layout_target)
+
+with open(os.path.join(os.path.dirname(sphinx_rtd_theme.__file__), 'breadcrumbs.html'), "r+", encoding="utf8") as f:
+    content = f.read()
+    content = content.replace(
+        '<li><a href="{{ pathto(master_doc) }}" class="icon icon-home" aria-label="Home"></a></li>',
+        '<li><a href="{{ pathto(master_doc) }}" class="icon icon-home" aria-label="Home"></a> &raquo;</li>')
+    content = content.replace(
+        '<li class="breadcrumb-item"><a href="{{ doc.link|e }}">{{ doc.title }}</a></li>',
+        '<li class="breadcrumb-item"><a href="{{ doc.link|e }}">{{ doc.title }}</a> &raquo;</li>')
+    f.seek(0)
+    f.truncate()
+    f.write(content)
 
 # Example configuration for intersphinx: refer to the Python standard library.
 intersphinx_mapping = {
@@ -189,6 +202,8 @@ def get_param_func(func):
 
 def get_obj(obj):
     if isinstance(obj, type):
+        if 'function Enum.__init__' in str(obj.__init__) and '__init__' not in obj.__dict__:
+            return None
         return obj.__init__
 
     return obj
@@ -310,12 +325,11 @@ exhale_args = {
 # Fix some dl-label lack class='simple'
 from docutils.writers import _html_base
 
-with open(_html_base.__file__, "r+", encoding="utf-8") as f:
+with open(_html_base.__file__, "r", encoding="utf-8") as f:
     code_str = f.read()
-    old_str = '''        if self.is_compactable(node):
-            classes.append('simple')'''
-    new_str = '''        if classes == []:
-            classes.append('simple')'''
+    old_str = '''        classes = ['simple'] if self.is_compactable(node) else []'''
+    new_str = '''        classes = node.setdefault('classes', [])
+            classes = ['simple'] if classes == [] else []'''
     code_str = code_str.replace(old_str, new_str)
     exec(code_str, _html_base.__dict__)
 
@@ -671,6 +685,3 @@ code_content_replace(original_code, new_code, value_h_path)
 #             file_data2 += line2
 #     with open(file_name2, 'w', encoding='utf-8') as p:
 #         p.write(file_data2)
-
-sys.path.append(os.path.abspath('../../../../resource/search'))
-import search_code

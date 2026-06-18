@@ -26,10 +26,9 @@ from docutils.writers import _html_base
 
 with open(_html_base.__file__, "r", encoding="utf-8") as f:
     code_str = f.read()
-    old_str = '''        if self.is_compactable(node):
-            classes.append('simple')'''
-    new_str = '''        if classes == []:
-            classes.append('simple')'''
+    old_str = '''        classes = ['simple'] if self.is_compactable(node) else []'''
+    new_str = '''        classes = node.setdefault('classes', [])
+            classes = ['simple'] if classes == [] else []'''
     code_str = code_str.replace(old_str, new_str)
     exec(code_str, _html_base.__dict__)
 
@@ -70,6 +69,8 @@ sys.path.append(os.path.abspath('../_ext'))
 import sphinx.ext.autosummary.generate as g
 
 from sphinx.ext import autodoc as sphinx_autodoc
+if not hasattr(sphinx_autodoc.directive.DocumenterBridge, 'filename_set'):
+    sphinx_autodoc.directive.DocumenterBridge.filename_set = set()
 # Modify default signatures for autodoc.
 autodoc_source_path = os.path.abspath(sphinx_autodoc.__file__)
 autodoc_source_re = re.compile(r'stringify_signature\(.*?\)')
@@ -202,6 +203,7 @@ extensions = [
     'sphinx.ext.coverage',
     'sphinx.ext.napoleon',
     'sphinx.ext.linkcode',
+    'sphinxcontrib.jquery',
     'sphinxcontrib.mermaid',
     'myst_parser',
     'nbsphinx',
@@ -270,6 +272,18 @@ if os.path.exists(layout_target):
     os.remove(layout_target)
 shutil.copy(layout_src, layout_target)
 
+with open(os.path.join(os.path.dirname(sphinx_rtd_theme.__file__), 'breadcrumbs.html'), "r+", encoding="utf8") as f:
+    content = f.read()
+    content = content.replace(
+        '<li><a href="{{ pathto(master_doc) }}" class="icon icon-home" aria-label="Home"></a></li>',
+        '<li><a href="{{ pathto(master_doc) }}" class="icon icon-home" aria-label="Home"></a> &raquo;</li>')
+    content = content.replace(
+        '<li class="breadcrumb-item"><a href="{{ doc.link|e }}">{{ doc.title }}</a></li>',
+        '<li class="breadcrumb-item"><a href="{{ doc.link|e }}">{{ doc.title }}</a> &raquo;</li>')
+    f.seek(0)
+    f.truncate()
+    f.write(content)
+
 html_search_language = 'zh'
 
 import jieba
@@ -297,10 +311,6 @@ with open(gfile_abs_path, "r", encoding="utf8") as f:
     data = f.read()
     data = data.replace(autosummary_re_line_old, autosummary_re_line_new)
     exec(data, g.__dict__)
-
-
-sys.path.append(os.path.abspath('../../../resource/search'))
-import search_code
 
 # Copy source files of chinese python api from mindspore repository.
 from sphinx.util import logging
@@ -403,6 +413,42 @@ for root, dirs, files in os.walk(api_file_dir, topdown=True):
     for file_ in files:
         if '.rst' in file_ or '.txt' in file_:
             convert2utf8(os.path.join(root, file_))
+
+#替换方法名
+def fix_rst_files(root_dir):
+    pattern = re.compile(
+        r'(\.\.\s+py:\s*method::\s+)([^\n]+?)(\n\s+:\s*property\s*:)',
+        re.IGNORECASE
+    )
+
+    for dirpath, dirnames, filenames in os.walk(root_dir):
+        for filename in filenames:
+            if filename.endswith(('.rst', '.txt')):
+                filepath = os.path.join(dirpath, filename)
+                try:
+                    with open(filepath, 'r', encoding='utf-8') as file:
+                        content = file.read()
+
+                    def replace_func(match):
+                        prop_name = match.group(2).strip()
+                        return f".. py:property:: {prop_name}"
+
+                    new_content, count = pattern.subn(replace_func, content)
+
+                    if count > 0:
+                        with open(filepath, 'w', encoding='utf-8') as file:
+                            file.write(new_content)
+                        print(f"已更新: {filepath} (共 {count} 处)")
+
+                except Exception as e:
+                    print(f"处理文件出错 {filepath}: {e}")
+
+target_dir = f"./api_python/"
+
+if os.path.exists(target_dir):
+    fix_rst_files(target_dir)   
+else:
+    print(f"错误：找不到目录 {target_dir}")
 
 # Rename .rst file to .txt file for include directive. master使用
 from rename_include import rename_include
@@ -601,8 +647,8 @@ for i in os.listdir(os.path.join(repo_path, 'mindspore/ops/op_def/yaml')):
     if i.endswith('_op.yaml') and '_grad' not in i:
         with open(os.path.join(repo_path, 'mindspore/ops/op_def/yaml', i), 'r+', encoding='utf-8') as f:
             op_content = f.read()
-            if re.findall('function:\n\s+?name: (.*)', op_content):
-                func_name_dict[re.findall('function:\n\s+?name: (.*)', op_content)[0]] = i.replace('_op.yaml', '')
+            if re.findall(r'function:\n\s+?name: (.*)', op_content):
+                func_name_dict[re.findall(r'function:\n\s+?name: (.*)', op_content)[0]] = i.replace('_op.yaml', '')
 
 import mindspore
 

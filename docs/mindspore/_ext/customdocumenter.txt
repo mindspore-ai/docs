@@ -167,7 +167,7 @@ class ModuleDocumenter(CustomDocumenter):
         'noindex': bool_option, 'inherited-members': bool_option,
         'show-inheritance': bool_option, 'synopsis': identity,
         'platform': identity, 'deprecated': bool_option,
-        'member-order': identity, 'exclude-members': members_set_option,
+        'member-order': identity, 'exclude-members': members_option,
         'private-members': bool_option, 'special-members': members_option,
         'imported-members': bool_option, 'ignore-module-all': bool_option
     }  # type: Dict[str, Callable]

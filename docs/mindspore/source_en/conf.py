@@ -28,10 +28,9 @@ from docutils.writers import _html_base
 
 with open(_html_base.__file__, "r", encoding="utf-8") as f:
     code_str = f.read()
-    old_str = '''        if self.is_compactable(node):
-            classes.append('simple')'''
-    new_str = '''        if classes == []:
-            classes.append('simple')'''
+    old_str = '''        classes = ['simple'] if self.is_compactable(node) else []'''
+    new_str = '''        classes = node.setdefault('classes', [])
+            classes = ['simple'] if classes == [] else []'''
     code_str = code_str.replace(old_str, new_str)
     exec(code_str, _html_base.__dict__)
 
@@ -109,12 +108,18 @@ extensions = [
     'sphinx.ext.coverage',
     'sphinx.ext.napoleon',
     "sphinx.ext.linkcode",
+    'sphinxcontrib.jquery',
     'sphinxcontrib.mermaid',
     'myst_parser',
     'nbsphinx',
     'sphinx.ext.mathjax',
     'IPython.sphinxext.ipython_console_highlighting'
 ]
+
+autodoc_default_options = {
+    'members': True,
+    'inherited-members': False,
+}
 
 source_suffix = {
     '.rst': 'restructuredtext',
@@ -179,6 +184,18 @@ if os.path.exists(layout_target):
     os.remove(layout_target)
 shutil.copy(layout_src, layout_target)
 
+with open(os.path.join(os.path.dirname(sphinx_rtd_theme.__file__), 'breadcrumbs.html'), "r+", encoding="utf8") as f:
+    content = f.read()
+    content = content.replace(
+        '<li><a href="{{ pathto(master_doc) }}" class="icon icon-home" aria-label="Home"></a></li>',
+        '<li><a href="{{ pathto(master_doc) }}" class="icon icon-home" aria-label="Home"></a> &raquo;</li>')
+    content = content.replace(
+        '<li class="breadcrumb-item"><a href="{{ doc.link|e }}">{{ doc.title }}</a></li>',
+        '<li class="breadcrumb-item"><a href="{{ doc.link|e }}">{{ doc.title }}</a> &raquo;</li>')
+    f.seek(0)
+    f.truncate()
+    f.write(content)
+
 # -- Options for Texinfo output -------------------------------------------
 
 # Example configuration for intersphinx: refer to the Python standard library.
@@ -232,6 +249,8 @@ def get_param_func(func, args_str):
             source_code = inspect_.getsource(func)
             if func.__doc__:
                 source_code = source_code.replace(func.__doc__, '')
+            if "mindspore.runtime" in func.__module__ and "set_kernel" in func.__name__:
+                source_code = f"def {func.__name__}{inspect_.signature(func)}:"
             all_params_str = re.findall(r"def [\w_\d\-]+\(([\S\s]*?)(\):|\) ->.*?:)", source_code)
             if "@classmethod" in source_code:
                 all_params = re.sub("(self|cls)(, |,)?", '', all_params_str[0][0].replace("\n", ""))
@@ -276,6 +295,8 @@ def get_param_func(func, args_str):
 def get_obj(obj):
     if isinstance(obj, type):
         if 'function Cell.__init__' in str(obj.__init__) and '__init__' not in obj.__dict__:
+            return None
+        elif 'function Enum.__init__' in str(obj.__init__) and '__init__' not in obj.__dict__:
             return None
         try:
             test_source = inspect_.getsource(obj.__init__)
@@ -351,9 +372,6 @@ for i in decorator_list:
     except:
         print(f'替换{i[0]}下内容失败')
 
-sys.path.append(os.path.abspath('../../../resource/search'))
-import search_code
-
 # 发版本时这里启用
 # re_url = r"(((atomgit.com/mindspore/docs/mindspore-lite)|(atomgit.com/mindspore/docs)|(github.com/mindspore-ai/(mindspore|docs))|" + \
 #          r"(mindspore.cn/(docs|tutorials|lite))|(obs.dualstack.cn-north-4.myhuaweicloud)|" + \
@@ -419,7 +437,7 @@ def ops_interface_name():
     src_target_path = os.path.join(src_dir_en, 'mindspore.ops.primitive.rst')
     with open(src_target_path,'r',encoding='utf8') as f:
         content =  f.read()
-    primi_list = re.findall("    (mindspore\.ops\.\w*?)\n", content)
+    primi_list = re.findall(r"    (mindspore\.ops\.\w*?)\n", content)
 
     return primi_list
 
@@ -490,8 +508,8 @@ for i in os.listdir(os.path.join(repo_path, 'mindspore/ops/op_def/yaml')):
     if i.endswith('_op.yaml') and '_grad' not in i:
         with open(os.path.join(repo_path, 'mindspore/ops/op_def/yaml', i), 'r+', encoding='utf-8') as f:
             op_content = f.read()
-            if re.findall('function:\n\s+?name: (.*)', op_content):
-                func_name_dict[re.findall('function:\n\s+?name: (.*)', op_content)[0]] = i.replace('_op.yaml', '')
+            if re.findall(r'function:\n\s+?name: (.*)', op_content):
+                func_name_dict[re.findall(r'function:\n\s+?name: (.*)', op_content)[0]] = i.replace('_op.yaml', '')
 
 for cur, _, files in os.walk(des_sir):
     for i in files:
@@ -518,6 +536,17 @@ for cur, _, files in os.walk(des_sir):
                     f.seek(0)
                     f.truncate()
                     f.write(new_content)
+
+with open(os.path.join(base_path, 'mindspore/runtime/executor.py'), 'r+', encoding='utf-8') as f:
+    content = f.read()
+    old_content = '.. code-block::'
+    new_content = """.. code-block:: json
+    """
+    if new_content not in content:
+        content = content.replace(old_content, new_content)
+        f.seek(0)
+        f.truncate()
+        f.write(content)
 
 import mindspore
 

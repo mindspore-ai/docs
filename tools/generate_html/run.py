@@ -12,6 +12,7 @@ import re
 import shutil
 import subprocess
 import time
+import sys
 from multiprocessing import Pool
 import requests
 import sphinx
@@ -201,6 +202,9 @@ def main(version, user, pd, WGETDIR, release_url, generate_list, api_detect):
     # python安装包文件夹位置
     pythonlib_dir = os.path.dirname(os.path.dirname(sphinx.__file__))
 
+    sys.path.append(os.path.abspath('../../resource/sphinx_ext'))
+    import sphinx_replace
+
     # 删除sphinx中多余的语言文件
     mo_path = os.path.join(pythonlib_dir, 'locale/zh_CN/LC_MESSAGES/sphinx.mo')
     if os.path.exists(mo_path):
@@ -304,13 +308,13 @@ def main(version, user, pd, WGETDIR, release_url, generate_list, api_detect):
         generate_version_json(data[i]['name'], data[i]["branch"], data_b, flag_dev, target_version)
 
         # 卸载原来已有的安装包, 以防冲突
-        if data[i]['uninstall_name'] and isinstance(data[i]['uninstall_name'], str):
-            cmd_uninstall = ["pip", "uninstall", "-y", f"{data[i]['uninstall_name']}"]
-            subprocess.run(cmd_uninstall)
-        elif isinstance(data[i]['uninstall_name'], list):
-            for uninstall_name in data[i]['uninstall_name']:
-                cmd_uninstall = ["pip", "uninstall", "-y", uninstall_name]
-                subprocess.run(cmd_uninstall)
+        if data[i]['uninstall_name']:
+            cmd_uninstall = [sys.executable, "pip", "uninstall", "-y", f"{data[i]['uninstall_name']}"]
+            subprocess.run(cmd_uninstall, shell=True, stdin=subprocess.DEVNULL)
+        elif isinstance(data[i]['uninstall_name'], list): 
+            for uninstall_name in data[i]['uninstall_name']: 
+                cmd_uninstall = [sys.executable, "pip", "uninstall", "-y", uninstall_name] 
+                subprocess.run(cmd_uninstall, shell=True, stdin=subprocess.DEVNULL)
 
         os.chdir(WHLDIR)
 
@@ -497,18 +501,18 @@ def main(version, user, pd, WGETDIR, release_url, generate_list, api_detect):
     if whls:
         for i in whls:
             if re.findall('mindspore-[0-9]', i) and "tar.gz" not in i:
-                cmd_install = ["pip", "install", i]
-                subprocess.run(cmd_install)
-                break
-        for i in whls:
+                cmd_install = [sys.executable, "-m", "pip", "install", i]
+                subprocess.run(cmd_install) 
+                break 
+        for i in whls: 
             if "mindspore_gs" in i:
                 continue
             if "mindpandas" in i and "cp38-cp38" in i:
                 os.rename(os.path.join(WHLDIR, i), os.path.join(WHLDIR, i.replace('cp38-cp38', 'cp37-cp37m')))
-                cmd_install = ["pip", "install", i.replace('cp38-cp38', 'cp37-cp37m')]
+                cmd_install = [sys.executable, "-m","pip", "install", i.replace('cp38-cp38', 'cp37-cp37m')]
                 subprocess.run(cmd_install)
             elif "tar.gz" not in i:
-                cmd_install = ["pip", "install", i]
+                cmd_install = [sys.executable, "-m","pip", "install", i]
                 subprocess.run(cmd_install)
             else:
                 os.environ["LITE_PACKAGE_PATH"] = os.path.join(WHLDIR, i)
@@ -548,6 +552,8 @@ def main(version, user, pd, WGETDIR, release_url, generate_list, api_detect):
         # 安装各个组件需要的依赖
         install_req_cmd = ["pip", "install", "-r", "requirements.txt"]
         subprocess.run(install_req_cmd)
+        sys.path.append(os.path.join(DOCDIR, '../../resource/sphinx_ext'))
+        import sphinx_replace
 
         try:
             if replace_flag:
@@ -717,6 +723,34 @@ def process_file(file_path):
     except Exception:
         print(f"{file_path}替换失败")
 
+def fix_rst_files(root_dir):
+    pattern = re.compile(
+        r'(\.\.\s+py:\s*method::\s+)([^\n]+?)(\n\s+:\s*property\s*:)',
+        re.IGNORECASE
+    )
+
+    for dirpath, dirnames, filenames in os.walk(root_dir):
+        for filename in filenames:
+            if filename.endswith('.rst'):
+                filepath = os.path.join(dirpath, filename)
+                try:
+                    with open(filepath, 'r', encoding='utf-8') as file:
+                        content = file.read()
+
+                    def replace_func(match):
+                        prop_name = match.group(2).strip()
+                        return f".. py:property:: {prop_name}"
+
+                    new_content, count = pattern.subn(replace_func, content)
+
+                    if count > 0:
+                        with open(filepath, 'w', encoding='utf-8') as file:
+                            file.write(new_content)
+                        print(f"已更新: {filepath} (共 {count} 处)")
+
+                except Exception as e:
+                    print(f"处理文件出错 {filepath}: {e}")        
+
 if __name__ == "__main__":
     # 配置一个工作目录
     try:
@@ -752,6 +786,14 @@ if __name__ == "__main__":
     # git 克隆仓保存路径
     REPODIR = f"{MAINDIR}/repository"
 
+    #替换方法名
+    target_dir = f"{MAINDIR}/repository/mindspore/docs/api/api_python"
+
+    if os.path.exists(target_dir):
+        fix_rst_files(target_dir)
+    else:
+        print(f"错误：找不到目录 {target_dir}")
+
     # 开始执行
     try:
         # 主函数组件html构建
@@ -766,8 +808,9 @@ if __name__ == "__main__":
             replace_html_menu(ms_path.replace('zh-CN', 'en'), os.path.join(DOCDIR, "../../docs/mindspore/source_en"))
             print('docs英文目录大纲调整完成！')
             # 修改每个页面内搜索页面的链接路径
+            ms_en_path = ms_path.replace('zh-CN', 'en')
             pool = Pool(processes=4)
-            files = yield_files(ms_path)
+            files = list(yield_files(ms_en_path)) + list(yield_files(ms_path))
             pool.map(process_file, files)
             pool.close()
             pool.join()
@@ -805,28 +848,17 @@ if __name__ == "__main__":
                 if os.path.exists(os.path.join(output_path, f_name)):
                     os.remove(os.path.join(output_path, f_name))
                 shutil.copy(os.path.join(theme_path, f_name), os.path.join(output_path, f_name))
-        old_searchtools_content = """docContent = htmlElement.find('[role=main]')[0];"""
-        new_searchtools_content = """htmlElement.find('[role=main]').find('[itemprop=articleBody]').find('style').remove();
-      docContent = htmlElement.find('[role=main]')[0];"""
+
         # pylint: disable=W0621
         for lg in ['en', 'zh-CN']:
             # pylint: disable=W0621
             for out_name in theme_list:
                 try:
-                    static_path_searchtools = glob.glob(f"{output_path}/{out_name}/{lg}/*/_static/searchtools.js")[0]
                     static_path_css = glob.glob(f"{output_path}/{out_name}/{lg}/*/_static/css/theme.css")[0]
                     static_path_js = glob.glob(f"{output_path}/{out_name}/{lg}/*/_static/js/theme.js")[0]
-                    static_path_jquery = glob.glob(f"{output_path}/{out_name}/{lg}/*/_static/jquery.js")[0]
-                    static_path_underscore = glob.glob(f"{output_path}/{out_name}/{lg}/*/_static/underscore.js")[0]
-                    static_path_jquery_ = glob.glob(f"{output_path}/{out_name}/{lg}/*/_static/jquery-3.5.1.js")[0]
-                    static_path_underscore_ = glob.glob(f"{output_path}/{out_name}/{lg}/*/_static/underscore-1.13.1.js")
-                    static_path_underscore_ = static_path_underscore_[0]
 
                     static_path_css_badge = glob.glob(f"{output_path}/{out_name}/{lg}/*/_static/css/badge_only.css")[0]
                     static_path_js_badge = glob.glob(f"{output_path}/{out_name}/{lg}/*/_static/js/badge_only.js")[0]
-                    static_path_js_html5p = \
-                    glob.glob(f"{output_path}/{out_name}/{lg}/*/_static/js/html5shiv-printshiv.min.js")[0]
-                    static_path_js_html5 = glob.glob(f"{output_path}/{out_name}/{lg}/*/_static/js/html5shiv.min.js")[0]
 
                     static_path_version = glob.glob(f"{output_path}/{out_name}/{lg}/*/_static/js/")[0]
                     static_path_version = os.path.join(static_path_version, "version.json")
@@ -842,8 +874,6 @@ if __name__ == "__main__":
                         js_path = "theme-docs/theme.js"
                     static_path_new_css = os.path.join(theme_path, css_path)
                     static_path_new_js = os.path.join(theme_path, js_path)
-                    static_path_new_jquery = os.path.join(theme_path, "update_js", "jquery.js")
-                    static_path_new_underscore = os.path.join(theme_path, "update_js", "underscore.js")
                     out_name_1 = out_name.split('/')[0]
                     static_path_new_version = os.path.join(version_path, f"{out_name_1}_version.json")
                     # 删除字体
@@ -863,36 +893,11 @@ if __name__ == "__main__":
                     if os.path.exists(static_path_version):
                         os.remove(static_path_version)
                     shutil.copy(static_path_new_version, static_path_version)
-                    if os.path.exists(static_path_jquery):
-                        os.remove(static_path_jquery)
-                    shutil.copy(static_path_new_jquery, static_path_jquery)
-                    if os.path.exists(static_path_underscore):
-                        os.remove(static_path_underscore)
-                    shutil.copy(static_path_new_underscore, static_path_underscore)
 
-                    if os.path.exists(static_path_jquery):
-                        os.remove(static_path_jquery_)
-                    if os.path.exists(static_path_underscore_):
-                        os.remove(static_path_underscore_)
                     if os.path.exists(static_path_css_badge):
                         os.remove(static_path_css_badge)
                     if os.path.exists(static_path_js_badge):
                         os.remove(static_path_js_badge)
-                    if os.path.exists(static_path_js_html5p):
-                        os.remove(static_path_js_html5p)
-                    if os.path.exists(static_path_js_html5):
-                        os.remove(static_path_js_html5)
-                    # 去除搜索页面冗余样式展示
-                    if os.path.exists(static_path_searchtools):
-                        with open(static_path_searchtools, 'r+', encoding='utf-8') as k:
-                            searchtools_content = k.read()
-                            if new_searchtools_content not in searchtools_content:
-                                new_content_s = searchtools_content.replace(old_searchtools_content,
-                                                                            new_searchtools_content)
-                            if new_content_s != searchtools_content:
-                                k.seek(0)
-                                k.truncate()
-                                k.write(new_content_s)
 
                 # pylint: disable=W0702
                 # pylint: disable=W0703

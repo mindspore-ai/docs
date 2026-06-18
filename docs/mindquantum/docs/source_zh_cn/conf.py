@@ -47,6 +47,7 @@ extensions = [
     'sphinx.ext.coverage',
     'sphinx.ext.napoleon',
     'sphinx.ext.viewcode',
+    'sphinxcontrib.jquery',
     'myst_parser',
     'nbsphinx',
     'sphinx.ext.mathjax',
@@ -302,9 +303,6 @@ for cur, _, files in os.walk(present_path):
 
 import mindquantum
 
-sys.path.append(os.path.abspath('../../../../resource/search'))
-import search_code
-
 sys.path.append(os.path.abspath('../../../../resource/custom_directives'))
 from custom_directives import IncludeCodeDirective
 from myautosummary import MsPlatformAutoSummary, MsNoteAutoSummary, MsCnAutoSummary, MsCnPlatformAutoSummary, MsCnNoteAutoSummary, MsCnMathAutoSummary
@@ -324,9 +322,9 @@ des_release = "./RELEASE.md"
 with open(src_release, "r", encoding="utf-8") as f:
     data = f.read()
 if len(re.findall("\n## (.*?)\n",data)) > 1:
-    content = re.findall("(## [\s\S\n]*?)\n## ", data)
+    content = re.findall(r"(## [\s\S\n]*?)\n## ", data)
 else:
-    content = re.findall("(## [\s\S\n]*)", data)
+    content = re.findall(r"(## [\s\S\n]*)", data)
 #result = content[0].replace('# MindQuantum', '#', 1)
 with open(des_release, "w", encoding="utf-8") as p:
     p.write("# Release Notes"+"\n\n")

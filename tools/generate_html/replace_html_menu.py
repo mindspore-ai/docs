@@ -16,6 +16,7 @@ def replace_relurls(docs, old_p, new_p, re_list):
             rel_p = rel_p.replace('\\', '/')
             if '/' not in rel_p and not rel_p.endswith('.html'):
                 rel_p += '/'
+            href = re.escape(href)
             docs = re.sub(f'{re_doc}="{href}"', f'{re_doc}="{rel_p}"', docs)
 
     return docs
@@ -306,7 +307,7 @@ def replace_html_menu(html_path, hm_ds_path):
     let spec_re = /(zh-CN|en)\/[^\/]+?\/search.html/;
 
     if (!spec_re.test(pathname)) {
-      var results = results.filter(function(e,i,arry) {
+      results = results.filter(function(e,i,arry) {
         if (pathname.includes('api_python')) {
           return pathname.includes(arry[i][0].split('/')[0]) || arry[i][0].includes('note/')
         } else {
@@ -317,9 +318,147 @@ def replace_html_menu(html_path, hm_ds_path):
 
     // let the scorer override scores with a custom scoring function"""
 
+    old_searchtools_url = 'requestUrl = contentRoot + docName + docFileSuffix;'
+    new_searchtools_url = """let fullUrl = window.location.href;
+    let rootPath = contentRoot;
+    const modname = docName.split('/')[0];
+    if ((docName.includes('note') && fullUrl.includes('api_python')) || fullUrl.includes(modname)){
+        rootPath = '../'
+    }
+    requestUrl = rootPath + docName + docFileSuffix;"""
+
+    words_pre_target = """makeSearchSummary: (htmlText, keywords) => {
+    const text = Search.htmlToText(htmlText);
+    if (text === "") return null;
+
+    const textLower = text.toLowerCase();
+    const actualStartPosition = [...keywords]
+      .map((k) => textLower.indexOf(k.toLowerCase()))
+      .filter((i) => i > -1)
+      .slice(-1)[0];
+    const startWithContext = Math.max(actualStartPosition - 120, 0);
+
+    const top = startWithContext === 0 ? "" : "...";
+    const tail = startWithContext + 240 < text.length ? "..." : "";
+
+    let summary = document.createElement("p");
+    summary.classList.add("context");
+    summary.textContent = top + text.substr(startWithContext, 240).trim() + tail;
+
+    return summary;
+  },
+};"""
+
+    words_pre_source = """makeSearchSummary: (htmlText, keywords) => {
+    const text = Search.htmlToText(htmlText);
+    if (text === "") return null;
+
+    const textLower = text.toLowerCase();
+    const actualStartPosition = [...keywords]
+      .map((k) => textLower.indexOf(k.toLowerCase()))
+      .filter((i) => i > -1)
+      .slice(-1)[0];
+
+    if (actualStartPosition == undefined) return null;
+
+    const startWithContext = Math.max(actualStartPosition - 120, 0);
+    const top = startWithContext === 0 ? "" : "...";
+    const tail = startWithContext + 240 < text.length ? "..." : "";
+
+    let summaryContent = text.substr(startWithContext, 240).trim();
+    if (summaryContent.indexOf('unset;') > -1) {
+        try {
+            let part1 = summaryContent.split("unset;")[1];
+            if (part1) {
+                let part2 = part1.split("}")[1];
+                if (part2) {
+                    summaryContent = part2;
+                }
+            }
+        } catch (e) {
+        }
+    }
+    let summary = document.createElement("p");
+    summary.classList.add("context");
+    summary.textContent = top + summaryContent + tail;
+
+    return summary;
+  },
+};"""
+
+    search_score_target = """if (typeof Scorer === "undefined") {
+  var Scorer = {
+    // Implement the following function to further tweak the score for each result
+    // The function takes a result array [docname, title, anchor, descr, score, filename]
+    // and returns the new score.
+    /*
+    score: result => {
+      const [docname, title, anchor, descr, score, filename] = result
+      return score
+    },
+    */
+
+    // query matches the full name of an object
+    objNameMatch: 11,
+    // or matches in the last dotted part of the object name
+    objPartialMatch: 6,
+    // Additive scores depending on the priority of the object
+    objPrio: {
+      0: 15, // used to be importantResults
+      1: 5, // used to be objectResults
+      2: -5, // used to be unimportantResults
+    },
+    //  Used when the priority is not in the mapping.
+    objPrioDefault: 0,
+
+    // query found in title
+    title: 15,
+    partialTitle: 7,
+    // query found in terms
+    term: 5,
+    partialTerm: 2,
+  };
+}"""
+
+    search_score_source = """if (typeof Scorer === "undefined") {
+  var Scorer = {
+    // Implement the following function to further tweak the score for each result
+    // The function takes a result array [docname, title, anchor, descr, score, filename]
+    // and returns the new score.
+    /*
+    score: result => {
+      const [docname, title, anchor, descr, score, filename] = result
+      return score
+    },
+    */
+
+    // query matches the full name of an object
+    objNameMatch: 60,
+    // or matches in the last dotted part of the object name
+    objPartialMatch: 55,
+    // Additive scores depending on the priority of the object
+    objPrio: {
+      0: 15, // used to be importantResults
+      1: 5, // used to be objectResults
+      2: -5, // used to be unimportantResults
+    },
+    //  Used when the priority is not in the mapping.
+    objPrioDefault: 0,
+
+    // query found in title
+    title: 50,
+    partialTitle: 60,
+    // query found in terms
+    term: 5,
+    partialTerm: 2,
+  };
+}"""
     with open(searchtools_path, 'r+', encoding='utf-8') as f:
         searchtools_content = f.read()
         new_content = searchtools_content.replace(old_searchtools_content, new_searchtools_content)
+        new_content = new_content.replace(old_searchtools_url, new_searchtools_url)
+        new_content = new_content.replace(search_score_target, search_score_source)
+        new_content = new_content.replace(words_pre_target, words_pre_source)
         new_content = new_content.replace('linkUrl +', 'requestUrl +')
         if new_content != searchtools_content:
             f.seek(0)

@@ -46,6 +46,7 @@ extensions = [
     'sphinx.ext.coverage',
     'sphinx.ext.napoleon',
     'sphinx.ext.viewcode',
+    'sphinxcontrib.jquery',
     'myst_parser',
     'nbsphinx',
     'sphinx.ext.mathjax',
@@ -101,6 +102,18 @@ layout_src = '../../../../resource/_static/layout.html'
 if os.path.exists(layout_target):
     os.remove(layout_target)
 shutil.copy(layout_src, layout_target)
+
+with open(os.path.join(os.path.dirname(sphinx_rtd_theme.__file__), 'breadcrumbs.html'), "r+", encoding="utf8") as f:
+    content = f.read()
+    content = content.replace(
+        '<li><a href="{{ pathto(master_doc) }}" class="icon icon-home" aria-label="Home"></a></li>',
+        '<li><a href="{{ pathto(master_doc) }}" class="icon icon-home" aria-label="Home"></a> &raquo;</li>')
+    content = content.replace(
+        '<li class="breadcrumb-item"><a href="{{ doc.link|e }}">{{ doc.title }}</a></li>',
+        '<li class="breadcrumb-item"><a href="{{ doc.link|e }}">{{ doc.title }}</a> &raquo;</li>')
+    f.seek(0)
+    f.truncate()
+    f.write(content)
 
 # Example configuration for intersphinx: refer to the Python standard library.
 intersphinx_mapping = {
@@ -321,9 +334,9 @@ for gs_p, f_p in spec_copy:
     with open(os.path.join(moment_dir, f_p), 'r+', encoding='utf-8') as f:
         content = f.read()
         if f_p.endswith('.md'):
-            content = re.sub('\n\[查看中文\].*\n', '', content)
+            content = re.sub(r'\n\[查看中文\].*\n', '', content)
         elif f_p.endswith('.ipynb'):
-            content = re.sub('\n.*\[查看中文\].*\n.*\n', '\n', content, 1)
+            content = re.sub(r'\n.*\[查看中文\].*\n.*\n', '\n', content, 1)
         f.seek(0)
         f.truncate()
         f.write(content)
@@ -341,7 +354,7 @@ if not os.path.exists(os.path.join(moment_dir, 'install.md')):
                 os.path.join(moment_dir, 'install.md'))
     with open(os.path.join(moment_dir, 'install.md'), 'r+', encoding='utf-8') as f:
         content = f.read()
-        content = re.sub('\n\[查看中文\].*\n', '', content, 1)
+        content = re.sub(r'\n\[查看中文\].*\n', '', content, 1)
         f.seek(0)
         f.truncate()
         f.write(content)
@@ -351,7 +364,7 @@ if not os.path.exists(os.path.join(moment_dir, 'design.md')):
                 os.path.join(moment_dir, 'design.md'))
     with open(os.path.join(moment_dir, 'design.md'), 'r+', encoding='utf-8') as f:
         content = f.read()
-        content = re.sub('\n\[查看中文\].*\n', '', content, 1)
+        content = re.sub(r'\n\[查看中文\].*\n', '', content, 1)
         f.seek(0)
         f.truncate()
         f.write(content)
@@ -361,7 +374,7 @@ if not os.path.exists(os.path.join(moment_dir, 'CONTRIBUTING.md')):
                 os.path.join(moment_dir, 'CONTRIBUTING.md'))
     with open(os.path.join(moment_dir, 'CONTRIBUTING.md'), 'r+', encoding='utf-8') as f:
         content = f.read()
-        content = re.sub('\n\[查看中文\].*\n', '', content, 1)
+        content = re.sub(r'\n\[查看中文\].*\n', '', content, 1)
         f.seek(0)
         f.truncate()
         f.write(content)
@@ -401,17 +414,14 @@ def setup(app):
 sys.path.append(os.path.abspath('../../../../resource/sphinx_ext'))
 import nbsphinx_mod
 
-sys.path.append(os.path.abspath('../../../../resource/search'))
-import search_code
-
 src_release = os.path.join(os.getenv("GS_PATH"), 'RELEASE.md')
 des_release = "./RELEASE.md"
 with open(src_release, "r", encoding="utf-8") as f:
     data = f.read()
-if len(re.findall("\n## (.*?)\n",data)) > 1:
-    content = re.findall("(## [\s\S\n]*?)\n## ", data)
+if len(re.findall(r"\n## (.*?)\n",data)) > 1:
+    content = re.findall(r"(## [\s\S\n]*?)\n## ", data)
 else:
-    content = re.findall("(## [\s\S\n]*)", data)
+    content = re.findall(r"(## [\s\S\n]*)", data)
 #result = content[0].replace('# MindSpore', '#', 1)
 with open(des_release, "w", encoding="utf-8") as p:
     p.write("# Release Notes"+"\n\n")
