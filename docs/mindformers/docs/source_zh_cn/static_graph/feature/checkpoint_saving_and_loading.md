@@ -128,7 +128,7 @@ callbacks:
 
 > 若是配置了 `checkpoint`，则 `use_legacy_format` 参数将自动转换为 `False`。上述配置指定训练任务以 "qwen3" 作为 safetensors 文件名前缀，采用同步保存模式，每 1000 步保存一次包含模型权重与优化器权重的checkpoint，且训练全程最多保留最新的 5 个checkpoint。
 
-如果您想了解更多有关 CheckpointMonitor 的知识，可以参考 [CheckpointMonitor API 文档](https://www.mindspore.cn/mindformers/docs/zh-CN/master/core/mindformers.core.CheckpointMonitor.html)。
+如果您想了解更多有关 CheckpointMonitor 的知识，可以参考 [CheckpointMonitor API 文档](https://www.mindspore.cn/mindformers/docs/zh-CN/master/static_graph/core/mindformers.core.CheckpointMonitor.html)。
 
 ## checkpoint加载
 

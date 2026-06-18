@@ -34,7 +34,7 @@
 
 - pretrained_model_dir：Hugging Face 模型配置所在的目录路径；
 - model_config：MindSpore Transformers 自有的模型配置字段；
-- generation_config：文本生成相关的参数。可选配置，如需自定义则增加。其下的配置项可以参考[GenerationConfig](https://www.mindspore.cn/mindformers/docs/zh-CN/master/generation/mindformers.generation.GenerationConfig.html)。
+- generation_config：文本生成相关的参数。可选配置，如需自定义则增加。其下的配置项可以参考[GenerationConfig](https://www.mindspore.cn/mindformers/docs/zh-CN/master/static_graph/generation/mindformers.generation.GenerationConfig.html)。
 
 ```yaml
 pretrained_model_dir: "./local/qwen3"

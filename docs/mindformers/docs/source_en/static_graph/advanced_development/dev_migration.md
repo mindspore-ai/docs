@@ -54,9 +54,9 @@ All tokenizer classes must be inherited from the PreTrainedTokenizer or PreTrain
 
 ### Preparing a Weight and a Dataset
 
-If a PyTorch-based model weight already exists, you can convert the weight to that in the MindSpore format by referring to [Weight Conversion](https://www.mindspore.cn/mindformers/docs/en/master/feature/ckpt.html#weight-format-conversion).
+If a PyTorch-based model weight already exists, you can convert the weight to that in the MindSpore format by referring to [Weight Conversion](https://www.mindspore.cn/mindformers/docs/en/master/static_graph/feature/ckpt.html#weight-format-conversion).
 
-For details about how to prepare a dataset, see [Dataset](https://www.mindspore.cn/mindformers/docs/en/master/feature/dataset.html).
+For details about how to prepare a dataset, see [Dataset](https://www.mindspore.cn/mindformers/docs/en/master/static_graph/feature/dataset.html).
 
 ### Preparing a `YAML` Configuration File
 
@@ -101,9 +101,9 @@ python run_mindformer.py --config research/llama3_1/predict_llama3_1_8b.yaml --l
 
 `register_path` is set to `research/llama3_1` (path of the directory where the external code is located). For details about how to prepare the model weight, see [Llama3.1 Description Document > Model Weight Download](https://atomgit.com/mindspore/mindformers/blob/master/research/llama3_1/README.md#%E6%A8%A1%E5%9E%8B%E6%9D%83%E9%87%8D%E4%B8%8B%E8%BD%BD).
 
-For details about the configuration file and configurable items, see [Configuration File Descriptions](https://www.mindspore.cn/mindformers/docs/en/master/feature/configuration.html). When compiling a configuration file, you can refer to an existing configuration file in the library, for example, [Llama3_1-8B fine-tuning configuration file](https://atomgit.com/mindspore/mindformers/blob/master/research/llama3_1/llama3_1_8b/finetune_llama3_1_8b.yaml).
+For details about the configuration file and configurable items, see [Configuration File Descriptions](https://www.mindspore.cn/mindformers/docs/en/master/static_graph/feature/configuration.html). When compiling a configuration file, you can refer to an existing configuration file in the library, for example, [Llama3_1-8B fine-tuning configuration file](https://atomgit.com/mindspore/mindformers/blob/master/research/llama3_1/llama3_1_8b/finetune_llama3_1_8b.yaml).
 
-After all the preceding basic elements are prepared, you can refer to other documents in the MindSpore Transformers tutorial to perform model training, fine-tuning, and inference. For details about subsequent model debugging and optimization, see [Large Model Accuracy Optimization Guide](https://www.mindspore.cn/mindformers/docs/en/master/advanced_development/precision_optimization.html) and [Large Model Performance Optimization Guide](https://www.mindspore.cn/mindformers/docs/en/master/advanced_development/performance_optimization.html).
+After all the preceding basic elements are prepared, you can refer to other documents in the MindSpore Transformers tutorial to perform model training, fine-tuning, and inference. For details about subsequent model debugging and optimization, see [Large Model Accuracy Optimization Guide](https://www.mindspore.cn/mindformers/docs/en/master/static_graph/advanced_development/precision_optimization.html) and [Large Model Performance Optimization Guide](https://www.mindspore.cn/mindformers/docs/en/master/static_graph/advanced_development/performance_optimization.html).
 
 ### Contributing Models to the MindSpore Transformers Open Source Repository
 

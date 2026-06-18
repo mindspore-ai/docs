@@ -25,7 +25,7 @@ MindSpore Transformers 提供了如下几类超参数的配置方式。
 **YAML 参数配置**
 
 用户可通过在模型训练的 yaml 配置文件中新增 `lr_schedule` 模块来使用学习率。
-以 [`DeepSeek-V3` 预训练 yaml](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/example/deepseek3/pretrain_deepseek3_671b.yaml) 为例，可做如下配置：
+以 [`DeepSeek-V3` 预训练 yaml](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/static_graph/example/deepseek3/pretrain_deepseek3_671b.yaml) 为例，可做如下配置：
 
 ```yaml
 # lr schedule
@@ -40,14 +40,14 @@ lr_schedule:
 
 各学习率需配置的参数不同，MindSpore Transformers 目前支持了以下学习率：
 
-1. [恒定预热学习率](https://www.mindspore.cn/mindformers/docs/zh-CN/master/core/mindformers.core.ConstantWarmUpLR.html)
-2. [线性预热学习率](https://www.mindspore.cn/mindformers/docs/zh-CN/master/core/mindformers.core.LinearWithWarmUpLR.html)
-3. [余弦预热学习率](https://www.mindspore.cn/mindformers/docs/zh-CN/master/core/mindformers.core.CosineWithWarmUpLR.html)
-4. [余弦重启与预热学习率](https://www.mindspore.cn/mindformers/docs/zh-CN/master/core/mindformers.core.CosineWithRestartsAndWarmUpLR.html)
-5. [带有预热阶段的多项式衰减学习率](https://www.mindspore.cn/mindformers/docs/zh-CN/master/core/mindformers.core.PolynomialWithWarmUpLR.html)
-6. [SGDR 的余弦退火部分](https://www.mindspore.cn/mindformers/docs/zh-CN/master/core/mindformers.core.CosineAnnealingLR.html)
-7. [使用余弦退火调度设置每个参数组的学习率](https://www.mindspore.cn/mindformers/docs/zh-CN/master/core/mindformers.core.CosineAnnealingWarmRestarts.html)
-8. [学习率分层模块](https://www.mindspore.cn/mindformers/docs/zh-CN/master/core/mindformers.core.LearningRateWiseLayer.html)
+1. [恒定预热学习率](https://www.mindspore.cn/mindformers/docs/zh-CN/master/static_graph/core/mindformers.core.ConstantWarmUpLR.html)
+2. [线性预热学习率](https://www.mindspore.cn/mindformers/docs/zh-CN/master/static_graph/core/mindformers.core.LinearWithWarmUpLR.html)
+3. [余弦预热学习率](https://www.mindspore.cn/mindformers/docs/zh-CN/master/static_graph/core/mindformers.core.CosineWithWarmUpLR.html)
+4. [余弦重启与预热学习率](https://www.mindspore.cn/mindformers/docs/zh-CN/master/static_graph/core/mindformers.core.CosineWithRestartsAndWarmUpLR.html)
+5. [带有预热阶段的多项式衰减学习率](https://www.mindspore.cn/mindformers/docs/zh-CN/master/static_graph/core/mindformers.core.PolynomialWithWarmUpLR.html)
+6. [SGDR 的余弦退火部分](https://www.mindspore.cn/mindformers/docs/zh-CN/master/static_graph/core/mindformers.core.CosineAnnealingLR.html)
+7. [使用余弦退火调度设置每个参数组的学习率](https://www.mindspore.cn/mindformers/docs/zh-CN/master/static_graph/core/mindformers.core.CosineAnnealingWarmRestarts.html)
+8. [学习率分层模块](https://www.mindspore.cn/mindformers/docs/zh-CN/master/static_graph/core/mindformers.core.LearningRateWiseLayer.html)
 
 以余弦预热学习率（CosineWithWarmUpLR）为例，需要关注的主要参数如下表所列：
 
@@ -128,7 +128,7 @@ MindSpore Transformers 当前支持以下两类优化器：
 
 用户可通过在模型训练的 yaml 配置文件中新增 `optimizer` 模块来选择并配置优化器。
 
-以下示例基于 [DeepSeek-V3 预训练 yaml](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/example/deepseek3/pretrain_deepseek3_671b.yaml)。
+以下示例基于 [DeepSeek-V3 预训练 yaml](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/static_graph/example/deepseek3/pretrain_deepseek3_671b.yaml)。
 
 ### AdamW 优化器
 
@@ -148,7 +148,7 @@ optimizer:
 
 #### 主要配置参数介绍
 
-有关 AdamW 优化器配置的主要参数，可参见 [MindSpore Transformers API 文档：AdamW优化器部分](https://www.mindspore.cn/mindformers/docs/zh-CN/master/core/mindformers.core.AdamW.html#mindformers.core.AdamW) 的相关链接。
+有关 AdamW 优化器配置的主要参数，可参见 [MindSpore Transformers API 文档：AdamW优化器部分](https://www.mindspore.cn/mindformers/docs/zh-CN/master/static_graph/core/mindformers.core.AdamW.html#mindformers.core.AdamW) 的相关链接。
 
 ### Muon 优化器
 

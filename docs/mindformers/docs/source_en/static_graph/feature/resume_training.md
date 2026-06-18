@@ -14,7 +14,7 @@ This document is the user guide for the checkpoint resume training feature of **
 
 ## Important Note
 
-Currently, MindSpore Transformers has officially launched **[Checkpoint 2.0](https://www.mindspore.cn/mindformers/docs/en/master/feature/checkpoint_saving_and_loading.html)**, along with the official documentation for checkpoint [resume training adapted to the new version](https://www.mindspore.cn/mindformers/docs/en/master/feature/resume_training2.0.html). To ensure compatibility and advancement in feature usage, this document related to Checkpoint 1.0 will be gradually discontinued (sunset) in the future. Users are advised to refer to the new version of the documentation first for development and usage.
+Currently, MindSpore Transformers has officially launched **[Checkpoint 2.0](https://www.mindspore.cn/mindformers/docs/en/master/static_graph/feature/checkpoint_saving_and_loading.html)**, along with the official documentation for checkpoint [resume training adapted to the new version](https://www.mindspore.cn/mindformers/docs/en/master/static_graph/feature/resume_training2.0.html). To ensure compatibility and advancement in feature usage, this document related to Checkpoint 1.0 will be gradually discontinued (sunset) in the future. Users are advised to refer to the new version of the documentation first for development and usage.
 
 ## Overview
 
@@ -58,7 +58,7 @@ output/strategy
 
 > Strategy files will overwrite old files when saved. To prevent overwriting or mixing strategy files from different tasks, please promptly save strategy files to a custom folder.
 
-For more information about weights, refer to [Ckpt Weights](https://www.mindspore.cn/mindformers/docs/en/master/feature/ckpt.html) and [Safetensors Weights](https://www.mindspore.cn/mindformers/docs/en/master/feature/safetensors.html).
+For more information about weights, refer to [Ckpt Weights](https://www.mindspore.cn/mindformers/docs/en/master/static_graph/feature/ckpt.html) and [Safetensors Weights](https://www.mindspore.cn/mindformers/docs/en/master/static_graph/feature/safetensors.html).
 
 ## YAML Parameter Configuration Description
 
@@ -106,7 +106,7 @@ For more information about weights, refer to [Ckpt Weights](https://www.mindspor
 
 #### Safetensors Weights
 
-Enabling automatic weight conversion will automatically merge safetensors weights into [complete weights](https://www.mindspore.cn/mindformers/docs/en/master/feature/safetensors.html#complete-weights) for distributed loading. The merged safetensors weights will be saved to the `output/unified_checkpoint` folder. If the weights have been offline merged into [complete weights](https://www.mindspore.cn/mindformers/docs/en/master/feature/safetensors.html#complete-weights), they will be directly loaded in a distributed manner. For offline merging steps, refer to the [Safetensors Weights - Weight Slicing and Merging](https://www.mindspore.cn/mindformers/docs/en/master/feature/safetensors.html) section.
+Enabling automatic weight conversion will automatically merge safetensors weights into [complete weights](https://www.mindspore.cn/mindformers/docs/en/master/static_graph/feature/safetensors.html#complete-weights) for distributed loading. The merged safetensors weights will be saved to the `output/unified_checkpoint` folder. If the weights have been offline merged into [complete weights](https://www.mindspore.cn/mindformers/docs/en/master/static_graph/feature/safetensors.html#complete-weights), they will be directly loaded in a distributed manner. For offline merging steps, refer to the [Safetensors Weights - Weight Slicing and Merging](https://www.mindspore.cn/mindformers/docs/en/master/static_graph/feature/safetensors.html) section.
 
 - Resume training from the last fully saved weights
 

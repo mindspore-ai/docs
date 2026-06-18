@@ -677,7 +677,7 @@ MindRecord是MindSpore提供的高效数据存储/读取模块，可以减少磁
 
 1. 下载`alpaca`数据集：[链接](https://github.com/tatsu-lab/stanford_alpaca/blob/main/alpaca_data.json)
 
-2. 执行数据处理脚本[alpaca_converter.py](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/example/qwen3/alpaca_converter.py)将`alpaca`数据集转换为对话形式：
+2. 执行数据处理脚本[alpaca_converter.py](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/static_graph/example/qwen3/alpaca_converter.py)将`alpaca`数据集转换为对话形式：
 
    ```shell
    python alpaca_converter.py \
@@ -687,7 +687,7 @@ MindRecord是MindSpore提供的高效数据存储/读取模块，可以减少磁
 
    其中，`data_path`表示下载后`alpaca`数据集的路径，`output_path`表示生成对话形式数据文件的保存路径。
 
-3. 执行脚本[datasets_preprocess.py](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/example/qwen3/datasets_preprocess.py)将对话形式的数据文件转换为MindRecord格式：
+3. 执行脚本[datasets_preprocess.py](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/static_graph/example/qwen3/datasets_preprocess.py)将对话形式的数据文件转换为MindRecord格式：
 
    ```shell
    python datasets_preprocess.py \

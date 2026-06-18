@@ -63,7 +63,7 @@ monitor_config:
 
 ### 使用示例
 
-假设以Qwen3-8B为例子，使用的[pretrain_qwen3_8b.yaml](https://atomgit.com/mindspore/docs/tree/master/docs/mindformers/docs/source_zh_cn/example/qwen3/pretrain_qwen3_8b.yaml)按照上述[配置](#使用方法)添加参数，其余步骤请参考[Qwen3文档](https://atomgit.com/mindspore/mindformers/blob/master/configs/qwen3/README.md)。开启训练：
+假设以Qwen3-8B为例子，使用的[pretrain_qwen3_8b.yaml](https://atomgit.com/mindspore/docs/tree/master/docs/mindformers/docs/source_zh_cn/static_graph/example/qwen3/pretrain_qwen3_8b.yaml)按照上述[配置](#使用方法)添加参数，其余步骤请参考[Qwen3文档](https://atomgit.com/mindspore/mindformers/blob/master/configs/qwen3/README.md)。开启训练：
 
 ```shell
 bash scripts/msrun_launcher.sh "run_mindformer.py \
@@ -198,7 +198,7 @@ parallel_config:
 
 ### 使用示例
 
-假设以Qwen3-8B为例子，使用的[pretrain_qwen3_8b.yaml](https://atomgit.com/mindspore/docs/tree/master/docs/mindformers/docs/source_zh_cn/example/qwen3/pretrain_qwen3_8b.yaml)按照上述[配置](#使用方法-1)添加参数和修改，其余步骤请参考[Qwen3文档](https://atomgit.com/mindspore/mindformers/blob/master/configs/qwen3/README.md)。开启训练：
+假设以Qwen3-8B为例子，使用的[pretrain_qwen3_8b.yaml](https://atomgit.com/mindspore/docs/tree/master/docs/mindformers/docs/source_zh_cn/static_graph/example/qwen3/pretrain_qwen3_8b.yaml)按照上述[配置](#使用方法-1)添加参数和修改，其余步骤请参考[Qwen3文档](https://atomgit.com/mindspore/mindformers/blob/master/configs/qwen3/README.md)。开启训练：
 
 ```shell
 bash scripts/msrun_launcher.sh "run_mindformer.py \

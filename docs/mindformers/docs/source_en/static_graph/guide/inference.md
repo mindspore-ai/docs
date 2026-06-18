@@ -28,7 +28,7 @@ Obtain the Hugging Face model file: weights, configurations, and tokenizers. Sto
 
 ### 3. YAML Configuration File Modification
 
-The user needs to configure a YAML file to define all the configurations of the task. MindSpore Transformers provides a YAML configuration template. Users can customize the configuration based on the template according to the actual scenario. For detailed information, please refer to the [Guide to Using Inference Configuration Templates](https://www.mindspore.cn/mindformers/docs/en/master/advanced_development/yaml_config_inference.html).
+The user needs to configure a YAML file to define all the configurations of the task. MindSpore Transformers provides a YAML configuration template. Users can customize the configuration based on the template according to the actual scenario. For detailed information, please refer to the [Guide to Using Inference Configuration Templates](https://www.mindspore.cn/mindformers/docs/en/master/static_graph/advanced_development/yaml_config_inference.html).
 
 ### 4. Executing Inference Tasks
 
@@ -97,7 +97,7 @@ parallel_config:
   model_parallel: 2 # Modify to the actual number of cards used
 ```
 
-For specific configuration instructions, please refer to [yaml Configuration Instructions](https://www.mindspore.cn/mindformers/docs/en/master/feature/configuration.html).
+For specific configuration instructions, please refer to [yaml Configuration Instructions](https://www.mindspore.cn/mindformers/docs/en/master/static_graph/feature/configuration.html).
 
 ### Single-Device Inference
 

@@ -45,14 +45,14 @@ lr_schedule:
 
 Different learning rates require different configuration parameters. MindSpore Transformers currently supports the following learning rates:
 
-1. [Constant Warm Up Learning Rate](https://www.mindspore.cn/mindformers/docs/en/master/core/mindformers.core.ConstantWarmUpLR.html)
-2. [Linear with Warm Up Learning Rate](https://www.mindspore.cn/mindformers/docs/en/master/core/mindformers.core.LinearWithWarmUpLR.html)
-3. [Cosine with Warm Up Learning Rate](https://www.mindspore.cn/mindformers/docs/en/master/core/mindformers.core.CosineWithWarmUpLR.html)
-4. [Cosine with Restarts and Warm Up Learning Rate](https://www.mindspore.cn/mindformers/docs/en/master/core/mindformers.core.CosineWithRestartsAndWarmUpLR.html)
-5. [Polynomial with Warm Up Learning Rate](https://www.mindspore.cn/mindformers/docs/en/master/core/mindformers.core.PolynomialWithWarmUpLR.html)
-6. [The cosine annealing part of SGDR](https://www.mindspore.cn/mindformers/docs/en/master/core/mindformers.core.CosineAnnealingLR.html)
-7. [Set the learning rate of each parameter group using a cosine annealing schedule](https://www.mindspore.cn/mindformers/docs/en/master/core/mindformers.core.CosineAnnealingWarmRestarts.html)
-8. [Learning Rate Wise Layer](https://www.mindspore.cn/mindformers/docs/en/master/core/mindformers.core.LearningRateWiseLayer.html)
+1. [Constant Warm Up Learning Rate](https://www.mindspore.cn/mindformers/docs/en/master/static_graph/core/mindformers.core.ConstantWarmUpLR.html)
+2. [Linear with Warm Up Learning Rate](https://www.mindspore.cn/mindformers/docs/en/master/static_graph/core/mindformers.core.LinearWithWarmUpLR.html)
+3. [Cosine with Warm Up Learning Rate](https://www.mindspore.cn/mindformers/docs/en/master/static_graph/core/mindformers.core.CosineWithWarmUpLR.html)
+4. [Cosine with Restarts and Warm Up Learning Rate](https://www.mindspore.cn/mindformers/docs/en/master/static_graph/core/mindformers.core.CosineWithRestartsAndWarmUpLR.html)
+5. [Polynomial with Warm Up Learning Rate](https://www.mindspore.cn/mindformers/docs/en/master/static_graph/core/mindformers.core.PolynomialWithWarmUpLR.html)
+6. [The cosine annealing part of SGDR](https://www.mindspore.cn/mindformers/docs/en/master/static_graph/core/mindformers.core.CosineAnnealingLR.html)
+7. [Set the learning rate of each parameter group using a cosine annealing schedule](https://www.mindspore.cn/mindformers/docs/en/master/static_graph/core/mindformers.core.CosineAnnealingWarmRestarts.html)
+8. [Learning Rate Wise Layer](https://www.mindspore.cn/mindformers/docs/en/master/static_graph/core/mindformers.core.LearningRateWiseLayer.html)
 
 Taking the cosine warm-up learning rate (CosineWithWarmUpLR) as an example, the main parameters that need to be paid attention to are listed in the following table:
 
@@ -153,7 +153,7 @@ optimizer:
 
 #### Key Parameters Introduction
 
-For the main parameters of optimizer configuration, see the relevant link in [MindSpore Transformers API Documentation: Optimizer](https://www.mindspore.cn/mindformers/docs/en/master/core/mindformers.core.AdamW.html#mindformers.core.AdamW).
+For the main parameters of optimizer configuration, see the relevant link in [MindSpore Transformers API Documentation: Optimizer](https://www.mindspore.cn/mindformers/docs/en/master/static_graph/core/mindformers.core.AdamW.html#mindformers.core.AdamW).
 
 ### Muon Optimizer
 
