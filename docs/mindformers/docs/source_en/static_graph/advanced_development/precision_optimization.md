@@ -197,7 +197,7 @@ Since features such as model parallelism, flow parallelism, sequence parallelism
 
 #### Weight Conversion
 
-During training, MindSpore is loaded with the same weights as PyTorch. In case of pre-training scenarios, you can use PyTorch to save an initialized weight and then convert it to MindSpore weights. Because MindSpore weight names differ from PyTorch, the essence of weight conversion is to change the names in the PyTorch weight dict to MindSpore weight names to support MindSpore loading. Refer to [weight conversion guide](https://www.mindspore.cn/mindformers/docs/en/master/feature/ckpt.html#weight-format-conversion) for weight conversion.
+During training, MindSpore is loaded with the same weights as PyTorch. In case of pre-training scenarios, you can use PyTorch to save an initialized weight and then convert it to MindSpore weights. Because MindSpore weight names differ from PyTorch, the essence of weight conversion is to change the names in the PyTorch weight dict to MindSpore weight names to support MindSpore loading. Refer to [weight conversion guide](https://www.mindspore.cn/mindformers/docs/en/master/static_graph/feature/ckpt.html#weight-format-conversion) for weight conversion.
 
 Both MindSpore and PyTorch support `bin` format data, loading the same dataset for training ensures consistency from step to step.
 

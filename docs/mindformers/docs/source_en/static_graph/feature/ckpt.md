@@ -14,7 +14,7 @@ This page belongs to the **Static Graph (GRAPH_MODE) Implementation** section an
 
 Ckpt is a common file format used to save model training status in the deep learning framework. It contains model parameters, optimizer status, and training progress. It is used to restore training or fine-tune models. This document describes how MindSpore Transformers supports conversion, slice and merge.
 
-> The ckpt format is planned to be offline. The safetensors format is recommended for weights. Safetensors is a reliable and portable machine learning model storage format from Huggingface for storing Tensors securely and with fast storage (zero copies). For details, see [Safetensors Weights](https://www.mindspore.cn/mindformers/docs/en/master/feature/safetensors.html).
+> The ckpt format is planned to be offline. The safetensors format is recommended for weights. Safetensors is a reliable and portable machine learning model storage format from Huggingface for storing Tensors securely and with fast storage (zero copies). For details, see [Safetensors Weights](https://www.mindspore.cn/mindformers/docs/en/master/static_graph/feature/safetensors.html).
 
 ## Weight Format Conversion
 

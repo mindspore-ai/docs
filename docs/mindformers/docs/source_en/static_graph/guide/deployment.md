@@ -177,7 +177,7 @@ processor:
     merges_file: "/path/to/mf_model/qwen1_5_72b/merges.txt"  # merges file absolute path
 ```
 
-For model weight downloading and conversions, refer to the [Weight Format Conversion Guide](https://www.mindspore.cn/mindformers/docs/en/master/feature/ckpt.html).
+For model weight downloading and conversions, refer to the [Weight Format Conversion Guide](https://www.mindspore.cn/mindformers/docs/en/master/static_graph/feature/ckpt.html).
 
 Required files and configurations may vary from model to model. Refer to the model-specific inference sections in [Model Repository](https://www.mindspore.cn/mindformers/docs/en/master/introduction/models.html) for details.
 

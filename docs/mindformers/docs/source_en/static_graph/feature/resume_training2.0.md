@@ -23,7 +23,7 @@ MindSpore Transformers has complete resume training capabilities. The core funct
 
 For large-scale training tasks (long training cycles and large resource investment), it can avoid progress loss caused by unexpected interruptions and significantly reduce time and computing resource waste.
 
-> This document only applies to scenarios where [Checkpoint 2.0](https://www.mindspore.cn/mindformers/docs/en/master/feature/checkpoint_saving_and_loading.html) are used for resume training; if users use Checkpoint 1.0, please refer to the old version [resume training document](https://www.mindspore.cn/mindformers/docs/en/master/feature/resume_training.html).
+> This document only applies to scenarios where [Checkpoint 2.0](https://www.mindspore.cn/mindformers/docs/en/master/static_graph/feature/checkpoint_saving_and_loading.html) are used for resume training; if users use Checkpoint 1.0, please refer to the old version [resume training document](https://www.mindspore.cn/mindformers/docs/en/master/static_graph/feature/resume_training.html).
 
 ## Checkpoint Introduction
 
@@ -45,7 +45,7 @@ output
         └── latest_checkpointed_iteration.txt
 ```
 
-You can refer to [Checkpoint Saving and Loading](https://www.mindspore.cn/mindformers/docs/en/master/feature/checkpoint_saving_and_loading.html) for more information about checkpoints.
+You can refer to [Checkpoint Saving and Loading](https://www.mindspore.cn/mindformers/docs/en/master/static_graph/feature/checkpoint_saving_and_loading.html) for more information about checkpoints.
 
 ## Configuration Description
 

@@ -24,7 +24,7 @@
 
 安装方式请参考[MindSpore Transformers安装指南](https://www.mindspore.cn/mindformers/docs/zh-CN/master/installation.html)。
 
-并将本案例的[distilled](https://atomgit.com/mindspore/docs/tree/master/docs/mindformers/docs/source_zh_cn/example/distilled/distilled)文件夹，复制到MindSpore Transformers源码根目录下。
+并将本案例的[distilled](https://atomgit.com/mindspore/docs/tree/master/docs/mindformers/docs/source_zh_cn/static_graph/example/distilled/distilled)文件夹，复制到MindSpore Transformers源码根目录下。
 
 最后得到的目录结构如下：
 

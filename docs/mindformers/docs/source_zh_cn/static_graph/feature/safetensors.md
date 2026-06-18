@@ -138,7 +138,7 @@ output
 
 用户可修改 `yaml` 配置文件中 `CheckpointMonitor` 下的字段来控制权重保存行为。
 
-以 [DeepSeek-V3 预训练 yaml](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/example/deepseek3/pretrain_deepseek3_671b.yaml) 为例，可做如下配置：
+以 [DeepSeek-V3 预训练 yaml](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/static_graph/example/deepseek3/pretrain_deepseek3_671b.yaml) 为例，可做如下配置：
 
 ```yaml
 # callbacks
@@ -170,7 +170,7 @@ callbacks:
 | remove_redundancy     | 保存模型权重时是否去除冗余。                                 | (bool, 可选) - 默认值： `False` 。                           |
 | save_network_params   | 是否仅额外保存网络参数。                                     | (bool, 可选) - 是否仅额外保存网络参数。默认值： `False` 。   |
 
-如果您想了解更多有关 CheckpointMonitor 的知识，可以参考 [CheckpointMonitor API 文档](https://www.mindspore.cn/mindformers/docs/zh-CN/master/core/mindformers.core.CheckpointMonitor.html)。
+如果您想了解更多有关 CheckpointMonitor 的知识，可以参考 [CheckpointMonitor API 文档](https://www.mindspore.cn/mindformers/docs/zh-CN/master/static_graph/core/mindformers.core.CheckpointMonitor.html)。
 
 ## 权重加载
 

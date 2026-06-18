@@ -156,7 +156,7 @@ Some important parameters:
 - `--dst_ckpt_strategy`: path of the distributed policy file of the target weights. In this case, the merged weights are complete weights and do not have a distributed policy. Therefore, set this parameter to `None`.
 - `--dst_ckpt_dir`: user-defined path for saving the target weights.
 
-For details about the parameters, see [Ckpt Weights | MindSpore Transformers Documentation | MindSpore Community](https://www.mindspore.cn/mindformers/docs/en/master/feature/ckpt.html).
+For details about the parameters, see [Ckpt Weights | MindSpore Transformers Documentation | MindSpore Community](https://www.mindspore.cn/mindformers/docs/en/master/static_graph/feature/ckpt.html).
 
 ### 3.4 Reverse Weight Conversion
 

@@ -20,7 +20,7 @@ Please refer to [Checkpoint Health Monitor](#checkpoint-health-monitor) for the 
 
 > - The combination of data skipping function and health monitoring function can effectively solve the problem of data anomalies caused by abnormal global norm during the training process. Before use, please train normally for a period of time to determine the threshold of the global norm that needs to be set, the threshold of the number of consecutive anomalies, and the threshold of the embedding norm.
 > - Please note that training will only be interrupted when there are consecutive exceptions. If there is only one instance where it returns to normal, the cumulative count will be cleared. Therefore, please control the threshold setting.
-> - The data skipping function cannot be used in conjunction with the quick fault recovery function. Refer to the process level rescheduling recovery function in the [high availability feature](https://www.mindspore.cn/mindformers/docs/en/master/feature/high_availability.html).
+> - The data skipping function cannot be used in conjunction with the quick fault recovery function. Refer to the process level rescheduling recovery function in the [high availability feature](https://www.mindspore.cn/mindformers/docs/en/master/static_graph/feature/high_availability.html).
 
 ## Skipping Data
 
@@ -242,7 +242,7 @@ Under Checkpoint 2.0, the health monitoring results are saved in `output_path/ch
 
 The recorded data of common.json is as follows:
 
-The `ckpt_status` records the health status of the corresponding weights. In the record, 1 indicates unhealthy and 0 indicates healthy. The remaining data are training parameters for Checkpoint 2.0. For details, please refer to the [Checkpoint 2.0 documentation](https://www.mindspore.cn/mindformers/docs/en/master/feature/resume_training2.0.html).
+The `ckpt_status` records the health status of the corresponding weights. In the record, 1 indicates unhealthy and 0 indicates healthy. The remaining data are training parameters for Checkpoint 2.0. For details, please refer to the [Checkpoint 2.0 documentation](https://www.mindspore.cn/mindformers/docs/en/master/static_graph/feature/resume_training2.0.html).
 
 ```json
 {
