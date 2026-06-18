@@ -92,7 +92,7 @@ model:
 
 ```
 
-> `global_batch_size` 的精确含义：框架按 `num_accumulation_steps = global_batch_size / (data_parallel_shard × local_batch_size)` 推导梯度累积步数。未启用梯度累积时（即三者相乘恰好相等），`global_batch_size = local_batch_size × 数据并行数`；一旦 `global_batch_size` 大于该乘积，多出的倍数即为梯度累积步数。精确定义见「配置文件说明」文档。
+> `global_batch_size` 的精确含义：框架按 `num_accumulation_steps = global_batch_size // (data_parallel × local_batch_size)` 推导梯度累积步数。未启用梯度累积时（即三者相乘恰好相等），`global_batch_size = local_batch_size × 数据并行度`；一旦 `global_batch_size` 大于该乘积，多出的倍数即为梯度累积步数。精确定义见「配置文件说明」文档。
 
 ### 关于数据集段
 

@@ -297,13 +297,13 @@ training:
 
 ### 3.1 批大小与梯度累积步数
 
-`global_batch_size`, `local_batch_size` 与 `data_parallel_shard` 三者共同决定**每步是否需要梯度累积**：
+`global_batch_size`, `local_batch_size` 与 `data_parallel`（数据并行度）三者共同决定**每步是否需要梯度累积**：
 
 ```text
-梯度累积步数 = global_batch_size // (local_batch_size × data_parallel_shard)
+梯度累积步数 = global_batch_size // (local_batch_size × data_parallel)
 ```
 
-即每张数据并行卡每步处理 `local_batch_size` 个样本，全局一次累积满 `global_batch_size` 个样本才做一次优化器更新。框架按 `local_batch_size × data_parallel_shard` 对 `global_batch_size` 做整数除法推导累积步数（非整除不会报错，而是向下取整，有效全局批相应变小）。这里的 `data_parallel_shard` 是 FSDP 切分数：纯 FSDP（默认 `data_parallel_shard: -1`）时等于数据并行度，开 HSDP时小于数据并行度。其推导含义与设置见 [分布式并行训练](./parallel_training.md)。
+即每张数据并行卡每步处理 `local_batch_size` 个样本，全局一次累积满 `global_batch_size` 个样本才做一次优化器更新。框架按 `local_batch_size × data_parallel` 对 `global_batch_size` 做整数除法推导累积步数（非整除不会报错，而是向下取整，有效全局批相应变小）。这里的 `data_parallel` 是数据并行度（`= dp_replicate × dp_shard`）：纯 FSDP（默认 `data_parallel_shard: -1`）时它等于 FSDP 切分度 `data_parallel_shard`，开 HSDP 时 `data_parallel_shard` 小于 `data_parallel`。其推导含义与设置见 [分布式并行训练](./parallel_training.md)。
 
 ### 3.2 梯度裁剪 max_norm
 
