@@ -202,9 +202,6 @@ def main(version, user, pd, WGETDIR, release_url, generate_list, api_detect):
     # python安装包文件夹位置
     pythonlib_dir = os.path.dirname(os.path.dirname(sphinx.__file__))
 
-    sys.path.append(os.path.abspath('../../resource/sphinx_ext'))
-    import sphinx_replace
-
     # 删除sphinx中多余的语言文件
     mo_path = os.path.join(pythonlib_dir, 'locale/zh_CN/LC_MESSAGES/sphinx.mo')
     if os.path.exists(mo_path):
