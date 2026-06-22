@@ -150,6 +150,8 @@ MindSpore的教程和API文档均可由[Sphinx](https://www.sphinx-doc.org/en/ma
 
 3. 构建[MindSpore教程](https://atomgit.com/mindspore/docs/tree/master/tutorials)、[MindSpore文档](https://atomgit.com/mindspore/docs/tree/master/docs/mindspore)和[MindQuantum文档](https://atomgit.com/mindspore/docs/tree/master/docs/mindquantum/docs)时还需安装[pandoc](https://pandoc.org/)，下载和安装pandoc请参考<https://pandoc.org/installing.html>。
 
+4. 从2.10版本开始使用Python 3.12构建文档，2.9及以前版本使用Python 3.9构建文档。
+
 ## 版权
 
 - [Apache License 2.0](LICENSE)
