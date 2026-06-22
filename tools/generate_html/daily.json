@@ -43,11 +43,11 @@
     "uninstall_name" : ["mindformers", "hyper_parallel"],
     "extra_whl_path" : [
         "/mindspore/website/master/cpu/x86_64",
-        "/hyper-parallel/newest/any"
+        "/hyper-parallel/newest/unified/x86_64"
     ],
     "extra_whl_name" : [
         "mindspore-.*-cp312-cp312-linux_x86_64.whl$",
-        "hyper_parallel-.*-py3-none-any.whl"
+        "hyper_parallel-.*-cp312-cp312-linux_x86_64.whl$"
     ]
 },
 {
