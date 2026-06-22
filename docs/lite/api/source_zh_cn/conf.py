@@ -15,7 +15,6 @@ import re
 import sys
 import textwrap
 import shutil
-import glob
 import sphinx.ext.autosummary.generate as g
 from sphinx.ext import autodoc as sphinx_autodoc
 
@@ -256,22 +255,22 @@ import shutil
 logger = logging.getLogger(__name__)
 
 copy_paths = [
-    ('docs/api/lite_api_python', 'mindspore_lite'),
-    ('mindspore-lite/lite_boost/docs/api/lite_boost_api_python', 'lite_boost')
+    ('docs/api/lite_api_python', '.'),
+    ('mindspore-lite/lite_boost/docs/api/lite_boost_api_python', '.')
 ]
 
 file_source_map = {}
-present_path = os.path.dirname(__file__)
+present_path = os.path.abspath(os.path.dirname(__file__))
 
-for src_rel_path, module_name in copy_paths:
+for src_rel_path, dst_module_dir in copy_paths:
     src_dir = os.path.join(os.getenv("MSL_PATH"), src_rel_path)
-    dst_base =os.path.join(present_path, module_name)
+    dst_base =os.path.normpath(os.path.join(present_path, dst_module_dir))
 
     for i in os.listdir(src_dir):
         src_file = os.path.join(src_dir, i)
-        dst_file = os.path.join(dst_base, i)
+        dst_file = os.path.normpath(os.path.join(dst_base, i))
 
-        source_repo_rel = os.path.join(src_rel_path, i).replace('\\', '/')
+        source_repo_rel = f"{src_rel_path}/{i}".replace('\\', '/')
 
         if os.path.isfile(src_file):
             os.makedirs(dst_base, exist_ok=True)
@@ -286,9 +285,9 @@ for src_rel_path, module_name in copy_paths:
             for root, _, sub_files in os.walk(dst_file):
                 for sub_f in sub_files:
                     if sub_f.endswith('.rst'):
-                        full_dst = os.path.join(root, sub_f)
+                        full_dst = os.path.normpath(os.path.join(root, sub_f))
                         rel_to_dst_base = os.path.relpath(full_dst, dst_base).replace('\\', '/')
-                        file_source_map[full_dst] = os.path.join(src_rel_path, rel_to_dst_base).replace('\\', '/')
+                        file_source_map[full_dst] = f"{src_rel_path}/{rel_to_dst_base}".replace('\\', '/')
 
 # add view
 import json
@@ -342,7 +341,7 @@ for cur, _, files in os.walk(present_path):
         # master使用
         if not i.endswith('.rst'):
             continue
-        current_file_path = os.path.join(cur, i)
+        current_file_path = os.path.normpath(os.path.join(cur, i))
         if current_file_path not in file_source_map:
             continue
         current_source_rel = file_source_map[current_file_path]
@@ -364,8 +363,11 @@ for cur, _, files in os.walk(present_path):
         except Exception as e:
             print(f"ERROR: 处理文件 {current_file_path} 失败: {e}")
 
-all_rst_paths = glob.glob('mindspore_lite/*.rst', recursive=True) + glob.glob('lite_boost/*.rst', recursive=True)
-rst_files = set([i.replace('.rst', '') for i in all_rst_paths])
+rst_files = set()
+for abs_path in file_source_map.keys():
+    if abs_path.endswith('.rst'):
+        rel_path = os.path.relpath(abs_path, present_path).replace('\\', '/')
+        rst_files.add(rel_path[:-4])
 
 def setup(app):
     app.add_directive('msplatformautosummary', MsPlatformAutoSummary)
