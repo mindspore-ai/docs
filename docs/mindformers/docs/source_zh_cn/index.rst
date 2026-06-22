@@ -51,7 +51,7 @@ MindSpore Transformers 的开源仓库地址为 `AtomGit | MindSpore/mindformers
    feature/training_hyperparameters
    feature/parallel_training
    feature/memory_optimization
-   feature/save_and_load_checkpoint
+   feature/save_load_checkpoint
    feature/resume_training
    feature/monitor
    feature/other_training_features
