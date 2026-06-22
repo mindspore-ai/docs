@@ -6,7 +6,6 @@ sphinx_dir = os.path.dirname(os.path.dirname(sphinx.__file__))
 with open(os.path.join(sphinx_dir, 'sphinx/util/docutils.py'), 'r+', encoding='utf-8') as f:
     content = f.read()
     old_content = '# cache a vanilla instance of nodes.document'
-
     new_content = """from packaging import version
 from docutils.nodes import Node
 __version_info__ = version.parse(docutils.__version__).release
@@ -22,11 +21,10 @@ Node.findall = findall #type: ignore
 
 with open(os.path.join(sphinx_dir, 'sphinx/search/__init__.py'), 'r+', encoding='utf-8') as f:
     content = f.read()
-    old_content = """elif (isinstance(node, nodes.meta) # type: ignore[attr-defined]
+    old_content = """elif (isinstance(node, nodes.meta)  # type: ignore[attr-defined]
                   and _is_meta_keywords(node, language)):
                 keywords = [keyword.strip() for keyword in node['content'].split(',')]
                 word_store.words.extend(keywords)"""
-
     new_content = ''
     content = content.replace(old_content, new_content)
     f.seek(0)
