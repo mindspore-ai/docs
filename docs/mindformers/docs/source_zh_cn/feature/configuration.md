@@ -175,7 +175,7 @@ checkpoint:
   no_load_optim: False
 ```
 
-字段细节见 [权重保存与加载](./safetensors.md)；续训流程见 [断点续训](./resume_training.md)。
+字段细节见 [权重保存与加载](../static_graph/feature/safetensors.md)；续训流程见 [断点续训](../static_graph/feature/resume_training.md)。
 
 ---
 
@@ -267,7 +267,7 @@ parallelism:
   moe_token_dispatcher_type: "alltoall_deredundancy"
 ```
 
-各维度含义、组合约束与显存/吞吐取舍见 [分布式并行训练](./parallel_training.md)。
+各维度含义、组合约束与显存/吞吐取舍见 [分布式并行训练](../static_graph/feature/parallel_training.md)。
 
 ---
 
@@ -299,7 +299,7 @@ optimizer:
   accumulate_allreduce_grads_in_fp32: True
 ```
 
-更多优化器与超参说明见 [训练超参数与优化器](./training_hyperparameters.md)。
+更多优化器与超参说明见 [训练超参数与优化器](../static_graph/feature/training_hyperparameters.md)。
 
 ---
 
@@ -325,7 +325,7 @@ lr_scheduler:
   warmup_ratio: 0          # 透传字段，按调度器类型解析
 ```
 
-调度器类型清单与各自专有字段见 [训练超参数与优化器](./training_hyperparameters.md)。
+调度器类型清单与各自专有字段见 [训练超参数与优化器](../static_graph/feature/training_hyperparameters.md)。
 
 ---
 
@@ -365,7 +365,7 @@ train_dataset:
   numa_enable: False
 ```
 
-Megatron 数据集的制作、字段与场景化配置见 [数据集](./dataset.md)。
+Megatron 数据集的制作、字段与场景化配置见 [数据集](../static_graph/feature/dataset.md)。
 
 ---
 
@@ -428,7 +428,7 @@ monitor:
     target_layers: [0, 1, 2]
 ```
 
-字段细节见 [训练指标监控](./monitor.md)。
+字段细节见 [训练指标监控](../static_graph/feature/monitor.md)。
 
 ---
 
@@ -468,7 +468,7 @@ profiler:
   output_path: "./output/profile"
 ```
 
-分析方法与生成文件解读见 [训练指标监控](./monitor.md) 的 Profiling 小节。
+分析方法与生成文件解读见 [训练指标监控](../static_graph/feature/monitor.md) 的 Profiling 小节。
 
 ---
 
@@ -506,7 +506,7 @@ recompute:
     "mlp": ['2']                    # 第 2 层的 mlp 模块重算
 ```
 
-策略选择与显存收益见 [训练内存优化](./memory_optimization.md)。
+策略选择与显存收益见 [训练内存优化](../static_graph/feature/memory_optimization.md)。
 
 ---
 
@@ -532,7 +532,7 @@ recompute_comm:
     "attention.qkv": ['0-3']
 ```
 
-详见 [训练内存优化](./memory_optimization.md)。
+详见 [训练内存优化](../static_graph/feature/memory_optimization.md)。
 
 ---
 
@@ -575,7 +575,7 @@ swap:
       layers: ['1']            # 第 1 层的 mlp 算子 offload
 ```
 
-详见 [训练内存优化](./memory_optimization.md)。
+详见 [训练内存优化](../static_graph/feature/memory_optimization.md)。
 
 ---
 
