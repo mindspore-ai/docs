@@ -17,6 +17,8 @@ import textwrap
 import shutil
 import glob
 import sphinx
+import ctypes
+from unittest.mock import MagicMock
 from sphinx.ext import autodoc as sphinx_autodoc
 import sphinx.ext.autosummary.generate as g
 
@@ -33,6 +35,23 @@ author = 'MindSpore'
 # The full version, including alpha/beta/rc tags
 release = 'master'
 
+# -- Allow Sphinx to build documentation normally in non-NPU environments ----
+
+# Mock the torch_npu module to avoid ModuleNotFoundError
+sys.modules['torch_npu'] = MagicMock()
+
+# Intercept the loading of liblite_boost_ops
+_original_cdll = ctypes.CDLL
+def _safe_cdll(name, *args, **kwargs):
+    if name and 'liblite_boost_ops' in str(name):
+        return MagicMock()
+    return _original_cdll(name, *args, **kwargs)
+ctypes.CDLL = _safe_cdll
+
+# Clean up potentially polluted lite_boost modules caches
+for _key in list(sys.modules.keys()):
+    if _key.startswith('lite_boost'):
+        del sys.modules[_key]
 
 # -- General configuration ---------------------------------------------------
 
@@ -375,6 +394,22 @@ for i in os.listdir(src_dir):
         if os.path.exists('./'+i):
             shutil.rmtree('./'+i)
         shutil.copytree(os.path.join(src_dir,i),'./'+i)
+
+list_boost_src = os.path.join(os.getenv("MSL_PATH"), 'mindspore-lite/lite_boost/docs/api/lite_boost_api_python_en')
+if os.path.exists(list_boost_src):
+    for item in os.listdir(list_boost_src):
+        src_path = os.path.join(list_boost_src, item)
+        dst_path = os.path.join('.', item)
+        if os.path.isfile(src_path):
+            if os.path.exists(dst_path):
+                os.remove(dst_path)
+            shutil.copy(src_path, dst_path)
+        else:
+            if os.path.exists(dst_path):
+                shutil.rmtree(dst_path)
+            shutil.copytree(src_path, dst_path)
+else:
+    print(f"警告: list_boost 文档源目录不存在 -> {list_boost_src}")
 
 lite_dir = './mindspore_lite'
 if os.path.exists(lite_dir):
