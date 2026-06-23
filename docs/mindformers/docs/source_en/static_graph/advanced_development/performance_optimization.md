@@ -604,7 +604,7 @@ For the bottleneck points analyzed above, we can apply the following optimizatio
 
 2. Embedding parameter configuration optimizer parallelism: large vocabulary occupies too much memory, and the optimizer parallelism of vocabulary weights needs additional configuration, which effectively alleviates the problem of insufficient memory in the first stage;
 
-   An introduction to the use of optimizer parallelism can be found in [MindSpore Optimizer Parallelism Documentation](https://www.mindspore.cn/tutorials/en/master/parallel/optimizer_parallel.html). In addition, the Llama model has additional configurations for optimizers in the embedding layer, the `parallel_optimizer` in the [LlamaConfig API documentation](https://www.mindspore.cn/mindformers/docs/en/master/models/mindformers.models.LlamaConfig.html#mindformers.models.LlamaConfig) controls the parallelism of the embedding optimizer;
+   An introduction to the use of optimizer parallelism can be found in [MindSpore Optimizer Parallelism Documentation](https://www.mindspore.cn/tutorials/en/master/parallel/optimizer_parallel.html). In addition, the Llama model has additional configurations for optimizers in the embedding layer, the `parallel_optimizer` in the [LlamaConfig API documentation](https://www.mindspore.cn/mindformers/docs/en/master/static_graph/models/mindformers.models.LlamaConfig.html) controls the parallelism of the embedding optimizer;
    A sample configuration is shown below:
 
    ```yaml

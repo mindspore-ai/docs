@@ -137,7 +137,7 @@ Users can control the weight saving behavior by modifying the configuration file
 
 Users can modify the fields under `CheckpointMonitor` in the `yaml` configuration file to control the weight saving behavior.
 
-Taking [`DeepSeek-V3` pre-training yaml](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/example/deepseek3/pretrain_deepseek3_671b.yaml) as an example, the following configuration can be made:
+Taking [`DeepSeek-V3` pre-training yaml](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/static_graph/example/deepseek3/pretrain_deepseek3_671b.yaml) as an example, the following configuration can be made:
 
 ```yaml
 # callbacks

@@ -20,9 +20,9 @@ The basic components of a foundation model in MindSpore Transformers include the
 
 A model configuration is an instance that contains all information about a model. The `__init__` methods of all models in MindSpore Transformers receive a model configuration instance as the input parameter. All submodules of the model are initialized based on the information contained in the configuration instance.
 
-MindSpore Transformers provides the [PretrainedConfig](https://www.mindspore.cn/mindformers/docs/en/master/models/mindformers.models.PretrainedConfig.html) class, which provides some common configuration methods. The configuration classes of all models should be inherited from the PretrainedConfig class. Developers only need to define all configuration parameters that help build foundation models. Foundation models of the Transformer type have configuration parameters such as `seq_length`, `hidden_size`, `num_layers`, and `num_heads`, and foundation models of the text type have `vocab_size` in addition.
+MindSpore Transformers provides the [PretrainedConfig](https://www.mindspore.cn/mindformers/docs/en/master/static_graph/models/mindformers.models.PretrainedConfig.html) class, which provides some common configuration methods. The configuration classes of all models should be inherited from the PretrainedConfig class. Developers only need to define all configuration parameters that help build foundation models. Foundation models of the Transformer type have configuration parameters such as `seq_length`, `hidden_size`, `num_layers`, and `num_heads`, and foundation models of the text type have `vocab_size` in addition.
 
-For details, see the configuration class [LlamaConfig](https://www.mindspore.cn/mindformers/docs/en/master/models/mindformers.models.LlamaConfig.html) of the Llama model in MindSpore Transformers.
+For details, see the configuration class [LlamaConfig](https://www.mindspore.cn/mindformers/docs/en/master/static_graph/models/mindformers.models.LlamaConfig.html) of the Llama model in MindSpore Transformers.
 
 > If your model is similar to a model in the library, you can reuse the same configurations as the model.
 
@@ -30,12 +30,12 @@ For details, see the configuration class [LlamaConfig](https://www.mindspore.cn/
 
 The MindSpore Transformers foundation model is developed based on the MindSpore framework. Developers only need to pay attention to the implementation of the model network.
 
-MindSpore Transformers provides the [PreTrainedModel](https://www.mindspore.cn/mindformers/docs/en/master/models/mindformers.models.PreTrainedModel.html) class, which is responsible for storage model configurations and processing the methods of loading and saving models. All model classes must be inherited from the PreTrainedModel class, and the model input must be the same. That is, the input parameters of the `construct` method of the model must be the same. For details about the input parameters and meanings, see the Llama model class [LlamaForCausalLM](https://www.mindspore.cn/mindformers/docs/en/master/models/mindformers.models.LlamaForCausalLM.html) in MindSpore Transformers. In addition, the model class must implement some abstract methods of the base class, including:
+MindSpore Transformers provides the [PreTrainedModel](https://www.mindspore.cn/mindformers/docs/en/master/static_graph/models/mindformers.models.PreTrainedModel.html) class, which is responsible for storage model configurations and processing the methods of loading and saving models. All model classes must be inherited from the PreTrainedModel class, and the model input must be the same. That is, the input parameters of the `construct` method of the model must be the same. For details about the input parameters and meanings, see the Llama model class [LlamaForCausalLM](https://www.mindspore.cn/mindformers/docs/en/master/static_graph/models/mindformers.models.LlamaForCausalLM.html) in MindSpore Transformers. In addition, the model class must implement some abstract methods of the base class, including:
 
 - `prepare_inputs_for_generation`: method for building input for model inference.
 - `prepare_inputs_for_predict_layout`: method for building virtual input for the distributed loading of model weight.
 
-For specific meanings, refer to the descriptions in [LlamaForCausalLM](https://www.mindspore.cn/mindformers/docs/en/master/models/mindformers.models.LlamaForCausalLM.html).
+For specific meanings, refer to the descriptions in [LlamaForCausalLM](https://www.mindspore.cn/mindformers/docs/en/master/static_graph/models/mindformers.models.LlamaForCausalLM.html).
 
 > If your model structure is similar to that of a model in the library, you can reuse the model.
 
@@ -43,12 +43,12 @@ For specific meanings, refer to the descriptions in [LlamaForCausalLM](https://w
 
 A tokenizer is used to process input and output of LLMs. It is required in the workflow of LLMs.
 
-MindSpore Transformers provides the [PreTrainedTokenizer](https://www.mindspore.cn/mindformers/docs/en/master/models/mindformers.models.PreTrainedTokenizer.html) and [PreTrainedTokenizerFast](https://www.mindspore.cn/mindformers/docs/en/master/models/mindformers.models.PreTrainedTokenizerFast.html) classes, which use Python only and use the Rust library, respectively. The features of the latter one are as follows:
+MindSpore Transformers provides the [PreTrainedTokenizer](https://www.mindspore.cn/mindformers/docs/en/master/static_graph/models/mindformers.models.PreTrainedTokenizer.html) and [PreTrainedTokenizerFast](https://www.mindspore.cn/mindformers/docs/en/master/static_graph/models/mindformers.models.PreTrainedTokenizerFast.html) classes, which use Python only and use the Rust library, respectively. The features of the latter one are as follows:
 
 - Faster batch processing.
 - Additional methods for mapping between text strings and lexical spaces. For example, the indexes of the lexical element containing a given character or the character spans corresponding to the given lexical element are obtained.
 
-All tokenizer classes must be inherited from the PreTrainedTokenizer or PreTrainedTokenizerFast class. For details, see [LlamaTokenizer](https://www.mindspore.cn/mindformers/docs/en/master/models/mindformers.models.LlamaTokenizer.html) and [LlamaTokenizerFast](https://www.mindspore.cn/mindformers/docs/en/master/models/mindformers.models.LlamaTokenizerFast.html).
+All tokenizer classes must be inherited from the PreTrainedTokenizer or PreTrainedTokenizerFast class. For details, see [LlamaTokenizer](https://www.mindspore.cn/mindformers/docs/en/master/static_graph/models/mindformers.models.LlamaTokenizer.html) and [LlamaTokenizerFast](https://www.mindspore.cn/mindformers/docs/en/master/static_graph/models/mindformers.models.LlamaTokenizerFast.html).
 
 > If your tokenizer is similar to that in the library, you can reuse that in the library.
 
@@ -119,7 +119,7 @@ Llama3-8B and Llama2-7B have the same model structure but different model parame
 
 The following compares the model configurations between Llama2-7B and Llama3-8B.
 
-![model_config_comparison](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindformers/docs/source_zh_cn/advanced_development/images/model_config_comparison.png)
+![model_config_comparison](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindformers/docs/source_zh_cn/static_graph/advanced_development/images/model_config_comparison.png)
 
 The differences are as follows:
 

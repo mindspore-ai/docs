@@ -688,7 +688,7 @@ The following example uses `qwen3-8b` fine-tuning to explain related functionali
 
 1. Download the `alpaca` dataset: [Link](https://github.com/tatsu-lab/stanford_alpaca/blob/main/alpaca_data.json)
 
-2. Execute the data processing script [alpaca_converter.py](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/example/qwen3/alpaca_converter.py) to convert the `alpaca` dataset into a dialogue format:
+2. Execute the data processing script [alpaca_converter.py](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/static_graph/example/qwen3/alpaca_converter.py) to convert the `alpaca` dataset into a dialogue format:
 
    ```shell
    python alpaca_converter.py \
@@ -698,7 +698,7 @@ The following example uses `qwen3-8b` fine-tuning to explain related functionali
 
    Here, `data_path` refers to the path where the downloaded `alpaca` dataset is stored, and `output_path` refers to the save path for the generated dialogue format data file.
 
-3. Execute the script [datasets_preprocess.py](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/example/qwen3/datasets_preprocess.py) to convert the dialogue format data file into MindRecord format:
+3. Execute the script [datasets_preprocess.py](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/static_graph/example/qwen3/datasets_preprocess.py) to convert the dialogue format data file into MindRecord format:
 
    ```shell
    python datasets_preprocess.py \
