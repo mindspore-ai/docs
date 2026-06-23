@@ -30,7 +30,7 @@ Setting the learning rate too high can prevent the model from converging, while 
 
 Users can utilize the learning rate by adding an `lr_schedule` module to the YAML configuration file used for model training.
 
-Taking the [DeepSeek-V3 pre-training's YAML file](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/example/deepseek3/pretrain_deepseek3_671b.yaml) as an example, it could be configured as follows:
+Taking the [DeepSeek-V3 pre-training's YAML file](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/static_graph/example/deepseek3/pretrain_deepseek3_671b.yaml) as an example, it could be configured as follows:
 
 ```yaml
 # lr schedule
@@ -79,7 +79,7 @@ lr_schedule:
   total_steps: 20 # -1 means it will load the total steps of the dataset
 ```
 
-For more details about the learning rate API (such as `type` configuration names and introductions to learning rate algorithms), please refer to the related links in the [MindSpore Transformers API Documentation: Learning Rate](https://www.mindspore.cn/mindformers/docs/en/master/mindformers.core.html#learning-rate).
+For more details about the learning rate API (such as `type` configuration names and introductions to learning rate algorithms), please refer to the related links in the [MindSpore Transformers API Documentation: Learning Rate](https://www.mindspore.cn/mindformers/docs/en/master/static_graph/mindformers.core.html#learning-rate).
 
 ### Grouped Learning Rate
 
@@ -126,14 +126,14 @@ Selecting the right optimizer is crucial for the convergence speed and final per
 
 MindSpore Transformers currently supports the following optimizers:
 
-- [**AdamW Optimizer**](https://www.mindspore.cn/mindformers/docs/en/master/mindformers.core.html#optimizer)
+- [**AdamW Optimizer**](https://www.mindspore.cn/mindformers/docs/en/master/static_graph/mindformers.core.html#optimizer)
 - **Muon Optimizer**
 
 These optimizers use different mathematical strategies—such as adaptive learning rates, momentum estimation, and direction normalization—to influence training stability, convergence characteristics, and final accuracy.
 
 Users can use the optimizer by adding an `optimizer` module to the YAML configuration file for model training.
 
-The following example is based on the [DeepSeek-V3 pre-training's YAML file](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/example/deepseek3/pretrain_deepseek3_671b.yaml).
+The following example is based on the [DeepSeek-V3 pre-training's YAML file](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/static_graph/example/deepseek3/pretrain_deepseek3_671b.yaml).
 
 ### AdamW Optimizer
 

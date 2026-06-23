@@ -74,7 +74,7 @@ lr_schedule:
   total_steps: 20 # -1 means it will load the total steps of the dataset
 ```
 
-更多关于学习率 API 的介绍（如 `type` 的配置名称、学习率算法的介绍），可参见 [MindSpore Transformers API 文档：学习率部分](https://www.mindspore.cn/mindformers/docs/zh-CN/master/mindformers.core.html#%E5%AD%A6%E4%B9%A0%E7%8E%87) 的相关链接。
+更多关于学习率 API 的介绍（如 `type` 的配置名称、学习率算法的介绍），可参见 [MindSpore Transformers API 文档：学习率部分](https://www.mindspore.cn/mindformers/docs/zh-CN/master/static_graph/mindformers.core.html#%E5%AD%A6%E4%B9%A0%E7%8E%87) 的相关链接。
 
 ### 分组学习率
 
@@ -121,7 +121,7 @@ grouped_lr_schedule:
 
 MindSpore Transformers 当前支持以下两类优化器：
 
-- [**AdamW 优化器**](https://www.mindspore.cn/mindformers/docs/zh-CN/master/mindformers.core.html#%E4%BC%98%E5%8C%96%E5%99%A8)  
+- [**AdamW 优化器**](https://www.mindspore.cn/mindformers/docs/zh-CN/master/static_graph/mindformers.core.html#%E4%BC%98%E5%8C%96%E5%99%A8)  
 - **Muon 优化器**
 
 不同优化器通过不同的数学策略（如自适应学习率、动量估计、方向归一化等）影响训练稳定性、收敛速度和最终性能。

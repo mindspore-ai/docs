@@ -63,7 +63,7 @@ monitor_config:
 
 ### Conversion Example
 
-Assuming Qwen3-8B is taken as an example, use [pretrain_qwen3_8b.yaml](https://atomgit.com/mindspore/docs/tree/master/docs/mindformers/docs/source_zh_cn/example/qwen3/pretrain_qwen3_8b.yaml) to add parameters according to the above [Configuration](#usage). Please refer to the [Qwen3 Document](https://atomgit.com/mindspore/mindformers/blob/master/configs/qwen3/README.md) for the remaining steps. Start training:
+Assuming Qwen3-8B is taken as an example, use [pretrain_qwen3_8b.yaml](https://atomgit.com/mindspore/docs/tree/master/docs/mindformers/docs/source_zh_cn/static_graph/example/qwen3/pretrain_qwen3_8b.yaml) to add parameters according to the above [Configuration](#usage). Please refer to the [Qwen3 Document](https://atomgit.com/mindspore/mindformers/blob/master/configs/qwen3/README.md) for the remaining steps. Start training:
 
 ```shell
 bash scripts/msrun_launcher.sh "run_mindformer.py \
@@ -198,7 +198,7 @@ parallel_config:
 
 ### Conversion Example
 
-Assuming Qwen3-8B is taken as an example, use [pretrain_qwen3_8b.yaml](https://atomgit.com/mindspore/docs/tree/master/docs/mindformers/docs/source_zh_cn/example/qwen3/pretrain_qwen3_8b.yaml) to add parameters and modify according to the above [Configuration](#usage-1). Please refer to the [Qwen3 Document](https://atomgit.com/mindspore/mindformers/blob/master/configs/qwen3/README.md) for the remaining steps. Start training:
+Assuming Qwen3-8B is taken as an example, use [pretrain_qwen3_8b.yaml](https://atomgit.com/mindspore/docs/tree/master/docs/mindformers/docs/source_zh_cn/static_graph/example/qwen3/pretrain_qwen3_8b.yaml) to add parameters and modify according to the above [Configuration](#usage-1). Please refer to the [Qwen3 Document](https://atomgit.com/mindspore/mindformers/blob/master/configs/qwen3/README.md) for the remaining steps. Start training:
 
 ```shell
 bash scripts/msrun_launcher.sh "run_mindformer.py \
