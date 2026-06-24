@@ -8,3 +8,4 @@ IPython
 jieba
 pyyaml
 tqdm
+setuptools == 81.0.0

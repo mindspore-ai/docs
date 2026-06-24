@@ -383,7 +383,7 @@ class ObjectDescription(SphinxDirective, Generic[ObjDescT]):
                     index_num = 0
                     index_platforms = 0
                     for num, i in enumerate(self.content.data):
-                        if i.startswith('.. py:method::') or self.check_class_end(self.content.data[num:]):
+                        if i.startswith('.. py:method::') or i.startswith('.. py:property::') or self.check_class_end(self.content.data[num:]):
                             index_num = num
                             break
                     if index_num:
@@ -428,7 +428,7 @@ class ObjectDescription(SphinxDirective, Generic[ObjDescT]):
             else:
                 index_num = 0
                 for num, i in enumerate(self.content.data):
-                    if i.startswith('.. py:method::') or self.check_class_end(self.content.data[num:]):
+                    if i.startswith('.. py:method::') or i.startswith('.. py:property::') or self.check_class_end(self.content.data[num:]):
                         index_num = num
                         break
                 if index_num:
