@@ -117,7 +117,6 @@ extensions = [
 ]
 
 autodoc_default_options = {
-    'members': True,
     'inherited-members': False,
 }
 
