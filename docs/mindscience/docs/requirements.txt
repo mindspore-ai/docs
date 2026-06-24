@@ -5,3 +5,4 @@ sphinx_rtd_theme == 3.1.0
 numpy
 IPython
 jieba
+setuptools == 81.0.0

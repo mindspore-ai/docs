@@ -8,3 +8,4 @@ jieba
 descriptastorus == 2.8.0
 sympy
 tqdm
+setuptools == 81.0.0
