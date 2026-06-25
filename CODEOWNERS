@@ -14,30 +14,30 @@
 /resource/release/ @nicholas_yhr @Hanshize
 
 # The maintainers of tutorials.
-/tutorials/source_zh_cn/beginner/ @zwiori @gemini524
+/tutorials/source_zh_cn/beginner/ @zhao_ting_v @gemini524
 /tutorials/source_zh_cn/compile/ @ginfung @gemini524
 /tutorials/source_zh_cn/custom_program/custom_backend.md @limingqi107 @gemini524
 /tutorials/source_zh_cn/custom_program/custom_pass.md @limingqi107 @gemini524
 /tutorials/source_zh_cn/custom_program/op_custom.rst @chujinjin @gemini524
 /tutorials/source_zh_cn/custom_program/operation/ @chujinjin @gemini524
-/tutorials/source_zh_cn/custom_program/hook_program.ipynb @zwiori @gemini524
-/tutorials/source_zh_cn/cv/ @zwiori @gemini524
+/tutorials/source_zh_cn/custom_program/hook_program.ipynb @zhao_ting_v @gemini524
+/tutorials/source_zh_cn/cv/ @zhao_ting_v @gemini524
 /tutorials/source_zh_cn/dataset/ @jonyguo @gemini524
-/tutorials/source_zh_cn/debug/error_analysis.rst @zwiori @gemini524
-/tutorials/source_zh_cn/debug/error_analysis/ @zwiori @gemini524
+/tutorials/source_zh_cn/debug/error_analysis.rst @zhao_ting_v @gemini524
+/tutorials/source_zh_cn/debug/error_analysis/ @zhao_ting_v @gemini524
 /tutorials/source_zh_cn/debug/dryrun.md @limingqi107 @gemini524
 /tutorials/source_zh_cn/debug/dump.md @DavidFFFan @gemini524
 /tutorials/source_zh_cn/debug/profiler.md @changzherui1 @gemini524
 /tutorials/source_zh_cn/debug/pynative.md @chujinjin @gemini524
 /tutorials/source_zh_cn/debug/sdc.md @zhangbuxue @gemini524
-/tutorials/source_zh_cn/generative/ @zwiori @gemini524
+/tutorials/source_zh_cn/generative/ @zhao_ting_v @gemini524
 /tutorials/source_zh_cn/model_infer/introduction.md @liulili-huawei @gemini524
 /tutorials/source_zh_cn/model_infer/ms_infer/ @liulili-huawei @gemini524
 /tutorials/source_zh_cn/model_infer/ms_infer/ms_infer_quantization.md @hangangqiang @gemini524
 /tutorials/source_zh_cn/model_infer/ms_infer/ms_infer_model_serving_infer.md @zlq2025 @horcham_zhq @gemini524
 /tutorials/source_zh_cn/model_infer/lite_infer/ @YeFeng_24 @jjfeing @gemini524
-/tutorials/source_zh_cn/model_migration/ @zwiori @gemini524
-/tutorials/source_zh_cn/nlp/ @zwiori @gemini524
+/tutorials/source_zh_cn/model_migration/ @zhao_ting_v @gemini524
+/tutorials/source_zh_cn/nlp/ @zhao_ting_v @gemini524
 /tutorials/source_zh_cn/orange_pi/ @xing-yiren @gemini524
 /tutorials/source_zh_cn/parallel/ @yangzhenzhang @gemini524
 /tutorials/source_zh_cn/parallel/startup_method.rst @zhangyinxia @gemini524
@@ -49,11 +49,11 @@
 /tutorials/source_zh_cn/train_availability/graceful_exit.md @zhangbuxue @gemini524
 
 # The maintainers of MindSpore docs.
-/docs/mindspore/source_zh_cn/ @zwiori @gemini524
+/docs/mindspore/source_zh_cn/ @zhao_ting_v @gemini524
 /docs/mindspore/source_zh_cn/_static/ @gemini524
 /docs/mindspore/source_zh_cn/_templates/ @gemini524
 /docs/mindspore/source_zh_cn/conf.py @gemini524
-/docs/sample_code/ @zwiori @gemini524
+/docs/sample_code/ @zhao_ting_v @gemini524
 
 # The maintainers of MindSpore Lite docs.
 /docs/lite/docs/source_zh_cn/ @fatmouse007fatmouse007 @jjfeing @gemini524
