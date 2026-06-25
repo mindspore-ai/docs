@@ -692,7 +692,7 @@ class Qwen2Model(nn.Cell):
             self.layers.append(layer)
         self.norm = RmsNorm(config=config)
 
-    @jit(jit_level="O0", infer_boost="on")
+    @jit(jit_level="O0")
     def construct(self, input_ids: Tensor, positions: Tensor, batch_valid_length: Tensor,
                         is_prefill: bool, k_caches: List[Tensor], v_caches: List[Tensor],
                         slot_mapping: Tensor, block_tables: Tensor, attn_mask: Tensor,
@@ -714,8 +714,6 @@ class Qwen2Model(nn.Cell):
 通过在nn.Cell的construct方法加上mindspore.jit装饰器，这个Cell的计算就会转化为静态图执行，其中参数意义如下：
 
 - **jit_level**：编译级别，当前MindSpore推理主要支持O0级别、O1级别（会有一些算子融合优化）。
-
-- **infer_boost**：开启推理加速优化，开启后，运行时会做一些调度优化和流优化，提升推理性能。
 
 除此之外，由于MindSpore的静态图模式实现的限制，部分场景可能会导致动转静失败，此处列出一些常见的原因：
 

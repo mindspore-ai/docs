@@ -692,7 +692,7 @@ class Qwen2Model(nn.Cell):
             self.layers.append(layer)
         self.norm = RmsNorm(config=config)
 
-    @jit(jit_level="O0", infer_boost="on")
+    @jit(jit_level="O0")
     def construct(self, input_ids: Tensor, positions: Tensor, batch_valid_length: Tensor,
                         is_prefill: bool, k_caches: List[Tensor], v_caches: List[Tensor],
                         slot_mapping: Tensor, block_tables: Tensor, attn_mask: Tensor,
@@ -714,8 +714,6 @@ class Qwen2Model(nn.Cell):
 Add the mindspore.jit decorator to the construct method of nn.Cell to execute the computation of the cell in static graph mode. The parameters are described as follows:
 
 - **jit_level**: specifies the compilation level. Currently, MindSpore inference supports O0 and O1 levels (some operator fusion optimization is involved).
-
-- **infer_boost**: enables inference acceleration optimization. After this option is enabled, some scheduling optimization and stream optimization are performed during runtime to improve inference performance.
 
 In addition, due to the limitations of the static graph mode of MindSpore, dynamic-to-static conversion may fail in some scenarios. The following lists some common causes:
 

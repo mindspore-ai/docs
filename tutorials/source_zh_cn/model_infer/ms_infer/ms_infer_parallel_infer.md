@@ -102,21 +102,6 @@ Linear层作为切分主要的网络层，其核心是MatMul矩阵计算，因�
 
     `ColumnParallelLinear`类，根据模型并行的设备数，计算切分后的权重shape并初始化。列切是切分`out_channels`，在模型前向，调用矩阵乘计算出并行的结果。最后可以选择对并行的结果进行`AllGather`，以得到完整的输出。
 
-    MindSpore训推一体框架支持开启infer_boost，该参数会使MS框架开启高性能自研算子库。启动该模式需要：
-
-    1. 设置变量：
-
-        ```python
-        from mindspore import set_context
-        set_context(jit_config={"jit_level": 'O0', "infer_boost": 'on'})
-        ```
-
-    2. 设置系统环境变量：
-
-        ```bash
-        export ASCEND_HOME_PATH={$ascend_custom_path}
-        ```
-
     以模型并行device数是2为例，设置环境变量以及初始化通信组，并配置大模型参数config。
 
     ```python
@@ -125,9 +110,6 @@ Linear层作为切分主要的网络层，其核心是MatMul矩阵计算，因�
     from mindspore.communication import init
     from mindspore.common.initializer import initializer
     import numpy as np
-
-    from mindspore import set_context
-    set_context(jit_config={"jit_level": 'O0', "infer_boost": 'on'})
 
     TP_GROUP_NAME='tp'
     TP_SIZE = 2
@@ -994,7 +976,6 @@ class CacheManager:
    # set mindspore context and envs
    os.environ["MS_INTERNAL_DISABLE_CUSTOM_KERNEL_LIST"] = "PagedAttention"
 
-   ms.set_context(infer_boost="on")
    ms.set_context(mode=ms.context.PYNATIVE_MODE)
 
 +   init_communication()

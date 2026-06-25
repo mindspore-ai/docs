@@ -103,7 +103,6 @@ def run():
     # set mindspore context and envs
     os.environ["MS_INTERNAL_DISABLE_CUSTOM_KERNEL_LIST"] = "PagedAttention"
 
-    ms.set_context(infer_boost="on")
     ms.set_context(mode=ms.context.PYNATIVE_MODE)
 
     model_path = "/path/to/model"

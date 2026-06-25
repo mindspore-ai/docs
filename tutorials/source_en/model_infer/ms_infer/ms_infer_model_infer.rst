@@ -186,7 +186,6 @@ You need to build a model and load the weight by running the following codes fir
    # set mindspore context and envs
    os.environ["MS_INTERNAL_DISABLE_CUSTOM_KERNEL_LIST"] = "PagedAttention"
 
-   ms.set_context(infer_boost="on")
    ms.set_context(mode=ms.context.PYNATIVE_MODE)
 
    model_path = "/path/to/model"
@@ -210,8 +209,6 @@ Qwen2 is the network script (qwen2.py) of the model, which must be in the same d
 The first step in the script is to set MindSpore environment variables, including:
 
 - **MS_INTERNAL_DISABLE_CUSTOM_KERNEL_LIST**: sets the TH flattening operator supported by MindSpore for PagedAttention. MindSpore only supports the TH format in dynamic graph mode. Therefore, if you want to develop in dynamic graph mode, you need to set this environment variable. You can also use the BSH format.
-
-- **infer_boost**: enables inference optimization. This optimization is mainly to enable MindSpore fusion operators such as FlashAttention and PagedAttention.
 
 - **mode**: sets the execution mode to dynamic graph mode. This mode is more convenient for debugging and development. You are advised to use this mode during model development.
 

@@ -102,21 +102,6 @@ Starting with the original implementation of `nn.Dense` in MindSpore, we can bui
 
     The `ColumnParallelLinear` class computes the weight shape after sharding and initializes the weights based on the number of devices for model parallelism. Column-wise parallelism divides `out_channels`. In the model forward propagation process, the MatMul is called to compute the result after parallelism. You can perform `AllGather` on the parallelized result to obtain the complete output.
 
-    The MindSpore training and inference integrated framework supports enabling **infer_boost**. This parameter activates the high-performance self-developed operator library within the MindSpore framework. To enable this mode, you need to:
-
-    1. Set variables.
-
-        ```python
-        from mindspore import set_context
-        set_context(jit_config={"jit_level": 'O0', "infer_boost": 'on'})
-        ```
-
-    2. Set system environment variables.
-
-        ```bash
-        export ASCEND_HOME_PATH={$ascend_custom_path}
-        ```
-
     For example, if there are 2 devices for model parallelism, set environment variables, initialize the communication group, and configure the model parameter **config** as follows:
 
     ```python
@@ -125,9 +110,6 @@ Starting with the original implementation of `nn.Dense` in MindSpore, we can bui
     from mindspore.communication import init
     from mindspore.common.initializer import initializer
     import numpy as np
-
-    from mindspore import set_context
-    set_context(jit_config={"jit_level": 'O0', "infer_boost": 'on'})
 
     TP_GROUP_NAME='tp'
     TP_SIZE = 2
@@ -981,7 +963,6 @@ Since parallel execution requires initializing the communication domain, the ini
    # set mindspore context and envs
    os.environ["MS_INTERNAL_DISABLE_CUSTOM_KERNEL_LIST"] = "PagedAttention"
 
-   ms.set_context(infer_boost="on")
    ms.set_context(mode=ms.context.PYNATIVE_MODE)
 
 +   init_communication()
