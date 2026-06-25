@@ -15,6 +15,8 @@ import re
 import sys
 import textwrap
 import shutil
+import ctypes
+from unittest.mock import MagicMock
 import sphinx.ext.autosummary.generate as g
 from sphinx.ext import autodoc as sphinx_autodoc
 
@@ -31,6 +33,23 @@ author = 'MindSpore Lite'
 # The full version, including alpha/beta/rc tags
 release = 'master'
 
+# -- Allow Sphinx to build documentation normally in non-NPU environments ----
+
+# Mock the torch_npu module to avoid ModuleNotFoundError
+sys.modules['torch_npu'] = MagicMock()
+
+# Intercept the loading of liblite_boost_ops
+_original_cdll = ctypes.CDLL
+def _safe_cdll(name, *args, **kwargs):
+    if name and 'liblite_boost_ops' in str(name):
+        return MagicMock()
+    return _original_cdll(name, *args, **kwargs)
+ctypes.CDLL = _safe_cdll
+
+# Clean up potentially polluted lite_boost modules caches
+for _key in list(sys.modules.keys()):
+    if _key.startswith('lite_boost'):
+        del sys.modules[_key]
 
 # -- General configuration ---------------------------------------------------
 
@@ -289,6 +308,43 @@ for src_rel_path, dst_module_dir in copy_paths:
                         rel_to_dst_base = os.path.relpath(full_dst, dst_base).replace('\\', '/')
                         file_source_map[full_dst] = f"{src_rel_path}/{rel_to_dst_base}".replace('\\', '/')
 
+#替换方法名
+def fix_rst_files(root_dir):
+    pattern = re.compile(
+        r'(\.\.\s+py:\s*method::\s+)([^\n]+?)(\n\s+:\s*property\s*:)',
+        re.IGNORECASE
+    )
+
+    for dirpath, dirnames, filenames in os.walk(root_dir):
+        for filename in filenames:
+            if filename.endswith(('.rst', '.txt')):
+                filepath = os.path.join(dirpath, filename)
+                try:
+                    with open(filepath, 'r', encoding='utf-8') as file:
+                        content = file.read()
+
+                    def replace_func(match):
+                        prop_name = match.group(2).strip()
+                        return f".. py:property:: {prop_name}"
+
+                    new_content, count = pattern.subn(replace_func, content)
+
+                    if count > 0:
+                        with open(filepath, 'w', encoding='utf-8') as file:
+                            file.write(new_content)
+                        print(f"已更新: {filepath} (共 {count} 处)")
+
+                except Exception as e:
+                    print(f"处理文件出错 {filepath}: {e}")
+
+target_dirs = ["./mindspore_lite/"]
+
+for target_dir in target_dirs:
+    if os.path.exists(target_dir):
+        fix_rst_files(target_dir)
+    else:
+        print(f"错误：找不到目录 {target_dir}")                        
+
 # add view
 import json
 
@@ -379,8 +435,6 @@ def setup(app):
     app.add_directive('includecode', IncludeCodeDirective)
 
 import mindspore_lite
-
-autodoc_mock_imports = ['lite_boost', 'lite_boost.ops', 'lite_boost.parallel']
 
 sys.path.append(os.path.abspath('../../../../resource/sphinx_ext'))
 
