@@ -338,8 +338,8 @@ checkpoint:
 
 ```text
 checkpoints/
-├── iteration_00000100/
-├── iteration_00000200/
+├── iteration_00001000/
+├── iteration_00002000/
 └── latest_checkpointed_iteration.txt
 ```
 
@@ -352,7 +352,7 @@ checkpoints/
 最近一次成功保存的 checkpoint 为：
 
 ```text
-iteration_00000200
+iteration_00002000
 ```
 
 ---
