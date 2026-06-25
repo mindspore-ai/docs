@@ -80,6 +80,7 @@ class DummyApplication:
         self.config.add('copy_repo', '', True, None)
         self.config.add('giturl', '', True, None)
         self.config.add('repo_whl', '', True, None)
+        self.config.add('repo_whl_lite_boost', '', True, None)
         self.config.init_values()
 
     def emit_firstresult(self, *args: Any) -> None:
@@ -537,10 +538,17 @@ def generate_autosummary_docs(sources: list[str],
             logger.warning(name)
             py_source_rel = ''
 
+        relative_path = py_source_rel.split(app.config.cst_module_name)[-1]
+        if 'lite_boost' in modname:
+            corrected_relative_path = relative_path.replace('lite_boost/', '', 1)
+            _repo_path = app.config.repo_whl_lite_boost + '/' + corrected_relative_path
+        else:
+            _repo_whl = app.config.repo_whl
+            _repo_path = _repo_whl + relative_path
+
         re_view = f"\n.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/{app.config.docs_branch}/" + \
           f"resource/_static/logo_source_en.svg\n    :target: " + app.config.giturl + \
-          f"{app.config.copy_repo}/blob/{app.config.branch}/" + app.config.repo_whl + \
-          py_source_rel.split(app.config.cst_module_name)[-1] + '\n    :alt: View Source On AtomGit\n\n'
+          f"{app.config.copy_repo}/blob/{app.config.branch}/" + _repo_path + '\n    :alt: View Source On AtomGit\n\n'
 
         if re_view not in content and py_source_rel:
             content = re.sub('([=]{5,})\n', r'\1\n' + re_view, content, 1)

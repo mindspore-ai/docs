@@ -2240,6 +2240,7 @@ class ExhaleRoot(object):
    :caption: Python API
 
    mindspore_lite
+   lite_boost
 """)
                 p.write("\n\n"+"""
 .. toctree::
