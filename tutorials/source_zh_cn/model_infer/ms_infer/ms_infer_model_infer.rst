@@ -186,7 +186,6 @@ MindSpore大语言模型带框架推理主要依赖MindSpore开源软件，用�
    # set mindspore context and envs
    os.environ["MS_INTERNAL_DISABLE_CUSTOM_KERNEL_LIST"] = "PagedAttention"
 
-   ms.set_context(infer_boost="on")
    ms.set_context(mode=ms.context.PYNATIVE_MODE)
 
    model_path = "/path/to/model"
@@ -210,8 +209,6 @@ MindSpore大语言模型带框架推理主要依赖MindSpore开源软件，用�
 脚本中第一步是设置mindspore相关环境变量，包括：
 
 - **MS_INTERNAL_DISABLE_CUSTOM_KERNEL_LIST**：设置PagedAttention使用MindSpore支持TH拉平的算子，由于MindSpore在动态图模式下算子只支持TH格式，因此如果要在动态图下开发，需要设置此环境变量，用户也可以自行使用BSH格式输入。
-
-- **infer_boost**：开启推理优化，此优化主要是使能MindSpore的FlashAttention、PagedAttention等融合算子。
 
 - **mode**：设置执行模式为动态图模式，此模式更方便调试和开发，推荐用户在模型开发时使用此模式。
 
