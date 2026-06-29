@@ -305,7 +305,7 @@ def main(version, user, pd, WGETDIR, release_url, generate_list, api_detect):
         generate_version_json(data[i]['name'], data[i]["branch"], data_b, flag_dev, target_version)
 
         # 卸载原来已有的安装包, 以防冲突
-        if data[i]['uninstall_name']:
+        if data[i]['uninstall_name'] and isinstance(data[i]['uninstall_name'], str):
             cmd_uninstall = [sys.executable, "pip", "uninstall", "-y", f"{data[i]['uninstall_name']}"]
             subprocess.run(cmd_uninstall, shell=True, stdin=subprocess.DEVNULL)
         elif isinstance(data[i]['uninstall_name'], list): 
