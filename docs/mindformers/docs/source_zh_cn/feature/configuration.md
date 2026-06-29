@@ -1,5 +1,7 @@
 # 配置文件说明
 
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/feature/configuration.md)
+
 动态图（PyNative）训练使用一个 YAML 文件集中管理所有可配置项，由 [mindformers/pynative/config/config.py](https://atomgit.com/mindspore/mindformers/blob/master/mindformers/pynative/config/config.py) 的 **dataclass 配置体系**（`TrainConfig` 及其子配置类）在对 YAML 文件加载时进行解析与校验：
 
 - YAML 顶层每一段对应 `TrainConfig` 的一个字段，映射到一个子配置类；

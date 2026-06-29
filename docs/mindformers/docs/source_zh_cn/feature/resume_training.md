@@ -1,5 +1,7 @@
 # 断点续训
 
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/feature/resume_training.md)
+
 MindSpore Transformers 动态图（PyNative）支持 **step 级断点续训**：训练中断后，框架从已保存的权重目录恢复模型与优化器状态，将训练进度回拨到中断时的训练步，并将数据集游标跳转到对应位置，从而避免从头重训造成的算力浪费。
 
 续训不需要额外的训练入口，它与首次训练复用同一套 `checkpoint` 配置。差别仅在于**加载侧**的几个开关：将 `load_path` 指向上一次的保存根目录、用 `no_load_optim` 决定是否恢复优化器与训练进度。本页按「机制 → 配置项 → 场景化 YAML」的顺序展开。

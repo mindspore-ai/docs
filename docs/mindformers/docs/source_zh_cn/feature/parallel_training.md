@@ -1,5 +1,7 @@
 # 分布式并行训练
 
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/feature/parallel_training.md)
+
 当模型规模超出单卡容量时，动态图（PyNative）训练采用 **多维混合并行**，把模型与数据按不同维度切分到多张卡上协同训练。可按需组合多种切分方法：按数据切分（数据并行 / FSDP）、按算子内权重切分（张量并行 TP）、按序列切分（上下文并行 CP）、按模型层切分（流水线并行 PP）、按 MoE 专家切分（专家并行 EP）。所有并行配置都写在配置文件的 `parallelism` 字段。
 
 这些并行能力由 [HyperParallel](https://atomgit.com/mindspore/hyper-parallel/) 提供，是动态图训练的必需依赖（要求 MindSpore >= 2.10）。安装方式见 [安装指南 · 安装 HyperParallel](../installation.md#安装-hyperparallel动态图训练必需)。
