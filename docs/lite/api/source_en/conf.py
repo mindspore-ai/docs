@@ -53,6 +53,10 @@ for _key in list(sys.modules.keys()):
     if _key.startswith('lite_boost'):
         del sys.modules[_key]
 
+if os.path.exists('./lite_boost'):
+    shutil.rmtree('./lite_boost')
+    print("Removed old lite_boost directory")
+
 # -- General configuration ---------------------------------------------------
 
 # Add any Sphinx extension module names here, as strings. They can be
@@ -486,6 +490,7 @@ branch = [version_inf[i]['branch'] for i in range(len(version_inf)) if version_i
 docs_branch = [version_inf[i]['branch'] for i in range(len(version_inf)) if version_inf[i]['name'] == 'tutorials'][0]
 cst_module_name = 'mindspore_lite'
 repo_whl = 'mindspore-lite/python/api'
+repo_whl_lite_boost = 'mindspore-lite/lite_boost/python'
 giturl = 'https://atomgit.com/mindspore/'
 
 import mindspore_lite
@@ -505,6 +510,7 @@ def setup(app):
     app.add_config_value('copy_repo', '', True)
     app.add_config_value('giturl', '', True)
     app.add_config_value('repo_whl', '', True)
+    app.add_config_value('repo_whl_lite_boost', '', True)
 
 des_sir = "../include"
 if os.path.exists(des_sir):
