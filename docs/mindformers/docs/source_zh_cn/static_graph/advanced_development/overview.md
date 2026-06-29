@@ -47,4 +47,4 @@ MindSpore Transformers 各模块的 API 文档入口。
 
 | 文档                                                                                          | 说明                                |
 |---------------------------------------------------------------------------------------------|-----------------------------------|
-| [API](https://www.mindspore.cn/mindformers/docs/zh-CN/master/api.html) | mindformers 及各子模块的 API 索引与详细接口说明。 |
+| [API](https://www.mindspore.cn/mindformers/docs/zh-CN/master/static_graph/advanced_development/api.html) | mindformers 及各子模块的 API 索引与详细接口说明。 |
