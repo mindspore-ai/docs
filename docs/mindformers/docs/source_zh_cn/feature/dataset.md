@@ -1,5 +1,7 @@
 # 数据集
 
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/feature/dataset.md)
+
 MindSpore Transformers 动态图（PyNative）模式目前支持多种类型的数据集加载方式，涵盖常用开源与自定义场景。具体包括：
 
 - **Megatron 数据集**：支持加载符合 Megatron-LM 格式的数据集，适用于大规模语言模型的预训练任务。

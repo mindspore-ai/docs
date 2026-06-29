@@ -1,5 +1,7 @@
 # 启动任务
 
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/feature/start_task.md)
+
 MindSpore Transformers 动态图（PyNative）训练提供了一键启动脚本 `run_mindformer.py` 和分布式任务拉起脚本 `msrun_launcher.sh`。
 
 - `run_mindformer.py`脚本用于在**单卡**上拉起任务，其提供了预训练任务的一键启动能力；

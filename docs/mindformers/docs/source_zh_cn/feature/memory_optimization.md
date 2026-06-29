@@ -1,5 +1,7 @@
 # 训练内存优化
 
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/feature/memory_optimization.md)
+
 大模型训练中，**激活值（activation）** 通常是显存占用的主要来源。MindSpore Transformers 动态图（PyNative）提供多种显存优化功能，可在配置文件中独立或组合启用，核心思路是以 **算力** 或 **数据搬运带宽** 换取显存。
 
 所有功能由 `mindformers/pynative/distributed/activation_checkpoint.py` 的 `apply_ac` 统一使能。配置分别映射到 `RecomputeConfig` / `RecomputeCommConfig` / `SwapConfig`，详见 `mindformers/pynative/config/config.py`。

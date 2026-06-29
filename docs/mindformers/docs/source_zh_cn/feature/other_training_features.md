@@ -1,5 +1,7 @@
 # 其它训练特性
 
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/feature/other_training_features.md)
+
 除了优化器、学习率等训练超参数和并行策略，动态图（PyNative）训练还有几项常用特性：**梯度累积、梯度裁剪、融合算子与混合精度**。本页依次介绍每项特性的用途与配置方式，并给出可直接套用的 YAML 片段。
 
 其余两类配置可参考对应文档：训练超参数（优化器、学习率与 fp32 主权重）见 [训练超参数与优化器](./training_hyperparameters.md)，并行策略见 [分布式并行训练](./parallel_training.md)；其中梯度累积与并行度、批大小直接相关，建议与并行文档配合阅读。完整字段含义见 [配置文件说明](./configuration.md)。
