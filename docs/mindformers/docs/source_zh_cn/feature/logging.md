@@ -1,6 +1,6 @@
 # 日志
 
-MindSpore Transformers 动态图（PyNative）训练通过 `scripts/msrun_launcher.sh` 拉起，运行时产生的所有日志均通过 `msrun` 的 worker 进程日志统一收集。理解日志的目录结构与关键字段，是定位「训练为什么失败了 / loss 为什么不对 / 哪张卡出了问题」的前提。
+MindSpore Transformers 动态图（PyNative）训练通过 `scripts/msrun_launcher.sh` 拉起，运行时产生的所有日志均通过 `msrun` 的 worker 进程日志统一收集。理解日志的目录结构与关键字段，是定位训练失败原因、loss 异常、单卡问题的基础。
 
 本页介绍日志的用途与目录结构、`msrun` 的可配置项、训练日志中关键字段的含义，以及排查问题时的查看顺序。任务启动方式见 [启动任务](./start_task.md)。
 
@@ -12,11 +12,9 @@ PyNative 训练运行时，所有日志统一由 `msrun` worker 进程日志承�
 
 > **排查入口**
 >
-> - **进程没起来 / 中途崩溃 / 报底层错**：看对应 rank 的 `worker_{i}.log`（含完整 traceback 与 HCCL/驱动报错）。
-> - **训练能跑，但要看 loss/lr/收敛/单步耗时**：同样看 `worker_{i}.log`，框架按 step 打印的指标都在里面。
+> - **进程启动失败、中途崩溃或底层报错**：看对应 rank 的 `worker_{i}.log`（含完整 traceback 与 HCCL/驱动报错）。
+> - **训练可正常运行，但要看 loss/lr/收敛/单步耗时**：同样看 `worker_{i}.log`，框架按 step 打印的指标都在里面。
 > - **怀疑某张卡异常**：对照该 rank 的 `worker_{i}.log` 与 `scheduler.log`。
-
----
 
 ## 目录结构示意
 
@@ -35,8 +33,6 @@ output/
 >
 > - `worker_{i}.log` / `scheduler.log`：由 `msrun` 在 `--log_dir` 下生成并按 worker/scheduler 命名（属 msrun 行为，非 mindformers 定义；参见 [启动任务](./start_task.md)）。
 > - 日志目录由 `msrun_launcher.sh` 的 `LOG_DIR` 参数控制，默认 `output/msrun_log`。
-
----
 
 ## msrun 日志
 
@@ -74,49 +70,43 @@ bash scripts/msrun_launcher.sh \
 
 `msrun_launcher.sh` 各参数（`WORKER_NUM`、`LOCAL_WORKER`、`MASTER_ADDR`、`MASTER_PORT`、`NODE_RANK`、`LOG_DIR`、`JOIN`、`CLUSTER_TIME_OUT`）的完整说明见 [启动任务](./start_task.md)。
 
----
-
 ## 日志中的关键字段
 
-PyNative 训练循环每隔若干步，由 `LossCallback` 回调（`mindformers/pynative/callback/loss_callback.py` 的 `_print_log`）打印一行训练指标到标准输出，进而被 `msrun` 收集到 `worker_{i}.log` 中。一条典型记录形如：
+PyNative 训练循环每隔若干步，由 `LossCallback` 回调（`mindformers/pynative/callback/loss_callback.py` 的 `_print_log`）打印一行训练指标到标准输出，而后被 `msrun` 收集到 `worker_{i}.log` 中。一条典型记录形如：
 
 ```text
 [INFO] 2026-06-09 10:20:30 [.../loss_callback.py:231] _print_log: { step:[  100/ 1000], loss:   2.345678, per_step_time:    850ms, lr: 1.000000e-04, grad_norm:   1.234000, throughput:  12.34T }
 ```
 
+> 如果训练任务开启了 PP（流水线并行），loss 将只在最后一个 stage 上显示。如 8 卡任务开启 PP 2 进行训练，则 rank_0~3 为 stage0，对应的日志 `worker_0~3.log` 中无 loss 信息，需要在 stage1（rank_4~7）的日志中查看 loss 信息（`worker_4~7.log`）。
+
 逐字段含义如下：
 
-| 字段 | 示例 | 含义 |
-|---|---|---|
-| `step:[ 100/ 1000]` | 当前 step / 总 step | 训练所处的步数进度（全局步 / `training.steps`）。 |
-| `loss: 2.345678` | 当前步 loss | 本步训练 loss（单值），用于判断收敛趋势。 |
-| `per_step_time: 850ms` | 单步耗时 | 本步训练耗时，关注性能与抖动。 |
-| `lr: 1.000000e-04` | 当前学习率 | 反映 warmup 与衰减调度；若学习率调度器不支持实时获取当前学习率，则该字段不打印。 |
-| `grad_norm: 1.234000` | 梯度全局范数 | 全部参数梯度的全局 L2 范数。结合梯度裁剪阈值判断训练稳定性；若该步未取到则打印 `grad_norm: NaN`。 |
-| `throughput: 12.34T` | 吞吐 | 本步训练吞吐（单位 `T`）。 |
+| 字段                     | 示例               | 含义                                                          |
+|------------------------|------------------|-------------------------------------------------------------|
+| `step:[ 100/ 1000]`    | 当前 step / 总 step | 训练所处的步数进度（全局步 / `training.steps`）。                          |
+| `loss: 2.345678`       | 当前步 loss         | 本步训练 loss（单值），用于判断收敛趋势。                                     |
+| `per_step_time: 850ms` | 单步耗时             | 本步训练耗时，关注性能与抖动。                                             |
+| `lr: 1.000000e-04`     | 当前学习率            | 反映 warmup 与衰减调度；若学习率调度器不支持实时获取当前学习率，则该字段不打印。                |
+| `grad_norm: 1.234000`  | 梯度全局范数           | 全部参数梯度的全局 L2 范数。结合梯度裁剪阈值判断训练稳定性；若该步未取到则打印 `grad_norm: NaN`。 |
+| `throughput: 12.34T`   | 吞吐               | 本步训练吞吐（单位 `T`）。                                             |
 
 > **补充说明**
 >
 > 逐 step 行由动态图的 `LossCallback._print_log` 拼接，字段名是 **`grad_norm`**（不是 `global_norm`），且 **没有** `Epoch`、`loss_scale`、`overflow cond` 等字段，`loss` 为单值（非「本步/滑动均值」两段式）。MoE / MTP 模型在开启分项 loss 时，行内会额外追加 `load_balancing_loss`、`mtp_{i}_loss`（如 `mtp_1_loss`）等字段。
 >
-> 如果训练任务开启了 PP（流水线并行），loss 将只在最后一个 stage 上显示。如 8 卡任务开启 PP 2 进行训练，则 rank_0~3 为 stage0，对应的日志 `worker_0~3.log` 中无 loss 信息，需要在 stage1（rank_4~7）的日志中查看 loss 信息（`worker_4~7.log`）。
->
 > - 需要逐参数 / 逐 micro-step 的 `local_norm`、`local_loss`，或 MoE 的 tokens-per-expert 等更细指标时，通过 `monitor` 配置开启（动态图下这些指标输出到训练日志，暂不写入 TensorBoard）。详见 [训练指标监控与 Profiling](./monitor.md)。
 > - 确认是否运行在动态图：启动阶段会打印 banner `Running MindFormers in PYNATIVE_MODE.`（来源 `run_mindformer.py`，对应 `--mode 1`）以确认进入动态图；未出现该 banner 则说明未以 `--mode 1` 启动。
 
----
-
 ## 排查建议
 
-按以下顺序定位问题，通常最省时：
+可按以下顺序排查日志，高效定位问题：
 
-- **先看 `scheduler.log`**：`msrun_log/scheduler.log` 记录了集群组网全过程（worker 注册、拓扑构建、集群初始化、worker 注销），以及各 worker 的超时或异常退出信息（如 `Node X is timed out, please check this node's log`），是排查组网失败和进程异常退出的入口。
-- **进程崩溃 / 底层报错 → 看对应 rank 的 `worker_{i}.log`**：含完整 Python traceback、HCCL/驱动等底层报错与退出信息。
-- **怀疑单卡异常 → 看对应 rank 的 `worker_{i}.log`**：对比该 rank 的日志与其他正常 rank 的日志，定位差异。
-- **通信 / 组网问题 → 看 `scheduler.log` 与各 `worker_{i}.log`**：组网建立、进程拉起与回收的信息在 `scheduler.log`；HCCL 报错通常分散在各 worker 日志中，需跨 rank 对照。
-- **多机问题 → 登录对应节点查看本机 `LOG_DIR`**：各节点日志不汇聚，须到出问题的节点上查看其 `msrun_log`。
-
----
+1. **先看 `scheduler.log`**：`msrun_log/scheduler.log` 记录了集群组网全过程（worker 注册、拓扑构建、集群初始化、worker 注销），以及各 worker 的超时或异常退出信息（如 `Node X is timed out, please check this node's log`），是排查组网失败和进程异常退出的入口。
+2. **进程崩溃 / 底层报错 → 看对应 rank 的 `worker_{i}.log`**：含完整 Python traceback、HCCL/驱动等底层报错与退出信息。
+3. **怀疑单卡异常 → 看对应 rank 的 `worker_{i}.log`**：对比该 rank 的日志与其他正常 rank 的日志，定位差异。
+4. **通信 / 组网问题 → 看 `scheduler.log` 与各 `worker_{i}.log`**：组网建立、进程拉起与回收的信息在 `scheduler.log`；HCCL 报错通常分散在各 worker 日志中，需跨 rank 对照。
+5. **多机问题 → 登录对应节点查看本机 `LOG_DIR`**：各节点日志不汇聚，须到异常节点上查看其 `msrun_log` 对应 rank 的 `worker_{i}.log`。
 
 ## 相关文档
 

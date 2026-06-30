@@ -4,7 +4,7 @@
 
 当模型规模超出单卡容量时，动态图（PyNative）训练采用 **多维混合并行**，把模型与数据按不同维度切分到多张卡上协同训练。可按需组合多种切分方法：按数据切分（数据并行 / FSDP）、按算子内权重切分（张量并行 TP）、按序列切分（上下文并行 CP）、按模型层切分（流水线并行 PP）、按 MoE 专家切分（专家并行 EP）。所有并行配置都写在配置文件的 `parallelism` 字段。
 
-这些并行能力由 [HyperParallel](https://atomgit.com/mindspore/hyper-parallel/) 提供，是动态图训练的必需依赖（要求 MindSpore >= 2.10）。安装方式见 [安装指南 · 安装 HyperParallel](../installation.md#安装-hyperparallel动态图训练必需)。
+这些并行能力由 [HyperParallel](https://atomgit.com/mindspore/hyper-parallel/) 提供，是动态图训练的必需依赖（要求 MindSpore >= 2.10）。安装方式见[安装指南 · 安装 HyperParallel](../installation.md#安装-hyperparallel动态图训练必需)。
 
 本页的使用顺序如下：
 
@@ -16,15 +16,15 @@
 
 下表列出动态图支持的并行维度，可先根据模型规模与显存情况选择需要开启的维度：
 
-| 维度 | 配置字段 | 切分对象 | 典型场景 |
-|---|---|---|---|
-| 数据并行 / FSDP | `data_parallel_shard` | 样本维 + 参数/梯度/优化器状态分片 | **几乎所有训练的基础**；显存紧张时增大分片度 |
-| HSDP（副本+分片） | `data_parallel_shard`（小于数据并行维度） | 节点内分片、跨节点复制 | 多节点训练，需用节点内带宽做分片、节点间做复制 |
-| 张量并行 TP | `tensor_parallel` | 算子内权重（注意力/FFN 线性层） | 单层权重无法在单卡容纳的大模型 |
-| 上下文并行 CP | `context_parallel` | 序列维（含注意力计算） | **长序列**（长上下文/长文档），激活显存超出单卡容量时 |
-| 流水线并行 PP | `pipeline_parallel` | 模型按层切到多个 stage | 层数较多、单卡无法容纳整个模型；常与 TP/DP 组合 |
-| 专家并行 EP | `expert_parallel` | MoE 专家分布到不同卡 | MoE 模型（DeepSeek-V3 等） |
-| 序列并行 SP | （随 TP 自动开启） | TP 未切分部分（LayerNorm/Dropout/残差）的序列维 | 开启 TP 即自动生效，无需也无法单独配置 |
+| 维度          | 配置字段                            | 切分对象                               | 典型场景                          |
+|-------------|---------------------------------|------------------------------------|-------------------------------|
+| 数据并行 / FSDP | `data_parallel_shard`           | 样本维 + 参数/梯度/优化器状态分片                | **几乎所有训练的基础**；显存紧张时增大分片度      |
+| HSDP（副本+分片） | `data_parallel_shard`（小于数据并行维度） | 节点内分片、跨节点复制                        | 多节点训练，需用节点内带宽做分片、节点间做复制       |
+| 张量并行 TP     | `tensor_parallel`               | 算子内权重（注意力/FFN 线性层）                 | 单层权重无法在单卡容纳的大模型               |
+| 上下文并行 CP    | `context_parallel`              | 序列维（含注意力计算）                        | **长序列**（长上下文/长文档），激活显存超出单卡容量时 |
+| 流水线并行 PP    | `pipeline_parallel`             | 模型按层切到多个 stage                     | 层数较多、单卡无法容纳整个模型；常与 TP/DP 组合   |
+| 专家并行 EP     | `expert_parallel`               | MoE 专家分布到不同卡                       | MoE 模型（DeepSeek-V3 等）         |
+| 序列并行 SP     | （随 TP 自动开启）                     | TP 未切分部分（LayerNorm/Dropout/残差）的序列维 | 开启 TP 即自动生效，无需也无法单独配置         |
 
 ## 并行配置方法
 
@@ -34,26 +34,26 @@
 
 按「并行能力」表选出要开启的维度，设置对应的并行度；未开启的维度保持默认 `1`。
 
-| 配置项 | 说明 |
-|---|---|
+| 配置项                   | 说明                                                                       |
+|-----------------------|--------------------------------------------------------------------------|
 | `data_parallel_shard` | 数据并行分片度。默认 `-1`，表示用剩余卡全部做分片（纯 FSDP）；设为小于数据并行维度的正数则形成 HSDP（节点内分片 + 跨节点复制） |
-| `tensor_parallel` | 张量并行度 |
-| `context_parallel` | 上下文并行度 |
-| `pipeline_parallel` | 流水线并行度 |
-| `expert_parallel` | 专家并行度（仅 MoE 模型需要） |
+| `tensor_parallel`     | 张量并行度                                                                    |
+| `context_parallel`    | 上下文并行度                                                                   |
+| `pipeline_parallel`   | 流水线并行度                                                                   |
+| `expert_parallel`     | 专家并行度（仅 MoE 模型需要）                                                        |
 
 **② 批大小（写在 `training` 字段）**
 
-| 配置项 | 说明 |
-|---|---|
-| `global_batch_size` | 一个训练步（一次优化器更新）累计消费的样本总数 |
-| `local_batch_size` | 每张卡一次前向处理的样本数 |
+| 配置项                 | 说明                       |
+|---------------------|--------------------------|
+| `global_batch_size` | 一个训练步（一次优化器更新）累计消费的样本总数  |
+| `local_batch_size`  | 每张卡一次前向处理的样本数            |
 
 配好后，框架会自动推导数据并行维度、梯度累积步数等数值，并校验总卡数与批大小是否匹配——这些推导与约束规则统一见文末「[并行配置约束](#并行配置约束)」。
 
 ## 全局配置示例与字段汇总
 
-下面是一份覆盖主要 `parallelism` 字段的“总览型”配置，便于对照字段含义；实际使用时，按下文各维度的场景示例裁剪即可。
+以下是一份覆盖主要 `parallelism` 字段的配置总览，便于对照字段含义；实际使用时，按下文各维度的场景示例裁剪即可。
 
 ```yaml
 parallelism:
@@ -89,8 +89,6 @@ parallelism:
   # SP 随 TP 自动开启，当前不支持单独关闭，无需在此配置（见第六节）
 ```
 
----
-
 ## 一、数据并行与 FSDP / HSDP
 
 ### 1.1 概述
@@ -110,12 +108,12 @@ parallelism:
 
 ### 1.3 字段表
 
-| 字段 | 类型 | 默认值 | 说明 |
-|------|------|--------|------|
-| `data_parallel_shard` | int | `-1` | 分片度（dp_shard）。`-1` 表示用剩余卡数全部做分片（纯 FSDP，副本度为 1）；填正整数则框架据此推导副本度，可形成 HSDP。 |
-| `reshard_after_forward_policy` | str | `"default"` | 前向后是否重新分片参数：`always` / `never` / `default`。`never` 用显存换通信（前向后保留聚合权重，反向少一次 all-gather）；`always` 反之。`default` 等价于「非 PP 时 `always`、PP 时 `never`」。 |
-| `cpu_offload` | bool | `False` | 将分片后的参数/梯度卸载到 CPU 内存，进一步节省显存，代价是 H2D/D2H 拷贝。 |
-| `disable_gradient_division` | bool | `True` | 关闭 FSDP 自动梯度均分：以 **sum** 而非 mean 聚合梯度（对所有 HSDP 子模块设 reduce op = "sum"）。 |
+| 参数名称                           | 数据类型  | 是否可选 | 默认值         | 取值说明                                                                                                                                           |
+|--------------------------------|-------|------|-------------|------------------------------------------------------------------------------------------------------------------------------------------------|
+| `data_parallel_shard`          | int   | 可选   | `-1`        | 分片度（dp_shard）。`-1` 表示用剩余卡数全部做分片（纯 FSDP，副本度为 1）；填正整数则框架据此推导副本度，可形成 HSDP。                                                                        |
+| `reshard_after_forward_policy` | str   | 可选   | `"default"` | 前向后是否重新分片参数：`always` / `never` / `default`。`never` 用显存换通信（前向后保留聚合权重，反向少一次 all-gather）；`always` 反之。`default` 等价于「非 PP 时 `always`、PP 时 `never`」。 |
+| `cpu_offload`                  | bool  | 可选   | `False`     | 将分片后的参数/梯度卸载到 CPU 内存，进一步节省显存，代价是 H2D/D2H 拷贝。                                                                                                   |
+| `disable_gradient_division`    | bool  | 可选   | `True`      | 关闭 FSDP 自动梯度均分：以 **sum** 而非 mean 聚合梯度（对所有 HSDP 子模块设 reduce op = "sum"）。                                                                        |
 
 **常见问题**：
 
@@ -155,8 +153,6 @@ parallelism:
   pipeline_parallel: 1
 ```
 
----
-
 ## 二、张量并行（TP）
 
 ### 2.1 概述
@@ -171,9 +167,9 @@ parallelism:
 
 ### 2.3 字段表
 
-| 字段 | 类型 | 默认值 | 说明 |
-|------|------|--------|------|
-| `tensor_parallel` | int | `1` | 张量并行规模，`1` 表示关闭。 |
+| 参数名称               | 数据类型 | 是否可选 | 默认值  | 取值说明              |
+|--------------------|------|------|------|-------------------|
+| `tensor_parallel`  | int  | 可选   | `1`  | 张量并行规模，`1` 表示关闭。  |
 
 ### 2.4 场景配置：单机 8 卡 DP + TP 微调
 
@@ -190,19 +186,17 @@ parallelism:
   disable_gradient_division: True
 ```
 
----
-
 ## 三、上下文并行（CP）
 
 ### 3.1 概述
 
 `context_parallel` 在 **序列维** 对输入进行切分，使每张卡只处理一段序列，显著降低长序列下的激活显存与注意力计算量；FlashAttention 在 CP 组内交换 KV 完成全序列注意力。动态图支持三种实现方法 `context_parallel_method`：
 
-| 方法 | 原理 | 约束（`_validate_cp_method`） |
-|---|---|---|
-| `colossal` | 默认；按序列分块、组内交换 KV | 无额外约束；`ulysses_degree_in_cp` 内部按 1 处理 |
-| `ulysses` | 在注意力 head 维做 all-to-all 切分 | 要求 `ulysses_degree_in_cp == context_parallel`（不设则默认取 `context_parallel`）；`context_parallel_async=True` 时还要求 `num_attention_heads % ulysses_degree == 0` |
-| `hybrid` | colossal + ulysses 混合 | 必须设 `ulysses_degree_in_cp`，且满足 `1 < ulysses_degree_in_cp < context_parallel` 且 `context_parallel % ulysses_degree_in_cp == 0` |
+| 方法         | 原理                         | 约束（`_validate_cp_method`）                                                                                                                               |
+|------------|----------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `colossal` | 默认；按序列分块、组内交换 KV           | 无额外约束；`ulysses_degree_in_cp` 内部按 1 处理                                                                                                                   |
+| `ulysses`  | 在注意力 head 维做 all-to-all 切分 | 要求 `ulysses_degree_in_cp == context_parallel`（不设则默认取 `context_parallel`）；`context_parallel_async=True` 时还要求 `num_attention_heads % ulysses_degree == 0` |
+| `hybrid`   | colossal + ulysses 混合      | 必须设 `ulysses_degree_in_cp`，且满足 `1 < ulysses_degree_in_cp < context_parallel` 且 `context_parallel % ulysses_degree_in_cp == 0`                           |
 
 ### 3.2 适用场景与选型
 
@@ -211,7 +205,7 @@ parallelism:
 - `ulysses`：在 head 维切分，更适合 head 数较多的模型；启用 async 时要保证 head 数能被 ulysses 度整除。
 - `hybrid`：把 CP 拆成「序列分块 × head 切分」两层，适合既需切分长序列、又需 head 维并行的超长序列场景。
 
-**CP 与 FSDP 的耦合**：启用 CP 时，**FSDP 也会作用于 CP 组**：分片网格名为 `fsdp`，规模为 `dp_shard * cp`，即便 `dp_shard == 1`（见 [parallel_dims.py](https://atomgit.com/mindspore/mindformers/blob/master/mindformers/pynative/distributed/parallel_dims.py) 的 `fsdp_enabled` / `fsdp` 属性）。也就是说开 CP 会自动让参数在 CP 组内分片，无需单独配置。
+**CP 与 FSDP 的耦合**：启用 CP 时，**FSDP 也会作用于 CP 组**：分片网格名为 `fsdp`，规模为 `dp_shard * cp`，即便 `dp_shard == 1`（见 [parallel_dims.py](https://atomgit.com/mindspore/mindformers/blob/master/mindformers/pynative/distributed/parallel_dims.py) 的 `fsdp_enabled` / `fsdp` 属性）。即启用 CP 会自动让参数在 CP 组内分片，无需单独配置。
 
 此外，CP 在前向开始前会把一个 batch 的输入（`input_ids`、`position_ids`、掩码等）沿序列维切分并分发到 CP 组各卡，使每张卡只拿到自己负责的那段序列——这一步称为 **CP 输入准备**。它目前**仅支持** `context_parallel_mask_type: causal`，传入其它值会直接抛 `NotImplementedError`，也不接受用户自定义的 `attention_mask`：CP 依赖模型侧的**压缩注意力掩码**，必须按下文 3.3 开启掩码压缩。
 
@@ -227,7 +221,7 @@ create_compressed_eod_mask for eod data.
 
 **必须压缩的原因（显存开销）**：未压缩时，注意力掩码是一张 `seq_length × seq_length` 的稠密布尔矩阵。CP 主要服务于**长序列**场景，`seq_length` 很大时这张稠密 mask 本身就会占用大量显存（与 CP「节省激活显存」的目标相悖），且各 CP rank 还需各自持有并切分它。压缩掩码只保留生成因果/EOD 掩码所需的紧凑信息（如各子序列长度），由模型在注意力算子内即时重建，**避免物化稠密矩阵**。因此 CP 强制要求压缩，并建议关闭数据集侧的稠密掩码构建。
 
-按**数据集类型**分两种配法。这里的「EOD 数据集」指：为提高吞吐，预训练常把多篇较短的文档**拼接（packing）**进同一条定长序列，文档之间用一个 **EOD（End-Of-Document，文档结束）特殊 token** 分隔；同时配 `reset_position_ids` / `reset_attention_mask`，使注意力**不跨越文档边界**（每篇文档内部各自做因果注意力）。这类数据集的掩码不再是单一的整段下三角，而是「分段块对角」结构，需用 `create_compressed_eod_mask` 记录各子序列长度（`actual_seq_len`）来紧凑表达。非拼接、一条序列即一篇文档的常规数据则属「非 EOD 数据集」，采用通用因果掩码压缩即可。
+按**数据集类型**分两种配法。「EOD 数据集」指：为提高吞吐，预训练常把多篇较短的文档**拼接（packing）**进同一条定长序列，文档之间用一个 **EOD（End-Of-Document，文档结束）特殊 token** 分隔；同时配 `reset_position_ids` / `reset_attention_mask`，使注意力**不跨越文档边界**（每篇文档内部各自做因果注意力）。这类数据集的掩码不再是单一的整段下三角，而是「分段块对角」结构，需用 `create_compressed_eod_mask` 记录各子序列长度（`actual_seq_len`）来紧凑表达。非拼接、一条序列即一篇文档的常规数据则属「非 EOD 数据集」，采用通用因果掩码压缩即可。
 
 - **非 EOD 数据集**：在 YAML 的 **`model`** 字段开启 `use_attn_mask_compression`（通用因果掩码压缩）：
 
@@ -252,13 +246,13 @@ create_compressed_eod_mask for eod data.
 
 ### 3.4 字段表
 
-| 字段 | 类型 | 默认值 | 说明 |
-|------|------|--------|------|
-| `context_parallel` | int | `1` | 上下文并行规模。 |
-| `context_parallel_method` | str | `"colossal"` | CP 实现方法：`colossal` / `ulysses` / `hybrid`。 |
-| `context_parallel_async` | bool | `False` | 启用异步 CP 通信钩子（Hyper-Parallel）；与 `ulysses` 同用时要求 head 数可被 ulysses 度整除。 |
-| `ulysses_degree_in_cp` | int | `None` | Ulysses 维度。`ulysses` 时须等于 `context_parallel`；`hybrid` 时须 `1 < 值 < context_parallel` 且整除 `context_parallel`。 |
-| `context_parallel_mask_type` | str | `"causal"` | CP 输入准备（按序列维切分输入，见 3.2）所用的掩码类型，**仅支持 `causal`**，其它值直接抛 `NotImplementedError`。 |
+| 参数名称                         | 数据类型 | 是否可选 | 默认值          | 取值说明                                                                                                        |
+|------------------------------|------|------|--------------|-------------------------------------------------------------------------------------------------------------|
+| `context_parallel`           | int  | 可选   | `1`          | 上下文并行规模。                                                                                                    |
+| `context_parallel_method`    | str  | 可选   | `"colossal"` | CP 实现方法：`colossal` / `ulysses` / `hybrid`。                                                                  |
+| `context_parallel_async`     | bool | 可选   | `False`      | 启用异步 CP 通信钩子（Hyper-Parallel）；与 `ulysses` 同用时要求 head 数可被 ulysses 度整除。                                        |
+| `ulysses_degree_in_cp`       | int  | 可选   | `None`       | Ulysses 维度。`ulysses` 时须等于 `context_parallel`；`hybrid` 时须 `1 < 值 < context_parallel` 且整除 `context_parallel`。 |
+| `context_parallel_mask_type` | str  | 可选   | `"causal"`   | CP 输入准备（按序列维切分输入，见 3.2）所用的掩码类型，**仅支持 `causal`**，其它值直接抛 `NotImplementedError`。                               |
 
 ### 3.5 场景配置
 
@@ -308,8 +302,6 @@ parallelism:
   pipeline_parallel: 1
 ```
 
----
-
 ## 四、流水线并行（PP）
 
 ### 4.1 概述
@@ -323,22 +315,22 @@ parallelism:
 
 **微批数与调度策略（自动推导 / 预留）**：
 
-- **`pipeline_parallel_microbatch_size` 由框架自动推导，不是用户可配项**。[trainer.py](https://atomgit.com/mindspore/mindformers/blob/master/mindformers/pynative/trainer/trainer.py) 会用梯度累积步数覆盖它：`num_accumulation_steps = global_batch_size // (data_parallel * local_batch_size)`（其中 `data_parallel = dp_replicate * dp_shard` 为数据并行维度），随后 `pipeline_parallel_microbatch_size = num_accumulation_steps`。所以需通过 `global_batch_size` / `local_batch_size` 间接控制微批数（见 [配置文件说明](./configuration.md)），手填该字段无效。
+- **`pipeline_parallel_microbatch_size` 由框架自动推导，不是用户可配项**。[trainer.py](https://atomgit.com/mindspore/mindformers/blob/master/mindformers/pynative/trainer/trainer.py) 会用梯度累积步数覆盖它：`num_accumulation_steps = global_batch_size // (data_parallel * local_batch_size)`（其中 `data_parallel = dp_replicate * dp_shard` 为数据并行维度），随后 `pipeline_parallel_microbatch_size = num_accumulation_steps`。所以需通过 `global_batch_size` / `local_batch_size` 间接控制微批数（见[配置文件说明](./configuration.md)），手填该字段无效。
 - **`pipeline_parallel_schedule`（`ParallelismConfig` 中默认 `"1f1b"`）当前未参与分支**：动态图固定使用上述交织式 1F1B 调度，该字符串不被读取，属预留项。真正影响流水行为的是 `pipeline_parallel_interleave_num` 与 `pipeline_parallel_overlap_p2p` / `pipeline_parallel_overlap_b_f`。
 - **`pipeline_parallel_enable_dxdw_split`（默认 `False`）当前为预留项**：`ParallelismConfig` 中定义了该字段（用于 PP 中 dx/dw 通信拆分），但动态图代码中暂未读取使用，改动它不会改变行为，属预留/占位项，无需填写。
 
 ### 4.3 字段表
 
-| 字段 | 类型 | 默认值 | 说明 |
-|------|------|--------|------|
-| `pipeline_parallel` | int | `1` | 流水线 stage 数。 |
-| `pipeline_parallel_interleave_num` | int | `1` | 每个 stage 的交织模型块数（虚拟 stage 数 = `pp * interleave_num`），增大可减小气泡。 |
-| `pipeline_parallel_layers_per_stage` | list/str | `None` | 各 stage 的层分配。`pp > 1` 时**必填**：层数可被 `pp * interleave_num` 整除时配 `auto`（均匀放置）；否则配列表显式指定各 stage 的层区间（见 4.4）。 |
-| `pipeline_parallel_overlap_p2p` | bool | `False` | 启用 stage 间 P2P 通信与计算重叠。 |
-| `pipeline_parallel_overlap_b_f` | bool | `False` | 启用反向(b)与前向(f)计算重叠。 |
-| `pipeline_parallel_microbatch_size` | int | `1`（**自动推导**） | 由框架自动推导，运行时被 `num_accumulation_steps` 覆盖，无需手填（见上方提示）。 |
-| `pipeline_parallel_schedule` | str | `"1f1b"`（**预留**） | 预留项，动态图固定用交织 1F1B，当前不参与分支。 |
-| `pipeline_parallel_enable_dxdw_split` | bool | `False`（**预留**） | 预留项，PP 中 dx/dw 通信拆分开关，当前动态图未读取使用，不影响行为。 |
+| 参数名称                                   | 数据类型     | 是否可选 | 默认值              | 取值说明                                                                                                     |
+|----------------------------------------|----------|------|------------------|----------------------------------------------------------------------------------------------------------|
+| `pipeline_parallel`                    | int      | 可选   | `1`              | 流水线 stage 数。                                                                                             |
+| `pipeline_parallel_interleave_num`     | int      | 可选   | `1`              | 每个 stage 的交织模型块数（虚拟 stage 数 = `pp * interleave_num`），增大可减小气泡。                                            |
+| `pipeline_parallel_layers_per_stage`   | list/str | 可选   | `None`           | 各 stage 的层分配。`pp > 1` 时**必填**：层数可被 `pp * interleave_num` 整除时配 `auto`（均匀放置）；否则配列表显式指定各 stage 的层区间（见 4.4）。 |
+| `pipeline_parallel_overlap_p2p`        | bool     | 可选   | `False`          | 启用 stage 间 P2P 通信与计算重叠。                                                                                  |
+| `pipeline_parallel_overlap_b_f`        | bool     | 可选   | `False`          | 启用反向(b)与前向(f)计算重叠。                                                                                       |
+| `pipeline_parallel_microbatch_size`    | int      | 可选   | `1`（**自动推导**）    | 由框架自动推导，运行时被 `num_accumulation_steps` 覆盖，无需手填（见上方提示）。                                                    |
+| `pipeline_parallel_schedule`           | str      | 可选   | `"1f1b"`（**预留**） | 预留项，动态图固定用交织 1F1B，当前不参与分支。                                                                               |
+| `pipeline_parallel_enable_dxdw_split`  | bool     | 可选   | `False`（**预留**）  | 预留项，PP 中 dx/dw 通信拆分开关，当前动态图未读取使用，不影响行为。                                                                  |
 
 ### 4.4 场景配置
 
@@ -380,8 +372,6 @@ parallelism:
 
 层的执行顺序依次为虚拟 stage 0、1、2、3，即层 0-1、2-3、4-8、9。各 stage 层数可以不等（如本例为 2/2/5/1），可用于平衡首尾 stage 上 embedding / lm_head 的额外显存与计算。
 
----
-
 ## 五、专家并行（EP）
 
 ### 5.1 概述
@@ -392,12 +382,12 @@ parallelism:
 efsdp = dp_shard * cp * tp // expert_parallel
 ```
 
-| 网格 | 维度 | 适用对象 |
-|---|---|---|
-| dense（稠密） | `["pp", "dp_replicate", "fsdp", "tp"]`，`fsdp = dp_shard*cp` | 非专家参数（注意力 / 共享 FFN 等） |
-| sparse（稀疏，`ep > 1` 时构造） | `["pp", "dp_replicate", "efsdp", "ep"]`，`efsdp = dp_shard*cp*tp // ep` | MoE 专家参数 |
+| 网格                      | 维度                                                                     | 适用对象                  |
+|-------------------------|------------------------------------------------------------------------|-----------------------|
+| dense（稠密）               | `["pp", "dp_replicate", "fsdp", "tp"]`，`fsdp = dp_shard*cp`            | 非专家参数（注意力 / 共享 FFN 等） |
+| sparse（稀疏，`ep > 1` 时构造） | `["pp", "dp_replicate", "efsdp", "ep"]`，`efsdp = dp_shard*cp*tp // ep` | MoE 专家参数              |
 
-因此 **`expert_parallel` 必须整除 `dp_shard * cp * tp`**（否则 `efsdp` 不是正整数，框架构建网格时报错）。`ep` 越大，`efsdp` 越小、单卡专家越少、显存越省，但 all-to-all 通信越多。专家是否随 TP 切分不需单独配置，由上面的 `efsdp` 公式从 `tensor_parallel` / `expert_parallel` 的相对大小自动得到。
+因此 **`expert_parallel` 必须整除 `dp_shard * cp * tp`**（否则 `efsdp` 不是正整数，框架构建网格时报错）。`ep` 越大，`efsdp` 越小、单卡专家越少、显存越省，但 all-to-all 通信越多。专家是否随 TP 切分不需单独配置，由上述 `efsdp` 公式从 `tensor_parallel` / `expert_parallel` 的相对大小自动得到。
 
 ### 5.2 适用场景与选型
 
@@ -407,11 +397,11 @@ efsdp = dp_shard * cp * tp // expert_parallel
 
 ### 5.3 字段表
 
-| 字段 | 类型 | 默认值 | 说明 |
-|------|------|--------|------|
-| `expert_parallel` | int | `1` | 专家并行规模；须整除 `dp_shard * cp * tp`（专家分片网格 `efsdp = dp_shard*cp*tp//ep` 由此计算得出）。 |
-| `moe_token_dispatcher_type` | str | `"alltoall"` | token 分发方式：`alltoall` / `alltoall_deredundancy`。 |
-| `npu_nums_per_device` | int | `8` | 每节点 NPU 数，`alltoall_deredundancy` 约束所用。 |
+| 参数名称                        | 数据类型 | 是否可选 | 默认值          | 取值说明                                                                         |
+|-----------------------------|------|------|--------------|------------------------------------------------------------------------------|
+| `expert_parallel`           | int  | 可选   | `1`          | 专家并行规模；须整除 `dp_shard * cp * tp`（专家分片网格 `efsdp = dp_shard*cp*tp//ep` 由此计算得出）。 |
+| `moe_token_dispatcher_type` | str  | 可选   | `"alltoall"` | token 分发方式：`alltoall` / `alltoall_deredundancy`。                             |
+| `npu_nums_per_device`       | int  | 可选   | `8`          | 每节点 NPU 数，`alltoall_deredundancy` 约束所用。                                      |
 
 ### 5.4 场景配置
 
@@ -444,8 +434,6 @@ parallelism:
   pipeline_parallel: 1
 ```
 
----
-
 ## 六、序列并行（SP）
 
 序列并行（SP）在 TP 的基础上，对 TP 未切分的部分（LayerNorm、Dropout、残差）按 **序列维** 进一步切分，降低这些算子的激活显存。
@@ -455,8 +443,6 @@ parallelism:
 > 注意：`sequence_parallel` 字段仍会被 [transformer_block.py](https://atomgit.com/mindspore/mindformers/blob/master/mindformers/pynative/transformers/transformer_block.py) 的 `TransformerBlock.__init__` 读取，但**仅用于检测 CP 与 SP 的冲突并输出告警**（`cp > 1` 且 `sequence_parallel=True` 时提示「SP 与 CP 冲突，SP 被忽略」），它不是 SP 的功能开关。
 
 因此**无需为 SP 单独配置**：按本页第二节配好 TP（`tensor_parallel > 1`），SP 即自动生效。
-
----
 
 ## 并行配置约束
 
@@ -472,7 +458,7 @@ parallelism:
 
 ## 启动
 
-配好 `parallelism` 与批大小、确认满足上面的并行配置约束后，用 `msrun` 拉起多卡训练：
+配好 `parallelism` 与批大小、确认满足上述并行配置约束后，用 `msrun` 拉起多卡训练：
 
 ```bash
 msrun --worker_num=8 --local_worker_num=8 --master_port=8118 --join=True \

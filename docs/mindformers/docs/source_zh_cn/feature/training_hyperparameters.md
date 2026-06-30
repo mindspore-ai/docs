@@ -2,9 +2,9 @@
 
 [![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/feature/training_hyperparameters.md)
 
-动态图（PyNative）训练的超参数集中在配置文件的三个**顶层并列段**中：`optimizer`（优化器）、`lr_scheduler`（学习率策略）与 `training`（训练基础参数）。三者分别由 `OptimizerConfig`、`LrSchedulerConfig`、`TrainingConfig` 解析（见 [配置文件说明](./configuration.md)）。
+动态图（PyNative）训练的超参数集中在配置文件的三个**顶层并列段**中：`optimizer`（优化器）、`lr_scheduler`（学习率策略）与 `training`（训练基础参数）。三者分别由 `OptimizerConfig`、`LrSchedulerConfig`、`TrainingConfig` 解析（见[配置文件说明](./configuration.md)）。
 
-本页详细介绍了优化器，学习率策略，训练基础参数的配置和示例，并给出可直接套用的配套组合。整体训练流程可先参考 [概述](../introduction/overview.md) 与 [快速开始](../quick_start/quick_start.md)。
+本页详细介绍了优化器，学习率策略，训练基础参数的配置和示例，并给出可直接套用的配套组合。整体训练流程可先参考[概述](../introduction/overview.md)与[快速开始](../quick_start/quick_start.md)。
 
 启动训练时，配置文件作为 `--config` 传入，动态图须显式指定 `--mode 1`：
 
@@ -12,37 +12,33 @@
 bash scripts/msrun_launcher.sh "python run_mindformer.py --config xxx.yaml --mode 1" ...
 ```
 
----
-
 ## 选型速查
 
 **优化器选型**：动态图当前支持 `AdamW` 与 `Muon` 两种。
 
-| 维度 | AdamW | Muon |
-|---|---|---|
-| 适用模型 | 通用，无限制 | **仅** 启用 Multi-Latent Attention 的模型（如 DeepSeek-V3） |
-| 是否支持 SWAP | 支持 | **不支持** |
-| 多卡通信 | 无需额外通信策略 | 二维分片权重需 all-gather / P2P 聚合（`comm_strategy`） |
-| 默认 `learning_rate` | `1e-5`（由 `lr_scheduler` 提供） | `1e-5`（由 `lr_scheduler` 提供） |
-| 典型场景 | 默认首选；预训练、微调通用 | DeepSeek-V3 类 MLA 大模型预训练，追求收敛质量 |
+| 维度                 | AdamW                       | Muon                                               |
+|--------------------|-----------------------------|----------------------------------------------------|
+| 适用模型               | 通用，无限制                      | **仅** 启用 Multi-Latent Attention 的模型（如 DeepSeek-V3） |
+| 是否支持 SWAP          | 支持                          | **不支持**                                            |
+| 多卡通信               | 无需额外通信策略                    | 二维分片权重需 all-gather / P2P 聚合（`comm_strategy`）       |
+| 默认 `learning_rate` | `1e-5`（由 `lr_scheduler` 提供） | `1e-5`（由 `lr_scheduler` 提供）                        |
+| 典型场景               | 默认首选；预训练、微调通用               | DeepSeek-V3 类 MLA 大模型预训练，追求收敛质量                    |
 
 > AdamW 是通用默认优化器，适配所有模型与并行策略。Muon 仅适用于 MLA 模型（如 DeepSeek-V3），且不能与 SWAP 同时开启，否则会在优化器构造阶段直接报错。
 
 **学习率调度器选型**：所有带 warm-up 的调度器都先线性升温到基础学习率，warm-up 之后的行为各不相同。
 
-| 调度器 `type` | warm-up 后行为 | 典型用途 | 关键扩展字段 |
-|---|---|---|---|
-| `ConstantWarmUpLR` | 保持常数 | 调试、续训对齐、短任务 | — |
-| `LinearWithWarmUpLR` | 线性衰减到 0 | 简单微调 | — |
-| `CosineWithWarmUpLR` | 余弦衰减 | **预训练最常用** | `num_cycles`、`lr_end`、`decay_steps` |
-| `CosineWithRestartsAndWarmUpLR` | 带重启的余弦 | 长训练周期性重启 | `num_cycles`（重启次数）、`decay_steps` |
-| `PolynomialWithWarmUpLR` | 多项式衰减 | 需自定义衰减曲线 | `power`、`lr_end`、`decay_steps` |
-| `WarmUpStableDecayLR` | 升温→恒定→衰减三段（WSD） | 大规模预训练，便于中途扩 token | `lr_end`、`decay_start_steps`/`decay_start_ratio` |
-| `CosineAnnealingLR` | 余弦退火（无 warm-up） | 简单周期退火 | `t_max`、`eta_min`（注意基础学习率字段名为 `base_lr`） |
+| 调度器 `type`                      | warm-up 后行为     | 典型用途               | 关键扩展字段                                           |
+|---------------------------------|-----------------|--------------------|--------------------------------------------------|
+| `ConstantWarmUpLR`              | 保持常数            | 调试、续训对齐、短任务        | —                                                |
+| `LinearWithWarmUpLR`            | 线性衰减到 0         | 简单微调               | —                                                |
+| `CosineWithWarmUpLR`            | 余弦衰减            | **预训练最常用**         | `num_cycles`、`lr_end`、`decay_steps`              |
+| `CosineWithRestartsAndWarmUpLR` | 带重启的余弦          | 长训练周期性重启           | `num_cycles`（重启次数）、`decay_steps`                 |
+| `PolynomialWithWarmUpLR`        | 多项式衰减           | 需自定义衰减曲线           | `power`、`lr_end`、`decay_steps`                   |
+| `WarmUpStableDecayLR`           | 升温→恒定→衰减三段（WSD） | 大规模预训练，便于中途扩 token | `lr_end`、`decay_start_steps`/`decay_start_ratio` |
+| `CosineAnnealingLR`             | 余弦退火（无 warm-up） | 简单周期退火             | `t_max`、`eta_min`（注意基础学习率字段名为 `base_lr`）         |
 
 > 学习率调度器复用 `mindformers/core/lr` 的 LR 注册表，上表之外还注册了 `ConstantWithCoolDownLR`、`CosineAnnealingWarmRestarts`、`LearningRateWiseLayer` 等变体，按需启用（注册名以 `mindformers/core/lr/lr_schedule.py` 的 `__all__` 为准）。
-
----
 
 ## 一、优化器（optimizer）
 
@@ -62,25 +58,25 @@ optimizer:
     - 0.95
   eps: 1.e-8
   weight_decay: 0.01
-  accumulate_allreduce_grads_in_fp32: True
 ```
 
-| 字段 | 类型 | 默认值 | 说明 |
-|------|------|--------|------|
-| `type` | str | `AdamW` | 优化器类型。 |
-| `betas` | list[float] | `[0.9, 0.95]` | 一阶/二阶矩的指数衰减率，长度须为 2，每项取值 `[0, 1)`。 |
-| `eps` | float | `1.0e-8` | 分母数值稳定项，须 `> 0`。 |
-| `weight_decay` | float | `0.01` | 解耦的权重衰减（AdamW 风格 L2 正则），须 `>= 0`。 |
-| `weight_decay_include` | list[str] | `None` | 强制施加权重衰减的参数名匹配规则。 |
-| `weight_decay_exclude` | list[str] | `None` | 强制不施加权重衰减的参数名匹配规则。 |
-| `accumulate_allreduce_grads_in_fp32` | bool | `True` |「梯度累积 + 优化器更新」整条链路是否都在 fp32 上进行。 |
+| 参数名称                    | 数据类型        | 是否可选 | 默认值           | 取值说明                               |
+|-------------------------|-------------|------|---------------|------------------------------------|
+| `type`                  | str         | 可选   | `AdamW`       | 优化器类型。                             |
+| `betas`                 | list[float] | 可选   | `[0.9, 0.95]` | 一阶/二阶矩的指数衰减率，长度须为 2，每项取值 `[0, 1)`。 |
+| `eps`                   | float       | 可选   | `1.0e-8`      | 分母数值稳定项，须 `> 0`。                   |
+| `weight_decay`          | float       | 可选   | `0.01`        | 解耦的权重衰减（AdamW 风格 L2 正则），须 `>= 0`。  |
+| `weight_decay_include`  | list[str]   | 可选   | `None`        | 强制施加权重衰减的参数名匹配规则。                  |
+| `weight_decay_exclude`  | list[str]   | 可选   | `None`        | 强制不施加权重衰减的参数名匹配规则。                 |
 
-**关键字段怎么调**：
+#### 参数调优说明
 
-- `betas`：第一项控制一阶动量平滑、第二项控制二阶矩平滑。预训练大模型常用 `[0.9, 0.95]`；小数据微调可设置为 `[0.9, 0.999]`。
-- `eps`：仅作数值兜底，一般无需改动；bf16 训练若出现除零类异常可适当增大（如 `1e-6`）。
-- `weight_decay`：典型预训练取 `0.01~0.1`。配合下面的 `weight_decay_include` / `weight_decay_exclude` 控制作用范围。
-- **`weight_decay_include` / `weight_decay_exclude`**：两者都是参数名匹配规则列表，用于**覆盖**默认的衰减归属——`include` 命中的参数被强制施加权重衰减，`exclude` 命中的参数被强制排除。常见做法是把 LayerNorm、bias、embedding 等放入 `exclude`，仅对线性层权重做衰减：
+各关键参数的配置建议如下。
+
+- **`betas`**：第一项控制一阶动量平滑、第二项控制二阶矩平滑。预训练大模型常用 `[0.9, 0.95]`；小数据微调可设置为 `[0.9, 0.999]`。
+- **`eps`**：仅作数值兜底，一般无需改动；bf16 训练若出现除零类异常可适当增大（如 `1e-6`）。
+- **`weight_decay`**：典型预训练取 `0.01~0.1`。配合下文的 `weight_decay_include` / `weight_decay_exclude` 字段控制作用范围。
+- **`weight_decay_include` / `weight_decay_exclude`**：两者都是参数名匹配规则列表，用于覆盖默认的衰减归属——`include` 命中的参数被强制施加权重衰减，`exclude` 命中的参数被强制排除。常见做法是把 LayerNorm、bias、embedding 等放入 `exclude`，仅对线性层权重做衰减：
 
   ```yaml
   optimizer:
@@ -90,8 +86,6 @@ optimizer:
       - "*norm*"
       - "*bias*"
   ```
-
-- **accumulate_allreduce_grads_in_fp32**：默认 `True`。开启后，框架为 bf16/fp16 参数注册反向 hook，把回传梯度**先转成 fp32 再累积**，于是「梯度累积 + 优化器更新」整条链路都在 fp32 上进行，与始终存在的 fp32 主权重副本配套，能显著减少低精度下的累积误差。除非显存极度紧张，建议保持开启。
 
 ### 1.2 Muon
 
@@ -123,22 +117,22 @@ optimizer:
   comm_strategy: allgather
 ```
 
-| 字段 | 类型 | 默认值 | 说明 |
-|------|------|--------|------|
-| `weight_decay` | float | `0.1` | 权重衰减。 |
-| `momentum` | float | `0.95` | Muon 动量系数。 |
-| `matched_adamw_rms` | float | `0.2` | 与 AdamW 更新幅度对齐的 RMS 缩放系数。 |
-| `nesterov` | bool | `True` | 是否使用 Nesterov 动量。 |
-| `eps` | float | `1.0e-7` | Newton-Schulz 归一化的数值稳定项。 |
-| `ns_steps` | int | `5` | Newton-Schulz 迭代步数（仅扁平 `ns_coefficients` 形式生效）。 |
-| `ns_coefficients` | tuple/list | `(3.4445, -4.7750, 2.0315)` | Newton-Schulz 系数，支持扁平三元组或分段调度。 |
-| `adamw_betas` | tuple | `(0.95, 0.95)` | 回退到 AdamW 的权重所用 betas。 |
-| `adamw_eps` | float | `1.0e-8` | 回退 AdamW 的 eps。 |
-| `qk_clip_enabled` | bool | `True` | 是否对注意力 logit 施加 QK-Clip 缩放。 |
-| `qk_clip_threshold` | float | `100` | QK-Clip 阈值，须 `> 0`（`qk_clip_enabled=True` 时校验）。 |
-| `comm_strategy` | str | `allgather` | 多卡通信策略，详细描述可见[comm_strategy 的取舍](#comm_strategy-的取舍)章节。 |
-| `use_fused_adamw` | bool | `False` | 非 Muon 权重是否使用融合 AdamW 算子。 |
-| `adamw_include` | list[str] | `None` | 指定哪些参数使用 AdamW 而非 Muon；默认 `["*word_embeddings*", "*output_layer*"]`（2D/3D 权重使用 Muon，embedding/输出层使用 AdamW）。 |
+| 参数名称                | 数据类型       | 是否可选 | 默认值                         | 取值说明                                                                                                        |
+|---------------------|------------|------|-----------------------------|-------------------------------------------------------------------------------------------------------------|
+| `weight_decay`      | float      | 可选   | `0.1`                       | 权重衰减。                                                                                                       |
+| `momentum`          | float      | 可选   | `0.95`                      | Muon 动量系数。                                                                                                  |
+| `matched_adamw_rms` | float      | 可选   | `0.2`                       | 与 AdamW 更新幅度对齐的 RMS 缩放系数。                                                                                   |
+| `nesterov`          | bool       | 可选   | `True`                      | 是否使用 Nesterov 动量。                                                                                           |
+| `eps`               | float      | 可选   | `1.0e-7`                    | Newton-Schulz 归一化的数值稳定项。                                                                                    |
+| `ns_steps`          | int        | 可选   | `5`                         | Newton-Schulz 迭代步数（仅扁平 `ns_coefficients` 形式生效）。                                                             |
+| `ns_coefficients`   | tuple/list | 可选   | `(3.4445, -4.7750, 2.0315)` | Newton-Schulz 系数，支持扁平三元组或分段调度。                                                                              |
+| `adamw_betas`       | tuple      | 可选   | `(0.95, 0.95)`              | 回退到 AdamW 的权重所用 betas。                                                                                      |
+| `adamw_eps`         | float      | 可选   | `1.0e-8`                    | 回退 AdamW 的 eps。                                                                                             |
+| `qk_clip_enabled`   | bool       | 可选   | `True`                      | 是否对注意力 logit 施加 QK-Clip 缩放。                                                                                 |
+| `qk_clip_threshold` | float      | 可选   | `100`                       | QK-Clip 阈值，须 `> 0`（`qk_clip_enabled=True` 时校验）。                                                             |
+| `comm_strategy`     | str        | 可选   | `allgather`                 | 多卡通信策略，详细描述可见[comm_strategy 的取舍](#comm_strategy-的取舍)章节。                                                     |
+| `use_fused_adamw`   | bool       | 可选   | `False`                     | 非 Muon 权重是否使用融合 AdamW 算子。                                                                                   |
+| `adamw_include`     | list[str]  | 可选   | `None`                      | 指定哪些参数使用 AdamW 而非 Muon；默认 `["*word_embeddings*", "*output_layer*"]`（2D/3D 权重使用 Muon，embedding/输出层使用 AdamW）。 |
 
 #### ns_coefficients 的两种写法
 
@@ -160,14 +154,12 @@ optimizer:
 
 #### comm_strategy 的取舍
 
-| 取值 | 行为 | 适用场景与代价 |
-|---|---|---|
-| `allgather`（默认） | 每张卡都 all-gather 全量权重并各自独立运行 Newton-Schulz | 实现简单；多卡时存在**冗余的 NS 计算**（每卡重复算同一份） |
-| `allgather_deredundency` | 二维分片权重 P2P 聚合到指定 rank，NS 仅在该 rank 上计算后再分发 | **多卡训练**且 Muon 二维权重较多时开启，去除冗余 NS 计算、降低 HCCS 流量；代价是引入 P2P 聚合/分发通信与 rank 间负载分配逻辑 |
+| 取值                        | 行为                                         | 适用场景与代价                                                                        |
+|---------------------------|--------------------------------------------|--------------------------------------------------------------------------------|
+| `allgather`（默认）           | 每张卡都 all-gather 全量权重并各自独立运行 Newton-Schulz  | 实现简单；多卡时存在**冗余的 NS 计算**（每卡重复算同一份）                                              |
+| `allgather_deredundency`  | 二维分片权重 P2P 聚合到指定 rank，NS 仅在该 rank 上计算后再分发  | **多卡训练**且 Muon 二维权重较多时开启，去除冗余 NS 计算、降低 HCCS 流量；代价是引入 P2P 聚合/分发通信与 rank 间负载分配逻辑 |
 
 > 单卡训练无通信，保持默认 `allgather` 即可；大规模多卡（尤其专家/张量并行下二维权重多）时再评估 `allgather_deredundency`。
-
----
 
 ## 二、学习率策略（lr_scheduler）
 
@@ -177,7 +169,7 @@ optimizer:
 >
 > `warmup_ratio` 与 `warmup_steps` 用于确定 warm-up 步数。`warmup_steps` 为绝对步数；`warmup_ratio` 为占总步数的比例。框架按 `_get_lr_steps` 处理——**只设其中一个**：填了 `warmup_ratio` 则用 `ratio × total_steps` 计算，否则使用 `warmup_steps`。同时填写会以 `warmup_ratio` 优先并忽略 `warmup_steps`。
 
-下面给出每种调度器的最小可用片段（字段名以 `mindformers/core/lr/lr_schedule.py` 各 `__init__` 签名为准）。
+以下给出每种调度器的最小可用片段（字段名以 `mindformers/core/lr/lr_schedule.py` 各 `__init__` 签名为准）。
 
 ### 2.1 ConstantWarmUpLR — 升温后保持常数
 
@@ -272,8 +264,6 @@ lr_scheduler:
 
 > 该调度器的基础学习率参数名是 `base_lr`（而非其它调度器的 `learning_rate`），且不含 warm-up 阶段。迁移配置时注意这一差异。
 
----
-
 ## 三、训练基础参数（training）
 
 `training` 段控制训练步数、批大小、梯度裁剪与可复现性等全局行为。
@@ -288,14 +278,14 @@ training:
   deterministic: False  # 确定性计算开关
 ```
 
-| 字段 | 类型 | 默认值 | 说明 |
-|------|------|--------|------|
-| `steps` | int | `1000` | 总训练步数；同时作为学习率调度器的总步数。 |
-| `local_batch_size` | int | `1` | 单卡 batch size，必须为正。 |
-| `global_batch_size` | int | `1` | 每步全局处理的样本总数，必须为正。 |
-| `max_norm` | float | `1.0` | 全局梯度裁剪阈值，须为正数（典型取 `1.0`）。 |
-| `seed` | int | `42` | 随机种子。 |
-| `deterministic` | bool | `False` | 是否启用确定性训练。 |
+| 参数名称                | 数据类型  | 是否可选 | 默认值      | 取值说明                      |
+|---------------------|-------|------|----------|---------------------------|
+| `steps`             | int   | 可选   | `1000`   | 总训练步数；同时作为学习率调度器的总步数。     |
+| `local_batch_size`  | int   | 可选   | `1`      | 单卡 batch size，必须为正。       |
+| `global_batch_size` | int   | 可选   | `1`      | 每步全局处理的样本总数，必须为正。         |
+| `max_norm`          | float | 可选   | `1.0`    | 全局梯度裁剪阈值，须为正数（典型取 `1.0`）。 |
+| `seed`              | int   | 可选   | `42`     | 随机种子。                     |
+| `deterministic`     | bool  | 可选   | `False`  | 是否启用确定性训练。                |
 
 ### 3.1 批大小与梯度累积步数
 
@@ -305,7 +295,7 @@ training:
 梯度累积步数 = global_batch_size // (local_batch_size × data_parallel)
 ```
 
-即每张数据并行卡每步处理 `local_batch_size` 个样本，全局一次累积满 `global_batch_size` 个样本才做一次优化器更新。框架按 `local_batch_size × data_parallel` 对 `global_batch_size` 做整数除法推导累积步数（非整除不会报错，而是向下取整，有效全局批相应变小）。这里的 `data_parallel` 是数据并行度（`= dp_replicate × dp_shard`）：纯 FSDP（默认 `data_parallel_shard: -1`）时它等于 FSDP 切分度 `data_parallel_shard`，开 HSDP 时 `data_parallel_shard` 小于 `data_parallel`。其推导含义与设置见 [分布式并行训练](./parallel_training.md)。
+即每张数据并行卡每步处理 `local_batch_size` 个样本，全局一次累积满 `global_batch_size` 个样本才做一次优化器更新。框架按 `local_batch_size × data_parallel` 对 `global_batch_size` 做整数除法推导累积步数（非整除不会报错，而是向下取整，有效全局批相应变小）。这里的 `data_parallel` 是数据并行度（`= dp_replicate × dp_shard`）：纯 FSDP（默认 `data_parallel_shard: -1`）时它等于 FSDP 切分度 `data_parallel_shard`，开 HSDP 时 `data_parallel_shard` 小于 `data_parallel`。其推导含义与设置见[分布式并行训练](./parallel_training.md)。
 
 ### 3.2 梯度裁剪 max_norm
 
@@ -319,8 +309,6 @@ training:
 - `deterministic`：开启后强制使用确定性算子，使多次运行结果逐位一致，便于调试与精度对齐。
 
 > deterministic 会降低性能。确定性计算会牺牲部分算子的并行优化，**显著降低训练吞吐**。仅在排查精度问题、做逐位复现实验时开启；常规训练保持 `deterministic: False`。
-
----
 
 ## 四、组合示例（完整 YAML）
 
@@ -346,7 +334,6 @@ optimizer:
     - 0.95
   eps: 1.e-8
   weight_decay: 0.01
-  accumulate_allreduce_grads_in_fp32: True
   weight_decay_exclude:
     - "*norm*"
     - "*bias*"
@@ -361,7 +348,7 @@ lr_scheduler:
 
 ### 4.2 Muon + DeepSeek-V3（MLA）
 
-Muon 仅适用于启用 MLA 的模型，下例配套 DeepSeek-V3。注意 `model.multi_latent_attention: True` 是 Muon 能构造的前提：
+Muon 仅适用于启用 MLA 的模型，以下 YAML 示例需配套 DeepSeek-V3 模型使用。注意 `model.multi_latent_attention: True` 是 Muon 能构造的前提：
 
 ```yaml
 training:
@@ -395,8 +382,6 @@ lr_scheduler:
   warmup_ratio: 0.0
 ```
 
----
-
 ## 五、相关文档
 
 - [配置文件说明](./configuration.md)：各配置段的总览与解析规则。
@@ -404,4 +389,4 @@ lr_scheduler:
 - [其它训练特性](./other_training_features.md)：梯度累积、检查点等训练特性。
 - [训练启动指南](../guide/training.md)：如何用 `run_mindformer.py` 启动训练。
 - [概述](../introduction/overview.md)：MindSpore Transformers 动态图整体介绍。
-- [快速开始](../quick_start/quick_start.md)：端到端跑通一次训练。
+- [快速开始](../quick_start/quick_start.md)：端到端完成一次训练。

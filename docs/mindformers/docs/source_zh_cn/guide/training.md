@@ -4,7 +4,7 @@
 
 ## 概述
 
-大模型预训练（Pretrain）是构建高性能语言模型的核心阶段，其本质是通过海量无标注数据让模型自主学习通用语言规律与知识。业界开源了许多各项指标优异的预训练模型，例如Llama、Qwen、DeepSeek系列模型，这些模型都在海量文本数据上学习"语言的概率分布"，使模型掌握词汇、语法、语义等通用能力，为下游任务（如问答、写作）提供扎实基础。
+大模型预训练（Pretrain）是构建高性能语言模型的核心阶段，其本质是通过海量无标注数据使模型自主学习通用语言规律与知识。业界开源了许多各项指标优异的预训练模型，例如Llama、Qwen、DeepSeek系列模型，这些模型都在海量文本数据上学习"语言的概率分布"，使模型掌握词汇、语法、语义等通用能力，为下游任务（如问答、写作）提供扎实基础。
 
 本质上，预训练通过反向传播算法优化模型参数，使损失函数最小化，从而提升模型对输入数据的预测或生成能力。MindSpore Transformers 提供了统一的预训练训练流程，结合生态提供了易用的解决方案。在统一训练流程中，启动训练任务可总结出如下关键步骤：
 
@@ -46,7 +46,7 @@ MindSpore Transformers支持了不同系列的预训练模型，例如DeepSeek�
 
 针对 Megatron 数据集，MindSpore Transformers 提供了数据预处理脚本 [preprocess_indexed_dataset.py](https://atomgit.com/mindspore/mindformers/blob/master/toolkit/data_preprocess/megatron/preprocess_indexed_dataset.py)，用于将 `json` 格式的原始文本语料转换成 `.bin` 或 `.idx` 文件。该方案支持多源混合：
 
-- **灵活配置**：允许同时加载多个bin数据文件，并通过采样比例参数控制不同数据源的混合权重；
+- **灵活配置**：支持同时加载多个bin数据文件，并通过采样比例参数控制不同数据源的混合权重；
 - **高效训练**：二进制存储格式大幅提升了IO效率，特别适合大规模预训练场景。
 
 预处理完成后，可通过配置 `BlendedMegatronDatasetDataLoader` 加载 Megatron 格式数据集进行预训练，详见[数据集使用-Megatron数据集章节](../feature/dataset.md#megatron-数据集)。此外，MindRecord 格式数据集也支持通过 `MultiSourceDataLoader` 实现多源数据集高效加载与采样，详见[数据集使用-MindRecord数据集章节](../feature/dataset.md#mindrecord-数据集)。
@@ -62,7 +62,7 @@ MindSpore Transformers支持了不同系列的预训练模型，例如DeepSeek�
 - **状态监控**（`monitor`、`profiler`）：配置loss打印步数间隔、配置profiling采集性能数据；精度调试任务中配置打印/可视化关键数值用来定位精度问题，例如local norm、local loss、优化器状态等；
 - **高可用相关**（`checkpoint`）：配置权重保存步数、断点续训权重、均衡加载等高可用特性，保障在训练过程中能够平稳运行。
 
-根据不同的配置类型，以及在不同预训练场景下，在完成预训练准备后，MindSpore Transformers 将可配置的参数进行分层，对不同配置的适应场景进行说明，明确了大体能实现的目标，详细信息如下：
+根据配置类型与预训练场景的不同，MindSpore Transformers 将可配置参数进行分层，并说明各层配置的适用场景与预期目标。详细信息如下：
 
 <table>
   <tr>
@@ -93,7 +93,7 @@ MindSpore Transformers支持了不同系列的预训练模型，例如DeepSeek�
   </tr>
   <tr>
     <td rowspan="3">高级配置</td>
-    <td rowspan="3">通过配置该部分配置，可支持训练任务执行后，对训练任务的训练状态进行感知，并保障多次训练任务的连贯</td>
+    <td rowspan="3">通过配置该部分，可感知训练状态并保障多次训练任务的连贯执行</td>
     <td>权重保存</td>
     <td>
       <a href=https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/save_load_checkpoint.html target="_blank">权重保存与加载（Safetensors）</a><br>
@@ -114,7 +114,7 @@ MindSpore Transformers支持了不同系列的预训练模型，例如DeepSeek�
   </tr>
   <tr>
     <td rowspan="2">进阶配置</td>
-    <td rowspan="2">通过配置该部分配置项，可支持训练过程的状态监测及性能调优，实现在不同集群规模下稳定并高性能训练</td>
+    <td rowspan="2">通过配置该部分，可进行训练过程的状态监测与性能调优，实现在不同集群规模下的稳定高性能训练</td>
     <td>性能调优</td>
     <td>
       <a href=https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/memory_optimization.html target="_blank">训练内存优化</a>
@@ -128,7 +128,7 @@ MindSpore Transformers支持了不同系列的预训练模型，例如DeepSeek�
   </tr>
 </table>
 
-除去以上配置项，训练任务的所有配置项由[配置文件](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/configuration.html)统一控制，可根据配置项说明灵活调整设置。
+除以上配置项外，训练任务的所有配置项由[配置文件](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/configuration.html)统一控制，可根据配置项说明灵活调整设置。
 
 > **动态图与静态图配置差异提示**
 >
@@ -142,7 +142,7 @@ MindSpore Transformers动态图训练支持单机多卡、多机多卡分布式�
 
 - **单卡启动**：使用 `run_mindformer.py` 拉起任务，可通过环境变量 `ASCEND_RT_VISIBLE_DEVICES` 选择具体某张卡：
 
-  `ASCEND_RT_VISIBLE_DEVICES` 用于控制当前进程可见的 NPU 物理卡，取值为卡号或卡号列表（从 0 开始计数）。例如 `=0` 表示只让进程看到 0 号物理卡；若想使用 3 号卡则写 `=3`；多卡时可写成 `=0,1,2,3` 这样的列表形式。若不显式指定，默认使用所有卡。
+  `ASCEND_RT_VISIBLE_DEVICES` 用于控制当前进程可见的 NPU 物理卡，取值为卡号或卡号列表。例如 `=0` 表示只让进程看到 0 号物理卡；若想使用 3 号卡则写 `=3`；多卡时可写成 `=0,1,2,3` 这样的列表形式。若不显式指定，默认使用所有卡。
 
   ```bash
   # 指定使用 7 号卡执行单卡训练
@@ -157,11 +157,11 @@ MindSpore Transformers动态图训练支持单机多卡、多机多卡分布式�
   bash scripts/msrun_launcher.sh "run_mindformer.py --config /path/to/your.yaml --mode 1" 8
   ```
 
-具体启动方式（含多机多卡、自定义脚本启动、启动期排障等）参照[《启动任务》](../feature/start_task.md)文档。最小可跑端到端示例（DeepSeek-V3 2卡预训练）参照[《快速开始》](../quick_start/quick_start.md)。
+具体启动方式（含多机多卡、自定义脚本启动、启动期排障等）参照[启动任务](../feature/start_task.md)文档。最小可运行端到端示例（DeepSeek-V3 2卡预训练）参照[快速开始](../quick_start/quick_start.md)。
 
 ### 4. 训练状态监控
 
-当预训练周期长，可能数周至数月时，需要实时监控关键指标并动态调整，以保障最终训练得到的模型能够达到预期的效果。此时，需要关注的状态项主要有：
+当预训练周期较长（数周至数月）时，需要实时监控关键指标并动态调整，以保障最终训练得到的模型能够达到预期的效果。此时，需要关注的状态项主要有：
 
 - **性能指标**：每秒训练token数/样本数（吞吐量）、NPU利用率（算力利用率）、每step耗时；
 - **精度指标**：损失函数值、梯度范数（防爆炸/消失）、MaxLogits 数值健康监测；
@@ -172,7 +172,7 @@ MindSpore Transformers动态图训练支持单机多卡、多机多卡分布式�
 - **训练指标监控**：通过 `monitor` 段配置 grad/param 范数、Loss 监控、MoE 监控等，对应配置详见[配置文件说明-monitor章节](../feature/configuration.md#monitor-——-训练监控)；
 - **性能分析**：通过 `profiler` 段开启 profiling 数据采集（算子耗时、内存、调用栈等），对应配置详见[配置文件说明-profiler章节](../feature/configuration.md#profiler-——-性能分析)；
 
-权重在中间保存检查点或训练完成后，模型权重将保存至 `save_path` 指定路径下，每次保存会在 `save_path` 下生成一个按 step 命名的子目录，内含 Safetensors 权重分片、续训元信息 `common.json` 与分片布局元数据 `metadata.json`。后续可以使用保存的权重进行续训等，详见[《权重保存与加载》](../feature/save_load_checkpoint.md)。
+权重在中间保存检查点或训练完成后，模型权重将保存至 `save_path` 指定路径下，每次保存会在 `save_path` 下生成一个按 step 命名的子目录，内含 Safetensors 权重分片、续训元信息 `common.json` 与分片布局元数据 `metadata.json`。后续可以使用保存的权重进行续训等，详见[权重保存与加载](../feature/save_load_checkpoint.md)。
 
 ## 训练实践
 

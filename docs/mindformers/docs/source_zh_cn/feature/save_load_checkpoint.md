@@ -52,35 +52,33 @@ MindSpore Transformers 动态图（PyNative）训练统一以 **Safetensors** �
 
 常见场景对应关系：
 
-| 场景     | 推荐方式 |
-| ------ | ---- |
-| 训练中断恢复 | 整段续训 |
-| 集群故障恢复 | 整段续训 |
-| 模型微调   | 权重加载 |
-| 模型推理部署 | 权重加载 |
-| 模型转换导出 | 权重加载 |
+| 场景      | 推荐方式  |
+|---------|-------|
+| 训练中断恢复  | 整段续训  |
+| 集群故障恢复  | 整段续训  |
+| 模型微调    | 权重加载  |
+| 模型推理部署  | 权重加载  |
+| 模型转换导出  | 权重加载  |
 
 ## 按场景选哪些字段
 
 下表帮助快速定位每个场景需要关注的字段，详细语义见后文对应小节。
 
-| 场景                 | 关键字段 | 概述                                    |
-|--------------------|---|---------------------------------------|
-| 关闭保存（只显示 loss 不保存权重） | `enable_save: False` | 不挂保存回调，仅保留 Loss/Monitor               |
-| 基础定时保存             | `save_path` / `save_interleaved_steps` / `save_max` | 按步存、保留最近若干份                           |
-| 异步保存               | `async_save: True` | 落盘与计算重叠，降低保存阻塞                        |
-| 仅存权重（不保存优化器权重）     | `no_save_optim: True` | 体积更小，但无法保存优化器状态                       |
-| 去冗余保存              | `remove_redundancy: True` | 多卡分片去重，减小占用                           |
-| 多卡布局缓存             | `save_global_layout_cache` | 复用分片元信息，避免每次重算                        |
-| 全量断点续训             | `load_path` + `no_load_optim: False` | 恢复权重、优化器、step 与数据游标                   |
-| 微调仅加载权重            | `load_path` + `no_load_optim: True` | 只取权重，优化器从头开始                          |
-| 多卡均衡加载             | `load_balanced: True` | shard 均衡 + 参数广播，消除冗余参数重复加载，仅多卡分片场景有意义 |
+| 场景                   | 关键字段                                                | 概述                                    |
+|----------------------|-----------------------------------------------------|---------------------------------------|
+| 关闭保存（只显示 loss 不保存权重） | `enable_save: False`                                | 不进行权重保存，仅保留 Loss/Monitor              |
+| 基础定时保存               | `save_path` / `save_interleaved_steps` / `save_max` | 按步存、保留最近若干份                           |
+| 异步保存                 | `async_save: True`                                  | 落盘与计算重叠，降低保存阻塞                        |
+| 仅存权重（不保存优化器权重）       | `no_save_optim: True`                               | 体积更小，但无法保存优化器状态                       |
+| 去冗余保存                | `remove_redundancy: True`                           | 多卡分片去重，减小占用                           |
+| 多卡布局缓存               | `save_global_layout_cache`                          | 复用分片元信息，避免每次重算                        |
+| 全量断点续训               | `load_path` + `no_load_optim: False`                | 恢复权重、优化器、step 与数据游标                   |
+| 微调仅加载权重              | `load_path` + `no_load_optim: True`                 | 只取权重，优化器从头开始                          |
+| 多卡均衡加载               | `load_balanced: True`                               | shard 均衡 + 参数广播，消除冗余参数重复加载，仅多卡分片场景有意义 |
 
 > **字段归属**
 >
 > 保存字段被 `CheckpointCallback` 消费，加载字段被 `Trainer._load_checkpoint` 消费。两类字段都写在同一个 `checkpoint` 段下，互不影响。
-
----
 
 ## 保存
 
@@ -95,6 +93,8 @@ MindSpore Transformers 动态图（PyNative）训练统一以 **Safetensors** �
 - **超额清理**：`save_max` 控制最多保留份数，超出时按时间删除最旧的目录，但仅会删除本轮次训练保存的权重。
 - **路径校验**：`save_path` 为空会在构造回调时直接抛出 `ValueError("save_path must be provided for CheckpointCallback.")`，因此启用保存时必须配置 `save_path`。
 
+**适用场景**：保存功能用于在训练过程中持久化模型权重与优化器状态。需要断点续训、模型部署、微调下游任务时启用保存；仅查看训练指标（loss）而不需保存权重时，可关闭保存（`enable_save=False`）以跳过权重落盘开销。
+
 > **输出目录结构**
 >
 > 每次保存会在 `save_path` 下生成一个按 step 命名的子目录，内含：
@@ -105,17 +105,17 @@ MindSpore Transformers 动态图（PyNative）训练统一以 **Safetensors** �
 
 ### 字段表
 
-| 字段 | 类型 | 默认值 | 说明 |
-|---|---|---|---|
-| `enable_save` | bool | `True` | 是否启用权重保存；为 `False` 时不挂保存回调。 |
-| `save_path` | str | `""` | 保存目录；启用保存时必填，为空报 `ValueError`。 |
-| `save_max` | int | `5` | 保存权重最大数，超出时按时间删最旧，每次仅对当前训练保存的权重进行删除（特殊场景：若当前 step 已保存过 checkpoint，则覆盖该 step 对应目录） |
-| `save_interleaved_steps` | int | `1000` | 保存间隔步数；`global_step` 为其整数倍时触发。 |
-| `no_save_optim` | bool | `False` | 为 `True` 时仅保存模型权重，不保存优化器状态。 |
-| `async_save` | bool | `False` | 为 `True` 时启用异步保存，落盘与计算重叠。 |
-| `prefix` | str | `"checkpoint"` | 保存文件名前缀。 |
-| `remove_redundancy` | bool | `False` | 为 `True` 时去除多卡分片间的冗余数据。 |
-| `save_global_layout_cache` | bool | `True` | 为 `True` 时缓存多卡全局分片布局，避免每次保存重算分片元信息。 |
+| 参数名称                       | 数据类型  | 是否可选 | 默认值            | 取值说明                                                                              |
+|----------------------------|-------|------|----------------|-----------------------------------------------------------------------------------|
+| `enable_save`              | bool  | 可选   | `True`         | 是否启用权重保存；为 `False` 时不保存权重。                                                        |
+| `save_path`                | str   | 可选   | `""`           | 保存目录；启用保存时必填，为空报 `ValueError`。                                                    |
+| `save_max`                 | int   | 可选   | `5`            | 保存权重最大数，超出时按时间删最旧，每次仅对当前训练保存的权重进行删除（特殊场景：若当前 step 已保存过 checkpoint，则覆盖该 step 对应目录） |
+| `save_interleaved_steps`   | int   | 可选   | `1000`         | 保存间隔步数；`global_step` 为其整数倍时触发。                                                    |
+| `no_save_optim`            | bool  | 可选   | `False`        | 为 `True` 时仅保存模型权重，不保存优化器状态。                                                       |
+| `async_save`               | bool  | 可选   | `False`        | 为 `True` 时启用异步保存，落盘与计算重叠。                                                         |
+| `prefix`                   | str   | 可选   | `"checkpoint"` | 保存文件名前缀。                                                                          |
+| `remove_redundancy`        | bool  | 可选   | `False`        | 为 `True` 时去除多卡分片间的冗余数据。                                                           |
+| `save_global_layout_cache` | bool  | 可选   | `True`         | 为 `True` 时缓存多卡全局分片布局，避免每次保存重算分片元信息。                                               |
 
 ### 场景化配置
 
@@ -136,7 +136,7 @@ checkpoint:
   save_global_layout_cache: True
 ```
 
-> 适用：单数据源、单/多卡常规训练。代价：每次保存阻塞训练直到落盘完成；若 step 数很大、保存频繁，可考虑下面的异步保存。
+> 适用：单数据源、单/多卡常规训练。代价：每次保存阻塞训练直到落盘完成；若 step 数很大、保存频繁，可考虑使用[异步保存](#场景二异步保存降低保存阻塞)。
 
 #### 场景二：异步保存（降低保存阻塞）
 
@@ -153,7 +153,7 @@ checkpoint:
 
 > 适用：大模型、保存频繁、磁盘较慢的场景。代价：保存在后台进行，会占用额外内存/线程资源；异常退出时最近一次异步保存可能尚未完成。
 
-#### 场景三：仅存权重（不存优化器）
+#### 场景三：仅存权重（不保存优化器权重）
 
 `no_save_optim=True` 时保存只包含模型权重，体积显著减小。适合只需要权重产物（如后续仅做微调）的场景。
 
@@ -163,12 +163,12 @@ checkpoint:
   save_path: "./output/ckpt"
   save_interleaved_steps: 1000
   save_max: 5
-  no_save_optim: True            # 不保存优化器状态
+  no_save_optim: True            # 不保存优化器权重
 ```
 
 > **⚠️ 续训影响**
 >
-> `no_save_optim=True` 保存的权重缺少优化器状态，无法用于严格还原优化器动量和二阶矩的整段续训。若后续要从该权重进行续训，需在加载侧配合 `no_load_optim: True`。
+> `no_save_optim=True` 保存的权重缺少优化器权重，无法用于严格还原优化器动量和二阶矩的整段续训。若后续要从该权重进行续训，需在加载侧配合 `no_load_optim: True`。
 
 #### 场景四：去冗余保存（减小占用）
 
@@ -200,8 +200,6 @@ checkpoint:
 
 > 适用：分片布局在训练过程中固定不变的常规多卡训练，保持 `True` 可省去每次重算开销。仅当分片布局可能在训练中变化、需要每次重新采集时才设为 `False`。单卡场景不涉及分片，该字段无实际作用。
 
----
-
 ## 加载
 
 ### 加载流程
@@ -214,9 +212,9 @@ checkpoint:
 4. **均衡加载（可选）**：`load_balanced=True` 时走 `apply_balance_shard_strategy` 求出各 rank 间的冗余参数映射，再用 `single_parameter_broadcast` 在 rank 间广播参数，从而**消除冗余参数的重复读取**。
 5. **优化器主权重刷新（可选）**：`no_load_optim=True` 时不加载优化器，加载完成后调用 `optimizer.reload_main_params_from_model()`，用刚加载的模型参数刷新 fp32 主权重，使主权重与模型参数对齐。
 
-> **未配置加载目录**
->
-> `load_path` 为空且未传入 `checkpoint_path` 时不加载任何权重，训练从随机初始化开始。
+**适用场景**：加载功能用于从已有权重恢复训练或初始化模型参数。需要从训练中断处续训（整段续训）、基于预训练权重微调新任务、或加载权重进行推理部署时使用。加载方式由 `no_load_optim` 与 `load_balanced` 等字段控制，可根据场景按需组合配置。
+
+> 当 `load_path` 为空且未传入 `checkpoint_path` 时不加载任何权重，训练从随机初始化开始。
 
 ### `common.json` 记录的字段
 
@@ -237,22 +235,22 @@ checkpoint:
 
 `common.json` 由保存侧的 `CommonInfo` 写出（`mindformers/checkpoint/checkpoint.py`），续训时用于恢复 step 与数据游标：
 
-| 字段 | 说明              | 续训中的作用                                               |
-|---|-----------------|------------------------------------------------------|
-| `epoch_num` | 当前训练所处 epoch    | 元信息记录                                                |
-| `step_num` | 当前 epoch 内的步数   | 元信息记录                                                |
-| `global_step` | 跨 epoch 的全局训练步数 | 续训起点；`global_batch_size` 变化时按比例缩放后驱动 `set_init_step` |
-| `loss_scale` | 梯度放大系数          | 元信息记录                                                |
+| 字段                  | 说明              | 续训中的作用                                               |
+|---------------------|-----------------|------------------------------------------------------|
+| `epoch_num`         | 当前训练所处 epoch    | 元信息记录                                                |
+| `step_num`          | 当前 epoch 内的步数   | 元信息记录                                                |
+| `global_step`       | 跨 epoch 的全局训练步数 | 续训起点；`global_batch_size` 变化时按比例缩放后驱动 `set_init_step` |
+| `loss_scale`        | 梯度放大系数          | 元信息记录                                                |
 | `global_batch_size` | 多卡训练的全局批大小      | 与当前配置比较，决定是否缩放 `global_step`                         |
-| `ckpt_status` | 权重健康状态标记        | 标识该权重是否健康，默认为 `null`，开启健康权重检测时记录权重健康状态。              |
+| `ckpt_status`       | 权重健康状态标记        | 标识该权重是否健康，默认为 `null`，开启健康权重检测时记录权重健康状态。              |
 
 ### 字段表
 
-| 字段 | 类型 | 默认值 | 说明 |
-|---|---|---|---|
-| `load_path` | str | `""` | 加载目录；为空时不加载，从随机初始化开始。 |
-| `no_load_optim` | bool | `False` | 为 `True` 时仅加载模型权重，不加载优化器状态，并刷新 fp32 主权重。 |
-| `load_balanced` | bool | `False` | 为 `True` 时通过 shard 均衡 + 参数广播消除冗余参数的重复加载（多卡分片场景）。 |
+| 参数名称             | 数据类型  | 是否可选 | 默认值      | 取值说明                                             |
+|------------------|-------|------|----------|--------------------------------------------------|
+| `load_path`      | str   | 可选   | `""`     | 加载目录；为空时不加载，从随机初始化开始。                            |
+| `no_load_optim`  | bool  | 可选   | `False`  | 为 `True` 时仅加载模型权重，不加载优化器状态，并刷新 fp32 主权重。         |
+| `load_balanced`  | bool  | 可选   | `False`  | 为 `True` 时通过 shard 均衡 + 参数广播消除冗余参数的重复加载（多卡分片场景）。 |
 
 `load_balanced` 适用于以下情况：
 
@@ -291,7 +289,7 @@ checkpoint:
   load_balanced: False
 ```
 
-> 适用：训练中断后原地恢复。前提：被加载的权重保存时 `no_save_optim=False`（含优化器状态）。续训整体行为见 [断点续训](./resume_training.md)；数据游标恢复见 [数据集](./dataset.md)。
+> 适用：训练中断后原地恢复。前提：被加载的权重保存时 `no_save_optim=False`（含优化器状态）。续训整体行为见[断点续训](./resume_training.md)；数据游标恢复见[数据集](./dataset.md)。
 
 #### 场景二：微调仅加载权重
 
@@ -320,9 +318,7 @@ checkpoint:
 >
 > `load_balanced` 走 `apply_balance_shard_strategy` 进行分片重分布，**仅在多卡分片场景下有意义**：单卡或无分片时不会带来收益。
 >
-> 并行维度与分片关系见 [分布式并行训练](./parallel_training.md)。
-
----
+> 并行维度与分片关系见[分布式并行训练](./parallel_training.md)。
 
 ## 完整示例：训练中断后恢复训练
 
@@ -345,8 +341,6 @@ checkpoints/
 └── latest_checkpointed_iteration.txt
 ```
 
----
-
 ### 第二步：训练中断
 
 假设训练在 step=2300 时因节点故障退出。
@@ -357,16 +351,12 @@ checkpoints/
 iteration_00002000
 ```
 
----
-
 ### 第三步：配置加载
 
 ```yaml
 checkpoint:
   load_path: "./checkpoints"
 ```
-
----
 
 ### 第四步：恢复过程
 
@@ -385,8 +375,6 @@ global_step = 2000
 ```
 
 训练将从 checkpoint 对应位置继续执行，而不是从头开始训练。
-
----
 
 ### 第五步：继续训练
 

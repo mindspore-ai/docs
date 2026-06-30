@@ -6,15 +6,13 @@
 
 > **动态图对 MindSpore 版本的额外要求**
 >
-> 动态图训练栈依赖 [HyperParallel](https://gitcode.com/mindspore/hyper-parallel/)，其要求 **MindSpore >= 2.10**（建议最新版本）。因此请选择 MindSpore >= 2.10，详见下方[版本配套关系](#版本配套关系)。
-
----
+> 动态图训练栈依赖 [HyperParallel](https://gitcode.com/mindspore/hyper-parallel/)，其要求 **MindSpore >= 2.10**（建议最新版本）。因此请选择 MindSpore >= 2.10，详见以下[版本配套关系](#版本配套关系)。
 
 ## 环境依赖
 
 ### 昇腾硬件
 
-当前支持的硬件为 Atlas 800T A2、Atlas 800I A2、Atlas 900 A3 SuperPoD。
+支持的硬件包括 Atlas 800T A2、Atlas 800I A2、Atlas 900 A3 SuperPoD。
 
 宿主机需提前安装 NPU 驱动与固件，参考[昇腾社区-安装 NPU 驱动和固件](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/82RC1/softwareinst/instg/instg_0005.html)。
 
@@ -25,7 +23,7 @@
 | **支持范围** | Python `>= 3.12`                                    |
 | **推荐版本** | Python `3.12.4`，与官方 Docker 镜像内置的 `py3.12` 一致，经过完整验证 |
 
-> "支持范围"表示能装上并运行，"推荐版本"表示官方在该版本上做过完整测试。新环境建议直接使用 3.12.4，避免低版本依赖兼容问题。
+> "支持范围"表示可正常安装并运行，"推荐版本"表示官方在该版本上做过完整测试。新环境建议直接使用 3.12.4，避免低版本依赖兼容问题。
 
 ### 版本配套关系
 
@@ -39,7 +37,7 @@
 
 ## 安装 MindSpore Transformers
 
-完成 CANN 与 MindSpore 安装后，再安装 MindSpore Transformers 本体。下面三种方式按场景选择其一即可。
+完成 CANN 与 MindSpore 安装后，再安装 MindSpore Transformers 本体。以下三种方式按场景选择其一即可。
 
 ### 安装方式选型
 
@@ -86,7 +84,7 @@ bash build.sh
 
 ### pip 安装（已发布版本）
 
-已发布版本可通过 pip 直接安装。版本号请参考上方[版本配套关系](#版本配套关系)表，与已安装的 MindSpore 整行对应：
+已发布版本可通过 pip 直接安装。版本号请参考上述[版本配套关系](#版本配套关系)表，与已安装的 MindSpore 整行对应：
 
 ```bash
 # 安装与配套表对应的指定版本（推荐，避免错配）
@@ -98,15 +96,13 @@ pip install mindformers
 
 > 指定版本号能确保与已装的 CANN/MindSpore 配套；不带版本号时会安装最新发布版，需自行确认是否与本机 MindSpore 匹配。
 >
-> `2.0.0` 当前暂未发布到 PyPI，pip 安装尚不可用。现阶段请使用上方「源码安装」方式获取 master 分支代码。
-
----
+> `2.0.0` 当前暂未发布到 PyPI，pip 安装尚不可用。现阶段请使用上述[「源码安装」](#源码安装)方式获取 master 分支代码。
 
 ## 安装 HyperParallel（动态图训练必需）
 
 动态图（PyNative）训练栈依赖 [HyperParallel](https://gitcode.com/mindspore/hyper-parallel/) —— 昇腾超节点亲和的分布式并行加速库。它为动态图提供 `DTensor` / `DeviceMesh`、FSDP/HSDP、流水线并行（PP，1F1B/VPP）调度，以及 MindSpore 动态图反向兼容层等核心能力。
 
-`mindformers/pynative/` 下的训练器、优化器、并行切分与融合算子均直接 `import hyper_parallel`，因此**未安装将无法运行任何动态图任务**——不仅限于并行场景，单卡训练同样需要。
+`mindformers/pynative/` 下的训练器、优化器、并行切分与融合算子均直接 `import hyper_parallel`，因此**未安装 HyperParallel 将无法运行任何动态图任务**（包括单卡训练）
 
 > **版本要求**
 >
@@ -128,8 +124,6 @@ python -c "from hyper_parallel import DTensor, DeviceMesh, PipelineStage; print(
 ```
 
 > **Docker 用户**：使用官方预构建镜像或自行构建镜像时，请确认镜像内是否已预置 HyperParallel；若未预置，进入容器后按上述源码方式安装。
-
----
 
 ## Docker 安装
 
@@ -232,8 +226,6 @@ docker run -itd \
 > - 容器默认以 root 运行，生产环境建议创建非特权用户运行。
 > - 为保证 NPU 功能可能需要 `--privileged`，会扩大容器权限，建议仅在可信环境使用，并结合 `--cpus`、`--memory` 限制资源。
 
----
-
 ## 验证是否成功安装
 
 安装完成后，执行以下命令进行环境自检：
@@ -283,7 +275,7 @@ python -c "import mindformers as mf;mf.run_check()"
 | 版本不匹配 | 按推荐版本与[版本配套关系](#版本配套关系)整行重装 |
 | 运行动态图任务报 `ModuleNotFoundError: hyper_parallel` | 未安装 HyperParallel，见[安装 HyperParallel](#安装-hyperparallel动态图训练必需) |
 
-### 跑通一步动态图自检
+### 运行一步动态图自检
 
 `run_check` 通过后，建议再用一个最小动态图任务确认端到端可拉起。动态图任务以 `--mode 1`（PyNative）启动，单机多卡通过 `msrun` 拉起，例如：
 
@@ -293,8 +285,6 @@ msrun --worker_num=8 --local_worker_num=8 --master_port=8118 \
 ```
 
 完整的任务拉起步骤与最小可运行示例，见 [快速开始](quick_start/quick_start.md)。
-
----
 
 ## 相关文档
 
