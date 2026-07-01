@@ -2,7 +2,7 @@
 
 MindSpore Transformers 动态图（PyNative）训练通过 `scripts/msrun_launcher.sh` 拉起，运行时产生的所有日志均通过 `msrun` 的 worker 进程日志统一收集。理解日志的目录结构与关键字段，是定位「训练为什么失败了 / loss 为什么不对 / 哪张卡出了问题」的前提。
 
-本页介绍日志的用途与目录结构、`msrun` 的可配置项、训练日志中关键字段的含义，以及排查问题时的查看顺序。任务启动方式见 [启动任务](./start_tasks.md)。
+本页介绍日志的用途与目录结构、`msrun` 的可配置项、训练日志中关键字段的含义，以及排查问题时的查看顺序。任务启动方式见 [启动任务](./start_task.md)。
 
 ## 日志总览
 
@@ -33,7 +33,7 @@ output/
 
 > **文件名与路径来源**
 >
-> - `worker_{i}.log` / `scheduler.log`：由 `msrun` 在 `--log_dir` 下生成并按 worker/scheduler 命名（属 msrun 行为，非 mindformers 定义；参见 [启动任务](./start_tasks.md)）。
+> - `worker_{i}.log` / `scheduler.log`：由 `msrun` 在 `--log_dir` 下生成并按 worker/scheduler 命名（属 msrun 行为，非 mindformers 定义；参见 [启动任务](./start_task.md)）。
 > - 日志目录由 `msrun_launcher.sh` 的 `LOG_DIR` 参数控制，默认 `output/msrun_log`。
 
 ---
@@ -72,7 +72,7 @@ bash scripts/msrun_launcher.sh \
 >
 > 多机问题需要登录到对应节点查看该节点的 `LOG_DIR`。例如怀疑全局 rank 10（节点 1 上的本地 rank 2）异常时，应到节点 1 的 `msrun_log` 目录查看其 `worker_10.log`。
 
-`msrun_launcher.sh` 各参数（`WORKER_NUM`、`LOCAL_WORKER`、`MASTER_ADDR`、`MASTER_PORT`、`NODE_RANK`、`LOG_DIR`、`JOIN`、`CLUSTER_TIME_OUT`）的完整说明见 [启动任务](./start_tasks.md)。
+`msrun_launcher.sh` 各参数（`WORKER_NUM`、`LOCAL_WORKER`、`MASTER_ADDR`、`MASTER_PORT`、`NODE_RANK`、`LOG_DIR`、`JOIN`、`CLUSTER_TIME_OUT`）的完整说明见 [启动任务](./start_task.md)。
 
 ---
 
@@ -120,7 +120,7 @@ PyNative 训练循环每隔若干步，由 `LossCallback` 回调（`mindformers/
 
 ## 相关文档
 
-- 启动任务与 `msrun` 参数：[启动任务](./start_tasks.md)
+- 启动任务与 `msrun` 参数：[启动任务](./start_task.md)
 - 更细粒度指标与 Profiling：[训练指标监控与 Profiling](./monitor.md)
 - 配置文件总览：[配置文件说明](./configuration.md)
 - 并行维度与 rank 划分：[分布式并行训练](./parallel_training.md)

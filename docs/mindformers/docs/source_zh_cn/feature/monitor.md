@@ -290,7 +290,7 @@ profiler:
 
 - 日志解析与日志结构：[日志](./logging.md)
 - 配置文件总览：[配置文件说明](./configuration.md)
-- 启动训练任务：[启动任务](./start_tasks.md)
+- 启动训练任务：[启动任务](./start_task.md)
 - 并行维度与 rank 选取（影响 `profiler_rank` 与分布式采集）：[分布式并行训练](./parallel_training.md)
 - 训练全流程（含训练状态监控）：[训练指南](../guide/training.md)
 - 第一个训练任务：[快速开始](../quick_start/quick_start.md)

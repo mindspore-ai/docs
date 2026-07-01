@@ -169,8 +169,8 @@ MindSpore Transformers动态图训练支持单机多卡、多机多卡分布式�
 
 针对不同的监控值，MindSpore Transformers 在动态图训练过程中会打印详尽的日志用于查看中间过程状态，并提供以下监控手段：
 
-- **训练指标监控**：通过 `monitor` 段配置 grad/param 范数、Loss 监控、MoE 监控等，对应配置详见[配置文件说明-monitor章节](../feature/configuration.md#monitor-%E8%AE%AD%E7%BB%83%E7%9B%91%E6%8E%A7)；
-- **性能分析**：通过 `profiler` 段开启 profiling 数据采集（算子耗时、内存、调用栈等），对应配置详见[配置文件说明-profiler章节](../feature/configuration.md#profiler-%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90)；
+- **训练指标监控**：通过 `monitor` 段配置 grad/param 范数、Loss 监控、MoE 监控等，对应配置详见[配置文件说明-monitor章节](../feature/configuration.md#monitor-——-训练监控)；
+- **性能分析**：通过 `profiler` 段开启 profiling 数据采集（算子耗时、内存、调用栈等），对应配置详见[配置文件说明-profiler章节](../feature/configuration.md#profiler-——-性能分析)；
 
 权重在中间保存检查点或训练完成后，模型权重将保存至 `save_path` 指定路径下，每次保存会在 `save_path` 下生成一个按 step 命名的子目录，内含 Safetensors 权重分片、续训元信息 `common.json` 与分片布局元数据 `metadata.json`。后续可以使用保存的权重进行续训等，详见[《权重保存与加载》](../feature/save_load_checkpoint.md)。
 
