@@ -704,34 +704,6 @@ def process_file(file_path):
     except Exception:
         print(f"{file_path}替换失败")
 
-def fix_rst_files(root_dir):
-    pattern = re.compile(
-        r'(\.\.\s+py:\s*method::\s+)([^\n]+?)(\n\s+:\s*property\s*:)',
-        re.IGNORECASE
-    )
-
-    for dirpath, dirnames, filenames in os.walk(root_dir):
-        for filename in filenames:
-            if filename.endswith('.rst'):
-                filepath = os.path.join(dirpath, filename)
-                try:
-                    with open(filepath, 'r', encoding='utf-8') as file:
-                        content = file.read()
-
-                    def replace_func(match):
-                        prop_name = match.group(2).strip()
-                        return f".. py:property:: {prop_name}"
-
-                    new_content, count = pattern.subn(replace_func, content)
-
-                    if count > 0:
-                        with open(filepath, 'w', encoding='utf-8') as file:
-                            file.write(new_content)
-                        print(f"已更新: {filepath} (共 {count} 处)")
-
-                except Exception as e:
-                    print(f"处理文件出错 {filepath}: {e}")        
-
 if __name__ == "__main__":
     # 配置一个工作目录
     try:
@@ -766,14 +738,6 @@ if __name__ == "__main__":
 
     # git 克隆仓保存路径
     REPODIR = f"{MAINDIR}/repository"
-
-    #替换方法名
-    target_dir = f"{MAINDIR}/repository/mindspore/docs/api/api_python"
-
-    if os.path.exists(target_dir):
-        fix_rst_files(target_dir)
-    else:
-        print(f"错误：找不到目录 {target_dir}")
 
     # 开始执行
     try:
