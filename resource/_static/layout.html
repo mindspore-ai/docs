@@ -62,15 +62,11 @@
   {#- JAVASCRIPTS #}
   {%- block scripts %}
   {%- if not embedded %}
+    <script src="/check-dark-mode.js"></script>
     {%- for scriptfile in script_files %}
-      {%- if 'jquery.js' in scriptfile -%}
       {{ js_tag(scriptfile) }}
-      <script src="/check-dark-mode.js"></script>{{ js_tag('_static/js/theme.js') }}
-      {%- else -%}
-      {{ js_tag(scriptfile) }}
-      {%- endif -%}
     {%- endfor %}
-    <script src="{{ pathto('_static/js/theme.js', 1) }}"></script>
+    {{ js_tag('_static/js/theme.js') }}
 
     {%- if READTHEDOCS or DEBUG %}
     <script src="{{ pathto('_static/js/versions.js', 1) }}"></script>
