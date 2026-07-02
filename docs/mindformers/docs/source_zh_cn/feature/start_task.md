@@ -13,14 +13,14 @@ MindSpore Transformers 动态图（PyNative）训练提供了一键启动脚本 
 
 ### 基础参数
 
-|          参数           | 参数说明                                                                                                                        | 取值说明                                | 适用场景 |
-|:---------------------:|:----------------------------------------------------------------------------------------------------------------------------|-------------------------------------|------|
-|      `--config`       | 任务yaml配置文件的路径。                                                                                                              | str，必选                              | 预训练  |
-|       `--mode`        | 设置后端执行模式。                                                                                                                   | int，必选，需要设置 `1` 指定使用 PYNATIVE_MODE。 | 预训练  |
-|     `--run_mode`      | 设置模型的运行模式，可选`train`。                                                                                                        | str，可选                              | 预训练  |
-|   `--use_parallel`    | 是否开启并行模式。                                                                                                                   | bool，可选                             | 预训练  |
-|    `--output_dir`     | 设置保存日志、权重、切分策略等文件的路径。                                                                                                       | str，可选                              | 预训练  |
-|       `--seed`        | 设置全局种子，详情可参考[mindspore.set_seed](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.set_seed.html)。  | int，可选                              | 预训练  |
+|       参数名称       | 数据类型 | 是否可选 | 默认值       | 取值说明                                                                                                                        |
+|:----------------:|:----:|:----:|:----------|:----------------------------------------------------------------------------------------------------------------------------|
+|    `--config`    | str  |  必选  | 无         | 任务yaml配置文件的路径。                                                                                                              |
+|     `--mode`     | int  |  必选  | `1`       | 设置后端执行模式，需指定 `1` 使用 PYNATIVE_MODE。                                                                                          |
+|   `--run_mode`   | str  |  可选  | 取自YAML配置  | 设置模型的运行模式，可选 `train`。                                                                                                       |
+| `--use_parallel` | bool |  可选  | 取自YAML配置  | 是否开启并行模式。                                                                                                                   |
+|  `--output_dir`  | str  |  可选  | 取自YAML配置  | 设置保存日志、权重、切分策略等文件的路径。                                                                                                       |
+|    `--seed`      | int  | 可选   | 取自YAML配置  | 设置全局种子。详情可参考[mindspore.set_seed](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.set_seed.html)。  |
 
 ## 二、分布式任务拉起脚本
 
@@ -52,21 +52,21 @@ MindSpore Transformers 动态图（PyNative）训练提供了一键启动脚本 
 
 脚本的参数说明如下：
 
-|         参数         | 参数说明                          | 取值说明                              |
-|:------------------:|:------------------------------|-----------------------------------|
-|  `EXECUTE_ORDER`   | 要分布式执行的Python脚本命令参数。          | str，必选，设置为包含要执行的Python脚本和脚本参数的字符串 |
-|    `WORKER_NUM`    | 参与分布式任务的Worker进程总数。           | int，可选，默认值：`8`                    |
-|   `LOCAL_WORKER`   | 当前节点上拉起的Worker进程数。            | int，可选，默认值：`8`                    |
-|   `MASTER_ADDR`    | 指定Scheduler的IP地址或者主机名。        | str，可选，默认值：`"127.0.0.1"`          |
-|   `MASTER_PORT`    | 指定Scheduler绑定端口号。             | int，可选，默认值：`8118`                 |
-|    `NODE_RANK`     | 当前节点的索引。                      | int，可选，默认值：`0`                    |
-|     `LOG_DIR`      | Worker以及Scheduler日志输出路径。      | str，可选，默认值：`"output/msrun_log"`   |
-|       `JOIN`       | msrun是否等待Worker以及Scheduler退出。 | bool，可选，默认值：`False`               |
-| `CLUSTER_TIME_OUT` | 集群组网超时时间，单位为秒。                | int，可选，默认值：`7200`                 |
+|        参数名称         | 数据类型 | 是否可选 |         默认值          | 取值说明                          |
+|:-------------------:|:----:|:----:|:--------------------:|:------------------------------|
+|   `EXECUTE_ORDER`   | str  |  必选  |          无           | 要分布式执行的Python脚本命令参数。          |
+|    `WORKER_NUM`     | int  |  可选  |         `8`          | 参与分布式任务的Worker进程总数。           |
+|   `LOCAL_WORKER`    | int  |  可选  |         `8`          | 当前节点上拉起的Worker进程数。            |
+|    `MASTER_ADDR`    | str  |  可选  |    `"127.0.0.1"`     | 指定Scheduler的IP地址或者主机名。        |
+|    `MASTER_PORT`    | int  |  可选  |        `8118`        | 指定Scheduler绑定端口号。             |
+|     `NODE_RANK`     | int  |  可选  |         `0`          | 当前节点的索引。                      |
+|      `LOG_DIR`      | str  |  可选  | `"output/msrun_log"` | Worker以及Scheduler日志输出路径。      |
+|       `JOIN`        | bool |  可选  |       `False`        | msrun是否等待Worker以及Scheduler退出。 |
+| `CLUSTER_TIME_OUT`  | int  | 可选   |       `7200`         | 集群组网超时时间，单位为秒。                |
 
 ## 三、任务启动教程
 
-下面以动态图场景为例，进行单卡、单机和多机任务使用方式说明。
+以下以动态图场景为例，进行单卡、单机和多机任务使用方式说明。
 
 ### 单卡启动
 
@@ -90,7 +90,7 @@ python run_mindformer.py --config /path/to/your.yaml --mode 1
 
 在 MindSpore Transformers 代码根目录下执行 msrun 启动脚本，进行单机训练任务。
 
-并行切分维度（FSDP/HSDP、TP、CP、PP、EP 等）由配置文件中的 `parallelism` 段决定。下面以单机 8 卡场景为例，切分设置为 fsdp8，其对应的 YAML 文件字段如下示例：
+并行切分维度（FSDP/HSDP、TP、CP、PP、EP 等）由配置文件中的 `parallelism` 段决定。以单机 8 卡场景为例，切分设置为 fsdp8，其对应的 YAML 文件字段示例如下：
 
 ```yaml
 training:                    # 训练超参数（命名风格沿用 torchtitan）
@@ -219,7 +219,7 @@ if __name__ == "__main__":
 | 报端口被占用 / scheduler 启动失败   | `MASTER_PORT` 被占用或不在 `1024–65535` 范围内；更换一个未占用端口，并确保所有节点使用同一端口。                                                  |
 | 多机 rank 错配、训练 hang 在通信阶段  | 未设置 `NODE_RANK`；请按主节点 0、从节点 1 的顺序显式设置。                                                                          |
 | HCCL/组网超时、跨机集合通信报错        | 检查节点互通性与 HCCL 配置；适当调大 `CLUSTER_TIME_OUT`；确认各节点配置与数据路径一致。                                                        |
-| 单卡能跑通、多卡运行失败              | 多为并行配置或集合通信问题：首先核对 `dp_replicate * dp_shard * cp * tp * pp == world_size`（EP 不计入），再检查是否存在多机 `NODE_RANK` 或组网问题。  |
+| 单卡可正常运行、多卡运行失败            | 多为并行配置或集合通信问题：首先核对 `dp_replicate * dp_shard * cp * tp * pp == world_size`（EP 不计入），再检查是否存在多机 `NODE_RANK` 或组网问题。  |
 
 **查看日志：** `msrun` 会为每个 worker 在 `LOG_DIR` 目录下生成独立日志文件（scheduler 与各 worker 分别记录），初次启动报错时应直接查看对应 worker 的日志而非前台聚合输出；当设置 `JOIN=True` 时，`msrun` 会解析日志并回收退出码。
 

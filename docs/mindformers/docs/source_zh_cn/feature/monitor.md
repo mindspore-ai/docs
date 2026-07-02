@@ -5,13 +5,11 @@ MindSpore Transformers 动态图（PyNative）在训练循环中提供两类可�
 - **训练指标监控**（`monitor`）：按 micro-step 采集梯度 / 参数范数（norm）、损失（loss）等细粒度指标（另含 MoE 专家负载监控的预留配置）。这些指标**当前仅通过训练日志（`logger.info`）输出**。
 - **性能数据采集**（`profiler`）：在指定 step 区间内采集算子、通信、内存、调用栈等性能数据，结果以 MindSpore Profiler 产物落盘，用于性能分析与优化。
 
-两类能力均通过训练 YAML 配置开启，互不依赖，可单独使用。如果尚未一次训练，建议先阅读 [快速开始](../quick_start/quick_start.md)；配置文件整体结构见 [配置文件说明](./configuration.md)。
+两类能力均通过训练 YAML 配置开启，互不依赖，可单独使用。如果尚未一次训练，建议先阅读[快速开始](../quick_start/quick_start.md)；配置文件整体结构见[配置文件说明](./configuration.md)。
 
 > **输出形式说明**
 >
 > 动态图监控指标（`monitor` 段）目前**只写日志**：每条记录由 `Monitor._flush_logger` 以 `{ key: value, ... }` 形式打印到训练日志。要把 norm/loss 曲线可视化，需要自行从日志解析。
-
----
 
 ## 一、训练指标监控
 
@@ -23,12 +21,12 @@ MindSpore Transformers 动态图（PyNative）在训练循环中提供两类可�
 
 按 micro-step 采集本地（local）与设备（device）级的梯度范数与损失。四个开关相互独立，可任意组合。
 
-| 参数 | 类型 | 默认值 | 说明 |
-|------|------|--------|------|
-| `local_norm` | bool / str / list[str] | `""` | 监控本地梯度范数。`True` 监控全部可训练参数；字符串或字符串列表按参数名子串过滤（`"layers.0"` 匹配名字含该子串的参数）；`""`/`False` 关闭。 |
-| `local_loss` | bool | `False` | 监控每个 micro-batch 的本地损失。 |
-| `device_norm` | bool / str / list[str] | `False` | 监控设备级（累积）梯度范数，取值含义同 `local_norm`。 |
-| `device_loss` | bool | `False` | 监控设备级损失（梯度累积/all-reduce 之后的损失）。 |
+| 参数名称          | 数据类型                   | 是否可选 | 默认值      | 取值说明                                                                                   |
+|---------------|------------------------|------|----------|----------------------------------------------------------------------------------------|
+| `local_norm`  | bool / str / list[str] | 可选   | `""`     | 监控本地梯度范数。`True` 监控全部可训练参数；字符串或字符串列表按参数名子串过滤（`"layers.0"` 匹配名字含该子串的参数）；`""`/`False` 关闭。 |
+| `local_loss`  | bool                   | 可选   | `False`  | 监控每个 micro-batch 的本地损失。                                                                |
+| `device_norm` | bool / str / list[str] | 可选   | `False`  | 监控设备级（累积）梯度范数，取值含义同 `local_norm`。                                                      |
+| `device_loss` | bool                   | 可选   | `False`  | 监控设备级损失（梯度累积/all-reduce 之后的损失）。                                                        |
 
 > **device_norm 会强制采集 local_norm**
 >
@@ -82,16 +80,14 @@ monitor:
     device_loss: True
 ```
 
----
-
 ### 1.2 moe_monitor（MoE 专家负载）
 
-设计用于监控 MoE 解码层各专家分配到的 token 数（tokens-per-expert），用于诊断**专家负载不均**——若少数专家长期吃满、其余专家空转，说明路由失衡，需要调整负载均衡损失或路由策略。
+设计用于监控 MoE 解码层各专家分配到的 token 数（tokens-per-expert），用于诊断**专家负载不均**——若少数专家长期负载饱和、其余专家闲置，说明路由失衡，需要调整负载均衡损失或路由策略。
 
-| 参数 | 类型 | 默认值 | 说明 |
-|------|------|--------|------|
-| `save_tokens_per_expert_interval` | int / None | `None` | 打印 tokens-per-expert 记录的 micro-step 间隔；`None` 关闭监控，须为正整数（写 bool 会报错）。 |
-| `target_layers` | int / list[int] / None | `None` | 监控的目标层。`int` 表示前 N 层 `range(N)`，**仅匹配 decoder 层**；`list[int]` 表示指定层 id；`None` 表示自动发现模型中所有含 `tokens_per_expert` 的 MoE 模块。 |
+| 参数名称                              | 数据类型                    | 是否可选 | 默认值     | 取值说明                                                                                                                     |
+|-----------------------------------|-------------------------|------|---------|--------------------------------------------------------------------------------------------------------------------------|
+| `save_tokens_per_expert_interval` | int / None              | 可选   | `None`  | 打印 tokens-per-expert 记录的 micro-step 间隔；`None` 关闭监控，须为正整数（写 bool 会报错）。                                                    |
+| `target_layers`                   | int / list[int]  / None | 可选   | `None`  | 监控的目标层。`int` 表示前 N 层 `range(N)`，**仅匹配 decoder 层**；`list[int]` 表示指定层 id；`None` 表示自动发现模型中所有含 `tokens_per_expert` 的 MoE 模块。 |
 
 > **target_layers 的 int 与 list 语义差异**
 >
@@ -103,15 +99,15 @@ monitor:
 
 MoE 监控以 **Megatron 的 tokens-per-expert JSON 格式**打印到日志（每行一条 JSON）。字段含义如下：
 
-| 字段 | 含义 |
-|------|------|
-| `iter` | 全局 micro-step 计数（`global_micro_step`） |
-| `step` | 训练 step id |
-| `micro_step` | step 内的 micro-batch 序号 |
-| `block` | `"decoder"` 或 `"mtp"` |
-| `layer` | 层 id |
-| `mtp_idx` | 仅 `block == "mtp"` 时出现，标识 MTP 子层 |
-| `tpe` | 该 micro-batch 内各专家分到的 token 数列表（按专家差分得到的增量） |
+| 字段           | 含义                                          |
+|--------------|---------------------------------------------|
+| `iter`       | 全局 micro-step 计数（`global_micro_step`）       |
+| `step`       | 训练 step id                                  |
+| `micro_step` | step 内的 micro-batch 序号                      |
+| `block`      | `"decoder"` 或 `"mtp"`                       |
+| `layer`      | 层 id                                        |
+| `mtp_idx`    | 仅 `block == "mtp"` 时出现，标识 MTP 子层            |
+| `tpe`        | 该 micro-batch 内各专家分到的 token 数列表（按专家差分得到的增量） |
 
 #### 配置示例：MoE 负载不均诊断
 
@@ -126,15 +122,11 @@ monitor:
 
 > 也可用 `target_layers: 4` 监控前 4 层，或省略该字段让框架自动发现全部 MoE 层（数据量会更大）。`save_tokens_per_expert_interval` 须为正整数，写 `True`/`False` 会在配置校验阶段报 `TypeError`。
 
----
-
 ### 1.3 MaxLogits 健康监测（callbacks: MaxLogitsMonitor）
 
 大规模长时训练中，注意力 logits 数值溢出、梯度尖刺等会破坏训练稳定性。`MaxLogitsMonitor` 是动态图中**真正被消费的数值健康监测回调**，源码见 `mindformers/pynative/callback/max_logits_monitor.py`。与 `monitor` 段下的子配置不同，它通过 **`callbacks` 段**注册。
 
-#### 是什么
-
-在每个训练步收集模型各层的**最大注意力 logit**（max attention logit），分层打印到日志，并汇总输出全部层的均值（mean）与最大值（max），随后在每步结束时重置层内累计值，便于逐步观察注意力数值是否异常增大。
+MaxLogitsMonitor 在每个训练步收集模型各层的**最大注意力 logit**（max attention logit），分层打印到日志，并汇总输出全部层的均值（mean）与最大值（max），随后在每步结束时重置层内累计值，便于逐步观察注意力数值是否异常增大。
 
 输出格式（`_dump`，`max_logits_monitor.py:88-108`）：
 
@@ -142,12 +134,12 @@ monitor:
 - 汇总两行：`max_attention_logit/mean`、`max_attention_logit/max`；
 - 每行前缀为 `step:[当前步/总步数]`，与 `TrainingStateMonitor` 的打印格式一致。
 
-#### 何时用
+#### 适用场景
 
 - 怀疑注意力 logits 溢出 / 数值爆炸导致 loss 抖动或 NaN 时，用它定位是哪一层、在哪一步开始异常增大；
 - 使用 Muon 优化器并启用 QK clip 时（此时框架会自动开启追踪，见下文场景），用它验证 clip 是否生效。
 
-#### 怎么配
+#### 配置参数
 
 通过 `callbacks` 段注册回调即可：
 
@@ -157,9 +149,9 @@ callbacks:
     step_interval: 1   # 每多少步输出一次，必须为正整数
 ```
 
-| 参数 | 类型 | 默认值 | 说明 |
-|---|---|---|---|
-| `step_interval` | int | `1` | 输出间隔步数；必须为**正整数**，否则在构造时抛 `ValueError`（`max_logits_monitor.py:51-54`）。 |
+| 参数名称             | 数据类型 | 是否可选 | 默认值  | 取值说明                                                                    |
+|------------------|------|------|------|-------------------------------------------------------------------------|
+| `step_interval`  | int  | 可选   | `1`  | 输出间隔步数；必须为**正整数**，否则在构造时抛 `ValueError`（`max_logits_monitor.py:51-54`）。  |
 
 行为细节（`on_step_end`，`max_logits_monitor.py:58-78`）：
 
@@ -193,24 +185,22 @@ callbacks:
 >
 > Muon + QK clip 仅自动开启**模型侧追踪**并补一个负责重置的回调；要在日志中看到逐层数值，仍需显式配置 `MaxLogitsMonitor`（或接受默认 `step_interval=1` 的逐步输出）。
 
----
-
 ## 二、Profiling（性能数据采集）
 
 `profiler` 段控制性能数据采集。采集仅在 `enable_profiling: True` **且**当前 rank 命中 `profiler_rank` 时生效，框架用 MindSpore `schedule` 在 `[start_step, end_step]` 区间内采集（区间外训练正常进行，不采集）。
 
-| 参数 | 类型 | 默认值 | 说明 |
-|------|------|--------|------|
-| `enable_profiling` | bool | `False` | 是否开启性能数据采集。 |
-| `start_step` | int | `1` | 开始采集的 step（对应 `schedule` 的 `skip_first`），须为正整数。 |
-| `end_step` | int | `1` | 结束采集的 step，须 ≥ `start_step`（采集 step 数 = `end_step - start_step + 1`）。如果设置了非默认的 `start_step`，务必同时设置 `end_step`，否则默认 `1` 可能导致区间无效。 |
-| `output_path` | str / None | `None` | 结果保存路径，按 rank 分目录保存为 `output_path/rank_x`；`None` 时回退到 `当前工作目录/profile/rank_x`。 |
-| `profiler_rank` | list[int] / None | `None` | 指定开启采集的 rank id 列表；`None` 表示所有 rank 均采集。 |
-| `profiler_level` | int | `0` | 采集级别 `0` / `1` / `2`，级别越高越详细（映射到 `ProfilerLevel.Level0/1/2`，非法值回退 `LevelNone`）。 |
-| `mstx` | bool | `False` | 是否开启轻量 mstx 打点（透传给 `_ExperimentalConfig`），用于在时间线上插入轻量标记。 |
-| `profile_memory` | bool | `False` | 是否采集 Tensor 内存数据。 |
-| `profile_cpu` | bool | `True` | 是否采集 CPU profiling 活动。 |
-| `with_stack` | bool | `True` | 是否采集 Python 侧调用栈数据。 |
+| 参数名称               | 数据类型             | 是否可选 | 默认值     | 取值说明                                                                                                                             |
+|--------------------|------------------|------|---------|----------------------------------------------------------------------------------------------------------------------------------|
+| `enable_profiling` | bool             | 可选   | `False` | 是否开启性能数据采集。                                                                                                                      |
+| `start_step`       | int              | 可选   | `1`     | 开始采集的 step（对应 `schedule` 的 `skip_first`），须为正整数。                                                                                  |
+| `end_step`         | int              | 可选   | `1`     | 结束采集的 step，须 ≥ `start_step`（采集 step 数 = `end_step - start_step + 1`）。如果设置了非默认的 `start_step`，务必同时设置 `end_step`，否则默认 `1` 可能导致区间无效。 |
+| `output_path`      | str / None       | 可选   | `None`  | 结果保存路径，按 rank 分目录保存为 `output_path/rank_x`；`None` 时回退到 `当前工作目录/profile/rank_x`。                                                   |
+| `profiler_rank`    | list[int] / None | 可选   | `None`  | 指定开启采集的 rank id 列表；`None` 表示所有 rank 均采集。                                                                                         |
+| `profiler_level`   | int              | 可选   | `0`     | 采集级别 `0` / `1` / `2`，级别越高越详细（映射到 `ProfilerLevel.Level0/1/2`，非法值回退 `LevelNone`）。                                                  |
+| `mstx`             | bool             | 可选   | `False` | 是否开启轻量 mstx 打点（透传给 `_ExperimentalConfig`），用于在时间线上插入轻量标记。                                                                         |
+| `profile_memory`   | bool             | 可选   | `False` | 是否采集 Tensor 内存数据。                                                                                                                |
+| `profile_cpu`      | bool             | 可选   | `True`  | 是否采集 CPU profiling 活动。                                                                                                           |
+| `with_stack`       | bool             | 可选   | `True`  | 是否采集 Python 侧调用栈数据。                                                                                                              |
 
 > **区间选取要避开首步预热**
 >
@@ -226,7 +216,7 @@ callbacks:
 
 - 单机调优一般只采 `[0]`；
 - 排查通信不均衡时，可对同一并行组内不同 rank 各采一个对照（如 `[0, 1]`）。
-- rank 与并行维度（dp/tp/pp/cp）的对应关系见 [分布式并行训练](./parallel_training.md)，据此选取代表性的 rank。
+- rank 与并行维度（dp/tp/pp/cp）的对应关系见[分布式并行训练](./parallel_training.md)，据此选取代表性的 rank。
 
 ### 2.2 输出目录与查看方式
 
@@ -283,8 +273,6 @@ profiler:
   with_stack: True         # 采集 Python 调用栈
   output_path: "./output/profile"
 ```
-
----
 
 ## 相关文档
 
