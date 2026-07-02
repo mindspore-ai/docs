@@ -33,7 +33,7 @@
 
 | 组件 | 版本要求 | 获取方式 |
 |---|---|---|
-| MindSpore Transformers | 在研版本（master 分支） | [源码安装](#源码安装在研--master) |
+| MindSpore Transformers | 在研版本（master 分支） | [源码安装](#源码安装) |
 | HyperParallel | 在研版本（与 MindSpore 配套） | [源码安装](#安装-hyperparallel动态图训练必需) |
 | MindSpore | **>= 2.10**（建议最新版本） | [MindSpore 安装](https://www.mindspore.cn/install/) |
 
