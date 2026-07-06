@@ -159,5 +159,3 @@ msrun --worker_num=2 --local_worker_num=2 --master_port=8118 \
 - 动态图整体架构：[整体架构](../introduction/overview.md)
 - 当前支持的模型：[模型支持库](../introduction/models.md)
 - 各能力一览：[功能特性概述](../feature/overview.md)
-
-> 配置文件说明、数据集、分布式并行训练、训练指南等页面正文将随后续提交上线。
