@@ -109,7 +109,7 @@ MindSpore Transformers支持了不同系列的预训练模型，例如DeepSeek�
   <tr>
     <td>在线监控</td>
     <td>
-      训练指标监控
+      <a href=https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/monitor.html target="_blank">训练指标监控与 Profiling</a>
     </td>
   </tr>
   <tr>
