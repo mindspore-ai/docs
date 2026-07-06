@@ -1,18 +1,18 @@
 # Models
 
-[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_en/introduction/models.md)
+[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.10.0/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/r2.10.0/docs/mindformers/docs/source_en/introduction/models.md)
 
 The following table lists models supported by MindSpore Transformers.
 
 | Model                                                                                                     | Specifications                |    Model Type     | Model Architecture |        Latest Version         |
 |:----------------------------------------------------------------------------------------------------------|:------------------------------|:-----------------:|:------------------:|:-----------------------------:|
-| [Qwen3](https://atomgit.com/mindspore/mindformers/tree/master/configs/qwen3)                              | 0.6B/1.7B/4B/8B/14B/32B       |     Dense LLM     |       Mcore        | 1.7.0, In-Development Version |
-| [Qwen3-MoE](https://atomgit.com/mindspore/mindformers/tree/master/configs/qwen3_moe)                      | 30B-A3B/235B-A22B             |    Sparse LLM     |       Mcore        | 1.7.0, In-Development Version |
-| [DeepSeek-V3](https://atomgit.com/mindspore/mindformers/tree/master/research/deepseek3)                   | 671B                          |    Sparse LLM     |    Mcore/Legacy    | 1.7.0, In-Development Version |
-| [GLM4.5](https://atomgit.com/mindspore/mindformers/tree/master/configs/glm4_moe)                          | 106B-A12B/355B-A32B           |    Sparse LLM     |       Mcore        | 1.7.0, In-Development Version |
-| [GLM4](https://atomgit.com/mindspore/mindformers/tree/master/configs/glm4)                                | 9B                            |     Dense LLM     |    Mcore/Legacy    | 1.7.0, In-Development Version |
-| [Qwen2.5](https://atomgit.com/mindspore/mindformers/tree/master/research/qwen2_5)                         | 0.5B/1.5B/7B/14B/32B/72B      |     Dense LLM     |       Legacy       | 1.7.0, In-Development Version |
-| [TeleChat2](https://atomgit.com/mindspore/mindformers/tree/master/research/telechat2)                     | 7B/35B/115B                   |     Dense LLM     |    Mcore/Legacy    | 1.7.0, In-Development Version |
+| [Qwen3](https://atomgit.com/mindspore/mindformers/tree/r1.10.0/configs/qwen3)                              | 0.6B/1.7B/4B/8B/14B/32B       |     Dense LLM     |       Mcore        | 1.7.0, In-Development Version |
+| [Qwen3-MoE](https://atomgit.com/mindspore/mindformers/tree/r1.10.0/configs/qwen3_moe)                      | 30B-A3B/235B-A22B             |    Sparse LLM     |       Mcore        | 1.7.0, In-Development Version |
+| [DeepSeek-V3](https://atomgit.com/mindspore/mindformers/tree/r1.10.0/research/deepseek3)                   | 671B                          |    Sparse LLM     |    Mcore/Legacy    | 1.7.0, In-Development Version |
+| [GLM4.5](https://atomgit.com/mindspore/mindformers/tree/r1.10.0/configs/glm4_moe)                          | 106B-A12B/355B-A32B           |    Sparse LLM     |       Mcore        | 1.7.0, In-Development Version |
+| [GLM4](https://atomgit.com/mindspore/mindformers/tree/r1.10.0/configs/glm4)                                | 9B                            |     Dense LLM     |    Mcore/Legacy    | 1.7.0, In-Development Version |
+| [Qwen2.5](https://atomgit.com/mindspore/mindformers/tree/r1.10.0/research/qwen2_5)                         | 0.5B/1.5B/7B/14B/32B/72B      |     Dense LLM     |       Legacy       | 1.7.0, In-Development Version |
+| [TeleChat2](https://atomgit.com/mindspore/mindformers/tree/r1.10.0/research/telechat2)                     | 7B/35B/115B                   |     Dense LLM     |    Mcore/Legacy    | 1.7.0, In-Development Version |
 | [Llama3.1](https://atomgit.com/mindspore/mindformers/tree/r1.7.0/research/llama3_1)                       | 8B/70B                        |     Dense LLM     |       Legacy       |             1.7.0             |
 | [Mixtral](https://atomgit.com/mindspore/mindformers/tree/r1.7.0/research/mixtral)                         | 8x7B                          |    Sparse LLM     |       Legacy       |             1.7.0             |
 | [CodeLlama](https://atomgit.com/mindspore/mindformers/blob/r1.5.0/docs/model_cards/codellama.md)          | 34B                           |     Dense LLM     |       Legacy       |             1.5.0             |

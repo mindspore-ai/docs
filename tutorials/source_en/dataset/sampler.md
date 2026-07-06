@@ -1,6 +1,6 @@
 # Data Loading and Sampling
 
-[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/tutorials/source_en/dataset/sampler.md)
+[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.10.0/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/r2.10.0/tutorials/source_en/dataset/sampler.md)
 
 ## Data Loading
 
@@ -8,7 +8,7 @@ Data is the foundation of training. The `mindspore.dataset` module provides APIs
 
 ### Customizing Dataset
 
-MindSpore supports loading data by constructing customized classes or customized generators. [mindspore.dataset.GeneratorDataset](https://www.mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.GeneratorDataset.html) can help to load dataset based on the logic inside these classes/functions.
+MindSpore supports loading data by constructing customized classes or customized generators. [mindspore.dataset.GeneratorDataset](https://www.mindspore.cn/docs/en/r2.10.0/api_python/dataset/mindspore.dataset.GeneratorDataset.html) can help to load dataset based on the logic inside these classes/functions.
 
 `GeneratorDataset` supports constructing customized datasets from random-accessible objects, iterable objects and Python generator, which are explained in detail below.
 
@@ -113,7 +113,7 @@ for d in dataset:
 
 MindSpore also supports parsing and reading open source classic datasets such as MNIST, CIFAR-10, CLUE, LJSpeech, etc.
 
-Take the MNIST dataset as an example. For more other datasets, please refer to [Open Source](https://www.mindspore.cn/docs/en/master/api_python/mindspore.dataset.loading.html#open-source).
+Take the MNIST dataset as an example. For more other datasets, please refer to [Open Source](https://www.mindspore.cn/docs/en/r2.10.0/api_python/mindspore.dataset.loading.html#open-source).
 
 ```python
 # Download data from open datasets
@@ -149,9 +149,9 @@ plt.show()
 
 To meet training requirements and solve problems such as too large datasets or uneven distribution of sample categories, MindSpore provides multiple samplers for different purposes to help users sample datasets. Users only need to import the sampler object when loading the dataset to implement data sampling.
 
-MindSpore provides multiple samplers, such as [mindspore.dataset.RandomSampler](https://www.mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.RandomSampler.html), [mindspore.dataset.WeightedRandomSampler](https://www.mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.WeightedRandomSampler.html), and [mindspore.dataset.SubsetRandomSampler](https://www.mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.SubsetRandomSampler.html). In addition, users can customize sampler classes as required.
+MindSpore provides multiple samplers, such as [mindspore.dataset.RandomSampler](https://www.mindspore.cn/docs/en/r2.10.0/api_python/dataset/mindspore.dataset.RandomSampler.html), [mindspore.dataset.WeightedRandomSampler](https://www.mindspore.cn/docs/en/r2.10.0/api_python/dataset/mindspore.dataset.WeightedRandomSampler.html), and [mindspore.dataset.SubsetRandomSampler](https://www.mindspore.cn/docs/en/r2.10.0/api_python/dataset/mindspore.dataset.SubsetRandomSampler.html). In addition, users can customize sampler classes as required.
 
-> For details about how to use the sampler, see [Sampler API](https://www.mindspore.cn/docs/en/master/api_python/mindspore.dataset.loading.html#sampler-1).
+> For details about how to use the sampler, see [Sampler API](https://www.mindspore.cn/docs/en/r2.10.0/api_python/mindspore.dataset.loading.html#sampler-1).
 
 The following uses the CIFAR-10 dataset as an example to describe how to use several common MindSpore samplers.
 

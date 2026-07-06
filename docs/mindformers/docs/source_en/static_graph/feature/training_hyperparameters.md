@@ -8,7 +8,7 @@ This page belongs to the **Static Graph (GRAPH_MODE) Implementation** section an
 
 # Training Hyperparameters
 
-[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_en/static_graph/feature/training_hyperparameters.md)
+[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.10.0/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/r2.10.0/docs/mindformers/docs/source_en/static_graph/feature/training_hyperparameters.md)
 
 Hyperparameters significantly affect model performance, with different settings potentially leading to vastly different outcomes.
 
@@ -30,7 +30,7 @@ Setting the learning rate too high can prevent the model from converging, while 
 
 Users can utilize the learning rate by adding an `lr_schedule` module to the YAML configuration file used for model training.
 
-Taking the [DeepSeek-V3 pre-training's YAML file](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/static_graph/example/deepseek3/pretrain_deepseek3_671b.yaml) as an example, it could be configured as follows:
+Taking the [DeepSeek-V3 pre-training's YAML file](https://atomgit.com/mindspore/docs/blob/r2.10.0/docs/mindformers/docs/source_zh_cn/static_graph/example/deepseek3/pretrain_deepseek3_671b.yaml) as an example, it could be configured as follows:
 
 ```yaml
 # lr schedule
@@ -45,14 +45,14 @@ lr_schedule:
 
 Different learning rates require different configuration parameters. MindSpore Transformers currently supports the following learning rates:
 
-1. [Constant Warm Up Learning Rate](https://www.mindspore.cn/mindformers/docs/en/master/static_graph/core/mindformers.core.ConstantWarmUpLR.html)
-2. [Linear with Warm Up Learning Rate](https://www.mindspore.cn/mindformers/docs/en/master/static_graph/core/mindformers.core.LinearWithWarmUpLR.html)
-3. [Cosine with Warm Up Learning Rate](https://www.mindspore.cn/mindformers/docs/en/master/static_graph/core/mindformers.core.CosineWithWarmUpLR.html)
-4. [Cosine with Restarts and Warm Up Learning Rate](https://www.mindspore.cn/mindformers/docs/en/master/static_graph/core/mindformers.core.CosineWithRestartsAndWarmUpLR.html)
-5. [Polynomial with Warm Up Learning Rate](https://www.mindspore.cn/mindformers/docs/en/master/static_graph/core/mindformers.core.PolynomialWithWarmUpLR.html)
-6. [The cosine annealing part of SGDR](https://www.mindspore.cn/mindformers/docs/en/master/static_graph/core/mindformers.core.CosineAnnealingLR.html)
-7. [Set the learning rate of each parameter group using a cosine annealing schedule](https://www.mindspore.cn/mindformers/docs/en/master/static_graph/core/mindformers.core.CosineAnnealingWarmRestarts.html)
-8. [Learning Rate Wise Layer](https://www.mindspore.cn/mindformers/docs/en/master/static_graph/core/mindformers.core.LearningRateWiseLayer.html)
+1. [Constant Warm Up Learning Rate](https://www.mindspore.cn/mindformers/docs/en/r1.10.0/static_graph/core/mindformers.core.ConstantWarmUpLR.html)
+2. [Linear with Warm Up Learning Rate](https://www.mindspore.cn/mindformers/docs/en/r1.10.0/static_graph/core/mindformers.core.LinearWithWarmUpLR.html)
+3. [Cosine with Warm Up Learning Rate](https://www.mindspore.cn/mindformers/docs/en/r1.10.0/static_graph/core/mindformers.core.CosineWithWarmUpLR.html)
+4. [Cosine with Restarts and Warm Up Learning Rate](https://www.mindspore.cn/mindformers/docs/en/r1.10.0/static_graph/core/mindformers.core.CosineWithRestartsAndWarmUpLR.html)
+5. [Polynomial with Warm Up Learning Rate](https://www.mindspore.cn/mindformers/docs/en/r1.10.0/static_graph/core/mindformers.core.PolynomialWithWarmUpLR.html)
+6. [The cosine annealing part of SGDR](https://www.mindspore.cn/mindformers/docs/en/r1.10.0/static_graph/core/mindformers.core.CosineAnnealingLR.html)
+7. [Set the learning rate of each parameter group using a cosine annealing schedule](https://www.mindspore.cn/mindformers/docs/en/r1.10.0/static_graph/core/mindformers.core.CosineAnnealingWarmRestarts.html)
+8. [Learning Rate Wise Layer](https://www.mindspore.cn/mindformers/docs/en/r1.10.0/static_graph/core/mindformers.core.LearningRateWiseLayer.html)
 
 Taking the cosine warm-up learning rate (CosineWithWarmUpLR) as an example, the main parameters that need to be paid attention to are listed in the following table:
 
@@ -79,7 +79,7 @@ lr_schedule:
   total_steps: 20 # -1 means it will load the total steps of the dataset
 ```
 
-For more details about the learning rate API (such as `type` configuration names and introductions to learning rate algorithms), please refer to the related links in the [MindSpore Transformers API Documentation: Learning Rate](https://www.mindspore.cn/mindformers/docs/en/master/static_graph/mindformers.core.html#learning-rate).
+For more details about the learning rate API (such as `type` configuration names and introductions to learning rate algorithms), please refer to the related links in the [MindSpore Transformers API Documentation: Learning Rate](https://www.mindspore.cn/mindformers/docs/en/r1.10.0/static_graph/mindformers.core.html#learning-rate).
 
 ### Grouped Learning Rate
 
@@ -126,14 +126,14 @@ Selecting the right optimizer is crucial for the convergence speed and final per
 
 MindSpore Transformers currently supports the following optimizers:
 
-- [**AdamW Optimizer**](https://www.mindspore.cn/mindformers/docs/en/master/static_graph/mindformers.core.html#optimizer)
+- [**AdamW Optimizer**](https://www.mindspore.cn/mindformers/docs/en/r1.10.0/static_graph/mindformers.core.html#optimizer)
 - **Muon Optimizer**
 
 These optimizers use different mathematical strategies—such as adaptive learning rates, momentum estimation, and direction normalization—to influence training stability, convergence characteristics, and final accuracy.
 
 Users can use the optimizer by adding an `optimizer` module to the YAML configuration file for model training.
 
-The following example is based on the [DeepSeek-V3 pre-training's YAML file](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/static_graph/example/deepseek3/pretrain_deepseek3_671b.yaml).
+The following example is based on the [DeepSeek-V3 pre-training's YAML file](https://atomgit.com/mindspore/docs/blob/r2.10.0/docs/mindformers/docs/source_zh_cn/static_graph/example/deepseek3/pretrain_deepseek3_671b.yaml).
 
 ### AdamW Optimizer
 
@@ -153,7 +153,7 @@ optimizer:
 
 #### Key Parameters Introduction
 
-For the main parameters of optimizer configuration, see the relevant link in [MindSpore Transformers API Documentation: Optimizer](https://www.mindspore.cn/mindformers/docs/en/master/static_graph/core/mindformers.core.AdamW.html#mindformers.core.AdamW).
+For the main parameters of optimizer configuration, see the relevant link in [MindSpore Transformers API Documentation: Optimizer](https://www.mindspore.cn/mindformers/docs/en/r1.10.0/static_graph/core/mindformers.core.AdamW.html#mindformers.core.AdamW).
 
 ### Muon Optimizer
 

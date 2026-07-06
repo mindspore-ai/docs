@@ -1,6 +1,6 @@
 # 快速开始
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/quick_start/quick_start.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.10.0/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/r2.10.0/docs/mindformers/docs/source_zh_cn/quick_start/quick_start.md)
 
 ## 概述
 
@@ -18,7 +18,7 @@
 
 - 已安装 MindSpore 与 MindSpore Transformers，详见 [安装指南](../installation.md)；
 - 昇腾（Ascend）硬件环境，且已正确配置 CANN；
-- 已准备 **Megatron 格式数据集**（`.bin`/`.idx`）。数据集制作（json → bin/idx）可用仓库脚本 [`preprocess_indexed_dataset.py`](https://atomgit.com/mindspore/mindformers/blob/master/toolkit/data_preprocess/megatron/preprocess_indexed_dataset.py)，详见「数据集」文档（将随后续提交上线）。
+- 已准备 **Megatron 格式数据集**（`.bin`/`.idx`）。数据集制作（json → bin/idx）可用仓库脚本 [`preprocess_indexed_dataset.py`](https://atomgit.com/mindspore/mindformers/blob/r1.10.0/toolkit/data_preprocess/megatron/preprocess_indexed_dataset.py)，详见「数据集」文档（将随后续提交上线）。
 
 > **数据路径如何衔接配置**
 >
@@ -26,7 +26,7 @@
 
 ## 第一步：准备配置文件
 
-动态图使用 dataclass 风格的 YAML 配置，顶层各段分别对应权重、训练、并行、优化器、学习率、数据、模型等。本页配套提供完整的 2 卡示例配置 [`pynative_ds3.yaml`](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/example/quick_start/pynative_ds3.yaml)，可直接下载使用；其各段内容如下（完整字段说明见「配置文件说明」文档）：
+动态图使用 dataclass 风格的 YAML 配置，顶层各段分别对应权重、训练、并行、优化器、学习率、数据、模型等。本页配套提供完整的 2 卡示例配置 [`pynative_ds3.yaml`](https://atomgit.com/mindspore/docs/blob/r2.10.0/docs/mindformers/docs/source_zh_cn/example/quick_start/pynative_ds3.yaml)，可直接下载使用；其各段内容如下（完整字段说明见「配置文件说明」文档）：
 
 ```yaml
 checkpoint:
@@ -111,7 +111,7 @@ model:
 
 ### 关于模型段
 
-DeepSeek-V3 的 `model` 段包含数十个结构超参（`hidden_size`、`num_hidden_layers`、MoE 路由等），逐一手写既冗长又易错。本页配套的完整示例配置 [`pynative_ds3.yaml`](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/example/quick_start/pynative_ds3.yaml) 已包含全部 `model` 段字段（dataclass 风格、结构超参平铺），直接下载使用即可；仅需确认 `seq_length` 与数据集一致。
+DeepSeek-V3 的 `model` 段包含数十个结构超参（`hidden_size`、`num_hidden_layers`、MoE 路由等），逐一手写既冗长又易错。本页配套的完整示例配置 [`pynative_ds3.yaml`](https://atomgit.com/mindspore/docs/blob/r2.10.0/docs/mindformers/docs/source_zh_cn/example/quick_start/pynative_ds3.yaml) 已包含全部 `model` 段字段（dataclass 风格、结构超参平铺），直接下载使用即可；仅需确认 `seq_length` 与数据集一致。
 
 > 注意：`configs/deepseek3/` 下的配置是静态图 legacy 结构（结构超参嵌套在 `model.model_config` 下、`architectures` 为列表、`context.mode: 0`），不能整段复制到动态图配置——需把结构超参「上提一层」平铺到 `model:` 下，并把 `architectures` 改成字符串。
 

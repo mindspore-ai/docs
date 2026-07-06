@@ -1,8 +1,8 @@
 Distributed Parallel Startup Methods
 ====================================
 
-.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg
-    :target: https://atomgit.com/mindspore/docs/blob/master/tutorials/source_en/parallel/startup_method.rst
+.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.10.0/resource/_static/logo_source_en.svg
+    :target: https://atomgit.com/mindspore/docs/blob/r2.10.0/tutorials/source_en/parallel/startup_method.rst
     :alt: View Source On AtomGit
 
 .. toctree::
@@ -18,9 +18,9 @@ Startup Method
 
 Currently GPU, Ascend and CPU support multiple startup methods respectively, three of which are \ ``msrun``, dynamic cluster, \ ``mpirun``:
 
-- `msrun <https://www.mindspore.cn/tutorials/en/master/parallel/msrun_launcher.html>`_: `msrun` is the capsulation of Dynamic cluster. It allows user to launch distributed jobs using one single command in each node. It could be used after MindSpore is installed. This method does not rely on third-party libraries and configuration files, has disaster recovery function, good security, and supports three hardware platforms. It is recommended that users prioritize the use of this startup method.
-- `Dynamic cluster <https://www.mindspore.cn/tutorials/en/master/parallel/dynamic_cluster.html>`_: dynamic cluster requires user to spawn multiple processes and export environment variables. It's the implementation of `msrun`. Use this method when running `Parameter Server` training mode. For other distributed jobs, `msrun` is recommended.
-- `mpirun <https://www.mindspore.cn/tutorials/en/master/parallel/mpirun.html>`_: this method relies on the open source library OpenMPI, and startup command is simple. Multi-machine need to ensure two-by-two password-free login. It is recommended for users who have experience in using OpenMPI to use this startup method.
+- `msrun <https://www.mindspore.cn/tutorials/en/r2.10.0/parallel/msrun_launcher.html>`_: `msrun` is the capsulation of Dynamic cluster. It allows user to launch distributed jobs using one single command in each node. It could be used after MindSpore is installed. This method does not rely on third-party libraries and configuration files, has disaster recovery function, good security, and supports three hardware platforms. It is recommended that users prioritize the use of this startup method.
+- `Dynamic cluster <https://www.mindspore.cn/tutorials/en/r2.10.0/parallel/dynamic_cluster.html>`_: dynamic cluster requires user to spawn multiple processes and export environment variables. It's the implementation of `msrun`. Use this method when running `Parameter Server` training mode. For other distributed jobs, `msrun` is recommended.
+- `mpirun <https://www.mindspore.cn/tutorials/en/r2.10.0/parallel/mpirun.html>`_: this method relies on the open source library OpenMPI, and startup command is simple. Multi-machine need to ensure two-by-two password-free login. It is recommended for users who have experience in using OpenMPI to use this startup method.
 
 .. warning::
     `rank_table` method has been deprecated in MindSpore 2.4 version.

@@ -1,6 +1,6 @@
 # Host&Device Heterogeneous
 
-[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/tutorials/source_en/parallel/host_device_training.md)
+[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.10.0/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/r2.10.0/tutorials/source_en/parallel/host_device_training.md)
 
 ## Overview
 
@@ -24,9 +24,9 @@ A careful analysis of the special structure of the Wide & Deep model can be obta
 
 ### Related Interfaces
 
-1. [mindspore.ops.Primitive.set_device()](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.Primitive.html#mindspore.ops.Primitive.set_device): Set Primitive to execute the backend.
+1. [mindspore.ops.Primitive.set_device()](https://www.mindspore.cn/docs/en/r2.10.0/api_python/ops/mindspore.ops.Primitive.html#mindspore.ops.Primitive.set_device): Set Primitive to execute the backend.
 
-2. [mindspore.nn.Optimizer.target](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Optimizer.html#mindspore.nn.Optimizer.target): This attribute specifies whether the parameter should be updated on the host or on the device. The input type is str and can only be "CPU" or "Ascend".
+2. [mindspore.nn.Optimizer.target](https://www.mindspore.cn/docs/en/r2.10.0/api_python/nn/mindspore.nn.Optimizer.html#mindspore.nn.Optimizer.target): This attribute specifies whether the parameter should be updated on the host or on the device. The input type is str and can only be "CPU" or "Ascend".
 
 ## Operation Practices
 
@@ -34,7 +34,7 @@ The following is an illustration of Host&Device heterogeneous operation using As
 
 ### Sample Code Description
 
-> Download the complete example code: [host_device](https://atomgit.com/mindspore/docs/tree/master/docs/sample_code/host_device).
+> Download the complete example code: [host_device](https://atomgit.com/mindspore/docs/tree/r2.10.0/docs/sample_code/host_device).
 
 The directory structure is as follows:
 
@@ -50,7 +50,7 @@ The directory structure is as follows:
 
 ### Configuring a Distributed Environment
 
-First, the parallel mode is specified as [data parallel](https://www.mindspore.cn/tutorials/en/master/parallel/data_parallel.html) mode through the context interface, and the communication is initialized through init.
+First, the parallel mode is specified as [data parallel](https://www.mindspore.cn/tutorials/en/r2.10.0/parallel/data_parallel.html) mode through the context interface, and the communication is initialized through init.
 
 ```python
 import mindspore as ms
@@ -94,7 +94,7 @@ data_set = create_dataset(32)
 
 ### Defining the Network
 
-The network definition differs from a single-card network in that the [ops.Add()](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.Add.html) operator is configured to run on the host side with the following code:
+The network definition differs from a single-card network in that the [ops.Add()](https://www.mindspore.cn/docs/en/r2.10.0/api_python/ops/mindspore.ops.Add.html) operator is configured to run on the host side with the following code:
 
 ```python
 import mindspore as ms
@@ -145,7 +145,7 @@ net.layer3.add.set_device("CPU")
 
 ### Training the Network
 
-The loss function, optimizer, and training process are consistent with data parallelism, and [mindspore.nn.DistributedGradReducer()](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.DistributedGradReducer.html) interface is used to aggregate the gradients across all cards with the following code:
+The loss function, optimizer, and training process are consistent with data parallelism, and [mindspore.nn.DistributedGradReducer()](https://www.mindspore.cn/docs/en/r2.10.0/api_python/nn/mindspore.nn.DistributedGradReducer.html) interface is used to aggregate the gradients across all cards with the following code:
 
 ```python
 from mindspore import nn

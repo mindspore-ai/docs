@@ -1,6 +1,6 @@
 # Class DeviceInfoContext
 
-\#include &lt;[context.h](https://atomgit.com/mindspore/mindspore-lite/blob/master/include/api/context.h)&gt;
+\#include &lt;[context.h](https://atomgit.com/mindspore/mindspore-lite/blob/r2.10/include/api/context.h)&gt;
 
 DeviceInfoContext类定义不同硬件设备的环境信息。
 

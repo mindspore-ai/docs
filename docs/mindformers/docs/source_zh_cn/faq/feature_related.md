@@ -1,6 +1,6 @@
 # 功能相关 FAQ
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/faq/feature_related.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.10.0/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/r2.10.0/docs/mindformers/docs/source_zh_cn/faq/feature_related.md)
 
 ## Q: MindSpore Transformers和MindFormers两个名字的区别？
 
@@ -22,7 +22,7 @@ A: 官方下载链接失效，请关注社区Issue [#IBV35D](https://gitee.com/m
 
 ## Q: 如何生成模型切分策略文件？
 
-A: 模型切分策略文件记录了模型权重在分布式场景下的切分策略，一般在离线权重切分时使用。在网络`yaml`文件中配置`only_save_strategy: True`，然后正常启动分布式任务，便可在`output/strategy/`目录下生成分布式策略文件。详细介绍请参阅[分布式权重切分与合并教程](https://www.mindspore.cn/mindformers/docs/zh-CN/master/static_graph/feature/ckpt.html)。
+A: 模型切分策略文件记录了模型权重在分布式场景下的切分策略，一般在离线权重切分时使用。在网络`yaml`文件中配置`only_save_strategy: True`，然后正常启动分布式任务，便可在`output/strategy/`目录下生成分布式策略文件。详细介绍请参阅[分布式权重切分与合并教程](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.10.0/static_graph/feature/ckpt.html)。
 
 <br/>
 

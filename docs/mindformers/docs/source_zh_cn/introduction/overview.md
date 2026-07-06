@@ -1,6 +1,6 @@
 # 整体架构
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/introduction/overview.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.10.0/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/r2.10.0/docs/mindformers/docs/source_zh_cn/introduction/overview.md)
 
 MindSpore Transformers 自 **r2.0.0** 起以 **动态图（PyNative）实现** 作为演进主线。本章介绍动态图训练栈的整体架构、核心模块与训练能力，并给出最小落地入口。
 

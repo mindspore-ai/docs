@@ -1,6 +1,6 @@
 # CustomOpBuilder: Integrating ATB Operators Using AtbOpRunner
 
-[![View Source File](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/tutorials/source_en/custom_program/operation/op_customopbuilder_atb.md)
+[![View Source File](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.10.0/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/r2.10.0/tutorials/source_en/custom_program/operation/op_customopbuilder_atb.md)
 
 ## Overview
 
@@ -8,13 +8,13 @@
 
 When users need to use operators from the ATB acceleration library that are not provided by MindSpore, they can quickly integrate and use them through custom operators.
 
-In [Custom Operators Based on CustomOpBuilder](https://www.mindspore.cn/tutorials/en/master/custom_program/operation/op_customopbuilder.html), MindSpore provides the `PyboostRunner` tool to allow users to integrate custom operators in dynamic graphs. Now, for ATB operators, MindSpore additionally provides the `AtbOpRunner` tool to encapsulate the ATB operator's workflow and the dynamic graph's multi-stage pipeline.
+In [Custom Operators Based on CustomOpBuilder](https://www.mindspore.cn/tutorials/en/r2.10.0/custom_program/operation/op_customopbuilder.html), MindSpore provides the `PyboostRunner` tool to allow users to integrate custom operators in dynamic graphs. Now, for ATB operators, MindSpore additionally provides the `AtbOpRunner` tool to encapsulate the ATB operator's workflow and the dynamic graph's multi-stage pipeline.
 
 In the complete [ATB operator workflow](https://www.hiascend.com/document/detail/zh/canncommercial/81RC1/developmentguide/acce/ascendtb/ascendtb_0037.html), users need to execute steps such as constructing `Param`, creating `Operation` and `Context`, setting `variantPack` (operator input-output tensors), calling `Setup`, calling `Execute`, and destroying `Context` and `Operation`. However, for a single operator, its `Operation` only depends on operator attributes (`Param`), and its `Context` only depends on the stream, both of which can be reused. Therefore, MindSpore provides a cache to store these data structures, avoiding unnecessary time consumption caused by repeated creation and destruction.
 
-When integrating ATB operators using the [AtbOpRunner class](https://www.mindspore.cn/tutorials/en/master/custom_program/operation/cpp_api_for_custom_ops.html#class-atboprunner), users only need to provide a corresponding hash function for `Param` (used as the key for caching `Operation`) and call the `Init` interface for initialization (constructing `Operation`), followed by the `Run` interface to execute the ATB operator. Additionally, users can directly call the [RunAtbOp](https://www.mindspore.cn/tutorials/en/master/custom_program/operation/cpp_api_for_custom_ops.html#function-runatbop) function for one-click execution (the function internally includes calls to both `Init` and `Run` interfaces).
+When integrating ATB operators using the [AtbOpRunner class](https://www.mindspore.cn/tutorials/en/r2.10.0/custom_program/operation/cpp_api_for_custom_ops.html#class-atboprunner), users only need to provide a corresponding hash function for `Param` (used as the key for caching `Operation`) and call the `Init` interface for initialization (constructing `Operation`), followed by the `Run` interface to execute the ATB operator. Additionally, users can directly call the [RunAtbOp](https://www.mindspore.cn/tutorials/en/r2.10.0/custom_program/operation/cpp_api_for_custom_ops.html#function-runatbop) function for one-click execution (the function internally includes calls to both `Init` and `Run` interfaces).
 
-This guide uses `SwiGLU` as an example to demonstrate the ATB operator integration process. The complete code can be found in the [code repository](https://atomgit.com/mindspore/mindspore/blob/master/tests/st/custom/custom_op_builder/pyboost/jit_test_files/atb_swiglu.cpp).
+This guide uses `SwiGLU` as an example to demonstrate the ATB operator integration process. The complete code can be found in the [code repository](https://atomgit.com/mindspore/mindspore/blob/v2.10/tests/st/custom/custom_op_builder/pyboost/jit_test_files/atb_swiglu.cpp).
 
 ## Installing the ATB Acceleration Library
 

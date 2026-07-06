@@ -8,7 +8,7 @@
 
 # 大模型精度调优指南
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/static_graph/advanced_development/precision_optimization.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.10.0/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/r2.10.0/docs/mindformers/docs/source_zh_cn/static_graph/advanced_development/precision_optimization.md)
 
 ## 精度问题概述和场景
 
@@ -113,12 +113,12 @@
 | 溢出检测      | 溢出状态对齐PyTorch方式，建议使用INFNAN_MODE，即`export MS_ASCEND_CHECK_OVERFLOW_MODE=INFNAN_MODE`。                                                                                      |
 | 图算融合      | 关闭图算融合，即`enable_graph_kernel: False`。                                                                                                                                     |
 | 训推模板一致  | 若进行SFT训练，需要确认训练推理时使用的输入模板一致。                                                                                                                                              |
-| 版本检查      | 检查MindSpore、MindSpore Transformers、CANN版本是否配套，建议使用[最新的配套版本](https://www.mindspore.cn/mindformers/docs/zh-CN/master/installation.html#%E7%A1%AE%E8%AE%A4%E7%89%88%E6%9C%AC%E5%8C%B9%E9%85%8D%E5%85%B3%E7%B3%BB)。 |
+| 版本检查      | 检查MindSpore、MindSpore Transformers、CANN版本是否配套，建议使用[最新的配套版本](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.10.0/installation.html#%E7%A1%AE%E8%AE%A4%E7%89%88%E6%9C%AC%E5%8C%B9%E9%85%8D%E5%85%B3%E7%B3%BB)。 |
 | 与开源差异    | MindSpore Transformers中已支持主流的开源LLM模型，也经过了较为充分的测试。如果用户基于MindSpore Transformers中开源模型进行开发，可以重点排查与MindSpore Transformers开源模型的差异。                                              |
 
 ## 精度调试工具介绍
 
-精度定位中，主要使用MindSpore的Dump工具，详细介绍参考[Dump功能调试](https://www.mindspore.cn/tutorials/zh-CN/master/debug/dump.html)。
+精度定位中，主要使用MindSpore的Dump工具，详细介绍参考[Dump功能调试](https://www.mindspore.cn/tutorials/zh-CN/r2.10.0/debug/dump.html)。
 
 MindSpore的Dump工具通过配置JSON文件进行使能，该方式Dump出网络中的所有算子数据，保存tensor及统计信息的statistic.csv表格。以下给出全量算子Dump的JSON示例：
 
@@ -142,7 +142,7 @@ MindSpore的Dump工具通过配置JSON文件进行使能，该方式Dump出网�
 }
 ```
 
-配置参数的字段含义参考[Dump功能调试](https://www.mindspore.cn/tutorials/zh-CN/master/debug/dump.html)。
+配置参数的字段含义参考[Dump功能调试](https://www.mindspore.cn/tutorials/zh-CN/r2.10.0/debug/dump.html)。
 
 配置好JSON文件后，设置Dump环境变量指向配置的JSON文件，需要设置绝对路径：
 
@@ -154,7 +154,7 @@ export MINDSPORE_DUMP_CONFIG=${JSON_PATH}
 
 ### 其他介绍
 
-除了上述介绍的全量算子Dump，工具还支持部分数据Dump、溢出Dump、指定条件Dump等。限于篇幅，感兴趣的用户可以参考[Dump功能调试](https://www.mindspore.cn/tutorials/zh-CN/master/debug/dump.html)进行配置使用。此外，还提供了msprobe精度调试工具。msprobe是 MindStudio Training Tools 工具链下精度调试部分的工具包，主要包括精度预检、溢出检测和精度比对等功能，详细请参考[msprobe使用手册](https://atomgit.com/Ascend/msprobe)。
+除了上述介绍的全量算子Dump，工具还支持部分数据Dump、溢出Dump、指定条件Dump等。限于篇幅，感兴趣的用户可以参考[Dump功能调试](https://www.mindspore.cn/tutorials/zh-CN/r2.10.0/debug/dump.html)进行配置使用。此外，还提供了msprobe精度调试工具。msprobe是 MindStudio Training Tools 工具链下精度调试部分的工具包，主要包括精度预检、溢出检测和精度比对等功能，详细请参考[msprobe使用手册](https://atomgit.com/Ascend/msprobe)。
 
 需要特别注意的是，开启**确定性计算**和使用**Dump**功能时，模型训练的**性能**会明显下降。这可能导致训练步长变大、运行速度变慢，这是正常现象。
 
@@ -197,7 +197,7 @@ export MINDSPORE_DUMP_CONFIG=${JSON_PATH}
 
 #### 权重转换
 
-训练过程中，MindSpore与PyTorch加载同一份权重。若是预训练场景，可以使用PyTorch保存一个初始化权重后，转换为MindSpore权重。因为MindSpore的权重名称与PyTorch有差异，权重转换的本质是将PyTorch权重dict中的名字改为MindSpore权重名字，以支持MindSpore加载。权重转换参考[权重转换指导](https://www.mindspore.cn/mindformers/docs/zh-CN/master/static_graph/feature/ckpt.html#%E6%9D%83%E9%87%8D%E6%A0%BC%E5%BC%8F%E8%BD%AC%E6%8D%A2)。
+训练过程中，MindSpore与PyTorch加载同一份权重。若是预训练场景，可以使用PyTorch保存一个初始化权重后，转换为MindSpore权重。因为MindSpore的权重名称与PyTorch有差异，权重转换的本质是将PyTorch权重dict中的名字改为MindSpore权重名字，以支持MindSpore加载。权重转换参考[权重转换指导](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.10.0/static_graph/feature/ckpt.html#%E6%9D%83%E9%87%8D%E6%A0%BC%E5%BC%8F%E8%BD%AC%E6%8D%A2)。
 
 MindSpore与PyTorch均支持`bin`格式数据，加载相同的数据集进行训练，保证每个step一致。
 
@@ -236,7 +236,7 @@ MindSpore与PyTorch均支持`bin`格式数据，加载相同的数据集进行�
       # 原始代码
   ```
 
-* MindSpore代码，在[run_mindformer.py](https://atomgit.com/mindspore/mindformers/blob/master/run_mindformer.py)中，新增seed_all方法，并在main方法中调用，添加方法如下：
+* MindSpore代码，在[run_mindformer.py](https://atomgit.com/mindspore/mindformers/blob/r1.10.0/run_mindformer.py)中，新增seed_all方法，并在main方法中调用，添加方法如下：
 
   ```python
   import numpy as np
@@ -356,7 +356,7 @@ def get_parameters(self):
     return params
 ```
 
-MindSpore Transformers加载梯度参考[mindformers/wrapper/wrapper.py](https://atomgit.com/mindspore/mindformers/blob/master/mindformers/wrapper/wrapper.py)实现。注意，需要用户自行找到MindSpore Transformers与PyTorch梯度的对应关系，参考如下修改代码：
+MindSpore Transformers加载梯度参考[mindformers/wrapper/wrapper.py](https://atomgit.com/mindspore/mindformers/blob/r1.10.0/mindformers/wrapper/wrapper.py)实现。注意，需要用户自行找到MindSpore Transformers与PyTorch梯度的对应关系，参考如下修改代码：
 
 ```python
 class MFTrainOneStepCell(nn.TrainOneStepWithLossScaleCell):

@@ -1,6 +1,6 @@
 # Offline Conversion of Inference Models
 
-[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/lite/cloud_docs/source_en/mindir/converter_tool.md)
+[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.10.0/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/r2.10.0/docs/lite/cloud_docs/source_en/mindir/converter_tool.md)
 
 ## Overview
 
@@ -18,7 +18,7 @@ Note: Due to interface compatibility issues, the conversion tool cannot be run i
 
 To use MindSpore Lite cloud-side inference model converter, the following environment preparation is required.
 
-- [Compile](https://www.mindspore.cn/lite/cloud_docs/en/master/use/build.html) or [download](https://www.mindspore.cn/lite/docs/en/master/use/downloads.html) model converter.
+- [Compile](https://www.mindspore.cn/lite/cloud_docs/en/r2.10.0/use/build.html) or [download](https://www.mindspore.cn/lite/docs/en/r2.10.0/use/downloads.html) model converter.
 - Add the dynamic link libraries required by the converter to the environment variable LD_LIBRARY_PATH.
 
     ```bash

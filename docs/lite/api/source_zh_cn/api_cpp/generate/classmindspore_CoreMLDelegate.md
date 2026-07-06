@@ -1,6 +1,6 @@
 # Class CoreMLDelegate
 
-\#include &lt;[delegate.h](https://atomgit.com/mindspore/mindspore-lite/blob/master/include/api/delegate.h)&gt;
+\#include &lt;[delegate.h](https://atomgit.com/mindspore/mindspore-lite/blob/r2.10/include/api/delegate.h)&gt;
 
 `CoreMLDelegate`继承自`Delegate`类，定义了CoreML框架接入MindSpore Lite的代理接口。
 

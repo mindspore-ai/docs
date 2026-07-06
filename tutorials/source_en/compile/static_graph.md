@@ -1,6 +1,6 @@
 # Introduction to Graph Mode Programming
 
-[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/tutorials/source_en/compile/static_graph.md)
+[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.10.0/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/r2.10.0/tutorials/source_en/compile/static_graph.md)
 
 ## Overview
 
@@ -23,10 +23,10 @@ in the Cell `__call__` method, so the actual calling process is:
 
 `model(inputs) = model.compile(inputs) + model.construct(inputs)`, where `model` is the instantiated Cell object.
 
-Just-In-Time (JIT) compilation can be achieved using the [JIT interface](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.jit.html). Another way is to use the Graph mode by setting
+Just-In-Time (JIT) compilation can be achieved using the [JIT interface](https://www.mindspore.cn/docs/en/r2.10.0/api_python/mindspore/mindspore.jit.html). Another way is to use the Graph mode by setting
 `ms.set_context(mode=ms.GRAPH_MODE)`, then write the code in the
 `construct` function of the `Cell` so that the code in the `construct` function will be compiled into a static computation graph. For details
-about the definition of `Cell`, click [Cell API document](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Cell.html).
+about the definition of `Cell`, click [Cell API document](https://www.mindspore.cn/docs/en/r2.10.0/api_python/nn/mindspore.nn.Cell.html).
 
 Due to syntax parsing restrictions, the supported data types, syntax, and related operations during graph building are not completely
 consistent with the Python syntax. As a result, some usage is restricted. Borrowing the traditional JIT compilation idea, MindSpore considers
@@ -218,7 +218,7 @@ Supports `int`, `float`, and `bool`, but does not support `complex` numbers.
 When the data is a constant, the value of the data can be obtained at compile time, and the forcible conversion to `Number` is supported in the
 network. The syntaxes `y = int(x)`, `y = float(x)`, and `y = bool(x)` are supported. When the data is a variable, i.e., you can get the value only
 at runtime, it also supports data type conversion using built-in
-functions [Python Built-in Functions](https://www.mindspore.cn/tutorials/en/master/compile/python_builtin_functions.html)
+functions [Python Built-in Functions](https://www.mindspore.cn/tutorials/en/r2.10.0/compile/python_builtin_functions.html)
 such as int(), float() and bool(). For example:
 
 ```python
@@ -887,10 +887,10 @@ Currently, MindSpore supports the following user-defined data types:
 
 ##### Tensor
 
-For details of `Tensor`, click [Tensor API document](https://mindspore.cn/docs/en/master/api_python/mindspore/mindspore.Tensor.html#mindspore-tensor).
+For details of `Tensor`, click [Tensor API document](https://mindspore.cn/docs/en/r2.10.0/api_python/mindspore/mindspore.Tensor.html#mindspore-tensor).
 
 Supports creating and using Tensor. The ways to create a `Tensor`
-include using the [tensor function interface](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.tensor.html#mindspore.tensor)
+include using the [tensor function interface](https://www.mindspore.cn/docs/en/r2.10.0/api_python/mindspore/mindspore.tensor.html#mindspore.tensor)
 and using the class \'ms.Tensor\' interface. It is recommended to use
 the former because users can specify the required dtype. The code example is as follows:
 
@@ -955,7 +955,7 @@ ret.shape:(3, 4, 1, 6)
 Currently, the attributes and APIs related to `Primitive` and its subclasses cannot be called on the network.
 
 For details about the defined `Primitive`, click [Primitive API
-document](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.Primitive.html#mindspore.ops.Primitive).
+document](https://www.mindspore.cn/docs/en/r2.10.0/api_python/ops/mindspore.ops.Primitive.html#mindspore.ops.Primitive).
 
 ##### Cell
 
@@ -971,7 +971,7 @@ cannot be called on the network unless they are called through `self` in
 `construct` of `Cell`.
 
 For details about the definition of `Cell`, click [Cell API
-document](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Cell.html).
+document](https://www.mindspore.cn/docs/en/r2.10.0/api_python/nn/mindspore.nn.Cell.html).
 
 ##### Parameter
 
@@ -979,14 +979,14 @@ document](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Cel
 be updated during network training.
 
 For details about the definition of `Parameter`, click
-[Parameter API document](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.Parameter.html#mindspore.Parameter).
+[Parameter API document](https://www.mindspore.cn/docs/en/r2.10.0/api_python/mindspore/mindspore.Parameter.html#mindspore.Parameter).
 
 ### Operators
 
 Arithmetic operators and assignment operators support the `Number` and
 `Tensor` operations, as well as the `Tensor` operations of different
 `dtype`. For more details, please refer to
-[Operators](https://www.mindspore.cn/tutorials/en/master/compile/operators.html).
+[Operators](https://www.mindspore.cn/tutorials/en/r2.10.0/compile/operators.html).
 
 ### Primaries
 
@@ -1083,14 +1083,14 @@ ret:[[3. 3. 3. 3.]]
 Currently supported Python statements include raise statement, assert statement, pass statement, return statement, break statement, continue
 statement, if statement, for statement, while statement, with statement, list comprehension, generator expression and function definition
 statement. For more details, please refer to
-[Statements](https://www.mindspore.cn/tutorials/en/master/compile/statements.html).
+[Statements](https://www.mindspore.cn/tutorials/en/r2.10.0/compile/statements.html).
 
 ### Python Built-in Functions
 
 Currently supported Python built-in functions include `int`, `float`, `bool`, `str`, `list`, `tuple`, `getattr`, `hasattr`, `len`,
 `isinstance`, `all`, `any`, `round`, `max`, `min`, `sum`, `abs`, `partial`, `map`, `range`, `enumerate`, `super`, `pow`, `filter`. The
 use of built-in functions in graph mode is similar to the corresponding
-Python built-in functions. For more details, please refer to [Python Built-in Functions](https://www.mindspore.cn/tutorials/en/master/compile/python_builtin_functions.html).
+Python built-in functions. For more details, please refer to [Python Built-in Functions](https://www.mindspore.cn/tutorials/en/r2.10.0/compile/python_builtin_functions.html).
 
 ### Network Definition
 
@@ -1492,7 +1492,7 @@ Combining view and in-place operations improves memory efficiency and computatio
 
 The execution graph in graph mode is converted from source code, and not all Python syntax can support it. The following describes some of the
 syntax constraints that exist under the basic syntax. More network
-compilation problems can be found in [Network compilation](https://www.mindspore.cn/docs/en/master/faq/network_compilation.html).
+compilation problems can be found in [Network compilation](https://www.mindspore.cn/docs/en/r2.10.0/faq/network_compilation.html).
 
 1. When an undefined class member is used in the `construct` function,
     `AttributeError` exception will be thrown. For example:
@@ -1583,7 +1583,7 @@ compilation problems can be found in [Network compilation](https://www.mindspore
     \'dictionary\' are not supported in the basic syntax scenario, and need to be supported when the JIT syntax support level option
     \'jit_syntax_level\' is \'LAX\'.
 
-5. In the basic syntax scenario, in addition to the [Python Built-in Functions](https://www.mindspore.cn/tutorials/en/master/compile/python_builtin_functions.html)
+5. In the basic syntax scenario, in addition to the [Python Built-in Functions](https://www.mindspore.cn/tutorials/en/r2.10.0/compile/python_builtin_functions.html)
     supported in the current graph mode, there are still some built-in functions that are not supported in graph mode. For example:
     basestring, bin, bytearray, callable, chr, cmp, compile, delattr, dir, divmod, eval, execfile, file, frozenset, hash, hex, id, input,
     issubclass, iter, locals, long, memoryview, next, object, oct, open, ord, property, raw_input, reduce, reload, repr, reverse, set, slice,
@@ -1636,10 +1636,10 @@ current extension based on AST compilation.
 
     1. Python built-in modules and Python standard libraries, such as `os`, `sys`, `math`, `time` and other modules.
     2. Third-party code libraries. Their module paths are under the `site-packages` directory of the Python installation directory,
-        which need to be installed first and then imported, such as `numpy` and `scipy`. For a detailed list, please refer to the [third_party_modules](https://atomgit.com/mindspore/mindspore/blob/master/mindspore/python/mindspore/graph/_parse/jit_fallback_modules/third_party_modules.py) file.
+        which need to be installed first and then imported, such as `numpy` and `scipy`. For a detailed list, please refer to the [third_party_modules](https://atomgit.com/mindspore/mindspore/blob/v2.10/mindspore/python/mindspore/graph/_parse/jit_fallback_modules/third_party_modules.py) file.
     3. Modules specified by the environment variable `MS_JIT_IGNORE_MODULES`. In contrast, there is the environment
         variable `MS_JIT_MODULES`. For more details, please refer to
-        [Environment Variables](https://www.mindspore.cn/docs/en/master/api_python/env_var_list.html).
+        [Environment Variables](https://www.mindspore.cn/docs/en/r2.10.0/api_python/env_var_list.html).
 
 - Supports data types of third-party libraries, allowing calling and returning objects of third-party libraries.
 
@@ -1790,7 +1790,7 @@ is overloaded: \[\'+\', \'-\',
 \'not\', \'==\', \'!=\', \'\<\', \'\>\', \'\<=\', \'\>=\', \'in\', \'not
 in\', \'y=x\[0\]\'\].
 For more details, please refer to
-[Operators](https://www.mindspore.cn/tutorials/en/master/compile/operators.html).
+[Operators](https://www.mindspore.cn/tutorials/en/r2.10.0/compile/operators.html).
 When getting unsupported input types, those operators need to use
 extended static graph syntax to support them, and make the output consistent with the output in the pynative mode.
 
@@ -2078,7 +2078,7 @@ support more input types, such as third-party library data types.
 For example, in the following example, \'x.asnumpy()\' and
 \'np.ndarray\' are both types supported by extensions. More support for
 built-in functions can be found in the [Python built-in
-functions](https://www.mindspore.cn/tutorials/en/master/compile/python_builtin_functions.html) section.
+functions](https://www.mindspore.cn/tutorials/en/r2.10.0/compile/python_builtin_functions.html) section.
 
 ```python
 import numpy as np
@@ -2305,9 +2305,9 @@ to specify the corresponding Python statement type, thereby determining
 the type of the interpretation node and avoiding the generation of `Any` type.
 
 For example, the difference between the
-[Tensor](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.Tensor.html#mindspore.Tensor)
+[Tensor](https://www.mindspore.cn/docs/en/r2.10.0/api_python/mindspore/mindspore.Tensor.html#mindspore.Tensor)
 class and the
-[tensor](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.tensor.html#mindspore.tensor)
+[tensor](https://www.mindspore.cn/docs/en/r2.10.0/api_python/mindspore/mindspore.tensor.html#mindspore.tensor)
 interface lies in the use of the Annotation Type mechanism within the tensor interface. When the dtype of the tensor function is determined,
 the function uses Annotation to specify the output type, thereby avoiding the generation of Any type. The use of `Annotation Type` only
 requires adding a comment `# @jit.typing: () -> tensor_type[float32]` above or after the corresponding Python statement, where
@@ -2420,7 +2420,7 @@ net.attr:  [2 3 4]
 
 3\. When constructing graphs based on bytecode, control flow involving
 variable scenarios cannot be included in the graph. For related information on variables, please refer to
-[Variables Generate Scenes](https://www.mindspore.cn/tutorials/en/master/compile/static_graph.html#variables-generate-scenes).
+[Variables Generate Scenes](https://www.mindspore.cn/tutorials/en/r2.10.0/compile/static_graph.html#variables-generate-scenes).
 An example is as follows:
 
 ```python

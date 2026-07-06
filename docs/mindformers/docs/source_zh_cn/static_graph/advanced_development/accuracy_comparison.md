@@ -8,7 +8,7 @@
 
 # 与 Megatron-LM 比对训练精度
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/static_graph/advanced_development/accuracy_comparison.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.10.0/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/r2.10.0/docs/mindformers/docs/source_zh_cn/static_graph/advanced_development/accuracy_comparison.md)
 
 ## 1. 概述
 
@@ -45,7 +45,7 @@ Megatron-LM 是一个面向大规模训练任务的成熟框架，具备高度�
 
 - **Megatron-LM**：参考 [Megatron-LM 文档](https://github.com/NVIDIA/Megatron-LM/tree/core_r0.12.0?tab=readme-ov-file#setup)
 
-- **MindSpore Transformers**：参考 [MindSpore Transformers 文档](https://atomgit.com/mindspore/mindformers/blob/master/README_CN.md)
+- **MindSpore Transformers**：参考 [MindSpore Transformers 文档](https://atomgit.com/mindspore/mindformers/blob/r1.10.0/README_CN.md)
 
 ## 3. 精度对比流程
 
@@ -53,7 +53,7 @@ Megatron-LM 是一个面向大规模训练任务的成熟框架，具备高度�
 
 ### 3.1 配置对齐
 
-精度对比流程的第一步是确保两个框架使用**完全一致的模型配置**。为此，本小节提供了 [Megatron-LM](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/static_graph/example/accuracy_comparison/example.sh) 与 [MindSpore Transformers](https://atomgit.com/mindspore/mindformers) 的对应配置文件，分别定义了模型结构、并行策略以及关键训练超参数。
+精度对比流程的第一步是确保两个框架使用**完全一致的模型配置**。为此，本小节提供了 [Megatron-LM](https://atomgit.com/mindspore/docs/blob/r2.10.0/docs/mindformers/docs/source_zh_cn/static_graph/example/accuracy_comparison/example.sh) 与 [MindSpore Transformers](https://atomgit.com/mindspore/mindformers) 的对应配置文件，分别定义了模型结构、并行策略以及关键训练超参数。
 
 配置对齐的目标是保证两个系统在初始化状态下尽可能一致，从而使得后续的前向输出、梯度反向传播等比对具有可比性。
 
@@ -260,7 +260,7 @@ Megatron-LM 是一个面向大规模训练任务的成熟框架，具备高度�
 
 - 重计算配置
 
-    MindSpore Transformers 重计算配置逻辑与 Megatron-LM 差异较大，参考[重计算配置](https://www.mindspore.cn/mindformers/docs/zh-CN/master/static_graph/feature/memory_optimization.html#%E9%87%8D%E8%AE%A1%E7%AE%97)使能即可。
+    MindSpore Transformers 重计算配置逻辑与 Megatron-LM 差异较大，参考[重计算配置](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.10.0/static_graph/feature/memory_optimization.html#%E9%87%8D%E8%AE%A1%E7%AE%97)使能即可。
 
     | Megatron-LM                    | 含义                    | MindSpore Transformers | 含义                       |
     |--------------------------------|-----------------------|------------------------|--------------------------|
@@ -272,7 +272,7 @@ Megatron-LM 是一个面向大规模训练任务的成熟框架，具备高度�
     | `checkpoint-activations`       | 是否启用激活值检查点机制以减少显存     | 不支持配置                  |                          |
     | `moe-layer-recompute`          | MoE 层启用重计算            | 不支持配置                  |                          |
 
-**注意**：两个框架还有其他训练相关性较小的配置，MindSpore Transformers 详情参考[配置说明](https://www.mindspore.cn/mindformers/docs/zh-CN/master/static_graph/feature/configuration.html)，Megatron-LM 可通过执行命令`torchrun --nproc_per_node=1 pretrain_gpt.py --help`查看。
+**注意**：两个框架还有其他训练相关性较小的配置，MindSpore Transformers 详情参考[配置说明](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.10.0/static_graph/feature/configuration.html)，Megatron-LM 可通过执行命令`torchrun --nproc_per_node=1 pretrain_gpt.py --help`查看。
 
 ### 3.2 数据集对齐
 
@@ -290,7 +290,7 @@ Megatron-LM 是一个面向大规模训练任务的成熟框架，具备高度�
 
 - 生成Megatron BIN格式文件
 
-   将数据集文件`wiki.train.tokens`和分词模型文件`tokenizer.json`放置在`../dataset`下，并参照[Megatron数据集-数据预处理](https://www.mindspore.cn/mindformers/docs/zh-CN/master/static_graph/feature/dataset.html#%E6%95%B0%E6%8D%AE%E9%A2%84%E5%A4%84%E7%90%86)制作`data.json`文件。
+   将数据集文件`wiki.train.tokens`和分词模型文件`tokenizer.json`放置在`../dataset`下，并参照[Megatron数据集-数据预处理](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.10.0/static_graph/feature/dataset.html#%E6%95%B0%E6%8D%AE%E9%A2%84%E5%A4%84%E7%90%86)制作`data.json`文件。
 
    使用以下命令将数据集文件转换为BIN格式文件。其中，环境变量 `$MINDFORMERS_HOME` 指 MindSpore Transformers 源代码所在的目录，请提前设置。
 
@@ -364,7 +364,7 @@ Megatron-LM 是一个面向大规模训练任务的成熟框架，具备高度�
 
 1. 生成 MindSpore Transformers 初始权重
 
-   参照[callbacks 配置](https://www.mindspore.cn/mindformers/docs/zh-CN/master/static_graph/feature/configuration.html#callbacks%E9%85%8D%E7%BD%AE)通过修改 `example.yaml` 文件并执行[查看结果](#34-查看结果)中提供的命令，即可通过预训练在`example.yaml`中的`output_dir`的`checkpoints`下获得一份初始权重，修改内容如下：
+   参照[callbacks 配置](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.10.0/static_graph/feature/configuration.html#callbacks%E9%85%8D%E7%BD%AE)通过修改 `example.yaml` 文件并执行[查看结果](#34-查看结果)中提供的命令，即可通过预训练在`example.yaml`中的`output_dir`的`checkpoints`下获得一份初始权重，修改内容如下：
 
    ```yaml
    # Before (example.yaml)
@@ -391,7 +391,7 @@ Megatron-LM 是一个面向大规模训练任务的成熟框架，具备高度�
 
 2. MindSpore Transformers to Megatron-LM
 
-   为了将 MindSpore Transformers 的权重精确映射为 Megatron-LM 可加载的等价权重，我们提供了转换权重脚本，执行权重转换脚本即可获得等价权重。详情可查看[转换模型权重为Megatron模型权重的实践案例](https://www.mindspore.cn/mindformers/docs/zh-CN/master/static_graph/example/convert_ckpt_to_megatron/convert_ckpt_to_megatron.html)
+   为了将 MindSpore Transformers 的权重精确映射为 Megatron-LM 可加载的等价权重，我们提供了转换权重脚本，执行权重转换脚本即可获得等价权重。详情可查看[转换模型权重为Megatron模型权重的实践案例](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.10.0/static_graph/example/convert_ckpt_to_megatron/convert_ckpt_to_megatron.html)
 
    注意：
 

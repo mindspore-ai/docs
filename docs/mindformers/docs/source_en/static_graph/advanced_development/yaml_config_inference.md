@@ -8,7 +8,7 @@ This page belongs to the **Static Graph (GRAPH_MODE) Implementation** section an
 
 # Guide to Using the Inference Configuration Template
 
-[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_en/static_graph/advanced_development/yaml_config_inference.md)
+[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.10.0/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/r2.10.0/docs/mindformers/docs/source_en/static_graph/advanced_development/yaml_config_inference.md)
 
 ## Overview
 
@@ -53,7 +53,7 @@ On devices without 64GB of video memory (on-chip memory), it is necessary to adj
 
 ## Usage Example
 
-Mindspore Transformers provides YAML configuration file templates for the Qwen3 series models [predict_qwen3.yaml](https://atomgit.com/mindspore/mindformers/blob/master/configs/qwen3/predict_qwen3.yaml), Qwen3 models of different specifications can perform inference tasks using this template by modifying relevant configurations.
+Mindspore Transformers provides YAML configuration file templates for the Qwen3 series models [predict_qwen3.yaml](https://atomgit.com/mindspore/mindformers/blob/r1.10.0/configs/qwen3/predict_qwen3.yaml), Qwen3 models of different specifications can perform inference tasks using this template by modifying relevant configurations.
 
 Taking Qwen3-32B as an example, the configuration that needs to be modified for reasoning YAML is as follows:
 
@@ -71,4 +71,4 @@ Taking Qwen3-32B as an example, the configuration that needs to be modified for 
         model_parallel: 4
     ```
 
-Subsequent operations regarding the execution of reasoning tasks, please refer to [Qwen3's README](https://atomgit.com/mindspore/mindformers/blob/master/configs/qwen3/README.md#%E6%8E%A8%E7%90%86%E6%A0%B7%E4%BE%8B).
+Subsequent operations regarding the execution of reasoning tasks, please refer to [Qwen3's README](https://atomgit.com/mindspore/mindformers/blob/r1.10.0/configs/qwen3/README.md#%E6%8E%A8%E7%90%86%E6%A0%B7%E4%BE%8B).

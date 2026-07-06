@@ -8,7 +8,7 @@
 
 # 量化
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/static_graph/feature/quantization.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.10.0/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/r2.10.0/docs/mindformers/docs/source_zh_cn/static_graph/feature/quantization.md)
 
 ## 概述
 
@@ -22,5 +22,5 @@ MindSpore Transformers 集成 MindSpore Golden Stick 工具组件，提供统一
 
 | 支持的模型                                                                                                                             |
 |-----------------------------------------------------------------------------------------------------------------------------------|
-| [DeepSeek-V3](https://atomgit.com/mindspore/mindformers/blob/master/research/deepseek3/deepseek3_671b/predict_deepseek3_671b.yaml)     |
-| [DeepSeek-R1](https://atomgit.com/mindspore/mindformers/blob/master/research/deepseek3/deepseek_r1_671b/predict_deepseek_r1_671b.yaml) |
+| [DeepSeek-V3](https://atomgit.com/mindspore/mindformers/blob/r1.10.0/research/deepseek3/deepseek3_671b/predict_deepseek3_671b.yaml)     |
+| [DeepSeek-R1](https://atomgit.com/mindspore/mindformers/blob/r1.10.0/research/deepseek3/deepseek_r1_671b/predict_deepseek_r1_671b.yaml) |

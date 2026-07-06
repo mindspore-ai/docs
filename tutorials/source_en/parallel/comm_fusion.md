@@ -1,12 +1,12 @@
 # Distributed Training Communication Fusion
 
-[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/tutorials/source_en/parallel/comm_fusion.md)
+[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.10.0/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/r2.10.0/tutorials/source_en/parallel/comm_fusion.md)
 
 ## Overview
 
 In distributed parallel training scenarios to train large-scale parameter models (e.g., GPT-3, Pangu-$\alpha$), data transmission of cross-device or even cross-node is a bottleneck that limits scalability as well as computing power utilization [1]. Communication fusion is an important method to improve network resource utilization and accelerate data transmission efficiency by encapsulating the communication operator of the same source and destination nodes for simultaneous execution to avoid the extra overhead caused by multiple single operator executions.
 
-MindSpore supports the fusion of three common communication operators ([AllReduce](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.AllReduce.html), [AllGather](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.AllGather.html), and [ReduceScatter](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.ReduceScatter.html)) in distributed training, and provides a simple and easy-to-use interface for user configuration. Communication fusion plays an important role in supporting long and steady training tasks.
+MindSpore supports the fusion of three common communication operators ([AllReduce](https://www.mindspore.cn/docs/en/r2.10.0/api_python/ops/mindspore.ops.AllReduce.html), [AllGather](https://www.mindspore.cn/docs/en/r2.10.0/api_python/ops/mindspore.ops.AllGather.html), and [ReduceScatter](https://www.mindspore.cn/docs/en/r2.10.0/api_python/ops/mindspore.ops.ReduceScatter.html)) in distributed training, and provides a simple and easy-to-use interface for user configuration. Communication fusion plays an important role in supporting long and steady training tasks.
 
 ### Basic Principle
 
@@ -50,17 +50,17 @@ MindSpore provides two interfaces to enable communication fusion, each of which 
     net.comm_fusion(config=config)
     ```
 
-    In automatic or semi-automatic parallel scenarios, when users configure parallel strategies using `net = AutoParallel(net, parallel_mode="semi_auto")`, they can utilize `config` parameter in the [comm_fusion](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.Parameter.html#mindspore.Parameter.comm_fusion) provided by the top-level `AutoParallel` class to set the parallel strategy. The input format is {"communication_type": {'mode': str, "config": None, int, or list}}. For details, see `comm_fusion` in [Parallel Configuration](https://www.mindspore.cn/docs/en/master/api_python/parallel/mindspore.parallel.auto_parallel.AutoParallel.html). This configuration method is preferred in this scenario.
+    In automatic or semi-automatic parallel scenarios, when users configure parallel strategies using `net = AutoParallel(net, parallel_mode="semi_auto")`, they can utilize `config` parameter in the [comm_fusion](https://www.mindspore.cn/docs/en/r2.10.0/api_python/mindspore/mindspore.Parameter.html#mindspore.Parameter.comm_fusion) provided by the top-level `AutoParallel` class to set the parallel strategy. The input format is {"communication_type": {'mode': str, "config": None, int, or list}}. For details, see `comm_fusion` in [Parallel Configuration](https://www.mindspore.cn/docs/en/r2.10.0/api_python/parallel/mindspore.parallel.auto_parallel.AutoParallel.html). This configuration method is preferred in this scenario.
 
 2. Use the interface provided by `Cell`
 
-    Regardless of the parallel mode scenarios, the user can set the index for the parameters in a layer of the model through the [Cell.set_comm_fusion](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.set_comm_fusion) interface, and MindSpore will fuse the communication operators corresponding to parameters of the same index.
+    Regardless of the parallel mode scenarios, the user can set the index for the parameters in a layer of the model through the [Cell.set_comm_fusion](https://www.mindspore.cn/docs/en/r2.10.0/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.set_comm_fusion) interface, and MindSpore will fuse the communication operators corresponding to parameters of the same index.
 
 ## Operation Practice
 
 ### Sample Code Description
 
-> You can download the full sample code here: [distributed_comm_fusion](https://atomgit.com/mindspore/docs/tree/master/docs/sample_code/distributed_comm_fusion).
+> You can download the full sample code here: [distributed_comm_fusion](https://atomgit.com/mindspore/docs/tree/r2.10.0/docs/sample_code/distributed_comm_fusion).
 
 The directory structure is as follows:
 

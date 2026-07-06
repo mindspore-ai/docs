@@ -1,10 +1,10 @@
 # msrun启动
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/tutorials/source_zh_cn/parallel/msrun_launcher.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.10.0/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/r2.10.0/tutorials/source_zh_cn/parallel/msrun_launcher.md)
 
 ## 概述
 
-`msrun`是[动态组网](https://www.mindspore.cn/tutorials/zh-CN/master/parallel/dynamic_cluster.html)启动方式的封装，用户可使用`msrun`，以单个命令行指令的方式在各节点拉起多进程分布式任务，并且无需手动设置[动态组网环境变量](https://www.mindspore.cn/tutorials/zh-CN/master/parallel/dynamic_cluster.html)。`msrun`同时支持`Ascend`、`GPU`和`CPU`后端。与`动态组网`启动方式一样，`msrun`无需依赖第三方库以及配置文件。
+`msrun`是[动态组网](https://www.mindspore.cn/tutorials/zh-CN/r2.10.0/parallel/dynamic_cluster.html)启动方式的封装，用户可使用`msrun`，以单个命令行指令的方式在各节点拉起多进程分布式任务，并且无需手动设置[动态组网环境变量](https://www.mindspore.cn/tutorials/zh-CN/r2.10.0/parallel/dynamic_cluster.html)。`msrun`同时支持`Ascend`、`GPU`和`CPU`后端。与`动态组网`启动方式一样，`msrun`无需依赖第三方库以及配置文件。
 
 > - `msrun`在用户安装MindSpore后即可使用，可使用指令`msrun --help`查看支持参数。
 > - `msrun`支持`图模式`以及`PyNative模式`。
@@ -23,7 +23,7 @@
 | `--cluster_time_out` | 集群组网超时时间，单位为秒。 | Integer | 默认为600秒。 | 此参数代表在集群组网的等待时间。<br>若超出此时间窗口依然没有`worker_num`数量的Worker注册成功，则任务拉起失败。 |
 | `--bind_core` | 开启进程绑核。 | Bool / Dict | True、False或者给指定设备分配CPU范围段的字典。默认为False。 | 若设置为True，则会基于环境信息按照设备亲和去自动分配CPU范围段；若手动传入一个字典，则根据该字典分配的CPU范围段去绑核。具体配置可参考“进程级 CPU/NUMA 亲和性配置”章节。 |
 | `--bind_numa` | 开启进程绑 NUMA 节点。 | Bool / Dict / String | True、False或者给指定设备分配 NUMA 节点的字典，也支持传入以.json结尾的文件路径。默认为False。 | 若设置为True，则会基于环境信息按照设备亲和去自动分配 NUMA 节点；若手动传入一个字典或者JSON文件，则根据传入的配置自定义去绑定 NUMA 节点。具体配置可参考“进程级 CPU/NUMA 亲和性配置”章节。 |
-| `--sim_level` | 设置模拟编译等级。 | Integer | 默认为-1，即关闭模拟编译功能。 | 若用户配置此参数，msrun只会拉起进程的模拟编译，不做算子执行。<br>此功能通常用于调试大规模分布式训练并行策略，在编译阶段提前发现内存和策略问题。<br>模拟编译等级的设置可参考文档：[DryRun](https://www.mindspore.cn/tutorials/zh-CN/master/debug/dryrun.html)。 |
+| `--sim_level` | 设置模拟编译等级。 | Integer | 默认为-1，即关闭模拟编译功能。 | 若用户配置此参数，msrun只会拉起进程的模拟编译，不做算子执行。<br>此功能通常用于调试大规模分布式训练并行策略，在编译阶段提前发现内存和策略问题。<br>模拟编译等级的设置可参考文档：[DryRun](https://www.mindspore.cn/tutorials/zh-CN/r2.10.0/debug/dryrun.html)。 |
 | `--sim_rank_id` | 单卡模拟编译的rank_id。 | Integer | 默认为-1，即关闭单进程的模拟编译功能。 | 设置单卡模拟编译进程的rank_id。 |
 | `--rank_table_file` | rank_table配置文件，只在昇腾平台下有效。 | String | rank_table配置文件路径，默认为空。 | 此参数代表昇腾平台下的rank_table配置文件，描述当前分布式集群。<br>由于rank_table配置文件反映的是物理层面分布式集群信息，在使用该配置时，<br>请确保对于当前进程可见的Device与rank_table配置保持一致。<br>可通过环境变量`ASCEND_RT_VISIBLE_DEVICES`设置对于当前进程可见的Device。 |
 | `--worker_log_name` | 设置worker日志名。 | String | worker日志文件名，默认为`worker_[rank].log`。 | 此参数代表支持用户配置worker日志名，并且支持分别通过`{ip}`和`{hostname}`<br>在worker日志名中配置`ip`和`hostname`。<br>worker日志名的后缀默认为`rank`。 |
@@ -45,13 +45,13 @@
 | `RANK_SIZE` | 用户指定的Worker进程总数。 | 与参数`--worker_num`相同。 |
 | `RANK_ID` | 为Worker进程分配的rank_id。 | 多机多卡场景下，若没有设置`--node_rank`参数，`RANK_ID`只会在集群初始化后被导出。<br>因此要使用此环境变量，建议正确设置`--node_rank`参数。 |
 
-msrun作为动态组网启动方式的封装，所有用户可自定义配置的环境变量可参考[动态组网环境变量](https://www.mindspore.cn/tutorials/zh-CN/master/parallel/dynamic_cluster.html)。
+msrun作为动态组网启动方式的封装，所有用户可自定义配置的环境变量可参考[动态组网环境变量](https://www.mindspore.cn/tutorials/zh-CN/r2.10.0/parallel/dynamic_cluster.html)。
 
 ## 启动分布式任务
 
 启动脚本在各硬件平台下一致，下面以Ascend为例演示如何编写启动脚本：
 
-> 您可以在这里下载完整的样例代码：[startup_method](https://atomgit.com/mindspore/docs/tree/master/docs/sample_code/startup_method)。
+> 您可以在这里下载完整的样例代码：[startup_method](https://atomgit.com/mindspore/docs/tree/r2.10.0/docs/sample_code/startup_method)。
 
 目录结构如下：
 
@@ -158,7 +158,7 @@ for epoch in range(10):
 
 下面以执行单机8卡训练为例：
 
-脚本[msrun_single.sh](https://atomgit.com/mindspore/docs/blob/master/docs/sample_code/startup_method/msrun_single.sh)使用msrun指令在当前节点拉起1个`Scheduler`进程以及8个`Worker`进程（无需设置`master_addr`，默认为`127.0.0.1`；单机无需设置`node_rank`）：
+脚本[msrun_single.sh](https://atomgit.com/mindspore/docs/blob/r2.10.0/docs/sample_code/startup_method/msrun_single.sh)使用msrun指令在当前节点拉起1个`Scheduler`进程以及8个`Worker`进程（无需设置`master_addr`，默认为`127.0.0.1`；单机无需设置`node_rank`）：
 
 ```bash
 EXEC_PATH=$(pwd)
@@ -197,7 +197,7 @@ epoch: 0, step: 30, loss is 1.0437132
 
 下面以执行2机8卡训练，每台机器执行启动4个Worker为例：
 
-脚本[msrun_1.sh](https://atomgit.com/mindspore/docs/blob/master/docs/sample_code/startup_method/msrun_1.sh)在节点1上执行，使用msrun指令拉起1个`Scheduler`进程以及4个`Worker`进程，配置`master_addr`为节点1的IP地址（msrun会自动检测到当前节点IP与`master_addr`匹配而拉起`Scheduler`进程），通过`node_rank`设置当前节点为0号节点：
+脚本[msrun_1.sh](https://atomgit.com/mindspore/docs/blob/r2.10.0/docs/sample_code/startup_method/msrun_1.sh)在节点1上执行，使用msrun指令拉起1个`Scheduler`进程以及4个`Worker`进程，配置`master_addr`为节点1的IP地址（msrun会自动检测到当前节点IP与`master_addr`匹配而拉起`Scheduler`进程），通过`node_rank`设置当前节点为0号节点：
 
 ```bash
 EXEC_PATH=$(pwd)
@@ -216,7 +216,7 @@ echo "start training"
 msrun --worker_num=8 --local_worker_num=4 --master_addr=<node_1 ip address> --master_port=8118 --node_rank=0 --log_dir=msrun_log --join=True --cluster_time_out=300 net.py
 ```
 
-脚本[msrun_2.sh](https://atomgit.com/mindspore/docs/blob/master/docs/sample_code/startup_method/msrun_2.sh)在节点2上执行，使用msrun指令拉起4个`Worker`进程，配置`master_addr`为节点1的IP地址，通过`node_rank`设置当前节点为1号节点：
+脚本[msrun_2.sh](https://atomgit.com/mindspore/docs/blob/r2.10.0/docs/sample_code/startup_method/msrun_2.sh)在节点2上执行，使用msrun指令拉起4个`Worker`进程，配置`master_addr`为节点1的IP地址，通过`node_rank`设置当前节点为1号节点：
 
 ```bash
 EXEC_PATH=$(pwd)
@@ -308,9 +308,9 @@ if get_rank() == 7:
 ms.set_seed(1)
 ```
 
-> [mindspore.communication.get_rank()](https://www.mindspore.cn/docs/zh-CN/master/api_python/communication/mindspore.communication.get_rank.html)接口需要在调用[mindspore.communication.init()](https://www.mindspore.cn/docs/zh-CN/master/api_python/communication/mindspore.communication.init.html)接口完成分布式初始化后才能正常获取rank信息，否则`get_rank()`默认返回0。
+> [mindspore.communication.get_rank()](https://www.mindspore.cn/docs/zh-CN/r2.10.0/api_python/communication/mindspore.communication.get_rank.html)接口需要在调用[mindspore.communication.init()](https://www.mindspore.cn/docs/zh-CN/r2.10.0/api_python/communication/mindspore.communication.init.html)接口完成分布式初始化后才能正常获取rank信息，否则`get_rank()`默认返回0。
 
-在对某一rank进行断点操作之后，会导致该rank进程执行停止在断点处等待后续交互操作，而其他未断点rank进程会继续运行，这样可能会导致快慢卡的情况，所以可以使用[mindspore.ops.communication.barrier()](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.communication.barrier.html)算子和[mindspore.runtime.synchronize()](https://www.mindspore.cn/docs/zh-CN/master/api_python/runtime/mindspore.runtime.synchronize.html)来同步所有rank的运行，确保其他rank阻塞等待，且一旦调试的rank继续运行则其他rank的停止会被释放。比如在单机八卡任务中，仅针对rank 7进行断点调试且阻塞所有其他rank：
+在对某一rank进行断点操作之后，会导致该rank进程执行停止在断点处等待后续交互操作，而其他未断点rank进程会继续运行，这样可能会导致快慢卡的情况，所以可以使用[mindspore.ops.communication.barrier()](https://www.mindspore.cn/docs/zh-CN/r2.10.0/api_python/ops/mindspore.ops.communication.barrier.html)算子和[mindspore.runtime.synchronize()](https://www.mindspore.cn/docs/zh-CN/r2.10.0/api_python/runtime/mindspore.runtime.synchronize.html)来同步所有rank的运行，确保其他rank阻塞等待，且一旦调试的rank继续运行则其他rank的停止会被释放。比如在单机八卡任务中，仅针对rank 7进行断点调试且阻塞所有其他rank：
 
 ```python
 import pdb
@@ -363,7 +363,7 @@ msrun --worker_num=8 --local_worker_num=8 --master_port=8118 --log_dir=msrun_log
 
     - 优先使用亲和池内的 CPU 核；若亲和池内 CPU 核不足，则使用非亲和池内的 CPU 核。
     - 依赖 `lscpu`、`npu-smi` 等命令获取硬件信息，命令执行失败时仅基于可用 CPU 资源分配；
-    - CPU 与 NPU 间亲和关系的获取方式，与 MindSpore 接口 `mindspore.runtime.set_cpu_affinity` 一致，可参考 [mindspore.runtime.set_cpu_affinity](https://www.mindspore.cn/docs/zh-CN/master/api_python/runtime/mindspore.runtime.set_cpu_affinity.html)。
+    - CPU 与 NPU 间亲和关系的获取方式，与 MindSpore 接口 `mindspore.runtime.set_cpu_affinity` 一致，可参考 [mindspore.runtime.set_cpu_affinity](https://www.mindspore.cn/docs/zh-CN/r2.10.0/api_python/runtime/mindspore.runtime.set_cpu_affinity.html)。
 
 #### 2. 自定义绑核
 
@@ -611,7 +611,7 @@ msrun --worker_num=8 --local_worker_num=8 --master_port=8118 --log_dir=msrun_log
 mindspore.runtime.set_cpu_affinity(True, bind_file="/path/to/bind.json")
 ```
 
-具体接口说明可参考 [mindspore.runtime.set_cpu_affinity](https://www.mindspore.cn/docs/zh-CN/master/api_python/runtime/mindspore.runtime.set_cpu_affinity.html)。
+具体接口说明可参考 [mindspore.runtime.set_cpu_affinity](https://www.mindspore.cn/docs/zh-CN/r2.10.0/api_python/runtime/mindspore.runtime.set_cpu_affinity.html)。
 
 > `set_cpu_affinity` 接口传参支持的两种配置方式，CPU ID 的使用方式不同：
 >
@@ -632,7 +632,7 @@ mindspore.runtime.set_cpu_affinity(True, bind_file="/path/to/bind.json")
 
 #### 五、自动化脚本生成 JSON
 
-可使用自动化脚本[gen_bind_json.py](https://atomgit.com/mindspore/docs/blob/master/docs/sample_code/set_affinity/gen_bind_json.py)生成统一 JSON 文件：
+可使用自动化脚本[gen_bind_json.py](https://atomgit.com/mindspore/docs/blob/r2.10.0/docs/sample_code/set_affinity/gen_bind_json.py)生成统一 JSON 文件：
 
 ```bash
 python gen_bind_json.py -o bind.json

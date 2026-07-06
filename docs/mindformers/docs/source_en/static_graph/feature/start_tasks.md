@@ -8,14 +8,14 @@ This page belongs to the **Static Graph (GRAPH_MODE) Implementation** section an
 
 # Start Tasks
 
-[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_en/static_graph/feature/start_tasks.md)
+[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.10.0/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/r2.10.0/docs/mindformers/docs/source_en/static_graph/feature/start_tasks.md)
 
 ## Overview
 
 MindSpore Transformers provides a one-click startup script `run_mindformer.py` and a distributed task launch script `msrun_launcher.sh`.
 
 - The `run_mindformer.py` script is used to start tasks on a **single device**, providing one-click capabilities for pre-training, fine-tuning, and inference tasks.
-- The `msrun_launcher.sh` script is used to start distributed tasks on **multi-device within a single node** or **multi-device with multi-node**, launching tasks on each device through the [msrun](https://www.mindspore.cn/tutorials/en/master/parallel/msrun_launcher.html) tool.
+- The `msrun_launcher.sh` script is used to start distributed tasks on **multi-device within a single node** or **multi-device with multi-node**, launching tasks on each device through the [msrun](https://www.mindspore.cn/tutorials/en/r2.10.0/parallel/msrun_launcher.html) tool.
 
 ## Run_mindformer One-click Start Script
 
@@ -30,11 +30,11 @@ In the root directory of the MindSpore Transformers code, execute the `run_mindf
 |     `--device_id`     | Set the execution device ID. The value must be within the range of available devices.                                                                                                        | int, optional                                                                                       | pre-train/finetune/predict |
 |   `--device_target`   | Set the backend execution device. MindSpore Transformers is only supported on `Ascend` devices.                                                                                              | str, optional                                                                                       | pre-train/finetune/predict |
 |     `--run_mode`      | Set the running mode of the model: `train`, `finetune` or `predict`.                                                                                                                         | str, optional                                                                                       | pre-train/finetune/predict |
-|  `--load_checkpoint`  | File or folder paths for loading weights. For detailed usage, please refer to [Weight Conversion Function](https://www.mindspore.cn/mindformers/docs/en/master/static_graph/feature/ckpt.html)               | str, optional                                                                                       | pre-train/finetune/predict |
+|  `--load_checkpoint`  | File or folder paths for loading weights. For detailed usage, please refer to [Weight Conversion Function](https://www.mindspore.cn/mindformers/docs/en/r1.10.0/static_graph/feature/ckpt.html)               | str, optional                                                                                       | pre-train/finetune/predict |
 |   `--use_parallel`    | Whether to use parallel mode.                                                                                                                                                                   | bool, optional                                                                                      | pre-train/finetune/predict |
 |    `--output_dir`     | Set the paths for saving logs, weights, sharding strategies, and other files.                                                                                                                | str, optional                                                                                       | pre-train/finetune/predict |
 |   `--register_path`   | The absolute path of the directory where the external code is located. For example, the model directory under the research directory.                                                        | str, optional                                                                                       | pre-train/finetune/predict |
-|       `--seed`        | Set the global seed. For details, refer to [mindspore.set_seed](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.set_seed.html).                                       | int, optional                                                                                       | pre-train/finetune/predict |
+|       `--seed`        | Set the global seed. For details, refer to [mindspore.set_seed](https://www.mindspore.cn/docs/en/r2.10.0/api_python/mindspore/mindspore.set_seed.html).                                       | int, optional                                                                                       | pre-train/finetune/predict |
 | `--trust_remote_code` | Whether Hugging Face AutoTokenizer trusts remote code.                                                                                                                                       | bool, optional                                                                                      | pre-train/finetune/predict |
 
 ### Weight Slicing
@@ -42,7 +42,7 @@ In the root directory of the MindSpore Transformers code, execute the `run_mindf
 |          Parameters          | Parameter Descriptions                                                                                                                                | Value Description                                                                          | Applicable Scenarios        |
 |:----------------------------:|:------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------|-----------------------------|
 | `--src_strategy_path_or_dir` | The strategy of load_checkpoint.                                                                                                                      | str, optional                                                                              | pre-train/finetune/predict  |
-|     `--auto_trans_ckpt`      | Enable online weight automatic conversion. Refer to [Weight Conversion Function](https://www.mindspore.cn/mindformers/docs/en/master/static_graph/feature/ckpt.html). | bool, optional                                                                             | pre-train/finetune/predict  |
+|     `--auto_trans_ckpt`      | Enable online weight automatic conversion. Refer to [Weight Conversion Function](https://www.mindspore.cn/mindformers/docs/en/r1.10.0/static_graph/feature/ckpt.html). | bool, optional                                                                             | pre-train/finetune/predict  |
 |  `--transform_process_num`   | The number of processes responsible for checkpoint transform.                                                                                         | int, optional                                                                              | pre-train/finetune/predict  |
 |    `--only_save_strategy`    | Whether to only save the strategy files.                                                                                                              | bool, optional, when it is `true`, the task exits directly after saving the strategy file. | pre-train/finetune/predict  |
 
@@ -51,7 +51,7 @@ In the root directory of the MindSpore Transformers code, execute the `run_mindf
 |           Parameters            | Parameter Descriptions                                                                                                                                                                                     | Value Description | Applicable Scenarios |
 |:-------------------------------:|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------|----------------------|
 |      `--train_dataset_dir`      | Dataset directory of data loader to pre-train/finetune.                                                                                                                                                    | str, optional     | pre-train/finetune   |
-|       `--resume_training`       | Enable resumable training after breakpoint. For details, refer to [Resumable Training After Breakpoint](https://www.mindspore.cn/mindformers/docs/en/master/static_graph/feature/resume_training.html#resumable-training-after-breakpoint). | bool, optional    | pre-train/finetune   |
+|       `--resume_training`       | Enable resumable training after breakpoint. For details, refer to [Resumable Training After Breakpoint](https://www.mindspore.cn/mindformers/docs/en/r1.10.0/static_graph/feature/resume_training.html#resumable-training-after-breakpoint). | bool, optional    | pre-train/finetune   |
 |           `--epochs`            | Train epochs.                                                                                                                                                                                              | int, optional     | pre-train/finetune   |
 |         `--batch_size`          | The sample size of the batch data.                                                                                                                                                                         | int, optional     | pre-train/finetune   |
 | `--gradient_accumulation_steps` | The number of gradient accumulation steps.                                                                                                                                                                 | int, optional     | pre-train/finetune   |
@@ -67,7 +67,7 @@ In the root directory of the MindSpore Transformers code, execute the `run_mindf
 
 ## Distributed Task Pull-up Script
 
-The distributed task pull up script `msrun_launcher.sh` is located in the `scripts/` directory and can automatically start distributed multiprocess tasks using the [msrun](https://www.mindspore.cn/tutorials/en/master/parallel/msrun_launcher.html) command based on the input parameters. This script has the following several usage methods:
+The distributed task pull up script `msrun_launcher.sh` is located in the `scripts/` directory and can automatically start distributed multiprocess tasks using the [msrun](https://www.mindspore.cn/tutorials/en/r2.10.0/parallel/msrun_launcher.html) command based on the input parameters. This script has the following several usage methods:
 
 1. For Default 8 Devices In Single Machine:
 

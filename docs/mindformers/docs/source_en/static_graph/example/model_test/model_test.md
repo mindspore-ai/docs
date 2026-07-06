@@ -8,7 +8,7 @@ This page belongs to the **Static Graph (GRAPH_MODE) Implementation** section an
 
 # Practice Case: Interconnecting MindSpore Transformers with General Evaluation Tools
 
-[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_en/static_graph/example/model_test/model_test.md)
+[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.10.0/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/r2.10.0/docs/mindformers/docs/source_en/static_graph/example/model_test/model_test.md)
 
 This article is contributed by Killjoy, chen-xialei, fuyao-15989607593, laozhuang, and oacjiewen.
 
@@ -27,7 +27,7 @@ You need to install the following environment for model deployment and evaluatio
 
 ### 1.1 MindSpore Transformers
 
-Set up the environment by referring to [MindSpore Transformers Installation Guidelines](https://www.mindspore.cn/mindformers/docs/en/master/installation.html).
+Set up the environment by referring to [MindSpore Transformers Installation Guidelines](https://www.mindspore.cn/mindformers/docs/en/r1.10.0/installation.html).
 
 ### 1.2 vLLM-MindSpore
 

@@ -8,7 +8,7 @@ This page belongs to the **Static Graph (GRAPH_MODE) Implementation** section an
 
 # Resume Training2.0
 
-[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_en/static_graph/feature/resume_training2.0.md)
+[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.10.0/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/r2.10.0/docs/mindformers/docs/source_en/static_graph/feature/resume_training2.0.md)
 
 ## Overview
 
@@ -23,7 +23,7 @@ MindSpore Transformers has complete resume training capabilities. The core funct
 
 For large-scale training tasks (long training cycles and large resource investment), it can avoid progress loss caused by unexpected interruptions and significantly reduce time and computing resource waste.
 
-> This document only applies to scenarios where [Checkpoint 2.0](https://www.mindspore.cn/mindformers/docs/en/master/static_graph/feature/checkpoint_saving_and_loading.html) are used for resume training; if users use Checkpoint 1.0, please refer to the old version [resume training document](https://www.mindspore.cn/mindformers/docs/en/master/static_graph/feature/resume_training.html).
+> This document only applies to scenarios where [Checkpoint 2.0](https://www.mindspore.cn/mindformers/docs/en/r1.10.0/static_graph/feature/checkpoint_saving_and_loading.html) are used for resume training; if users use Checkpoint 1.0, please refer to the old version [resume training document](https://www.mindspore.cn/mindformers/docs/en/r1.10.0/static_graph/feature/resume_training.html).
 
 ## Checkpoint Introduction
 
@@ -45,7 +45,7 @@ output
         └── latest_checkpointed_iteration.txt
 ```
 
-You can refer to [Checkpoint Saving and Loading](https://www.mindspore.cn/mindformers/docs/en/master/static_graph/feature/checkpoint_saving_and_loading.html) for more information about checkpoints.
+You can refer to [Checkpoint Saving and Loading](https://www.mindspore.cn/mindformers/docs/en/r1.10.0/static_graph/feature/checkpoint_saving_and_loading.html) for more information about checkpoints.
 
 ## Configuration Description
 

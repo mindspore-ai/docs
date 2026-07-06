@@ -8,7 +8,7 @@
 
 # 数据跳过和健康监测
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/static_graph/feature/skip_data_and_ckpt_health_monitor.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.10.0/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/r2.10.0/docs/mindformers/docs/source_zh_cn/static_graph/feature/skip_data_and_ckpt_health_monitor.md)
 
 ## 概述
 
@@ -20,7 +20,7 @@
 
 > - 数据跳过功能和健康监测功能二者结合，能有效解决训练过程中异常 global norm 带来的数据异常问题。使用前请先正常训练一段时间，从而确定需要设定的 global norm 的阈值、连续异常次数的阈值以及 embedding norm 的阈值。
 > - 只有连续出现异常时才会中断训练，如果中途出现一次恢复正常，则会清空累计次数，所以请把控阈值的设定。
-> - 数据跳过功能不能与故障快速恢复功能同时使用。参考[高可用特性](https://www.mindspore.cn/mindformers/docs/zh-CN/master/static_graph/feature/high_availability.html)中的进程级重调度恢复功能。
+> - 数据跳过功能不能与故障快速恢复功能同时使用。参考[高可用特性](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.10.0/static_graph/feature/high_availability.html)中的进程级重调度恢复功能。
 
 ## 数据跳过
 
@@ -63,7 +63,7 @@ monitor_config:
 
 ### 使用示例
 
-假设以Qwen3-8B为例子，使用的[pretrain_qwen3_8b.yaml](https://atomgit.com/mindspore/docs/tree/master/docs/mindformers/docs/source_zh_cn/static_graph/example/qwen3/pretrain_qwen3_8b.yaml)按照上述[配置](#使用方法)添加参数，其余步骤请参考[Qwen3文档](https://atomgit.com/mindspore/mindformers/blob/master/configs/qwen3/README.md)。开启训练：
+假设以Qwen3-8B为例子，使用的[pretrain_qwen3_8b.yaml](https://atomgit.com/mindspore/docs/tree/r2.10.0/docs/mindformers/docs/source_zh_cn/static_graph/example/qwen3/pretrain_qwen3_8b.yaml)按照上述[配置](#使用方法)添加参数，其余步骤请参考[Qwen3文档](https://atomgit.com/mindspore/mindformers/blob/r1.10.0/configs/qwen3/README.md)。开启训练：
 
 ```shell
 bash scripts/msrun_launcher.sh "run_mindformer.py \
@@ -188,7 +188,7 @@ parallel_config:
 | embedding_local_norm_threshold | 健康监测的embedding norm的阈值。默认值为`1.0`。                                                                                                                                                                                                                                                   | float | 可选         | 大于0 |
 | parallel                       | 并行策略配置。                                                                                                                                                                                                                                                                             |       | 必选         |     |
 | full_batch                     | 是否在并行模式下从数据集中读取加载完整的批数据。设置为`True`表示所有rank都读取完整的批数据，设置为`False`表示每个rank仅加载对应的批数据。设置为`False`时必须设置对应的`dataset_strategy`。此功能仅支持`False`。                                                                                                                                                  |    bool   | 必选 `False` |     |
-| dataset_strategy               | 仅支持`List of List`类型且仅在`full_batch=False`时生效。列表中子列表的个数需要等于`train_dataset.input_columns`的长度，并且列表中的每个子列表需要和数据集返回的数据的shape保持一致。一般在数据的第1维进行数据并行切分，所以子列表的第1位数配置与`data_parallel`相同，其他位配置为`1`。具体原理可以参考[数据集切分](https://www.mindspore.cn/tutorials/zh-CN/master/parallel/dataset_slice.html)。 |   list    | 必选         |     |
+| dataset_strategy               | 仅支持`List of List`类型且仅在`full_batch=False`时生效。列表中子列表的个数需要等于`train_dataset.input_columns`的长度，并且列表中的每个子列表需要和数据集返回的数据的shape保持一致。一般在数据的第1维进行数据并行切分，所以子列表的第1位数配置与`data_parallel`相同，其他位配置为`1`。具体原理可以参考[数据集切分](https://www.mindspore.cn/tutorials/zh-CN/r2.10.0/parallel/dataset_slice.html)。 |   list    | 必选         |     |
 | parallel_config                | 并行参数配置。                                                                                                                                                                                                                                                                             |       | 必选         |     |
 | data_parallel                  | 设置数据并行数。                                                                                                                                                                                                                                                                            |   int    | 必选         | 正整数 |
 | pipeline_stage                 | 设置流水线并行数。                                                                                                                                                                                                                                                                           |    int   | 必选         | 正整数 |
@@ -198,7 +198,7 @@ parallel_config:
 
 ### 使用示例
 
-假设以Qwen3-8B为例子，使用的[pretrain_qwen3_8b.yaml](https://atomgit.com/mindspore/docs/tree/master/docs/mindformers/docs/source_zh_cn/static_graph/example/qwen3/pretrain_qwen3_8b.yaml)按照上述[配置](#使用方法-1)添加参数和修改，其余步骤请参考[Qwen3文档](https://atomgit.com/mindspore/mindformers/blob/master/configs/qwen3/README.md)。开启训练：
+假设以Qwen3-8B为例子，使用的[pretrain_qwen3_8b.yaml](https://atomgit.com/mindspore/docs/tree/r2.10.0/docs/mindformers/docs/source_zh_cn/static_graph/example/qwen3/pretrain_qwen3_8b.yaml)按照上述[配置](#使用方法-1)添加参数和修改，其余步骤请参考[Qwen3文档](https://atomgit.com/mindspore/mindformers/blob/r1.10.0/configs/qwen3/README.md)。开启训练：
 
 ```shell
 bash scripts/msrun_launcher.sh "run_mindformer.py \
@@ -242,7 +242,7 @@ Checkpoint 2.0 下健康监测结果保存在`output_path/checkpoint/iteration_x
 
 common.json记录数据如下：
 
-其中ckpt_status记录的是对应权重的健康状况。记录中1表示不健康，0表示健康。其余数据为Checkpoint 2.0的训练参数，详情请查看[Checkpoint 2.0文档](https://www.mindspore.cn/mindformers/docs/zh-CN/master/static_graph/feature/resume_training2.0.html)。
+其中ckpt_status记录的是对应权重的健康状况。记录中1表示不健康，0表示健康。其余数据为Checkpoint 2.0的训练参数，详情请查看[Checkpoint 2.0文档](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.10.0/static_graph/feature/resume_training2.0.html)。
 
 ```json
 {

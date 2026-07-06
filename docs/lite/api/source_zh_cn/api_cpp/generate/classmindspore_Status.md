@@ -1,6 +1,6 @@
 # Class Status
 
-\#include &lt;[status.h](https://atomgit.com/mindspore/mindspore-lite/blob/master/include/api/status.h)&gt;
+\#include &lt;[status.h](https://atomgit.com/mindspore/mindspore-lite/blob/r2.10/include/api/status.h)&gt;
 
 ## 构造函数
 
@@ -33,11 +33,11 @@ inline Status(const StatusCode code, int line_of_code, const char *file_name, co
 | [inline std::string GetErrDescription() const](#geterrdescription)     |    √    |    √    |
 | [inline std::string SetErrDescription(const std::string &err_description)](#seterrdescription)     |    √    |    √    |
 | [inline void SetStatusMsg(const std::string &status_msg)](#setstatusmsg)     |    √    |    √    |
-| [friend std::ostream &operator\<\<(std::ostream &os, const Status &s)](https://www.mindspore.cn/lite/api/zh-CN/master/generate/classmindspore_Status.html#operator<<std-ostream-os,-const-status-s)     |    √    |    √    |
+| [friend std::ostream &operator\<\<(std::ostream &os, const Status &s)](https://www.mindspore.cn/lite/api/zh-CN/r2.10.0/generate/classmindspore_Status.html#operator<<std-ostream-os,-const-status-s)     |    √    |    √    |
 | [bool operator==(const Status &other) const](#operatorconst-status-other)     |    √    |    √    |
-| [bool operator==(enum StatusCode other_code) const](https://www.mindspore.cn/lite/api/zh-CN/master/generate/classmindspore_Status.html#operatorenum-statuscode-other-code)     |    √    |    √    |
+| [bool operator==(enum StatusCode other_code) const](https://www.mindspore.cn/lite/api/zh-CN/r2.10.0/generate/classmindspore_Status.html#operatorenum-statuscode-other-code)     |    √    |    √    |
 | [bool operator!=(const Status &other) const](#operatorconst-status-other-1)     |    √    |    √    |
-| [bool operator!=(enum StatusCode other_code) const](https://www.mindspore.cn/lite/api/zh-CN/master/generate/classmindspore_Status.html#operatorenum-statuscode-other-code-1)     |    √    |    √    |
+| [bool operator!=(enum StatusCode other_code) const](https://www.mindspore.cn/lite/api/zh-CN/r2.10.0/generate/classmindspore_Status.html#operatorenum-statuscode-other-code-1)     |    √    |    √    |
 | [explicit operator bool() const](#operator-bool)     |    √    |    √    |
 | [explicit operator int() const](#explicit-operator-int-const)     |    √    |    √    |
 | [static Status OK()](#ok)     |    √    |    √    |

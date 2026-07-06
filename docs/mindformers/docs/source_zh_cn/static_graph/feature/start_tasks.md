@@ -8,14 +8,14 @@
 
 # 启动任务
 
-[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/static_graph/feature/start_tasks.md)
+[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.10.0/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/r2.10.0/docs/mindformers/docs/source_zh_cn/static_graph/feature/start_tasks.md)
 
 ## 概述
 
 MindSpore Transformers提供了一键启动脚本`run_mindformer.py`和分布式任务拉起脚本`msrun_launcher.sh`。
 
 - `run_mindformer.py`脚本用于在**单卡**上拉起任务，其提供了预训练、微调和推理任务的一键启动能力；
-- `msrun_launcher.sh`脚本用于在**单机多卡**或**多机多卡**上拉起分布式任务，其通过[msrun](https://www.mindspore.cn/tutorials/zh-CN/master/parallel/msrun_launcher.html)工具在每张卡上拉起任务。
+- `msrun_launcher.sh`脚本用于在**单机多卡**或**多机多卡**上拉起分布式任务，其通过[msrun](https://www.mindspore.cn/tutorials/zh-CN/r2.10.0/parallel/msrun_launcher.html)工具在每张卡上拉起任务。
 
 ## run_mindformer一键启动脚本
 
@@ -30,11 +30,11 @@ MindSpore Transformers提供了一键启动脚本`run_mindformer.py`和分布式
 |     `--device_id`     | 设置执行设备ID，其值必须在可用设备范围内。                                                                                                     | int，可选                                                  | 预训练/微调/推理 |
 |   `--device_target`   | 设置后端执行设备，MindSpore Transformers仅支持在`Ascend`设备上运行。                                                                          | str，可选                                                  | 预训练/微调/推理 |
 |     `--run_mode`      | 设置模型的运行模式，可选`train`、`finetune`或`predict`。                                                                                  | str，可选                                                  | 预训练/微调/推理 |
-|  `--load_checkpoint`  | 加载的权重文件或文件夹路径，详细使用方式参考[权重转换功能](https://www.mindspore.cn/mindformers/docs/zh-CN/master/static_graph/feature/ckpt.html)。                     | str，可选                                                  | 预训练/微调/推理 |
+|  `--load_checkpoint`  | 加载的权重文件或文件夹路径，详细使用方式参考[权重转换功能](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.10.0/static_graph/feature/ckpt.html)。                     | str，可选                                                  | 预训练/微调/推理 |
 |   `--use_parallel`    | 是否开启并行模式。                                                                                                                  | bool，可选                                                 | 预训练/微调/推理 |
 |    `--output_dir`     | 设置保存日志、权重、切分策略等文件的路径。                                                                                                      | str，可选                                                  | 预训练/微调/推理 |
 |   `--register_path`   | 外挂代码所在目录的绝对路径。比如research目录下的模型目录。                                                                                          | str，可选                                                  | 预训练/微调/推理 |
-|       `--seed`        | 设置全局种子，详情可参考[mindspore.set_seed](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.set_seed.html)。 | int，可选                                                  | 预训练/微调/推理 |
+|       `--seed`        | 设置全局种子，详情可参考[mindspore.set_seed](https://www.mindspore.cn/docs/zh-CN/r2.10.0/api_python/mindspore/mindspore.set_seed.html)。 | int，可选                                                  | 预训练/微调/推理 |
 | `--trust_remote_code` | Hugging Face AutoTokenizer是否信任远程代码。                                                                                        | bool，可选                                                 | 预训练/微调/推理 |
 
 ### 权重切分
@@ -42,7 +42,7 @@ MindSpore Transformers提供了一键启动脚本`run_mindformer.py`和分布式
 |              参数              | 参数说明                                                                                                 | 取值说明                           | 适用场景      |
 |:----------------------------:|:-----------------------------------------------------------------------------------------------------|--------------------------------|-----------|
 | `--src_strategy_path_or_dir` | 权重的策略文件路径。                                                                                           | str，可选                         | 预训练/微调/推理 |
-|     `--auto_trans_ckpt`      | 是否开启在线权重自动转换功能，详情可参考[权重转换功能](https://www.mindspore.cn/mindformers/docs/zh-CN/master/static_graph/feature/ckpt.html)。 | bool，可选                        | 预训练/微调/推理 |
+|     `--auto_trans_ckpt`      | 是否开启在线权重自动转换功能，详情可参考[权重转换功能](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.10.0/static_graph/feature/ckpt.html)。 | bool，可选                        | 预训练/微调/推理 |
 |  `--transform_process_num`   | 负责权重转换的进程数。                                                                                          | int，可选                         | 预训练/微调/推理 |
 |    `--only_save_strategy`    | 是否仅保存切分策略文件。                                                                                         | bool，可选，为`true`时任务在保存策略文件后直接退出 | 预训练/微调/推理 |
 
@@ -51,7 +51,7 @@ MindSpore Transformers提供了一键启动脚本`run_mindformer.py`和分布式
 |               参数                | 参数说明                                                                                                                                             | 取值说明    | 适用场景   |
 |:-------------------------------:|:-------------------------------------------------------------------------------------------------------------------------------------------------|---------|--------|
 |      `--train_dataset_dir`      | 预训练/微调的数据集目录。                                                                                                                                    | str，可选  | 预训练/微调 |
-|       `--resume_training`       | 是否开启断点续训功能，详情可参考[断点续训功能](https://www.mindspore.cn/mindformers/docs/zh-CN/master/static_graph/feature/resume_training.html#%E6%96%AD%E7%82%B9%E7%BB%AD%E8%AE%AD)。 | bool，可选 | 预训练/微调 |
+|       `--resume_training`       | 是否开启断点续训功能，详情可参考[断点续训功能](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.10.0/static_graph/feature/resume_training.html#%E6%96%AD%E7%82%B9%E7%BB%AD%E8%AE%AD)。 | bool，可选 | 预训练/微调 |
 |           `--epochs`            | 训练轮次。                                                                                                                                            | int，可选  | 预训练/微调 |
 |         `--batch_size`          | 批处理数据的样本数。                                                                                                                                       | int，可选  | 预训练/微调 |
 | `--gradient_accumulation_steps` | 梯度累积步数。                                                                                                                                          | int，可选  | 预训练/微调 |
@@ -67,7 +67,7 @@ MindSpore Transformers提供了一键启动脚本`run_mindformer.py`和分布式
 
 ## 分布式任务拉起脚本
 
-分布式任务拉起脚本`msrun_launcher.sh`位于`scripts/`目录下，可根据输入的参数自动使用[msrun](https://www.mindspore.cn/tutorials/zh-CN/master/parallel/msrun_launcher.html)命令启动分布式多进程任务。该脚本有如下几种使用方式：
+分布式任务拉起脚本`msrun_launcher.sh`位于`scripts/`目录下，可根据输入的参数自动使用[msrun](https://www.mindspore.cn/tutorials/zh-CN/r2.10.0/parallel/msrun_launcher.html)命令启动分布式多进程任务。该脚本有如下几种使用方式：
 
 1. 默认使用单机8卡运行：
 

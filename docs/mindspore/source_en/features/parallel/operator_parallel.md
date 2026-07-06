@@ -1,6 +1,6 @@
 # Operator-level Parallelism
 
-[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindspore/source_en/features/parallel/operator_parallel.md)
+[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.10.0/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/r2.10.0/docs/mindspore/source_en/features/parallel/operator_parallel.md)
 
 ## Overview
 
@@ -8,9 +8,9 @@ With the development of deep learning, network models are becoming larger and la
 
 Operator-level parallelism is achieved by slicing the tensor involved in each operator in the network model. Logical data parallelism is used when only the data dimension is sliced, while logical model parallelism is used when only the model dimension is sliced. The training of large models is enabled by reducing the memory consumption of a single device.
 
-MindSpore provides two operator-level parallelism capabilities: [Operator-level Parallelism](#basic-principle) and [Higher-order Operator-level Parallelism](#higher-order-operator-level-parallelism). Operator-level Parallelism uses simple tensor dimension splitting strategies to describe tensor distribution, meeting the requirements of most common scenarios. Higher-order Operator-level Parallelism enables complex partitioning scenarios by opening device arrangement descriptions, supporting: Non-contiguous device allocation, Multi-dimensional hybrid partitioning and so on. Both ops and mint operators are supported for the operator-level parallel capability of the two granularities. This chapter only introduces the operator-level parallelism and high-order operator-level parallelism based on ops operators. For the configuration method of operator-level parallelism based on mint operators, please refer to the mint Operator Parallel Practice and Higher-Order mint Operator Parallel Practice in the [Operator-level Parallelism Tutorial](https://www.mindspore.cn/tutorials/en/master/parallel/operator_parallel.html).
+MindSpore provides two operator-level parallelism capabilities: [Operator-level Parallelism](#basic-principle) and [Higher-order Operator-level Parallelism](#higher-order-operator-level-parallelism). Operator-level Parallelism uses simple tensor dimension splitting strategies to describe tensor distribution, meeting the requirements of most common scenarios. Higher-order Operator-level Parallelism enables complex partitioning scenarios by opening device arrangement descriptions, supporting: Non-contiguous device allocation, Multi-dimensional hybrid partitioning and so on. Both ops and mint operators are supported for the operator-level parallel capability of the two granularities. This chapter only introduces the operator-level parallelism and high-order operator-level parallelism based on ops operators. For the configuration method of operator-level parallelism based on mint operators, please refer to the mint Operator Parallel Practice and Higher-Order mint Operator Parallel Practice in the [Operator-level Parallelism Tutorial](https://www.mindspore.cn/tutorials/en/r2.10.0/parallel/operator_parallel.html).
 
-For a list of operators that currently support parallelism, see [Usage Constraints During Operator Parallel](https://www.mindspore.cn/docs/en/master/api_python/operator_list_parallel.html).
+For a list of operators that currently support parallelism, see [Usage Constraints During Operator Parallel](https://www.mindspore.cn/docs/en/r2.10.0/api_python/operator_list_parallel.html).
 
 > Hardware platforms supported by the operator-level parallel model include Ascend, GPU, and need to be run in Graph mode.
 
@@ -73,7 +73,7 @@ The configuration of operator-level parallelism in MindSpore is implemented thro
 
 To cope with these complex scenarios, this tutorial introduces a higher-order operator-level parallel configuration method with an open device arrangement description.
 
-[Operator-level Parallelism](https://www.mindspore.cn/tutorials/en/master/parallel/operator_parallel.html) describes MindSpore basic slicing logic for tensors, but cannot express all the slicing scenarios. For example, for a 2D tensor "[[a0, a1, a2, a3], [a4, a5, a6, a7]]", the tensor layout is shown below:
+[Operator-level Parallelism](https://www.mindspore.cn/tutorials/en/r2.10.0/parallel/operator_parallel.html) describes MindSpore basic slicing logic for tensors, but cannot express all the slicing scenarios. For example, for a 2D tensor "[[a0, a1, a2, a3], [a4, a5, a6, a7]]", the tensor layout is shown below:
 
 ![image](./images/advanced_operator_parallel_view1.PNG)
 
@@ -89,9 +89,9 @@ Therefore, directly slicing the input and output tensor of the operator accordin
 
 ### Interface Configuration
 
-In order to express sharding as in the above scenario, functional extensions are made to the [shard](https://www.mindspore.cn/docs/en/master/api_python/parallel/mindspore.parallel.shard.html) interface.
+In order to express sharding as in the above scenario, functional extensions are made to the [shard](https://www.mindspore.cn/docs/en/r2.10.0/api_python/parallel/mindspore.parallel.shard.html) interface.
 
-The parameters in_strategy and out_strategy both additionally receive the new data type tuple(Layout) type. [Layout](https://www.mindspore.cn/docs/en/master/api_python/parallel/mindspore.parallel.Layout.html) is initialized using the device matrix, while requiring an alias for each axis of the device matrix. For example: "layout = Layout((8, 4, 4), name = ("dp", "sp", "mp"))" means that the device has 128 cards in total, which are arranged in the shape of (8, 4, 4), and aliases "dp", "sp", "mp" are given to each axis.
+The parameters in_strategy and out_strategy both additionally receive the new data type tuple(Layout) type. [Layout](https://www.mindspore.cn/docs/en/r2.10.0/api_python/parallel/mindspore.parallel.Layout.html) is initialized using the device matrix, while requiring an alias for each axis of the device matrix. For example: "layout = Layout((8, 4, 4), name = ("dp", "sp", "mp"))" means that the device has 128 cards in total, which are arranged in the shape of (8, 4, 4), and aliases "dp", "sp", "mp" are given to each axis.
 
 For the specific meaning of Layout and the configuration derivation method, please refer to the following two technical documents:
 

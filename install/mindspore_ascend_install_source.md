@@ -20,7 +20,7 @@
 
 <!-- /TOC -->
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/install/mindspore_ascend_install_source.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.10.0/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/r2.10.0/install/mindspore_ascend_install_source.md)
 
 本文档介绍如何在Ascend环境的Linux系统上，使用源码编译方式快速安装MindSpore。
 
@@ -215,7 +215,7 @@ pip install "numpy>=1.20.0,<2.0.0"
 ## 从代码仓下载源码
 
 ```bash
-git clone https://atomgit.com/mindspore/mindspore.git
+git clone -b v2.10.0 https://atomgit.com/mindspore/mindspore.git
 ```
 
 ## 配置环境变量
@@ -255,7 +255,7 @@ bash build.sh -e ascend -S on
 pip install output/mindspore-*.whl -i https://repo.huaweicloud.com/repository/pypi/simple/
 ```
 
-在联网状态下，安装whl包时会自动下载MindSpore安装包的依赖项（依赖项详情参见[setup.py](https://atomgit.com/mindspore/mindspore/blob/master/setup.py)中的required_package），其余情况需自行安装依赖。
+在联网状态下，安装whl包时会自动下载MindSpore安装包的依赖项（依赖项详情参见[setup.py](https://atomgit.com/mindspore/mindspore/blob/v2.10/setup.py)中的required_package），其余情况需自行安装依赖。
 
 ## 验证是否成功安装
 

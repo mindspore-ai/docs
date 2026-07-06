@@ -1,11 +1,11 @@
 # 启动任务
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/feature/start_task.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.10.0/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/r2.10.0/docs/mindformers/docs/source_zh_cn/feature/start_task.md)
 
 MindSpore Transformers 动态图（PyNative）训练提供了一键启动脚本 `run_mindformer.py` 和分布式任务拉起脚本 `msrun_launcher.sh`。
 
 - `run_mindformer.py`脚本用于在**单卡**上拉起任务，其提供了预训练任务的一键启动能力；
-- `msrun_launcher.sh`脚本用于在**单机多卡**或**多机多卡**上拉起分布式任务，其通过[msrun](https://www.mindspore.cn/tutorials/zh-CN/master/parallel/msrun_launcher.html)工具在每张卡上拉起任务。
+- `msrun_launcher.sh`脚本用于在**单机多卡**或**多机多卡**上拉起分布式任务，其通过[msrun](https://www.mindspore.cn/tutorials/zh-CN/r2.10.0/parallel/msrun_launcher.html)工具在每张卡上拉起任务。
 
 ## 一、run_mindformer 一键启动脚本
 
@@ -20,11 +20,11 @@ MindSpore Transformers 动态图（PyNative）训练提供了一键启动脚本 
 |   `--run_mode`   | str  |  可选  | 取自YAML配置  | 设置模型的运行模式，可选 `train`。                                                                                                       |
 | `--use_parallel` | bool |  可选  | 取自YAML配置  | 是否开启并行模式。                                                                                                                   |
 |  `--output_dir`  | str  |  可选  | 取自YAML配置  | 设置保存日志、权重、切分策略等文件的路径。                                                                                                       |
-|    `--seed`      | int  | 可选   | 取自YAML配置  | 设置全局种子。详情可参考[mindspore.set_seed](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.set_seed.html)。  |
+|    `--seed`      | int  | 可选   | 取自YAML配置  | 设置全局种子。详情可参考[mindspore.set_seed](https://www.mindspore.cn/docs/zh-CN/r2.10.0/api_python/mindspore/mindspore.set_seed.html)。  |
 
 ## 二、分布式任务拉起脚本
 
-分布式任务拉起脚本 `msrun_launcher.sh` 位于 `scripts/` 目录下，可根据输入的参数自动使用[msrun](https://www.mindspore.cn/tutorials/zh-CN/master/parallel/msrun_launcher.html)命令启动分布式多进程任务。该脚本有如下几种使用方式：
+分布式任务拉起脚本 `msrun_launcher.sh` 位于 `scripts/` 目录下，可根据输入的参数自动使用[msrun](https://www.mindspore.cn/tutorials/zh-CN/r2.10.0/parallel/msrun_launcher.html)命令启动分布式多进程任务。该脚本有如下几种使用方式：
 
 1. 默认使用单机8卡运行：
 

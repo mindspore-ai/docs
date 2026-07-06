@@ -1,6 +1,6 @@
 # 训练超参数与优化器
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/feature/training_hyperparameters.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.10.0/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/r2.10.0/docs/mindformers/docs/source_zh_cn/feature/training_hyperparameters.md)
 
 动态图（PyNative）训练的超参数集中在配置文件的三个**顶层并列段**中：`optimizer`（优化器）、`lr_scheduler`（学习率策略）与 `training`（训练基础参数）。三者分别由 `OptimizerConfig`、`LrSchedulerConfig`、`TrainingConfig` 解析（见[配置文件说明](./configuration.md)）。
 

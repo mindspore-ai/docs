@@ -1,6 +1,6 @@
 # Class Context
 
-\#include &lt;[context.h](https://atomgit.com/mindspore/mindspore-lite/blob/master/include/api/context.h)&gt;
+\#include &lt;[context.h](https://atomgit.com/mindspore/mindspore-lite/blob/r2.10/include/api/context.h)&gt;
 
 Context类用于保存执行中的环境变量。
 
@@ -43,9 +43,9 @@ Context的数据。
 | [bool GetEnableParallel() const](#getenableparallel)     |    ✕    |    √    |
 | [void SetBuiltInDelegate(DelegateMode mode)](#setbuiltindelegate)     |    ✕    |    √    |
 | [DelegateMode GetBuiltInDelegate() const](#getbuiltindelegate)     |    ✕    |    √    |
-| [void set_delegate(const std::shared_ptr\<AbstractDelegate\> &delegate)](https://www.mindspore.cn/lite/api/zh-CN/master/generate/classmindspore_Context.html#set-delegate)         | ✕      | √      |
+| [void set_delegate(const std::shared_ptr\<AbstractDelegate\> &delegate)](https://www.mindspore.cn/lite/api/zh-CN/r2.10.0/generate/classmindspore_Context.html#set-delegate)         | ✕      | √      |
 | [void SetDelegate(const std::shared_ptr\<Delegate\> &delegate)](#setdelegate)     |    ✕    |    √    |
-| [std::shared_ptr\<AbstractDelegate\> get_delegate() const](https://www.mindspore.cn/lite/api/zh-CN/master/generate/classmindspore_Context.html#get-delegate)     |    ✕    |    √    |
+| [std::shared_ptr\<AbstractDelegate\> get_delegate() const](https://www.mindspore.cn/lite/api/zh-CN/r2.10.0/generate/classmindspore_Context.html#get-delegate)     |    ✕    |    √    |
 | [std::shared_ptr\<Delegate\> GetDelegate() const](#getdelegate)     |    ✕    |    √    |
 | [void SetMultiModalHW(bool float_mode)](#setmultimodalhw)     |    ✕    |    √    |
 | [bool GetMultiModalHW() const](#getmultimodalhw)     |    ✕    |    √    |

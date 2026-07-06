@@ -1,6 +1,6 @@
 # Multi-copy Parallel
 
-[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/tutorials/source_en/parallel/multiple_copy.md)
+[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.10.0/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/r2.10.0/tutorials/source_en/parallel/multiple_copy.md)
 
 ## Overview
 
@@ -16,7 +16,7 @@ The data of input model is sliced according to the batch size dimension, thus mo
 
 ### Related Interfaces
 
-- [mindspore.parallel.nn.MicroBatchInterleaved(cell_network, interleave_num=2)](https://www.mindspore.cn/docs/en/master/api_python/parallel/mindspore.parallel.nn.MicroBatchInterleaved.html): This function serves to split the input into `interleave_num` parts in the first dimension (dimension 0), and then performs the computation of the wrapped cell.
+- [mindspore.parallel.nn.MicroBatchInterleaved(cell_network, interleave_num=2)](https://www.mindspore.cn/docs/en/r2.10.0/api_python/parallel/mindspore.parallel.nn.MicroBatchInterleaved.html): This function serves to split the input into `interleave_num` parts in the first dimension (dimension 0), and then performs the computation of the wrapped cell.
 
 ## Operator Practice
 
@@ -24,7 +24,7 @@ The following is an illustration of multi-copy parallel operation using an Ascen
 
 ### Example Code Description
 
-> Download the complete example code: [multiple_copy](https://atomgit.com/mindspore/docs/tree/master/docs/sample_code/multiple_copy).
+> Download the complete example code: [multiple_copy](https://atomgit.com/mindspore/docs/tree/r2.10.0/docs/sample_code/multiple_copy).
 
 The directory structure is as follows:
 
@@ -53,7 +53,7 @@ init()
 ### Dataset Loading and Network Definition
 
 Here the dataset loading and network definition is consistent with the single-card model.
-Defer initialization of network parameters and optimizer parameters via the [no_init_parameters](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.utils.no_init_parameters.html) interface.
+Defer initialization of network parameters and optimizer parameters via the [no_init_parameters](https://www.mindspore.cn/docs/en/r2.10.0/api_python/nn/mindspore.nn.utils.no_init_parameters.html) interface.
 
 ```python
 import os
@@ -103,8 +103,8 @@ with no_init_parameters():
 
 In this step, we need to define the loss function and the training process, and in this section two interfaces need to be called to configure the multi-copy parallel:
 
-- First the LossCell needs to be defined. In this case the [nn.WithLossCell](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.WithLossCell.html) interface is called to wrap the network and loss functions.
-- It is then necessary to wrap a layer of [mindspore.parallel.nn.MicroBatchInterleaved](https://www.mindspore.cn/docs/en/master/api_python/parallel/mindspore.parallel.nn.MicroBatchInterleaved.html) around the LossCell and specify interleave_num size of 2. Refer to the relevant interfaces in the overview of this chapter for more details.
+- First the LossCell needs to be defined. In this case the [nn.WithLossCell](https://www.mindspore.cn/docs/en/r2.10.0/api_python/nn/mindspore.nn.WithLossCell.html) interface is called to wrap the network and loss functions.
+- It is then necessary to wrap a layer of [mindspore.parallel.nn.MicroBatchInterleaved](https://www.mindspore.cn/docs/en/r2.10.0/api_python/parallel/mindspore.parallel.nn.MicroBatchInterleaved.html) around the LossCell and specify interleave_num size of 2. Refer to the relevant interfaces in the overview of this chapter for more details.
 
 Finally, the `AutoParallel` wraps `net` and sets the parallel mode to semi-automatic parallel mode.
 

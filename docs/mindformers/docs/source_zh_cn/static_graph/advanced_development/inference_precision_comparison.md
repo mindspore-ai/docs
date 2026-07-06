@@ -8,7 +8,7 @@
 
 # 推理精度比对
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/static_graph/advanced_development/inference_precision_comparison.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.10.0/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/r2.10.0/docs/mindformers/docs/source_zh_cn/static_graph/advanced_development/inference_precision_comparison.md)
 
 ## 概述
 
@@ -27,12 +27,12 @@
 ### 在线推理验证
 
 在线推理验证的主要目标是验证单条或者多条输入的推理输出的精度是否正常。如果所有输出都正常，并且和GPU环境下标杆的输出能够基本对齐，可以进入下一步验证数据集评测。
-关于模型如何执行在线推理任务可以参考[推理指南](https://www.mindspore.cn/mindformers/docs/zh-CN/master/static_graph/guide/inference.html)。
+关于模型如何执行在线推理任务可以参考[推理指南](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.10.0/static_graph/guide/inference.html)。
 
 ### 数据集评测
 
 通过在线推理验证之后，模型在保持输入相同的情况下，标杆的输出可以基本保持一致。但是数据量比较小，并且问题涉及领域不够全面，需要通过数据集评测来最终验证模型的精度。只有数据集的评测得分和标杆数据能够满足0.4%的误差，才能证明模型的精度符合验收标准。
-关于模型如何用数据集评测可以参考[评测指南](https://www.mindspore.cn/mindformers/docs/zh-CN/master/static_graph/guide/evaluation.html)。
+关于模型如何用数据集评测可以参考[评测指南](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.10.0/static_graph/guide/evaluation.html)。
 
 ## 定位精度问题
 
@@ -61,11 +61,11 @@
 - 问题 1：冒号后存在KEY值，部分权重没有加载进网络。
     - 原因：网络的KEY值和权重的KEY值没有一一对应上。
     - 定位方法：结合网络结构和没有加载的权重分析，每个KEY值对应的权重没有加载是否合理。
-    - 解决方法：对不合理权重KEY值的转换重新转换，具体参考[新模型权重转换适配教程](https://www.mindspore.cn/mindformers/docs/zh-CN/master/static_graph/advanced_development/weight_transfer.html)。
+    - 解决方法：对不合理权重KEY值的转换重新转换，具体参考[新模型权重转换适配教程](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.10.0/static_graph/advanced_development/weight_transfer.html)。
 - 问题 2：冒号后不存在任何KEY值，所有权重都加载进网络，但依旧可能存在权重融合或者拆分过程中切分不对导致加载错数据。
     - 原因：大多是开源的权重中存在融合的权重，有时候需要拆分之后再和其他权重融合，过程中有可能会涉及各种切分，容易出现问题。
     - 定位方法：先重点分析容易出错的地方，如Attention中qkv的部分，结合网络结构中的写法，分析权重加载过程中的各种操作是否正确。如果理论分析不出来，可以直接将对怀疑的部分的权重打印出来和标杆的对应位置加载的权重对比。
-    - 解决方法：通过分析或者实验找到权重加载错误的模块，解决方法参考[新模型权重转换适配教程](https://www.mindspore.cn/mindformers/docs/zh-CN/master/static_graph/advanced_development/weight_transfer.html)。
+    - 解决方法：通过分析或者实验找到权重加载错误的模块，解决方法参考[新模型权重转换适配教程](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.10.0/static_graph/advanced_development/weight_transfer.html)。
 
 #### 2. 新模型的搭建存在问题
 
@@ -103,7 +103,7 @@
       checker.check_precision(gpu_data, npu_data)
       ```
 
-      > 关于如何dump数据可以参考MindSpore官网提供的[Dump教程文档](https://www.mindspore.cn/tutorials/zh-CN/master/debug/dump.html)。
+      > 关于如何dump数据可以参考MindSpore官网提供的[Dump教程文档](https://www.mindspore.cn/tutorials/zh-CN/r2.10.0/debug/dump.html)。
     - 可能的原因：某个输入的dtype类型不一致等导致的精度损失。
     - 解决方法：对齐标杆的dtype。
 

@@ -1,6 +1,6 @@
 # List of TensorFlow Lite Operators Supported by MindSpore Lite
 
-[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/lite/docs/source_en/reference/operator_list_lite_for_tflite.md)
+[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.10.0/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/r2.10.0/docs/lite/docs/source_en/reference/operator_list_lite_for_tflite.md)
 
 | MindSpore Lite Operator Names | Corresponding TensorFlow Lite Operators                                    |
 | ---------------------- | ------------------------------------------------------------ |

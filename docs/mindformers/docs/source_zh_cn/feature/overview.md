@@ -1,6 +1,6 @@
 # 功能特性概述
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/feature/overview.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.10.0/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/r2.10.0/docs/mindformers/docs/source_zh_cn/feature/overview.md)
 
 MindSpore Transformers 动态图（PyNative）实现面向 **预训练/微调** 训练全流程提供丰富的功能特性，便于配置化开发与调优。本章按 **通用功能** 与 **训练功能** 分类汇总；推理与部署相关能力当前由静态图提供，集中列在「静态图实现特性」。
 

@@ -4,7 +4,7 @@
 std::vector<mindspore::MSTensor> outputs_
 ```
 
-\#include &lt;[delegate_api.h](https://atomgit.com/mindspore/mindspore-lite/blob/master/include/api/delegate_api.h)&gt;
+\#include &lt;[delegate_api.h](https://atomgit.com/mindspore/mindspore-lite/blob/r2.10/include/api/delegate_api.h)&gt;
 
 `IDelegate`定义了MindSpore Lite 创建Delegate（模板类）。
 

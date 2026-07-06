@@ -1,6 +1,6 @@
 # Differences with torchvision.datasets.CIFAR10
 
-[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/CIFAR10.md)
+[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.10.0/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/r2.10.0/docs/mindspore/source_en/note/api_mapping/pytorch_diff/CIFAR10.md)
 
 ## torchvision.datasets.CIFAR10
 
@@ -30,7 +30,7 @@ class mindspore.dataset.Cifar10Dataset(
     cache=None)
 ```
 
-For more information, see [mindspore.dataset.Cifar10Dataset](https://mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.Cifar10Dataset.html#mindspore.dataset.Cifar10Dataset).
+For more information, see [mindspore.dataset.Cifar10Dataset](https://mindspore.cn/docs/en/r2.10.0/api_python/dataset/mindspore.dataset.Cifar10Dataset.html#mindspore.dataset.Cifar10Dataset).
 
 ## Differences
 

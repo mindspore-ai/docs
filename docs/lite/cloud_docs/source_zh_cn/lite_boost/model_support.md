@@ -4,8 +4,8 @@
 
 | 模型 | 硬件 | 并行 | Attention | 量化 | 融合算子 | 备注 |
 |------|------|------|-----------|------|----------|------|
-| [Wan2.1-T2V-1.3B](https://atomgit.com/mindspore/mindspore-lite/blob/master/mindspore-lite/lite_boost/python/model/wan2_1/README.md) | Atlas 300I Duo 推理卡<br>Atlas 800I A2 推理服务器 | USP (CP) | NPU Flash Attention<br>(Flash Attention 3→2→`npu_prompt_flash_attention`) | 不支持 | 不支持 | RoPE改写（float32实数运算+缓存）<br>支持VACE变体 |
-| [Wan2.2-TI2V-5B](https://atomgit.com/mindspore/mindspore-lite/blob/master/mindspore-lite/lite_boost/python/model/wan2_2/README.md) | Atlas 300I Duo 推理卡<br>Atlas 800I A2 推理服务器 | USP (CP) + DP（时间切片） | NPU Flash Attention<br>(Flash Attention 3→2→`npu_prompt_flash_attention`) | 不支持 | 不支持 | RoPE改写（float32实数运算+缓存）<br>VAE DP时间切片用于encode/decode |
+| [Wan2.1-T2V-1.3B](https://atomgit.com/mindspore/mindspore-lite/blob/r2.10/mindspore-lite/lite_boost/python/model/wan2_1/README.md) | Atlas 300I Duo 推理卡<br>Atlas 800I A2 推理服务器 | USP (CP) | NPU Flash Attention<br>(Flash Attention 3→2→`npu_prompt_flash_attention`) | 不支持 | 不支持 | RoPE改写（float32实数运算+缓存）<br>支持VACE变体 |
+| [Wan2.2-TI2V-5B](https://atomgit.com/mindspore/mindspore-lite/blob/r2.10/mindspore-lite/lite_boost/python/model/wan2_2/README.md) | Atlas 300I Duo 推理卡<br>Atlas 800I A2 推理服务器 | USP (CP) + DP（时间切片） | NPU Flash Attention<br>(Flash Attention 3→2→`npu_prompt_flash_attention`) | 不支持 | 不支持 | RoPE改写（float32实数运算+缓存）<br>VAE DP时间切片用于encode/decode |
 
 **列说明：**
 

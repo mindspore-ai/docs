@@ -4,7 +4,7 @@
 |-----------------------|--------|--------|
 | std::vector\<char\> CharVersion()     |    ✕    |    √    |
 
-\#include &lt;[types.h](https://atomgit.com/mindspore/mindspore-lite/blob/master/include/api/types.h)&gt;
+\#include &lt;[types.h](https://atomgit.com/mindspore/mindspore-lite/blob/r2.10/include/api/types.h)&gt;
 
 ```cpp
 std::vector<char> CharVersion()

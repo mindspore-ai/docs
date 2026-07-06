@@ -8,7 +8,7 @@ This page belongs to the **Static Graph (GRAPH_MODE) Implementation** section an
 
 # Loading Hugging Face Model Configuration
 
-[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_en/static_graph/feature/load_huggingface_config.md)
+[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.10.0/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/r2.10.0/docs/mindformers/docs/source_en/static_graph/feature/load_huggingface_config.md)
 
 ## Overview
 
@@ -34,7 +34,7 @@ This feature only involves the model and inference configurations, with the rele
 
 - pretrained_model_dir: The directory path where the Hugging Face model configuration is located;
 - model_config: Model configuration fields specific to MindSpore Transformers;
-- generation_config: Parameters related to text generation. Optional configuration, increase if customization is needed. For the configuration items, refer to [GenerationConfig](https://www.mindspore.cn/mindformers/docs/en/master/static_graph/generation/mindformers.generation.GenerationConfig.html).
+- generation_config: Parameters related to text generation. Optional configuration, increase if customization is needed. For the configuration items, refer to [GenerationConfig](https://www.mindspore.cn/mindformers/docs/en/r1.10.0/static_graph/generation/mindformers.generation.GenerationConfig.html).
 
 ```yaml
 pretrained_model_dir: "./local/qwen3"
@@ -67,7 +67,7 @@ generation_config:
 
 ### Initiating Tasks
 
-Refer to [Using run_mindformer.py to initiate inference tasks](https://www.mindspore.cn/mindformers/docs/en/master/static_graph/guide/inference.html#inference-based-on-the-run-mindformer-script).
+Refer to [Using run_mindformer.py to initiate inference tasks](https://www.mindspore.cn/mindformers/docs/en/r1.10.0/static_graph/guide/inference.html#inference-based-on-the-run-mindformer-script).
 
 ## Frequently Asked Questions
 

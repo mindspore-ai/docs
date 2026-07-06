@@ -1,12 +1,12 @@
 # DSP Integration Information
 
-[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/lite/docs/source_en/advanced/third_party/dsp_info.md)
+[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.10.0/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/r2.10.0/docs/lite/docs/source_en/advanced/third_party/dsp_info.md)
 
 ## Steps
 
 ### Environment Preparation
 
-Besides basic [Environment Preparation](https://www.mindspore.cn/lite/docs/en/master/use/build.html), Using DSP requires the integration of dsp_sdk. Dsp_sdk includes heterogeneous programming interfaces using DSP and interface implementations encapsulated into static libraries (named libhthread_host.a). Set the dsp_sdk directory as the environment variable `${dsp_sdk_path}`, and the build script will use this environment variable to find dsp_sdk; In addition, a cross compilation tool is required. The installation command is as follows:
+Besides basic [Environment Preparation](https://www.mindspore.cn/lite/docs/en/r2.10.0/use/build.html), Using DSP requires the integration of dsp_sdk. Dsp_sdk includes heterogeneous programming interfaces using DSP and interface implementations encapsulated into static libraries (named libhthread_host.a). Set the dsp_sdk directory as the environment variable `${dsp_sdk_path}`, and the build script will use this environment variable to find dsp_sdk; In addition, a cross compilation tool is required. The installation command is as follows:
 
 ```bash
 sudo apt-get update && apt-get install -y --no-install-recommends \
@@ -27,7 +27,7 @@ bash build.sh -I arm32 -j8
 ```
 
 Where `${your path}/dsp_sdk` is the path of dsp_sdk. `MSLITE_REGISTRY_DEVICE` has two options: `ft78` and `ft04`, which correspond to different DSP chips respectively.
-For more information about compilation, see [Linux Environment Compilation](https://www.mindspore.cn/lite/docs/en/master/use/build.html#linux-environment-compilation).
+For more information about compilation, see [Linux Environment Compilation](https://www.mindspore.cn/lite/docs/en/r2.10.0/use/build.html#linux-environment-compilation).
 
 ### Integration
 
@@ -35,8 +35,8 @@ For more information about compilation, see [Linux Environment Compilation](http
 
     When developers need to integrate the use of DSP features, it is important to note:
 
-    - [Configure the DSP backend](https://www.mindspore.cn/lite/docs/en/master/infer/runtime_cpp.html#configuring-the-dsp-backend).
-      For more information about using Runtime to perform inference, see [Using Runtime to Perform Inference (C++)](https://www.mindspore.cn/lite/docs/en/master/infer/runtime_cpp.html).
+    - [Configure the DSP backend](https://www.mindspore.cn/lite/docs/en/r2.10.0/infer/runtime_cpp.html#configuring-the-dsp-backend).
+      For more information about using Runtime to perform inference, see [Using Runtime to Perform Inference (C++)](https://www.mindspore.cn/lite/docs/en/r2.10.0/infer/runtime_cpp.html).
 
 - Using Benchmark testing DSP inference
 
@@ -48,7 +48,7 @@ For more information about compilation, see [Linux Environment Compilation](http
     ./benchmark --device=DSP --modelFile=./models/test_benchmark.ms --timeProfiling=true
     ```
 
-For more information about the use of Benchmark, see [Benchmark Use](https://www.mindspore.cn/lite/docs/en/master/tools/benchmark_tool.html).
+For more information about the use of Benchmark, see [Benchmark Use](https://www.mindspore.cn/lite/docs/en/r2.10.0/tools/benchmark_tool.html).
 
 For environment variable settings, copy libmindspore-lite.so to the `/usr/lib` directory of `ft78` or `ft04`.
 
@@ -58,4 +58,4 @@ The DSP chip supports `ft04` and `ft78`.
 
 ## Supported Operators
 
-For supported DSP operators, see [Lite Operator List](https://www.mindspore.cn/lite/docs/en/master/reference/operator_list_lite.html).
+For supported DSP operators, see [Lite Operator List](https://www.mindspore.cn/lite/docs/en/r2.10.0/reference/operator_list_lite.html).

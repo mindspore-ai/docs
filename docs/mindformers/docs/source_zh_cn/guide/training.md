@@ -1,6 +1,6 @@
 # 训练指南
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/guide/training.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.10.0/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/r2.10.0/docs/mindformers/docs/source_zh_cn/guide/training.md)
 
 ## 概述
 
@@ -44,7 +44,7 @@ MindSpore Transformers支持了不同系列的预训练模型，例如DeepSeek�
 
 **预训练数据处理**
 
-针对 Megatron 数据集，MindSpore Transformers 提供了数据预处理脚本 [preprocess_indexed_dataset.py](https://atomgit.com/mindspore/mindformers/blob/master/toolkit/data_preprocess/megatron/preprocess_indexed_dataset.py)，用于将 `json` 格式的原始文本语料转换成 `.bin` 或 `.idx` 文件。该方案支持多源混合：
+针对 Megatron 数据集，MindSpore Transformers 提供了数据预处理脚本 [preprocess_indexed_dataset.py](https://atomgit.com/mindspore/mindformers/blob/r1.10.0/toolkit/data_preprocess/megatron/preprocess_indexed_dataset.py)，用于将 `json` 格式的原始文本语料转换成 `.bin` 或 `.idx` 文件。该方案支持多源混合：
 
 - **灵活配置**：支持同时加载多个bin数据文件，并通过采样比例参数控制不同数据源的混合权重；
 - **高效训练**：二进制存储格式大幅提升了IO效率，特别适合大规模预训练场景。
@@ -53,7 +53,7 @@ MindSpore Transformers支持了不同系列的预训练模型，例如DeepSeek�
 
 ### 2. 配置文件准备
 
-在进行一次预训练任务时，大模型参数量庞大（通常数十亿至万亿级），需依赖分布式计算资源高效训练以及对各项超参的修改，用于保证任务的正常执行及模型的最终性能指标。动态图（PyNative）训练使用一个 YAML 文件集中管理所有可配置项，由 [mindformers/pynative/config/config.py](https://atomgit.com/mindspore/mindformers/blob/master/mindformers/pynative/config/config.py) 的 **dataclass 配置体系**（`TrainConfig` 及其子配置类）对 YAML 加载时进行解析与校验。一份完整配置主要由以下顶层段组成（详见[配置文件说明](../feature/configuration.md)）：
+在进行一次预训练任务时，大模型参数量庞大（通常数十亿至万亿级），需依赖分布式计算资源高效训练以及对各项超参的修改，用于保证任务的正常执行及模型的最终性能指标。动态图（PyNative）训练使用一个 YAML 文件集中管理所有可配置项，由 [mindformers/pynative/config/config.py](https://atomgit.com/mindspore/mindformers/blob/r1.10.0/mindformers/pynative/config/config.py) 的 **dataclass 配置体系**（`TrainConfig` 及其子配置类）对 YAML 加载时进行解析与校验。一份完整配置主要由以下顶层段组成（详见[配置文件说明](../feature/configuration.md)）：
 
 - **模型配置**（`model`）：根据预定的模型规格，修改配置文件中与模型架构相关的参数，如层数、头数、隐藏层维度等；
 - **数据配置**（`train_dataset`）：指定预处理得到的数据集，配置数据集路径、数据加载方式等；
@@ -75,20 +75,20 @@ MindSpore Transformers支持了不同系列的预训练模型，例如DeepSeek�
     <td rowspan="3">基础配置</td>
     <td rowspan="3">通过配置该部分配置，能够基于当前模型结构下，拉起一个简单的训练任务</td>
     <td>数据集</td>
-    <td><a href=https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/dataset.html target="_blank">数据集使用</a></td>
+    <td><a href=https://www.mindspore.cn/mindformers/docs/zh-CN/r1.10.0/feature/dataset.html target="_blank">数据集使用</a></td>
   </tr>
   <tr>
     <td>并行配置</td>
     <td>
-    <a href=https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/configuration.html#parallelism-%E5%A4%9A%E7%BB%B4%E5%B9%B6%E8%A1%8C target="_blank">并行配置项说明</a><br>
-    <a href=https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/parallel_training.html target="_blank">分布式并行训练指南</a>
+    <a href=https://www.mindspore.cn/mindformers/docs/zh-CN/r1.10.0/feature/configuration.html#parallelism-%E5%A4%9A%E7%BB%B4%E5%B9%B6%E8%A1%8C target="_blank">并行配置项说明</a><br>
+    <a href=https://www.mindspore.cn/mindformers/docs/zh-CN/r1.10.0/feature/parallel_training.html target="_blank">分布式并行训练指南</a>
     </td>
   </tr>
   <tr>
     <td>训练超参</td>
     <td>
-    <a href=https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/training_hyperparameters.html target="_blank">训练超参数与优化器</a><br>
-    <a href=https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/other_training_features.html target="_blank">其它训练特性（梯度累积/裁剪/融合算子/混合精度）</a>
+    <a href=https://www.mindspore.cn/mindformers/docs/zh-CN/r1.10.0/feature/training_hyperparameters.html target="_blank">训练超参数与优化器</a><br>
+    <a href=https://www.mindspore.cn/mindformers/docs/zh-CN/r1.10.0/feature/other_training_features.html target="_blank">其它训练特性（梯度累积/裁剪/融合算子/混合精度）</a>
     </td>
   </tr>
   <tr>
@@ -96,20 +96,20 @@ MindSpore Transformers支持了不同系列的预训练模型，例如DeepSeek�
     <td rowspan="3">通过配置该部分，可感知训练状态并保障多次训练任务的连贯执行</td>
     <td>权重保存</td>
     <td>
-      <a href=https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/save_load_checkpoint.html target="_blank">权重保存与加载（Safetensors）</a><br>
-      <a href=https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/configuration.html#checkpoint-%E6%9D%83%E9%87%8D%E4%BF%9D%E5%AD%98%E4%B8%8E%E5%8A%A0%E8%BD%BD target="_blank">Callbacks配置CheckpointMonitor</a>
+      <a href=https://www.mindspore.cn/mindformers/docs/zh-CN/r1.10.0/feature/save_load_checkpoint.html target="_blank">权重保存与加载（Safetensors）</a><br>
+      <a href=https://www.mindspore.cn/mindformers/docs/zh-CN/r1.10.0/feature/configuration.html#checkpoint-%E6%9D%83%E9%87%8D%E4%BF%9D%E5%AD%98%E4%B8%8E%E5%8A%A0%E8%BD%BD target="_blank">Callbacks配置CheckpointMonitor</a>
     </td>
   </tr>
   <tr>
     <td>断点续训</td>
     <td>
-      <a href=https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/resume_training.html target="_blank">断点续训示例</a>
+      <a href=https://www.mindspore.cn/mindformers/docs/zh-CN/r1.10.0/feature/resume_training.html target="_blank">断点续训示例</a>
     </td>
   </tr>
   <tr>
     <td>在线监控</td>
     <td>
-      <a href=https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/monitor.html target="_blank">训练指标监控与 Profiling</a>
+      <a href=https://www.mindspore.cn/mindformers/docs/zh-CN/r1.10.0/feature/monitor.html target="_blank">训练指标监控与 Profiling</a>
     </td>
   </tr>
   <tr>
@@ -117,18 +117,18 @@ MindSpore Transformers支持了不同系列的预训练模型，例如DeepSeek�
     <td rowspan="2">通过配置该部分，可进行训练过程的状态监测与性能调优，实现在不同集群规模下的稳定高性能训练</td>
     <td>性能调优</td>
     <td>
-      <a href=https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/memory_optimization.html target="_blank">训练内存优化</a>
+      <a href=https://www.mindspore.cn/mindformers/docs/zh-CN/r1.10.0/feature/memory_optimization.html target="_blank">训练内存优化</a>
     </td>
   </tr>
   <tr>
     <td>其他训练特性</td>
     <td>
-      <a href=https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/other_training_features.html#%E4%BA%8C%E6%A2%AF%E5%BA%A6%E8%A3%81%E5%89%AA target="_blank">梯度累积/裁剪/融合算子/混合精度</a>
+      <a href=https://www.mindspore.cn/mindformers/docs/zh-CN/r1.10.0/feature/other_training_features.html#%E4%BA%8C%E6%A2%AF%E5%BA%A6%E8%A3%81%E5%89%AA target="_blank">梯度累积/裁剪/融合算子/混合精度</a>
     </td>
   </tr>
 </table>
 
-除以上配置项外，训练任务的所有配置项由[配置文件](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/configuration.html)统一控制，可根据配置项说明灵活调整设置。
+除以上配置项外，训练任务的所有配置项由[配置文件](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.10.0/feature/configuration.html)统一控制，可根据配置项说明灵活调整设置。
 
 > **动态图与静态图配置差异提示**
 >
@@ -138,7 +138,7 @@ MindSpore Transformers支持了不同系列的预训练模型，例如DeepSeek�
 
 ### 3. 启动训练任务
 
-MindSpore Transformers动态图训练支持单机多卡、多机多卡分布式训练，集群规模支持从单机8卡至万卡的超大规模分布式训练。动态图训练统一通过 [run_mindformer.py](https://atomgit.com/mindspore/mindformers/blob/master/run_mindformer.py) 拉起，须通过 `--mode 1` 显式指定使用 PYNATIVE_MODE。
+MindSpore Transformers动态图训练支持单机多卡、多机多卡分布式训练，集群规模支持从单机8卡至万卡的超大规模分布式训练。动态图训练统一通过 [run_mindformer.py](https://atomgit.com/mindspore/mindformers/blob/r1.10.0/run_mindformer.py) 拉起，须通过 `--mode 1` 显式指定使用 PYNATIVE_MODE。
 
 - **单卡启动**：使用 `run_mindformer.py` 拉起任务，可通过环境变量 `ASCEND_RT_VISIBLE_DEVICES` 选择具体某张卡：
 
@@ -150,7 +150,7 @@ MindSpore Transformers动态图训练支持单机多卡、多机多卡分布式�
   python run_mindformer.py --config /path/to/your.yaml --mode 1
   ```
 
-- **单机多卡/多机多卡启动**：通过 `scripts/msrun_launcher.sh` 脚本基于 [msrun](https://www.mindspore.cn/tutorials/zh-CN/master/parallel/msrun_launcher.html) 工具拉起分布式任务：
+- **单机多卡/多机多卡启动**：通过 `scripts/msrun_launcher.sh` 脚本基于 [msrun](https://www.mindspore.cn/tutorials/zh-CN/r2.10.0/parallel/msrun_launcher.html) 工具拉起分布式任务：
 
   ```bash
   # 单机8卡

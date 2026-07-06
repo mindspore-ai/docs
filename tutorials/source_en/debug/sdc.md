@@ -1,6 +1,6 @@
 # Feature Value Detection
 
-[![View Source File](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/tutorials/source_en/debug/sdc.md)
+[![View Source File](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.10.0/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/r2.10.0/tutorials/source_en/debug/sdc.md)
 
 ## Overview
 
@@ -42,7 +42,7 @@ The combined detection scheme currently only supports `auto_parallel` or `semi_a
 
 The environment variable `MS_NPU_ASD_CONFIG` configures the combined detection scheme of feature value and CheckSum, in the format of `key:value`, with each configuration item separated by commas. `enable` is the feature value detection switch, `with_checksum` is the CheckSum linkage switch, `grad_sample_interval` is the feature value sampling interval, `upper_thresh1` and `upper_thresh2` control the absolute and relative thresholds of feature value detection respectively, `cooldown` is the feature value detection anomaly cooldown time and the CheckSum execution time, `strikes_num` and `strikes_window` are the number of feature value detection anomalies and the time window required to trigger CheckSum, and `checksum_cooldown` is the CheckSum cooldown time. By default, `MS_NPU_ASD_CONFIG="enable:false,with_checksum:false,grad_sample_interval:10,upper_thresh1:1000000,upper_thresh2:100,cooldown:5,strikes_num:3,strikes_window:480,checksum_cooldown:180"`.
 
-For details of above environment variables, see [Environment Variables](https://www.mindspore.cn/docs/en/master/api_python/env_var_list.html).
+For details of above environment variables, see [Environment Variables](https://www.mindspore.cn/docs/en/r2.10.0/api_python/env_var_list.html).
 
 ## Use Cases
 
