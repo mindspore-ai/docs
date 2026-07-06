@@ -58,3 +58,11 @@ The open-source code repository for MindSpore Transformers is located at `AtomGi
    static_graph/advanced_development/index
    static_graph/example/index
    static_graph/env_variables
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: RELEASE NOTES
+   :hidden:
+
+   RELEASE   

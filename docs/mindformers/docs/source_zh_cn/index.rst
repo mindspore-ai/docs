@@ -95,3 +95,11 @@ MindSpore Transformers 的开源仓库地址为 `AtomGit | MindSpore/mindformers
    static_graph/advanced_development/index
    static_graph/example/index
    static_graph/env_variables
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: RELEASE NOTES
+   :hidden:
+
+   RELEASE

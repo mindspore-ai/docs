@@ -183,7 +183,7 @@ copyright = 'MindSpore'
 author = 'MindSpore'
 
 # The full version, including alpha/beta/rc tags
-release = 'master'
+release = '2.10.0'
 
 # -- General configuration ---------------------------------------------------
 
@@ -451,22 +451,24 @@ else:
     print(f"错误：找不到目录 {target_dir}")
 
 # Rename .rst file to .txt file for include directive. master使用
-from rename_include import rename_include
+# from rename_include import rename_include
 
-rename_include('api_python')
-rename_include('migration_guide')
+# rename_include('api_python')
+# rename_include('migration_guide')
 
 # modify urls
 import json
 
 # 发版本时这里启用
-# re_url = r"(((atomgit.com/mindspore/docs/mindspore-lite)|(atomgit.com/mindspore/docs)|(github.com/mindspore-ai/(mindspore|docs))|" + \
-#          r"(mindspore.cn/(docs|tutorials|lite))|(obs.dualstack.cn-north-4.myhuaweicloud)|" + \
-#          r"(mindspore-website.obs.cn-north-4.myhuaweicloud))[\w\d/_.-]*?)/(master)"
+re_url = r"(((atomgit.com/mindspore/docs/mindspore-lite)|(atomgit.com/mindspore/docs)|" + \
+         r"(mindspore.cn/(docs|tutorials|lite))|(obs.dualstack.cn-north-4.myhuaweicloud)|" + \
+         r"(mindspore-website.obs.cn-north-4.myhuaweicloud))[\w\d/_.-]*?)/(master)"
 
-# re_url2 = r"(atomgit.com/mindspore/mindspore/[\w\d/_.-]*?)/(master)"
+re_url2 = r"(atomgit.com/mindspore/mindspore/[\w\d/_.-]*?)/(master)"
 
-# re_url3 = r"(((atomgit.com/mindspore/mindformers)|(mindspore.cn/mindformers))[\w\d/_.-]*?)/(master)"
+re_url3 = r"(((atomgit.com/mindspore/mindformers)|(mindspore.cn/mindformers))[\w\d/_.-]*?)/(master)"
+
+re_url4 = r"(atomgit.com/mindspore/mindspore-lite[\w\d/_.-]*?)/(master)"
 
 if os.path.exists('../../../tools/generate_html/version.json'):
     with open('../../../tools/generate_html/version.json', 'r+', encoding='utf-8') as f:
@@ -499,16 +501,17 @@ for cur, _, files in os.walk(des_sir):
                     content = f.read()
                     new_content = content
                     # 发版本时这里启用
-                    # new_content = re.sub(re_url, r'\1/r2.7.0rc1', new_content)
-                    # new_content = re.sub(re_url3, r'\1/r1.6.0', new_content)
-                    # if i.endswith('.rst'):
-                    #     new_content = re.sub(re_url2, r'\1/v2.7.0-rc1', new_content)
+                    new_content = re.sub(re_url, r'\1/r2.10.0', new_content)
+                    new_content = re.sub(re_url3, r'\1/r2.0.0', new_content)
+                    new_content = re.sub(re_url4, r'\1/r2.10', new_content)
+                    if i.endswith('.rst') or i.endswith('.ipynb'):
+                        new_content = re.sub(re_url2, r'\1/v2.10.0', new_content)
 
                     # master使用
-                    if i.endswith('.md'):
-                        md_view = f'[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/{docs_branch}/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/{copy_repo}/blob/{branch}/' + copy_path + cur.split('api_python')[-1] + '/' + i + ')\n\n'
-                        if 'resource/_static/logo_source' not in new_content:
-                            new_content = re.sub('(# .*\n\n)', r'\1'+ md_view, new_content, 1)
+                    # if i.endswith('.md'):
+                    #     md_view = f'[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/{docs_branch}/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/{copy_repo}/blob/{branch}/' + copy_path + cur.split('api_python')[-1] + '/' + i + ')\n\n'
+                    #     if 'resource/_static/logo_source' not in new_content:
+                    #         new_content = re.sub('(# .*\n\n)', r'\1'+ md_view, new_content, 1)
                     if new_content != content:
                         f.seek(0)
                         f.truncate()
@@ -518,28 +521,28 @@ for cur, _, files in os.walk(des_sir):
                 print(f'打开{i}文件失败')
 
         # master使用
-        if i.endswith('.rst'):
-            try:
-                with open(os.path.join(cur, i), 'r+', encoding='utf-8') as f:
-                    content = f.read()
-                    new_content = content
-                    if '.. include::' in content and '.. automodule::' in content:
-                        continue
-                    if 'autosummary::' not in content and "\n=====" in content:
-                        re_view_ = re_view + copy_path + cur.split('api_python')[-1] + '/' + i +'\n    :alt: 查看源文件\n\n'
-                        new_content = re.sub('([=]{5,})\n', r'\1\n' + re_view_, content, 1)
-                    if new_content != content:
-                        f.seek(0)
-                        f.truncate()
-                        f.write(new_content)
-            except Exception:
-                print(f'打开{i}文件失败')
+        # if i.endswith('.rst'):
+        #     try:
+        #         with open(os.path.join(cur, i), 'r+', encoding='utf-8') as f:
+        #             content = f.read()
+        #             new_content = content
+        #             if '.. include::' in content and '.. automodule::' in content:
+        #                 continue
+        #             if 'autosummary::' not in content and "\n=====" in content:
+        #                 re_view_ = re_view + copy_path + cur.split('api_python')[-1] + '/' + i +'\n    :alt: 查看源文件\n\n'
+        #                 new_content = re.sub('([=]{5,})\n', r'\1\n' + re_view_, content, 1)
+        #             if new_content != content:
+        #                 f.seek(0)
+        #                 f.truncate()
+        #                 f.write(new_content)
+        #     except Exception:
+        #         print(f'打开{i}文件失败')
 
 # # Rename .rst file to .txt file for include directive. (发版本时这里启用)
-# from rename_include import rename_include
+from rename_include import rename_include
 
-# rename_include('api_python')
-# rename_include('migration_guide')
+rename_include('api_python')
+rename_include('migration_guide')
 
 # rename file name to solve Case sensitive.
 
@@ -779,7 +782,7 @@ content = match.group(1).rstrip()
 content = re.sub(r"^[\s\S]*?(?=\n## )", "", content, flags=re.DOTALL).lstrip('\n')
 
 with open(des_release, "w", encoding="utf-8") as p:
-    # content = re.sub(re_url, r'\1/r2.7.0rc1', content)
-    # content = re.sub(re_url2, r'\1/v2.7.0-rc1', content)
+    content = re.sub(re_url, r'\1/r2.10.0', content)
+    content = re.sub(re_url2, r'\1/v2.10.0', content)
     p.write("# Release Notes" + "\n\n" + release_source)
     p.write(content)
