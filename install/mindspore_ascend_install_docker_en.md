@@ -21,7 +21,7 @@
 
 <!-- /TOC -->
 
-[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/install/mindspore_ascend_install_docker_en.md)
+[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.10.0/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/r2.10.0/install/mindspore_ascend_install_docker_en.md)
 
 [Docker](https://docs.docker.com/get-docker/) is an open source application container engine, and supports packaging developers' applications and dependency packages into a lightweight, portable container. By using Docker, MindSpore can be rapidly deployed and separated from the system environment.
 
@@ -251,6 +251,6 @@ CMD ["python", "train.py"]
 
 ## License
 
-View the [license information](https://atomgit.com/mindspore/mindspore/blob/master/LICENSE) for MindSpore included in these images.
+View the [license information](https://atomgit.com/mindspore/mindspore/blob/v2.10/LICENSE) for MindSpore included in these images.
 
 As with all container images, pre-installed software packages (Python, system libraries, etc.) may be subject to their respective licenses.

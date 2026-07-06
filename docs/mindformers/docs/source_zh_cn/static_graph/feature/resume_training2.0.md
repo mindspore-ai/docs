@@ -8,7 +8,7 @@
 
 # 断点续训2.0
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/static_graph/feature/resume_training2.0.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.10.0/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/r2.10.0/docs/mindformers/docs/source_zh_cn/static_graph/feature/resume_training2.0.md)
 
 ## 概述
 
@@ -23,7 +23,7 @@ MindSpore Transformers 具备完备的断点续训能力，核心功能与适用
 
 对于大规模训练任务（训练周期长、资源投入大），可避免意外中断导致的进度丢失，显著减少时间与计算资源浪费。
 
-> 本文档仅适用于使用 [Checkpoint 2.0 版本](https://www.mindspore.cn/mindformers/docs/zh-CN/master/static_graph/feature/checkpoint_saving_and_loading.html)进行续训的场景；若用户使用Checkpoint 1.0 版本，需参考旧版[断点续训文档](https://www.mindspore.cn/mindformers/docs/zh-CN/master/static_graph/feature/resume_training.html)。
+> 本文档仅适用于使用 [Checkpoint 2.0 版本](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.10.0/static_graph/feature/checkpoint_saving_and_loading.html)进行续训的场景；若用户使用Checkpoint 1.0 版本，需参考旧版[断点续训文档](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.10.0/static_graph/feature/resume_training.html)。
 
 ## checkpoint介绍
 
@@ -45,7 +45,7 @@ output
         └── latest_checkpointed_iteration.txt
 ```
 
-可参考[checkpoint保存和加载](https://www.mindspore.cn/mindformers/docs/zh-CN/master/static_graph/feature/checkpoint_saving_and_loading.html)，获取更多checkpoint相关信息。
+可参考[checkpoint保存和加载](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.10.0/static_graph/feature/checkpoint_saving_and_loading.html)，获取更多checkpoint相关信息。
 
 ## 配置说明
 

@@ -8,13 +8,13 @@ This page belongs to the **Static Graph (GRAPH_MODE) Implementation** section an
 
 # Memory Optimization
 
-[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_en/static_graph/feature/memory_optimization.md)
+[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.10.0/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/r2.10.0/docs/mindformers/docs/source_en/static_graph/feature/memory_optimization.md)
 
 ## Recomputation
 
 ### Overview
 
-Recomputation can significantly reduce activation memory usage during training but at the cost of additional computations. For more information about the principles of recalculation and framework measurement capabilities, please refer to [MindSpore Tutorial Document: Recompute](https://www.mindspore.cn/tutorials/en/master/parallel/recompute.html).
+Recomputation can significantly reduce activation memory usage during training but at the cost of additional computations. For more information about the principles of recalculation and framework measurement capabilities, please refer to [MindSpore Tutorial Document: Recompute](https://www.mindspore.cn/tutorials/en/r2.10.0/parallel/recompute.html).
 
 ### Configuration and Usage
 
@@ -22,7 +22,7 @@ Recomputation can significantly reduce activation memory usage during training b
 
 Users can enable recomputation by adding a `recompute_config` module to the YAML configuration file used for model training.
 
-Taking the [DeepSeek-V3 pre-training's YAML file](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/static_graph/example/deepseek3/pretrain_deepseek3_671b.yaml) as an example, it could be configured as follows:
+Taking the [DeepSeek-V3 pre-training's YAML file](https://atomgit.com/mindspore/docs/blob/r2.10.0/docs/mindformers/docs/source_zh_cn/static_graph/example/deepseek3/pretrain_deepseek3_671b.yaml) as an example, it could be configured as follows:
 
 ```yaml
 # recompute config
@@ -104,7 +104,7 @@ The fine-grained activations SWAP technology offers high flexibility in usage. D
 
 Fine-grained activations SWAP is enabled through the `model_config` field in YAML configuration, which includes four functional interfaces: `cpu_offloading`, `default_prefetch`, `cpu_offloading_num_layers`, and `op_swap`. These interfaces allow users to flexibly enable SWAP for specific layers or specific operators within layers.
 
-> This document mainly introduces the configuration method for Mcore models, with configuration items located under the `model_config` field. If using Legacy models, configuration items are located under the `swap_config` field with different parameter names. For specific configuration parameters, please refer to the Legacy configuration table in [Configuration File Descriptions](https://www.mindspore.cn/mindformers/docs/en/master/static_graph/feature/configuration.html#model-optimization-configuration).
+> This document mainly introduces the configuration method for Mcore models, with configuration items located under the `model_config` field. If using Legacy models, configuration items are located under the `swap_config` field with different parameter names. For specific configuration parameters, please refer to the Legacy configuration table in [Configuration File Descriptions](https://www.mindspore.cn/mindformers/docs/en/r1.10.0/static_graph/feature/configuration.html#model-optimization-configuration).
 >
 > MindSpore framework currently decouples memory offloading and memory release. When activations are offloaded from the device side to the host side, the memory space occupied on the device side is not immediately released even after all data has been transferred. An explicit release operation is required instead. Before triggering the memory release, the system checks whether the activation offloading is complete. If not, the process will wait in place until the offloading finishes.
 
@@ -131,7 +131,7 @@ Fine-Grained Activations SWAP and Recomputation have coupling effects:
 
 ### Cases of Fine-Grained Activations SWAP
 
-This section demonstrates the usage of fine-grained activations SWAP using [DeepSeek-V3 pre-training's YAML file](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/static_graph/example/deepseek3/pretrain_deepseek3_671b.yaml) as an example.
+This section demonstrates the usage of fine-grained activations SWAP using [DeepSeek-V3 pre-training's YAML file](https://atomgit.com/mindspore/docs/blob/r2.10.0/docs/mindformers/docs/source_zh_cn/static_graph/example/deepseek3/pretrain_deepseek3_671b.yaml) as an example.
 
 #### Environmental Preparation
 

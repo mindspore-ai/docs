@@ -8,7 +8,7 @@ This page belongs to the **Static Graph (GRAPH_MODE) Implementation** section an
 
 # Overall Structure
 
-[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_en/static_graph/introduction/overview.md)
+[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.10.0/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/r2.10.0/docs/mindformers/docs/source_en/static_graph/introduction/overview.md)
 
 ## Overview
 
@@ -19,7 +19,7 @@ The overall architecture of MindSpore Transformers is as follows:
 MindSpore Transformers supports both Ascend's proprietary technology stack and actively embraces the open-source community. Users may integrate it into their own training and inference platforms or open-source components, as detailed below:
 
 1. Training platforms: [MindCluster](http://hiascend.com/software/mindcluster), third-party platforms
-2. Service components: [vLLM](https://www.mindspore.cn/mindformers/docs/en/master/static_graph/guide/deployment.html)
+2. Service components: [vLLM](https://www.mindspore.cn/mindformers/docs/en/r1.10.0/static_graph/guide/deployment.html)
 3. Communities: [Modelers](https://modelers.cn/), [Hugging Face](https://huggingface.co/)
 
 MindSpore Transformers Southbound is based on MindSpore+Ascend's large-scale model technology stack, leveraging the MindSpore framework combined with CANN to optimize Ascend hardware for compatibility, providing a high-performance model training and inference experience.

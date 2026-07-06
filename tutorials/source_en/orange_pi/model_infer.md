@@ -1,6 +1,6 @@
 # Model Online Inference
 
-[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/tutorials/source_en/orange_pi/model_infer.md)
+[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.10.0/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/r2.10.0/tutorials/source_en/orange_pi/model_infer.md)
 
 This section describes how to download the Ascend MindSpore online inference case on the OrangePi AIpro (hereafter: OrangePi development board) and launch the Jupyter Lab interface to perform inference.
 
@@ -76,7 +76,7 @@ Step 3 In this directory there are all the resources to run the sample, where mi
 
 ![model-infer5](../../source_zh_cn/orange_pi/images/model_infer5.png)
 
-The beginning of the file describes the information of hardware resources (OrangePi AIpro) and the versions of CANN and MindSpore required for running the sample. Please note to check the environment. For details on environment checking and setup, refer to [Environment Setup Guide](https://www.mindspore.cn/tutorials/en/master/orange_pi/environment_setup.html).
+The beginning of the file describes the information of hardware resources (OrangePi AIpro) and the versions of CANN and MindSpore required for running the sample. Please note to check the environment. For details on environment checking and setup, refer to [Environment Setup Guide](https://www.mindspore.cn/tutorials/en/r2.10.0/orange_pi/environment_setup.html).
 
 Step 4 Click the ⏩ button to run the sample. In the pop-up dialog box, click the "Restart" button, then the sample begins to run.
 
@@ -90,4 +90,4 @@ After the inference execution is completed, it is necessary to navigate to `KERN
 
 ## Next Suggestion
 
-For specific case development based on MindSpore, please refer to [Quick Start](https://www.mindspore.cn/tutorials/en/master/orange_pi/dev_start.html)
+For specific case development based on MindSpore, please refer to [Quick Start](https://www.mindspore.cn/tutorials/en/r2.10.0/orange_pi/dev_start.html)

@@ -18,7 +18,7 @@
 
 <!-- /TOC -->
 
-[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/install/mindspore_cpu_install_source_en.md)
+[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.10.0/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/r2.10.0/install/mindspore_cpu_install_source_en.md)
 
 This document describes how to install MindSpore by compiling source code on Linux system in the CPU environment. The following takes Ubuntu 18.04 as an example to describe how to compile and install MindSpore.
 
@@ -152,7 +152,7 @@ sudo apt-get install llvm-12-dev -y
 ## Downloading the Source Code from the Code Repository
 
 ```bash
-git clone https://atomgit.com/mindspore/mindspore.git
+git clone -b v2.10.0 https://atomgit.com/mindspore/mindspore.git
 ```
 
 ## Compiling MindSpore
@@ -176,7 +176,7 @@ Where:
 pip install output/mindspore-*.whl -i https://repo.huaweicloud.com/repository/pypi/simple/
 ```
 
-When the network is connected, dependencies of MindSpore are automatically downloaded during the .whl package installation. For details about dependencies, see required_package in the [setup.py](https://atomgit.com/mindspore/mindspore/blob/master/setup.py). In other cases, install the dependencies by yourself.
+When the network is connected, dependencies of MindSpore are automatically downloaded during the .whl package installation. For details about dependencies, see required_package in the [setup.py](https://atomgit.com/mindspore/mindspore/blob/v2.10/setup.py). In other cases, install the dependencies by yourself.
 
 ## Installation Verification
 

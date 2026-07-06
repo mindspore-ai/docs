@@ -8,7 +8,7 @@
 
 # 整体架构
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/static_graph/introduction/overview.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.10.0/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/r2.10.0/docs/mindformers/docs/source_zh_cn/static_graph/introduction/overview.md)
 
 ## 概述
 
@@ -19,7 +19,7 @@ MindSpore Transformers 整体架构如下：
 MindSpore Transformers 北向既支持昇腾自有技术栈，也积极拥抱开源社区。用户可将其集成在自有训推平台或者开源组件中，具体如下：
 
 1. 训练平台：[MindCluster](http://hiascend.com/software/mindcluster)、第三方平台
-2. 服务化组件：[vLLM](https://www.mindspore.cn/mindformers/docs/zh-CN/master/static_graph/guide/deployment.html)
+2. 服务化组件：[vLLM](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.10.0/static_graph/guide/deployment.html)
 3. 社区：[魔乐社区](https://modelers.cn/)、[Hugging Face](https://huggingface.co/)
 
 MindSpore Transformers 南向基于昇思+昇腾的大模型技术栈，利用昇思框架结合 CANN 对昇腾硬件进行亲和优化，提供高性能的模型训推体验。

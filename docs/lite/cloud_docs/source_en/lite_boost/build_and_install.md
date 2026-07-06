@@ -8,7 +8,7 @@
 - torch_npu >= 2.6.0
 - Ascend CANN >= 8.5.0
 
-> The above lists the main dependencies and their version numbers. For other dependencies, please refer to the project source code [requirements.txt](https://atomgit.com/mindspore/mindspore-lite/blob/master/mindspore-lite/lite_boost/requirements.txt).
+> The above lists the main dependencies and their version numbers. For other dependencies, please refer to the project source code [requirements.txt](https://atomgit.com/mindspore/mindspore-lite/blob/r2.10/mindspore-lite/lite_boost/requirements.txt).
 
 ## Build
 

@@ -8,7 +8,7 @@
 
 # 日志
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/static_graph/feature/logging.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.10.0/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/r2.10.0/docs/mindformers/docs/source_zh_cn/static_graph/feature/logging.md)
 
 ## 日志保存
 
@@ -54,7 +54,7 @@ MindSpore Transformers 默认会在训练的 yaml 文件中指定文件输出路
 
 如果需要重新指定输出的日志文件夹，可以在 yaml 中修改配置。
 
-以 [`DeepSeek-V3` 预训练 yaml](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/static_graph/example/deepseek3/pretrain_deepseek3_671b.yaml) 为例，可做如下配置：
+以 [`DeepSeek-V3` 预训练 yaml](https://atomgit.com/mindspore/docs/blob/r2.10.0/docs/mindformers/docs/source_zh_cn/static_graph/example/deepseek3/pretrain_deepseek3_671b.yaml) 为例，可做如下配置：
 
 ```yaml
 output_dir: './output' # path to save logs/checkpoint/strategy
@@ -62,12 +62,12 @@ output_dir: './output' # path to save logs/checkpoint/strategy
 
 #### 单卡任务指定输出目录
 
-除了 yaml 文件配置来指定，MindSpore Transformers 还支持在 [run_mindformer 一键启动脚本](https://www.mindspore.cn/mindformers/docs/zh-CN/master/static_graph/feature/start_tasks.html?highlight=%E6%97%A5%E5%BF%97#run-mindformer%E4%B8%80%E9%94%AE%E5%90%AF%E5%8A%A8%E8%84%9A%E6%9C%AC) 中，使用 `--output_dir` 启动命令对日志输出路径做指定。
+除了 yaml 文件配置来指定，MindSpore Transformers 还支持在 [run_mindformer 一键启动脚本](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.10.0/static_graph/feature/start_tasks.html?highlight=%E6%97%A5%E5%BF%97#run-mindformer%E4%B8%80%E9%94%AE%E5%90%AF%E5%8A%A8%E8%84%9A%E6%9C%AC) 中，使用 `--output_dir` 启动命令对日志输出路径做指定。
 
 > 如果在这里配置了输出路径，将会覆盖 yaml 文件中的配置！
 
 #### 分布式任务指定输出目录
 
-如果模型训练需要用到多台服务器，使用[分布式任务拉起脚本 msrun_launcher.sh](https://www.mindspore.cn/mindformers/docs/zh-CN/master/static_graph/feature/start_tasks.html?highlight=%E6%97%A5%E5%BF%97#%E5%88%86%E5%B8%83%E5%BC%8F%E4%BB%BB%E5%8A%A1%E6%8B%89%E8%B5%B7%E8%84%9A%E6%9C%AC) 来启动分布式训练任务。
+如果模型训练需要用到多台服务器，使用[分布式任务拉起脚本 msrun_launcher.sh](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.10.0/static_graph/feature/start_tasks.html?highlight=%E6%97%A5%E5%BF%97#%E5%88%86%E5%B8%83%E5%BC%8F%E4%BB%BB%E5%8A%A1%E6%8B%89%E8%B5%B7%E8%84%9A%E6%9C%AC) 来启动分布式训练任务。
 
 在设置了共享存储的情况下，还可以在启动脚本中指定入参 `LOG_DIR` 来指定 Worker 以及 Scheduler 的日志输出路径，将所有机器节点的日志都输出到一个路径下，方便统一观察。

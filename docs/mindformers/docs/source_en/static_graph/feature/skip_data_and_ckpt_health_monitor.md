@@ -8,7 +8,7 @@ This page belongs to the **Static Graph (GRAPH_MODE) Implementation** section an
 
 # Data Skip And Checkpoint Health Monitor
 
-[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_en/static_graph/feature/skip_data_and_ckpt_health_monitor.md)
+[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.10.0/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/r2.10.0/docs/mindformers/docs/source_en/static_graph/feature/skip_data_and_ckpt_health_monitor.md)
 
 ## Overview
 
@@ -20,7 +20,7 @@ Please refer to [Checkpoint Health Monitor](#checkpoint-health-monitor) for the 
 
 > - The combination of data skipping function and health monitoring function can effectively solve the problem of data anomalies caused by abnormal global norm during the training process. Before use, please train normally for a period of time to determine the threshold of the global norm that needs to be set, the threshold of the number of consecutive anomalies, and the threshold of the embedding norm.
 > - Please note that training will only be interrupted when there are consecutive exceptions. If there is only one instance where it returns to normal, the cumulative count will be cleared. Therefore, please control the threshold setting.
-> - The data skipping function cannot be used in conjunction with the quick fault recovery function. Refer to the process level rescheduling recovery function in the [high availability feature](https://www.mindspore.cn/mindformers/docs/en/master/static_graph/feature/high_availability.html).
+> - The data skipping function cannot be used in conjunction with the quick fault recovery function. Refer to the process level rescheduling recovery function in the [high availability feature](https://www.mindspore.cn/mindformers/docs/en/r1.10.0/static_graph/feature/high_availability.html).
 
 ## Skipping Data
 
@@ -63,7 +63,7 @@ monitor_config:
 
 ### Conversion Example
 
-Assuming Qwen3-8B is taken as an example, use [pretrain_qwen3_8b.yaml](https://atomgit.com/mindspore/docs/tree/master/docs/mindformers/docs/source_zh_cn/static_graph/example/qwen3/pretrain_qwen3_8b.yaml) to add parameters according to the above [Configuration](#usage). Please refer to the [Qwen3 Document](https://atomgit.com/mindspore/mindformers/blob/master/configs/qwen3/README.md) for the remaining steps. Start training:
+Assuming Qwen3-8B is taken as an example, use [pretrain_qwen3_8b.yaml](https://atomgit.com/mindspore/docs/tree/r2.10.0/docs/mindformers/docs/source_zh_cn/static_graph/example/qwen3/pretrain_qwen3_8b.yaml) to add parameters according to the above [Configuration](#usage). Please refer to the [Qwen3 Document](https://atomgit.com/mindspore/mindformers/blob/r1.10.0/configs/qwen3/README.md) for the remaining steps. Start training:
 
 ```shell
 bash scripts/msrun_launcher.sh "run_mindformer.py \
@@ -188,7 +188,7 @@ parallel_config:
 | embedding_local_norm_threshold | The threshold of embedding norm for health monitoring. Default to `1.0`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | Float | Optional         | Greater than 0   |
 | parallel                       | Parallel strategy configuration.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |      | Required         |                  |
 | full_batch                     | Whether to load the full batch of data from the dataset in parallel mode. Setting it to `True` means all ranks will load the full batch of data. Setting it to `False` means each rank will only load the corresponding batch of data. When set to `False`, the corresponding `dataset_strategy` must be configured. This feature only supports `False`.                                                                                                                                                                                                                                                               | Bool | Required `False` |                  |
-| dataset_strategy               | Only supports `List of List` type and is effective only when `full_batch=False`. The number of sublists in the list must be equal to the length of `train_dataset.input_columns`. Each sublist in the list must have the same shape as the data returned by the dataset. Generally, data parallel splitting is done along the first dimension, so the first dimension of the sublist should be configured to match `data_parallel`, while the other dimensions should be set to `1`. For detailed explanation, refer to [Dataset Splitting](https://www.mindspore.cn/tutorials/en/master/parallel/dataset_slice.html). | List | Required               |                  |
+| dataset_strategy               | Only supports `List of List` type and is effective only when `full_batch=False`. The number of sublists in the list must be equal to the length of `train_dataset.input_columns`. Each sublist in the list must have the same shape as the data returned by the dataset. Generally, data parallel splitting is done along the first dimension, so the first dimension of the sublist should be configured to match `data_parallel`, while the other dimensions should be set to `1`. For detailed explanation, refer to [Dataset Splitting](https://www.mindspore.cn/tutorials/en/r2.10.0/parallel/dataset_slice.html). | List | Required               |                  |
 | parallel_config                | Parallel parameter configuration.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |      | Required               |                  |
 | data_parallel                  | Set the number of data parallel.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | Int  | Required               | Positive Integer              |
 | pipeline_stage                 | Set the number of pipeline parallel.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   | Int  | Required               | Positive Integer              |
@@ -198,7 +198,7 @@ parallel_config:
 
 ### Conversion Example
 
-Assuming Qwen3-8B is taken as an example, use [pretrain_qwen3_8b.yaml](https://atomgit.com/mindspore/docs/tree/master/docs/mindformers/docs/source_zh_cn/static_graph/example/qwen3/pretrain_qwen3_8b.yaml) to add parameters and modify according to the above [Configuration](#usage-1). Please refer to the [Qwen3 Document](https://atomgit.com/mindspore/mindformers/blob/master/configs/qwen3/README.md) for the remaining steps. Start training:
+Assuming Qwen3-8B is taken as an example, use [pretrain_qwen3_8b.yaml](https://atomgit.com/mindspore/docs/tree/r2.10.0/docs/mindformers/docs/source_zh_cn/static_graph/example/qwen3/pretrain_qwen3_8b.yaml) to add parameters and modify according to the above [Configuration](#usage-1). Please refer to the [Qwen3 Document](https://atomgit.com/mindspore/mindformers/blob/r1.10.0/configs/qwen3/README.md) for the remaining steps. Start training:
 
 ```shell
 bash scripts/msrun_launcher.sh "run_mindformer.py \
@@ -242,7 +242,7 @@ Under Checkpoint 2.0, the health monitoring results are saved in `output_path/ch
 
 The recorded data of common.json is as follows:
 
-The `ckpt_status` records the health status of the corresponding weights. In the record, 1 indicates unhealthy and 0 indicates healthy. The remaining data are training parameters for Checkpoint 2.0. For details, please refer to the [Checkpoint 2.0 documentation](https://www.mindspore.cn/mindformers/docs/en/master/static_graph/feature/resume_training2.0.html).
+The `ckpt_status` records the health status of the corresponding weights. In the record, 1 indicates unhealthy and 0 indicates healthy. The remaining data are training parameters for Checkpoint 2.0. For details, please refer to the [Checkpoint 2.0 documentation](https://www.mindspore.cn/mindformers/docs/en/r1.10.0/static_graph/feature/resume_training2.0.html).
 
 ```json
 {

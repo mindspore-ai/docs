@@ -21,7 +21,7 @@
 
 <!-- /TOC -->
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/install/mindspore_ascend_install_docker.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.10.0/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/r2.10.0/install/mindspore_ascend_install_docker.md)
 
 [Docker](https://docs.docker.com/get-docker/)是一个开源的应用容器引擎，支持将开发者的应用和依赖包打包到一个轻量级、可移植的容器中。通过使用Docker，可以实现MindSpore的快速部署，并与系统环境隔离。
 
@@ -251,6 +251,6 @@ CMD ["python", "train.py"]
 
 ## 许可证
 
-查看这些镜像中包含的 MindSpore 的[许可证信息](https://atomgit.com/mindspore/mindspore/blob/master/LICENSE)。
+查看这些镜像中包含的 MindSpore 的[许可证信息](https://atomgit.com/mindspore/mindspore/blob/v2.10/LICENSE)。
 
 与所有容器镜像一样，预装软件包（Python、系统库等）可能受其自身许可证约束。

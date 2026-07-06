@@ -1,6 +1,6 @@
 # Sharding Techniques
 
-[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/tutorials/source_en/parallel/split_technique.md)
+[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.10.0/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/r2.10.0/tutorials/source_en/parallel/split_technique.md)
 
 ## Overview
 
@@ -8,13 +8,13 @@ For a new model using `Sharding Propagation` to configure the parallelization st
 
 ### Configuring Operators Involving Weights
 
-The sharding strategy for parameter weights is very important, especially for large models, as the memory consumption caused by parameter weights accounts for a large portion of the total memory consumption for model training. Therefore, operators involving weights usually need to explicitly configure the sharding strategy. In the two examples below, the Gather and MatMul operators involving weights are configured with sharding strategy, while the other operators are not. These correspond the data-parallel VocabEmbedding layer and hybrid-parallel FeedForward Layer in [MindSpore TransFormers](https://atomgit.com/mindspore/mindformers/blob/master/mindformers/modules/transformer/transformer.py), respectively.
+The sharding strategy for parameter weights is very important, especially for large models, as the memory consumption caused by parameter weights accounts for a large portion of the total memory consumption for model training. Therefore, operators involving weights usually need to explicitly configure the sharding strategy. In the two examples below, the Gather and MatMul operators involving weights are configured with sharding strategy, while the other operators are not. These correspond the data-parallel VocabEmbedding layer and hybrid-parallel FeedForward Layer in [MindSpore TransFormers](https://atomgit.com/mindspore/mindformers/blob/r1.10.0/mindformers/modules/transformer/transformer.py), respectively.
 
 ![sp_case1](./images/sp_case1.png "Configuring Operators Involving Weights")
 
 ### Configuring Dimension-changing/Axis-changing Operators
 
-The operators of deep learning frameworks can be broadly categorized into two types: operators that are semantically simple and dimension-preserving and operators that change the dimension of the input tensor. For dimension-preserving operators, the strategy propagation algorithm can propagate the sharding strategy more easily. However, for dimension-changing operators, explicitly configuring the sharding strategy is the only way to better express the user initial thoughts and avoid the strategy propagation algorithm from deriving the sharding strategy that is not expected by the user. Common dimension-changing and axis-changing operators are: [ReduceMean](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.ReduceMean.html), [ReduceSum](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.ReduceSum.html), [Transpose](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.Transpose.html), [StridedSlice](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.StridedSlice.html), [MatMul](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.MatMul.html), and [BatchMatMul](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.BatchMatMul.html). In the example below, ReduceMean and MatMul are dimension-changing operators that are configured with sharding strategy.
+The operators of deep learning frameworks can be broadly categorized into two types: operators that are semantically simple and dimension-preserving and operators that change the dimension of the input tensor. For dimension-preserving operators, the strategy propagation algorithm can propagate the sharding strategy more easily. However, for dimension-changing operators, explicitly configuring the sharding strategy is the only way to better express the user initial thoughts and avoid the strategy propagation algorithm from deriving the sharding strategy that is not expected by the user. Common dimension-changing and axis-changing operators are: [ReduceMean](https://www.mindspore.cn/docs/en/r2.10.0/api_python/ops/mindspore.ops.ReduceMean.html), [ReduceSum](https://www.mindspore.cn/docs/en/r2.10.0/api_python/ops/mindspore.ops.ReduceSum.html), [Transpose](https://www.mindspore.cn/docs/en/r2.10.0/api_python/ops/mindspore.ops.Transpose.html), [StridedSlice](https://www.mindspore.cn/docs/en/r2.10.0/api_python/ops/mindspore.ops.StridedSlice.html), [MatMul](https://www.mindspore.cn/docs/en/r2.10.0/api_python/ops/mindspore.ops.MatMul.html), and [BatchMatMul](https://www.mindspore.cn/docs/en/r2.10.0/api_python/ops/mindspore.ops.BatchMatMul.html). In the example below, ReduceMean and MatMul are dimension-changing operators that are configured with sharding strategy.
 
 ![sp_case2](./images/sp_case2.png "Configuring Dimension-changing Operators")
 
@@ -26,7 +26,7 @@ For ResNet-like models, different parts of the model have different preferred pa
 
 ### Configuring Fusion Operators
 
-Large fusion operators, such as [flash_attention_score](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.flash_attention_score.html), [rms_norm](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.rms_norm.html), are also operators that require the user to manually configure the strategy. The input and output logic of the fusion operator is relatively complex, and the propagated strategy without reordering is not necessarily the strategy expected by the user. These operators also require explicit configuration of the operator-level strategy.
+Large fusion operators, such as [flash_attention_score](https://www.mindspore.cn/docs/en/r2.10.0/api_python/ops/mindspore.ops.flash_attention_score.html), [rms_norm](https://www.mindspore.cn/docs/en/r2.10.0/api_python/ops/mindspore.ops.rms_norm.html), are also operators that require the user to manually configure the strategy. The input and output logic of the fusion operator is relatively complex, and the propagated strategy without reordering is not necessarily the strategy expected by the user. These operators also require explicit configuration of the operator-level strategy.
 
 Users working with strategy propagation need to have some understanding not only of its propagation algorithm itself, but also of the parallelism of the model to be trained. If there exists a certain operator whose parallelization strategy determined by the strategy propagation algorithm does not meet the user's expectations, that can always be solved by configuring an additional operator parallelization strategy. In practice, for a new model, it does take several attempts to obtain an overall parallel configuration with better performance.
 
@@ -118,7 +118,7 @@ class CoreAttention(nn.Cell):
 </tr>
 </table>
 
-Check the example of [FlashAttention](https://atomgit.com/mindspore/mindformers/blob/master/mindformers/modules/flash_attention.py):
+Check the example of [FlashAttention](https://atomgit.com/mindspore/mindformers/blob/r1.10.0/mindformers/modules/flash_attention.py):
 <table>
 <tr>
 <td valign='top'>
@@ -160,7 +160,7 @@ class FlashAttention(Cell):
 </tr>
 </table>
 
-If classes that are open source and already paired with a strategy in MindSpore TransFormers are used directly, the external network does not need to configure the shard strategy for the operator again, e.g., [LlamaForCausalLM](https://atomgit.com/mindspore/mindformers/blob/master/mindformers/models/llama/llama.py).
+If classes that are open source and already paired with a strategy in MindSpore TransFormers are used directly, the external network does not need to configure the shard strategy for the operator again, e.g., [LlamaForCausalLM](https://atomgit.com/mindspore/mindformers/blob/r1.10.0/mindformers/models/llama/llama.py).
 <table>
 <tr>
 <td valign='top'>

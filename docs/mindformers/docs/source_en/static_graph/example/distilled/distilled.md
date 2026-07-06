@@ -8,7 +8,7 @@ This page belongs to the **Static Graph (GRAPH_MODE) Implementation** section an
 
 # Practice Case of Using DeepSeek-R1 for Model Distillation
 
-[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_en/static_graph/example/distilled/distilled.md)
+[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.10.0/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/r2.10.0/docs/mindformers/docs/source_en/static_graph/example/distilled/distilled.md)
 
 This case uses OpenR1-Qwen-7B as an example to describe how to use DeepSeek-R1 to perform knowledge distillation and fine-tuning on the Qwen2.5-Math-7B model based on the MindSpore framework and MindSpore Transformers LLM suite, to improve its performance in mathematical inference tasks. This case covers the entire process from environment configuration, data generation, and preprocessing to model fine-tuning and inference testing. You can perform the following steps to learn how to use DeepSeek-R1 to generate inference data, filter out incorrect data, process datasets, and fine-tune the model to solve complex mathematical problems.
 
@@ -22,9 +22,9 @@ For more information, see [DeepSeek-R1-Distill-Qwen-7B](https://hf-mirror.com/de
 
 ### 1.1 Environment
 
-For details, see [MindSpore Transformers Installation Guidelines](https://www.mindspore.cn/mindformers/docs/en/master/installation.html).
+For details, see [MindSpore Transformers Installation Guidelines](https://www.mindspore.cn/mindformers/docs/en/r1.10.0/installation.html).
 
-Copy the [distilled](https://atomgit.com/mindspore/docs/tree/master/docs/mindformers/docs/source_zh_cn/static_graph/example/distilled/distilled) folder of this case to the root directory of the MindSpore Transformers source code.
+Copy the [distilled](https://atomgit.com/mindspore/docs/tree/r2.10.0/docs/mindformers/docs/source_zh_cn/static_graph/example/distilled/distilled) folder of this case to the root directory of the MindSpore Transformers source code.
 
 The final directory structure is as follows:
 
@@ -235,7 +235,7 @@ python toolkit/data_preprocess/huggingface/datasets_preprocess.py \
 
 The processed dataset is stored in `packed_data` and is in the arrow format.
 
-For more information, see [MindSpore Transformers official documentation > Dataset](https://www.mindspore.cn/mindformers/docs/en/master/static_graph/feature/dataset.html#custom-processing).
+For more information, see [MindSpore Transformers official documentation > Dataset](https://www.mindspore.cn/mindformers/docs/en/r1.10.0/static_graph/feature/dataset.html#custom-processing).
 
 ##### Option 2: Using converted data
 
@@ -285,7 +285,7 @@ train_dataset: &train_dataset
 ......
 ```
 
-For details about other parameters, see [MindSpore Transformers official documentation > Supervised Fine-Tuning (SFT)](https://www.mindspore.cn/mindformers/docs/en/master/static_graph/guide/supervised_fine_tuning.html).
+For details about other parameters, see [MindSpore Transformers official documentation > Supervised Fine-Tuning (SFT)](https://www.mindspore.cn/mindformers/docs/en/r1.10.0/static_graph/guide/supervised_fine_tuning.html).
 
 ## 2. Starting Fine-Tuning
 
@@ -305,7 +305,7 @@ bash scripts/msrun_launcher.sh "run_mindformer.py --config distilled/finetune_qw
 Logs are recorded in the `output/msrun_log` directory. For example, you can run the `tail -f output/msrun_log/worker_7.log` command to view the logs of worker 7.
 After the fine-tuning is complete, the output `safetensors` weight file is stored in the `output/checkpoint` directory.
 
-For more information about Safetensors weights, see [MindSpore Transformers official document > Safetensors Weights](https://www.mindspore.cn/mindformers/docs/en/master/static_graph/feature/safetensors.html).
+For more information about Safetensors weights, see [MindSpore Transformers official document > Safetensors Weights](https://www.mindspore.cn/mindformers/docs/en/r1.10.0/static_graph/feature/safetensors.html).
 
 ## 3. Inference
 

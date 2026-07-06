@@ -1,6 +1,6 @@
 # Template Class DelegateModel
 
-\#include &lt;[delegate.h](https://atomgit.com/mindspore/mindspore-lite/blob/master/include/api/delegate.h)&gt;
+\#include &lt;[delegate.h](https://atomgit.com/mindspore/mindspore-lite/blob/r2.10/include/api/delegate.h)&gt;
 
 `DelegateModel`定义了MindSpore Lite Delegate机制操作的模型对象。
 
@@ -26,7 +26,7 @@ DelegateModel(std::vector<kernel::Kernel *> *kernels, const std::vector<MSTensor
 std::vector<kernel::Kernel *> *kernels_
 ```
 
-[**Kernel**](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_kernel.html#kernel)的列表，保存模型的所有算子。
+[**Kernel**](https://www.mindspore.cn/lite/api/zh-CN/r2.10.0/api_cpp/mindspore_kernel.html#kernel)的列表，保存模型的所有算子。
 
 ### inputs_
 
@@ -50,7 +50,7 @@ const std::vector<mindspore::MSTensor> &outputs
 const std::map<kernel::Kernel *, const schema::Primitive *> &primitives_
 ```
 
-[**Kernel**](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_kernel.html#kernel)和**schema::Primitive**的Map，保存所有算子的属性。
+[**Kernel**](https://www.mindspore.cn/lite/api/zh-CN/r2.10.0/api_cpp/mindspore_kernel.html#kernel)和**schema::Primitive**的Map，保存所有算子的属性。
 
 ### version_
 

@@ -1,6 +1,6 @@
 # Differences with torch.utils.data.SequentialSampler
 
-[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/SequentialSampler.md)
+[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.10.0/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/r2.10.0/docs/mindspore/source_en/note/api_mapping/pytorch_diff/SequentialSampler.md)
 
 ## torch.utils.data.SequentialSampler
 
@@ -16,7 +16,7 @@ For more information, see [torch.utils.data.SequentialSampler](https://pytorch.o
 class mindspore.dataset.SequentialSampler(start_index=None, num_samples=None)
 ```
 
-For more information, see [mindspore.dataset.SequentialSampler](https://mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.SequentialSampler.html).
+For more information, see [mindspore.dataset.SequentialSampler](https://mindspore.cn/docs/en/r2.10.0/api_python/dataset/mindspore.dataset.SequentialSampler.html).
 
 ## Differences
 

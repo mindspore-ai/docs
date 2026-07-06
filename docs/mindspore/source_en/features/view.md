@@ -1,6 +1,6 @@
 # Tensor View Mechanism
 
-[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindspore/source_en/features/view.md)
+[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.10.0/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/r2.10.0/docs/mindspore/source_en/features/view.md)
 
 ## Overview
 
@@ -231,4 +231,4 @@ view failed: The tensor is not contiguous. You can call .contiguous() to get a c
 | **Core Purpose** | Efficiently access data from different "perspectives" | Save memory, calculate and update directly on the original data |
 
 For more information on the usage of view and inplace features, please refer to the following document:
-Reference [tutorials](https://www.mindspore.cn/tutorials/en/master/compile/static_graph.html#view-and-in-place-operations)
+Reference [tutorials](https://www.mindspore.cn/tutorials/en/r2.10.0/compile/static_graph.html#view-and-in-place-operations)

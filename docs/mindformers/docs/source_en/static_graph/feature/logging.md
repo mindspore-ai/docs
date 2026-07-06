@@ -8,7 +8,7 @@ This page belongs to the **Static Graph (GRAPH_MODE) Implementation** section an
 
 # Logs
 
-[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_en/static_graph/feature/logging.md)
+[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.10.0/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/r2.10.0/docs/mindformers/docs/source_en/static_graph/feature/logging.md)
 
 ## Logs Saving
 
@@ -54,7 +54,7 @@ By default, MindSpore Transformers specifies the file output path as `./output` 
 
 If you need to re-specify the output log folder, you can modify the configuration in yaml.
 
-Taking [`DeepSeek-V3` pre-training yaml](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/static_graph/example/deepseek3/pretrain_deepseek3_671b.yaml) as an example, the following configuration can be made:
+Taking [`DeepSeek-V3` pre-training yaml](https://atomgit.com/mindspore/docs/blob/r2.10.0/docs/mindformers/docs/source_zh_cn/static_graph/example/deepseek3/pretrain_deepseek3_671b.yaml) as an example, the following configuration can be made:
 
 ```yaml
 output_dir: './output' # path to save logs/checkpoint/strategy
@@ -62,13 +62,13 @@ output_dir: './output' # path to save logs/checkpoint/strategy
 
 #### Specifying Output Directory for Single-Card Tasks
 
-In addition to specifying the yaml file configuration, MindSpore Transformers also supports [run_mindformer in the one-click start script](https://www.mindspore.cn/mindformers/docs/en/master/static_graph/feature/start_tasks.html#run-mindformer-one-click-start-script),
+In addition to specifying the yaml file configuration, MindSpore Transformers also supports [run_mindformer in the one-click start script](https://www.mindspore.cn/mindformers/docs/en/r1.10.0/static_graph/feature/start_tasks.html#run-mindformer-one-click-start-script),
 use the `--output_dir` start command to specify the log output path.
 
 > If the output path is configured here, it will overwrite the configuration in the yaml file!
 
 #### Distributed Task Specifies the Output Directory
 
-If the model training requires multiple servers, use the [distributed task launch script](https://www.mindspore.cn/mindformers/docs/en/master/static_graph/feature/start_tasks.html#distributed-task-pull-up-script) to start the distributed training task.
+If the model training requires multiple servers, use the [distributed task launch script](https://www.mindspore.cn/mindformers/docs/en/r1.10.0/static_graph/feature/start_tasks.html#distributed-task-pull-up-script) to start the distributed training task.
 
 If shared storage is set, you can also specify the input parameter `LOG_DIR` in the startup script to specify the log output path of the Worker and Scheduler, and output the logs of all machine nodes to one path for unified observation.

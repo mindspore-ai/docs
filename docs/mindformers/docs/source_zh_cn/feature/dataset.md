@@ -1,6 +1,6 @@
 # 数据集
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/feature/dataset.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.10.0/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/r2.10.0/docs/mindformers/docs/source_zh_cn/feature/dataset.md)
 
 MindSpore Transformers 动态图（PyNative）模式目前支持多种类型的数据集加载方式，涵盖常用开源与自定义场景。具体包括：
 
@@ -48,7 +48,7 @@ Megatron 数据集是为大规模分布式语言模型预训练场景设计的�
 
 ### 数据预处理
 
-MindSpore Transformers 提供了数据预处理脚本 [preprocess_indexed_dataset.py](https://atomgit.com/mindspore/mindformers/blob/master/toolkit/data_preprocess/megatron/preprocess_indexed_dataset.py)，用于将 `json` 格式的原始文本语料转换成 `.bin` 或 `.idx` 文件。如果用户的原始文本不是 `json` 格式，需要自行将数据处理成对应格式的文件。
+MindSpore Transformers 提供了数据预处理脚本 [preprocess_indexed_dataset.py](https://atomgit.com/mindspore/mindformers/blob/r1.10.0/toolkit/data_preprocess/megatron/preprocess_indexed_dataset.py)，用于将 `json` 格式的原始文本语料转换成 `.bin` 或 `.idx` 文件。如果用户的原始文本不是 `json` 格式，需要自行将数据处理成对应格式的文件。
 
 `json` 格式文件的示例如下：
 
@@ -102,7 +102,7 @@ MindSpore Transformers 提供了数据预处理脚本 [preprocess_indexed_datase
 
 4. 生成 `.bin` 或 `.idx` 数据文件
 
-   执行数据预处理脚本 [preprocess_indexed_dataset.py](https://atomgit.com/mindspore/mindformers/blob/master/toolkit/data_preprocess/megatron/preprocess_indexed_dataset.py) 可上将原始文本数据通过模型的 tokenizer 转换为对应的 token id。
+   执行数据预处理脚本 [preprocess_indexed_dataset.py](https://atomgit.com/mindspore/mindformers/blob/r1.10.0/toolkit/data_preprocess/megatron/preprocess_indexed_dataset.py) 可上将原始文本数据通过模型的 tokenizer 转换为对应的 token id。
 
    该脚本参数如下：
 
@@ -377,7 +377,7 @@ handler:
 
 #### 自定义数据处理功能
 
-自定义数据预处理功能需要用户自行实现数据处理模块。以下介绍自定义数据处理模块实现过程，可参考 [AlpacaInstructDataHandler](https://atomgit.com/mindspore/mindformers/blob/master/mindformers/dataset/handler/alpaca_handler.py)。
+自定义数据预处理功能需要用户自行实现数据处理模块。以下介绍自定义数据处理模块实现过程，可参考 [AlpacaInstructDataHandler](https://atomgit.com/mindspore/mindformers/blob/r1.10.0/mindformers/dataset/handler/alpaca_handler.py)。
 
 用户自定义数据处理支持 `Class` 和 `Method` 两种形式：
 
@@ -397,9 +397,9 @@ handler:
 
    上述的 `CustomHandler` 实现了数据集随机采样的处理操作。如果要实现其他功能，可以修改数据预处理操作并返回处理后的数据集。
 
-   同时，MindSpore Transformers 提供了 [BaseInstructDataHandler](https://atomgit.com/mindspore/mindformers/blob/master/mindformers/dataset/handler/base_handler.py)，并内置了 tokenizer 配置功能。如果需要使用 tokenizer，可上继承 `BaseInstructDataHandler` 类。
+   同时，MindSpore Transformers 提供了 [BaseInstructDataHandler](https://atomgit.com/mindspore/mindformers/blob/r1.10.0/mindformers/dataset/handler/base_handler.py)，并内置了 tokenizer 配置功能。如果需要使用 tokenizer，可上继承 `BaseInstructDataHandler` 类。
 
-2. 在 [\_\_init\_\_.py](https://atomgit.com/mindspore/mindformers/blob/master/mindformers/dataset/handler/__init__.py) 中添加调用
+2. 在 [\_\_init\_\_.py](https://atomgit.com/mindspore/mindformers/blob/r1.10.0/mindformers/dataset/handler/__init__.py) 中添加调用
 
    ```python
    from .custom_handler import CustomHandler
@@ -423,7 +423,7 @@ handler:
        return dataset
    ```
 
-2. 在 [\_\_init\_\_.py](https://atomgit.com/mindspore/mindformers/blob/master/mindformers/dataset/handler/__init__.py) 中添加调用
+2. 在 [\_\_init\_\_.py](https://atomgit.com/mindspore/mindformers/blob/r1.10.0/mindformers/dataset/handler/__init__.py) 中添加调用
 
    ```python
    from .custom_handler import custom_process
@@ -533,15 +533,15 @@ train_dataset:
 
 ## MindRecord 数据集
 
-MindRecord 是 MindSpore 提供的高效数据存储/读取模块，可以减少磁盘 IO、网络 IO 开销，从而获得更好的数据加载体验，更多具体功能介绍可参考[文档](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.mindrecord.html)，这里仅对如何在 MindSpore Transformers 动态图模式训练任务中使用 MindRecord 进行介绍。
+MindRecord 是 MindSpore 提供的高效数据存储/读取模块，可以减少磁盘 IO、网络 IO 开销，从而获得更好的数据加载体验，更多具体功能介绍可参考[文档](https://www.mindspore.cn/docs/zh-CN/r2.10.0/api_python/mindspore.mindrecord.html)，这里仅对如何在 MindSpore Transformers 动态图模式训练任务中使用 MindRecord 进行介绍。
 
-以 `qwen3-8b` 进行微调为例进行相关功能说明，示例中的脚本仅适用于指定数据集，如果需要对自定义数据集进行处理，可以参考[MindRecord 格式转换](https://www.mindspore.cn/tutorials/zh-CN/master/dataset/record.html)进行数据预处理。
+以 `qwen3-8b` 进行微调为例进行相关功能说明，示例中的脚本仅适用于指定数据集，如果需要对自定义数据集进行处理，可以参考[MindRecord 格式转换](https://www.mindspore.cn/tutorials/zh-CN/r2.10.0/dataset/record.html)进行数据预处理。
 
 ### 数据预处理
 
 1. 下载 `alpaca` 数据集：[链接](https://github.com/tatsu-lab/stanford_alpaca/blob/main/alpaca_data.json)
 
-2. 执行数据处理脚本 [alpaca_converter.py](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/static_graph/example/qwen3/alpaca_converter.py) 将 `alpaca` 数据集转换为对话形式：
+2. 执行数据处理脚本 [alpaca_converter.py](https://atomgit.com/mindspore/docs/blob/r2.10.0/docs/mindformers/docs/source_zh_cn/static_graph/example/qwen3/alpaca_converter.py) 将 `alpaca` 数据集转换为对话形式：
 
    ```shell
    python alpaca_converter.py \
@@ -551,7 +551,7 @@ MindRecord 是 MindSpore 提供的高效数据存储/读取模块，可以减少
 
    其中，`data_path` 表示下载后 `alpaca` 数据集的路径，`output_path` 表示生成对话形式数据文件的保存路径。
 
-3. 执行脚本 [datasets_preprocess.py](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/static_graph/example/qwen3/datasets_preprocess.py) 将对话形式的数据文件转换为 MindRecord 格式：
+3. 执行脚本 [datasets_preprocess.py](https://atomgit.com/mindspore/docs/blob/r2.10.0/docs/mindformers/docs/source_zh_cn/static_graph/example/qwen3/datasets_preprocess.py) 将对话形式的数据文件转换为 MindRecord 格式：
 
    ```shell
    python datasets_preprocess.py \
@@ -597,11 +597,11 @@ MindRecord 是 MindSpore 提供的高效数据存储/读取模块，可以减少
 
 2. 启动模型微调
 
-   修改模型配置文件中数据集相关配置项之后，即可参考模型文档拉起模型微调任务，这里以[Qwen3 模型文档](https://atomgit.com/mindspore/mindformers/blob/master/configs/qwen3/README.md)为例。
+   修改模型配置文件中数据集相关配置项之后，即可参考模型文档拉起模型微调任务，这里以[Qwen3 模型文档](https://atomgit.com/mindspore/mindformers/blob/r1.10.0/configs/qwen3/README.md)为例。
 
 ### 多源数据集
 
-MindSpore 框架原生数据集加载模块[MindDataset](https://www.mindspore.cn/docs/zh-CN/master/api_python/dataset/mindspore.dataset.MindDataset.html)，在对多个 MindRecord 数据集进行加载和采样时存在性能等瓶颈，因此 MindSpore Transformers 通过 `MultiSourceDataLoader` 实现多个数据集高效加载与采样功能。
+MindSpore 框架原生数据集加载模块[MindDataset](https://www.mindspore.cn/docs/zh-CN/r2.10.0/api_python/dataset/mindspore.dataset.MindDataset.html)，在对多个 MindRecord 数据集进行加载和采样时存在性能等瓶颈，因此 MindSpore Transformers 通过 `MultiSourceDataLoader` 实现多个数据集高效加载与采样功能。
 
 多源数据集功能主要通过修改配置文件中 `dataloader` 配置开启，以下为示例：
 

@@ -1,6 +1,6 @@
 # Class MSTensor
 
-\#include &lt;[types.h](https://atomgit.com/mindspore/mindspore-lite/blob/master/include/api/types.h)&gt;
+\#include &lt;[types.h](https://atomgit.com/mindspore/mindspore-lite/blob/r2.10/include/api/types.h)&gt;
 
 `MSTensor`定义了MindSpore中的张量。
 
@@ -209,8 +209,8 @@ void DestroyTensorPtr(MSTensor *tensor) noexcept
 | [bool IsConst() const](#isconst)     |    √    |    √    |
 | [bool IsDevice() const](#isdevice)     |    √    |    ✕    |
 | [MSTensor *Clone() const](#clone)     |    √    |    √    |
-| [bool operator==(std::nullptr_t) const](https://www.mindspore.cn/lite/api/zh-CN/master/generate/classmindspore_MSTensor.html#operatorstd-nullptr-t)     |    √    |    √    |
-| [bool operator!=(std::nullptr_t) const](https://www.mindspore.cn/lite/api/zh-CN/master/generate/classmindspore_MSTensor.html#operatorstd-nullptr-t-1)     |    √    |    √    |
+| [bool operator==(std::nullptr_t) const](https://www.mindspore.cn/lite/api/zh-CN/r2.10.0/generate/classmindspore_MSTensor.html#operatorstd-nullptr-t)     |    √    |    √    |
+| [bool operator!=(std::nullptr_t) const](https://www.mindspore.cn/lite/api/zh-CN/r2.10.0/generate/classmindspore_MSTensor.html#operatorstd-nullptr-t-1)     |    √    |    √    |
 | [bool operator!=(const MSTensor &tensor) const](#operatorconst-mstensor-tensor)     |    √    |    √    |
 | [bool operator==(const MSTensor &tensor) const](#operatorconst-mstensor-tensor-1)     |    √    |    √    |
 | [void SetShape(const std::vector\<int64_t\> &shape)](#setshape)     |    √    |    √    |

@@ -8,7 +8,7 @@
 - torch_npu >= 2.6.0
 - 昇腾CANN >= 8.5.0
 
-> 列举主要依赖包以及对应的版本号，其他依赖包请参考项目代码[requirements.txt](https://atomgit.com/mindspore/mindspore-lite/blob/master/mindspore-lite/lite_boost/requirements.txt)文件。
+> 列举主要依赖包以及对应的版本号，其他依赖包请参考项目代码[requirements.txt](https://atomgit.com/mindspore/mindspore-lite/blob/r2.10/mindspore-lite/lite_boost/requirements.txt)文件。
 
 ## 编译
 

@@ -1,6 +1,6 @@
 # 其它训练特性
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/feature/other_training_features.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.10.0/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/r2.10.0/docs/mindformers/docs/source_zh_cn/feature/other_training_features.md)
 
 除了优化器、学习率等训练超参数和并行策略，动态图（PyNative）训练还有几项常用特性：**梯度累积、梯度裁剪、融合算子与混合精度**。本页依次介绍每项特性的用途与配置方式，并给出可直接套用的 YAML 片段。
 
@@ -25,7 +25,7 @@
 
 ### 推导规则
 
-动态图**不单独配置梯度累积步数**，而是由 `training` 段的 `global_batch_size`、`local_batch_size` 与数据并行维度 `data_parallel` 推导（见 [mindformers/pynative/trainer/trainer.py](https://atomgit.com/mindspore/mindformers/blob/master/mindformers/pynative/trainer/trainer.py) 的 `_compute_data_parallel_size`）：
+动态图**不单独配置梯度累积步数**，而是由 `training` 段的 `global_batch_size`、`local_batch_size` 与数据并行维度 `data_parallel` 推导（见 [mindformers/pynative/trainer/trainer.py](https://atomgit.com/mindspore/mindformers/blob/r1.10.0/mindformers/pynative/trainer/trainer.py) 的 `_compute_data_parallel_size`）：
 
 ```text
 num_accumulation_steps = global_batch_size // (data_parallel * local_batch_size)
@@ -84,7 +84,7 @@ optimizer:
 
 ### 工作机制
 
-框架在优化器更新前，先计算所有参数梯度的全局 L2 范数（分布式下跨进程 all-reduce 同步），当范数超过 `max_norm` 时按比例就地缩放梯度（见 [mindformers/pynative/trainer/utils.py](https://atomgit.com/mindspore/mindformers/blob/master/mindformers/pynative/trainer/utils.py) 的 `_calculate_global_grad_norm`）。
+框架在优化器更新前，先计算所有参数梯度的全局 L2 范数（分布式下跨进程 all-reduce 同步），当范数超过 `max_norm` 时按比例就地缩放梯度（见 [mindformers/pynative/trainer/utils.py](https://atomgit.com/mindspore/mindformers/blob/r1.10.0/mindformers/pynative/trainer/utils.py) 的 `_calculate_global_grad_norm`）。
 
 **数值与分布式一致性**：范数计算在 **fp32** 精度下进行，以避免 bf16/fp16 下的数值不稳定；并对 DTensor 的 `Replicate` placement 维度做缩放校正，保证多卡结果与单卡一致。
 
@@ -117,7 +117,7 @@ training:
 
 ### 算子一览
 
-源码位于 [mindformers/pynative/layers/layer_norm.py](https://atomgit.com/mindspore/mindformers/blob/master/mindformers/pynative/layers/layer_norm.py) 与 [mindformers/pynative/layers/activation.py](https://atomgit.com/mindspore/mindformers/blob/master/mindformers/pynative/layers/activation.py)。
+源码位于 [mindformers/pynative/layers/layer_norm.py](https://atomgit.com/mindspore/mindformers/blob/r1.10.0/mindformers/pynative/layers/layer_norm.py) 与 [mindformers/pynative/layers/activation.py](https://atomgit.com/mindspore/mindformers/blob/r1.10.0/mindformers/pynative/layers/activation.py)。
 
 | 算子        | 类                | 关键参数（默认）                           | 行为                                                                      |
 |-----------|------------------|------------------------------------|-------------------------------------------------------------------------|

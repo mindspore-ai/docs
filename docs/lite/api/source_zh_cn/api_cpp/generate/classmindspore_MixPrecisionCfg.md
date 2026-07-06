@@ -1,6 +1,6 @@
 # Class MixPrecisionCfg
 
-\#include &lt;[cfg.h](https://atomgit.com/mindspore/mindspore-lite/blob/master/include/api/cfg.h)&gt;
+\#include &lt;[cfg.h](https://atomgit.com/mindspore/mindspore-lite/blob/r2.10/include/api/cfg.h)&gt;
 
 `MixPrecisionCfg`MindSpore Lite训练混合精度配置类。
 

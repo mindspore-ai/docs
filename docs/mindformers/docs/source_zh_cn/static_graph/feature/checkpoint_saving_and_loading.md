@@ -8,7 +8,7 @@
 
 # checkpoint保存和加载
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/static_graph/feature/checkpoint_saving_and_loading.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.10.0/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/r2.10.0/docs/mindformers/docs/source_zh_cn/static_graph/feature/checkpoint_saving_and_loading.md)
 
 ## 概述
 
@@ -29,7 +29,7 @@ MindSpore Transformers 目前默认采用Checkpoint 1.0 版本，用户需在 YA
 use_legacy_format: False
 ```
 
-> 该文档仅针对用户使用体验Checkpoint 2.0 版本，若使用Checkpoint 1.0 版本，请参考[Safetensors文档](https://www.mindspore.cn/mindformers/docs/zh-CN/master/static_graph/feature/safetensors.html)或[Ckpt文档](https://www.mindspore.cn/mindformers/docs/zh-CN/master/static_graph/feature/ckpt.html)。
+> 该文档仅针对用户使用体验Checkpoint 2.0 版本，若使用Checkpoint 1.0 版本，请参考[Safetensors文档](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.10.0/static_graph/feature/safetensors.html)或[Ckpt文档](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.10.0/static_graph/feature/ckpt.html)。
 
 ## checkpoint保存
 
@@ -128,7 +128,7 @@ callbacks:
 
 > 若是配置了 `checkpoint`，则 `use_legacy_format` 参数将自动转换为 `False`。上述配置指定训练任务以 "qwen3" 作为 safetensors 文件名前缀，采用同步保存模式，每 1000 步保存一次包含模型权重与优化器权重的checkpoint，且训练全程最多保留最新的 5 个checkpoint。
 
-如果您想了解更多有关 CheckpointMonitor 的知识，可以参考 [CheckpointMonitor API 文档](https://www.mindspore.cn/mindformers/docs/zh-CN/master/static_graph/core/mindformers.core.CheckpointMonitor.html)。
+如果您想了解更多有关 CheckpointMonitor 的知识，可以参考 [CheckpointMonitor API 文档](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.10.0/static_graph/core/mindformers.core.CheckpointMonitor.html)。
 
 ## checkpoint加载
 
@@ -145,9 +145,9 @@ MindSpore Transformers 提供灵活的checkpoint加载能力，覆盖单卡与�
 
 | 参数名称                 | 描述                                                                                                                                                                                                                                  | 取值说明                    |
 |----------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------|
-| load_path             | 加载权重的文件或文件夹路径，支持以下三种场景：<br/>1. 完整权重文件路径；<br/>2. 离线切分后的分布式权重文件夹路径；<br/>3. 包含 LoRA 增量权重和 base 模型权重的文件夹路径。<br/>各种权重的获取方式详见 [权重转换功能](https://www.mindspore.cn/mindformers/docs/zh-CN/master/static_graph/feature/ckpt.html)。默认值为`''`。                | str  |
+| load_path             | 加载权重的文件或文件夹路径，支持以下三种场景：<br/>1. 完整权重文件路径；<br/>2. 离线切分后的分布式权重文件夹路径；<br/>3. 包含 LoRA 增量权重和 base 模型权重的文件夹路径。<br/>各种权重的获取方式详见 [权重转换功能](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.10.0/static_graph/feature/ckpt.html)。默认值为`''`。                | str  |
 | load_balanced         | 权重均衡加载功能开关，**仅支持在分布式任务中开启**；设为 `True` 时，各 rank 按参数均衡分配策略加载权重，再通过参数广播获取最终权重。默认值为`False`。                                                                                                                                             | str  |
-| no_load_optim         | 加载权重文件时是否加载优化器参数。是否开启断点续训功能取反。开启后将从`load_checkpoint` 指定的路径恢复优化器状态、学习率调度器状态等，继续训练。详情见 [断点续训功能](https://www.mindspore.cn/mindformers/docs/zh-CN/master/static_graph/feature/resume_training.html#%E6%96%AD%E7%82%B9%E7%BB%AD%E8%AE%AD)。默认值为`True`。 | bool |
+| no_load_optim         | 加载权重文件时是否加载优化器参数。是否开启断点续训功能取反。开启后将从`load_checkpoint` 指定的路径恢复优化器状态、学习率调度器状态等，继续训练。详情见 [断点续训功能](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.10.0/static_graph/feature/resume_training.html#%E6%96%AD%E7%82%B9%E7%BB%AD%E8%AE%AD)。默认值为`True`。 | bool |
 | reshard_worker_number | 指定并行权重 Reshard 的线程数。对于权重需要在线 Reshard 的场景，可配置该字段进行并行加速。默认值 `1`。                                                                                                                                                                      | int  |
 
 当 `load_path` 配置为 `output/checkpoint` 文件夹路径时，用户可通过修改 `latest_checkpointed_iteration.txt` 中记录的步数，实现指定 `iteration` 权重的加载。

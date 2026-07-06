@@ -8,7 +8,7 @@
 
 # 训练指标监控
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/static_graph/feature/monitor.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.10.0/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/r2.10.0/docs/mindformers/docs/source_zh_cn/static_graph/feature/monitor.md)
 
 MindSpore Transformers 支持 TensorBoard 作为可视化工具，用于监控和分析训练过程中的各种指标和信息。TensorBoard 是一个独立的可视化库，需要用户手动安装，它提供了一种交互式的方式来查看训练中的损失、精度、学习率、梯度分布等多种内容。用户在训练`yaml`文件中配置 TensorBoard 后，在大模型训练过程中会实时生成并更新事件文件，可以通过命令查看训练数据。
 
@@ -67,9 +67,9 @@ callbacks:
 | monitor_config.weight_state_format               | 设置指标`权重L2-norm`的记录形式                                                                                      | str或list[str] |
 | monitor_config.throughput_baseline               | 设置指标`吞吐量线性度`的基线值，需要为正数。会同时写入到 TensorBoard 和日志。未设置时默认为`null`，表示不监控该指标                                      | int或float     |
 | monitor_config.print_struct                      | 设置是否打印模型的全部可训练参数名。若为`True`，则会在第一个step开始时打印所有可训练参数的名称，并在step结束后退出训练。默认为`False`                             | bool          |
-| monitor_config.check_for_global_norm             | 设置是否开启指标`global norm`的异常监测。默认为`False`。详情请见 [数据跳过和健康监测](https://www.mindspore.cn/mindformers/docs/zh-CN/master/static_graph/feature/skip_data_and_ckpt_health_monitor.html) 和 [故障快速恢复](https://www.mindspore.cn/mindformers/docs/zh-CN/master/static_graph/feature/high_availability.html#故障快速恢复) | bool          |
-| monitor_config.global_norm_spike_threshold       | 设置指标`global norm`的相对阈值，大于该值即判定为异常。默认值为`1.0`。详情请见 [数据跳过和健康监测](https://www.mindspore.cn/mindformers/docs/zh-CN/master/static_graph/feature/skip_data_and_ckpt_health_monitor.html) 和 [故障快速恢复](https://www.mindspore.cn/mindformers/docs/zh-CN/master/static_graph/feature/high_availability.html#故障快速恢复) | float         |
-| monitor_config.global_norm_spike_count_threshold | 设置连续异常指标`global norm`累计的次数，当次数达到该阈值则触发异常中断，终止训练。默认值为`10`。详情请见 [数据跳过和健康监测](https://www.mindspore.cn/mindformers/docs/zh-CN/master/static_graph/feature/skip_data_and_ckpt_health_monitor.html) 和 [故障快速恢复](https://www.mindspore.cn/mindformers/docs/zh-CN/master/static_graph/feature/high_availability.html#故障快速恢复) | int           |
+| monitor_config.check_for_global_norm             | 设置是否开启指标`global norm`的异常监测。默认为`False`。详情请见 [数据跳过和健康监测](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.10.0/static_graph/feature/skip_data_and_ckpt_health_monitor.html) 和 [故障快速恢复](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.10.0/static_graph/feature/high_availability.html#故障快速恢复) | bool          |
+| monitor_config.global_norm_spike_threshold       | 设置指标`global norm`的相对阈值，大于该值即判定为异常。默认值为`1.0`。详情请见 [数据跳过和健康监测](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.10.0/static_graph/feature/skip_data_and_ckpt_health_monitor.html) 和 [故障快速恢复](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.10.0/static_graph/feature/high_availability.html#故障快速恢复) | float         |
+| monitor_config.global_norm_spike_count_threshold | 设置连续异常指标`global norm`累计的次数，当次数达到该阈值则触发异常中断，终止训练。默认值为`10`。详情请见 [数据跳过和健康监测](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.10.0/static_graph/feature/skip_data_and_ckpt_health_monitor.html) 和 [故障快速恢复](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.10.0/static_graph/feature/high_availability.html#故障快速恢复) | int           |
 
 上述 xxx_format 形式的参数的可选值为字符串'tensorboard'和'log'（分别表示写入 TensorBoard 和写入日志），或由两者组成的列表，或`null`。未设置时均默认为`null`，表示不监控对应指标。
 
@@ -276,4 +276,4 @@ expert_load（图中为3个MoE层的各自16个专家的负载变化曲线）：
 > 2. 用户在训练配置文件 `yaml` 中设置的配置参数；
 > 3. 训练默认的配置参数。
 >
-> 可配置的所有参数请参考[配置文件说明](https://www.mindspore.cn/mindformers/docs/zh-CN/master/static_graph/feature/configuration.html)。
+> 可配置的所有参数请参考[配置文件说明](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.10.0/static_graph/feature/configuration.html)。

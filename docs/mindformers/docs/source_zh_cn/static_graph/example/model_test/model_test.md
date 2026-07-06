@@ -8,7 +8,7 @@
 
 # MindSpore Transformers对接通用评测工具的实践案例
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/static_graph/example/model_test/model_test.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.10.0/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/r2.10.0/docs/mindformers/docs/source_zh_cn/static_graph/example/model_test/model_test.md)
 
 本文由Killjoy, chen-xialei, fuyao-15989607593, laozhuang, oacjiewen贡献。
 
@@ -27,7 +27,7 @@
 
 ### 1.1 MindSpore Transformers
 
-参考[MindSpore Transformers 环境安装](https://www.mindspore.cn/mindformers/docs/zh-CN/master/installation.html)搭建环境。
+参考[MindSpore Transformers 环境安装](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.10.0/installation.html)搭建环境。
 
 ### 1.2 vLLM-MindSpore
 

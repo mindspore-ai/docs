@@ -8,7 +8,7 @@
 
 # 配置文件说明
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/static_graph/feature/configuration.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.10.0/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/r2.10.0/docs/mindformers/docs/source_zh_cn/static_graph/feature/configuration.md)
 
 ## 概述
 
@@ -24,22 +24,22 @@ MindSpore Transformers提供的`YAML`文件中包含不同功能的配置项，�
 
 | 参数名称                      | 数据类型 | 是否可选 | 默认值 | 取值说明                                                                                                                                                                                                                                                                                       |
 | ----------------------------- | -------- | -------- | ------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| seed                          | int      | 可选     | 0      | 设置全局随机种子，用于保证实验可复现性。详情可参考[mindspore.set_seed](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.set_seed.html)。                                                                                                                              |
+| seed                          | int      | 可选     | 0      | 设置全局随机种子，用于保证实验可复现性。详情可参考[mindspore.set_seed](https://www.mindspore.cn/docs/zh-CN/r2.10.0/api_python/mindspore/mindspore.set_seed.html)。                                                                                                                              |
 | run_mode                      | str      | 必选     | 无     | 设置模型的运行模式，可选：`train`、`finetune`、`eval` 或 `predict`。                                                                                                                                                                                                                           |
 | output_dir                    | str      | 可选     | 无     | 设置保存日志（log）、权重（checkpoint）、并行策略（strategy）等文件的输出路径。若路径不存在，会尝试自动创建。                                                                                                                                                                                  |
-| load_checkpoint               | str      | 可选     | 无     | 加载权重的文件或文件夹路径，支持以下三种场景：<br/>1. 完整权重文件路径；<br/>2. 离线切分后的分布式权重文件夹路径；<br/>3. 包含 LoRA 增量权重和 base 模型权重的文件夹路径。<br/>各种权重的获取方式详见 [权重转换功能](https://www.mindspore.cn/mindformers/docs/zh-CN/master/static_graph/feature/ckpt.html) |
-| auto_trans_ckpt               | bool     | 可选     | False  | 是否开启分布式权重自动切分与合并功能。开启后可在单卡加载多卡切分权重，或多卡加载单卡权重。详情见[分布式权重切分与合并](https://www.mindspore.cn/mindformers/docs/zh-CN/master/static_graph/feature/ckpt.html)                                                                                               |
-| resume_training               | bool     | 可选     | False  | 是否开启断点续训功能。开启后将从`load_checkpoint` 指定的路径恢复优化器状态、学习率调度器状态等，继续训练。详情见 [断点续训功能](https://www.mindspore.cn/mindformers/docs/zh-CN/master/static_graph/feature/resume_training.html#%E6%96%AD%E7%82%B9%E7%BB%AD%E8%AE%AD)                                      |
+| load_checkpoint               | str      | 可选     | 无     | 加载权重的文件或文件夹路径，支持以下三种场景：<br/>1. 完整权重文件路径；<br/>2. 离线切分后的分布式权重文件夹路径；<br/>3. 包含 LoRA 增量权重和 base 模型权重的文件夹路径。<br/>各种权重的获取方式详见 [权重转换功能](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.10.0/static_graph/feature/ckpt.html) |
+| auto_trans_ckpt               | bool     | 可选     | False  | 是否开启分布式权重自动切分与合并功能。开启后可在单卡加载多卡切分权重，或多卡加载单卡权重。详情见[分布式权重切分与合并](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.10.0/static_graph/feature/ckpt.html)                                                                                               |
+| resume_training               | bool     | 可选     | False  | 是否开启断点续训功能。开启后将从`load_checkpoint` 指定的路径恢复优化器状态、学习率调度器状态等，继续训练。详情见 [断点续训功能](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.10.0/static_graph/feature/resume_training.html#%E6%96%AD%E7%82%B9%E7%BB%AD%E8%AE%AD)                                      |
 | load_ckpt_format              | str      | 可选     | "ckpt" | 加载的模型权重的格式，可选`"ckpt"` 和 `"safetensors"`。                                                                                                                                                                                                                                        |
-| remove_redundancy             | bool     | 可选     | False  | 加载的模型权重是否已去除冗余。详情可参考[权重去冗余保存与加载](https://www.mindspore.cn/mindformers/docs/zh-CN/master/static_graph/feature/safetensors.html#%E5%8E%BB%E5%86%97%E4%BD%99%E4%BF%9D%E5%AD%98%E5%8F%8A%E5%8A%A0%E8%BD%BD)                                                                       |
+| remove_redundancy             | bool     | 可选     | False  | 加载的模型权重是否已去除冗余。详情可参考[权重去冗余保存与加载](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.10.0/static_graph/feature/safetensors.html#%E5%8E%BB%E5%86%97%E4%BD%99%E4%BF%9D%E5%AD%98%E5%8F%8A%E5%8A%A0%E8%BD%BD)                                                                       |
 | train_precision_sync          | bool     | 可选     | None   | 训练确定性计算开关。设置为`True`，则开启训练同步计算，可以提升计算的确定性，一般可用于确保实验的可复现性；设置为 `False`，则不开启。                                                                                                                                                           |
 | infer_precision_sync          | bool     | 可选     | None   | 推理确定性计算开关。设置为`True`，则开启推理同步计算，可以提升计算的确定性，一般可用于确保实验的可复现性；设置为 `False`，则不开启。                                                                                                                                                           |
-| use_skip_data_by_global_norm  | bool     | 可选     | False  | 是否启用基于全局梯度范数的数据跳过功能。当某批次数据导致梯度爆炸时，自动跳过该批次以提升训练稳定性。详情可见[数据跳过](https://www.mindspore.cn/mindformers/docs/zh-CN/master/static_graph/feature/skip_data_and_ckpt_health_monitor.html)。                                                                |
-| use_checkpoint_health_monitor | bool     | 可选     | False  | 是否启用权重健康监测功能。开启后会在保存 checkpoint 时校验其完整性与可用性，防止保存损坏的权重文件。详情可见[权重健康监测](https://www.mindspore.cn/mindformers/docs/zh-CN/master/static_graph/feature/skip_data_and_ckpt_health_monitor.html#%E6%9D%83%E9%87%8D%E5%81%A5%E5%BA%B7%E7%9B%91%E6%B5%8B)。     |
+| use_skip_data_by_global_norm  | bool     | 可选     | False  | 是否启用基于全局梯度范数的数据跳过功能。当某批次数据导致梯度爆炸时，自动跳过该批次以提升训练稳定性。详情可见[数据跳过](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.10.0/static_graph/feature/skip_data_and_ckpt_health_monitor.html)。                                                                |
+| use_checkpoint_health_monitor | bool     | 可选     | False  | 是否启用权重健康监测功能。开启后会在保存 checkpoint 时校验其完整性与可用性，防止保存损坏的权重文件。详情可见[权重健康监测](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.10.0/static_graph/feature/skip_data_and_ckpt_health_monitor.html#%E6%9D%83%E9%87%8D%E5%81%A5%E5%BA%B7%E7%9B%91%E6%B5%8B)。     |
 
 ### Context配置
 
-Context配置主要用于指定[mindspore.set_context](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.set_context.html)中的相关参数。
+Context配置主要用于指定[mindspore.set_context](https://www.mindspore.cn/docs/zh-CN/r2.10.0/api_python/mindspore/mindspore.set_context.html)中的相关参数。
 
 | 参数名称                    | 数据类型      | 是否可选 | 默认值    | 取值说明                                                                                                                                                                                                                                                                                          |
 | --------------------------- | ------------- | -------- | --------- |-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -52,12 +52,12 @@ Context配置主要用于指定[mindspore.set_context](https://www.mindspore.cn/
 | context.mempool_block_size  | string        | 可选     | "1GB"     | 设置内存块大小，格式为`"xxGB"`，默认值为 `"1GB"`。                                                                                                                                                                                                                                                             |
 | context.save_graphs         | bool / int    | 可选     | False     | 在执行过程中保存编译图：<br/>• `False` 或 `0` ：不保存中间编译图<br/>• `1`：输出图编译过程中的部分中间文件<br/>• `True`或`2`：生成更多后端流程相关的IR文件<br/>• `3`：生成可视化计算图和更详细的前端IR图                                                                                                                                                            |
 | context.save_graphs_path    | string        | 可选     | './graph' | 保存编译图的路径。若未设置且`save_graphs != False`，则使用默认临时路径 `'./graph'`。                                                                                                                                                                                                                                   |
-| context.affinity_cpu_list   | dict / string | 可选     | None      | 可选配置项，用于实现用户自定义绑核策略。**此配置已合并至`affinity_config`，请使用`affinity_config`替代。**<br/>- 不配置时：默认自动绑核<br/>- `None`或未设置：关闭绑核<br/>- 传入`dict`：自定义CPU核心绑定策略，详情参考 [mindspore.runtime.set_cpu_affinity](https://www.mindspore.cn/docs/zh-CN/master/api_python/runtime/mindspore.runtime.set_cpu_affinity.html) |
-| context.affinity_config     | dict          | 可选     | 无        | 可选配置项，用于实现用户自定义绑核策略。<br/>- 不配置时：默认自动绑核<br/>- 传入 `dict`：自定义CPU核心绑定策略，详情参考 [mindspore.runtime.set_cpu_affinity](https://www.mindspore.cn/docs/zh-CN/master/api_python/runtime/mindspore.runtime.set_cpu_affinity.html)                                                                                                                                                                            |
+| context.affinity_cpu_list   | dict / string | 可选     | None      | 可选配置项，用于实现用户自定义绑核策略。**此配置已合并至`affinity_config`，请使用`affinity_config`替代。**<br/>- 不配置时：默认自动绑核<br/>- `None`或未设置：关闭绑核<br/>- 传入`dict`：自定义CPU核心绑定策略，详情参考 [mindspore.runtime.set_cpu_affinity](https://www.mindspore.cn/docs/zh-CN/r2.10.0/api_python/runtime/mindspore.runtime.set_cpu_affinity.html) |
+| context.affinity_config     | dict          | 可选     | 无        | 可选配置项，用于实现用户自定义绑核策略。<br/>- 不配置时：默认自动绑核<br/>- 传入 `dict`：自定义CPU核心绑定策略，详情参考 [mindspore.runtime.set_cpu_affinity](https://www.mindspore.cn/docs/zh-CN/r2.10.0/api_python/runtime/mindspore.runtime.set_cpu_affinity.html)                                                                                                                                                                            |
 
 ### Legacy 模型配置
 
-如果使用 MindSpore Transformers 拉起 legacy 模型的任务，需要在 yaml 文件中进行相关超参的配置。注意，此板块介绍的配置仅适用于 legacy 模型，不可与 mcore 模型配置进行混用，请注意[版本配套关系](https://atomgit.com/mindspore/mindformers/blob/master/README_CN.md#%E6%A8%A1%E5%9E%8B%E5%88%97%E8%A1%A8)。
+如果使用 MindSpore Transformers 拉起 legacy 模型的任务，需要在 yaml 文件中进行相关超参的配置。注意，此板块介绍的配置仅适用于 legacy 模型，不可与 mcore 模型配置进行混用，请注意[版本配套关系](https://atomgit.com/mindspore/mindformers/blob/r1.10.0/README_CN.md#%E6%A8%A1%E5%9E%8B%E5%88%97%E8%A1%A8)。
 
 由于不同的模型配置会有差异，这里仅对MindSpore Transformers中模型的通用配置进行说明。
 
@@ -117,7 +117,7 @@ Context配置主要用于指定[mindspore.set_context](https://www.mindspore.cn/
 
 由于不同的模型配置会有差异，这里介绍 MindSpore Transformers 中模型常用配置。
 
-对于这些参数的默认值，不同模型的定义可能会不同，此处仅展示大多数情况的默认值。具体的默认值，请参考每个模型的配置类定义 `configuration_xxx.py` （如 DeepSeek-V3 的配置类为 [configuration_deepseek_v3.py](https://atomgit.com/mindspore/mindformers/blob/master/mindformers/models/deepseek3/configuration_deepseek_v3.py)）。
+对于这些参数的默认值，不同模型的定义可能会不同，此处仅展示大多数情况的默认值。具体的默认值，请参考每个模型的配置类定义 `configuration_xxx.py` （如 DeepSeek-V3 的配置类为 [configuration_deepseek_v3.py](https://atomgit.com/mindspore/mindformers/blob/r1.10.0/mindformers/models/deepseek3/configuration_deepseek_v3.py)）。
 
 | 参数                                                        | 数据类型                  | 是否可选 | 默认值        | 取值说明                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
 |-----------------------------------------------------------|-----------------------|------|------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -223,9 +223,9 @@ Context配置主要用于指定[mindspore.set_context](https://www.mindspore.cn/
 | train_dataset.transforms                    | 设置数据增强相关选项。                                                                                                                                                                     | -      |
 | train_dataset_task.type                     | 设置dataset类，该类用于对数据加载类以及其他相关配置进行封装。                                                                                                                              | str    |
 | train_dataset_task.dataset_config           | 通常设置为`train_dataset`的引用，包含`train_dataset`的所有配置项。                                                                                                                         | -      |
-| auto_tune                                   | 是否开启数据处理参数自动调优，详情可参考[set_enable_autotune](https://www.mindspore.cn/docs/zh-CN/master/api_python/dataset/mindspore.dataset.config.set_enable_autotune.html)。           | bool   |
+| auto_tune                                   | 是否开启数据处理参数自动调优，详情可参考[set_enable_autotune](https://www.mindspore.cn/docs/zh-CN/r2.10.0/api_python/dataset/mindspore.dataset.config.set_enable_autotune.html)。           | bool   |
 | filepath_prefix                             | 设置数据优化后的参数配置的保存路径。                                                                                                                                                       | str    |
-| autotune_per_step                           | 设置自动数据加速的配置调整step间隔，详情可参考[set_autotune_interval](https://www.mindspore.cn/docs/zh-CN/master/api_python/dataset/mindspore.dataset.config.set_autotune_interval.html)。 | int    |
+| autotune_per_step                           | 设置自动数据加速的配置调整step间隔，详情可参考[set_autotune_interval](https://www.mindspore.cn/docs/zh-CN/r2.10.0/api_python/dataset/mindspore.dataset.config.set_autotune_interval.html)。 | int    |
 
 ### 模型训练权重相关配置
 
@@ -240,14 +240,14 @@ Context配置主要用于指定[mindspore.set_context](https://www.mindspore.cn/
 | checkpoint.async_save             | 是否异步执行权重保存。开启后保存操作不会阻塞训练主流程，提升训练效率，但需注意 I/O 资源竞争可能导致延迟写入。默认值`False`。                                                                                                                                                                | bool |
 | checkpoint.prefix                 | 设置保存权重文件名的前缀。例如生成`CKP-100.ckpt`。若未配置，则使用默认值 `'CKP'`。                                                                                                                                                                                | str  |
 | checkpoint.save_remove_redundancy | 保存权重时是否去除模型权重的冗余，默认值为`False`。                                                                                                                                                                                                       | bool |
-| checkpoint.load_path              | 加载权重的文件或文件夹路径，支持以下三种场景：<br/>1. 完整权重文件路径；<br/>2. 离线切分后的分布式权重文件夹路径；<br/>3. 包含 LoRA 增量权重和 base 模型权重的文件夹路径。<br/>各种权重的获取方式详见 [权重转换功能](https://www.mindspore.cn/mindformers/docs/zh-CN/master/static_graph/feature/ckpt.html)。默认值为`''`。                | str  |
+| checkpoint.load_path              | 加载权重的文件或文件夹路径，支持以下三种场景：<br/>1. 完整权重文件路径；<br/>2. 离线切分后的分布式权重文件夹路径；<br/>3. 包含 LoRA 增量权重和 base 模型权重的文件夹路径。<br/>各种权重的获取方式详见 [权重转换功能](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.10.0/static_graph/feature/ckpt.html)。默认值为`''`。                | str  |
 | checkpoint.load_balanced          | 权重均衡加载功能开关，**仅支持在分布式任务中开启**；设为 `True` 时，各 rank 按参数均衡分配策略加载权重，再通过参数广播获取最终权重。默认值为`False`。                                                                                                                                             | str  |
-| checkpoint.no_load_optim          | 加载权重文件时是否加载优化器参数。是否开启断点续训功能取反。开启后将从`load_checkpoint` 指定的路径恢复优化器状态、学习率调度器状态等，继续训练。详情见 [断点续训功能](https://www.mindspore.cn/mindformers/docs/zh-CN/master/static_graph/feature/resume_training.html#%E6%96%AD%E7%82%B9%E7%BB%AD%E8%AE%AD)。默认值为`True`。 | bool |
+| checkpoint.no_load_optim          | 加载权重文件时是否加载优化器参数。是否开启断点续训功能取反。开启后将从`load_checkpoint` 指定的路径恢复优化器状态、学习率调度器状态等，继续训练。详情见 [断点续训功能](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.10.0/static_graph/feature/resume_training.html#%E6%96%AD%E7%82%B9%E7%BB%AD%E8%AE%AD)。默认值为`True`。 | bool |
 | checkpoint.reshard_worker_number  | 指定并行权重 Reshard 的线程数。对于权重需要在线 Reshard 的场景，可配置该字段进行并行加速。默认值 `1`。                                                                                                                                                                      | int  |
 
 ### 并行配置
 
-为了提升模型的性能，在大规模集群的使用场景中通常需要为模型配置并行策略，详情可参考[分布式并行](https://www.mindspore.cn/mindformers/docs/zh-CN/master/static_graph/feature/parallel_training.html)，MindSpore Transformers中的并行配置如下。
+为了提升模型的性能，在大规模集群的使用场景中通常需要为模型配置并行策略，详情可参考[分布式并行](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.10.0/static_graph/feature/parallel_training.html)，MindSpore Transformers中的并行配置如下。
 
 | 参数                                                            | 说明                                                                                                                                                                                                                                                                                                                                                                                              | 类型 |
 | --------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---- |
@@ -261,12 +261,12 @@ Context配置主要用于指定[mindspore.set_context](https://www.mindspore.cn/
 | parallel_config.gradient_aggregation_group                      | 设置梯度通信算子融合组的大小。                                                                                                                                                                                                                                                                                                                                                                    | int  |
 | parallel_config.context_parallel_algo                           | 设置长序列并行方案，可选`colossalai_cp`、`ulysses_cp`和`hybrid_cp`，仅在`context_parallel`切分数大于1时生效。                                                                                                                                                                                                                                                                                     | str  |
 | parallel_config.ulysses_degree_in_cp                            | 设置Ulysses序列并行维度，与`hybrid_cp`长序列并行方案同步配置，需要确保`context_parallel`可以被该参数整除且大于1，同时确保`ulysses_degree_in_cp`可以被attention head数整除。                                                                                                                                                                                                                       | int  |
-| micro_batch_interleave_num                                      | 设置多副本并行数，大于1时开启多副本并行。通常在使用模型并行时开启，主要用于优化模型并行产生的通信损耗，仅使用流水并行时不建议开启。详情可参考[MicroBatchInterleaved](https://www.mindspore.cn/docs/zh-CN/master/api_python/parallel/mindspore.parallel.nn.MicroBatchInterleaved.html)。                                                                                                           | int  |
+| micro_batch_interleave_num                                      | 设置多副本并行数，大于1时开启多副本并行。通常在使用模型并行时开启，主要用于优化模型并行产生的通信损耗，仅使用流水并行时不建议开启。详情可参考[MicroBatchInterleaved](https://www.mindspore.cn/docs/zh-CN/r2.10.0/api_python/parallel/mindspore.parallel.nn.MicroBatchInterleaved.html)。                                                                                                           | int  |
 | parallel.parallel_mode                                          | 设置并行模式，`0`表示数据并行模式, `1`表示半自动并行模式, `2`表示自动并行模式, `3`表示混合并行模式，一般设置为半自动并行模式。                                                                                                                                                                                                                                                                    | int  |
 | parallel.gradients_mean                                         | 是否在梯度AllReduce后执行平均算子。通常半自动并行模式下设为`False`，数据并行模式下设为`True`。                                                                                                                                                                                                                                                                                                    | bool |
 | parallel.enable_alltoall                                        | 是否在通信期间生成AllToAll通信算子。通常仅在MOE场景下设为`True`，默认值为`False`。                                                                                                                                                                                                                                                                                                                | bool |
 | parallel.full_batch                                             | 是否在并行模式下从数据集中读取加载完整的批数据，设置为`True`表示所有rank都读取完整的批数据，设置为`False`表示每个rank仅加载对应的批数据，设置为`False`时必须设置对应的`dataset_strategy`。                                                                                                                                                                                                        | bool |
-| parallel.dataset_strategy                                       | 仅支持`List of List`类型且仅在`full_batch=False`时生效，列表中子列表的个数需要等于`train_dataset.input_columns`的长度，并且列表中的每个子列表需要和数据集返回的数据的shape保持一致。一般在数据的第1维进行数据并行切分，所以子列表的第1位数配置与`data_parallel`相同，其他位配置为`1`。具体原理可以参考[数据集切分](https://www.mindspore.cn/tutorials/zh-CN/master/parallel/dataset_slice.html)。 | list |
+| parallel.dataset_strategy                                       | 仅支持`List of List`类型且仅在`full_batch=False`时生效，列表中子列表的个数需要等于`train_dataset.input_columns`的长度，并且列表中的每个子列表需要和数据集返回的数据的shape保持一致。一般在数据的第1维进行数据并行切分，所以子列表的第1位数配置与`data_parallel`相同，其他位配置为`1`。具体原理可以参考[数据集切分](https://www.mindspore.cn/tutorials/zh-CN/r2.10.0/parallel/dataset_slice.html)。 | list |
 | parallel.search_mode                                            | 设置全自动并行策略搜索模式，可选`recursive_programming`、`dynamic_programming`和`sharding_propagation`，仅在全自动并行模式下生效，实验性接口。                                                                                                                                                                                                                                                    | str  |
 | parallel.strategy_ckpt_save_file                                | 设置并行切分策略文件的保存路径。                                                                                                                                                                                                                                                                                                                                                                  | str  |
 | parallel.strategy_ckpt_config.only_trainable_params             | 是否仅保存（或加载）可训练参数的切分策略信息，默认为`True`，当网络中存在冻结的参数但又需要切分时将该参数设为`False`。                                                                                                                                                                                                                                                                             | bool |
@@ -281,7 +281,7 @@ Context配置主要用于指定[mindspore.set_context](https://www.mindspore.cn/
 
 ### 模型优化配置
 
-1. MindSpore Transformers提供重计算相关配置，以降低模型在训练时的内存占用，详情可参考[重计算](https://www.mindspore.cn/mindformers/docs/zh-CN/master/static_graph/advanced_development/performance_optimization.html#重计算)。
+1. MindSpore Transformers提供重计算相关配置，以降低模型在训练时的内存占用，详情可参考[重计算](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.10.0/static_graph/advanced_development/performance_optimization.html#重计算)。
 
    | 参数                                               | 说明                                                       | 类型            |
    | -------------------------------------------------- | ---------------------------------------------------------- | --------------- |
@@ -292,7 +292,7 @@ Context配置主要用于指定[mindspore.set_context](https://www.mindspore.cn/
    | recompute_config.recompute_slice_activation        | 是否对保留在内存中的Cell输出切片。该参数仅支持legacy模型。 | bool            |
    | recompute_config.select_recompute_exclude          | 关闭指定算子的重计算，只对Primitive算子有效。              | bool/list       |
    | recompute_config.select_comm_recompute_exclude     | 关闭指定算子的通讯重计算，只对Primitive算子有效。          | bool/list       |
-2. MindSpore Transformers提供细粒度激活值SWAP相关配置，以降低模型在训练时的内存占用，详情可参考[细粒度激活值SWAP](https://www.mindspore.cn/mindformers/docs/zh-CN/master/static_graph/feature/memory_optimization.html#%E7%BB%86%E7%B2%92%E5%BA%A6%E6%BF%80%E6%B4%BB%E5%80%BCswap)。
+2. MindSpore Transformers提供细粒度激活值SWAP相关配置，以降低模型在训练时的内存占用，详情可参考[细粒度激活值SWAP](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.10.0/static_graph/feature/memory_optimization.html#%E7%BB%86%E7%B2%92%E5%BA%A6%E6%BF%80%E6%B4%BB%E5%80%BCswap)。
 
    **Legacy配置（swap_config）：**
 
@@ -335,7 +335,7 @@ MindSpore Transformers提供封装后的Callbacks函数类，主要实现在模�
    | check_for_nan_in_loss_and_grad | bool     | 可选     | False  | 是否在`MFLossMonitor` 中开启损失值和梯度的 NaN/Inf 检测。开启后，若检测到溢出（NaN 或 INF），则终止训练，默认值为`False`。建议在调试阶段开启以提升训练稳定性。 |
 2. SummaryMonitor
 
-   该回调函数类主要用于收集Summary数据，详情可参考[mindspore.SummaryCollector](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.SummaryCollector.html)。
+   该回调函数类主要用于收集Summary数据，详情可参考[mindspore.SummaryCollector](https://www.mindspore.cn/docs/zh-CN/r2.10.0/api_python/mindspore/mindspore.SummaryCollector.html)。
 3. CheckpointMonitor
 
    该回调函数类主要用于在模型训练过程中保存模型权重文件，有如下可配置项：
@@ -395,11 +395,11 @@ MindSpore Transformers提供模型评估功能，同时支持模型边训练边�
 
 ### Profile配置
 
-MindSpore Transformers提供Profile作为模型性能调优的主要工具，详情可参考[性能调优指南](https://www.mindspore.cn/mindformers/docs/zh-CN/master/static_graph/advanced_development/performance_optimization.html)。以下是Profile相关配置。
+MindSpore Transformers提供Profile作为模型性能调优的主要工具，详情可参考[性能调优指南](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.10.0/static_graph/advanced_development/performance_optimization.html)。以下是Profile相关配置。
 
 | 参数名称                  | 数据类型   | 是否可选 | 默认值    | 取值说明                                                                                                                                       |
 |-----------------------|--------|------|--------|--------------------------------------------------------------------------------------------------------------------------------------------|
-| profile               | bool   | 可选   | False  | 是否开启性能采集工具，默认值为`False`，详情可参考[mindspore.Profiler](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.Profiler.html)。 |
+| profile               | bool   | 可选   | False  | 是否开启性能采集工具，默认值为`False`，详情可参考[mindspore.Profiler](https://www.mindspore.cn/docs/zh-CN/r2.10.0/api_python/mindspore/mindspore.Profiler.html)。 |
 | profile_start_step    | int    | 可选   | 1      | 设置开始采集性能数据的 step 数，默认值为`1`。                                                                                                                |
 | profile_stop_step     | int    | 可选   | 10     | 设置停止采集性能数据的 step 数，默认值为`10`。                                                                                                               |
 | profile_communication | bool   | 可选   | False  | 设置是否在多设备训练中收集通信性能数据，使用单卡训练时，该参数无效，默认值为`False`。                                                                                             |
@@ -415,7 +415,7 @@ MindSpore Transformers提供Profile作为模型性能调优的主要工具，详
 
 ### 指标监控配置
 
-指标监控配置主要用于配置训练过程中各指标的记录方式，详情可参考[训练指标监控](https://www.mindspore.cn/mindformers/docs/zh-CN/master/static_graph/feature/monitor.html)。以下是MindSpore Transformers中通用的指标监控配置项说明：
+指标监控配置主要用于配置训练过程中各指标的记录方式，详情可参考[训练指标监控](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.10.0/static_graph/feature/monitor.html)。以下是MindSpore Transformers中通用的指标监控配置项说明：
 
 | 参数名称                                         | 数据类型              | 是否可选 | 默认值   | 取值说明                                                                                                                                                                                           |
 | ------------------------------------------------ | --------------------- | -------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -432,13 +432,13 @@ MindSpore Transformers提供Profile作为模型性能调优的主要工具，详
 | monitor_config.weight_state_format               | string / list(string) | 可选     | null     | 设置指标`权重L2-norm` 的记录形式，可选值为字符串 `'tensorboard'` 和 `'log'`（分别表示写入 Tensorboard 和写入日志），或由两者组成的列表，或 `null`。未设置时默认为 `null`，表示不监控该指标。       |
 | monitor_config.throughput_baseline               | int / float           | 可选     | null     | 设置指标`吞吐量线性度` 的基线值，需要为正数。未设置时默认为 `null`，表示不监控该指标。                                                                                                             |
 | monitor_config.print_struct                      | bool                  | 可选     | False    | 设置是否打印模型的全部可训练参数名。若为`True`，则会在第一个 step 开始时打印所有可训练参数的名称，并在 step 结束后退出训练。默认为 `False`。                                                       |
-| monitor_config.check_for_global_norm             | bool                  | 可选     | False    | 设置是否开启进程级故障快恢功能。默认为`False`。详情请见 [数据跳过和健康监测](https://www.mindspore.cn/mindformers/docs/zh-CN/master/static_graph/feature/skip_data_and_ckpt_health_monitor.html) 和 [故障快速恢复](https://www.mindspore.cn/mindformers/docs/zh-CN/master/static_graph/feature/high_availability.html#故障快速恢复)。 |
-| monitor_config.global_norm_spike_threshold       | float                 | 可选     | 3.0      | 设置 global norm 的阈值，当 global norm 超过时触发数据跳过。默认值为`3.0`。详情请见 [数据跳过和健康监测](https://www.mindspore.cn/mindformers/docs/zh-CN/master/static_graph/feature/skip_data_and_ckpt_health_monitor.html) 和 [故障快速恢复](https://www.mindspore.cn/mindformers/docs/zh-CN/master/static_graph/feature/high_availability.html#故障快速恢复)。 |
-| monitor_config.global_norm_spike_count_threshold | int                   | 可选     | 10       | 设置连续异常 global norm 累计的次数，当次数达到该阈值则触发异常中断，终止训练。默认值为`10`。详情请见 [数据跳过和健康监测](https://www.mindspore.cn/mindformers/docs/zh-CN/master/static_graph/feature/skip_data_and_ckpt_health_monitor.html) 和 [故障快速恢复](https://www.mindspore.cn/mindformers/docs/zh-CN/master/static_graph/feature/high_availability.html#故障快速恢复)。 |
+| monitor_config.check_for_global_norm             | bool                  | 可选     | False    | 设置是否开启进程级故障快恢功能。默认为`False`。详情请见 [数据跳过和健康监测](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.10.0/static_graph/feature/skip_data_and_ckpt_health_monitor.html) 和 [故障快速恢复](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.10.0/static_graph/feature/high_availability.html#故障快速恢复)。 |
+| monitor_config.global_norm_spike_threshold       | float                 | 可选     | 3.0      | 设置 global norm 的阈值，当 global norm 超过时触发数据跳过。默认值为`3.0`。详情请见 [数据跳过和健康监测](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.10.0/static_graph/feature/skip_data_and_ckpt_health_monitor.html) 和 [故障快速恢复](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.10.0/static_graph/feature/high_availability.html#故障快速恢复)。 |
+| monitor_config.global_norm_spike_count_threshold | int                   | 可选     | 10       | 设置连续异常 global norm 累计的次数，当次数达到该阈值则触发异常中断，终止训练。默认值为`10`。详情请见 [数据跳过和健康监测](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.10.0/static_graph/feature/skip_data_and_ckpt_health_monitor.html) 和 [故障快速恢复](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.10.0/static_graph/feature/high_availability.html#故障快速恢复)。 |
 
 ### TensorBoard配置
 
-TensorBoard配置主要用于配置训练过程中与TensorBoard相关的参数，便于在训练过程中实时查看和监控训练信息，详情可参考[训练指标监控](https://www.mindspore.cn/mindformers/docs/zh-CN/master/static_graph/feature/monitor.html)。以下是MindSpore Transformers中通用的TensorBoard配置项说明：
+TensorBoard配置主要用于配置训练过程中与TensorBoard相关的参数，便于在训练过程中实时查看和监控训练信息，详情可参考[训练指标监控](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.10.0/static_graph/feature/monitor.html)。以下是MindSpore Transformers中通用的TensorBoard配置项说明：
 
 | 参数名称                                   | 数据类型 | 是否可选 | 默认值 | 取值说明                                                                                                  |
 | ------------------------------------------ | -------- | -------- | ------ | --------------------------------------------------------------------------------------------------------- |

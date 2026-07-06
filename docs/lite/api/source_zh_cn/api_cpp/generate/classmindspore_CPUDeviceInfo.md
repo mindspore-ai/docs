@@ -1,6 +1,6 @@
 # Class CPUDeviceInfo
 
-\#include &lt;[context.h](https://atomgit.com/mindspore/mindspore-lite/blob/master/include/api/context.h)&gt;
+\#include &lt;[context.h](https://atomgit.com/mindspore/mindspore-lite/blob/r2.10/include/api/context.h)&gt;
 
 派生自[DeviceInfoContext](./classmindspore_DeviceInfoContext.md)，模型运行在CPU上的配置。
 

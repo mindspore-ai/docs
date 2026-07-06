@@ -8,7 +8,7 @@
 
 # 使用Tokenizer
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/static_graph/feature/tokenizer.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.10.0/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/r2.10.0/docs/mindformers/docs/source_zh_cn/static_graph/feature/tokenizer.md)
 
 ## 概述
 
@@ -46,7 +46,7 @@ MindSpore Transformers原有的Tokenizer组件与Hugging Face Tokenizer的功能
 
 1. 修改yaml配置
 
-    Qwen3模型的配置文件[predict_qwen3.yaml](https://atomgit.com/mindspore/mindformers/blob/master/configs/qwen3/predict_qwen3.yaml)需要修改的地方如下：
+    Qwen3模型的配置文件[predict_qwen3.yaml](https://atomgit.com/mindspore/mindformers/blob/r1.10.0/configs/qwen3/predict_qwen3.yaml)需要修改的地方如下：
 
     ```yaml
     use_legacy: False

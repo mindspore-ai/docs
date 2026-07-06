@@ -1,6 +1,6 @@
 # Environment Setup Guide
 
-[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/tutorials/source_en/orange_pi/environment_setup.md)
+[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.10.0/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/r2.10.0/tutorials/source_en/orange_pi/environment_setup.md)
 
 This section describes how to burn an image on OrangePi AIpro, customize the installation of CANN and MindSpore, and configure the runtime environment.
 
@@ -327,4 +327,4 @@ The result of multiplication calculation is correct, MindSpore has been installe
 
 ## Next Suggestion
 
-At this point, the OrangePi AIpro development board environment has been set up, and you can experience [online model inference based on MindSpore development on the development board](https://www.mindspore.cn/tutorials/en/master/orange_pi/model_infer.html).
+At this point, the OrangePi AIpro development board environment has been set up, and you can experience [online model inference based on MindSpore development on the development board](https://www.mindspore.cn/tutorials/en/r2.10.0/orange_pi/model_infer.html).

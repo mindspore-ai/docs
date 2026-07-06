@@ -1,6 +1,6 @@
 # 训练内存优化
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/feature/memory_optimization.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.10.0/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/r2.10.0/docs/mindformers/docs/source_zh_cn/feature/memory_optimization.md)
 
 大模型训练中，**激活值（activation）** 通常是显存占用的主要来源。MindSpore Transformers 动态图（PyNative）提供多种显存优化功能，可在配置文件中独立或组合启用，核心思路是以 **算力** 或 **PCIe 带宽** 换取显存。
 
@@ -112,7 +112,7 @@ swap:
 
 ### 概述
 
-重计算（Activation Checkpointing）可以显著降低训练时的激活内存占用，但会额外增加一些计算开销。其核心思想是在前向传播阶段丢弃部分中间激活值，在反向传播时再重新计算所需激活值，以算力换取显存。关于重计算的原理和框架侧能力可参考 [MindSpore 教程文档：重计算](https://www.mindspore.cn/tutorials/zh-CN/master/parallel/recompute.html)。
+重计算（Activation Checkpointing）可以显著降低训练时的激活内存占用，但会额外增加一些计算开销。其核心思想是在前向传播阶段丢弃部分中间激活值，在反向传播时再重新计算所需激活值，以算力换取显存。关于重计算的原理和框架侧能力可参考 [MindSpore 教程文档：重计算](https://www.mindspore.cn/tutorials/zh-CN/r2.10.0/parallel/recompute.html)。
 
 动态图模式下，`recompute` 段通过 `mode` 字段控制重计算的粒度：
 

@@ -6,7 +6,7 @@
 MindSpore Lite Cloud-side Documentation
 ==========================================
 
-MindSpore Lite inference comprises two components: cloud-side inference and device-side inference. This document primarily introduces MindSpore Lite cloud-side inference. For device-side inference, please refer to the `Device-side Inference Documentation <https://www.mindspore.cn/lite/docs/en/master/index.html>`_ .
+MindSpore Lite inference comprises two components: cloud-side inference and device-side inference. This document primarily introduces MindSpore Lite cloud-side inference. For device-side inference, please refer to the `Device-side Inference Documentation <https://www.mindspore.cn/lite/docs/en/r2.10.0/index.html>`_ .
 
 Usage Scenarios
 ------------------

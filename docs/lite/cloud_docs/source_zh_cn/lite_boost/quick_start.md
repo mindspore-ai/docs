@@ -150,4 +150,4 @@ Wan2.2仓库中的[generate.py](https://github.com/Wan-Video/Wan2.2/blob/main/ge
 
 | 算子名称                    | 硬件            | 算子接口 |
 |-------------------------|---------------|------------|
-| [RainFusionAttention](https://atomgit.com/mindspore/mindspore-lite/blob/master/mindspore-lite/lite_boost/docs/ops/RainFusionAttention.md) | Atlas 800I A2 | lite_boost.ops.rain_fusion_attention<br/>lite_boost.ops.sparse_attention |
+| [RainFusionAttention](https://atomgit.com/mindspore/mindspore-lite/blob/r2.10/mindspore-lite/lite_boost/docs/ops/RainFusionAttention.md) | Atlas 800I A2 | lite_boost.ops.rain_fusion_attention<br/>lite_boost.ops.sparse_attention |

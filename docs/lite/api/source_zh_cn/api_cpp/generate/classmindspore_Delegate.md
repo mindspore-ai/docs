@@ -1,6 +1,6 @@
 # Class Delegate
 
-\#include &lt;[delegate.h](https://atomgit.com/mindspore/mindspore-lite/blob/master/include/api/delegate.h)&gt;
+\#include &lt;[delegate.h](https://atomgit.com/mindspore/mindspore-lite/blob/r2.10/include/api/delegate.h)&gt;
 
 `Delegate`定义了第三方AI框架接入MindSpore Lite的代理接口。
 

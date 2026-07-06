@@ -8,7 +8,7 @@ This page belongs to the **Static Graph (GRAPH_MODE) Implementation** section an
 
 # Using Tokenizer
 
-[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_en/static_graph/feature/tokenizer.md)
+[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.10.0/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/r2.10.0/docs/mindformers/docs/source_en/static_graph/feature/tokenizer.md)
 
 ## Overview
 
@@ -46,7 +46,7 @@ The inference process takes the Qwen3 model as an example.
 
 1. Modify the yaml configuration
 
-    Qwen3 model configuration file [predict_qwen3 yaml](https://atomgit.com/mindspore/mindformers/blob/master/configs/qwen3/predict_qwen3.yaml) needs to be modified The places are as follows:
+    Qwen3 model configuration file [predict_qwen3 yaml](https://atomgit.com/mindspore/mindformers/blob/r1.10.0/configs/qwen3/predict_qwen3.yaml) needs to be modified The places are as follows:
 
     ```yaml
     use_legacy: False

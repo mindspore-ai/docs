@@ -8,7 +8,7 @@ This page belongs to the **Static Graph (GRAPH_MODE) Implementation** section an
 
 # Practical Case: Converting Model Weights to Megatron Model Weights
 
-[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_en/static_graph/example/convert_ckpt_to_megatron/convert_ckpt_to_megatron.md)
+[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.10.0/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/r2.10.0/docs/mindformers/docs/source_en/static_graph/example/convert_ckpt_to_megatron/convert_ckpt_to_megatron.md)
 
 This case provides a method for converting the model weights (in Safetensors format) of the [MindSpore Transformers](https://atomgit.com/mindspore/mindformers) library to the format used in the [Megatron-LM](https://github.com/NVIDIA/Megatron-LM) library to facilitate accuracy comparison or migration training. After conversion, Megatron-LM weights are of the BF16 type.
 
@@ -22,14 +22,14 @@ This case provides a method for converting the model weights (in Safetensors for
     git clone https://github.com/NVIDIA/Megatron-LM.git -b core_r0.12.0
     ```
 
-2. Copy the [conversion script](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/static_graph/example/convert_ckpt_to_megatron/convert_ckpt_to_megatron/loader_core_mf.py) to the **Megatron-LM/tools/checkpoint/** directory.
+2. Copy the [conversion script](https://atomgit.com/mindspore/docs/blob/r2.10.0/docs/mindformers/docs/source_zh_cn/static_graph/example/convert_ckpt_to_megatron/convert_ckpt_to_megatron/loader_core_mf.py) to the **Megatron-LM/tools/checkpoint/** directory.
 
 ## Model Weight Preparations
 
 Convert the Safetensors weights saved by MindSpore Transformers.
 
 > - Currently, only the weights of GPT-like models (such as GPT and Qwen) composed of SelfAttention and MLP can be converted. MLA and MoE are not supported.
-> - Only complete weights that are not split for distribution are supported. If weights are distributed, merge them by referring to [Weight Merging](https://www.mindspore.cn/mindformers/docs/en/master/static_graph/feature/safetensors.html#weight-merging).
+> - Only complete weights that are not split for distribution are supported. If weights are distributed, merge them by referring to [Weight Merging](https://www.mindspore.cn/mindformers/docs/en/r1.10.0/static_graph/feature/safetensors.html#weight-merging).
 
 ## Weight Conversion Procedure
 

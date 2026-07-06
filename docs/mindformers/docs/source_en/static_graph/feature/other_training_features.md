@@ -8,7 +8,7 @@ This page belongs to the **Static Graph (GRAPH_MODE) Implementation** section an
 
 # Other Training Features
 
-[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_en/static_graph/feature/other_training_features.md)
+[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.10.0/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/r2.10.0/docs/mindformers/docs/source_en/static_graph/feature/other_training_features.md)
 
 During the large-scale training of deep learning models, challenges such as memory limitations, effective utilization of computational resources, and synchronization issues in distributed training are encountered. To address these challenges, training optimization algorithms are employed to enhance training efficiency, accelerate convergence, and improve the final model performance.
 
@@ -18,7 +18,7 @@ MindSpore Transformers provides optimization algorithms like Recomputation, Grad
 
 ### Overview
 
-MindSpore supported the gradient accumulation implementation interface `mindspore.nn.wrap.cell_wrapper.GradAccumulationCell` in versions after 2.1.1, which provides the gradient accumulation capability by splitting MiniBatch. MindSpore Transformers encapsulates it into a unified training process and enables it through yaml configuration. For the principle of gradient accumulation and the ability of framework measurement, please refer to [MindSpore Document: Gradient Accumulation](https://www.mindspore.cn/tutorials/en/master/parallel/distributed_gradient_accumulation.html).
+MindSpore supported the gradient accumulation implementation interface `mindspore.nn.wrap.cell_wrapper.GradAccumulationCell` in versions after 2.1.1, which provides the gradient accumulation capability by splitting MiniBatch. MindSpore Transformers encapsulates it into a unified training process and enables it through yaml configuration. For the principle of gradient accumulation and the ability of framework measurement, please refer to [MindSpore Document: Gradient Accumulation](https://www.mindspore.cn/tutorials/en/r2.10.0/parallel/distributed_gradient_accumulation.html).
 
 ### Configuration and Usage
 
@@ -164,7 +164,7 @@ callback:
 ### Overview
 
 When RoPE (Rotary Position Embedding) is used as the position encoding in the network, this fusion operator can be enabled to improve overall performance. This feature provides a fused implementation of RoPE, enhancing network performance. For the operator interface, refer to:
-[mindspore.ops.rotary_position_embedding](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.rotary_position_embedding.html)
+[mindspore.ops.rotary_position_embedding](https://www.mindspore.cn/docs/en/r2.10.0/api_python/ops/mindspore.ops.rotary_position_embedding.html)
 
 ### Configuration and Usage
 
@@ -184,7 +184,7 @@ model_config:
 ### Overview
 
 When SwiGLU is used as the activation function in the network, this fusion operator can be enabled to improve overall performance. This feature provides a fused implementation of SwiGLU, enhancing network performance. For the operator functionality, refer to:
-[mindspore.ops.swiglu](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.swiglu.html).
+[mindspore.ops.swiglu](https://www.mindspore.cn/docs/en/r2.10.0/api_python/ops/mindspore.ops.swiglu.html).
 
 ### Configuration and Usage
 
@@ -211,7 +211,7 @@ MindSpore provides thread-level CPU core binding to allocate specific CPU cores 
 
 There are two places to configure CPU affinity under the `context` field: `affinity_cpu_list` and `affinity_config`. `affinity_cpu_list` is merged into `affinity_config`, it will not be elaborated here. When both are configured, `affinity_config` will take effect.
 
-Configure items in the `affinity_config` field under the `context` field. `affinity_config` and all its sub-fields are optional. A string ending with .json can also be passed to transfer the JSON configuration file to the MindSpore API. For details, please refer to [mindspore.runtime.set_cpu_affinity](https://www.mindspore.cn/docs/en/master/api_python/runtime/mindspore.runtime.set_cpu_affinity.html). The following is a two-device example showing both custom configuration and JSON file methods achieving the same binding effect (device0's main thread binds to CPU 0 and CPU 1, minddata thread binds to CPU 10 and CPU 11; device1's main thread binds to CPU 20 and CPU 21, minddata thread binds to CPU 30 and CPU 31):
+Configure items in the `affinity_config` field under the `context` field. `affinity_config` and all its sub-fields are optional. A string ending with .json can also be passed to transfer the JSON configuration file to the MindSpore API. For details, please refer to [mindspore.runtime.set_cpu_affinity](https://www.mindspore.cn/docs/en/r2.10.0/api_python/runtime/mindspore.runtime.set_cpu_affinity.html). The following is a two-device example showing both custom configuration and JSON file methods achieving the same binding effect (device0's main thread binds to CPU 0 and CPU 1, minddata thread binds to CPU 10 and CPU 11; device1's main thread binds to CPU 20 and CPU 21, minddata thread binds to CPU 30 and CPU 31):
 
 ```yaml
 context:
@@ -236,7 +236,7 @@ context:
     ...
 ```
 
-Here is an example of the JSON configuration file. For detailed configuration, please refer to [Using JSON to Unify CPU/NUMA Affinity](https://www.mindspore.cn/tutorials/en/master/parallel/msrun_launcher.html):
+Here is an example of the JSON configuration file. For detailed configuration, please refer to [Using JSON to Unify CPU/NUMA Affinity](https://www.mindspore.cn/tutorials/en/r2.10.0/parallel/msrun_launcher.html):
 
 ```json
 {

@@ -1,6 +1,6 @@
 # Auto Augmentation
 
-[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/tutorials/source_en/dataset/augment.md)
+[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.10.0/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/r2.10.0/tutorials/source_en/dataset/augment.md)
 
 MindSpore not only allows you to customize data augmentation, but also provides an auto augmentation method to automatically perform data augmentation on images based on specific policies.
 

@@ -8,7 +8,7 @@ This page belongs to the **Static Graph (GRAPH_MODE) Implementation** section an
 
 # Training High Availability
 
-[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_en/static_graph/feature/high_availability.md)
+[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.10.0/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/r2.10.0/docs/mindformers/docs/source_en/static_graph/feature/high_availability.md)
 
 ## Overview
 
@@ -43,7 +43,7 @@ Quick recovery and use instructions for malfunctions:
 > - The process-level rapid recovery feature can effectively reduce the time required to restart training after encountering abnormal global norms during the training process.
 > - Please train normally for a period of time before use to determine the threshold of the global norm that needs to be set.
 > - Once a global norm exceeding the set threshold is encountered, an exception will be thrown immediately, entering the fast recovery phase.
-> - The data skipping function cannot be used in conjunction with the quick fault recovery function. Refer to the data skipping function in [Data Skip](https://www.mindspore.cn/mindformers/docs/en/master/static_graph/feature/skip_data_and_ckpt_health_monitor.html#skipping-data) function.
+> - The data skipping function cannot be used in conjunction with the quick fault recovery function. Refer to the data skipping function in [Data Skip](https://www.mindspore.cn/mindformers/docs/en/r1.10.0/static_graph/feature/skip_data_and_ckpt_health_monitor.html#skipping-data) function.
 
 ## Instructions for Use
 
@@ -159,7 +159,7 @@ The key to the end-of-life CheckPoint, UCE and ARF functions of high availabilit
 This section demonstrates the use of the end-of-life CKPT using Qwen3-8B training as an example.
 
 1. First install MindSpore and MindIO
-2. Download MindSpore Transformers and modify the [pretrain_qwen3_8b.yaml](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/static_graph/example/qwen3/pretrain_qwen3_8b.yaml) configuration file with the following main configuration:
+2. Download MindSpore Transformers and modify the [pretrain_qwen3_8b.yaml](https://atomgit.com/mindspore/docs/blob/r2.10.0/docs/mindformers/docs/source_zh_cn/static_graph/example/qwen3/pretrain_qwen3_8b.yaml) configuration file with the following main configuration:
 
     ```yaml
     # runner config
@@ -274,7 +274,7 @@ This chapter uses Qwen3-8B training as an example to demonstrate the use of rapi
 > The parameter values shown in the following examples are only experimental data, please refer to real training data.
 
 1. Install [MindSpore](https://www.mindspore.cn/install/en) first.
-2. Download MindSpore Transformers, using [pretrain_qwen3_8b.yaml](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/static_graph/example/qwen3/pretrain_qwen3_8b.yaml) to add and modify parameters according to the configuration below:
+2. Download MindSpore Transformers, using [pretrain_qwen3_8b.yaml](https://atomgit.com/mindspore/docs/blob/r2.10.0/docs/mindformers/docs/source_zh_cn/static_graph/example/qwen3/pretrain_qwen3_8b.yaml) to add and modify parameters according to the configuration below:
 
     Checkpoint 1.0 configuration:
 
