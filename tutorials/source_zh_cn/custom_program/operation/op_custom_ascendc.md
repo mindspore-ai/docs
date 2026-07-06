@@ -349,7 +349,7 @@ extern "C" std::vector<std::vector<int64_t>> FuncNameInferShape(int *ndims, int6
 - ndims (int \*): 输入shape维度数组。
 - shapes (int64_t \*\*): 输入shape数组。
 - extra (AotExtra \*): 用于带属性的自定义算子扩展。其中`AotExtra`
-  类型定义在MindSpore提供的头文件[custom_aot_extra.h](https://atomgit.com/mindspore/mindspore/blob/v2.10/tests/st/custom/ops_custom/aot_test_files/custom_aot_extra.h)。
+  类型定义在MindSpore提供的头文件[custom_aot_extra.h](https://atomgit.com/mindspore/mindspore/blob/v2.10.0/tests/st/custom/ops_custom/aot_test_files/custom_aot_extra.h)。
 
 **Infer Type函数原型**
 

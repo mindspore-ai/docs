@@ -6,7 +6,7 @@
 
 ### Q: 请问如果不使用高阶API，怎么实现数据下沉？
 
-A: 可以参考此手动下沉方式的[test_tdt_data_transfer.py](https://atomgit.com/mindspore/mindspore/blob/v2.10/tests/st/data_transfer/test_tdt_data_transfer.py)示例实现，不用借助`model.train`接口，目前支持：GPU和Ascend硬件使用。
+A: 可以参考此手动下沉方式的[test_tdt_data_transfer.py](https://atomgit.com/mindspore/mindspore/blob/v2.10.0/tests/st/data_transfer/test_tdt_data_transfer.py)示例实现，不用借助`model.train`接口，目前支持：GPU和Ascend硬件使用。
 
 <br/>
 

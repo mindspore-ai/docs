@@ -153,7 +153,7 @@ For CUDA 11.6:
 conda install mindspore -c mindspore -c conda-forge
 ```
 
-When the network is connected, dependency items are automatically downloaded during MindSpore installation. (For details about the dependency, see required_package in [setup.py](https://atomgit.com/mindspore/mindspore/blob/v2.10/setup.py)). In other cases, you need to install dependency by yourself.
+When the network is connected, dependency items are automatically downloaded during MindSpore installation. (For details about the dependency, see required_package in [setup.py](https://atomgit.com/mindspore/mindspore/blob/v2.10.0/setup.py)). In other cases, you need to install dependency by yourself.
 
 ## Installation Verification
 

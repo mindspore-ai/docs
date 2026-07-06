@@ -6,7 +6,7 @@
 
 If the built-in backend is not sufficient to meet the requirements when using MindSpore, you can utilize MindSpore's custom backend feature to enable your own implemented backend.
 
-This tutorial provides a simple custom backend case as a demonstration. For more comprehensive examples, please refer to the [examples](https://atomgit.com/mindspore/mindspore/blob/v2.10/tests/st/backend/custom_backend/test_custom_backend.py).
+This tutorial provides a simple custom backend case as a demonstration. For more comprehensive examples, please refer to the [examples](https://atomgit.com/mindspore/mindspore/blob/v2.10.0/tests/st/backend/custom_backend/test_custom_backend.py).
 
 ## Implementing Custom Backend
 

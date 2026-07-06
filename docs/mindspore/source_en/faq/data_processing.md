@@ -6,7 +6,7 @@
 
 ### Q: How do I offload data if I do not use high-level APIs?
 
-A: You can implement by referring to the [test_tdt_data_transfer.py](https://atomgit.com/mindspore/mindspore/blob/v2.10/tests/st/data_transfer/test_tdt_data_transfer.py) example of the manual offloading mode without using the `model.train` API. Currently, the GPU-based and Ascend-based hardware is supported.
+A: You can implement by referring to the [test_tdt_data_transfer.py](https://atomgit.com/mindspore/mindspore/blob/v2.10.0/tests/st/data_transfer/test_tdt_data_transfer.py) example of the manual offloading mode without using the `model.train` API. Currently, the GPU-based and Ascend-based hardware is supported.
 
 <br/>
 

@@ -6,7 +6,7 @@
 
 当使用框架时遇到内置后端不足以满足需求时，你可以利用MindSpore的自定义后端功能，使能自己实现的后端。
 
-本教程提供一个简单的自定义后端用例作为展示。更多完整示例，参见MindSpore源码中的[用例](https://atomgit.com/mindspore/mindspore/blob/v2.10/tests/st/backend/custom_backend/test_custom_backend.py)。
+本教程提供一个简单的自定义后端用例作为展示。更多完整示例，参见MindSpore源码中的[用例](https://atomgit.com/mindspore/mindspore/blob/v2.10.0/tests/st/backend/custom_backend/test_custom_backend.py)。
 
 ## 实现自定义后端
 

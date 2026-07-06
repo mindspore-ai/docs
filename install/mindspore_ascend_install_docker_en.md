@@ -251,6 +251,6 @@ CMD ["python", "train.py"]
 
 ## License
 
-View the [license information](https://atomgit.com/mindspore/mindspore/blob/v2.10/LICENSE) for MindSpore included in these images.
+View the [license information](https://atomgit.com/mindspore/mindspore/blob/v2.10.0/LICENSE) for MindSpore included in these images.
 
 As with all container images, pre-installed software packages (Python, system libraries, etc.) may be subject to their respective licenses.

@@ -251,6 +251,6 @@ CMD ["python", "train.py"]
 
 ## 许可证
 
-查看这些镜像中包含的 MindSpore 的[许可证信息](https://atomgit.com/mindspore/mindspore/blob/v2.10/LICENSE)。
+查看这些镜像中包含的 MindSpore 的[许可证信息](https://atomgit.com/mindspore/mindspore/blob/v2.10.0/LICENSE)。
 
 与所有容器镜像一样，预装软件包（Python、系统库等）可能受其自身许可证约束。

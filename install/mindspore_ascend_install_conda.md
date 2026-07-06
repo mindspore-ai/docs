@@ -112,7 +112,7 @@ pip install sympy protobuf attrs cloudpickle decorator ml-dtypes psutil scipy to
 conda install mindspore -c mindspore -c conda-forge
 ```
 
-在联网状态下，安装Conda安装包时会自动下载MindSpore安装包的依赖项（依赖项详情参见[setup.py](https://atomgit.com/mindspore/mindspore/blob/v2.10/setup.py)中的required_package），其余情况需自行安装依赖。
+在联网状态下，安装Conda安装包时会自动下载MindSpore安装包的依赖项（依赖项详情参见[setup.py](https://atomgit.com/mindspore/mindspore/blob/v2.10.0/setup.py)中的required_package），其余情况需自行安装依赖。
 
 ## 配置环境变量
 
