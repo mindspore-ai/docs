@@ -9,8 +9,6 @@ MindSpore Transformers 自 **r2.0.0** 起以 **动态图（PyNative）实现** �
 > - 动态图实现源码位于 `mindformers/pynative/`。
 > - 当前动态图聚焦 **预训练/微调** 训练场景；尚未覆盖的能力由静态图承载，清单见 [静态图实现特性](../feature/static_graph_features.md)。
 
----
-
 ## 概述
 
 动态图实现采用 **分层、模块化** 的设计：
@@ -55,24 +53,22 @@ layers/           Linear · RMSNorm · SwiGlu · FlashAttention · 掩码生成
 
 > `base_models/common/embeddings` 提供 RoPE、YaRN 等位置编码，供上述各层调用。
 
----
-
 ## 核心模块
 
 动态图实现各子模块及其职责如下：
 
-| 模块 | 路径 | 职责 |
-|------|------|------|
-| 训练器 | `pynative/trainer/` | 训练总控 `Trainer`：构建模型/数据/优化器，执行前反向、梯度同步、保存与状态跟踪。 |
-| 配置 | `pynative/config/` | 以 dataclass 集中管理配置，支持从 YAML 加载与校验。 |
-| 分布式 | `pynative/distributed/` | 多维并行的设备网格构建与切分，以及多种显存优化。 |
-| 优化器 | `pynative/optimizer/` | `AdamW` 与 `Muon` 优化器实现，支持分布式同步与混合精度。 |
-| 损失 | `pynative/loss/` | 动态图融合交叉熵 `CrossEntropyLoss`，由自定义 `_LogSoftmax` + `_NLLLoss`（含手写反向）实现。 |
-| 基础模型 | `pynative/base_models/gpt/` | 通用 `GPTModel`，统一支持 Dense 与 MoE，配合 `ModuleSpec` 机制按配置搭建模型；`common/embeddings` 提供 RoPE、YaRN 等位置编码。 |
-| Transformer 组件 | `pynative/transformers/` | Attention、MLA、MTP、TransformerLayer/Block、MLP 及 MoE 子模块。 |
-| 基础层 | `pynative/layers/` | Linear、LayerNorm/RMSNorm、SwiGlu、Flash Attention、掩码生成等融合算子。 |
-| 回调 | `pynative/callback/` | Checkpoint 保存、Loss 监控、训练指标监控、MaxLogits 健康监测。 |
-| 工具 | `pynative/tools/` | 指标监控聚合（`MonitorGroup`）与 Profiling。 |
+| 模块             | 路径                          | 职责                                                                                               |
+|----------------|-----------------------------|--------------------------------------------------------------------------------------------------|
+| 训练器            | `pynative/trainer/`         | 训练总控 `Trainer`：构建模型/数据/优化器，执行前反向、梯度同步、保存与状态跟踪。                                                   |
+| 配置             | `pynative/config/`          | 以 dataclass 集中管理配置，支持从 YAML 加载与校验。                                                               |
+| 分布式            | `pynative/distributed/`     | 多维并行的设备网格构建与切分，以及多种显存优化。                                                                         |
+| 优化器            | `pynative/optimizer/`       | `AdamW` 与 `Muon` 优化器实现，支持分布式同步与混合精度。                                                             |
+| 损失             | `pynative/loss/`            | 动态图融合交叉熵 `CrossEntropyLoss`，由自定义 `_LogSoftmax` + `_NLLLoss`（含手写反向）实现。                            |
+| 基础模型           | `pynative/base_models/gpt/` | 通用 `GPTModel`，统一支持 Dense 与 MoE，配合 `ModuleSpec` 机制按配置搭建模型；`common/embeddings` 提供 RoPE、YaRN 等位置编码。 |
+| Transformer 组件 | `pynative/transformers/`    | Attention、MLA、MTP、TransformerLayer/Block、MLP 及 MoE 子模块。                                          |
+| 基础层            | `pynative/layers/`          | Linear、LayerNorm/RMSNorm、SwiGlu、Flash Attention、掩码生成等融合算子。                                       |
+| 回调             | `pynative/callback/`        | Checkpoint 保存、Loss 监控、训练指标监控、MaxLogits 健康监测。                                                     |
+| 工具             | `pynative/tools/`           | 指标监控聚合（`MonitorGroup`）与 Profiling。                                                               |
 
 下面对单元格信息较多的「配置」与「分布式」两个模块展开说明。
 
@@ -80,15 +76,15 @@ layers/           Linear · RMSNorm · SwiGlu · FlashAttention · 掩码生成
 
 `pynative/config/` 将 YAML 各段映射为独立的数据类，便于校验与默认值管理。常用配置类：
 
-| dataclass | 对应职责 |
-|---|---|
-| `CheckpointConfig` | 权重保存/加载 |
-| `TrainingConfig` | 训练步数、批大小、梯度累积等训练参数 |
+| dataclass           | 对应职责 |
+|---------------------|---|
+| `CheckpointConfig`  | 权重保存/加载 |
+| `TrainingConfig`    | 训练步数、批大小、梯度累积等训练参数 |
 | `ParallelismConfig` | 多维并行维度 |
-| `OptimizerConfig` | 优化器类型与超参 |
+| `OptimizerConfig`   | 优化器类型与超参 |
 | `LrSchedulerConfig` | 学习率策略 |
-| `ModelConfig` | 模型结构参数 |
-| `MonitorConfig` | 指标监控与可视化 |
+| `ModelConfig`       | 模型结构参数 |
+| `MonitorConfig`     | 指标监控与可视化 |
 
 ### 分布式模块的能力
 
@@ -113,7 +109,7 @@ layers/           Linear · RMSNorm · SwiGlu · FlashAttention · 掩码生成
 
 ## 训练能力
 
-动态图训练栈提供以下能力（各能力一览见 [功能特性概述](../feature/overview.md)，配置说明页将随后续提交上线）：
+动态图训练栈提供以下能力（各能力一览见 [功能特性概述](../feature/overview.md)）：
 
 - **多维混合并行**：数据并行（含 FSDP/HSDP 参数切分）、张量并行（TP）、流水线并行（PP，支持 1F1B 与 interleave）、上下文并行（CP，Colossal 方法）、专家并行（EP）与序列并行（SP）的灵活组合。
 - **优化器与学习率**：AdamW、Muon；多种带 warmup 的学习率策略。
@@ -121,8 +117,6 @@ layers/           Linear · RMSNorm · SwiGlu · FlashAttention · 掩码生成
 - **显存优化**：重计算（全量/选择性）、细粒度 SWAP、CPU offload。
 - **权重**：Safetensors 格式的分片保存与加载，支持异步保存与冗余消除。
 - **稳定性与可观测**：断点续训、梯度/参数范数与 Loss 监控、MaxLogits 数值健康监测与 Profiling。
-
----
 
 ## 下一步
 
@@ -142,13 +136,9 @@ bash scripts/msrun_launcher.sh "run_mindformer.py --config <your_config.yaml> --
 
 `--mode 1` 即路由到动态图训练器。完整的「准备配置 → 启动 → 看结果」三步流程见 [快速开始](../quick_start/quick_start.md)，训练指南与各功能特性页正文将随后续提交上线。
 
----
-
 ## 相关文档
 
 - 快速完成一个动态图训练任务：[快速开始](../quick_start/quick_start.md)
 - 各能力一览：[功能特性概述](../feature/overview.md)
 - 已支持的模型：[模型支持库](./models.md)
 - 静态图提供的能力（推理/量化等）：[静态图实现](../static_graph/introduction/overview.md)
-
-> 安装指南、训练指南与各功能特性页正文将随后续提交上线。
