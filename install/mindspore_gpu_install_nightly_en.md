@@ -166,7 +166,7 @@ pip install mindspore-dev -i https://repo.huaweicloud.com/repository/pypi/simple
 Of which,
 
 - MindSpore Nightly supports CUDA 11.1 and 11.6, it will configure automatically according to the version of CUDA installed in your environment.
-- When the network is connected, dependency items are automatically downloaded during .whl package installation. (For details about the dependency, see required_package in [setup.py](https://atomgit.com/mindspore/mindspore/blob/v2.10/setup.py)). In other cases, you need to install dependency by yourself.
+- When the network is connected, dependency items are automatically downloaded during .whl package installation. (For details about the dependency, see required_package in [setup.py](https://atomgit.com/mindspore/mindspore/blob/v2.10.0/setup.py)). In other cases, you need to install dependency by yourself.
 - pip will be installing the latest version of MindSpore GPU Nightly automatically. If you wish to specify the version to be installed, please refer to the instruction below regarding to version update, and specify version manually.
 
 ## Installation Verification

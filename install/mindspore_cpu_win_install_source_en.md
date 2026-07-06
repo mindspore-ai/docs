@@ -48,7 +48,7 @@ call build.bat ms_vs_cpu
 for %x in (output\mindspore*.whl) do pip install %x -i https://repo.huaweicloud.com/repository/pypi/simple/
 ```
 
-When the network is connected, dependency items are automatically downloaded during .whl package installation. (For details about the dependency, see required_package in [setup.py](https://atomgit.com/mindspore/mindspore/blob/v2.10/setup.py)). In other cases, you need to install dependency by yourself.
+When the network is connected, dependency items are automatically downloaded during .whl package installation. (For details about the dependency, see required_package in [setup.py](https://atomgit.com/mindspore/mindspore/blob/v2.10.0/setup.py)). In other cases, you need to install dependency by yourself.
 
 ## Installation Verification
 

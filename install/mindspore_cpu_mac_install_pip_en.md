@@ -73,7 +73,7 @@ conda install scipy -c conda-forge
 pip install mindspore==${MS_VERSION} -i https://repo.mindspore.cn/pypi/simple --trusted-host repo.mindspore.cn --extra-index-url https://repo.huaweicloud.com/repository/pypi/simple/
 ```
 
-When the network is connected, dependencies of MindSpore are automatically downloaded during the .whl package installation. For details about dependencies, see required_package in the [setup.py](https://atomgit.com/mindspore/mindspore/blob/v2.10/setup.py). In other cases, install the dependencies by yourself.
+When the network is connected, dependencies of MindSpore are automatically downloaded during the .whl package installation. For details about dependencies, see required_package in the [setup.py](https://atomgit.com/mindspore/mindspore/blob/v2.10.0/setup.py). In other cases, install the dependencies by yourself.
 
 ## Installation Verification
 

@@ -343,7 +343,7 @@ Here, the function name `FuncName` is the operator name. For single-output, the 
 
 - ndims (int \*): Array of input shape dimensions.
 - shapes (int64_t \*\*): Array of input shapes.
-- extra (AotExtra \*): Used for extending custom operators with attributes. The `AotExtra` type is defined in the MindSpore-provided header file [custom_aot_extra.h](https://atomgit.com/mindspore/mindspore/blob/v2.10/tests/st/custom/ops_custom/aot_test_files/custom_aot_extra.h).
+- extra (AotExtra \*): Used for extending custom operators with attributes. The `AotExtra` type is defined in the MindSpore-provided header file [custom_aot_extra.h](https://atomgit.com/mindspore/mindspore/blob/v2.10.0/tests/st/custom/ops_custom/aot_test_files/custom_aot_extra.h).
 
 **Infer Type Function Prototype**
 

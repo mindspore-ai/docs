@@ -94,7 +94,7 @@ REG_SCHEDULED_PASS(POSITION_BEGIN, {"PassTutorial"})  // 注册调度逻辑
 
   MindSpore Lite的发布件不会提供其他框架下的序列化文件，因此，用户需自行编译获得，请参考[概述](https://www.mindspore.cn/lite/docs/zh-CN/r2.10.0/advanced/third_party/converter_register.html#概述)。
 
-  本示例采用的是tflite模型，用户需编译[flatbuffers](https://atomgit.com/mindspore/mindspore/blob/v2.10/cmake/external_libs/flatbuffers.cmake)，从[MindSpore Lite仓](https://atomgit.com/mindspore/mindspore-lite/tree/r2.10)中获取[TFLITE原型文件](https://atomgit.com/mindspore/mindspore-lite/blob/r2.10/mindspore-lite/tools/converter/parser/tflite/schema.fbs)，最终生成tflite的序列化文件。
+  本示例采用的是tflite模型，用户需编译[flatbuffers](https://atomgit.com/mindspore/mindspore/blob/v2.10.0/cmake/external_libs/flatbuffers.cmake)，从[MindSpore Lite仓](https://atomgit.com/mindspore/mindspore-lite/tree/r2.10)中获取[TFLITE原型文件](https://atomgit.com/mindspore/mindspore-lite/blob/r2.10/mindspore-lite/tools/converter/parser/tflite/schema.fbs)，最终生成tflite的序列化文件。
 
   在`mindspore-lite/examples/converter_extend`目录下创建`schema`文件目录，继而将生成的序列化文件置于`schema`目录下。
 

@@ -147,4 +147,4 @@ Then we have the following results as sin values of above inputs.
     [0.         0.841471   0.19866933 0.29552022 0.38941833]
     </pre></div>
 
-Then we have completed the definition of a custom operator of type pyfunc. For more complete examples of pyfunc-type custom operators, see the `use cases <https://atomgit.com/mindspore/mindspore/blob/v2.10/tests/st/custom/ops_custom/test_custom_pyfunc.py>`_ in the MindSpore source code.
+Then we have completed the definition of a custom operator of type pyfunc. For more complete examples of pyfunc-type custom operators, see the `use cases <https://atomgit.com/mindspore/mindspore/blob/v2.10.0/tests/st/custom/ops_custom/test_custom_pyfunc.py>`_ in the MindSpore source code.
