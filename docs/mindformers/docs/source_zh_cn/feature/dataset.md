@@ -48,7 +48,7 @@ Megatron 数据集是为大规模分布式语言模型预训练场景设计的�
 
 ### 数据预处理
 
-MindSpore Transformers 提供了数据预处理脚本 [preprocess_indexed_dataset.py](https://atomgit.com/mindspore/mindformers/blob/r1.10.0/toolkit/data_preprocess/megatron/preprocess_indexed_dataset.py)，用于将 `json` 格式的原始文本语料转换成 `.bin` 或 `.idx` 文件。如果用户的原始文本不是 `json` 格式，需要自行将数据处理成对应格式的文件。
+MindSpore Transformers 提供了数据预处理脚本 [preprocess_indexed_dataset.py](https://atomgit.com/mindspore/mindformers/blob/r2.0.0/toolkit/data_preprocess/megatron/preprocess_indexed_dataset.py)，用于将 `json` 格式的原始文本语料转换成 `.bin` 或 `.idx` 文件。如果用户的原始文本不是 `json` 格式，需要自行将数据处理成对应格式的文件。
 
 `json` 格式文件的示例如下：
 
@@ -102,7 +102,7 @@ MindSpore Transformers 提供了数据预处理脚本 [preprocess_indexed_datase
 
 4. 生成 `.bin` 或 `.idx` 数据文件
 
-   执行数据预处理脚本 [preprocess_indexed_dataset.py](https://atomgit.com/mindspore/mindformers/blob/r1.10.0/toolkit/data_preprocess/megatron/preprocess_indexed_dataset.py) 可上将原始文本数据通过模型的 tokenizer 转换为对应的 token id。
+   执行数据预处理脚本 [preprocess_indexed_dataset.py](https://atomgit.com/mindspore/mindformers/blob/r2.0.0/toolkit/data_preprocess/megatron/preprocess_indexed_dataset.py) 可上将原始文本数据通过模型的 tokenizer 转换为对应的 token id。
 
    该脚本参数如下：
 
@@ -377,7 +377,7 @@ handler:
 
 #### 自定义数据处理功能
 
-自定义数据预处理功能需要用户自行实现数据处理模块。以下介绍自定义数据处理模块实现过程，可参考 [AlpacaInstructDataHandler](https://atomgit.com/mindspore/mindformers/blob/r1.10.0/mindformers/dataset/handler/alpaca_handler.py)。
+自定义数据预处理功能需要用户自行实现数据处理模块。以下介绍自定义数据处理模块实现过程，可参考 [AlpacaInstructDataHandler](https://atomgit.com/mindspore/mindformers/blob/r2.0.0/mindformers/dataset/handler/alpaca_handler.py)。
 
 用户自定义数据处理支持 `Class` 和 `Method` 两种形式：
 
@@ -397,9 +397,9 @@ handler:
 
    上述的 `CustomHandler` 实现了数据集随机采样的处理操作。如果要实现其他功能，可以修改数据预处理操作并返回处理后的数据集。
 
-   同时，MindSpore Transformers 提供了 [BaseInstructDataHandler](https://atomgit.com/mindspore/mindformers/blob/r1.10.0/mindformers/dataset/handler/base_handler.py)，并内置了 tokenizer 配置功能。如果需要使用 tokenizer，可上继承 `BaseInstructDataHandler` 类。
+   同时，MindSpore Transformers 提供了 [BaseInstructDataHandler](https://atomgit.com/mindspore/mindformers/blob/r2.0.0/mindformers/dataset/handler/base_handler.py)，并内置了 tokenizer 配置功能。如果需要使用 tokenizer，可上继承 `BaseInstructDataHandler` 类。
 
-2. 在 [\_\_init\_\_.py](https://atomgit.com/mindspore/mindformers/blob/r1.10.0/mindformers/dataset/handler/__init__.py) 中添加调用
+2. 在 [\_\_init\_\_.py](https://atomgit.com/mindspore/mindformers/blob/r2.0.0/mindformers/dataset/handler/__init__.py) 中添加调用
 
    ```python
    from .custom_handler import CustomHandler
@@ -423,7 +423,7 @@ handler:
        return dataset
    ```
 
-2. 在 [\_\_init\_\_.py](https://atomgit.com/mindspore/mindformers/blob/r1.10.0/mindformers/dataset/handler/__init__.py) 中添加调用
+2. 在 [\_\_init\_\_.py](https://atomgit.com/mindspore/mindformers/blob/r2.0.0/mindformers/dataset/handler/__init__.py) 中添加调用
 
    ```python
    from .custom_handler import custom_process
@@ -597,7 +597,7 @@ MindRecord 是 MindSpore 提供的高效数据存储/读取模块，可以减少
 
 2. 启动模型微调
 
-   修改模型配置文件中数据集相关配置项之后，即可参考模型文档拉起模型微调任务，这里以[Qwen3 模型文档](https://atomgit.com/mindspore/mindformers/blob/r1.10.0/configs/qwen3/README.md)为例。
+   修改模型配置文件中数据集相关配置项之后，即可参考模型文档拉起模型微调任务，这里以[Qwen3 模型文档](https://atomgit.com/mindspore/mindformers/blob/r2.0.0/configs/qwen3/README.md)为例。
 
 ### 多源数据集
 

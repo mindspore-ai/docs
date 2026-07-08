@@ -27,7 +27,7 @@
 
 ### 1.1 MindSpore Transformers
 
-参考[MindSpore Transformers 环境安装](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.10.0/installation.html)搭建环境。
+参考[MindSpore Transformers 环境安装](https://www.mindspore.cn/mindformers/docs/zh-CN/r2.0.0/installation.html)搭建环境。
 
 ### 1.2 vLLM-MindSpore
 

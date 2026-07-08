@@ -20,7 +20,7 @@
 
 > - 数据跳过功能和健康监测功能二者结合，能有效解决训练过程中异常 global norm 带来的数据异常问题。使用前请先正常训练一段时间，从而确定需要设定的 global norm 的阈值、连续异常次数的阈值以及 embedding norm 的阈值。
 > - 只有连续出现异常时才会中断训练，如果中途出现一次恢复正常，则会清空累计次数，所以请把控阈值的设定。
-> - 数据跳过功能不能与故障快速恢复功能同时使用。参考[高可用特性](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.10.0/static_graph/feature/high_availability.html)中的进程级重调度恢复功能。
+> - 数据跳过功能不能与故障快速恢复功能同时使用。参考[高可用特性](https://www.mindspore.cn/mindformers/docs/zh-CN/r2.0.0/static_graph/feature/high_availability.html)中的进程级重调度恢复功能。
 
 ## 数据跳过
 
@@ -63,7 +63,7 @@ monitor_config:
 
 ### 使用示例
 
-假设以Qwen3-8B为例子，使用的[pretrain_qwen3_8b.yaml](https://atomgit.com/mindspore/docs/tree/r2.10.0/docs/mindformers/docs/source_zh_cn/static_graph/example/qwen3/pretrain_qwen3_8b.yaml)按照上述[配置](#使用方法)添加参数，其余步骤请参考[Qwen3文档](https://atomgit.com/mindspore/mindformers/blob/r1.10.0/configs/qwen3/README.md)。开启训练：
+假设以Qwen3-8B为例子，使用的[pretrain_qwen3_8b.yaml](https://atomgit.com/mindspore/docs/tree/r2.10.0/docs/mindformers/docs/source_zh_cn/static_graph/example/qwen3/pretrain_qwen3_8b.yaml)按照上述[配置](#使用方法)添加参数，其余步骤请参考[Qwen3文档](https://atomgit.com/mindspore/mindformers/blob/r2.0.0/configs/qwen3/README.md)。开启训练：
 
 ```shell
 bash scripts/msrun_launcher.sh "run_mindformer.py \
@@ -198,7 +198,7 @@ parallel_config:
 
 ### 使用示例
 
-假设以Qwen3-8B为例子，使用的[pretrain_qwen3_8b.yaml](https://atomgit.com/mindspore/docs/tree/r2.10.0/docs/mindformers/docs/source_zh_cn/static_graph/example/qwen3/pretrain_qwen3_8b.yaml)按照上述[配置](#使用方法-1)添加参数和修改，其余步骤请参考[Qwen3文档](https://atomgit.com/mindspore/mindformers/blob/r1.10.0/configs/qwen3/README.md)。开启训练：
+假设以Qwen3-8B为例子，使用的[pretrain_qwen3_8b.yaml](https://atomgit.com/mindspore/docs/tree/r2.10.0/docs/mindformers/docs/source_zh_cn/static_graph/example/qwen3/pretrain_qwen3_8b.yaml)按照上述[配置](#使用方法-1)添加参数和修改，其余步骤请参考[Qwen3文档](https://atomgit.com/mindspore/mindformers/blob/r2.0.0/configs/qwen3/README.md)。开启训练：
 
 ```shell
 bash scripts/msrun_launcher.sh "run_mindformer.py \
@@ -242,7 +242,7 @@ Checkpoint 2.0 下健康监测结果保存在`output_path/checkpoint/iteration_x
 
 common.json记录数据如下：
 
-其中ckpt_status记录的是对应权重的健康状况。记录中1表示不健康，0表示健康。其余数据为Checkpoint 2.0的训练参数，详情请查看[Checkpoint 2.0文档](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.10.0/static_graph/feature/resume_training2.0.html)。
+其中ckpt_status记录的是对应权重的健康状况。记录中1表示不健康，0表示健康。其余数据为Checkpoint 2.0的训练参数，详情请查看[Checkpoint 2.0文档](https://www.mindspore.cn/mindformers/docs/zh-CN/r2.0.0/static_graph/feature/resume_training2.0.html)。
 
 ```json
 {

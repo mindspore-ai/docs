@@ -2,7 +2,7 @@
 
 [![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.10.0/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/r2.10.0/docs/mindformers/docs/source_zh_cn/feature/configuration.md)
 
-动态图（PyNative）训练使用一个 YAML 文件集中管理所有可配置项，由 [mindformers/pynative/config/config.py](https://atomgit.com/mindspore/mindformers/blob/r1.10.0/mindformers/pynative/config/config.py) 的 **dataclass 配置体系**（`TrainConfig` 及其子配置类）在对 YAML 文件加载时进行解析与校验：
+动态图（PyNative）训练使用一个 YAML 文件集中管理所有可配置项，由 [mindformers/pynative/config/config.py](https://atomgit.com/mindspore/mindformers/blob/r2.0.0/mindformers/pynative/config/config.py) 的 **dataclass 配置体系**（`TrainConfig` 及其子配置类）在对 YAML 文件加载时进行解析与校验：
 
 - YAML 顶层每一段对应 `TrainConfig` 的一个字段，映射到一个子配置类；
 - 加载时这些子配置类会对配置项进行类型转换与合法性检查，校验失败直接抛错（如 `global_batch_size` 必须为正）；
@@ -552,13 +552,13 @@ callbacks:
 
 ## 加载与启动
 
-动态图训练任务统一通过 [run_mindformer.py](https://atomgit.com/mindspore/mindformers/blob/r1.10.0/run_mindformer.py) 拉起，执行单卡任务可参考如下命令：
+动态图训练任务统一通过 [run_mindformer.py](https://atomgit.com/mindspore/mindformers/blob/r2.0.0/run_mindformer.py) 拉起，执行单卡任务可参考如下命令：
 
 ```bash
 python run_mindformer.py --config train.yaml --mode 1 --use_parallel False
 ```
 
-多卡任务可通过 scripts 目录下的 [msrun_launcher.sh](https://atomgit.com/mindspore/mindformers/blob/r1.10.0/scripts/msrun_launcher.sh) 脚本执行，参考如下命令：
+多卡任务可通过 scripts 目录下的 [msrun_launcher.sh](https://atomgit.com/mindspore/mindformers/blob/r2.0.0/scripts/msrun_launcher.sh) 脚本执行，参考如下命令：
 
 ```bash
 bash scripts/msrun_launcher.sh "run_mindformer.py --config train.yaml --mode 1" 8 # 8表示8卡任务

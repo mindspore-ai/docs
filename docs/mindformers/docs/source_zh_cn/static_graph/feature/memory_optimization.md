@@ -104,7 +104,7 @@ INFO - Formative select_comm_recompute: {'ffn_norm\.norm': [[4, 5, 5, 5, 5], [5,
 
 细粒度激活值SWAP特性通过YAML配置`model_config`字段使能，包括`cpu_offloading`、`default_prefetch`、`cpu_offloading_num_layers`、`op_swap`四个功能接口，用户可通过此接口灵活选择特定层或特定层的特定算子使能激活值SWAP功能。
 
-> 本文档主要介绍Mcore模型的配置方式，配置项位于`model_config`字段下。如果使用Legacy模型，配置项位于`swap_config`字段下，参数名称有所不同，具体配置参数可参考[配置文件说明](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.10.0/static_graph/feature/configuration.html#模型优化配置)中的Legacy配置表格。
+> 本文档主要介绍Mcore模型的配置方式，配置项位于`model_config`字段下。如果使用Legacy模型，配置项位于`swap_config`字段下，参数名称有所不同，具体配置参数可参考[配置文件说明](https://www.mindspore.cn/mindformers/docs/zh-CN/r2.0.0/static_graph/feature/configuration.html#模型优化配置)中的Legacy配置表格。
 >
 > 当前MindSpore框架将内存搬运与内存释放解耦。将激活值从device侧卸载至host侧时，即便数据已全部卸载，其在device侧占用的内存空间并未被立刻释放，而是需要再触发释放操作。内存释放操作触发前，会检测激活值卸载是否完成，若未完成，则进程会原地等待，直至激活值卸载完成。
 

@@ -67,7 +67,7 @@ The steps are as follows:
 
 ## Qwen3 Model Weight Conversion Adaptation Example
 
-Create a new utils.py file under the models/qwen3 directory. Refer to [utils.py](https://atomgit.com/mindspore/mindformers/blob/r1.10.0/mindformers/models/qwen3/utils.py) for more details.
+Create a new utils.py file under the models/qwen3 directory. Refer to [utils.py](https://atomgit.com/mindspore/mindformers/blob/r2.0.0/mindformers/models/qwen3/utils.py) for more details.
 
 Partial code of Qwen3PreTrainedModel is as follows:
 

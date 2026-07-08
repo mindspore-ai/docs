@@ -45,7 +45,7 @@ The **GPU/NPU** dependency versions in the preceding tables are for reference on
 
 - **Megatron-LM**: For details, see [Megatron-LM documentation](https://github.com/NVIDIA/Megatron-LM/tree/core_r0.12.0?tab=readme-ov-file#setup).
 
-- **MindSpore Transformers**: For details, see [MindSpore Transformers documentation](https://atomgit.com/mindspore/mindformers/blob/r1.10.0/README.md).
+- **MindSpore Transformers**: For details, see [MindSpore Transformers documentation](https://atomgit.com/mindspore/mindformers/blob/r2.0.0/README.md).
 
 ## 3. Precision Comparison Process
 
@@ -260,7 +260,7 @@ For each configuration parameter of Megatron-LM, the corresponding configuration
 
 - Recomputation configurations
 
-    The recomputation configuration logic of MindSpore Transformers is greatly different from that of Megatron-LM. For details, see [Recomputation](https://www.mindspore.cn/mindformers/docs/en/r1.10.0/static_graph/feature/memory_optimization.html#recomputation).
+    The recomputation configuration logic of MindSpore Transformers is greatly different from that of Megatron-LM. For details, see [Recomputation](https://www.mindspore.cn/mindformers/docs/en/r2.0.0/static_graph/feature/memory_optimization.html#recomputation).
 
     | Megatron-LM                    | Description                   | MindSpore Transformers | Description                      |
     |--------------------------------|-----------------------|------------------------|--------------------------|
@@ -272,7 +272,7 @@ For each configuration parameter of Megatron-LM, the corresponding configuration
     | `checkpoint-activations`       | Specifies whether to enable the activation checkpoint mechanism to reduce the video RAM.    | Not supported.                 |                          |
     | `moe-layer-recompute`          | Enables recomputation at the MoE layer.           | Not supported.                 |                          |
 
-**Note:** The two frameworks have other configurations that are not closely related to training. For details about MindSpore Transformers, see [Configuration Description](https://www.mindspore.cn/mindformers/docs/en/r1.10.0/static_graph/feature/configuration.html). You can run the `torchrun --nproc_per_node=1 pretrain_gpt.py --help` command to view the Megatron-LM configuration.
+**Note:** The two frameworks have other configurations that are not closely related to training. For details about MindSpore Transformers, see [Configuration Description](https://www.mindspore.cn/mindformers/docs/en/r2.0.0/static_graph/feature/configuration.html). You can run the `torchrun --nproc_per_node=1 pretrain_gpt.py --help` command to view the Megatron-LM configuration.
 
 ### 3.2 Dataset Alignment
 
@@ -290,7 +290,7 @@ Both frameworks support loading the Megatron dataset. The dataset is preprocesse
 
 - Generating Megatron BIN files
 
-   Place the dataset file `wiki.train.tokens` and the tokenization model file `tokenizer.json` in the `../dataset` directory, and create the `data.json` file by referring to [Megatron Dataset > Data Preprocessing](https://www.mindspore.cn/mindformers/docs/en/r1.10.0/static_graph/feature/dataset.html#data-preprocessing).
+   Place the dataset file `wiki.train.tokens` and the tokenization model file `tokenizer.json` in the `../dataset` directory, and create the `data.json` file by referring to [Megatron Dataset > Data Preprocessing](https://www.mindspore.cn/mindformers/docs/en/r2.0.0/static_graph/feature/dataset.html#data-preprocessing).
 
    Use the following command to convert the dataset file into BIN format files. The environment variable `$MINDFORMERS_HOME` refers to the directory where the MindSpore Transformers source code is located. Please set it in advance.
 
@@ -364,7 +364,7 @@ The weight formats, parameter naming modes, and tensor arrangements of MindSpore
 
 1. Generating initial weights of MindSpore Transformers
 
-   Modify the `example.yaml` file by referring to [Callbacks Configuration](https://www.mindspore.cn/mindformers/docs/en/r1.10.0/static_graph/feature/configuration.html#callbacks-configuration) and run the command provided in [Viewing Results](#3-4-viewing-results) to obtain an initial weight in `checkpoints` of `output_dir` in `example.yaml` through pre-training. The modification is as follows:
+   Modify the `example.yaml` file by referring to [Callbacks Configuration](https://www.mindspore.cn/mindformers/docs/en/r2.0.0/static_graph/feature/configuration.html#callbacks-configuration) and run the command provided in [Viewing Results](#3-4-viewing-results) to obtain an initial weight in `checkpoints` of `output_dir` in `example.yaml` through pre-training. The modification is as follows:
 
    ```yaml
    # Before (example.yaml)

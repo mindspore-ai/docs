@@ -24,7 +24,7 @@ The following sections will explain how to generate `.bin` and `.idx` files, as 
 
 ### Data Preprocessing
 
-MindSpore Transformers provides a data preprocessing script, [preprocess_indexed_dataset.py](https://atomgit.com/mindspore/mindformers/blob/r1.10.0/toolkit/data_preprocess/megatron/preprocess_indexed_dataset.py), which is used to convert raw text data in `json` format into `.bin` and `.idx` files.
+MindSpore Transformers provides a data preprocessing script, [preprocess_indexed_dataset.py](https://atomgit.com/mindspore/mindformers/blob/r2.0.0/toolkit/data_preprocess/megatron/preprocess_indexed_dataset.py), which is used to convert raw text data in `json` format into `.bin` and `.idx` files.
 
 If the raw text data is not in `json` format, users need to preprocess and convert it into the appropriate format themselves.
 
@@ -81,7 +81,7 @@ The following example demonstrates how to convert the `wikitext-103` dataset int
 
 4. Generate `.bin` and `.idx` data files
 
-   Run the data preprocessing script [preprocess_indexed_dataset.py](https://atomgit.com/mindspore/mindformers/blob/r1.10.0/toolkit/data_preprocess/megatron/preprocess_indexed_dataset.py) to convert the original text data into corresponding token IDs using the model's tokenizer.
+   Run the data preprocessing script [preprocess_indexed_dataset.py](https://atomgit.com/mindspore/mindformers/blob/r2.0.0/toolkit/data_preprocess/megatron/preprocess_indexed_dataset.py) to convert the original text data into corresponding token IDs using the model's tokenizer.
 
    The script accepts the following parameters:
 
@@ -198,7 +198,7 @@ The following explains how to configure and use Megatron datasets in the configu
    | pad                        | Token ID of the pad token in the dataset                                                                                                                                                                                               |
    | data_path                  | List, every two consecutive elements (number, string) are considered as a dataset, represent ratio of the dataset and the path to its bin file excluding `.bin` suffix respectively. The sum of datasets' ratios should be equal to 1. |
 
-   In addition, the Megatron dataset also depends on configurations such as `input_columns`, `construct_args_key`, and `full_batch`. For more details, refer to the [configuration file documentation](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.10.0/feature/configuration.html).
+   In addition, the Megatron dataset also depends on configurations such as `input_columns`, `construct_args_key`, and `full_batch`. For more details, refer to the [configuration file documentation](https://www.mindspore.cn/mindformers/docs/zh-CN/r2.0.0/feature/configuration.html).
 
    Here, we only explain how to configure them in different scenarios:
 
@@ -403,7 +403,7 @@ For other native dataset processing operations, please refer to the [datasets pr
 
 #### Custom Processing
 
-To use custom preprocessing, implement your own handler module. See [AlpacaInstructDataHandler](https://atomgit.com/mindspore/mindformers/blob/r1.10.0/mindformers/dataset/handler/alpaca_handler.py).
+To use custom preprocessing, implement your own handler module. See [AlpacaInstructDataHandler](https://atomgit.com/mindspore/mindformers/blob/r2.0.0/mindformers/dataset/handler/alpaca_handler.py).
 
 Custom handlers support `Class` and `Method` forms:
 
@@ -423,9 +423,9 @@ If using a `Class`:
 
    The `CustomHandler` above implements the random sampling of the dataset. To achieve other functions, you can modify the data preprocessing operations and return the processed dataset.
 
-   MindSpore Transformers provides [BaseInstructDataHandler](https://atomgit.com/mindspore/mindformers/blob/r1.10.0/mindformers/dataset/handler/base_handler.py) with built-in tokenizer config. If need to use a tokenizer, you can inherit from the `BaseInstructDataHandler` class.
+   MindSpore Transformers provides [BaseInstructDataHandler](https://atomgit.com/mindspore/mindformers/blob/r2.0.0/mindformers/dataset/handler/base_handler.py) with built-in tokenizer config. If need to use a tokenizer, you can inherit from the `BaseInstructDataHandler` class.
 
-2. Add to [\_\_init__.py](https://atomgit.com/mindspore/mindformers/blob/r1.10.0/mindformers/dataset/handler/__init__.py):
+2. Add to [\_\_init__.py](https://atomgit.com/mindspore/mindformers/blob/r2.0.0/mindformers/dataset/handler/__init__.py):
 
    ```python
    from .custom_handler import CustomHandler
@@ -449,7 +449,7 @@ If using a `Method`:
        return dataset
    ```
 
-2. Add to [\_\_init__.py](https://atomgit.com/mindspore/mindformers/blob/r1.10.0/mindformers/dataset/handler/__init__.py):
+2. Add to [\_\_init__.py](https://atomgit.com/mindspore/mindformers/blob/r2.0.0/mindformers/dataset/handler/__init__.py):
 
    ```python
    from .custom_handler import custom_process
@@ -721,7 +721,7 @@ Following the above data preprocessing steps, you can generate a MindRecord data
 
 1. Modify the model configuration file
 
-   The `qwen3-8b` model fine-tuning uses the [finetune_qwen3.yaml](https://atomgit.com/mindspore/mindformers/blob/r1.10.0/configs/qwen3/finetune_qwen3.yaml) configuration file. Modify the dataset section as follows:
+   The `qwen3-8b` model fine-tuning uses the [finetune_qwen3.yaml](https://atomgit.com/mindspore/mindformers/blob/r2.0.0/configs/qwen3/finetune_qwen3.yaml) configuration file. Modify the dataset section as follows:
 
    ```yaml
    train_dataset: &train_dataset
@@ -739,7 +739,7 @@ Following the above data preprocessing steps, you can generate a MindRecord data
 
 2. Start Model Fine-tuning
 
-   After modifying the dataset and parallel-related configurations in the model configuration file, you can refer to the model documentation to launch the fine-tuning task. Here, we take the [Qwen3 model documentation](https://atomgit.com/mindspore/mindformers/blob/r1.10.0/configs/qwen3/README.md) as an example.
+   After modifying the dataset and parallel-related configurations in the model configuration file, you can refer to the model documentation to launch the fine-tuning task. Here, we take the [Qwen3 model documentation](https://atomgit.com/mindspore/mindformers/blob/r2.0.0/configs/qwen3/README.md) as an example.
 
 ### Multi-source Datasets
 
