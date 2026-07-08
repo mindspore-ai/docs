@@ -29,7 +29,7 @@ This case provides a method for converting the model weights (in Safetensors for
 Convert the Safetensors weights saved by MindSpore Transformers.
 
 > - Currently, only the weights of GPT-like models (such as GPT and Qwen) composed of SelfAttention and MLP can be converted. MLA and MoE are not supported.
-> - Only complete weights that are not split for distribution are supported. If weights are distributed, merge them by referring to [Weight Merging](https://www.mindspore.cn/mindformers/docs/en/r1.10.0/static_graph/feature/safetensors.html#weight-merging).
+> - Only complete weights that are not split for distribution are supported. If weights are distributed, merge them by referring to [Weight Merging](https://www.mindspore.cn/mindformers/docs/en/r2.0.0/static_graph/feature/safetensors.html#weight-merging).
 
 ## Weight Conversion Procedure
 

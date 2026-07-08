@@ -14,7 +14,7 @@
 
 ## 重要说明
 
-目前 MindSpore Transformers 已正式推出 **[Checkpoint 2.0 版本](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.10.0/static_graph/feature/checkpoint_saving_and_loading.html)**，并同步发布了适配新版本的[断点续训](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.10.0/static_graph/feature/resume_training2.0.html)官方文档。为保证功能使用的兼容性与先进性，本 Checkpoint 1.0 版本相关文档后续将逐步停止维护（日落），建议用户优先参考新版本文档进行开发与使用。
+目前 MindSpore Transformers 已正式推出 **[Checkpoint 2.0 版本](https://www.mindspore.cn/mindformers/docs/zh-CN/r2.0.0/static_graph/feature/checkpoint_saving_and_loading.html)**，并同步发布了适配新版本的[断点续训](https://www.mindspore.cn/mindformers/docs/zh-CN/r2.0.0/static_graph/feature/resume_training2.0.html)官方文档。为保证功能使用的兼容性与先进性，本 Checkpoint 1.0 版本相关文档后续将逐步停止维护（日落），建议用户优先参考新版本文档进行开发与使用。
 
 ## 概述
 
@@ -58,7 +58,7 @@ output/strategy
 
 > 注：策略文件保存时会覆盖旧文件，为防止覆盖或混杂不同任务的策略文件，请及时将策略文件保存到自定义文件夹。
 
-可参考[Ckpt权重](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.10.0/static_graph/feature/ckpt.html)和[Safetensors权重](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.10.0/static_graph/feature/safetensors.html)，获取更多权重相关信息。
+可参考[Ckpt权重](https://www.mindspore.cn/mindformers/docs/zh-CN/r2.0.0/static_graph/feature/ckpt.html)和[Safetensors权重](https://www.mindspore.cn/mindformers/docs/zh-CN/r2.0.0/static_graph/feature/safetensors.html)，获取更多权重相关信息。
 
 ## YAML参数配置说明
 
@@ -106,7 +106,7 @@ output/strategy
 
 #### safetensors权重
 
-开启权重自动转换，系统会自动合并safetensors权重为[完整权重](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.10.0/static_graph/feature/safetensors.html#完整权重)后进行分布式加载，合并的safetensors权重会落盘到`output/unified_checkpoint`文件夹下；若已经将权重离线合并为[完整权重](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.10.0/static_graph/feature/safetensors.html#完整权重)，则会直接进行分布式加载。离线合并步骤请参考[Safetensors权重-权重切分与合并](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.10.0/static_graph/feature/safetensors.html)章节。
+开启权重自动转换，系统会自动合并safetensors权重为[完整权重](https://www.mindspore.cn/mindformers/docs/zh-CN/r2.0.0/static_graph/feature/safetensors.html#完整权重)后进行分布式加载，合并的safetensors权重会落盘到`output/unified_checkpoint`文件夹下；若已经将权重离线合并为[完整权重](https://www.mindspore.cn/mindformers/docs/zh-CN/r2.0.0/static_graph/feature/safetensors.html#完整权重)，则会直接进行分布式加载。离线合并步骤请参考[Safetensors权重-权重切分与合并](https://www.mindspore.cn/mindformers/docs/zh-CN/r2.0.0/static_graph/feature/safetensors.html)章节。
 
 - 基于最后保存完整的权重续训
 

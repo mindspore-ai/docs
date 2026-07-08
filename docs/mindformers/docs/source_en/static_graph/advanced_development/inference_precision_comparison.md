@@ -27,12 +27,12 @@ In the current development process of reasoning, the process of verifying precis
 ### Online Reasoning Verification
 
 The main objective of online reasoning verification is to verify whether the precision of the reasoning output from a single or multiple inputs is normal. If all the outputs are normal and can be basically aligned with the output of the benchmark in the GPU environment, the next step of verifying the dataset evaluation can be taken.
-For information on how the model performs online reasoning tasks, please refer to the [Reasoning Guide](https://www.mindspore.cn/mindformers/docs/en/r1.10.0/static_graph/guide/inference.html).
+For information on how the model performs online reasoning tasks, please refer to the [Reasoning Guide](https://www.mindspore.cn/mindformers/docs/en/r2.0.0/static_graph/guide/inference.html).
 
 ### Dataset Evaluation
 
 After verification through online reasoning, the output of the benchmark of the model can remain basically consistent while keeping the input the same. However, the data volume is relatively small and the problem involved is not comprehensive enough in terms of domain. Therefore, the precision of the model needs to be ultimately verified through dataset evaluation. Only when the evaluation score of the dataset and the benchmark data can meet an error of 0.4% can it be proved that the precision of the model meets the acceptance criteria.
-For information on how to evaluate the model using datasets, please refer to the [Evaluation Guide](https://www.mindspore.cn/mindformers/docs/en/r1.10.0/static_graph/guide/evaluation.html).
+For information on how to evaluate the model using datasets, please refer to the [Evaluation Guide](https://www.mindspore.cn/mindformers/docs/en/r2.0.0/static_graph/guide/evaluation.html).
 
 ## Positioning Precision Issue
 
@@ -61,12 +61,12 @@ Specific problems that may arise and their solutions:
 - Question 1: There is a KEY value after the colon, and some weights have not been loaded into the network.
     - Reason: The KEY values of the network and the KEY values of the weights do not correspond one-to-one.
     - Location method: Analyze by combining the network structure and the unloaded weights to determine whether it is reasonable that the weights corresponding to each KEY value are not loaded.
-    - Solution: Re-convert the unreasonable weight KEY values. For specific details, please refer to [New Model Weight Conversion Adaptation Tutorial](https://www.mindspore.cn/mindformers/docs/en/r1.10.0/static_graph/advanced_development/weight_transfer.html).
+    - Solution: Re-convert the unreasonable weight KEY values. For specific details, please refer to [New Model Weight Conversion Adaptation Tutorial](https://www.mindspore.cn/mindformers/docs/en/r2.0.0/static_graph/advanced_development/weight_transfer.html).
 
 - Question 2: There is no KEY value after the colon, and all weights are loaded into the network. However, there is still a possibility that incorrect splitting during the weight fusion or splitting process may lead to incorrect data loading.
     - Reason: In most open-source weights, there are fused weights. Sometimes, they need to be split and then fused with other weights. During this process, various divisions may be involved, which can easily lead to problems.
     - Location method: First, focus on analyzing the error-prone areas, such as the qkv part in Attention. Combine the writing method in the network structure to analyze whether various operations during the weight loading process are correct. If the theoretical analysis fails, the weights of the suspected parts can be directly printed out and compared with the weights loaded at the corresponding positions of the benchmark.
-    - Solution: Identify the module with incorrect weight loading through analysis or experimentation. For the solution, please refer to [New Model Weight Conversion and Adaptation Tutorial](https://www.mindspore.cn/mindformers/docs/en/r1.10.0/static_graph/advanced_development/weight_transfer.html).
+    - Solution: Identify the module with incorrect weight loading through analysis or experimentation. For the solution, please refer to [New Model Weight Conversion and Adaptation Tutorial](https://www.mindspore.cn/mindformers/docs/en/r2.0.0/static_graph/advanced_development/weight_transfer.html).
 
 #### 2. There are problems in the construction of the new model
 

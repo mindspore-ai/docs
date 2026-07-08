@@ -40,14 +40,14 @@ lr_schedule:
 
 各学习率需配置的参数不同，MindSpore Transformers 目前支持了以下学习率：
 
-1. [恒定预热学习率](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.10.0/static_graph/core/mindformers.core.ConstantWarmUpLR.html)
-2. [线性预热学习率](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.10.0/static_graph/core/mindformers.core.LinearWithWarmUpLR.html)
-3. [余弦预热学习率](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.10.0/static_graph/core/mindformers.core.CosineWithWarmUpLR.html)
-4. [余弦重启与预热学习率](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.10.0/static_graph/core/mindformers.core.CosineWithRestartsAndWarmUpLR.html)
-5. [带有预热阶段的多项式衰减学习率](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.10.0/static_graph/core/mindformers.core.PolynomialWithWarmUpLR.html)
-6. [SGDR 的余弦退火部分](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.10.0/static_graph/core/mindformers.core.CosineAnnealingLR.html)
-7. [使用余弦退火调度设置每个参数组的学习率](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.10.0/static_graph/core/mindformers.core.CosineAnnealingWarmRestarts.html)
-8. [学习率分层模块](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.10.0/static_graph/core/mindformers.core.LearningRateWiseLayer.html)
+1. [恒定预热学习率](https://www.mindspore.cn/mindformers/docs/zh-CN/r2.0.0/static_graph/core/mindformers.core.ConstantWarmUpLR.html)
+2. [线性预热学习率](https://www.mindspore.cn/mindformers/docs/zh-CN/r2.0.0/static_graph/core/mindformers.core.LinearWithWarmUpLR.html)
+3. [余弦预热学习率](https://www.mindspore.cn/mindformers/docs/zh-CN/r2.0.0/static_graph/core/mindformers.core.CosineWithWarmUpLR.html)
+4. [余弦重启与预热学习率](https://www.mindspore.cn/mindformers/docs/zh-CN/r2.0.0/static_graph/core/mindformers.core.CosineWithRestartsAndWarmUpLR.html)
+5. [带有预热阶段的多项式衰减学习率](https://www.mindspore.cn/mindformers/docs/zh-CN/r2.0.0/static_graph/core/mindformers.core.PolynomialWithWarmUpLR.html)
+6. [SGDR 的余弦退火部分](https://www.mindspore.cn/mindformers/docs/zh-CN/r2.0.0/static_graph/core/mindformers.core.CosineAnnealingLR.html)
+7. [使用余弦退火调度设置每个参数组的学习率](https://www.mindspore.cn/mindformers/docs/zh-CN/r2.0.0/static_graph/core/mindformers.core.CosineAnnealingWarmRestarts.html)
+8. [学习率分层模块](https://www.mindspore.cn/mindformers/docs/zh-CN/r2.0.0/static_graph/core/mindformers.core.LearningRateWiseLayer.html)
 
 以余弦预热学习率（CosineWithWarmUpLR）为例，需要关注的主要参数如下表所列：
 
@@ -74,7 +74,7 @@ lr_schedule:
   total_steps: 20 # -1 means it will load the total steps of the dataset
 ```
 
-更多关于学习率 API 的介绍（如 `type` 的配置名称、学习率算法的介绍），可参见 [MindSpore Transformers API 文档：学习率部分](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.10.0/static_graph/mindformers.core.html#%E5%AD%A6%E4%B9%A0%E7%8E%87) 的相关链接。
+更多关于学习率 API 的介绍（如 `type` 的配置名称、学习率算法的介绍），可参见 [MindSpore Transformers API 文档：学习率部分](https://www.mindspore.cn/mindformers/docs/zh-CN/r2.0.0/static_graph/mindformers.core.html#%E5%AD%A6%E4%B9%A0%E7%8E%87) 的相关链接。
 
 ### 分组学习率
 
@@ -121,7 +121,7 @@ grouped_lr_schedule:
 
 MindSpore Transformers 当前支持以下两类优化器：
 
-- [**AdamW 优化器**](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.10.0/static_graph/mindformers.core.html#%E4%BC%98%E5%8C%96%E5%99%A8)  
+- [**AdamW 优化器**](https://www.mindspore.cn/mindformers/docs/zh-CN/r2.0.0/static_graph/mindformers.core.html#%E4%BC%98%E5%8C%96%E5%99%A8)  
 - **Muon 优化器**
 
 不同优化器通过不同的数学策略（如自适应学习率、动量估计、方向归一化等）影响训练稳定性、收敛速度和最终性能。
@@ -148,7 +148,7 @@ optimizer:
 
 #### 主要配置参数介绍
 
-有关 AdamW 优化器配置的主要参数，可参见 [MindSpore Transformers API 文档：AdamW优化器部分](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.10.0/static_graph/core/mindformers.core.AdamW.html#mindformers.core.AdamW) 的相关链接。
+有关 AdamW 优化器配置的主要参数，可参见 [MindSpore Transformers API 文档：AdamW优化器部分](https://www.mindspore.cn/mindformers/docs/zh-CN/r2.0.0/static_graph/core/mindformers.core.AdamW.html#mindformers.core.AdamW) 的相关链接。
 
 ### Muon 优化器
 

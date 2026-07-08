@@ -2,7 +2,7 @@
 
 [![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.10.0/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/r2.10.0/docs/mindformers/docs/source_zh_cn/feature/save_load_checkpoint.md)
 
-MindSpore Transformers 动态图（PyNative）训练统一以 **Safetensors** 格式保存与加载权重。框架在 `checkpoint` 段（`CheckpointConfig`）集中配置保存与加载行为：保存由 [mindformers/pynative/callback/checkpoint_callback.py](https://atomgit.com/mindspore/mindformers/blob/r1.10.0/mindformers/pynative/callback/checkpoint_callback.py) 的 `CheckpointCallback` 在训练过程中按步触发，加载由 `Trainer` 在训练启动阶段完成。两者底层分别调用 `mindformers.checkpoint.save_checkpoint` 与 `mindformers.checkpoint.load_checkpoint`，并通过权重目录内的 `common.json` 衔接断点续训。
+MindSpore Transformers 动态图（PyNative）训练统一以 **Safetensors** 格式保存与加载权重。框架在 `checkpoint` 段（`CheckpointConfig`）集中配置保存与加载行为：保存由 [mindformers/pynative/callback/checkpoint_callback.py](https://atomgit.com/mindspore/mindformers/blob/r2.0.0/mindformers/pynative/callback/checkpoint_callback.py) 的 `CheckpointCallback` 在训练过程中按步触发，加载由 `Trainer` 在训练启动阶段完成。两者底层分别调用 `mindformers.checkpoint.save_checkpoint` 与 `mindformers.checkpoint.load_checkpoint`，并通过权重目录内的 `common.json` 衔接断点续训。
 
 > **动态图仅用 Safetensors**
 >

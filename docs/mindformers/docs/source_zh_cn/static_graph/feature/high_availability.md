@@ -43,7 +43,7 @@ MindSpore Transformers 高可用特性提供了如下几个功能：
 > - 进程级快速恢复功能，能有效减少训练过程中遇到异常 global norm 而导致中断训练直至重新拉起的时间。
 > - 使用前请先正常训练一段时间，从而确定需要设定的 global norm 的阈值。
 > - 一旦遇到超过设定阈值的global norm，便会立即抛出异常，进入快速恢复阶段。
-> - 数据跳过功能不能与故障快速恢复功能同时使用。参考[数据跳过](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.10.0/static_graph/feature/skip_data_and_ckpt_health_monitor.html#数据跳过)功能。
+> - 数据跳过功能不能与故障快速恢复功能同时使用。参考[数据跳过](https://www.mindspore.cn/mindformers/docs/zh-CN/r2.0.0/static_graph/feature/skip_data_and_ckpt_health_monitor.html#数据跳过)功能。
 
 ## 使用说明
 

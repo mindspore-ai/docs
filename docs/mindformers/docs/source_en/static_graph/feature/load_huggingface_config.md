@@ -34,7 +34,7 @@ This feature only involves the model and inference configurations, with the rele
 
 - pretrained_model_dir: The directory path where the Hugging Face model configuration is located;
 - model_config: Model configuration fields specific to MindSpore Transformers;
-- generation_config: Parameters related to text generation. Optional configuration, increase if customization is needed. For the configuration items, refer to [GenerationConfig](https://www.mindspore.cn/mindformers/docs/en/r1.10.0/static_graph/generation/mindformers.generation.GenerationConfig.html).
+- generation_config: Parameters related to text generation. Optional configuration, increase if customization is needed. For the configuration items, refer to [GenerationConfig](https://www.mindspore.cn/mindformers/docs/en/r2.0.0/static_graph/generation/mindformers.generation.GenerationConfig.html).
 
 ```yaml
 pretrained_model_dir: "./local/qwen3"
@@ -67,7 +67,7 @@ generation_config:
 
 ### Initiating Tasks
 
-Refer to [Using run_mindformer.py to initiate inference tasks](https://www.mindspore.cn/mindformers/docs/en/r1.10.0/static_graph/guide/inference.html#inference-based-on-the-run-mindformer-script).
+Refer to [Using run_mindformer.py to initiate inference tasks](https://www.mindspore.cn/mindformers/docs/en/r2.0.0/static_graph/guide/inference.html#inference-based-on-the-run-mindformer-script).
 
 ## Frequently Asked Questions
 

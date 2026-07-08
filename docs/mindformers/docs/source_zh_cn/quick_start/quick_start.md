@@ -18,7 +18,7 @@
 
 - 已安装 MindSpore 与 MindSpore Transformers，详见 [安装指南](../installation.md)；
 - 昇腾（Ascend）硬件环境，且已正确配置 CANN；
-- 已准备 **Megatron 格式数据集**（`.bin`/`.idx`）。数据集制作（json → bin/idx）可用仓库脚本 [`preprocess_indexed_dataset.py`](https://atomgit.com/mindspore/mindformers/blob/r1.10.0/toolkit/data_preprocess/megatron/preprocess_indexed_dataset.py)，详见「数据集」文档（将随后续提交上线）。
+- 已准备 **Megatron 格式数据集**（`.bin`/`.idx`）。数据集制作（json → bin/idx）可用仓库脚本 [`preprocess_indexed_dataset.py`](https://atomgit.com/mindspore/mindformers/blob/r2.0.0/toolkit/data_preprocess/megatron/preprocess_indexed_dataset.py)，详见「数据集」文档（将随后续提交上线）。
 
 > **数据路径如何衔接配置**
 >

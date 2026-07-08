@@ -27,7 +27,7 @@ You need to install the following environment for model deployment and evaluatio
 
 ### 1.1 MindSpore Transformers
 
-Set up the environment by referring to [MindSpore Transformers Installation Guidelines](https://www.mindspore.cn/mindformers/docs/en/r1.10.0/installation.html).
+Set up the environment by referring to [MindSpore Transformers Installation Guidelines](https://www.mindspore.cn/mindformers/docs/en/r2.0.0/installation.html).
 
 ### 1.2 vLLM-MindSpore
 

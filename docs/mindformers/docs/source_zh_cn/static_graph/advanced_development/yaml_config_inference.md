@@ -53,7 +53,7 @@
 
 ## 使用样例
 
-Mindspore Transformers提供了Qwen3系列模型的YAML配置文件模板[predict_qwen3.yaml](https://atomgit.com/mindspore/mindformers/blob/r1.10.0/configs/qwen3/predict_qwen3.yaml)，不同规格的Qwen3模型可以通过修改相关配置使用该模板执行推理任务。
+Mindspore Transformers提供了Qwen3系列模型的YAML配置文件模板[predict_qwen3.yaml](https://atomgit.com/mindspore/mindformers/blob/r2.0.0/configs/qwen3/predict_qwen3.yaml)，不同规格的Qwen3模型可以通过修改相关配置使用该模板执行推理任务。
 
 以Qwen3-32B为例，按照如下步骤修改YAML配置文件：
 
@@ -71,4 +71,4 @@ Mindspore Transformers提供了Qwen3系列模型的YAML配置文件模板[predic
         model_parallel: 4
     ```
 
-关于执行推理任务的后续操作，详细可见[Qwen3的README](https://atomgit.com/mindspore/mindformers/blob/r1.10.0/configs/qwen3/README.md#%E6%8E%A8%E7%90%86%E6%A0%B7%E4%BE%8B)。
+关于执行推理任务的后续操作，详细可见[Qwen3的README](https://atomgit.com/mindspore/mindformers/blob/r2.0.0/configs/qwen3/README.md#%E6%8E%A8%E7%90%86%E6%A0%B7%E4%BE%8B)。

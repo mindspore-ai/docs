@@ -205,13 +205,13 @@ parallelism:
 - `ulysses`：在 head 维切分，更适合 head 数较多的模型；启用 async 时要保证 head 数能被 ulysses 度整除。
 - `hybrid`：把 CP 拆成「序列分块 × head 切分」两层，适合既需切分长序列、又需 head 维并行的超长序列场景。
 
-**CP 与 FSDP 的耦合**：启用 CP 时，**FSDP 也会作用于 CP 组**：分片网格名为 `fsdp`，规模为 `dp_shard * cp`，即便 `dp_shard == 1`（见 [parallel_dims.py](https://atomgit.com/mindspore/mindformers/blob/r1.10.0/mindformers/pynative/distributed/parallel_dims.py) 的 `fsdp_enabled` / `fsdp` 属性）。即启用 CP 会自动让参数在 CP 组内分片，无需单独配置。
+**CP 与 FSDP 的耦合**：启用 CP 时，**FSDP 也会作用于 CP 组**：分片网格名为 `fsdp`，规模为 `dp_shard * cp`，即便 `dp_shard == 1`（见 [parallel_dims.py](https://atomgit.com/mindspore/mindformers/blob/r2.0.0/mindformers/pynative/distributed/parallel_dims.py) 的 `fsdp_enabled` / `fsdp` 属性）。即启用 CP 会自动让参数在 CP 组内分片，无需单独配置。
 
 此外，CP 在前向开始前会把一个 batch 的输入（`input_ids`、`position_ids`、掩码等）沿序列维切分并分发到 CP 组各卡，使每张卡只拿到自己负责的那段序列——这一步称为 **CP 输入准备**。它目前**仅支持** `context_parallel_mask_type: causal`，传入其它值会直接抛 `NotImplementedError`，也不接受用户自定义的 `attention_mask`：CP 依赖模型侧的**压缩注意力掩码**，必须按下文 3.3 开启掩码压缩。
 
 ### 3.3 注意力掩码压缩（CP 必需）
 
-**`context_parallel > 1` 时必须开启注意力掩码压缩**，否则 [context_parallel.py](https://atomgit.com/mindspore/mindformers/blob/r1.10.0/mindformers/pynative/distributed/context_parallel.py) 的 `apply_context_parallel_model_io` 会直接抛错：
+**`context_parallel > 1` 时必须开启注意力掩码压缩**，否则 [context_parallel.py](https://atomgit.com/mindspore/mindformers/blob/r2.0.0/mindformers/pynative/distributed/context_parallel.py) 的 `apply_context_parallel_model_io` 会直接抛错：
 
 ```text
 Context parallel (context_parallel > 1) requires a compressed attention mask.
@@ -315,7 +315,7 @@ parallelism:
 
 **微批数与调度策略（自动推导 / 预留）**：
 
-- **`pipeline_parallel_microbatch_size` 由框架自动推导，不是用户可配项**。[trainer.py](https://atomgit.com/mindspore/mindformers/blob/r1.10.0/mindformers/pynative/trainer/trainer.py) 会用梯度累积步数覆盖它：`num_accumulation_steps = global_batch_size // (data_parallel * local_batch_size)`（其中 `data_parallel = dp_replicate * dp_shard` 为数据并行维度），随后 `pipeline_parallel_microbatch_size = num_accumulation_steps`。所以需通过 `global_batch_size` / `local_batch_size` 间接控制微批数（见[配置文件说明](./configuration.md)），手填该字段无效。
+- **`pipeline_parallel_microbatch_size` 由框架自动推导，不是用户可配项**。[trainer.py](https://atomgit.com/mindspore/mindformers/blob/r2.0.0/mindformers/pynative/trainer/trainer.py) 会用梯度累积步数覆盖它：`num_accumulation_steps = global_batch_size // (data_parallel * local_batch_size)`（其中 `data_parallel = dp_replicate * dp_shard` 为数据并行维度），随后 `pipeline_parallel_microbatch_size = num_accumulation_steps`。所以需通过 `global_batch_size` / `local_batch_size` 间接控制微批数（见[配置文件说明](./configuration.md)），手填该字段无效。
 - **`pipeline_parallel_schedule`（`ParallelismConfig` 中默认 `"1f1b"`）当前未参与分支**：动态图固定使用上述交织式 1F1B 调度，该字符串不被读取，属预留项。真正影响流水行为的是 `pipeline_parallel_interleave_num` 与 `pipeline_parallel_overlap_p2p` / `pipeline_parallel_overlap_b_f`。
 - **`pipeline_parallel_enable_dxdw_split`（默认 `False`）当前为预留项**：`ParallelismConfig` 中定义了该字段（用于 PP 中 dx/dw 通信拆分），但动态图代码中暂未读取使用，改动它不会改变行为，属预留/占位项，无需填写。
 
@@ -376,7 +376,7 @@ parallelism:
 
 ### 5.1 概述
 
-针对 MoE 模型（DeepSeek-V3 等），`expert_parallel` 把专家分布到不同卡，token 经 all-to-all 路由到所在卡的专家计算（`apply_moe_ep_tp`）。EP **不是独立的卡维度**——它不出现在 `dp_replicate * dp_shard * cp * tp * pp == world_size` 的乘积里，而是 **复用在 `dp_shard * cp * tp` 这片卡上**：[parallel_dims.py](https://atomgit.com/mindspore/mindformers/blob/r1.10.0/mindformers/pynative/distributed/parallel_dims.py) 的 `build_mesh` 为专家单独构造一张稀疏网格 `["pp", "dp_replicate", "efsdp", "ep"]`，专家的 FSDP 分片网格 `efsdp` 由下式计算得到：
+针对 MoE 模型（DeepSeek-V3 等），`expert_parallel` 把专家分布到不同卡，token 经 all-to-all 路由到所在卡的专家计算（`apply_moe_ep_tp`）。EP **不是独立的卡维度**——它不出现在 `dp_replicate * dp_shard * cp * tp * pp == world_size` 的乘积里，而是 **复用在 `dp_shard * cp * tp` 这片卡上**：[parallel_dims.py](https://atomgit.com/mindspore/mindformers/blob/r2.0.0/mindformers/pynative/distributed/parallel_dims.py) 的 `build_mesh` 为专家单独构造一张稀疏网格 `["pp", "dp_replicate", "efsdp", "ep"]`，专家的 FSDP 分片网格 `efsdp` 由下式计算得到：
 
 ```text
 efsdp = dp_shard * cp * tp // expert_parallel
@@ -438,9 +438,9 @@ parallelism:
 
 序列并行（SP）在 TP 的基础上，对 TP 未切分的部分（LayerNorm、Dropout、残差）按 **序列维** 进一步切分，降低这些算子的激活显存。
 
-**SP 随 TP 自动开启，当前不支持单独关闭**：动态图 SPMD 路径中，**只要开启 TP（`tensor_parallel > 1`）就会自动施加 SP**：源码 [base_models/gpt/parallelize.py](https://atomgit.com/mindspore/mindformers/blob/r1.10.0/mindformers/pynative/base_models/gpt/parallelize.py) 调用 `apply_non_moe_tp` 时形参 `enable_sp` 恒为 `True`，**不读取 `sequence_parallel` 配置字段**，因此当前无法通过配置关闭 SP。
+**SP 随 TP 自动开启，当前不支持单独关闭**：动态图 SPMD 路径中，**只要开启 TP（`tensor_parallel > 1`）就会自动施加 SP**：源码 [base_models/gpt/parallelize.py](https://atomgit.com/mindspore/mindformers/blob/r2.0.0/mindformers/pynative/base_models/gpt/parallelize.py) 调用 `apply_non_moe_tp` 时形参 `enable_sp` 恒为 `True`，**不读取 `sequence_parallel` 配置字段**，因此当前无法通过配置关闭 SP。
 
-> 注意：`sequence_parallel` 字段仍会被 [transformer_block.py](https://atomgit.com/mindspore/mindformers/blob/r1.10.0/mindformers/pynative/transformers/transformer_block.py) 的 `TransformerBlock.__init__` 读取，但**仅用于检测 CP 与 SP 的冲突并输出告警**（`cp > 1` 且 `sequence_parallel=True` 时提示「SP 与 CP 冲突，SP 被忽略」），它不是 SP 的功能开关。
+> 注意：`sequence_parallel` 字段仍会被 [transformer_block.py](https://atomgit.com/mindspore/mindformers/blob/r2.0.0/mindformers/pynative/transformers/transformer_block.py) 的 `TransformerBlock.__init__` 读取，但**仅用于检测 CP 与 SP 的冲突并输出告警**（`cp > 1` 且 `sequence_parallel=True` 时提示「SP 与 CP 冲突，SP 被忽略」），它不是 SP 的功能开关。
 
 因此**无需为 SP 单独配置**：按本页第二节配好 TP（`tensor_parallel > 1`），SP 即自动生效。
 
