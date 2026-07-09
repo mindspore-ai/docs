@@ -1,6 +1,6 @@
 # Overall Structure
 
-[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_en/introduction/overview.md)
+[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.10.0/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/r2.10.0/docs/mindformers/docs/source_en/introduction/overview.md)
 
 Starting with **r2.0.0**, MindSpore Transformers has adopted a **dynamic graph (PyNative) implementation** as its primary development path. This chapter introduces the overall architecture, core modules, and training capabilities of the dynamic graph training stack, and provides a minimal starting point for implementation.
 
