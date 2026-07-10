@@ -140,7 +140,6 @@ Using the MindSpore Lite device-side inference framework primarily involves the 
    tools/visual_tool
    tools/benchmark
    tools/cropper_tool
-   tools/obfuscator_tool
    tools/benchmark_golden_data
 
 .. toctree::
