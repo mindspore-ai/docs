@@ -50,7 +50,6 @@ mindspore-lite-{version}-linux-x64
 │   │   ├── libmindspore-lite.so       # Dynamic library of the MindSpore Lite inference framework
 │   │   ├── libmindspore-lite-train.a  # Static library of the MindSpore Lite training framework
 │   │   ├── libmindspore-lite-train.so # Dynamic library of the MindSpore Lite training framework
-│   │   ├── libmsdeobfuscator-lite.so  # To load the dynamic library file for obfuscating models, you need to enable the `MSLITE_ENABLE_MODEL_OBF` option.
 │   │   └── mindspore-lite-java.jar    # MindSpore Lite inference framework JAR package
 │   └── third_party
 │       └── libjpeg-turbo
@@ -59,7 +58,6 @@ mindspore-lite-{version}-linux-x64
     ├── benchmark_train # Directory of the benchmark test tool for training models
     ├── codegen         # Directory of the code generation tool
     ├── converter       # Directory of the converter
-    ├── obfuscator      # Directory of the obfuscator
     └── cropper         # Directory of the library cropping tool
 ```
 
