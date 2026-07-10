@@ -14,7 +14,6 @@ Modules in MindSpore Lite:
 | benchmark_train    | Linux, Android               | Performance and Accuracy Validation              |
 | cropper            | Linux                        | Static library crop tool for libmindspore-lite.a |
 | codegen            | Linux                        | Model inference code generation tool |
-| obfuscator         | Linux                        | Model Obfuscation Tool   |
 
 ## Linux Environment Compilation
 
@@ -207,7 +206,6 @@ After successful installation, you can use the command of `pip show mindspore_li
     │   │   ├── libmindspore-lite.so       # Dynamic library of inference framework in MindSpore Lite
     │   │   ├── libmindspore-lite-train.a  # Static library of training framework in MindSpore Lite
     │   │   ├── libmindspore-lite-train.so # Dynamic library of training framework in MindSpore Lite
-    │   │   ├── libmsdeobfuscator-lite.so  # The files of obfuscated model loading dynamic library, need to open the `MSLITE_ENABLE_MODEL_OBF` option.
     │   │   └── mindspore-lite-java.jar    # Jar of inference framework in MindSpore Lite
     │   └── third_party
     │       └── libjpeg-turbo
@@ -216,7 +214,6 @@ After successful installation, you can use the command of `pip show mindspore_li
         ├── benchmark_train # Training model benchmark tool
         ├── codegen         # Code generation tool
         ├── converter       # Model conversion tool
-        ├── obfuscator      # Model obfuscation tool
         └── cropper         # Static library crop tool
     ```
 
@@ -230,8 +227,7 @@ After successful installation, you can use the command of `pip show mindspore_li
     │   │   ├── libmindspore-lite.a        # Static library of inference framework in MindSpore Lite
     │   │   ├── libmindspore-lite.so       # Dynamic library of inference framework in MindSpore Lite
     │   │   ├── libmindspore-lite-train.a  # Static library of training framework in MindSpore Lite
-    │   │   ├── libmindspore-lite-train.so # Dynamic library of training framework in MindSpore Lite
-    │   │   └── libmsdeobfuscator-lite.so  # The files of obfuscated model loading dynamic library, need to open the `MSLITE_ENABLE_MODEL_OBF` option.
+    │   │   └── libmindspore-lite-train.so # Dynamic library of training framework in MindSpore Lite
     │   └── third_party
     │       ├── hiai_ddk
     │       └── libjpeg-turbo

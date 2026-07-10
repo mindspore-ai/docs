@@ -140,7 +140,6 @@ MindSpore Lite提供面向不同硬件设备的AI模型推理能力，使用Mind
    tools/visual_tool
    tools/benchmark
    tools/cropper_tool
-   tools/obfuscator_tool
    tools/benchmark_golden_data
 
 .. toctree::

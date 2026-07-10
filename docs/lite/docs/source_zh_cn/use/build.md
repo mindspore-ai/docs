@@ -14,7 +14,6 @@ MindSpore Lite包含模块：
 | benchmark_train    | Linux、Android          | 性能测试和精度校验工具              |
 | cropper            | Linux                   | libmindspore-lite.a静态库裁剪工具 |
 | codegen            | Linux                   | 模型推理代码生成工具               |
-| obfuscator         | Linux                   | 模型混淆工具                      |
 
 ## Linux环境编译
 
@@ -207,7 +206,6 @@ python -c "import mindspore_lite"
     │   │   ├── libmindspore-lite.so       # MindSpore Lite推理框架的动态库
     │   │   ├── libmindspore-lite-train.a  # MindSpore Lite训练框架的静态库
     │   │   ├── libmindspore-lite-train.so # MindSpore Lite训练框架的动态库
-    │   │   ├── libmsdeobfuscator-lite.so  # 混淆模型加载动态库文件，需开启`MSLITE_ENABLE_MODEL_OBF`选项。
     │   │   └── mindspore-lite-java.jar    # MindSpore Lite推理框架jar包
     │   └── third_party
     │       └── libjpeg-turbo
@@ -216,7 +214,6 @@ python -c "import mindspore_lite"
         ├── benchmark_train # 训练模型性能与精度调测工具
         ├── codegen         # 代码生成工具
         ├── converter       # 模型转换工具
-        ├── obfuscator      # 模型混淆工具
         └── cropper         # 库裁剪工具
     ```
 
@@ -230,8 +227,7 @@ python -c "import mindspore_lite"
     │   │   ├── libmindspore-lite.a        # MindSpore Lite推理框架的静态库
     │   │   ├── libmindspore-lite.so       # MindSpore Lite推理框架的动态库
     │   │   ├── libmindspore-lite-train.a  # MindSpore Lite训练框架的静态库
-    │   │   ├── libmindspore-lite-train.so # MindSpore Lite训练框架的动态库
-    │   │   └── libmsdeobfuscator-lite.so  # 混淆模型加载动态库文件，需开启`MSLITE_ENABLE_MODEL_OBF`选项。
+    │   │   └── libmindspore-lite-train.so # MindSpore Lite训练框架的动态库
     │   └── third_party
     │       ├── hiai_ddk
     │       └── libjpeg-turbo
