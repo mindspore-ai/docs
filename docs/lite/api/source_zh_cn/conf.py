@@ -31,7 +31,7 @@ copyright = 'MindSpore'
 author = 'MindSpore Lite'
 
 # The full version, including alpha/beta/rc tags
-release = 'master'
+release = '2.10.0'
 
 # -- Allow Sphinx to build documentation normally in non-NPU environments ----
 
@@ -368,56 +368,59 @@ re_view = f"\n.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.
 
 # 发版本时这里启用
 # modify urls
-# re_url = r"(((atomgit.com/mindspore/docs/mindspore-lite)|(atomgit.com/mindspore/docs)|(github.com/mindspore-ai/(mindspore|docs))|" + \
-#          r"(mindspore.cn/(docs|tutorials|lite))|(obs.dualstack.cn-north-4.myhuaweicloud)|" + \
-#          r"(mindspore-website.obs.cn-north-4.myhuaweicloud))[\w\d/_.-]*?)/(master)"
+re_url = r"(((atomgit.com/mindspore/docs/mindspore-lite)|(atomgit.com/mindspore/docs)|" + \
+         r"(mindspore.cn/(docs|tutorials|lite))|(obs.dualstack.cn-north-4.myhuaweicloud)|" + \
+         r"(mindspore-website.obs.cn-north-4.myhuaweicloud))[\w\d/_.-]*?)/(master)"
 
-# re_url2 = r"(atomgit.com/mindspore/mindspore[\w\d/_.-]*?)/(master)"
+re_url2 = r"(atomgit.com/mindspore/mindspore[\w\d/_.-]*?)/(master)"
 
-# re_url3 = r"(((atomgit.com/mindspore/mindformers)|(mindspore.cn/mindformers))[\w\d/_.-]*?)/(master)"
+re_url3 = r"(((atomgit.com/mindspore/mindformers)|(mindspore.cn/mindformers))[\w\d/_.-]*?)/(master)"
+
+re_url4 = r"(atomgit.com/mindspore/mindspore-lite[\w\d/_.-]*?)/(master)"
 
 for cur, _, files in os.walk(present_path):
     for i in files:
         # 发版本时这里启用
-        # if i.endswith('.rst') or i.endswith('.md') or i.endswith('.ipynb'):
-        #     try:
-        #         with open(os.path.join(cur, i), 'r+', encoding='utf-8') as f:
-        #             content = f.read()
-        #             new_content = re.sub(re_url, r'\1/r2.7.0rc1', content)
-        #             new_content = re.sub(re_url3, r'\1/r1.6.0', new_content)
-        #             if i.endswith('.rst'):
-        #                 new_content = re.sub(re_url2, r'\1/v2.7.0-rc1', new_content)
-        #             if new_content != content:
-        #                 f.seek(0)
-        #                 f.truncate()
-        #                 f.write(new_content)
-        #     except Exception:
-        #         print(f'打开{i}文件失败')
-
-        # master使用
-        if not i.endswith('.rst'):
-            continue
-        current_file_path = os.path.normpath(os.path.join(cur, i))
-        if current_file_path not in file_source_map:
-            continue
-        current_source_rel = file_source_map[current_file_path]
-        try:
-            with open(current_file_path, 'r+', encoding='utf-8') as f:
-                content = f.read()
-                if '.. include::' in content and '.. automodule::' in content:
-                    continue
-                if 'autosummary::' not in content and "\n=====" in content:
-                    re_view_ = (
-                        f"{re_view}{current_source_rel}"
-                        f"\n    :alt: 查看源文件\n\n"
-                    )
-                    new_content = re.sub('([=]{5,})\n', r'\1\n' + re_view_, content, count=1)
+        if i.endswith('.rst') or i.endswith('.md') or i.endswith('.ipynb'):
+            try:
+                with open(os.path.join(cur, i), 'r+', encoding='utf-8') as f:
+                    content = f.read()
+                    new_content = re.sub(re_url, r'\1/r2.10.0', content)
+                    new_content = re.sub(re_url3, r'\1/r2.0.0', new_content)
+                    new_content = re.sub(re_url4, r'\1/r2.10', new_content)
+                    if i.endswith('.rst'):
+                        new_content = re.sub(re_url2, r'\1/v2.10.0', new_content)
                     if new_content != content:
                         f.seek(0)
                         f.truncate()
                         f.write(new_content)
-        except Exception as e:
-            print(f"ERROR: 处理文件 {current_file_path} 失败: {e}")
+            except Exception:
+                print(f'打开{i}文件失败')
+
+        # # master使用
+        # if not i.endswith('.rst'):
+        #     continue
+        # current_file_path = os.path.normpath(os.path.join(cur, i))
+        # if current_file_path not in file_source_map:
+        #     continue
+        # current_source_rel = file_source_map[current_file_path]
+        # try:
+        #     with open(current_file_path, 'r+', encoding='utf-8') as f:
+        #         content = f.read()
+        #         if '.. include::' in content and '.. automodule::' in content:
+        #             continue
+        #         if 'autosummary::' not in content and "\n=====" in content:
+        #             re_view_ = (
+        #                 f"{re_view}{current_source_rel}"
+        #                 f"\n    :alt: 查看源文件\n\n"
+        #             )
+        #             new_content = re.sub('([=]{5,})\n', r'\1\n' + re_view_, content, count=1)
+        #             if new_content != content:
+        #                 f.seek(0)
+        #                 f.truncate()
+        #                 f.write(new_content)
+        # except Exception as e:
+        #     print(f"ERROR: 处理文件 {current_file_path} 失败: {e}")
 
 rst_files = set()
 for abs_path in file_source_map.keys():

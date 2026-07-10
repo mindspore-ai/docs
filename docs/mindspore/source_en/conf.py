@@ -87,7 +87,7 @@ copyright = 'MindSpore'
 author = 'MindSpore'
 
 # The full version, including alpha/beta/rc tags
-release = 'master'
+release = '2.10.0'
 
 
 # -- General configuration ---------------------------------------------------
@@ -372,26 +372,29 @@ for i in decorator_list:
         print(f'替换{i[0]}下内容失败')
 
 # 发版本时这里启用
-# re_url = r"(((atomgit.com/mindspore/docs/mindspore-lite)|(atomgit.com/mindspore/docs)|(github.com/mindspore-ai/(mindspore|docs))|" + \
-#          r"(mindspore.cn/(docs|tutorials|lite))|(obs.dualstack.cn-north-4.myhuaweicloud)|" + \
-#          r"(mindspore-website.obs.cn-north-4.myhuaweicloud))[\w\d/_.-]*?)/(master)"
+re_url = r"(((atomgit.com/mindspore/docs/mindspore-lite)|(atomgit.com/mindspore/docs)|" + \
+         r"(mindspore.cn/(docs|tutorials|lite))|(obs.dualstack.cn-north-4.myhuaweicloud)|" + \
+         r"(mindspore-website.obs.cn-north-4.myhuaweicloud))[\w\d/_.-]*?)/(master)"
 
-# re_url2 = r"(atomgit.com/mindspore/mindspore/[\w\d/_.-]*?)/(master)"
+re_url2 = r"(atomgit.com/mindspore/mindspore/[\w\d/_.-]*?)/(master)"
 
-# re_url3 = r"(((atomgit.com/mindspore/mindformers)|(mindspore.cn/mindformers))[\w\d/_.-]*?)/(master)"
+re_url3 = r"(((atomgit.com/mindspore/mindformers)|(mindspore.cn/mindformers))[\w\d/_.-]*?)/(master)"
 
-# for cur, _, files in os.walk(os.path.join(base_path, 'mindspore')):
-#     for i in files:
-#         if i.endswith('.py'):
-#             with open(os.path.join(cur, i), 'r+', encoding='utf-8') as f:
-#                 content = f.read()
-#                 new_content = re.sub(re_url, r'\1/r2.7.0rc1', content)
-#                 new_content = re.sub(re_url2, r'\1/v2.7.0-rc1', new_content)
-#                 new_content = re.sub(re_url3, r'\1/r1.6.0', new_content)
-#                 if new_content != content:
-#                     f.seek(0)
-#                     f.truncate()
-#                     f.write(new_content)
+re_url4 = r"(atomgit.com/mindspore/mindspore-lite[\w\d/_.-]*?)/(master)"
+
+for cur, _, files in os.walk(os.path.join(base_path, 'mindspore')):
+    for i in files:
+        if i.endswith('.py'):
+            with open(os.path.join(cur, i), 'r+', encoding='utf-8') as f:
+                content = f.read()
+                new_content = re.sub(re_url, r'\1/r2.10.0', content)
+                new_content = re.sub(re_url2, r'\1/v2.10.0', new_content)
+                new_content = re.sub(re_url3, r'\1/r2.0.0', new_content)
+                new_content = re.sub(re_url4, r'\1/r2.10', new_content)
+                if new_content != content:
+                    f.seek(0)
+                    f.truncate()
+                    f.write(new_content)
 
 # Copy source files of en python api from mindspore repository.
 copy_path = 'docs/api/api_python_en'
@@ -520,16 +523,17 @@ for cur, _, files in os.walk(des_sir):
                 new_content = content
 
                 # 发版本时这里启用
-                # new_content = re.sub(re_url, r'\1/r2.7.0rc1', new_content)
-                # new_content = re.sub(re_url3, r'\1/r1.6.0', new_content)
-                # if i.endswith('.rst'):
-                #     new_content = re.sub(re_url2, r'\1/v2.7.0-rc1', new_content)
+                new_content = re.sub(re_url, r'\1/r2.10.0', new_content)
+                new_content = re.sub(re_url3, r'\1/r2.0.0', new_content)
+                new_content = re.sub(re_url4, r'\1/r2.10', new_content)
+                if i.endswith('.rst') or i.endswith('.ipynb'):
+                    new_content = re.sub(re_url2, r'\1/v2.10.0', new_content)
 
                 # master使用
-                if i.endswith('.md'):
-                    md_view = f'[![View Source On AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/{docs_branch}/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/{copy_repo}/blob/{branch}/' + copy_path + cur.split('api_python')[-1] + '/' + i + ')\n\n'
-                    if 'resource/_static/logo_source' not in new_content:
-                        new_content = re.sub('(# .*\n\n)', r'\1'+ md_view, new_content, 1)
+                # if i.endswith('.md'):
+                #     md_view = f'[![View Source On AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/{docs_branch}/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/{copy_repo}/blob/{branch}/' + copy_path + cur.split('api_python')[-1] + '/' + i + ')\n\n'
+                #     if 'resource/_static/logo_source' not in new_content:
+                #         new_content = re.sub('(# .*\n\n)', r'\1'+ md_view, new_content, 1)
 
                 if new_content != content:
                     f.seek(0)
@@ -727,7 +731,7 @@ content = re.sub(r"^[\s\S]*?(?=\n## )", "", content, flags=re.DOTALL).lstrip('\n
 
 with open(des_release, "w", encoding="utf-8") as p:
     # 发版本时这里启用
-    # content = re.sub(re_url, r'\1/r2.7.0rc1', content)
-    # content = re.sub(re_url2, r'\1/v2.7.0-rc1', content)
+    content = re.sub(re_url, r'\1/r2.10.0', content)
+    content = re.sub(re_url2, r'\1/v2.10.0', content)
     p.write("# Release Notes" + "\n\n" + release_source)
     p.write(content)
