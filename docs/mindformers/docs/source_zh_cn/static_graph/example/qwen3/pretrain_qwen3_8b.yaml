@@ -71,7 +71,7 @@ train_dataset_task:
   type: CausalLanguageModelDataset
   dataset_config: *train_dataset
 
-# MindSpore context initialization configuration, reference: https://www.mindspore.cn/docs/en/r2.6.0/api_python/mindspore/mindspore.set_context.html
+# MindSpore context initialization configuration, reference: https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.set_context.html
 context:
   mode: 0  # 0--Graph Mode; 1--Pynative Mode
   device_target: "Ascend"  # Target device to run (only supports "Ascend")
