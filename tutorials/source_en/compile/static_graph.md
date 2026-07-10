@@ -1339,7 +1339,7 @@ Combining view and in-place operations improves memory efficiency and computatio
 
 - Tensor indexing scenario
 
-    When enabled via `MS_DEV_TENSOR_INDEX_BOOST`, Tensor indexing uses view and in-place operators for better execution efficiency (see [Environment Variables](https://www.mindspore.cn/docs/en/r2.8.0/api_python/env_var_list.html)).
+    When enabled via `MS_DEV_TENSOR_INDEX_BOOST`, Tensor indexing uses view and in-place operators for better execution efficiency (see [Environment Variables](https://www.mindspore.cn/docs/en/master/api_python/env_var_list.html)).
 
     Only supported on `Ascend` devices. When compiling with `mindspore.jit`, both `jit_level=O0` and `O1` are supported.
 
