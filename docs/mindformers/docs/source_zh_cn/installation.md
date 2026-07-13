@@ -111,7 +111,7 @@ pip install mindformers
 以下演示通过源码安装 HyperParallel：
 
 ```bash
-git clone https://gitcode.com/mindspore/hyper-parallel.git
+git clone https://gitcode.com/mindspore/hyper-parallel.git -b r1.0.0
 cd hyper-parallel
 python setup.py bdist_wheel
 pip install dist/hyper_parallel-*-py3-none-any.whl
