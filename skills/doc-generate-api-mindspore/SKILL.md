@@ -1,272 +1,127 @@
 ---
 name: doc-generate-api-mindspore
-description: Generate documentation for Python APIs, functions, classes, and modules — including docstrings, API references, and examples. Use when adding docstrings to new functions or classes, writing API reference docs, creating examples, documenting classes, or following Python doc conventions. Triggers on phrases like "API documentation", "API docs", "document API", "write API documentation", "generate API docs", "API reference".
+description: Generate documentation for Python APIs, functions, classes, and modules — including English docstrings and Chinese RST docs. Use when adding docstrings to new functions or classes, writing API reference docs, creating examples, documenting classes, or following Python doc conventions. Triggers on phrases like "API documentation", "API docs", "document API", "write API documentation", "generate API docs", "API reference".
 ---
 
-# API Documentation Guide
+# API Documentation Guide (API文档生成指南)
 
-This skill generates professional Python API documentation following common Python conventions (NumPy-style, Google-style, or Sphinx-style).
+This skill generates Python API documentation in **English docstrings** (`.py`) and/or **Chinese RST docs** (`.rst`).
 
-## Before Generation
+## Workflow (工作流程)
 
-1. **Read the source code**: Understand the actual parameter types by reading the function implementation
-2. **Verify parameter types**: Check if parameters accept `int`, `Tensor`, or other types
-3. **Run examples**: Execute the example code to get the actual output values
+### Before Generation (生成前)
 
-## Output Target
+0. **Ask generation scope**: Use the `question` tool to ask the user (single choice, labels in Chinese):
+   - **两者都生成**（默认）— both English and Chinese
+   - **仅英文** — English docstring only
+   - **仅中文** — Chinese RST doc only
 
-The generated documentation should be directly added to the Python source file (.py) as the function/class docstring. Write the docstring into the actual source file using the Edit tool.
+1. **Collect references**: PR links, test files, design docs, issue descriptions
+2. **Read the source code**: Understand function signatures, parameter types, return values
+3. **Verify parameter types**: Cross-reference type hints with references for untyped params
+4. **Run or infer examples**: Get actual output values from test files or references
+ 5. **Check existing files** (if scope includes Chinese RST): Search the docs directory for existing `.rst` files.
+    - Search method: (a) by dotted path pattern — use `glob` with `*<api_name>.rst` across `docs/`, or (b) by content — use `grep` for the API name within `.rst` files under `docs/`.
+    - **Current API found** → Use its current filename; skip Naming Convention + Path Mapping + trimming prompt.
+    - **Current API not found, but sibling APIs (other functions/classes in the same `.py` file) have RST files** → Derive the naming convention from the sibling's filename (e.g., if sibling uses `pkg.module.API`, trim the source filename segment); skip project-wide pattern alignment; proceed to step 6 Path Mapping only.
+    - **No RST found for current API or any sibling** → Proceed to step 6 for full Naming Convention + Path Mapping.
+6. **Identify naming + file paths** (only when no existing file): Determine the `.py` source path. Determine the dotted path via **Naming Convention** (filename = title = directive), check the depth threshold and ask the user if trimming is needed. Then determine the output **directory** via **Path Mapping**.
 
-## Docstring Format
+### Output Target (输出目标)
 
-### Function Docstring
+| Output | File Type | Location | Tools |
+|--------|-----------|----------|-------|
+| English docstring | `.py` | Directly into the Python source file | Read + Edit |
+| Chinese RST doc | `.rst` | Project-specific (see Naming Convention + Path Mapping below) | Read + Edit / Write |
 
-```python
-def rsqrt(input):
-    r"""
-    Returns reciprocal of the square root of a tensor element-wise.
+#### Naming Convention (命名规范)
 
-    .. math::
+**RST filename = title (1st line) = `.. py::` directive path.** One file per API, all three always identical.
 
-        out_{i} = \frac{1}{\sqrt{input_{i}}}
+The full dotted path from the package root is the default. For deeply nested paths, the user may trim intermediate levels — **all three** use the shorter path together.
 
-    Args:
-        input (Tensor): The input tensor. Supported dtypes: float16, float32, float64,
-            bfloat16. Shape: :math:`(*)` where :math:`*` means any number of dimensions.
+Rules:
+- **Default**: full path **starting from the package root** (e.g., `mindspore.ops.affine_grid`), always includes the package name. The package root is the top-level Python package directory in the repo (typically matches the repo name or main source dir), not inferred from internal import statements.
+- **Trimming**: when full path is overly deep, user trims middle segments. Package + API name always kept.
+- **Depth threshold with project pattern alignment**: Determine the dotted path as follows:
+  1. Start from the full dotted path at the package root.
+  2. Check existing `.rst` files in the project's docs directory. If the prevailing pattern consistently omits the source filename (e.g., `pkg.module.API` rather than `pkg.module.filename.API`), automatically trim accordingly to match.
+  3. If the resulting path exceeds **4 levels** (e.g., `mindspore.a.b.c.ReLU` is 5 levels), **must ask** the user whether to trim further. Provide concrete trimming suggestions — list options that keep package + API name and remove different combinations of middle segments. 4 levels or fewer use the current path directly without asking.
+- **Exception**: MindSpore ops `func_` prefix in filename, removed in title/directive.
 
-    Returns:
-        Tensor, has the same shape and dtype as `input`.
+The dotted path determines the filename, title, and directive — **all three must always be identical**.
 
-    Raises:
-        TypeError: If `input` is not a Tensor.
-        TypeError: If dtype of `input` is not float16, float32, float64 or bfloat16.
+Examples:
+| File | Title | Directive |
+|------|-------|-----------|
+| `mindspore.nn.Tanh.rst` | `mindspore.nn.Tanh` | `.. py:class:: mindspore.nn.Tanh` |
+| `mindspore.ops.AffineGrid.rst` | `mindspore.ops.AffineGrid` | `.. py:class:: mindspore.ops.AffineGrid` |
+| `mindspore.ops.func_abs.rst`（例外）| `mindspore.ops.abs` | `.. py:function:: mindspore.ops.abs` |
+| `mindspore.Tensor.abs.rst` | `mindspore.Tensor.abs` | `.. py:method:: mindspore.Tensor.abs` |
 
-    Examples:
-        >>> import numpy as np
-        >>> input = np.array([0.25, 4.0, 1.0])
-        >>> output = rsqrt(input)
-        >>> print(output)
-        [2.  0.5 1. ]
-    """
-```
+For the exception row (3rd), the `func_` prefix is present in the filename but omitted from the title and directive.
 
-### Class Docstring
+#### Path Mapping (路径映射)
 
-```python
-class Linear:
-    r"""
-    Applies a linear transformation to the input: :math:`y = xA^T + b`.
+Once the naming convention (dotted path) is determined, map it to the output directory (where the `.rst` file will be saved).
 
-    Args:
-        in_features (int): Size of each input sample.
-        out_features (int): Size of each output sample.
-        has_bias (bool): If set to False, the layer will not learn an additive bias.
-            Default: ``True``.
-        dtype: Data type of the weight and bias. Default: ``float32``.
+Examples (illustrative only, not an allowlist):
 
-    Inputs:
-        - **x** - Input of shape :math:`(*, in\_features)`.
+| Repository | Source | Dotted Path → Filename | Output Directory |
+|------------|--------|----------------------|------------------|
+| mindspore | `mindspore/python/mindspore/nn/tanh.py` | `mindspore.nn.Tanh` | `docs/api/api_python/nn/` |
+| mindspore-lite | `mindspore-lite/python/api/model.py` | `mindspore_lite.model` | `docs/api/lite_api_python/` |
+| lite_boost | `lite_boost/python/parallel/context_parallel.py` | `lite_boost.parallel.context_parallel` | `lite_boost/docs/api/lite_boost_api_python/lite_boost/` |
 
-    Outputs:
-        Tensor of shape :math:`(*, out\_features)`.
+The directory is derived by: (a) checking existing docs dirs, (b) matching module hierarchy, (c) confirming `.rst` format from neighbors. The table above is only illustrative — **every repo follows this same process.**
 
-    Raises:
-        TypeError: If `in_features` or `out_features` is not an int.
+If the directory still cannot be determined after applying these rules, **ask the user** where to save the `.rst` file.
 
-    Examples:
-        >>> import numpy as np
-        >>> x = np.array([[1.0, 2.0, 3.0]])
-        >>> net = Linear(3, 4)
-        >>> output = net(x)
-        >>> print(output.shape)
-        (1, 4)
-    """
-```
 
-Note: For classes, use **Inputs/Outputs** instead of **Args/Returns** for methods' parameters.
 
-## Section-by-Section Guide
+### Generation (生成中)
 
-### Opening description
+1. **Load rules**: Read the corresponding rules file(s):
+   - **仅英文** → `rules/python-docstring-guide.md`
+   - **仅中文** → `rules/chinese-rst-guide.md`
+   - **两者都生成** → Both `rules/python-docstring-guide.md` and `rules/chinese-rst-guide.md`
 
-- One-line summary of what the function/class does
-- Use "element-wise" for elementwise operations
-- **Include purpose/usage**: Add a sentence explaining what the function is typically used for (e.g., "Usually used to extract a finite signal segment for FFT", "A triangular-shaped weighting function used for smoothing or frequency analysis of signals in digital signal processing")
-- Include math formula with `.. math::` if the operation involves mathematical computation
-- **Add variable definitions**: For math formulas, explain the variables (e.g., "where :math:`N` is the full window size, and n is a natural number less than :math:`N` :[0, 1, ..., N-1]")
+2. **Generate**: Apply the loaded rules to create or update the target file(s) at the mapped paths.
 
-### Args
+### Cross-check (交叉验证)
 
-- `name (type): Description.` format
-- List supported dtypes explicitly if applicable
-- Describe shape with ``:math:`(*, H, W)``` for fixed dims, ``:math:`(*)``` for arbitrary
-- For optional args: `name (type, optional): Description. Default: ``None``.`
+Compare English docstring and Chinese RST for consistency on shared content: params, return type, exception types, math formulas, opening description.
 
-### Returns
+Do NOT flag: Chinese RST omits Examples and Supported Platforms, uses different heading formats.
 
-- Full description including shape relation to inputs
-- `Tensor, has the same shape and dtype as input.` for elementwise operations
-- For multiple returns: use numbered list or separate paragraphs
+- **两者都生成** → Fix inconsistencies directly
+- **仅英文/仅中文** → If the other-language file exists, report discrepancies without modifying it. Skip if it does not exist.
 
-### Raises
+### Quality Checklist (质量检查清单)
 
-- `TypeError`: for wrong input type
-- `ValueError`: for wrong value/shape
-- Document all explicitly raised exceptions
+If any item is not satisfied, fix it directly.
 
-### Examples
+#### English Docstring
 
-- Always runnable (copy-paste should work)
-- Show imports, input creation, the function call, and `print(output)` with expected output
-- Use `>>>` prompt for Python statements, show expected output below
-
-## Math Notation
-
-Use reStructuredText math directives:
-
-```rst
-Inline: :math:`x^2 + y^2`
-
-Block:
-.. math::
-
-    \text{out}_i = \frac{x_i - \mu}{\sqrt{\sigma^2 + \epsilon}}
-```
-
-**Piecewise function** (for functions withDifferent definitions in Different ranges):
-
-```rst
-.. math::
-
-    w[n] = 1 - \left| \frac{2n}{N-1} - 1 \right| = \begin{cases}
-    \frac{2n}{N - 1} & \text{if } 0 \leq n \leq \frac{N - 1}{2} \\
-    2 - \frac{2n}{N - 1} & \text{if } \frac{N - 1}{2} < n < N \\
-    \end{cases},
-
-where :math:`N` is the full window size, and n is a natural number less than :math:`N` :[0, 1, ..., N-1].
-```
-
-Common patterns:
-
-- Element-wise: `out_{i} = f(input_{i})`
-- Matrix: `Y = xA^T + b`
-- Reduction: `out = \sum_{i} input_{i}`
-
-## dtype Documentation Patterns
-
-```python
-# Common dtype lists for the docstring:
-
-# Float ops:
-# Supported dtypes: float16, float32, float64, bfloat16.
-
-# Integer ops:
-# Supported dtypes: int8, int16, int32, int64, uint8.
-
-# All numeric:
-# Supported dtypes: int8, int16, int32, int64, uint8, uint16, uint32, uint64,
-#     float16, float32, float64, bfloat16.
-
-# Complex:
-# Supported dtypes: complex64, complex128.
-```
-
-## Shape Documentation
-
-```python
-# For ops with specific shape requirements:
-# - input: Shape :math:`(N, C, H, W)`.
-# - kernel_size (int or tuple[int]): The size of the sliding window.
-#   If int, the height and width will be the same value.
-
-# For broadcast-compatible inputs:
-# - x: Shape :math:`(*)` where :math:`*` means any number of dimensions.
-# - y: Shape :math:`(*)`, must be broadcastable with `x`.
-```
-
-## Common Docstring Styles
-
-### NumPy Style
-
-```python
-def func(x):
-    """
-    One-line summary.
-
-    Longer description.
-
-    Parameters
-    ----------
-    x : type
-        Description.
-
-    Returns
-    -------
-    result : type
-        Description.
-    """
-```
-
-### Google Style
-
-```python
-def func(x):
-    """
-    One-line summary.
-
-    Longer description.
-
-    Args:
-        x: Description.
-
-    Returns:
-        Description.
-    """
-```
-
-### Sphinx Style (reStructuredText)
-
-```python
-def func(x):
-    """
-    One-line summary.
-
-    :param x: Description.
-    :type x: type
-    :return: Description.
-    :rtype: type
-    """
-```
-
-## Reference from Existing Docs
-
-When generating documentation for a new API, you can reference existing well-documented APIs in the codebase to ensure consistency:
-
-1. **Find similar APIs**: Search for functions/classes with similar functionality in the codebase
-2. **Extract patterns**: Note the docstring structure, section ordering, and style
-3. **Adapt format**: Apply the same patterns to your new documentation
-4. **Verify consistency**: Ensure parameter names, types, and return descriptions match the reference
-
-Example workflow:
-
-```bash
-# Find similar functions in the codebase
-grep -r "def similar_function" --include="*.py" .
-
-# Find well-documented classes
-grep -r "class.*:" -A 30 *.py | head -100
-```
-
-## Quality Checklist
-
-- [ ] Docstring present on the Python function/class
-- [ ] Opening description includes purpose/usage explanation
-- [ ] Math formula included for non-obvious operations
-- [ ] Variable definitions added for math formulas (where N, n, M, etc. are explained)
-- [ ] All parameters documented with type and description
-- [ ] Returns section accurately describes output
-- [ ] Raises section lists all explicitly raised exceptions
-- [ ] Example is copy-paste runnable and shows expected output
-- [ ] Parameters match the actual function signature
-- [ ] Type hints are consistent with parameter descriptions
-- [ ] Default values are documented for optional parameters
+- [ ] Summary in third person, includes purpose
+- [ ] Args/Returns/Raises sections complete per signature
+- [ ] Example is runnable and shows expected output
+- [ ] Uses `r"""..."""` raw string prefix
+
+#### Chinese RST
+
+- [ ] RST filename = title = `.. py::` directive path, all three consistent (exception: `func_` prefix kept in filename, omitted in title/directive)
+- [ ] Title followed by `=` underline before directive
+- [ ] Correct heading: `参数：` / `返回：` / `异常：` / `输入：` / `输出：`
+- [ ] Parameter format: `- **name** (Type) - Description.`
+- [ ] No colons in description text
+- [ ] No Examples or Supported Platforms sections
+- [ ] Proper nouns kept in English (NumPy, MindSpore, etc.)
+
+### After Generation (生成后)
+
+- **仅英文** → Report the `.py` file path. If an existing Chinese RST was found with inconsistencies, list them.
+- **仅中文** → Report the `.rst` file path. If an existing English docstring was found with inconsistencies, list them.
+- **两者都生成** → Report both paths plus total APIs documented.
+
+> **Tip**: After generation, additional references (PR links, test files, etc.) can be provided to refine accuracy.
