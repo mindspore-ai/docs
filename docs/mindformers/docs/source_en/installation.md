@@ -61,8 +61,8 @@ bash build.sh
 ```
 
 ```bash
-# r2.0 version (r2.0 branch, corresponding to 2.0.0 release)
-git clone -b r2.0 https://atomgit.com/mindspore/mindformers.git
+# r2.0.0 version (r2.0.0 branch, corresponding to 2.0.0 release)
+git clone -b r2.0.0 https://atomgit.com/mindspore/mindformers.git
 cd mindformers
 bash build.sh
 ```
