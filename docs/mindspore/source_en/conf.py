@@ -116,9 +116,6 @@ extensions = [
     'IPython.sphinxext.ipython_console_highlighting'
 ]
 
-autodoc_default_options = {
-    'inherited-members': False,
-}
 
 source_suffix = {
     '.rst': 'restructuredtext',
