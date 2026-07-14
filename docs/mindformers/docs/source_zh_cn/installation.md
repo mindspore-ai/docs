@@ -61,8 +61,8 @@ bash build.sh
 ```
 
 ```bash
-# r2.0 版本（r2.0 分支，对应 2.0.0 发布版本）
-git clone -b r2.0 https://atomgit.com/mindspore/mindformers.git
+# r2.0.0 版本（r2.0.0 分支，对应 2.0.0 发布版本）
+git clone -b r2.0.0 https://atomgit.com/mindspore/mindformers.git
 cd mindformers
 bash build.sh
 ```
