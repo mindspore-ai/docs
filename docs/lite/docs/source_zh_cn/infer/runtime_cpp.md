@@ -264,7 +264,16 @@ if (build_ret != mindspore::kSuccess) {
 >
 > 针对大模型，使用model buffer进行加载编译的时候需要单独设置权重文件的路径，通过[LoadConfig](https://www.mindspore.cn/lite/api/zh-CN/r2.10.0/generate/classmindspore_Model.html#loadconfig)或[UpdateConfig](https://www.mindspore.cn/lite/api/zh-CN/r2.10.0/generate/classmindspore_Model.html#updateconfig)接口设置模型路径，其中`section`为`model_file`，`key`为`mindir_path`；使用model path进行加载编译的时候不需要设置其他参数，会自动读取权重参数。
 >
-> 用户在源码编译时如果启用了`MSLITE_ENABLE_MODEL_PRE_INFERENCE`功能，运行时会在Build阶段（非加密场景）默认进行预推理，以检测程序是否能正常执行。该功能可通过[LoadConfig](https://www.mindspore.cn/lite/api/zh-CN/r2.10.0/generate/classmindspore_Model.html#loadconfig)或[UpdateConfig](https://www.mindspore.cn/lite/api/zh-CN/r2.10.0/generate/classmindspore_Model.html#updateconfig)接口设置关闭，其中`section`为`common`，`key`为`enable_pre_inference`，`value`为`true`或`false`。
+> 预推理功能通过配置文件开启，在配置文件的 `[common]` 节中设置 `enable_pre_inference=true` 即可启用：
+>
+> ```ini
+> [common]
+> enable_pre_inference=true
+> ```
+>
+> 运行时会在Build阶段（非加密场景）进行预推理，以检测程序是否能正常执行。该功能可通过[LoadConfig](https://www.mindspore.cn/lite/api/>zh-CN/r2.10.0/generate/classmindspore_Model.html#loadconfig)或[UpdateConfig](https://www.mindspore.cn/lite/api/zh-CN/r2.10.0/generate/classmindspore_Model.html#updateconfig)接口设置关闭，其中`section`为`common`，`key`为`enable_pre_inference`，`value`为`true`或`false`。
+>
+> 预推理功能仅在 Linux 平台、非 Debug 编译模式下生效。对于存在动态维度（shape 中包含 -1）或输入 size 为 0 的模型，预推理会自动跳过，不进行检测。
 
 ## 输入数据
 

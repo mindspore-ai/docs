@@ -264,7 +264,16 @@ if (build_ret != mindspore::kSuccess) {
 >
 > For large models, when using the model buffer to load and compile, you need to set the path of the weight file separately, set the model path through [LoadConfig](https://www.mindspore.cn/lite/api/en/r2.10.0/generate/classmindspore_Model.html) or [UpdateConfig](https://www.mindspore.cn/lite/api/en/r2.10.0/generate/classmindspore_Model.html) interface, where `section` is `model_File`, `key` is `mindir_path`. When using the model path to load and compile, you do not need to set other parameters. The weight parameters will be automatically read.
 >
-> If the user enables the `MSLITE_ENABLE_MODEL_PRE_INFERENCE` function when compiling the source code, the runtime will perform pre-inference by default in the Build phase(non-encrypted scenario) to check whether the program can execute normally. This function can be disabled through [LoadConfig](https://www.mindspore.cn/lite/api/en/r2.10.0/generate/classmindspore_Model.html) or [UpdateConfig](https://www.mindspore.cn/lite/api/en/r2.10.0/generate/classmindspore_Model.html) interface, where `section` is `common`, `key` is `enable_pre_inference`, `value` is `true` or `false`.
+> The pre-inference feature can be enabled through a configuration file by setting `enable_pre_inference=true` in the `[common]` section:
+>
+> ```ini
+> [common]
+> enable_pre_inference=true
+> ```
+>
+> The runtime will perform pre-inference in the Build phase (non-encrypted scenario) to check whether the program can execute normally. This function can be disabled through [LoadConfig](https://www.mindspore.cn/lite/api/en/r2.10.0/generate/classmindspore_Model.html) or [UpdateConfig](https://www.mindspore.cn/lite/api/en/r2.10.0/generate/classmindspore_Model.html) interface, where `section` is `common`, `key` is `enable_pre_inference`, `value` is `true` or `false`.
+>
+> The pre-inference feature only takes effect on the Linux platform and under non-Debug compilation mode. For models with dynamic dimensions (shape contains -1) or input size of 0, pre-inference will be automatically skipped.
 
 ## Inputting Data
 
