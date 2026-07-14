@@ -7,7 +7,7 @@ Starting with **r2.0.0**, MindSpore Transformers has adopted a **dynamic graph (
 > **The Limits of Dynamic Graph Capabilities**
 >
 > - The source code for the dynamic graph is located in `mindformers/pynative/`.
-> - The current dynamic graph focuses on **pre-training and fine-tuning** scenarios; capabilities such as inference, service deployment, and quantization are still provided by the static graph. For more details, see the [Static Graph Implementation](../static_graph/introduction/overview.md) section.
+> - The current dynamic graph focuses on **pre-training and fine-tuning** scenarios; capabilities such as inference, service deployment, and quantization are still provided by the static graph. For more details, see the [Static Graph Implementation](../feature/static_graph_features.md) section.
 
 ## Overview
 
@@ -93,11 +93,9 @@ The following sections expand on the "Configuration" and "Distributed" modules, 
 - **Parallelism Dimensions**: DP (including FSDP/HSDP parameter sharding), TP, PP, CP, EP, SP. The device mesh is constructed based on the product of each dimension, satisfying `dp_replicate * dp_shard * cp * tp * pp == world_size` (`parallel_dims.py`).
 - **Memory Optimization**: Activation checkpointing, fine-grained SWAP, CPU offload.
 
-```{admonition} About pet (LoRA) and models subdirectories
-:class: warning
-
-The `pynative/pet/` and `pynative/models/` directories currently only contain `__init__.py` and have no implementation yet. LoRA fine-tuning is **not yet implemented** in the dynamic graph: when triggered, it will raise `NotImplementedError("Lora model is not implemented yet.")` in `trainer/utils.py`. For LoRA, please use the static graph implementation.
-```
+> **About pet (LoRA) and models subdirectories**
+>
+>The `pynative/pet/` and `pynative/models/` directories currently only contain `__init__.py` and have no implementation yet. LoRA fine-tuning is **not yet implemented** in the dynamic graph: when triggered, it will raise `NotImplementedError("Lora model is not implemented yet.")` in `trainer/utils.py`. For LoRA, please use the static graph implementation.
 
 ---
 
@@ -105,7 +103,7 @@ The `pynative/pet/` and `pynative/models/` directories currently only contain `_
 
 The dynamic graph adopts a **hierarchical abstraction + modular** design: `GPTModel` (General PreTrained Model) serves as the unified model interface, composing modular interfaces downwards such as `TransformerBlock`, `MoELayer`, `Attention`, `Linear`, `Embedding`, `Norm`, etc., and freely combines them to build models through the `ModuleSpec` mechanism. All modules have undergone parallel and operator fusion optimizations based on MindSpore's dynamic graph.
 
-Models currently implemented in the dynamic graph include DeepSeek-V3 (MoE + MLA + MTP) and Qwen3 (Dense).
+The dynamic graph already covers both Dense and MoE (including MLA and MTP) model structures. For the list of implemented models, see [Model Support Library](./models.md).
 
 ---
 
@@ -136,8 +134,11 @@ python run_mindformer.py --config <your_config.yaml> --mode 1
 bash scripts/msrun_launcher.sh "run_mindformer.py --config <your_config.yaml> --mode 1"
 ```
 
-`--mode 1` routes to the dynamic graph trainer. The complete "prepare configuration → launch → view results" process and end-to-end training configurations will be supplemented in subsequent documentation (Quick Start, Training Guide, feature-specific pages).
+`--mode 1` routes to the dynamic graph trainer. The full three-step process of `Prepare Configuration → Start → See Results` can be found in [Quick Start](../quick_start/quick_start.md). The training guide and feature pages will be updated online soon.
 
 ## Related Documentation
 
-- Capabilities provided by the static graph (inference/quantization, etc.): [Static Graph Implementation](../static_graph/introduction/overview.md)
+- Quickly complete a dynamic graph training task: [Quick Start](../quick_start/quick_start.md)
+- Overview of all features: [Feature Overview](../feature/overview.md)
+- Supported models: [Model Support Library](./models.md)
+- Capabilities provided by the static graph (inference/quantisation, etc.): [Static Graph Implementation](../static_graph/introduction/overview.md)

@@ -1,5 +1,7 @@
 # 安装指南
 
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/installation.md)
+
 本指南面向 **动态图（PyNative）** 场景，介绍 MindSpore Transformers 的环境依赖、安装方式与安装校验。动态图任务通过 `msrun ... run_mindformer.py --config xxx.yaml --mode 1` 启动（`--mode 1` 即 PyNative 模式），当前已支持 DeepSeek-V3等模型（完整模型清单见 [模型库](introduction/models.md)）。
 
 安装总体分四步：**① 准备昇腾硬件并装好驱动/固件 → ② 按版本配套表安装 CANN 与 MindSpore → ③ 安装 MindSpore Transformers 本体 → ④ 安装 HyperParallel（动态图训练必需）**。其中第三步可在源码、pip、Docker 三种方式中任选其一。
