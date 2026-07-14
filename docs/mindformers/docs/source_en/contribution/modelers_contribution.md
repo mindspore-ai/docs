@@ -76,7 +76,7 @@ If there is a custom tokenizer, the tokenizer needs to be saved:
 tokenizer.save_pretrained("./my_model", save_json=True)
 ```
 
-And add auto mapping to the saved tokenizer_config.json:.
+And add auto mapping to the saved tokenizer_config.json:
 
 ```json
 {
@@ -100,4 +100,4 @@ openmind_hub.upload_folder(
 )
 ```
 
-The uploaded example can be found in the [Model](https://modelers.cn/models/MindSpore-Lab/internlm2-7b/tree/main) of the Modelers community.
+The uploaded example can be found in the [InternLM2-7B Model](https://modelers.cn/models/MindSpore-Lab/internlm2-7b/tree/main) of the Modelers community.

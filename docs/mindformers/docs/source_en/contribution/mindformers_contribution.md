@@ -100,7 +100,8 @@ If you wish to merge custom models into the `MindSpore Transformers` code reposi
 
 ### Only One Commit
 
-For multi-commit PRs, use the `squash` command to merge multiple commits into one. For example, use:
+For multi-commit PRs, use the `squash` command to merge multiple commits into one.
+For example, use:
 
 ```shell
 git rebase -i HEAD~3
@@ -118,8 +119,8 @@ squash merge commit (can be simplified to abbreviations such as s, p, f, etc.)
 
 ```shell
 pick 1234567 Add new function A
-pick 89abcdef Fixed bugs in A
-pick 01234567 Some optimizations to A
+squash 89abcdef Fixed bugs in A
+squash 01234567 Some optimizations to A
 ```
 
 ### PR Descriptions
@@ -146,7 +147,7 @@ Please use the following md template.
 
 ```
 
-### Access Control Requirements
+### CI Gate Requirements
 
 1. Submitting a PR requires [signing a CLA](https://www.mindspore.cn/icla).
 
@@ -206,7 +207,8 @@ Please use the following md template.
 2. Execute a Single Test File
 
     ```bash
-    pytest tests/st/test_demo.py
+    cd test/st
+    pytest test_demo.py
     ```
 
 3. Execute with Mark Filtering
@@ -220,13 +222,13 @@ Please use the following md template.
 4. Execute a Single Test Method
 
     ```bash
-    # Execute X86 CPU single-card training test case
+    # Execute npu single-card training test case
     pytest test_demo.py::TestMyModelTrainPredict::test_train_ascend_single_card -v
     ```
 
 ### Test Case Example
 
-The following is a complete implementation of tests/st/test_demo.py that complies with specifications, covering core scenarios of CPU single-card, Ascend single-card training, and Ascend multi-card inference:
+The following is a complete implementation of tests/st/test_demo.py that complies with specifications, covering core scenarios of Ascend single-card training and Ascend multi-card inference:
 
 ```python
 import pytest

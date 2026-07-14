@@ -1,64 +1,71 @@
-# Models
+# Model Support Library
 
 [![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_en/introduction/models.md)
 
-The following table lists models supported by MindSpore Transformers.
+This page serves as the unified **Model Support Library** for MindSpore Transformers. The **Execution Mode** column in the table below indicates the runtime modes supported by each model:
 
-| Model                                                                                                     | Specifications                |    Model Type     | Model Architecture |        Latest Version         |
-|:----------------------------------------------------------------------------------------------------------|:------------------------------|:-----------------:|:------------------:|:-----------------------------:|
-| [Qwen3](https://atomgit.com/mindspore/mindformers/tree/master/configs/qwen3)                              | 0.6B/1.7B/4B/8B/14B/32B       |     Dense LLM     |       Mcore        | 1.7.0, In-Development Version |
-| [Qwen3-MoE](https://atomgit.com/mindspore/mindformers/tree/master/configs/qwen3_moe)                      | 30B-A3B/235B-A22B             |    Sparse LLM     |       Mcore        | 1.7.0, In-Development Version |
-| [DeepSeek-V3](https://atomgit.com/mindspore/mindformers/tree/master/research/deepseek3)                   | 671B                          |    Sparse LLM     |    Mcore/Legacy    | 1.7.0, In-Development Version |
-| [GLM4.5](https://atomgit.com/mindspore/mindformers/tree/master/configs/glm4_moe)                          | 106B-A12B/355B-A32B           |    Sparse LLM     |       Mcore        | 1.7.0, In-Development Version |
-| [GLM4](https://atomgit.com/mindspore/mindformers/tree/master/configs/glm4)                                | 9B                            |     Dense LLM     |    Mcore/Legacy    | 1.7.0, In-Development Version |
-| [Qwen2.5](https://atomgit.com/mindspore/mindformers/tree/master/research/qwen2_5)                         | 0.5B/1.5B/7B/14B/32B/72B      |     Dense LLM     |       Legacy       | 1.7.0, In-Development Version |
-| [TeleChat2](https://atomgit.com/mindspore/mindformers/tree/master/research/telechat2)                     | 7B/35B/115B                   |     Dense LLM     |    Mcore/Legacy    | 1.7.0, In-Development Version |
-| [Llama3.1](https://atomgit.com/mindspore/mindformers/tree/r1.7.0/research/llama3_1)                       | 8B/70B                        |     Dense LLM     |       Legacy       |             1.7.0             |
-| [Mixtral](https://atomgit.com/mindspore/mindformers/tree/r1.7.0/research/mixtral)                         | 8x7B                          |    Sparse LLM     |       Legacy       |             1.7.0             |
-| [CodeLlama](https://atomgit.com/mindspore/mindformers/blob/r1.5.0/docs/model_cards/codellama.md)          | 34B                           |     Dense LLM     |       Legacy       |             1.5.0             |
-| [CogVLM2-Image](https://atomgit.com/mindspore/mindformers/blob/r1.5.0/docs/model_cards/cogvlm2_image.md)  | 19B                           |        MM         |       Legacy       |             1.5.0             |
-| [CogVLM2-Video](https://atomgit.com/mindspore/mindformers/blob/r1.5.0/docs/model_cards/cogvlm2_video.md)  | 13B                           |        MM         |       Legacy       |             1.5.0             |
-| [DeepSeek-V2](https://atomgit.com/mindspore/mindformers/tree/r1.5.0/research/deepseek2)                   | 236B                          |    Sparse LLM     |       Legacy       |             1.5.0             |
-| [DeepSeek-Coder-V1.5](https://atomgit.com/mindspore/mindformers/tree/r1.5.0/research/deepseek1_5)         | 7B                            |     Dense LLM     |       Legacy       |             1.5.0             |
-| [DeepSeek-Coder](https://atomgit.com/mindspore/mindformers/tree/r1.5.0/research/deepseek)                 | 33B                           |     Dense LLM     |       Legacy       |             1.5.0             |
-| [GLM3-32K](https://atomgit.com/mindspore/mindformers/tree/r1.5.0/research/glm32k)                         | 6B                            |     Dense LLM     |       Legacy       |             1.5.0             |
-| [GLM3](https://atomgit.com/mindspore/mindformers/blob/r1.5.0/docs/model_cards/glm3.md)                    | 6B                            |     Dense LLM     |       Legacy       |             1.5.0             |
-| [InternLM2](https://atomgit.com/mindspore/mindformers/tree/r1.5.0/research/internlm2)                     | 7B/20B                        |     Dense LLM     |       Legacy       |             1.5.0             |
-| [Llama3.2](https://atomgit.com/mindspore/mindformers/blob/r1.5.0/docs/model_cards/llama3_2.md)            | 3B                            |     Dense LLM     |       Legacy       |             1.5.0             |
-| [Llama3.2-Vision](https://atomgit.com/mindspore/mindformers/blob/r1.5.0/docs/model_cards/mllama.md)       | 11B                           |        MM         |       Legacy       |             1.5.0             |
-| [Llama3](https://atomgit.com/mindspore/mindformers/tree/r1.5.0/research/llama3)                           | 8B/70B                        |     Dense LLM     |       Legacy       |             1.5.0             |
-| [Qwen2](https://atomgit.com/mindspore/mindformers/tree/r1.5.0/research/qwen2)                             | 0.5B/1.5B/7B/57B/57B-A14B/72B | Dense /Sparse LLM |       Legacy       |             1.5.0             |
-| [Qwen1.5](https://atomgit.com/mindspore/mindformers/tree/r1.5.0/research/qwen1_5)                         | 7B/14B/72B                    |     Dense LLM     |       Legacy       |             1.5.0             |
-| [Qwen-VL](https://atomgit.com/mindspore/mindformers/tree/r1.5.0/research/qwenvl)                          | 9.6B                          |        MM         |       Legacy       |             1.5.0             |
-| [TeleChat](https://atomgit.com/mindspore/mindformers/tree/r1.5.0/research/telechat)                       | 7B/12B/52B                    |     Dense LLM     |       Legacy       |             1.5.0             |
-| [Whisper](https://atomgit.com/mindspore/mindformers/blob/r1.5.0/docs/model_cards/whisper.md)              | 1.5B                          |        MM         |       Legacy       |             1.5.0             |
-| [Yi](https://atomgit.com/mindspore/mindformers/tree/r1.5.0/research/yi)                                   | 6B/34B                        |     Dense LLM     |       Legacy       |             1.5.0             |
-| [YiZhao](https://atomgit.com/mindspore/mindformers/tree/r1.5.0/research/yizhao)                           | 12B                           |     Dense LLM     |       Legacy       |             1.5.0             |
-| [Llama2](https://atomgit.com/mindspore/mindformers/blob/r1.3.0/docs/model_cards/llama2.md)                | 7B/13B/70B                    |     Dense LLM     |       Legacy       |             1.3.2             |
-| [Baichuan2](https://atomgit.com/mindspore/mindformers/blob/r1.3.0/research/baichuan2/baichuan2.md)        | 7B/13B                        |     Dense LLM     |       Legacy       |             1.3.2             |
-| [GLM2](https://atomgit.com/mindspore/mindformers/blob/r1.3.0/docs/model_cards/glm2.md)                    | 6B                            |     Dense LLM     |       Legacy       |             1.3.2             |
-| [GPT2](https://atomgit.com/mindspore/mindformers/blob/r1.3.0/docs/model_cards/gpt2.md)                    | 124M/13B                      |     Dense LLM     |       Legacy       |             1.3.2             |
-| [InternLM](https://atomgit.com/mindspore/mindformers/blob/r1.3.0/research/internlm/internlm.md)           | 7B/20B                        |     Dense LLM     |       Legacy       |             1.3.2             |
-| [Qwen](https://atomgit.com/mindspore/mindformers/blob/r1.3.0/research/qwen/qwen.md)                       | 7B/14B                        |     Dense LLM     |       Legacy       |             1.3.2             |
-| [CodeGeex2](https://atomgit.com/mindspore/mindformers/blob/r1.1.0/docs/model_cards/codegeex2.md)          | 6B                            |     Dense LLM     |       Legacy       |             1.1.0             |
-| [WizardCoder](https://atomgit.com/mindspore/mindformers/blob/r1.1.0/research/wizardcoder/wizardcoder.md)  | 15B                           |     Dense LLM     |       Legacy       |             1.1.0             |
-| [Baichuan](https://atomgit.com/mindspore/mindformers/blob/r1.0/research/baichuan/baichuan.md)             | 7B/13B                        |     Dense LLM     |       Legacy       |              1.0              |
-| [Blip2](https://atomgit.com/mindspore/mindformers/blob/r1.0/docs/model_cards/blip2.md)                    | 8.1B                          |        MM         |       Legacy       |              1.0              |
-| [Bloom](https://atomgit.com/mindspore/mindformers/blob/r1.0/docs/model_cards/bloom.md)                    | 560M/7.1B/65B/176B            |     Dense LLM     |       Legacy       |              1.0              |
-| [Clip](https://atomgit.com/mindspore/mindformers/blob/r1.0/docs/model_cards/clip.md)                      | 149M/428M                     |        MM         |       Legacy       |              1.0              |
-| [CodeGeex](https://atomgit.com/mindspore/mindformers/blob/r1.0/research/codegeex/codegeex.md)             | 13B                           |     Dense LLM     |       Legacy       |              1.0              |
-| [GLM](https://atomgit.com/mindspore/mindformers/blob/r1.0/docs/model_cards/glm.md)                        | 6B                            |     Dense LLM     |       Legacy       |              1.0              |
-| [iFlytekSpark](https://atomgit.com/mindspore/mindformers/blob/r1.0/research/iflytekspark/iflytekspark.md) | 13B                           |     Dense LLM     |       Legacy       |              1.0              |
-| [Llama](https://atomgit.com/mindspore/mindformers/blob/r1.0/docs/model_cards/llama.md)                    | 7B/13B                        |     Dense LLM     |       Legacy       |              1.0              |
-| [MAE](https://atomgit.com/mindspore/mindformers/blob/r1.0/docs/model_cards/mae.md)                        | 86M                           |        MM         |       Legacy       |              1.0              |
-| [Mengzi3](https://atomgit.com/mindspore/mindformers/blob/r1.0/research/mengzi3/mengzi3.md)                | 13B                           |     Dense LLM     |       Legacy       |              1.0              |
-| [PanguAlpha](https://atomgit.com/mindspore/mindformers/blob/r1.0/docs/model_cards/pangualpha.md)          | 2.6B/13B                      |     Dense LLM     |       Legacy       |              1.0              |
-| [SAM](https://atomgit.com/mindspore/mindformers/blob/r1.0/docs/model_cards/sam.md)                        | 91M/308M/636M                 |        MM         |       Legacy       |              1.0              |
-| [Skywork](https://atomgit.com/mindspore/mindformers/blob/r1.0/research/skywork/skywork.md)                | 13B                           |     Dense LLM     |       Legacy       |              1.0              |
-| [Swin](https://atomgit.com/mindspore/mindformers/blob/r1.0/docs/model_cards/swin.md)                      | 88M                           |        MM         |       Legacy       |              1.0              |
-| [T5](https://atomgit.com/mindspore/mindformers/blob/r1.0/docs/model_cards/t5.md)                          | 14M/60M                       |     Dense LLM     |       Legacy       |              1.0              |
-| [VisualGLM](https://atomgit.com/mindspore/mindformers/blob/r1.0/research/visualglm/visualglm.md)          | 6B                            |        MM         |       Legacy       |              1.0              |
-| [Ziya](https://atomgit.com/mindspore/mindformers/blob/r1.0/research/ziya/ziya.md)                         | 13B                           |     Dense LLM     |       Legacy       |              1.0              |
-| [Bert](https://atomgit.com/mindspore/mindformers/blob/r0.8/docs/model_cards/bert.md)                      | 4M/110M                       |     Dense LLM     |       Legacy       |              0.8              |
+- **PyNative (Dynamic Graph)**: Enabled via `--mode 1`. Operations are dispatched and executed eagerly on-the-fly, facilitating debugging and development. Models currently supporting PyNative are marked in the table below, with corresponding implementations located at `mindformers/models/*/modeling_*_pynative.py`.
+- **GRAPH_MODE (Static Graph)**: The entire graph is compiled and executed as a whole. For details, refer to [Static Graph Implementation](../static_graph/introduction/overview.md).
 
-&#42; ***LLM:*** *Large Language Model;* ***MM:*** *Multi-Modal*
+Currently, PyNative is supported for: **DeepSeek-V3** (MoE + MLA + MTP) and **Qwen3** (Dense). All other existing models are implemented for static graph execution.
+
+## Model List
+
+| Model Name | Supported Specs | Model Type | Model Architecture | Execution Mode | Latest Supported Version |
+|:---|:---|:---:|:---:|:---:|:---:|
+| [DeepSeek-V3](https://atomgit.com/mindspore/mindformers/tree/master/mindformers/models/deepseek3) | 671B | Sparse LLM | Mcore/Legacy | **PyNative** / Static Graph | 1.7.0, WIP |
+| [Qwen3](https://atomgit.com/mindspore/mindformers/tree/master/mindformers/models/qwen3) | 0.6B/1.7B/4B/8B/14B/32B | Dense LLM | Mcore | **PyNative** / Static Graph | 1.7.0, WIP |
+| [Qwen3-MoE](https://atomgit.com/mindspore/mindformers/tree/master/configs/qwen3_moe) | 30B-A3B/235B-A22B | Sparse LLM | Mcore | Static Graph | 1.7.0, WIP |
+| [GLM4.5](https://atomgit.com/mindspore/mindformers/tree/master/configs/glm4_moe) | 106B-A12B/355B-A32B | Sparse LLM | Mcore | Static Graph | 1.7.0, WIP |
+| [GLM4](https://atomgit.com/mindspore/mindformers/tree/master/configs/glm4) | 9B | Dense LLM | Mcore/Legacy | Static Graph | 1.7.0, WIP |
+| [Qwen2.5](https://atomgit.com/mindspore/mindformers/tree/master/research/qwen2_5) | 0.5B/1.5B/7B/14B/32B/72B | Dense LLM | Legacy | Static Graph | 1.7.0, WIP |
+| [TeleChat2](https://atomgit.com/mindspore/mindformers/tree/master/research/telechat2) | 7B/35B/115B | Dense LLM | Mcore | Static Graph | 1.7.0, WIP |
+| [Llama3.1](https://atomgit.com/mindspore/mindformers/tree/r1.7.0/research/llama3_1) | 8B/70B | Dense LLM | Legacy | Static Graph | 1.7.0 |
+| [Mixtral](https://atomgit.com/mindspore/mindformers/tree/r1.7.0/research/mixtral) | 8x7B | Sparse LLM | Legacy | Static Graph | 1.7.0 |
+| [CodeLlama](https://atomgit.com/mindspore/mindformers/blob/r1.5.0/docs/model_cards/codellama.md) | 34B | Dense LLM | Legacy | Static Graph | 1.5.0 |
+| [CogVLM2-Image](https://atomgit.com/mindspore/mindformers/blob/r1.5.0/docs/model_cards/cogvlm2_image.md) | 19B | MM | Legacy | Static Graph | 1.5.0 |
+| [CogVLM2-Video](https://atomgit.com/mindspore/mindformers/blob/r1.5.0/docs/model_cards/cogvlm2_video.md) | 13B | MM | Legacy | Static Graph | 1.5.0 |
+| [DeepSeek-V2](https://atomgit.com/mindspore/mindformers/tree/r1.5.0/research/deepseek2) | 236B | Sparse LLM | Legacy | Static Graph | 1.5.0 |
+| [DeepSeek-Coder-V1.5](https://atomgit.com/mindspore/mindformers/tree/r1.5.0/research/deepseek1_5) | 7B | Dense LLM | Legacy | Static Graph | 1.5.0 |
+| [DeepSeek-Coder](https://atomgit.com/mindspore/mindformers/tree/r1.5.0/research/deepseek) | 33B | Dense LLM | Legacy | Static Graph | 1.5.0 |
+| [GLM3-32K](https://atomgit.com/mindspore/mindformers/tree/r1.5.0/research/glm32k) | 6B | Dense LLM | Legacy | Static Graph | 1.5.0 |
+| [GLM3](https://atomgit.com/mindspore/mindformers/blob/r1.5.0/docs/model_cards/glm3.md) | 6B | Dense LLM | Legacy | Static Graph | 1.5.0 |
+| [InternLM2](https://atomgit.com/mindspore/mindformers/tree/r1.5.0/research/internlm2) | 7B/20B | Dense LLM | Legacy | Static Graph | 1.5.0 |
+| [Llama3.2](https://atomgit.com/mindspore/mindformers/blob/r1.5.0/docs/model_cards/llama3_2.md) | 3B | Dense LLM | Legacy | Static Graph | 1.5.0 |
+| [Llama3.2-Vision](https://atomgit.com/mindspore/mindformers/blob/r1.5.0/docs/model_cards/mllama.md) | 11B | MM | Legacy | Static Graph | 1.5.0 |
+| [Llama3](https://atomgit.com/mindspore/mindformers/tree/r1.5.0/research/llama3) | 8B/70B | Dense LLM | Legacy | Static Graph | 1.5.0 |
+| [Qwen2](https://atomgit.com/mindspore/mindformers/tree/r1.5.0/research/qwen2) | 0.5B/1.5B/7B/57B/57B-A14B/72B | Dense/Sparse LLM | Legacy | Static Graph | 1.5.0 |
+| [Qwen1.5](https://atomgit.com/mindspore/mindformers/tree/r1.5.0/research/qwen1_5) | 7B/14B/72B | Dense LLM | Legacy | Static Graph | 1.5.0 |
+| [Qwen-VL](https://atomgit.com/mindspore/mindformers/tree/r1.5.0/research/qwenvl) | 9.6B | MM | Legacy | Static Graph | 1.5.0 |
+| [TeleChat](https://atomgit.com/mindspore/mindformers/tree/r1.5.0/research/telechat) | 7B/12B/52B | Dense LLM | Legacy | Static Graph | 1.5.0 |
+| [Whisper](https://atomgit.com/mindspore/mindformers/blob/r1.5.0/docs/model_cards/whisper.md) | 1.5B | MM | Legacy | Static Graph | 1.5.0 |
+| [Yi](https://atomgit.com/mindspore/mindformers/tree/r1.5.0/research/yi) | 6B/34B | Dense LLM | Legacy | Static Graph | 1.5.0 |
+| [YiZhao](https://atomgit.com/mindspore/mindformers/tree/r1.5.0/research/yizhao) | 12B | Dense LLM | Legacy | Static Graph | 1.5.0 |
+| [Llama2](https://atomgit.com/mindspore/mindformers/blob/r1.3.0/docs/model_cards/llama2.md) | 7B/13B/70B | Dense LLM | Legacy | Static Graph | 1.3.2 |
+| [Baichuan2](https://atomgit.com/mindspore/mindformers/blob/r1.3.0/research/baichuan2/baichuan2.md) | 7B/13B | Dense LLM | Legacy | Static Graph | 1.3.2 |
+| [GLM2](https://atomgit.com/mindspore/mindformers/blob/r1.3.0/docs/model_cards/glm2.md) | 6B | Dense LLM | Legacy | Static Graph | 1.3.2 |
+| [GPT2](https://atomgit.com/mindspore/mindformers/blob/r1.3.0/docs/model_cards/gpt2.md) | 124M/13B | Dense LLM | Legacy | Static Graph | 1.3.2 |
+| [InternLM](https://atomgit.com/mindspore/mindformers/blob/r1.3.0/research/internlm/internlm.md) | 7B/20B | Dense LLM | Legacy | Static Graph | 1.3.2 |
+| [Qwen](https://atomgit.com/mindspore/mindformers/blob/r1.3.0/research/qwen/qwen.md) | 7B/14B | Dense LLM | Legacy | Static Graph | 1.3.2 |
+| [CodeGeex2](https://atomgit.com/mindspore/mindformers/blob/r1.1.0/docs/model_cards/codegeex2.md) | 6B | Dense LLM | Legacy | Static Graph | 1.1.0 |
+| [WizardCoder](https://atomgit.com/mindspore/mindformers/blob/r1.1.0/research/wizardcoder/wizardcoder.md) | 15B | Dense LLM | Legacy | Static Graph | 1.1.0 |
+| [Baichuan](https://atomgit.com/mindspore/mindformers/blob/r1.0/research/baichuan/baichuan.md) | 7B/13B | Dense LLM | Legacy | Static Graph | 1.0 |
+| [Blip2](https://atomgit.com/mindspore/mindformers/blob/r1.0/docs/model_cards/blip2.md) | 8.1B | MM | Legacy | Static Graph | 1.0 |
+| [Bloom](https://atomgit.com/mindspore/mindformers/blob/r1.0/docs/model_cards/bloom.md) | 560M/7.1B/65B/176B | Dense LLM | Legacy | Static Graph | 1.0 |
+| [Clip](https://atomgit.com/mindspore/mindformers/blob/r1.0/docs/model_cards/clip.md) | 149M/428M | MM | Legacy | Static Graph | 1.0 |
+| [CodeGeex](https://atomgit.com/mindspore/mindformers/blob/r1.0/research/codegeex/codegeex.md) | 13B | Dense LLM | Legacy | Static Graph | 1.0 |
+| [GLM](https://atomgit.com/mindspore/mindformers/blob/r1.0/docs/model_cards/glm.md) | 6B | Dense LLM | Legacy | Static Graph | 1.0 |
+| [iFlytekSpark](https://atomgit.com/mindspore/mindformers/blob/r1.0/research/iflytekspark/iflytekspark.md) | 13B | Dense LLM | Legacy | Static Graph | 1.0 |
+| [Llama](https://atomgit.com/mindspore/mindformers/blob/r1.0/docs/model_cards/llama.md) | 7B/13B | Dense LLM | Legacy | Static Graph | 1.0 |
+| [MAE](https://atomgit.com/mindspore/mindformers/blob/r1.0/docs/model_cards/mae.md) | 86M | MM | Legacy | Static Graph | 1.0 |
+| [Mengzi3](https://atomgit.com/mindspore/mindformers/blob/r1.0/research/mengzi3/mengzi3.md) | 13B | Dense LLM | Legacy | Static Graph | 1.0 |
+| [PanguAlpha](https://atomgit.com/mindspore/mindformers/blob/r1.0/docs/model_cards/pangualpha.md) | 2.6B/13B | Dense LLM | Legacy | Static Graph | 1.0 |
+| [SAM](https://atomgit.com/mindspore/mindformers/blob/r1.0/docs/model_cards/sam.md) | 91M/308M/636M | MM | Legacy | Static Graph | 1.0 |
+| [Skywork](https://atomgit.com/mindspore/mindformers/blob/r1.0/research/skywork/skywork.md) | 13B | Dense LLM | Legacy | Static Graph | 1.0 |
+| [Swin](https://atomgit.com/mindspore/mindformers/blob/r1.0/docs/model_cards/swin.md) | 88M | MM | Legacy | Static Graph | 1.0 |
+| [T5](https://atomgit.com/mindspore/mindformers/blob/r1.0/docs/model_cards/t5.md) | 14M/60M | Dense LLM | Legacy | Static Graph | 1.0 |
+| [VisualGLM](https://atomgit.com/mindspore/mindformers/blob/r1.0/research/visualglm/visualglm.md) | 6B | MM | Legacy | Static Graph | 1.0 |
+| [Ziya](https://atomgit.com/mindspore/mindformers/blob/r1.0/research/ziya/ziya.md) | 13B | Dense LLM | Legacy | Static Graph | 1.0 |
+| [Bert](https://atomgit.com/mindspore/mindformers/blob/r0.8/docs/model_cards/bert.md) | 4M/110M | Dense LLM | Legacy | Static Graph | 0.8 |
+
+*Notes: **LLM** stands for Large Language Model; **MM** stands for Multi-Modal. Models marked with **"PyNative / Static Graph"** in the **Execution Mode** column support both runtime modes. For instructions on enabling PyNative, refer to [Quick Start](../quick_start/quick_start.md); for static graph implementation details, see [Static Graph Implementation](../static_graph/introduction/overview.md).*
