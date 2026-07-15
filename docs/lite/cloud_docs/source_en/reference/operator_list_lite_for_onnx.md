@@ -4,6 +4,7 @@
 
 > - None of the following operators support int64 type input.
 > - Currently, you can use the environment variable `export KEEP_ORIGIN_DTYPE=1` to preserve the data type as int64. Consider using this option when overflow occurs with the int32 data type. However, this is currently an experimental option and will be removed in future updates.
+> - MindSpore Lite cloud-side inference currently does not support control flow operators, such as If, While, Loop, etc.
 
 | MindSpore Lite Operator Names | Operator Functions                                                     | Corresponding ONNX Operators                                             | Operator Specifications                                                     |
 | ---------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
