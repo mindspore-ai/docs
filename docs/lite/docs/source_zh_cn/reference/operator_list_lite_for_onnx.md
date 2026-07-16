@@ -9,13 +9,13 @@
 | ---------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | Abs                    | 逐元素计算绝对值                                             | Abs                                                          | 不支持uint8类型。不支持输入张量量化参数为空。                |
 | Activation             | 激活函数                                                     | Relu、LeakyRelu、PRelu、Elu、Tanh、Sigmoid、HardSigmoid、Softplus、Gelu | -                                                            |
-| AddFusion              | 逐元素计算加法                                               | Add、Int8Add                                                 | -                                                            |
+| AddFusion              | 逐元素计算加法                                               | Add、Int8Add                                                 | 不支持输入张量量化参数为空。                                                            |
 | AdderFusion            | 基于加法的卷积运算                                                   | adder_f                                                      | -                                                            |
 | ArgmaxFusion           | 求某一维度最大值                                             | ArgMax                                                       | 不支持uint8类型。不支持输入张量量化参数为空。                |
 | ArgminFusion           | 求某一维度最小值                                             | ArgMin                                                       | -                                                            |
-| AvgPoolFusion          | 平均池化                                                     | AveragePool、GlobalAveragePool、Int8AveragePool             | -                                                            |
+| AvgPoolFusion          | 平均池化                                                     | AveragePool、GlobalAveragePool、Int8AveragePool             | 不支持输入张量量化参数为空。                                                            |
 | BatchNorm              | 批量归一化                                                   | BatchNormalization                                           | -                                                            |
-| BiasAdd                | 将偏置向量（bias）添加到输入张量                             | BiasAdd                                                      | -                                                            |
+| BiasAdd                | 将偏置向量（bias）添加到输入张量                             | BiasAdd                                                      | 仅支持输入X作为在线变量。                                                            |
 | BroadcastTo            | 扩维                                                         | Expand                                                       | -                                                            |
 | Cast                   | 数据类型转换                                                 | Cast                                                         | 不支持以下数值类型转换：fp32转int8、fp32转uint32、int32转int8、int32转uint32、int32转uint8、int8转bool、int8转uint8。 |
 | Ceil                   | 向上取整                                                     | Ceil                                                         | -                                                            |
@@ -51,9 +51,8 @@
 | LogicalNot             | 逐元素逻辑非运算                                                 | Not                                                          | -                                                            |
 | LogicalOr              | 逐元素逻辑或（OR）运算                                       | Or                                                           | -                                                            |
 | LogSoftmax             | 对输入向量进行softmax操作，然后再对softmax结果取对数         | LogSoftmax                                                   | 不支持inf输入。                                              |
-| LRN                    | 局部响应标准化，用于防止数据过度拟合                         | LRN                                                          | -                                                            |
 | LSTM                   | 长短期记忆网络单元                                           | LSTM                                                         | -                                                            |
-| MatMulFusion           | 对2个输入做矩阵乘法运算；使用输入张量、一组学习的权重计算内积，并添加偏差 | MatMul、Gemm                                                 | -                                                            |
+| MatMulFusion           | 对2个输入做矩阵乘法运算；使用输入张量、一组学习的权重计算内积，并添加偏差 | MatMul、Gemm                                                 | Gemm不支持输入A/B/C同时作为在线变量。                                                            |
 | Maximum                | 取元素级最大值                                               | Max                                                          | -                                                            |
 | MaxPoolFusion          | 最大池化                                                     | MaxPool、GlobalMaxPool                                       | -                                                            |
 | Minimum                | 取元素级最小值                                               | Min                                                          | -                                                            |
@@ -95,4 +94,4 @@
 | Triu                   | 上三角矩阵                                                   | Trilu（属性upper=1）                                         | -                                                            |
 | Unsqueeze              | 将输入张量添加一个新的维度                                   | Unsqueeze                                                    | -                                                            |
 | Where                  | 元素选择                                                     | NonZero、Where                                               | -                                                            |
-| 转换工具支持的其他算子 | -                                                            | Constant、Atan、Asin、Tan、Loop、Dropout、If、Identity、Int8GivenIntTensorFill、Int8GivenTensorFill、Int8Quantize、Int8Dequantize、LpNormalization | 转换工具支持，但不需要具体实现的算子，一般这类算子在转化工具中被优化而消失，如被融合掉或者使用其他算子代替。 |
+| 转换工具支持的其他算子 | -                                                            | Constant、Dropout、Identity、Int8Quantize、Int8Dequantize | 转换工具支持，但不需要具体实现的算子，一般这类算子在转换工具中被优化而消失，如被融合掉或者使用其他算子代替。 |
