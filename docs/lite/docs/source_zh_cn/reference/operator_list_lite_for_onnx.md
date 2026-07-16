@@ -14,8 +14,8 @@
 | ArgmaxFusion           | 求某一维度最大值                                             | ArgMax                                                       | 不支持uint8类型。不支持输入张量量化参数为空。                |
 | ArgminFusion           | 求某一维度最小值                                             | ArgMin                                                       | -                                                            |
 | AvgPoolFusion          | 平均池化                                                     | AveragePool、GlobalAveragePool、Int8AveragePool             | 不支持输入张量量化参数为空。                                                            |
-| BatchNorm              | 批量归一化                                                   | BatchNormalization                                           | -                                                            |
-| BiasAdd                | 将偏置向量（bias）添加到输入张量                             | BiasAdd                                                      | 仅支持输入X作为在线变量。                                                            |
+| BatchNorm              | 批量归一化                                                   | BatchNormalization                                           | 仅支持输入X作为在线变量。                                                            |
+| BiasAdd                | 将偏置向量（bias）添加到输入张量                             | BiasAdd                                                      | -                                                            |
 | BroadcastTo            | 扩维                                                         | Expand                                                       | -                                                            |
 | Cast                   | 数据类型转换                                                 | Cast                                                         | 不支持以下数值类型转换：fp32转int8、fp32转uint32、int32转int8、int32转uint32、int32转uint8、int8转bool、int8转uint8。 |
 | Ceil                   | 向上取整                                                     | Ceil                                                         | -                                                            |
@@ -68,7 +68,7 @@
 | RandomNormal           | 生成一个张量，其中的值从正态分布（高斯分布）中随机采样     | RandomNormal                                                 | -                                                            |
 | Range                  | 生成某个区间内的元素                                         | Range                                                        | -                                                            |
 | Reciprocal             | 返回倒数                                                     | Reciprocal                                                   | -                                                            |
-| ReduceFusion           | 归约操作                                                     | ReduceMean、ReduceMax、ReduceMin、ReduceProd、ReduceSum、ReduceSumSquare、ReduceL2、ReduceL1、ReduceLogSum | -                                                            |
+| ReduceFusion           | 归约操作                                                     | ReduceMean、ReduceMax、ReduceMin、ReduceProd、ReduceSum、ReduceSumSquare、ReduceL2、ReduceL1、ReduceLogSum | 不支持axis缺省。                                                            |
 | Reshape                | 改变张量形状，总元素个数不变                                 | Reshape、Flatten                                             | -                                                            |
 | Resize                 | 对输入张量进行上采样或调整大小                               | Resize、Upsample                                             | -                                                            |
 | ReverseSequence        | 对输入张量的可变长度序列进行部分反转                         | ReverseSequence                                              | -                                                            |
