@@ -92,12 +92,12 @@
 | Shape                  | Shape                                                        |
 | Sin                    | Sin                                                          |
 | SliceFusion            | Slice                                                        |
-| SkipGram               | SKipGram                                                     |
+| SkipGram               | SkipGram                                                     |
 | Softmax                | Softmax                                                      |
 | SpaceToBatch           | SpaceToBatch                                                 |
 | SpaceToBatchND         | SpaceToBatchND                                               |
 | SpaceToDepth           | SpaceToDepth                                                 |
-| SparseToDense          | SpareToDense                                                 |
+| SparseToDense          | SparseToDense                                                 |
 | Split                  | Split, SplitV                                                |
 | Sqrt                   | Sqrt                                                         |
 | Square                 | Square                                                       |
