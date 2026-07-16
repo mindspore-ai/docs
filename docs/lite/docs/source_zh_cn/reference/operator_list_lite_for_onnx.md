@@ -12,7 +12,6 @@
 | AddFusion              | 逐元素计算加法                                               | Add、Int8Add                                                 | 不支持输入张量量化参数为空。                                                            |
 | AdderFusion            | 基于加法的卷积运算                                                   | adder_f                                                      | -                                                            |
 | ArgmaxFusion           | 求某一维度最大值                                             | ArgMax                                                       | 不支持uint8类型。不支持输入张量量化参数为空。                |
-| ArgminFusion           | 求某一维度最小值                                             | ArgMin                                                       | -                                                            |
 | AvgPoolFusion          | 平均池化                                                     | AveragePool、GlobalAveragePool、Int8AveragePool             | 不支持输入张量量化参数为空。                                                            |
 | BatchNorm              | 批量归一化                                                   | BatchNormalization                                           | -                                                            |
 | BiasAdd                | 将偏置向量（bias）添加到输入张量                             | BiasAdd                                                      | 仅支持输入X作为在线变量。                                                            |
