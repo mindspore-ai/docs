@@ -273,9 +273,9 @@ MindSpore与PyTorch均支持`bin`格式数据，加载相同的数据集进行�
 
 当前，msprobe 精度分析工具提供了分级的数据采集与比对能力，可有效支持此类问题的定位。相关操作可参考以下文档：
 
-* [msprobe 工具 MindSpore场景精度数据采集指南](https://atomgit.com/Ascend/msprobe/blob/master/docs/zh/dump/mindspore_data_dump_instruct.md)
-* [msprobe 工具 PyTorch场景精度数据采集指南](https://atomgit.com/Ascend/msprobe/blob/master/docs/zh/dump/pytorch_data_dump_instruct.md)
-* [MindSpore 场景的精度比对](https://atomgit.com/Ascend/msprobe/blob/master/docs/zh/accuracy_compare/mindspore_accuracy_compare_instruct.md)
+* [msprobe 工具 MindSpore场景精度数据采集指南](https://atomgit.com/Ascend/msprobe/blob/master/docs/zh/user_guide/dump/mindspore_data_dump_instruct.md)
+* [msprobe 工具 PyTorch场景精度数据采集指南](https://atomgit.com/Ascend/msprobe/blob/master/docs/zh/user_guide/dump/pytorch_data_dump_instruct.md)
+* [MindSpore 场景的精度比对](https://atomgit.com/Ascend/msprobe/blob/master/docs/zh/user_guide/accuracy_compare/mindspore_accuracy_compare_instruct.md)
 
 #### step1的local norm值对比
 
