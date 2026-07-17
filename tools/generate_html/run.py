@@ -452,6 +452,19 @@ def main(version, user, pd, WGETDIR, release_url, generate_list, api_detect):
                             fd.write(chunk)
                 print(f"Download {data[i]['cloud_tar_name']} success!")
 
+        # 下载obs中lite_boost所需的torch包，提升下载速度
+        if data[i]['name'] == "lite":
+            os.chdir(WHLDIR)
+            whl_name = "torch-2.13.0-cp312-cp312-manylinux_2_28_x86_64.whl"
+            download_url = "https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/whl/"\
+                           + whl_name
+            downloaded = requests.get(download_url, stream=True, verify=False, timeout=30)
+            with open(whl_name, 'wb') as fd:
+                for chunk in downloaded.iter_content(chunk_size=512):
+                    if chunk:
+                        fd.write(chunk)
+            print(f"Download torch success!")
+
         # 默认html上显示的分支跟仓库分支相同，如果配置了html_version，以html_version为准
         html_branch = branch_
         if "html_version" in data[i]:
