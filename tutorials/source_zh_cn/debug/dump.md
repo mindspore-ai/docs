@@ -10,7 +10,7 @@ MindSpore Dump功能已陆续迁移到[msprobe工具](https://atomgit.com/Ascend
 
 > [msprobe](https://atomgit.com/Ascend/msprobe) 是 MindStudio Training Tools 工具链下精度调试部分的工具包。主要包括精度预检、溢出检测和精度比对等功能，目前适配 PyTorch 和 MindSpore 框架。
 
-其中动态图Dump已完全迁移到msprobe工具，通过msprobe工具入口使能，详情请查看[《msprobe 工具 MindSpore场景精度数据采集指南》](https://atomgit.com/Ascend/msprobe/blob/master/docs/zh/dump/mindspore_data_dump_instruct.md)。
+其中动态图Dump已完全迁移到msprobe工具，通过msprobe工具入口使能，详情请查看[《msprobe 工具 MindSpore场景精度数据采集指南》](https://atomgit.com/Ascend/msprobe/blob/master/docs/zh/user_guide/dump/mindspore_data_dump_instruct.md)。
 
 静态图Ascend ms_backend和CPU/GPU后端仍然通过框架入口使能，后续会陆续迁移到msprobe工具。
 
