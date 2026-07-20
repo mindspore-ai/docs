@@ -464,6 +464,8 @@ def main(version, user, pd, WGETDIR, release_url, generate_list, api_detect):
                     if chunk:
                         fd.write(chunk)
             print(f"Download torch success!")
+            cmd_install = [sys.executable, "-m", "pip", "install", whl_name]
+            subprocess.run(cmd_install)
 
         # 默认html上显示的分支跟仓库分支相同，如果配置了html_version，以html_version为准
         html_branch = branch_
