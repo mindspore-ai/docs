@@ -501,7 +501,7 @@ def main(version, user, pd, WGETDIR, release_url, generate_list, api_detect):
                 subprocess.run(cmd_install) 
                 break 
         for i in whls: 
-            if "mindspore_gs" in i:
+            if "mindspore_gs" in i or "torch" in i:
                 continue
             if "mindpandas" in i and "cp38-cp38" in i:
                 os.rename(os.path.join(WHLDIR, i), os.path.join(WHLDIR, i.replace('cp38-cp38', 'cp37-cp37m')))
