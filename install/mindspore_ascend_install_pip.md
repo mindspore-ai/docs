@@ -26,7 +26,7 @@
 |-|-|-|
 |Debian系列操作系统 / openEuler系列操作系统|Debian系列：Debian、Ubuntu、veLinux / openEuler系列：openEuler、CentOS、Kylin、BCLinux、UOS V20、AntOS、CTyunOS、CULinux、Tlinux、MTOS|编译和运行MindSpore的操作系统|
 |[Python](#安装python)|3.9-3.12|MindSpore的使用依赖Python环境|
-|[昇腾AI处理器配套软件包](#安装昇腾ai处理器配套软件包)|CANN 9.0.0、CANN 8.5.0、CANN 8.3.RC1|MindSpore使用的Ascend平台AI计算库|
+|[昇腾AI处理器配套软件包](#安装昇腾ai处理器配套软件包)|CANN 9.0.x、CANN 8.5.x、CANN 8.3.RC1|MindSpore使用的Ascend平台AI计算库|
 |[GCC](#安装gcc)|7.3.0-11.3.0（优选7.3.0）|用于编译MindSpore的C++编译器|
 
 下面给出第三方依赖的安装方法。
