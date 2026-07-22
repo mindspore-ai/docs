@@ -141,7 +141,7 @@ python -c "from hyper_parallel import DTensor, DeviceMesh, PipelineStage; print(
 
 MindSpore Transformers Ascend 镜像托管在华为云 SWR 镜像仓库，开箱即用、无需本地构建。
 
-> 镜像仓库中可能尚未推出对应版本的官方预构建镜像，请以 [docker/OVERVIEW_CN.md](https://gitcode.com/mindspore/mindformers/blob/master/docker/OVERVIEW_CN.md) 中的实际可用 tag 为准。若暂无所需版本，可使用下文的「方式二：自行构建镜像」。
+> 镜像仓库中可能尚未推出2.0及后续版本的官方预构建镜像，请以 [docker/OVERVIEW_CN.md](https://gitcode.com/mindspore/mindformers/blob/master/docker/OVERVIEW_CN.md) 中的实际可用 tag 为准。若暂无所需版本，可使用下文的「方式二：自行构建镜像」。
 
 **镜像仓库地址：**
 
