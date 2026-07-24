@@ -2253,7 +2253,7 @@ print("ret: ", ret)
 Traceback (most recent call last):
   File "/workspace/test_pijit.py", line 13, in <module>
     ret = func(x)
-  File "/root/miniconda3/lib/python3.10/site-packages/mindspore/common/_pijit_context.py", line 104, in _fn
+  File "/.../python3.10/site-packages/mindspore/common/_pijit_context.py", line 104, in _fn
     self.ret = self.fn(*args, **kwds)
 mindspore.common._pijit_context.Unsupported: Reason: Data-dependent conditional control flow is not supported
 

@@ -36,21 +36,12 @@ bash build_image.sh
 
 ### 1.3 lm-eval
 
-**注意：极其推荐单开一个conda环境，python≥3.10，以避免某些兼容问题**
-
-需要注意需要采用本地安装的方法，不要直接`pip install lm-eval`。
+注意：需要采用本地安装的方法，不要直接使用`pip install lm-eval`。
 
 ```bash
 git clone https://github.com/EleutherAI/lm-evaluation-harness.git
 cd lm-evaluation-harness
 pip install -e .
-```
-
-如果遇到报错`Error: Please make sure the libxml2 and libxslt development packages are installed`
-使用如下命令进行安装：
-
-```bash
-conda install -c conda-forge libxml2 libxslt
 ```
 
 另外为避免可能的版本兼容问题，需要把`datasets`库和`transformers`库安装为特定版本。

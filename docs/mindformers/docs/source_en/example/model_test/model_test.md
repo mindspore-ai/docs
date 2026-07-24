@@ -36,20 +36,12 @@ Create a Docker based on the server configuration. For details, see [Docker Inst
 
 ### 1.3 lm-eval
 
-**Note: It is strongly recommended that you create a separate conda environment with Python 3.10 or later to avoid compatibility issues.**
-
 Note that you need to use the local installation method and do not directly use `pip install lm-eval`.
 
 ```bash
 git clone https://github.com/EleutherAI/lm-evaluation-harness.git
 cd lm-evaluation-harness
 pip install -e .
-```
-
-If the error message `Error: Please make sure the libxml2 and libxslt development packages are installed` is displayed, run the following command for installation:
-
-```bash
-conda install -c conda-forge libxml2 libxslt
 ```
 
 To avoid possible version compatibility issues, install the `datasets` and `transformers` libraries of specific versions.
