@@ -35,8 +35,6 @@ As shown in the preceding figure, in the horizontal federated learning cloud clu
 
 ## Preparations
 
-> Recommend to create a virtual environment for the following operations with [Anaconda](https://www.anaconda.com/).
-
 ### Installing MindSpore
 
 The MindSpore horizontal federated learning cloud cluster supports deployment on x86 CPU and GPU CUDA hardware platforms. Run commands provided by the [MindSpore Installation Guide](https://www.mindspore.cn/install) to install the latest MindSpore.
