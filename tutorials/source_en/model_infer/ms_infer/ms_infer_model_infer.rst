@@ -112,16 +112,7 @@ Based on the mainstream Qwen2 open-source LLM, this section demonstrates how to 
 Environment Preparations
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-MindSpore LLM inference with the framework mainly depends on the MindSpore open-source software. Before using the framework, you need to install the MindSpore Python package. You are advised to use the conda virtual environment. You can run the following commands for installation:
-
-.. code:: shell
-
-   export PYTHON_ENV_NAME=mindspore-infer-py311
-   conda create -n ${PYTHON_ENV_NAME} python=3.11
-   conda activate ${PYTHON_ENV_NAME}
-   pip install mindspore
-
-You can also install the Python package adapted to your environment by referring to the official installation document. For details, see `MindSpore Installation <https://www.mindspore.cn/install/en>`_.
+MindSpore LLM inference with the framework mainly depends on the MindSpore open-source software. You can refer to the official installation documentation to install the Python packages compatible with their environment. For details, see `MindSpore Installation <https://www.mindspore.cn/install/en>`_.
 
 MindSpore inference mainly runs on the Ascend AI Processor environment. You need to install the corresponding Ascend development environment. For details, see `CANN Software Installation <https://www.hiascend.com/en/document>`_:
 

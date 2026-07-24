@@ -64,34 +64,14 @@ A: MindSpore relies on the third-party library `pillow` for some data processing
 
 ### Q: What should I do if error message `ImportError: dlopen ... no suitable image found.  Did find:..._psutil_osx.cpython-38-darwin.so: mach-o, but wrong architecture` is generated when I execute MindSpore on macOS for ARM with Python3.8?
 
-A: The default version of psutil in Python3.8 for macOS(ARM architecture) has a bug that compiles its binaries for x86 architecture, causing conflicts when running MindSpore. To fix this, run `pip uninstall psutil; conda install psutil` if you are using Conda, otherwise run `pip uninstall psutil; pip install --no-binary :all: psutil` to install psutil correctly.
+A: The default version of psutil in Python3.8 for macOS(ARM architecture) has a bug that compiles its binaries for x86 architecture, causing conflicts when running MindSpore. Run `pip uninstall psutil; pip install --no-binary :all: psutil` to install psutil correctly.
 For detailed reasons, please refer to [this post on stackoverflow](https://stackoverflow.com/questions/72619143/unable-to-import-psutil-on-m1-mac-with-miniforge-mach-o-file-but-is-an-incomp).
-
-<br/>
-
-### Q: What should I do if error message `error: metadata-generation-failed` is generated pypi installs dependency scipy when I install MindSpore on MacOS for ARM?
-
-A: The later versions of scipy released on pypi only supports MacOS for ARM version 12 or above. For lower versions of MacOS for ARM, pypi downloads scipy source code package and attempts to compile it on spot, which is highly likely running into troubles. If you are using Conda, you may run `pip uninstall scipy; conda install scipy`, usage of Conda is strongly advised for users of MacOS for ARM version 11 and below to prevent such compatibility issues.
 
 <br/>
 
 ### Q: When installing GPU, CUDA 10.1, 0.5.0-beta version of MindSpore, it prompts `cannot open shared object file:No such file or directory`, what should I do?
 
 A: The error message indicates that the cuBLAS library is not found. Generally, the cause is that the cuBLAS library is not installed or is not added to the environment variable. Generally, cuBLAS is installed together with CUDA and the driver. After the installation, add the directory where cuBLAS is located to the `LD_LIBRARY_PATH` environment variable.
-
-<br/>
-
-## Installing by Using Conda
-
-### Q: For Ascend users, what should I do when `RuntimeError: json.exception.parse_error.101 parse error at line 1, column 1: syntax error while parsing value - invalid literal; last read: 'T'` appears in personal Conda environment?
-
-A: When you encounter the error, te or hccl packages in your personal Conda environment are most likely not updated when updating Ascend AI processor software packages, you may uninstall the aforementioned packages first, then execute environment variables configuration script provided in the Ascend packages to set PYTHONPATH that allocates the correct version of te and hccl packages automatically: `source /usr/local/Ascend/ascend-toolkit/set_env.sh`.
-
-<br/>
-
-### Q: What should I do if error message `ImportError: dlopen ... Library not loaded: @rpath/libffi.7.dylib` is generated when I execute MindSpore on macOS for ARM with Python3.9?
-
-A: libffi is not installed automatically on some devices when creating Python 3.9 virtual environments using Conda. You may fix it by manually running `conda install libffi` to install libffi.
 
 <br/>
 
@@ -236,7 +216,7 @@ A: Find the directory where the missing dynamic library file is located, add the
 
 ### Q: What should I do when error `ModuleNotFoundError: No module named 'te'` prompts during application running?
 
-A: First confirm whether the system environment is installed correctly and whether the whl packages such as `te` and `topi` are installed correctly. If there are multiple Python versions in the user environment, such as Conda virtual environment, you need to execute `ldd name_of_your_executable_app` to confirm whether the application link `libpython3.so` is consistent with the current Python directory, if not, you need to adjust the order of the environment variable `LD_LIBRARY_PATH`. For example:
+A: First confirm whether the system environment is installed correctly and whether the whl packages such as `te` and `topi` are installed correctly. If there are multiple Python versions in the user environment, you need to execute `ldd name_of_your_executable_app` to confirm whether the application link `libpython3.so` is consistent with the current Python directory. If not, you need to adjust the order of the environment variable `LD_LIBRARY_PATH`. For example:
 
 ```bash
 export LD_LIBRARY_PATH=`python -c "import distutils.sysconfig as sysconfig; print(sysconfig.get_config_var('LIBDIR'))"`:$LD_LIBRARY_PATH
@@ -253,8 +233,6 @@ A: This error usually occurs in an environment where multiple Python versions ar
 ```bash
 export LD_LIBRARY_PATH=`python -c "import distutils.sysconfig as sysconfig; print(sysconfig.get_config_var('LIBDIR'))"`:$LD_LIBRARY_PATH
 ```
-
-Then, if Python 3.7.6 or lower does not contain this dynamic library in the Conda virtual environment, you can run the command to upgrade the Python version in Conda, such as: `conda install python=3.7.11`.
 
 <br/>
 
