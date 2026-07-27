@@ -569,7 +569,9 @@ def generate_autosummary_docs(sources: list[str],
                                 name1 = name.lower()
 
                 # 根据yaml文件名查询文件是否存在，分别再处理
-                if name1.split('.')[-1] + '_doc.yaml' not in app.config.ops_yaml_list:
+                if name1.split('.')[-1] + '_ext_doc.yaml' in app.config.ops_yaml_list and '.mint.' in name:
+                    py_source_rel = app.config.ops_yaml + name1.split('.')[-1] + '_ext_doc.yaml'
+                elif name1.split('.')[-1] + '_doc.yaml' not in app.config.ops_yaml_list:
                     # 新增查找_ext后缀文件
                     if name1.split('.')[-1] + '_ext_doc.yaml' in app.config.ops_yaml_list:
                         py_source_rel = app.config.ops_yaml + name1.split('.')[-1] + '_ext_doc.yaml'
