@@ -22,32 +22,32 @@ AICORE operator compilation errors will start with `E5`~`EB` according to differ
 [WARNING] DEVICE(51545,ffff8ba74480,python):2019-07-25-19:17:41.850.324 [mindspore/ccsrc/runtime/hardware/ascend/ascend_graph_optimization.cc:255] SelectKernel] There are 2 node/nodes used raise precision to selected the kernel!
 [CRITICAL] KERNEL(51545,ffff8ba74480,python):2019-07-25-19:17:54.525.980 [mindspore/ccsrc/backend/kernel_compiler/tbe/tbe_kernel_compile.cc:494] QueryProcess] Single op compile failed, op: strided_slice_grad_d_1157509189447431479_0
 except_msg: 2019-07-25 19:17:54.522852: Query except_msg:Traceback (most recent call last):
-  File "/home/miniconda3/envs/ci/lib/python3.7/site-packages/te_fusion/parallel_compilation.py", line 1453, in run
+  File ".../python3.7/site-packages/te_fusion/parallel_compilation.py", line 1453, in run
     op_name=self._op_name)
-  File "/home/miniconda3/envs/ci/lib/python3.7/site-packages/te_fusion/fusion_manager.py", line 1283, in build_single_op
+  File ".../python3.7/site-packages/te_fusion/fusion_manager.py", line 1283, in build_single_op
     compile_info = call_op()
-  File "/home/miniconda3/envs/ci/lib/python3.7/site-packages/te_fusion/fusion_manager.py", line 1271, in call_op
+  File ".../python3.7/site-packages/te_fusion/fusion_manager.py", line 1271, in call_op
     opfunc(*inputs, *outputs, *new_attrs, **kwargs)
-  File "/home/miniconda3/envs/ci/lib/python3.7/site-packages/tbe/common/utils/para_check.py", line 545, in _in_wrapper
+  File ".../python3.7/site-packages/tbe/common/utils/para_check.py", line 545, in _in_wrapper
     return func(*args, **kwargs)
   File "/usr/local/Ascend/opp/op_impl/built-in/ai_core/tbe/impl/strided_slice_grad_d.py", line 1101, in strided_slice_grad_d
     _check_shape_parameter(shape, shape_dy, begin_shape, end_shape, stride_shape)
   File "/usr/local/Ascend/opp/op_impl/built-in/ai_core/tbe/impl/strided_slice_grad_d.py", line 996, in _check_shape_parameter
     "1", str(strides_i))
-  File "/home/miniconda3/envs/ci/lib/python3.7/site-packages/te/utils/error_manager/error_manager_vector.py", line 40, in raise_err_input_value_invalid
+  File ".../python3.7/site-packages/te/utils/error_manager/error_manager_vector.py", line 40, in raise_err_input_value_invalid
     return raise_err_input_value_invalid(op_name, param_name, excepted_value, real_value)
-  File "/home/miniconda3/envs/ci/lib/python3.7/site-packages/tbe/common/utils/errormgr/error_manager_vector.py", line 41, in raise_err_input_value_invalid
+  File ".../python3.7/site-packages/tbe/common/utils/errormgr/error_manager_vector.py", line 41, in raise_err_input_value_invalid
     raise RuntimeError(args_dict, msg)
 RuntimeError: ({'errCode': 'E80000', 'op_name': 'strided_slice_grad_d', 'param_name': 'strides[0]', 'excepted_value': '1', 'real_value': '2'}, 'In op[strided_slice_grad_d], the parameter[strides[0]] should be , but actually is [2].')
 
 The function call stack:
-In file /home/miniconda3/envs/ci/lib/python3.7/site-packages/mindspore/ops/_grad_experimental/grad_array_ops.py(700)/        dx = input_grad(dout, x_shape, begin, end, strides)/
+In file .../python3.7/site-packages/mindspore/ops/_grad_experimental/grad_array_ops.py(700)/        dx = input_grad(dout, x_shape, begin, end, strides)/
 Corresponding forward node candidate:
-- In file /home/miniconda3/envs/ci/lib/python3.7/site-packages/mindspore/ops/composite/multitype_ops/_compile_utils.py(306)/        return P.StridedSlice(begin_mask, end_mask, 0, 0, 0)(data, begin_strides, end_strides, step_strides)/
+- In file .../python3.7/site-packages/mindspore/ops/composite/multitype_ops/_compile_utils.py(306)/        return P.StridedSlice(begin_mask, end_mask, 0, 0, 0)(data, begin_strides, end_strides, step_strides)/
   In file /home/jenkins/models/official/cv/lenet/src/lenet.py(61)/        y = x[0::2] #Splitting operation, x.shape=(32,10) y.shape=(32), leading to dimensionality reduction/
-  In file /home/miniconda3/envs/ci/lib/python3.7/site-packages/mindspore/train/amp.py(126)/            out = self._backbone(data)/
-  In file /home/miniconda3/envs/ci/lib/python3.7/site-packages/mindspore/nn/wrap/loss_scale.py(332)/        loss = self.network(*inputs)/
-  In file /home/miniconda3/envs/ci/lib/python3.7/site-packages/mindspore/train/dataset_helper.py(95)/        return self.network(*outputs)/
+  In file .../python3.7/site-packages/mindspore/train/amp.py(126)/            out = self._backbone(data)/
+  In file .../python3.7/site-packages/mindspore/nn/wrap/loss_scale.py(332)/        loss = self.network(*inputs)/
+  In file .../python3.7/site-packages/mindspore/train/dataset_helper.py(95)/        return self.network(*outputs)/
 ```
 
 From the error message of the above error code, we can see that the first data in the parameter strides of StridedSliceGradD operator is expected to be 1, but the actual one obtained is 2, so the error is reported. Users can confirm the information of the wrong operator and correct the strides parameter according to the IR diagram.
@@ -132,7 +132,7 @@ Generally AICORE operator execution failure will report `EZ9999` error, while Mi
 [WARNING] DEVICE(118114,ffff4effd1e0,python):2021-09-11-16:48:31.511.239 [mindspore/ccsrc/runtime/device/ascend/ascend_kernel_runtime.cc:662] GetDumpPath] MS_OM_PATH is null, so dump to process local path, as ./rank_id/node_dump/...
 [ERROR] DEVICE(118114,ffff4effd1e0,python):2021-09-11-16:48:31.511.290 [mindspore/ccsrc/runtime/device/ascend/ascend_kernel_runtime.cc:679] DumpTaskExceptionInfo] Task fail infos task_id: 13, stream_id: 14, tid: 118198, device_id: 0, retcode: 507011 ( model execute failed)
 [ERROR] DEVICE(118114,ffff4effd1e0,python):2021-09-11-16:48:31.511.460 [mindspore/ccsrc/runtime/device/ascend/ascend_kernel_runtime.cc:688] DumpTaskExceptionInfo] Dump node (Default/Add-op8) task error input/output data to: ./rank_0/node_dump trace:
-In file /home/miniconda3/envs/ci/lib/python3.7/site-packages/mindspore/ops/composite/multitype_ops/add_impl.py(212)/    return F.add(x, y)/
+In file .../python3.7/site-packages/mindspore/ops/composite/multitype_ops/add_impl.py(212)/    return F.add(x, y)/
 In file try.py(19)/        z = x + z /
 [EXCEPTION] SESSION(118114,ffff4effd1e0,python):2021-09-11-16:48:31.524.043 [mindspore/ccsrc/backend/session/ascend_session.cc:1456] Execute] run task error!
 [ERROR] SESSION(118114,ffff4effd1e0,python):2021-09-11-16:48:31.524.162 [mindspore/ccsrc/backend/session/ascend_session.cc:1857] ReportErrorMessage] Ascend error occurred, error message:
@@ -146,17 +146,17 @@ EZ9999: Inner Error!
 Traceback (most recent call last):
   File "try.py", line 34, in <module>
     output_1 = net(Tensor(x1), Tensor(x1))
-  File "/home/miniconda3/envs/ci/lib/python3.7/site-packages/mindspore/nn/cell.py", line 391, in __call__
+  File ".../python3.7/site-packages/mindspore/nn/cell.py", line 391, in __call__
     out = self.compile_and_run(*inputs)
-  File "/home/miniconda3/envs/ci/lib/python3.7/site-packages/mindspore/nn/cell.py", line 671, in compile_and_run
+  File ".../python3.7/site-packages/mindspore/nn/cell.py", line 671, in compile_and_run
     return _cell_graph_executor(self, *new_inputs, phase=self.phase)
-  File "/home/miniconda3/envs/ci/lib/python3.7/site-packages/mindspore/common/api.py", line 599, in __call__
+  File ".../python3.7/site-packages/mindspore/common/api.py", line 599, in __call__
     return self.run(obj, *args, phase=phase)
-  File "/home/miniconda3/envs/ci/lib/python3.7/site-packages/mindspore/common/api.py", line 627, in run
+  File ".../python3.7/site-packages/mindspore/common/api.py", line 627, in run
     return self._exec_pip(obj, *args, phase=phase_real)
-  File "/home/miniconda3/envs/ci/lib/python3.7/site-packages/mindspore/common/api.py", line 77, in wrapper
+  File ".../python3.7/site-packages/mindspore/common/api.py", line 77, in wrapper
     results = fn(*arg, **kwargs)
-  File "/home/miniconda3/envs/ci/lib/python3.7/site-packages/mindspore/common/api.py", line 610, in _exec_pip
+  File ".../python3.7/site-packages/mindspore/common/api.py", line 610, in _exec_pip
     return self._graph_executor(args_list, phase)
 RuntimeError: mindspore/ccsrc/backend/session/ascend_session.cc:1456 Execute] run task error!
 ```
@@ -223,23 +223,23 @@ Traceback (most recent call last):
     run_func(*args, **kwargs)
   File "train.py", line 292, in train_net
     sink_size=dataset.get_dataset_size(), dataset_sink_mode=dataset_sink_mode)
-  File "/home/miniconda3/envs/ci/lib/python3.7/site-packages/mindspore/train/model.py", line 715, in train
+  File ".../python3.7/site-packages/mindspore/train/model.py", line 715, in train
     sink_size=sink_size)
-  File "/home/miniconda3/envs/ci/lib/python3.7/site-packages/mindspore/train/model.py", line 500, in _train
+  File ".../python3.7/site-packages/mindspore/train/model.py", line 500, in _train
     self._train_dataset_sink_process(epoch, train_dataset, list_callback, cb_params, sink_size)
-  File "/home/miniconda3/envs/ci/lib/python3.7/site-packages/mindspore/train/model.py", line 553, in _train_dataset_sink_process
+  File ".../python3.7/site-packages/mindspore/train/model.py", line 553, in _train_dataset_sink_process
     dataset_helper=dataset_helper)
-  File "/home/miniconda3/envs/ci/lib/python3.7/site-packages/mindspore/train/model.py", line 345, in _exec_preprocess
+  File ".../python3.7/site-packages/mindspore/train/model.py", line 345, in _exec_preprocess
     dataset_helper = DatasetHelper(dataset, dataset_sink_mode, sink_size, epoch_num)
-  File "/home/miniconda3/envs/ci/lib/python3.7/site-packages/mindspore/train/dataset_helper.py", line 245, in __init__
+  File ".../python3.7/site-packages/mindspore/train/dataset_helper.py", line 245, in __init__
     self.iter = iterclass(dataset, sink_size, epoch_num)
-  File "/home/miniconda3/envs/ci/lib/python3.7/site-packages/mindspore/train/dataset_helper.py", line 393, in __init__
+  File ".../python3.7/site-packages/mindspore/train/dataset_helper.py", line 393, in __init__
     super().__init__(dataset, sink_size, epoch_num)
-  File "/home/miniconda3/envs/ci/lib/python3.7/site-packages/mindspore/train/dataset_helper.py", line 300, in __init__
+  File ".../python3.7/site-packages/mindspore/train/dataset_helper.py", line 300, in __init__
     create_data_info_queue=create_data_info_queue)
-  File "/home/miniconda3/envs/ci/lib/python3.7/site-packages/mindspore/train/_utils.py", line 73, in _exec_datagraph
+  File ".../python3.7/site-packages/mindspore/train/_utils.py", line 73, in _exec_datagraph
     phase=phase)
-  File "/home/miniconda3/envs/ci/lib/python3.7/site-packages/mindspore/common/api.py", line 470, in init_dataset
+  File ".../python3.7/site-packages/mindspore/common/api.py", line 470, in init_dataset
     phase=phase):
 RuntimeError: mindspore/ccsrc/runtime/device/ascend/ascend_memory_manager.cc:62 MallocDeviceMemory] Malloc device memory failed, size[32212254720], ret[207001], Device 6 may be other processes occupying this card, check as: ps -ef|grep python
 ```
@@ -264,25 +264,25 @@ Traceback (most recent call last):
     run_func(*args, **kwargs)
   File "train.py", line 370, in train_net
     sink_size=dataset.get_dataset_size(), dataset_sink_mode=dataset_sink_mode)
-  File "/home/miniconda3/envs/ci/lib/python3.7/site-packages/mindspore/train/model.py", line 1052, in train
+  File ".../python3.7/site-packages/mindspore/train/model.py", line 1052, in train
     initial_epoch=initial_epoch)
-  File "/home/miniconda3/envs/ci/lib/python3.7/site-packages/mindspore/train/model.py", line 98, in wrapper
+  File ".../python3.7/site-packages/mindspore/train/model.py", line 98, in wrapper
     func(self, *args, **kwargs)
-  File "/home/miniconda3/envs/ci/lib/python3.7/site-packages/mindspore/train/model.py", line 614, in _train
+  File ".../python3.7/site-packages/mindspore/train/model.py", line 614, in _train
     cb_params, sink_size, initial_epoch, valid_infos)
-  File "/home/miniconda3/envs/ci/lib/python3.7/site-packages/mindspore/train/model.py", line 673, in _train_dataset_sink_process
+  File ".../python3.7/site-packages/mindspore/train/model.py", line 673, in _train_dataset_sink_process
     dataset_helper=dataset_helper)
-  File "/home/miniconda3/envs/ci/lib/python3.7/site-packages/mindspore/train/model.py", line 427, in _exec_preprocess
+  File ".../python3.7/site-packages/mindspore/train/model.py", line 427, in _exec_preprocess
     dataset_helper = DatasetHelper(dataset, dataset_sink_mode, sink_size, epoch_num)
-  File "/home/miniconda3/envs/ci/lib/python3.7/site-packages/mindspore/train/dataset_helper.py", line 335, in __init__
+  File ".../python3.7/site-packages/mindspore/train/dataset_helper.py", line 335, in __init__
     self.iter = iterclass(dataset, sink_size, epoch_num)
-  File "/home/miniconda3/envs/ci/lib/python3.7/site-packages/mindspore/train/dataset_helper.py", line 530, in __init__
+  File ".../python3.7/site-packages/mindspore/train/dataset_helper.py", line 530, in __init__
     super().__init__(dataset, sink_size, epoch_num)
-  File "/home/miniconda3/envs/ci/lib/python3.7/site-packages/mindspore/train/dataset_helper.py", line 429, in __init__
+  File ".../python3.7/site-packages/mindspore/train/dataset_helper.py", line 429, in __init__
     create_data_info_queue=create_data_info_queue)
-  File "/home/miniconda3/envs/ci/lib/python3.7/site-packages/mindspore/train/_utils.py", line 74, in _exec_datagraph
+  File ".../python3.7/site-packages/mindspore/train/_utils.py", line 74, in _exec_datagraph
     phase=phase)
-  File "/home/miniconda3/envs/ci/lib/python3.7/site-packages/mindspore/common/api.py", line 1264, in init_dataset
+  File ".../python3.7/site-packages/mindspore/common/api.py", line 1264, in init_dataset
     need_run=need_run):
 RuntimeError: Ascend kernel runtime initialization failed. The details refer to 'Ascend Error Message'.
 
@@ -344,17 +344,17 @@ Traceback (most recent call last):
     assert_iter_num=assert_iter_num)
   File "/home/jenkins/solution_test/common/ms_aw/function/data_processing/dataset_func.py", line 301, in op_network_with_create_dict_iterator
     _ = network()[0]
-  File "/home/miniconda3/envs/ci/lib/python3.7/site-packages/mindspore/nn/cell.py", line 618, in __call__
+  File ".../python3.7/site-packages/mindspore/nn/cell.py", line 618, in __call__
     out = self.compile_and_run(*args)
-  File "/home/miniconda3/envs/ci/lib/python3.7/site-packages/mindspore/nn/cell.py", line 1007, in compile_and_run
+  File ".../python3.7/site-packages/mindspore/nn/cell.py", line 1007, in compile_and_run
     return _cell_graph_executor(self, *new_inputs, phase=self.phase)
-  File "/home/miniconda3/envs/ci/lib/python3.7/site-packages/mindspore/common/api.py", line 1192, in __call__
+  File ".../python3.7/site-packages/mindspore/common/api.py", line 1192, in __call__
     return self.run(obj, *args, phase=phase)
-  File "/home/miniconda3/envs/ci/lib/python3.7/site-packages/mindspore/common/api.py", line 1229, in run
+  File ".../python3.7/site-packages/mindspore/common/api.py", line 1229, in run
     return self._exec_pip(obj, *args, phase=phase_real)
-  File "/home/miniconda3/envs/ci/lib/python3.7/site-packages/mindspore/common/api.py", line 98, in wrapper
+  File ".../python3.7/site-packages/mindspore/common/api.py", line 98, in wrapper
     results = fn(*arg, **kwargs)
-  File "/home/miniconda3/envs/ci/lib/python3.7/site-packages/mindspore/common/api.py", line 1211, in _exec_pip
+  File ".../python3.7/site-packages/mindspore/common/api.py", line 1211, in _exec_pip
     return self._graph_executor(args, phase)
 RuntimeError: Run task error!
 
@@ -396,7 +396,7 @@ Traceback (most recent call last):
     class_num)
   File "/home/jenkins/ResNet/scripts/train/src/resnet.py", line 381, in __init__
     super(ResNet, self).__init__()
-  File "/home/miniconda3/envs/ci/lib/python3.7/site-packages/mindspore/nn/cell.py", line 118, in __init__
+  File ".../python3.7/site-packages/mindspore/nn/cell.py", line 118, in __init__
     init_pipeline()
 RuntimeError: Device 8 call rtSetDevice failed, ret[107001]. The details refer to 'Ascend Error Message'.
 
@@ -440,21 +440,21 @@ Traceback (most recent call last):
     run_func(*args, **kwargs)
   File "train.py", line 370, in train_net
     sink_size=100, dataset_sink_mode=dataset_sink_mode)
-  File "/home/miniconda3/envs/ci/lib/python3.7/site-packages/mindspore/train/model.py", line 1052, in train
+  File ".../python3.7/site-packages/mindspore/train/model.py", line 1052, in train
     initial_epoch=initial_epoch)
-  File "/home/miniconda3/envs/ci/lib/python3.7/site-packages/mindspore/train/model.py", line 98, in wrapper
+  File ".../python3.7/site-packages/mindspore/train/model.py", line 98, in wrapper
     func(self, *args, **kwargs)
-  File "/home/miniconda3/envs/ci/lib/python3.7/site-packages/mindspore/train/model.py", line 614, in _train
+  File ".../python3.7/site-packages/mindspore/train/model.py", line 614, in _train
     cb_params, sink_size, initial_epoch, valid_infos)
-  File "/home/miniconda3/envs/ci/lib/python3.7/site-packages/mindspore/train/model.py", line 692, in _train_dataset_sink_process
+  File ".../python3.7/site-packages/mindspore/train/model.py", line 692, in _train_dataset_sink_process
     outputs = train_network(*inputs)
-  File "/home/miniconda3/envs/ci/lib/python3.7/site-packages/mindspore/nn/cell.py", line 627, in __call__
+  File ".../python3.7/site-packages/mindspore/nn/cell.py", line 627, in __call__
     out = self.compile_and_run(*args)
-  File "/home/miniconda3/envs/ci/lib/python3.7/site-packages/mindspore/nn/cell.py", line 945, in compile_and_run
+  File ".../python3.7/site-packages/mindspore/nn/cell.py", line 945, in compile_and_run
     self.compile(*inputs)
-  File "/home/miniconda3/envs/ci/lib/python3.7/site-packages/mindspore/nn/cell.py", line 919, in compile
+  File ".../python3.7/site-packages/mindspore/nn/cell.py", line 919, in compile
     jit_config_dict=self._jit_config_dict)
-  File "/home/miniconda3/envs/ci/lib/python3.7/site-packages/mindspore/common/api.py", line 1347, in compile
+  File ".../python3.7/site-packages/mindspore/common/api.py", line 1347, in compile
     result = self._graph_executor.compile(obj, args_list, phase, self._use_vm_mode())
 RuntimeError: Preprocess failed before run graph 1. The details refer to 'Ascend Error Message'.
 
@@ -551,7 +551,7 @@ Traceback (most recent call last):
     set_parameter()
   File "train.py", line 151, in set_parameter
     init()
-  File "/home/miniconda3/envs/ci/lib/python3.7/site-packages/mindspore/communication/management.py", line 161, in init
+  File ".../python3.7/site-packages/mindspore/communication/management.py", line 161, in init
     init_hccl()
 RuntimeError: Ascend collective communication initialization failed.
 
@@ -592,13 +592,13 @@ Traceback (most recent call last):
     run()
   File "e2e_feed_dev.py", line 277, in run
     label_indices, label_values)
-  File "/home/miniconda3/envs/ci/lib/python3.7/site-packages/mindspore/nn/cell.py", line 626, in __call__
+  File ".../python3.7/site-packages/mindspore/nn/cell.py", line 626, in __call__
     out = self.compile_and_run(*args)
-  File "/home/miniconda3/envs/ci/lib/python3.7/site-packages/mindspore/nn/cell.py", line 945, in compile_and_run
+  File ".../python3.7/site-packages/mindspore/nn/cell.py", line 945, in compile_and_run
     self.compile(*inputs)
-  File "/home/miniconda3/envs/ci/lib/python3.7/site-packages/mindspore/nn/cell.py", line 919, in compile
+  File ".../python3.7/site-packages/mindspore/nn/cell.py", line 919, in compile
     jit_config_dict=self._jit_config_dict)
-  File "/home/miniconda3/envs/ci/lib/python3.7/site-packages/mindspore/common/api.py", line 1337, in compile
+  File ".../python3.7/site-packages/mindspore/common/api.py", line 1337, in compile
     result = self._graph_executor.compile(obj, args_list, phase, self._use_vm_mode())
 RuntimeError: Preprocess failed before run graph 0. The details refer to 'Ascend Error Message'.
 
@@ -674,7 +674,7 @@ Traceback (most recent call last):
     set_parameter()
   File "train.py", line 151, in set_parameter
     init()
-  File "/home/miniconda3/envs/ci/lib/python3.7/site-packages/mindspore/communication/management.py", line 152, in init
+  File ".../python3.7/site-packages/mindspore/communication/management.py", line 152, in init
     init_hccl()
 RuntimeError: Ascend collective communication initialization failed.
 
@@ -723,7 +723,7 @@ Traceback (most recent call last):
     run_func(*args, **kwargs)
   File "train.py", line 325, in train_net
     profiler = Profiler()
-  File "/home/miniconda3/envs/ci/lib/python3.7/site-packages/mindspore/profiler/profiling.py", line 195, in __init__
+  File ".../python3.7/site-packages/mindspore/profiler/profiling.py", line 195, in __init__
     self._ascend_profiler.init(self._output_path, int(self._dev_id), profiling_options)
 RuntimeError: mindspore/ccsrc/profiler/device/ascend/ascend_profiling.cc:79 InitProfiling] Failed to call aclprofInit function.
 ```
