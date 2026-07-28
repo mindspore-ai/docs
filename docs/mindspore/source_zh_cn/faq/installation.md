@@ -88,22 +88,8 @@ A: MindSpore依赖三方库`pillow`进行部分的数据处理操作，而`pillo
 
 ### Q: ARM版macOS在Python3.8环境中编译的mindspore包安装后执行报错 `ImportError: dlopen ... no suitable image found.  Did find:..._psutil_osx.cpython-38-darwin.so: mach-o, but wrong architecture`怎么办？
 
-A: ARM版macOS上的Python3.8包含的psutil无法正确识别当前系统的架构，会自编译为适配x86架构的二进制，因此出现冲突问题。如果在Conda环境则执行`pip uninstall psutil; conda install psutil`，如果在非Conda环境中则执行`pip uninstall psutil; pip install --no-binary :all: psutil`以正确安装psutil。
+A: ARM版macOS上的Python3.8包含的psutil无法正确识别当前系统的架构，会自编译为适配x86架构的二进制，因此出现冲突问题。执行`pip uninstall psutil; pip install --no-binary :all: psutil`以正确安装psutil。
 具体原因可以参照该[stackoverflow帖子](https://stackoverflow.com/questions/72619143/unable-to-import-psutil-on-m1-mac-with-miniforge-mach-o-file-but-is-an-incomp)。
-
-<br/>
-
-### Q: ARM版macOS在安装MindSpore时，安装依赖库scipy报错 `error: metadata-generation-failed` 怎么办？
-
-A: 对应ARM版macOS的scipy在pypi源的版本仅适配MacOS 12以上版本的操作系统，低版本操作系统会自动下载scipy源码包进行编译，大概率会遇到编译失败问题。如果使用Conda环境，建议执行`pip uninstall scipy; conda install scipy`，MacOS 11系统强烈建议使用Conda以规避类似的兼容性问题。
-
-<br/>
-
-## Conda安装
-
-### Q: Ascend硬件平台，在个人的Conda环境中，有时候出现报错RuntimeError: json.exception.parse_error.101 parse error at line 1, column 1: syntax error while parsing value - invalid literal; last read: 'T'，该怎么处理？
-
-A: 出现这种类型的报错，大概率是run包更新后个人的Conda环境中没有更新te或topi或hccl工具包，可以将当前Conda环境中的上述几个工具包卸载，然后使用如下命令再重新安装: `pip install /usr/local/Ascend/ascend-toolkit/latest/lib64/{te/topi/hccl}-{version}-py3-none-any.whl`。
 
 <br/>
 
@@ -256,7 +242,7 @@ A: 寻找缺少的动态库文件所在目录，添加该路径到环境变量`L
 
 ### Q: 运行应用时出现`ModuleNotFoundError: No module named 'te'`怎么办？
 
-A: 首先确认环境安装是否正确，`te`、`topi`等whl包是否正确安装。如果用户环境中有多个Python版本，如Conda虚拟环境中，需`ldd name_of_your_executable_app`确认应用所链接的`libpython3.so`是否与当前Python路径一致，如果不一致需要调整环境变量`LD_LIBRARY_PATH`顺序，例如
+A: 首先确认环境安装是否正确，`te`、`topi`等whl包是否正确安装。如果用户环境中有多个Python版本，需`ldd name_of_your_executable_app`确认应用所链接的`libpython3.so`是否与当前Python路径一致，如果不一致需要调整环境变量`LD_LIBRARY_PATH`顺序，例如：
 
 ```bash
 export LD_LIBRARY_PATH=`python -c "import distutils.sysconfig as sysconfig; print(sysconfig.get_config_var('LIBDIR'))"`:$LD_LIBRARY_PATH
@@ -273,8 +259,6 @@ A: 该报错通常出现在装有多个Python版本的环境中，首先确认Py
 ```bash
 export LD_LIBRARY_PATH=`python -c "import distutils.sysconfig as sysconfig; print(sysconfig.get_config_var('LIBDIR'))"`:$LD_LIBRARY_PATH
 ```
-
-另外如果在Conda虚拟环境中，Python 3.7.6以下版本不含该动态库，可以执行命令升级Conda中Python的版本，如：`conda install python=3.7.11`。
 
 <br/>
 

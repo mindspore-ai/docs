@@ -24,8 +24,6 @@ Refer to the following table to determine the release version, architecture (X86
 |Linux|Architecture| `uname -m`|
 |Linux|Python Version| `python3`|
 
-According to the operating system and computing hardware you are using, choose the corresponding MindSpore version and install MindSpore by Pip, Conda, Docker or source code compilation, etc. We recommend visiting [MindSpore Installation](https://www.mindspore.cn/install/en) and referring to the website for instructions to complete the installation and verification.
-
 ## models and hub
 
 [MindSpore models](https://gitee.com/mindspore/models) is a deep-optimized model bazaar jointly provided by MindSpore and the community, which provides developers with deep-optimized models. The ecological partners can easily personalize their development based on the models in ModelZoo. Currently it has covered mainstream models in many fields such as machine vision, natural language processing, speech, recommendation systems.
