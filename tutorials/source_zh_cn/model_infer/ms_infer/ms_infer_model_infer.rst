@@ -112,16 +112,7 @@ MindSpore大语言模型为了能够实现最优的性价比，针对大语言�
 环境准备
 ~~~~~~~~
 
-MindSpore大语言模型带框架推理主要依赖MindSpore开源软件，用户在使用前，需要先安装MindSpore的Python包，建议使用conda虚拟环境运行。可以执行如下命令简单安装：
-
-.. code:: shell
-
-   export PYTHON_ENV_NAME=mindspore-infer-py311
-   conda create -n ${PYTHON_ENV_NAME} python=3.11
-   conda activate ${PYTHON_ENV_NAME}
-   pip install mindspore
-
-同时，用户也可以参考官方安装文档来安装自己环境适配的Python包，具体见 `MindSpore安装 <https://www.mindspore.cn/install>`_。
+MindSpore大语言模型带框架推理主要依赖MindSpore开源软件，用户可以参考官方安装文档来安装自己环境适配的Python包，具体见 `MindSpore安装 <https://www.mindspore.cn/install>`_。
 
 由于MindSpore推理主要支持Ascend芯片环境上运行，还需要安装相应的Ascend开发环境，具体可以参考 `快速安装CANN <https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/83RC1alpha001/softwareinst/instg/instg_quick.html>`_ ：
 
