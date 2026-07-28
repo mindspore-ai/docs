@@ -16,13 +16,6 @@
 
 ### 环境准备
 
-- 创建一个conda虚拟环境并且激活。
-
-    ```shell
-    conda create -n mindvision python=3.7.5 -y
-    conda activate mindvision
-    ```
-
 - 安装MindSpore
 
     ```shell

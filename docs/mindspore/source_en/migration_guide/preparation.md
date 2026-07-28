@@ -18,8 +18,6 @@ Refer to the following figure, to determine the release version and the architec
 | Linux  | System Architecture    | `uname -m`           |
 | Linux  | Python Version         | `python3`           |
 
-Choose a corresponding MindSpore version based on users own operating system. MindSpore is installed in the manner of Pip, Conda, Docker or source code compilation. It is recommended to visit the [MindSpore installation page](https://www.mindspore.cn), and complete the installation by referring to this website for instructions.
-
 ### Verifying MindSpore
 
 After the MindSpore is installed, the following commands can be run (taking the MindSpore r1.6 as an example), to test whether the installation of the MindSpore has been completed.
