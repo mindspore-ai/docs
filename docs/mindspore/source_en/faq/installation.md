@@ -95,6 +95,22 @@ For detailed reasons, please refer to [this post on stackoverflow](https://stack
 
 ## Installing by Using Source
 
+### Q: What is the difference between `bash -p` and `bash -e` during compilation?
+
+A: MindSpore Serving build and running depend on MindSpore. Serving provides two compilation modes: 1. Use `bash -p {python site-packages}/mindspore/lib` to specify an installed MindSpore path to avoid recompiling MindSpore when compiling Serving. 2. When Compiling Serving, compile the corresponding MindSpore. Serving transparents the `-e`, `-V`, and `-j` options to MindSpore.
+For example, use `bash -e ascend -V 910 -j32` in the Serving directory as follows:
+
+- Compile MindSpore in the `third_party/mindspore` directory by using `bash -e ascend -V 910 -j32`.
+- Use the MindSpore compilation result as the Serving compilation dependency.
+
+<br/>
+
+### Q: MindSpore installation: Version 0.6.0-beta + Ascend 910 + Ubuntu_aarch64 + Python3.7.5, manually download the whl package of the corresponding version, compile and install gmp6.1.2. Other Python library dependencies have been installed, the execution of the sample fails, and an error shows that the so file cannot be found.
+
+A: The `libdatatransfer.so` dynamic library is in the `fwkacllib/lib64` directory. Find the path of the library in the `/usr/local` directory, and then add the path to the `LD_LIBRARY_PATH` environment variable. After the settings take effect, execute the sample again.
+
+<br/>
+
 ### Q: A cross compiler has been installed on Linux, but how do I write compilation commands?
 
 A: To compile the Arm64 version, run `bash build.sh -I arm64`. To compile the Arm32 version, run `bash build.sh -I arm32`. To set environment variables, specify the Android NDK path:  `export ANDROID_NDK=/path/to/android-ndk`. After the compilation is successful, find the compiled package in the output directory.
