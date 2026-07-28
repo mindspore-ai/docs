@@ -88,42 +88,12 @@ A: MindSpore relies on the third-party library `pillow` for some data processing
 
 ### Q: What should I do if error message `ImportError: dlopen ... no suitable image found.  Did find:..._psutil_osx.cpython-38-darwin.so: mach-o, but wrong architecture` is generated when I execute MindSpore on macOS for ARM with Python3.8?
 
-A: The default version of psutil in Python3.8 for macOS(ARM architecture) has a bug that compiles its binaries for x86 architecture, causing conflitcts when running MindSpore. To fix this, run `pip uninstall psutil; conda install psutil` if you are using Conda, otherwise run `pip uninstall psutil; pip install --no-binary :all: psutil` to install psutil correctly.
+A: The default version of psutil in Python3.8 for macOS(ARM architecture) has a bug that compiles its binaries for x86 architecture, causing conflicts when running MindSpore. Run `pip uninstall psutil; pip install --no-binary :all: psutil` to install psutil correctly.
 For detailed reasons, please refer to [this post on stackoverflow](https://stackoverflow.com/questions/72619143/unable-to-import-psutil-on-m1-mac-with-miniforge-mach-o-file-but-is-an-incomp).
 
 <br/>
 
-### Q: What should I do if error message `error: metadata-generation-failed` is generated pypi installs dependency scipy when I install MindSpore on MacOS for ARM?
-
-A: The later versions of scipy released on pypi only supports MacOS for ARM version 12 or above. For lower versions of MacOS for ARM, pypi downloads scipy source code package and attempts to compile it on spot, which is highly likely running into troubles. If you are using Conda, you may run `pip uninstall scipy; conda install scipy`, usage of Conda is strongly advised for users of MacOS for ARM version 11 and below to prevent such compatibility issues.
-
-<br/>
-
-## Installing by Using Conda
-
-### Q: For Ascend users, what should I do when `RuntimeError: json.exception.parse_error.101 parse error at line 1, column 1: syntax error while parsing value - invalid literal; last read: 'T'` appears in personal Conda environment?
-
-A: When you encounter the error, the high probability is that there is no update te or topi or hccl package in the personal Conda environment after the run package is updated, and the above several tool packages in the current Conda environment can be uninstalled. You should use command `pip install /usr/local/Ascend/ascend-toolkit/latest/lib64/{te/topi/hccl}-{version}-py3-none-any.whl` to reinstall.
-
-<br/>
-
 ## Installing by Using Source
-
-### Q: What is the difference between `bash -p` and `bash -e` during compilation?
-
-A: MindSpore Serving build and running depend on MindSpore. Serving provides two compilation modes: 1. Use `bash -p {python site-packages}/mindspore/lib` to specify an installed MindSpore path to avoid recompiling MindSpore when compiling Serving. 2. When Compiling Serving, compile the corresponding MindSpore. Serving transparents the `-e`, `-V`, and `-j` options to MindSpore.
-For example, use `bash -e ascend -V 910 -j32` in the Serving directory as follows:
-
-- Compile MindSpore in the `third_party/mindspore` directory by using `bash -e ascend -V 910 -j32`.
-- Use the MindSpore compilation result as the Serving compilation dependency.
-
-<br/>
-
-### Q: MindSpore installation: Version 0.6.0-beta + Ascend 910 + Ubuntu_aarch64 + Python3.7.5, manually download the whl package of the corresponding version, compile and install gmp6.1.2. Other Python library dependencies have been installed, the execution of the sample fails, and an error shows that the so file cannot be found.
-
-A: The `libdatatransfer.so` dynamic library is in the `fwkacllib/lib64` directory. Find the path of the library in the `/usr/local` directory, and then add the path to the `LD_LIBRARY_PATH` environment variable. After the settings take effect, execute the sample again.
-
-<br/>
 
 ### Q: A cross compiler has been installed on Linux, but how do I write compilation commands?
 
@@ -258,7 +228,7 @@ A: Find the directory where the missing dynamic library file is located, add the
 
 ### Q: What should I do when error `ModuleNotFoundError: No module named 'te'` prompts during application running?
 
-A: First confirm whether the system environment is installed correctly and whether the whl packages such as `te` and `topi` are installed correctly. If there are multiple Python versions in the user environment, such as Conda virtual environment, you need to execute `ldd name_of_your_executable_app` to confirm whether the application link `libpython3.so` is consistent with the current Python directory, if not, you need to adjust the order of the environment variable `LD_LIBRARY_PATH`. For example:
+A: First confirm whether the system environment is installed correctly and whether the whl packages such as `te` and `topi` are installed correctly. If there are multiple Python versions in the user environment, you need to execute `ldd name_of_your_executable_app` to confirm whether the application link `libpython3.so` is consistent with the current Python directory. If not, you need to adjust the order of the environment variable `LD_LIBRARY_PATH`. For example:
 
 ```bash
 export LD_LIBRARY_PATH=`python -c "import distutils.sysconfig as sysconfig; print(sysconfig.get_config_var('LIBDIR'))"`:$LD_LIBRARY_PATH
@@ -275,8 +245,6 @@ A: This error usually occurs in an environment where multiple Python versions ar
 ```bash
 export LD_LIBRARY_PATH=`python -c "import distutils.sysconfig as sysconfig; print(sysconfig.get_config_var('LIBDIR'))"`:$LD_LIBRARY_PATH
 ```
-
-Then, if Python 3.7.6 or lower does not contain this dynamic library in the Conda virtual environment, you can run the command to upgrade the Python version in Conda, such as: `conda install python=3.7.11`.
 
 <br/>
 
