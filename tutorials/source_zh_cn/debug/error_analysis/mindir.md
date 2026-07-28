@@ -310,17 +310,17 @@ print(out)
   1 Traceback (most recent call last):
   2   File "/workspace/mindspore/test2.py", line 24, in <module>
   3     out = net(input1, input2)
-  4   File "/workspace/mindspore/tools/anaconda3/lib/python3.9/site-packages/mindspore/nn/cell.py", line 1338, in __call__
+  4   File "/.../python3.9/site-packages/mindspore/nn/cell.py", line 1338, in __call__
   5     return self.construct(*args, **kwargs)
-  6   File "/workspace/mindspore/tools/anaconda3/lib/python3.9/site-packages/mindspore/common/api.py", line 1090, in staging_specialize
+  6   File "/.../python3.9/site-packages/mindspore/common/api.py", line 1090, in staging_specialize
   7     out = jit_executor(*args, **kwargs)
-  8   File "/workspace/mindspore/tools/anaconda3/lib/python3.9/site-packages/mindspore/common/api.py", line 180, in wrapper
+  8   File "/.../python3.9/site-packages/mindspore/common/api.py", line 180, in wrapper
   9     results = fn(*arg, **kwargs)
- 10   File "/workspace/mindspore/tools/anaconda3/lib/python3.9/site-packages/mindspore/common/api.py", line 667, in __call__
+ 10   File "/.../python3.9/site-packages/mindspore/common/api.py", line 667, in __call__
  11     raise err
- 12   File "/workspace/mindspore/tools/anaconda3/lib/python3.9/site-packages/mindspore/common/api.py", line 663, in __call__
+ 12   File "/.../python3.9/site-packages/mindspore/common/api.py", line 663, in __call__
  13     phase = self.compile(self.fn.__name__, *args_list, **kwargs)
- 14   File "/workspace/mindspore/tools/anaconda3/lib/python3.9/site-packages/mindspore/common/api.py", line 781, in compile
+ 14   File "/.../python3.9/site-packages/mindspore/common/api.py", line 781, in compile
  15     is_compile = self._graph_executor.compile(
  16 TypeError: The parameters number of the function is 2, but the number of provided arguments is 3.
  17 FunctionGraph ID : func_7
@@ -527,17 +527,17 @@ print('out', out.shape)
   1 Traceback (most recent call last):
   2   File "/workspace/mindspore/test2.py", line 20, in <module>
   3     out = net(x)
-  4   File "/workspace/mindspore/tools/anaconda3/lib/python3.9/site-packages/mindspore/nn/cell.py", line 1338, in __call__
+  4   File "/.../python3.9/site-packages/mindspore/nn/cell.py", line 1338, in __call__
   5     return self.construct(*args, **kwargs)
-  6   File "/workspace/mindspore/tools/anaconda3/lib/python3.9/site-packages/mindspore/common/api.py", line 1090, in staging_specialize
+  6   File "/.../python3.9/site-packages/mindspore/common/api.py", line 1090, in staging_specialize
   7     out = jit_executor(*args, **kwargs)
-  8   File "/workspace/mindspore/tools/anaconda3/lib/python3.9/site-packages/mindspore/common/api.py", line 180, in wrapper
+  8   File "/.../python3.9/site-packages/mindspore/common/api.py", line 180, in wrapper
   9     results = fn(*arg, **kwargs)
- 10   File "/workspace/mindspore/tools/anaconda3/lib/python3.9/site-packages/mindspore/common/api.py", line 667, in __call__
+ 10   File "/.../python3.9/site-packages/mindspore/common/api.py", line 667, in __call__
  11     raise err
- 12   File "/workspace/mindspore/tools/anaconda3/lib/python3.9/site-packages/mindspore/common/api.py", line 663, in __call__
+ 12   File "/.../python3.9/site-packages/mindspore/common/api.py", line 663, in __call__
  13     phase = self.compile(self.fn.__name__, *args_list, **kwargs)
- 14   File "/workspace/mindspore/tools/anaconda3/lib/python3.9/site-packages/mindspore/common/api.py", line 781, in compile
+ 14   File "/.../python3.9/site-packages/mindspore/common/api.py", line 781, in compile
  15     is_compile = self._graph_executor.compile(
  16 ValueError: For 'BiasAdd', bias[0] shape should be equal to input_x[1] shape when data_format is 0, but got bias shape: .[const vector]{4}, input_shape: [const vector]    {3, 8}.
  17
@@ -552,7 +552,7 @@ print('out', out.shape)
  26 # 0 In file /workspace/mindspore/test2.py:15, 12~38
  27         x = ops.bias_add(x, self.bias)
  28             ^~~~~~~~~~~~~~~~~~~~~~~~~~
- 29 # 1 In file /workspace/mindspore/tools/anaconda3/lib/python3.9/site-packages/mindspore/ops/function/nn_func.py:7093, 11~37
+ 29 # 1 In file /.../python3.9/site-packages/mindspore/ops/function/nn_func.py:7093, 11~37
  30     return bias_add_op(input_x, bias)
  31            ^~~~~~~~~~~~~~~~~~~~~~~~~~
  32  (See file '/workspace/mindspore/rank_0/om/analyze_fail.ir' for more details. Get instructions about `analyze_fail.ir` at https://www.mindspore.cn/search?inputValue=analyze_fail.ir)
@@ -581,7 +581,7 @@ print('out', out.shape)
  18 # 0 In file /workspace/mindspore/test2.py:15, 12~38
  19         x = ops.bias_add(x, self.bias)
  20             ^~~~~~~~~~~~~~~~~~~~~~~~~~
- 21 # 1 In file /workspace/mindspore/tools/anaconda3/lib/python3.9/site-packages/mindspore/ops/function/nn_func.py:7093, 11~37
+ 21 # 1 In file /.../python3.9/site-packages/mindspore/ops/function/nn_func.py:7093, 11~37
  22     return bias_add_op(input_x, bias)
  23            ^~~~~~~~~~~~~~~~~~~~~~~~~~
  24
@@ -677,62 +677,62 @@ print('out', out.shape)
 114
 115 subgraph attr:
 116 subgraph instance: bias_add_4 : 0x13f65d00
-117 # In file /workspace/mindspore/tools/anaconda3/lib/python3.9/site-packages/mindspore/ops/function/nn_func.py:7057~7093/def bias_add(input_x, bias):/
+117 # In file /.../python3.9/site-packages/mindspore/ops/function/nn_func.py:7057~7093/def bias_add(input_x, bias):/
 118 subgraph @bias_add_4(%para0_input_x, %para0_bias) {
 119   %0(CNode_15) = resolve(NameSpace[SymbolStr: 'Namespace:mindspore.ops.function.nn_func'], _get_cache_prim)
 120       : (<External, NoShape>, <External, NoShape>) -> (<Func, NoShape>)
 121       #scope: (Default)
-122       # In file /workspace/mindspore/tools/anaconda3/lib/python3.9/site-packages/mindspore/ops/function/nn_func.py:7092, 18~33/    bias_add_op = _get_cache_prim(P.BiasAdd)(data_format="NCHW")/
+122       # In file /.../python3.9/site-packages/mindspore/ops/function/nn_func.py:7092, 18~33/    bias_add_op = _get_cache_prim(P.BiasAdd)(data_format="NCHW")/
 123   %1(CNode_16) = resolve(NameSpace[SymbolStr: 'Namespace:mindspore.ops.function.nn_func'], P)
 124       : (<External, NoShape>, <External, NoShape>) -> (<External, NoShape>)
 125       #scope: (Default)
-126       # In file /workspace/mindspore/tools/anaconda3/lib/python3.9/site-packages/mindspore/ops/function/nn_func.py:7092, 34~35/    bias_add_op = _get_cache_prim(P.BiasAdd)(data_format="NCHW")/
+126       # In file /.../python3.9/site-packages/mindspore/ops/function/nn_func.py:7092, 34~35/    bias_add_op = _get_cache_prim(P.BiasAdd)(data_format="NCHW")/
 127   %2(CNode_17) = getattr(%1, "BiasAdd")
 128       : (<External, NoShape>, <String, NoShape>) -> (<Func, NoShape>)
 129       #scope: (Default)
-130       # In file /workspace/mindspore/tools/anaconda3/lib/python3.9/site-packages/mindspore/ops/function/nn_func.py:7092, 34~43/    bias_add_op = _get_cache_prim(P.BiasAdd)(data_format="NCHW")/
+130       # In file /.../python3.9/site-packages/mindspore/ops/function/nn_func.py:7092, 34~43/    bias_add_op = _get_cache_prim(P.BiasAdd)(data_format="NCHW")/
 131   %3(CNode_18) = %0(%2)
 132       : (<Func, NoShape>) -> (<Func, NoShape>)
 133       #scope: (Default)
-134       # In file /workspace/mindspore/tools/anaconda3/lib/python3.9/site-packages/mindspore/ops/function/nn_func.py:7092, 18~44/    bias_add_op = _get_cache_prim(P.BiasAdd)(data_format="NCHW")/
+134       # In file /.../python3.9/site-packages/mindspore/ops/function/nn_func.py:7092, 18~44/    bias_add_op = _get_cache_prim(P.BiasAdd)(data_format="NCHW")/
 135   %4(CNode_19) = resolve(NameSpace[CommonOPS: 'Namespace:mindspore._extends.parse.trope'], make_dict)
 136       : (<External, NoShape>, <External, NoShape>) -> (<Func, NoShape>)
 137       #scope: (Default)
-138       # In file /workspace/mindspore/tools/anaconda3/lib/python3.9/site-packages/mindspore/ops/function/nn_func.py:7092, 18~64/    bias_add_op = _get_cache_prim(P.BiasAdd)(data_format="NCHW")/
+138       # In file /.../python3.9/site-packages/mindspore/ops/function/nn_func.py:7092, 18~64/    bias_add_op = _get_cache_prim(P.BiasAdd)(data_format="NCHW")/
 139   %5(CNode_20) = resolve(NameSpace[CommonOPS: 'Namespace:mindspore._extends.parse.trope'], MakeTuple)
 140       : (<External, NoShape>, <External, NoShape>) -> (<Func, NoShape>)
 141       #scope: (Default)
-142       # In file /workspace/mindspore/tools/anaconda3/lib/python3.9/site-packages/mindspore/ops/function/nn_func.py:7092, 18~64/    bias_add_op = _get_cache_prim(P.BiasAdd)(data_format="NCHW")/
+142       # In file /.../python3.9/site-packages/mindspore/ops/function/nn_func.py:7092, 18~64/    bias_add_op = _get_cache_prim(P.BiasAdd)(data_format="NCHW")/
 143   %6(CNode_21) = %5("data_format")
 144       : (<String, NoShape>) -> (<Tuple[String], TupleShape(NoShape)>)
 145       #scope: (Default)
-146       # In file /workspace/mindspore/tools/anaconda3/lib/python3.9/site-packages/mindspore/ops/function/nn_func.py:7092, 18~64/    bias_add_op = _get_cache_prim(P.BiasAdd)(data_format="NCHW")/
+146       # In file /.../python3.9/site-packages/mindspore/ops/function/nn_func.py:7092, 18~64/    bias_add_op = _get_cache_prim(P.BiasAdd)(data_format="NCHW")/
 147   %7(CNode_22) = resolve(NameSpace[CommonOPS: 'Namespace:mindspore._extends.parse.trope'], MakeTuple)
 148       : (<External, NoShape>, <External, NoShape>) -> (<Func, NoShape>)
 149       #scope: (Default)
-150       # In file /workspace/mindspore/tools/anaconda3/lib/python3.9/site-packages/mindspore/ops/function/nn_func.py:7092, 18~64/    bias_add_op = _get_cache_prim(P.BiasAdd)(data_format="NCHW")/
+150       # In file /.../python3.9/site-packages/mindspore/ops/function/nn_func.py:7092, 18~64/    bias_add_op = _get_cache_prim(P.BiasAdd)(data_format="NCHW")/
 151   %8(CNode_23) = %7("NCHW")
 152       : (<String, NoShape>) -> (<Tuple[String], TupleShape(NoShape)>)
 153       #scope: (Default)
-154       # In file /workspace/mindspore/tools/anaconda3/lib/python3.9/site-packages/mindspore/ops/function/nn_func.py:7092, 18~64/    bias_add_op = _get_cache_prim(P.BiasAdd)(data_format="NCHW")/
+154       # In file /.../python3.9/site-packages/mindspore/ops/function/nn_func.py:7092, 18~64/    bias_add_op = _get_cache_prim(P.BiasAdd)(data_format="NCHW")/
 155   %9(CNode_24) = %4(%6, %8)
 156       : (<Tuple[String], TupleShape(NoShape)>, <Tuple[String], TupleShape(NoShape)>) -> (<Dictionary[[data_format,],[String]], NoShape>)
 157       #scope: (Default)
-158       # In file /workspace/mindspore/tools/anaconda3/lib/python3.9/site-packages/mindspore/ops/function/nn_func.py:7092, 18~64/    bias_add_op = _get_cache_prim(P.BiasAdd)(data_format="NCHW")/
+158       # In file /.../python3.9/site-packages/mindspore/ops/function/nn_func.py:7092, 18~64/    bias_add_op = _get_cache_prim(P.BiasAdd)(data_format="NCHW")/
 159   %10(bias_add_op) = DoUnpackCall(%3, %9)
 160       : (<Func, NoShape>, <Dictionary[[data_format,],[String]], NoShape>) -> (<Func, NoShape>)
 161       #scope: (Default)
-162       # In file /workspace/mindspore/tools/anaconda3/lib/python3.9/site-packages/mindspore/ops/function/nn_func.py:7092, 18~64/    bias_add_op = _get_cache_prim(P.BiasAdd)(data_format="NCHW")/
+162       # In file /.../python3.9/site-packages/mindspore/ops/function/nn_func.py:7092, 18~64/    bias_add_op = _get_cache_prim(P.BiasAdd)(data_format="NCHW")/
 163
 164 #------------------------> 2
 165   %11(CNode_25) = %10(%para0_input_x, %para0_bias)
 166       : (<Tensor[Float32], (3, 8)>, <Ref[Tensor[Float32]], (4)>) -> (<null>)
 167       #scope: (Default)
-168       # In file /workspace/mindspore/tools/anaconda3/lib/python3.9/site-packages/mindspore/ops/function/nn_func.py:7093, 11~37/    return bias_add_op(input_x, bias)/
+168       # In file /.../python3.9/site-packages/mindspore/ops/function/nn_func.py:7093, 11~37/    return bias_add_op(input_x, bias)/
 169   Return(%11)
 170       : (<null>)
 171       #scope: (Default)
-172       # In file /workspace/mindspore/tools/anaconda3/lib/python3.9/site-packages/mindspore/ops/function/nn_func.py:7093, 4~37/    return bias_add_op(input_x, bias)/
+172       # In file /.../python3.9/site-packages/mindspore/ops/function/nn_func.py:7093, 4~37/    return bias_add_op(input_x, bias)/
 173 }
 174 # Order:
 175 #   1: @bias_add_4:CNode_15{[0]: ValueNode<Primitive> resolve, [1]: ValueNode<NameSpace> SymbolStr: 'Namespace:mindspore.ops.function.nn_func', [2]: ValueNode<Symbol> _get_cache_prim}
