@@ -180,7 +180,7 @@ aicpu类型的自定义算子采用AOT编译方式，要求算子开发者基于
 
 这种类型的自定义算子需要注册算子信息，算子信息生成方式请参考[算子信息注册](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.0/operation/op_custom_adv.html#算子信息注册)，aicpu类型的自定义算子，需要额外指定`attr("cust_aicpu",  "required", "str", "mindspore_aicpu_kernels")`的属性，用于MindSpore找到对应的算子实现的动态链接库。
 
-> - 需要注意的是，aicpu类型的自定义算子开发后编译成的动态链接库，需要存放到MindSpore的lib目录下，比如MindSpore安装在虚拟环境`/home/conda/envs/aicpu/lib/python3.7/site-packages/mindspore`下，则aicpu的so文件需要放到`/home/conda/envs/aicpu/lib/python3.7/site-packages/mindspore/lib/`目录下。
+> - 需要注意的是，aicpu类型的自定义算子开发后编译成的动态链接库，需要存放到MindSpore的lib目录下，比如MindSpore安装在虚拟环境`/.../python3.7/site-packages/mindspore`下，则aicpu的so文件需要放到`/.../python3.7/site-packages/mindspore/lib/`目录下。
 > - “cust_aicpu”的值为字符串，用算子动态链接库的名字去除`lib`前缀与`.so`后缀表示，如`libmindspore_aicpu_kernels.so`则设为`"mindspore_aicpu_kernels"`即可。
 
 下面以test_dropout_aicpu.py为例介绍aicpu类型的自定义算子开发流程，其中自定义算子实现了dropout的功能，并且编译好的算子动态链接库，我们命名为libmindspore_aicpu_kernels.so，并已将该动态链接库放至mindspore根目录的lib下。
