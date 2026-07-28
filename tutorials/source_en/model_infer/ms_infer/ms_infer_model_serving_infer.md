@@ -54,10 +54,6 @@ The vLLM-MindSpore Plugin adaptation layer provides an environment installation 
 git clone -b r0.3.0 https://gitee.com/mindspore/vllm-mindspore.git
 cd vllm-mindspore
 
-# create conda env
-conda create -n vllm-mindspore-py311 python=3.11
-conda activate vllm-mindspore-py311
-
 # install extra dependent packages
 pip install setuptools_scm
 pip install numba
