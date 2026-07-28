@@ -314,11 +314,11 @@ For a complete example of an Ascend C custom operator, you can refer to the [sam
    Traceback (most recent call last):
    File "/home/jenkins0/dyp/mindspore_custom/tests/st/ops/graph_kernel/custom/custom ascendc/test add.py", Line 58, in <module>
        out = net(Tensor(x), Tensor(y), Tensor(z))
-   File "/home/jenkinsO/.conda/envs/dyp_py37_temp/Lib/python3.7/site-packages/mindspore/nn/cell.py", line 721, in _call_
+   File "/.../python3.7/site-packages/mindspore/nn/cell.py", line 721, in _call_
    raise err
-       File "/home/jenkinsO/.conda/envs/dyp_py37_temp/lib/python3.7/site-packages/mindspore/nn/cell.py", Line 718, in _call
+       File "/.../python3.7/site-packages/mindspore/nn/cell.py", Line 718, in _call
    pynative_executor.end_graph(self, output, *args, **kwargs)
-   File "/home/jenkinsO/.conda/envs/dyp_py37_temp/lib/python3.7/site packages/mindspore/common/api.py", Line 1557, in end_graph
+   File "/.../python3.7/site packages/mindspore/common/api.py", Line 1557, in end_graph
        self._executor.end_graph(obj, output, *args, *(kwargs.values ( ) ) )
    RuntimeError: Launch kernel failed, name:Default/Custom-op0
    ```
