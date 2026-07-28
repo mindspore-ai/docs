@@ -95,6 +95,22 @@ A: ARM版macOS上的Python3.8包含的psutil无法正确识别当前系统的架
 
 ## Source安装
 
+### Q: 编译时`bash -p`方式和 `bash -e`方式的区别？
+
+A: MindSpore Serving的编译和运行依赖MindSpore，Serving提供两种编译方式: 一种指定已安装的MindSpore路径，即`bash -p {python site-packages}/mindspore/lib`，避免编译Serving时再编译MindSpore；另一种，编译Serving时，编译配套的MindSpore，Serving会将`-e`、`-V`和`-j`选项透传给MindSpore。
+比如，在Serving目录下，`bash -e ascend -V 910 -j32`:
+
+- 首先将会以`bash -e ascend -V 910 -j32`方式编译`third_party/mindspore`目录下的MindSpore；
+- 其次，编译脚本将MindSpore编译结果作为Serving的编译依赖。
+
+<br/>
+
+### Q: MindSpore安装: 版本0.6.0-beta + Ascend 910 + Ubuntu_aarch64 + Python3.7.5，手动下载对应版本的whl包，编译并安装gmp6.1.2。其他Python库依赖已经安装完成，执行样例失败，报错显示找不到so文件。
+
+A: `libdatatransfer.so`动态库是`fwkacllib/lib64`目录下的，请先在`/usr/local`目录查找到这个库所在的路径，然后把这个路径加到`LD_LIBRARY_PATH`环境变量中，确认设置生效后，再执行。
+
+<br/>
+
 ### Q: 在Linux中已经安装了交叉编译工具，但是编译命令要怎么写呢？
 
 A: arm64版本编译: `bash build.sh -I arm64`；arm32版本编译: `bash build.sh -I arm32`；注意要先设置环境变量，指定Android NDK路径: `export ANDROID_NDK=/path/to/android-ndk`，编译成功后，在output目录可以找到编译出的包。
