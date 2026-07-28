@@ -1,0 +1,1 @@
+"docs/docs/mindspore/source_zh_cn/model_train/program_form/pynative.ipynb"
