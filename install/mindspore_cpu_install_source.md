@@ -45,29 +45,9 @@
 
 ### 安装Python
 
-[Python](https://www.python.org/)可通过Conda进行安装。
+请参照[Python官网](https://www.python.org/)自行安装Python，版本要求为3.9-3.12。
 
-安装Miniconda：
-
-```bash
-cd /tmp
-curl -O https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/Miniconda3-py39_25.7.0-2-Linux-$(arch).sh
-bash Miniconda3-py39_25.7.0-2-Linux-$(arch).sh -b
-cd -
-. ~/miniconda3/etc/profile.d/conda.sh
-conda init bash
-```
-
-安装完成后，可以为Conda设置清华源加速下载，参考[此处](https://mirrors.tuna.tsinghua.edu.cn/help/anaconda/)。
-
-创建虚拟环境，以Python 3.9.11为例：
-
-```bash
-conda create -n mindspore_py39 python=3.9.11 -y
-conda activate mindspore_py39
-```
-
-可以通过以下命令查看Python版本。
+安装完成后，可以通过以下命令查看Python版本。
 
 ```bash
 python --version
