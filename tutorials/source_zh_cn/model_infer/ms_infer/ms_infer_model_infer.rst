@@ -11,7 +11,6 @@ MindSpore大语言模型带框架推理
 
    ms_infer_network_develop
    ms_infer_parallel_infer
-   ms_infer_quantization
    ms_infer_model_serving_infer
 
 特性背景
@@ -411,8 +410,6 @@ MindSpore大语言模型支持以下量化技术，来提升模型推理性能�
 1. **模型量化**：利用量化算法，将模型的数据类型从高bit类型（如float16）转化成低bit类型（如int8或int4）。
 
 2. **模型推理**：加载标准模型，将模型网络进行量化改造（插入相应量化算子），加载量化后的权重，调用模型推理。
-
-具体模型量化的详细资料可以参考 `模型量化 <./ms_infer_quantization>`_。
 
 高级用法
 --------
