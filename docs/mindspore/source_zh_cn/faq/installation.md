@@ -75,12 +75,6 @@ A: ARM版macOS上的Python3.8包含的psutil无法正确识别当前系统的架
 
 <br/>
 
-### Q: 安装MindSpore版本: GPU、CUDA 10.1、0.5.0-beta，出现问题: `cannot open shared object file:No such file or directory`。
-
-A: 从报错情况来看，是cuBLAS库没有找到。一般的情况下是cuBLAS库没有安装，或者是因为没有加入到环境变量中去。通常cuBLAS是随着CUDA以及驱动一起安装的，确认安装后把cuBLAS所在的目录加入`LD_LIBRARY_PATH`环境变量中即可。
-
-<br/>
-
 ## Source安装
 
 ### Q: 在Linux中已经安装了交叉编译工具，但是编译命令要怎么写呢？
