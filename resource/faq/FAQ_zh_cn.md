@@ -4,12 +4,6 @@
 
 ### pip安装
 
-Q：pip安装MindSpore对Python版本是否有特别要求？
-
-A：MindSpore开发过程中用到了Python3.7+的新特性，因此建议您通过`conda`工具添加Python3.7.5的开发环境。
-
-<br/>
-
 Q：使用pip安装时提示错误，应该怎么办？
 
 A：请执行`pip -V`查看是否绑定了Python3.7+。如果绑定的版本不对，建议使用`python3.7 -m pip install`代替`pip install`命令。
