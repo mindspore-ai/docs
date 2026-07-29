@@ -49,9 +49,3 @@ A：ModelArts是华为公有云线上训练及推理平台，MindSpore是华为�
 <font size=3>**Q：MindSpore是否支持Windows 10？**</font>
 
 A：MindSpore CPU版本已经支持在Windows 10系统中安装，具体安装步骤可以查阅[MindSpore官网教程](https://www.mindspore.cn/install/)。
-
-<br/>
-
-<font size=3>**Q：Ascend硬件平台，在个人的Conda环境中，有时候出现报错RuntimeError: json.exception.parse_error.101 parse error at line 1, column 1: syntax error while parsing value - invalid literal; last read: 'T'，该怎么处理？**</font>
-
-A：出现这种类型的报错，大概率是run包更新后个人的Conda环境中没有更新te或topi或hccl工具包，可以将当前Conda环境中的上述几个工具包卸载，然后使用如下命令再重新安装：`pip install /usr/local/Ascend/fwkacllib/lib64/{te/topi/hccl}*any.whl`。

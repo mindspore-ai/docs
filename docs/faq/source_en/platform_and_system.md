@@ -43,9 +43,3 @@ A: MindSpore provides pluggable device management interface so that developer co
 <font size=3>**Q: Does MindSpore support Windows 10?**</font>
 
 A: The MindSpore CPU version can be installed on Windows 10. For details about the installation procedure, please refer to the [MindSpore official website tutorial](https://www.mindspore.cn/install/en)
-
-<br/>
-
-<font size=3>**Q: For Ascend users, what should I do when `RuntimeError: json.exception.parse_error.101 parse error at line 1, column 1: syntax error while parsing value - invalid literal; last read: 'T'` appears in personal Conda environment?**</font>
-
-A: When you encounter the error, you should update the `te/topi/hccl` python toolkits, unload them firstly and then using command `pip install /usr/local/Ascend/fwkacllib/lib64/{te/topi/hccl}*any.whl` to reinstall.

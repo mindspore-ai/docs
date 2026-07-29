@@ -18,12 +18,6 @@ A：在pip安装命令后添加参数 `--trusted-host=ms-release.obs.cn-north-4.
 
 <br/>
 
-<font size=3>**Q：pip安装MindSpore对Python版本是否有特别要求？**</font>
-
-A：MindSpore开发过程中用到了Python3.7+的新特性，因此建议您通过`conda`工具添加Python3.7.5的开发环境。
-
-<br/>
-
 <font size=3>**Q：MindSpore对protobuf版本是否有特别要求？**</font>
 
 A：MindSpore默认安装protobuf的3.8.0版本，如果您本地已安装protobuf的3.12.0或更高版本，在使用pytest测试代码时日志中会产生很多告警，建议您使用命令`pip install protobuf==3.8.0`重新安装3.8.0版本。
