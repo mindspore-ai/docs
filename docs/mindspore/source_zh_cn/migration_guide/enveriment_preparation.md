@@ -24,8 +24,6 @@
 |Linux|系统架构| `uname -m`|
 |Linux|Python版本| `python3`|
 
-根据自己使用的操作系统及计算硬件，选择对应的MindSpore版本，通过Pip、Conda、Docker或源码编译等方式安装MindSpore，推荐访问[MindSpore安装页面](https://www.mindspore.cn/install) ，并参考该网站指导完成安装并进行验证。
-
 ## models 与 hub
 
 [MindSpore models](https://gitee.com/mindspore/models) 是MindSpore与社区共同提供的深度优化的模型集市，向开发者提供了深度优化的模型，生态中的小伙伴可以方便地基于ModelZoo中的模型进行个性化开发。当前已经覆盖了机器视觉、自然语言处理、语音、推荐系统等多个领域的主流模型。

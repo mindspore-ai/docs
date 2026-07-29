@@ -180,7 +180,7 @@ Operator output shape and data type inference can be implemented by defining Pyt
 
 This type of custom operator needs to register operator information, and for operator information generation method, please refer to [Registering the Operator Information](https://www.mindspore.cn/tutorials/experts/en/r2.0.0-alpha/operation/op_custom_adv.html#registering-the-operator-information). For a custom operator of type aicpu, you need to specify the attributes of `attr("cust_aicpu", "required", "str", "mindspore_aicpu_kernels")` for MindSpore to find the dynamic link library corresponding to the operator implementation.
 
-> - It should be noted that the dynamic link library compiled after the development of a custom operator of aicpu type needs to be stored in the lib directory of MindSpore. For example, If MindSpore is installed in the virtual environment `/home/conda/envs/aicpu/lib/python3.7/site-packages/mindspore`, the aicpu so file needs to be placed in `/home/conda/envs/aicpu/lib/python3.7/site-packages/mindspore/lib/` directory.
+> - It should be noted that the dynamic link library compiled after the development of a custom operator of aicpu type needs to be stored in the lib directory of MindSpore. For example, If MindSpore is installed in the virtual environment `/.../python3.7/site-packages/mindspore`, the aicpu so file needs to be placed in `/.../python3.7/site-packages/mindspore/lib/` directory.
 >
 > - The value of "cust_aicpu" is a string, which is represented by the `lib` prefix and the `.so` suffix removed from the name of the operator dynamic link library. If the name of `libmindspore_aicpu_kernels.so` is removed, it can be set to `mindspore_aicpu_kernels`.
 
