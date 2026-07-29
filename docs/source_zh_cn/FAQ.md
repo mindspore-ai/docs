@@ -12,12 +12,6 @@ A：在pip安装命令后添加参数 `--trusted-host=ms-release.obs.cn-north-4.
 
 <br/>
 
-Q：pip安装MindSpore对Python版本是否有特别要求？
-
-A：MindSpore开发过程中用到了Python3.7+的新特性，因此建议您通过`conda`工具添加Python3.7.5的开发环境。
-
-<br/>
-
 Q：使用pip安装时报错`ProxyError(Cannot connect to proxy)`，应该怎么办？
 
 A：此问题一般是代理配置问题，Ubuntu环境下可通过`export http_proxy={your_proxy}`设置代理；Windows环境可以在cmd中通过`set http_proxy={your_proxy}`进行代理设置。
