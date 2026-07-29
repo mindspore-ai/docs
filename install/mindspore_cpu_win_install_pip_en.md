@@ -17,14 +17,14 @@ This document describes how to install MindSpore by pip on Windows in a CPU envi
 ## System Environment Information Confirmation
 
 - Ensure that Windows 10 is installed with the x86 architecture 64-bit operating system.
-- Ensure that you have Python(>=3.9.0) installed. If not installed, follow the links to [Python official website](https://www.python.org/downloads/windows/) or [Huawei Cloud](https://repo.huaweicloud.com/python/) to download and install Python.
+- Ensure that you have Python(3.10-3.12) installed. If not installed, follow the links to [Python official website](https://www.python.org/downloads/windows/) or [Huawei Cloud](https://repo.huaweicloud.com/python/) to download and install Python.
 
 ## Installing MindSpore
 
-First, refer to [Version List](https://www.mindspore.cn/versions) to select the version of MindSpore you want to install, and perform SHA-256 integrity check. Taking version 2.9.0 as an example, execute the following commands.
+First, refer to [Version List](https://www.mindspore.cn/versions) to select the version of MindSpore you want to install, and perform SHA-256 integrity check. Taking version 2.10.0 as an example, execute the following commands.
 
 ```bash
-set MS_VERSION=2.9.0
+set MS_VERSION=2.10.0
 ```
 
 Then run the following command to install MindSpore.

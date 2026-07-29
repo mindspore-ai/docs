@@ -3,9 +3,7 @@
 <!-- TOC -->
 
 - [Installing MindSpore in CPU by pip-macOS](#installing-mindspore-in-cpu-by-pip-macos)
-    - [System Environment Information Confirmation](#system-environment-information-confirmation)
-    - [Installing Conda](#installing-conda)
-    - [Creating and Accessing the Conda Virtual Environment](#creating-and-accessing-the-conda-virtual-environment)
+    - [Installing Python](#installing-python)
     - [Installing MindSpore](#installing-mindspore)
     - [Installation Verification](#installation-verification)
     - [Version Update](#version-update)
@@ -14,62 +12,27 @@
 
 [![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.10.0/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/r2.10.0/install/mindspore_cpu_mac_install_pip_en.md)
 
-[Conda](https://docs.conda.io/en/latest/) is an open-source, cross-platform, language-agnostic package manager and environment management system. It allows users to easily install different versions of binary software packages and any required libraries appropriate for their computing platform.
+## Installing Python
 
-This document describes how to install MindSpore by pip in a macOS system with Conda installed.
+Please refer to the [Python official website](https://www.python.org/) to install Python by yourself. The version must be 3.10-3.12.
 
-## System Environment Information Confirmation
-
-- According to the system and chip situation in the table below, determine the appropriate Python and Conda versions, and for the macOS version and chip information, click on the Apple logo in the upper left corner of the desktop - > `About this mac`:
-
-    |Chip|Architecture|macOS Version|Supported Python Version|Supported Conda Version|
-    |-|-|-|-|-|
-    |M1|ARM|14.8.5|Python 3.9-3.12|Mambaforge or Miniforge|
-    |Intel|x86_64|10.15/11.3|Python 3.9-3.12|Anaconda or Miniconda|
-
-- Ensure that the Conda version is compatible with the current system and chip.
-
-    - If you prefer the complete capabilities provided by Conda, you may download [Anaconda3](https://repo.anaconda.com/archive/) or [Mambaforge](https://github.com/conda-forge/miniforge).
-    - If you want to save disk space or prefer customizing Conda installation package, you may download [Miniconda3](https://repo.anaconda.com/miniconda/) or [Miniforge](https://github.com/conda-forge/miniforge).
-
-## Installing Conda
-
-Run the following command to install Miniconda.
+After the installation is complete, you can check the Python version with the following command.
 
 ```bash
-cd /tmp
-curl -O https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/Miniconda3-latest-MacOSX-$(arch).sh
-bash Miniconda3-latest-MacOSX-$(arch).sh
-source ~/.zshrc
+python --version
 ```
-
-After the installation is complete, you can set up Tsinghua Source to accelerate the download for Conda, and refer to [Here](https://mirrors.tuna.tsinghua.edu.cn/help/anaconda/).
-
-## Creating and Accessing the Conda Virtual Environment
-
-Create a Conda virtual environment based on the Python version you want to use and go to the virtual environment.
-
-- If you want to use Python 3.10.20:
-
-  ```bash
-  conda create -c conda-forge -n mindspore_py310 -c conda-forge python=3.10.20
-  conda activate mindspore_py310
-  ```
 
 ## Installing MindSpore
 
-First, refer to [Version List](https://www.mindspore.cn/versions) to select the version of MindSpore you want to install, and perform SHA-256 integrity check. Taking version 2.9.0 as an example, execute the following commands.
+First, refer to [Version List](https://www.mindspore.cn/versions) to select the version of MindSpore you want to install, and perform SHA-256 integrity check. Taking version 2.10.0 as an example, execute the following commands.
 
 ```bash
-export MS_VERSION=2.9.0
+export MS_VERSION=2.10.0
 ```
 
 Then run the following command to install MindSpore.
 
 ```bash
-# install prerequisites
-conda install scipy -c conda-forge
-
 pip install mindspore==${MS_VERSION} -i https://repo.mindspore.cn/pypi/simple --trusted-host repo.mindspore.cn --extra-index-url https://repo.huaweicloud.com/repository/pypi/simple/
 ```
 

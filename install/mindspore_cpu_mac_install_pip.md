@@ -3,9 +3,7 @@
 <!-- TOC -->
 
 - [pip方式安装MindSpore CPU版本-macOS](#pip方式安装mindspore-cpu版本-macos)
-    - [确认系统环境信息](#确认系统环境信息)
-    - [安装Conda](#安装conda)
-    - [创建并进入Conda虚拟环境](#创建并进入conda虚拟环境)
+    - [安装Python](#安装python)
     - [安装MindSpore](#安装mindspore)
     - [验证是否成功安装](#验证是否成功安装)
     - [升级MindSpore版本](#升级mindspore版本)
@@ -14,62 +12,27 @@
 
 [![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.10.0/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/r2.10.0/install/mindspore_cpu_mac_install_pip.md)
 
-[Conda](https://docs.conda.io/en/latest/)是一个开源跨平台语言无关的包管理与环境管理系统，允许用户方便地安装不同版本的二进制软件包，以及该计算平台需要的所有库。推荐在MacOS上通过Conda使用MindSpore。
+## 安装Python
 
-本文档介绍如何在macOS系统上的Conda环境中，使用pip方式快速安装MindSpore。
+请参照[Python官网](https://www.python.org/)自行安装Python，版本要求为3.10-3.12。
 
-## 确认系统环境信息
-
-- 根据下表中的系统及芯片情况，确定合适的Python与Conda版本，其中macOS版本及芯片信息可点击桌面左上角苹果标志->`关于本机`获悉：
-
-    |芯片|计算架构|macOS版本|支持Python版本|支持Conda版本|
-    |-|-|-|-|-|
-    |M1|ARM|14.8.5|Python 3.9-3.12|Mambaforge 或 Miniforge|
-    |Intel|x86_64|10.15/11.3|Python 3.9-3.12|Anaconda 或 MiniConda|
-
-- 确认安装与当前系统及芯片型号兼容的Conda版本。
-
-    - 如果您喜欢Conda提供的完整能力，可以选择下载[Anaconda3](https://repo.anaconda.com/archive/)或[Mambaforge](https://github.com/conda-forge/miniforge)。
-    - 如果您需要节省磁盘空间，或者喜欢自定义安装Conda软件包，可以选择下载[Miniconda3](https://repo.anaconda.com/miniconda/)或[Miniforge](https://github.com/conda-forge/miniforge)。
-
-## 安装Conda
-
-执行以下命令安装Miniconda。
+安装完成后，可以通过以下命令查看Python版本。
 
 ```bash
-cd /tmp
-curl -O https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/Miniconda3-latest-MacOSX-$(arch).sh
-bash Miniconda3-latest-MacOSX-$(arch).sh
-source ~/.zshrc
+python --version
 ```
-
-安装完成后，可以为Conda设置清华源加速下载，参考[此处](https://mirrors.tuna.tsinghua.edu.cn/help/anaconda/)。
-
-## 创建并进入Conda虚拟环境
-
-根据您希望使用的Python版本，创建对应的Conda虚拟环境，并进入虚拟环境。
-
-- 如果您希望使用Python3.10.20版本：
-
-  ```bash
-  conda create -c conda-forge -n mindspore_py310 -c conda-forge python=3.10.20
-  conda activate mindspore_py310
-  ```
 
 ## 安装MindSpore
 
-首先参考[版本列表](https://www.mindspore.cn/versions)选择想要安装的MindSpore版本，并进行SHA-256完整性校验。以2.9.0版本为例，执行以下命令。
+首先参考[版本列表](https://www.mindspore.cn/versions)选择想要安装的MindSpore版本，并进行SHA-256完整性校验。以2.10.0版本为例，执行以下命令。
 
 ```bash
-export MS_VERSION=2.9.0
+export MS_VERSION=2.10.0
 ```
 
 然后执行以下命令安装MindSpore。
 
 ```bash
-# install prerequisites
-conda install scipy -c conda-forge
-
 pip install mindspore==${MS_VERSION} -i https://repo.mindspore.cn/pypi/simple --trusted-host repo.mindspore.cn --extra-index-url https://repo.huaweicloud.com/repository/pypi/simple/
 ```
 
