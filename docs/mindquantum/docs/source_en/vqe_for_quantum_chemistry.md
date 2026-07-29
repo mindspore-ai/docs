@@ -197,7 +197,7 @@ print(molecule_file)
 ```
 
 ```bash
-/home/xuxs/anaconda3/envs/p37/lib/python3.7/site-packages/openfermion/testing/data/H1-Li1_sto3g_singlet
+/.../python3.7/site-packages/openfermion/testing/data/H1-Li1_sto3g_singlet
 ```
 
 One of the major obstacles to quantum chemistry is the volume of computation. As the system size (electron number and atomic number) increases, the time required for solving the FCI wave function and ground state energy increases by about $2^{N}$. Even for small molecules such as ethylene molecules, FCI computing is not easy. Quantum computers provide a possible solution to this problem. Research shows that quantum computers can simulate the time-dependent evolution of Hamiltonian in terms of polynomial time complexity. Compared with classical computers, quantum computers exponentially accelerate the chemical simulation on quantum processors. This tutorial introduces one of the quantum algorithms: VQE.
