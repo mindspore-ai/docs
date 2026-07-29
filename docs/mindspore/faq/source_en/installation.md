@@ -30,12 +30,6 @@ A: Add the `--trusted-host=ms-release.obs.cn-north-4.myhuaweicloud.com` paramete
 
 <br/>
 
-<font size=3>**Q: Any specific requirements for Python version when pip install MindSpore?**</font>
-
-A: MindSpore utilizes many of the new features in Python3.7+，therefore we recommend you add Python3.7.5 develop environment via `conda`.
-
-<br/>
-
 <font size=3>**Q: Any specific requirements for Protobuf version when use MindSpore?**</font>
 
 A: MindSpore installs version 3.13.0 of Protobuf by default.  If it is not the version, there will be many warnings in the log when using pytest to test the code.  It is recommended that you use the command 'pip install protobuf==3.13.0' to reinstall version 3.13.0.
@@ -64,12 +58,6 @@ A: Please execute `pip config list` to check the package index `index-url`. Some
 <font size=3>**Q: What should I do if I cannot find whl package for MindInsight or MindArmour on the installation page of MindSpore website?**</font>
 
 A: You can download whl package from the official [MindSpore Website download page](https://www.mindspore.cn/versions/en) and manually install it via `pip install`.
-
-<br/>
-
-<font size=3>**Q: For Ascend users, what should I do when `RuntimeError: json.exception.parse_error.101 parse error at line 1, column 1: syntax error while parsing value - invalid literal; last read: 'T'` appears in personal Conda environment?**</font>
-
-A: When you encounter the error, you should update the `te/topi/hccl` python toolkits, unload them firstly and then using command `pip install /usr/local/Ascend/ascend-toolkit/latest/fwkacllib/lib64/{te/topi/hccl}-{version}-py3-none-any.whl` to reinstall.
 
 <br/>
 
@@ -215,7 +203,7 @@ A: Find the directory where the missing dynamic library file is located, add the
 
 <font size=3>**Q: What should I do when error `ModuleNotFoundError: No module named 'te'` prompts during application running?**</font>
 
-A: First confirm whether the system environment is installed correctly and whether the whl packages such as `te` and `topi` are installed correctly. If there are multiple Python versions in the user environment, such as Conda virtual environment, you need to execute `ldd name_of_your_executable_app` to confirm whether the application link `libpython3.7m.so.1.0` is consistent with the current Python directory, if not, you need to adjust the order of the environment variable `LD_LIBRARY_PATH` .
+A: First confirm whether the system environment is installed correctly and whether the whl packages such as `te` and `topi` are installed correctly. If there are multiple Python versions in the user environment, you need to execute `ldd name_of_your_executable_app` to confirm whether the application link `libpython3.7m.so.1.0` is consistent with the current Python directory, if not, you need to adjust the order of the environment variable `LD_LIBRARY_PATH` .
 
 <br/>
 
@@ -279,15 +267,15 @@ A: The following error information is displayed:
 >>> import gensim
 Traceback (most recent call last):
   File "<stdin>", line 1, in <module>
-  File "/home/miniconda3/envs/ci39_cj/lib/python3.9/site-packages/gensim/__init__.py", line 11, in <module>
+  File "/.../python3.9/site-packages/gensim/__init__.py", line 11, in <module>
     from gensim import parsing, corpora, matutils, interfaces, models, similarities, utils  # noqa:F401
-  File "/home/miniconda3/envs/ci39_cj/lib/python3.9/site-packages/gensim/corpora/__init__.py", line 6, in <module>
+  File "/.../python3.9/site-packages/gensim/corpora/__init__.py", line 6, in <module>
     from .indexedcorpus import IndexedCorpus  # noqa:F401 must appear before the other classes
-  File "/home/miniconda3/envs/ci39_cj/lib/python3.9/site-packages/gensim/corpora/indexedcorpus.py", line 14, in <module>
+  File "/.../python3.9/site-packages/gensim/corpora/indexedcorpus.py", line 14, in <module>
     from gensim import interfaces, utils
-  File "/home/miniconda3/envs/ci39_cj/lib/python3.9/site-packages/gensim/interfaces.py", line 19, in <module>
+  File "/.../python3.9/site-packages/gensim/interfaces.py", line 19, in <module>
     from gensim import utils, matutils
-  File "/home/miniconda3/envs/ci39_cj/lib/python3.9/site-packages/gensim/matutils.py", line 1024, in <module>
+  File "/.../python3.9/site-packages/gensim/matutils.py", line 1024, in <module>
     from gensim._matutils import logsumexp, mean_absolute_difference, dirichlet_expectation
   File "gensim/_matutils.pyx", line 1, in init gensim._matutils
 ValueError: numpy.ndarray size changed, may indicate binary incompatibility. Expected 88 from C header, got 80 from PyObject

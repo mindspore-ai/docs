@@ -30,12 +30,6 @@ A: 在pip安装命令后添加参数 `--trusted-host=ms-release.obs.cn-north-4.m
 
 <br/>
 
-<font size=3>**Q: pip安装MindSpore对Python版本是否有特别要求？**</font>
-
-A: MindSpore开发过程中用到了Python3.7+的新特性，因此建议您通过`conda`工具添加Python3.7.5的开发环境。
-
-<br/>
-
 <font size=3>**Q: MindSpore对Protobuf版本是否有特别要求？**</font>
 
 A: MindSpore默认安装Protobuf的3.13.0版本，如果不是该版本，在使用pytest测试代码时日志中会产生很多告警，建议您使用命令`pip install protobuf==3.13.0`重新安装3.13.0版本。
@@ -83,12 +77,6 @@ A: 目前MindSpore支持的情况是GPU+Linux与CPU+Windows的组合配置，Win
 
 详细步骤可以参考社区提供的实践[张小白教你安装Windows10的GPU驱动（CUDA和cuDNN）](https://bbs.huaweicloud.com/blogs/212446)。
 在此感谢社区成员[张辉](https://bbs.huaweicloud.com/community/usersnew/id_1552550689252345)的分享。
-
-<br/>
-
-<font size=3>**Q: Ascend硬件平台，在个人的Conda环境中，有时候出现报错RuntimeError: json.exception.parse_error.101 parse error at line 1, column 1: syntax error while parsing value - invalid literal; last read: 'T'，该怎么处理？**</font>
-
-A: 出现这种类型的报错，大概率是run包更新后个人的Conda环境中没有更新te或topi或hccl工具包，可以将当前Conda环境中的上述几个工具包卸载，然后使用如下命令再重新安装: `pip install /usr/local/Ascend/ascend-toolkit/latest/fwkacllib/lib64/{te/topi/hccl}-{version}-py3-none-any.whl`。
 
 <br/>
 
@@ -234,7 +222,7 @@ A: 寻找缺少的动态库文件所在目录，添加该路径到环境变量`L
 
 <font size=3>**Q: 运行应用时出现`ModuleNotFoundError: No module named 'te'`怎么办？**</font>
 
-A: 首先确认环境安装是否正确，`te`、`topi`等whl包是否正确安装。如果用户环境中有多个Python版本，如Conda虚拟环境中，需`ldd name_of_your_executable_app`确认应用所链接的`libpython3.7m.so.1.0`是否与当前Python路径一致，如果不一致需要调整环境变量`LD_LIBRARY_PATH`顺序。
+A: 首先确认环境安装是否正确，`te`、`topi`等whl包是否正确安装。如果用户环境中有多个Python版本，需`ldd name_of_your_executable_app`确认应用所链接的`libpython3.7m.so.1.0`是否与当前Python路径一致，如果不一致需要调整环境变量`LD_LIBRARY_PATH`顺序。
 
 <br/>
 
@@ -300,15 +288,15 @@ A: 以下为报错信息:
 >>> import gensim
 Traceback (most recent call last):
   File "<stdin>", line 1, in <module>
-  File "/home/miniconda3/envs/ci39_cj/lib/python3.9/site-packages/gensim/__init__.py", line 11, in <module>
+  File "/.../python3.9/site-packages/gensim/__init__.py", line 11, in <module>
     from gensim import parsing, corpora, matutils, interfaces, models, similarities, utils  # noqa:F401
-  File "/home/miniconda3/envs/ci39_cj/lib/python3.9/site-packages/gensim/corpora/__init__.py", line 6, in <module>
+  File "/.../python3.9/site-packages/gensim/corpora/__init__.py", line 6, in <module>
     from .indexedcorpus import IndexedCorpus  # noqa:F401 must appear before the other classes
-  File "/home/miniconda3/envs/ci39_cj/lib/python3.9/site-packages/gensim/corpora/indexedcorpus.py", line 14, in <module>
+  File "/.../python3.9/site-packages/gensim/corpora/indexedcorpus.py", line 14, in <module>
     from gensim import interfaces, utils
-  File "/home/miniconda3/envs/ci39_cj/lib/python3.9/site-packages/gensim/interfaces.py", line 19, in <module>
+  File "/.../python3.9/site-packages/gensim/interfaces.py", line 19, in <module>
     from gensim import utils, matutils
-  File "/home/miniconda3/envs/ci39_cj/lib/python3.9/site-packages/gensim/matutils.py", line 1024, in <module>
+  File "/.../python3.9/site-packages/gensim/matutils.py", line 1024, in <module>
     from gensim._matutils import logsumexp, mean_absolute_difference, dirichlet_expectation
   File "gensim/_matutils.pyx", line 1, in init gensim._matutils
 ValueError: numpy.ndarray size changed, may indicate binary incompatibility. Expected 88 from C header, got 80 from PyObject

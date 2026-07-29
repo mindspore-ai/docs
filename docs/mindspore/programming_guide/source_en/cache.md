@@ -32,12 +32,7 @@ Currently, the cache service supports only single-node cache. That is, the clien
 
 1. Configure the environment.
 
-    Before using the cache service, you need to install MindSpore and set related environment variables. The Conda environment is used as an example. The setting method is as follows:
-
-    ```text
-    export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:{path_to_conda}/envs/{your_env_name}/lib/python3.7/site-packages/mindspore:{path_to_conda}/envs/{your_env_name}/lib/python3.7/site-packages/mindspore/lib
-    export PATH=$PATH:{path_to_conda}/envs/{your_env_name}/bin
-    ```
+    Before using the cache service, you need to install MindSpore and set related environment variables.
 
    > When the cache is used, the server memory may be insufficient. Therefore, you are advised to increase the swap memory space of the server to more than 100 GB before using the cache. For details about how to increase the swap memory space on Ubuntu, EulerOS, or CentOS, see [related tutorials](https://help.ubuntu.com/community/SwapFaq#How_do_I_add_a_swap_file.3F).
 
