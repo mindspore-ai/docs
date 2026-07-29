@@ -4,12 +4,6 @@
 
 ### Pip Installation
 
-Q: Any specific requirements for Python version when pip install MindSpore?
-
-A: MindSpore utilizes many of the new features in Python3.7+，therefore we recommend you add Python3.7.5 develop environment via `conda`.
-
-<br/>
-
 Q: What should I do when error prompts during pip install?
 
 A: Please execute `pip -V` to check if pip is linked to Python3.7+. If not, we recommend you
