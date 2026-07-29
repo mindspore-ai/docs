@@ -128,9 +128,3 @@
     ```
     需要替换你的本地路径*your_path*。
     ```
-  
-  - 代码片段中
-
-    ```
-    conda activate {your_env_name}
-    ```

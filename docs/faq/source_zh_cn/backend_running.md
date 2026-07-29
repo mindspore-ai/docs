@@ -119,16 +119,6 @@ A：此问题为MindSpore动态加载集合通信库失败，可能原因如下�
 
 <br/>
 
-<font size=3>**Q：启动缓存服务器时，若提示找不到`libpython3.7m.so.1.0`文件，应如何处理？**</font>
-
-A：尝试在虚拟环境下查找其路径并设置LD_LIBRARY_PATH变量：
-
-```shell
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:{path_to_conda}/envs/{your_env_name}/lib
-```
-
-<br/>
-
 <font size=3>**Q：缓存服务器异常关闭如何处理？**</font>
 
 A：缓存服务器使用过程中，会进行IPC共享内存和socket文件等系统资源的分配。若允许溢出，在磁盘空间还会存在溢出的数据文件。一般情况下，如果通过`cache_admin --stop`命令正常关闭服务器，这些资源将会被自动清理。
