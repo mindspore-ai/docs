@@ -34,14 +34,7 @@ Currently, the cache service supports only single-node cache. That is, the clien
 
 1. Configure the environment.
 
-    Before using the cache service, you need to install MindSpore and set related environment variables. The Conda environment is used as an example. The setting method is as follows:
-
-    ```text
-    export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:{path_to_conda}/envs/{your_env_name}/lib/python3.7/site-packages/mindspore:{path_to_conda}/envs/{your_env_name}/lib/python3.7/site-packages/mindspore/lib
-    export PATH=$PATH:{path_to_conda}/envs/{your_env_name}/bin
-    ```
-
-    You can also set the environment with the following code.
+    You can set the environment with the following code.
 
     ```python
     import os

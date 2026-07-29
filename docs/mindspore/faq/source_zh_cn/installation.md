@@ -88,12 +88,6 @@ A: 目前MindSpore支持的情况是GPU+Linux与CPU+Windows的组合配置，Win
 
 <br/>
 
-<font size=3>**Q: Ascend硬件平台，在个人的Conda环境中，有时候出现报错RuntimeError: json.exception.parse_error.101 parse error at line 1, column 1: syntax error while parsing value - invalid literal; last read: 'T'，该怎么处理？**</font>
-
-A: 出现这种类型的报错，大概率是run包更新后个人的Conda环境中没有更新te或topi或hccl工具包，可以将当前Conda环境中的上述几个工具包卸载，然后使用如下命令再重新安装: `pip install /usr/local/Ascend/ascend-toolkit/latest/fwkacllib/lib64/{te/topi/hccl}-{version}-py3-none-any.whl`。
-
-<br/>
-
 <font size=3>**Q: pip同时安装MindSpore CPU和GPU版本，import时报错 `cannot import name 'context' from 'mindspore'`，应该怎么办？**</font>
 
 A: MindSpore不同版本的安装目录名同为`mindspore`，安装在同一个Python环境可能产生目录相互覆盖问题，导致无法使用，如果需要使用多平台版本的MindSpore时（例如同时使用CPU和GPU版本），请先卸载其他版本再安装新版本。
@@ -232,7 +226,7 @@ A: 寻找缺少的动态库文件所在目录，添加该路径到环境变量`L
 
 <font size=3>**Q: 运行应用时出现`ModuleNotFoundError: No module named 'te'`怎么办？**</font>
 
-A: 首先确认环境安装是否正确，`te`、`topi`等whl包是否正确安装。如果用户环境中有多个Python版本，如Conda虚拟环境中，需`ldd name_of_your_executable_app`确认应用所链接的`libpython3.so`是否与当前Python路径一致，如果不一致需要调整环境变量`LD_LIBRARY_PATH`顺序，例如
+A: 首先确认环境安装是否正确，`te`、`topi`等whl包是否正确安装。如果用户环境中有多个Python版本，需`ldd name_of_your_executable_app`确认应用所链接的`libpython3.so`是否与当前Python路径一致，如果不一致需要调整环境变量`LD_LIBRARY_PATH`顺序，例如
 
 ```bash
 export LD_LIBRARY_PATH=`python -c "import distutils.sysconfig as sysconfig; print(sysconfig.get_config_var('LIBDIR'))"`:$LD_LIBRARY_PATH
@@ -249,8 +243,6 @@ A: 该报错通常出现在装有多个Python版本的环境中，首先确认Py
 ```bash
 export LD_LIBRARY_PATH=`python -c "import distutils.sysconfig as sysconfig; print(sysconfig.get_config_var('LIBDIR'))"`:$LD_LIBRARY_PATH
 ```
-
-另外如果在Conda虚拟环境中，Python 3.7.6以下版本不含该动态库，可以执行命令升级Conda中Python的版本，如：`conda install python=3.7.11`。
 
 <br/>
 

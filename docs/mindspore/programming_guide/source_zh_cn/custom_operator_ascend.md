@@ -194,7 +194,7 @@ output: [1. 16. 81.]
 
 开发完成之后将编译生成一个指定名称的文件，如`libmindspore_aicpu_kernels.so`，`libcust_reshape.so`这类文件，这些动态库中可包含一个或多个AICPU算子实现，将该文件放到MindSpore安装或者编译目录下的lib目录下，MindSpore即可通过后续自定义算子注册信息加载该文件。
 
-> 算子实现的动态库文件，需要放到MindSpore的lib目录下，比如MindSpore安装在虚拟环境`/home/conda/envs/aicpu/lib/python3.7/site-packages/mindspore`下，则aicpu的so文件需要放到`/home/conda/envs/aicpu/lib/python3.7/site-packages/mindspore/lib/`目录下，这样即可正常加载到文件。
+> 算子实现的动态库文件，需要放到MindSpore的lib目录下，比如MindSpore安装在虚拟环境`/.../python3.7/site-packages/mindspore`下，则aicpu的so文件需要放到`/.../python3.7/site-packages/mindspore/lib/`目录下，这样即可正常加载到文件。
 
 更多关于AICPU算子的调试和性能优化请参考[MindStudio文档](https://support.huaweicloud.com/usermanual-mindstudioc73/atlasmindstudio_02_0043.html)。
 
