@@ -28,12 +28,7 @@
 
 1. 配置环境。
 
-    使用缓存服务前，需要安装MindSpore，并设置相关环境变量。以Conda环境为例，设置方法如下：
-
-    ```shell
-    export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:{path_to_conda}/envs/{your_env_name}/lib/python3.7/site-packages/mindspore:{path_to_conda}/envs/{your_env_name}/lib/python3.7/site-packages/mindspore/lib
-    export PATH=$PATH:{path_to_conda}/envs/{your_env_name}/bin
-    ```
+    使用缓存服务前，需要安装MindSpore，并设置相关环境变量。
 
    > 由于使用缓存可能会造成服务器的内存紧张，因此建议用户在使用缓存前增大服务器的交换内存空间至100GB以上，Ubuntu、EulerOS以及CentOS均可参考[相关教程](https://help.ubuntu.com/community/SwapFaq#How_do_I_add_a_swap_file.3F)了解如何增大交换内存空间。
 
