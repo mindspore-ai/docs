@@ -14,12 +14,12 @@
 
     ```sh
     numpy==1.16.4
-    scipy                      # conda install scipy
-    tensorflow==1.13.1         # pip install tensorflow
-    Pillow                     # pip install Pillow
-    matplotlib                 # pip install matplotlib
-    jupyter                    # conda install jupyter notebook==5.7.8 tornado==4.5.3
-    pandas                     # pip install pandas
+    scipy
+    tensorflow==1.13.1
+    Pillow 
+    matplotlib
+    jupyter
+    pandas
     ```
 
 2. 使用git下载官方数据集生成脚本。
