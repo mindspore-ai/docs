@@ -252,8 +252,8 @@ epoch: 4 step: 2, loss is 0.2440134435892105
     : (<Tensor[Float32], (8, 8)>, <Tensor[Float32], (8, 16)>) -> (<Tensor[Float32], (8, 16)>)
     # scope: (Default/network-WithLossCell/_backbone-Net)
     # In file /home/jenkins/my_dir/parallel_training_quick_start/device/./matmul.py(45)/        out = self.matmul(x, self.weight)/
-    # In file /home/miniconda3/envs/my_env/lib/python3.9/site-packages/mindspore/nn/wrap/cell_wrapper.py(114)/        out = self._backbone(data)/
-    # In file /home/miniconda3/envs/my_env/lib/python3.9/site-packages/mindspore/nn/wrap/cell_wrapper.py(376)/        loss = self.network(*inputs)/
+    # In file /.../python3.9/site-packages/mindspore/nn/wrap/cell_wrapper.py(114)/        out = self._backbone(data)/
+    # In file /.../python3.9/site-packages/mindspore/nn/wrap/cell_wrapper.py(376)/        loss = self.network(*inputs)/
 %13(equiv[CNode]520) = AllReduce(%12) {instance name: forward_op_11795743325248501408} primitive_attrs: {group: 4-6301172352641561019, fusion: 0, op: sum, rank_list: (0, 1, 2, 3), group_ranks: 0-1-2-3, index: 0, group_rank_ids: (0, 1, 2, 3), no_eliminate: true} cnode_attrs: {comm_reuse: true}
     : (<Tensor[Float32], (8, 16)>) -> (<Tensor[Float32], (8, 16)>)
     # scope: (Default/network-WithLossCell/_backbone-Net)
@@ -264,8 +264,8 @@ epoch: 4 step: 2, loss is 0.2440134435892105
     : (<Tensor[Float32], (8, 4)>) -> (<Tensor[Float32], (8, 4)>)
     # scope: (Default/network-WithLossCell/_backbone-Net)
     # In file /home/jenkins/my_dir/parallel_training_quick_start/device/./matmul.py(46)/        out = self.relu(out)/
-    # In file /home/miniconda3/envs/my_env/lib/python3.9/site-packages/mindspore/nn/wrap/cell_wrapper.py(114)/        out = self._backbone(data)/
-    # In file /home/miniconda3/envs/my_env/lib/python3.9/site-packages/mindspore/nn/wrap/cell_wrapper.py(376)/        loss = self.network(*inputs)/
+    # In file /.../python3.9/site-packages/mindspore/nn/wrap/cell_wrapper.py(114)/        out = self._backbone(data)/
+    # In file /.../python3.9/site-packages/mindspore/nn/wrap/cell_wrapper.py(376)/        loss = self.network(*inputs)/
 %16(equiv[CNode]472) = Load(%para4_w2, U)
     : (<Ref[Tensor(F32)], (4, 16), ref_key=:w2>, <UMonad>) -> (<Tensor[Float32], (4, 16)>)
     # scope: (Default/network-WithLossCell)
@@ -273,8 +273,8 @@ epoch: 4 step: 2, loss is 0.2440134435892105
     : (<Tensor[Float32], (8, 4)>, <Tensor[Float32], (4, 16)>) -> (<Tensor[Float32], (8, 16)>)
     # scope: (Default/network-WithLossCell/_backbone-Net)
     # In file /home/jenkins/my_dir/parallel_training_quick_start/device/./matmul.py(47)/        out = self.matmul2(out, self.weight2)/
-    # In file /home/miniconda3/envs/my_env/lib/python3.9/site-packages/mindspore/nn/wrap/cell_wrapper.py(114)/        out = self._backbone(data)/
-    # In file /home/miniconda3/envs/my_env/lib/python3.9/site-packages/mindspore/nn/wrap/cell_wrapper.py(376)/        loss = self.network(*inputs)/
+    # In file /.../python3.9/site-packages/mindspore/nn/wrap/cell_wrapper.py(114)/        out = self._backbone(data)/
+    # In file /.../python3.9/site-packages/mindspore/nn/wrap/cell_wrapper.py(376)/        loss = self.network(*inputs)/
 ...
 ```
 
