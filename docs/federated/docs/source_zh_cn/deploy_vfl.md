@@ -30,8 +30,6 @@ MindSpore Vertical Federated Learning (VFL) 物理架构如图所示：
 
 ## 准备环节
 
-> 建议使用[Anaconda](https://www.anaconda.com/)创建虚拟环境进行如下操作。
-
 ### 安装MindSpore
 
 MindSpore纵向联邦支持在x86 CPU、GPU CUDA和Ascend硬件平台上部署。可参考[MindSpore安装指南](https://www.mindspore.cn/install)安装MindSpore最新版本。

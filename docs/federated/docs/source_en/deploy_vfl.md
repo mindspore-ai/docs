@@ -30,8 +30,6 @@ As shown above, there are two participants in the vertical federated interaction
 
 ## Preparation
 
-> It is recommended to use [Anaconda](https://www.anaconda.com/) to create a virtual environment for the following operations.
-
 ### Installing MindSpore
 
 MindSpore vertical federated supports deployment on x86 CPU, GPU CUDA and Ascend hardware platforms. The latest version of MindSpore can be installed by referring to [MindSpore Installation Guide](https://www.mindspore.cn/install).

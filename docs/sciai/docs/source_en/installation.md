@@ -39,9 +39,6 @@ The following table provides the corresponding installation commands to each arc
 |        | aarch64      | Python=3.7 | `pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.2.0/MindScience/sciai/ascend/aarch64/sciai-0.1.0-cp37-cp37m-linux_aarch64.whl -i https://pypi.tuna.tsinghua.edu.cn/simple`      |
 | GPU    | x86_64       | Python=3.7 | `pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.2.0/MindScience/sciai/gpu/x86_64/cuda-11.1/sciai-0.1.0-cp37-cp37m-linux_x86_64.whl -i https://pypi.tuna.tsinghua.edu.cn/simple` |
 
-Note: If you have other MindScience package(s) installed in your conda or python env, such as `MindElec`, `MindFlow`
-, `MindSponge`, please uninstall the MindScience package(s) in the environment first to avoid pip behavior conflicts.
-
 ### Method 2: Install From Source Code
 
 1. Clone the source code from the Git repository of MindScience.
