@@ -17,14 +17,14 @@
 ## 确认系统环境信息
 
 - 确认安装Windows 10是x86架构64位操作系统。
-- 确认安装Python（>=3.9.0）。可以从[Python官网](https://www.python.org/downloads/windows/)或者[华为云](https://repo.huaweicloud.com/python/)选择合适的版本进行安装。
+- 确认安装Python（3.10-3.12）。可以从[Python官网](https://www.python.org/downloads/windows/)或者[华为云](https://repo.huaweicloud.com/python/)选择合适的版本进行安装。
 
 ## 安装MindSpore
 
-首先参考[版本列表](https://www.mindspore.cn/versions)选择想要安装的MindSpore版本，并进行SHA-256完整性校验。以2.9.0版本为例，执行以下命令。
+首先参考[版本列表](https://www.mindspore.cn/versions)选择想要安装的MindSpore版本，并进行SHA-256完整性校验。以2.10.0版本为例，执行以下命令。
 
 ```bash
-set MS_VERSION=2.9.0
+set MS_VERSION=2.10.0
 ```
 
 然后执行以下命令安装MindSpore。
