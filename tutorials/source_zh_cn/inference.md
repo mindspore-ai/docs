@@ -153,7 +153,7 @@ target_link_libraries(resnet50_sample ${MS_LIB} ${MD_LIB})
 # 控制log的打印级别. 0-DEBUG, 1-INFO, 2-WARNING, 3-ERROR, 4-CRITICAL, 默认是WARNING级别.
 export GLOG_v=2
 
-# 选择Conda环境
+# 选择CANN环境
 LOCAL_ASCEND=/usr/local/Ascend # 运行包的根目录
 
 # 运行包依赖的lib库
