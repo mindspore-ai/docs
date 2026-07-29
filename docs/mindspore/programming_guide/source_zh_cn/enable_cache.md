@@ -17,12 +17,7 @@
 
 1. 配置环境。
 
-   使用缓存服务前，需要安装MindSpore，并设置相关环境变量。以Conda环境为例，设置方法如下：
-
-   ```text
-   export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:{path_to_conda}/envs/{your_env_name}/lib/python3.7/site-packages/mindspore:{path_to_conda}/envs/{your_env_name}/lib/python3.7/site-packages/mindspore/lib
-   export PATH=$PATH:{path_to_conda}/envs/{your_env_name}/bin
-   ```
+   使用缓存服务前，需要安装MindSpore，并设置相关环境变量。
 
 2. 启动缓存服务器。
 
@@ -35,12 +30,6 @@
 
    Recommendation:
    Since the server is detached into its own daemon process, monitor the server logs (under /tmp/mindspore/cache/log) for any issues that may happen after startup
-   ```
-
-   若提示找不到`libpython3.7m.so.1.0`文件，尝试在虚拟环境下查找其路径并设置环境变量：
-
-   ```text
-   export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:{path_to_conda}/envs/{your_env_name}/lib
    ```
 
 3. 创建缓存会话。

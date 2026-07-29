@@ -149,7 +149,7 @@ Go to the project directory `ascend910_resnet50_preprocess_sample` and set the f
 # Control the log print level. 0 indicates DEBUG, 1 indicates INFO, 2 indicates WARNING (default value), and 3 indicates ERROR.
 export GLOG_v=2
 
-# Select the Conda environment.
+# Select the CANN environment.
 LOCAL_ASCEND=/usr/local/Ascend # Root directory of the running package
 
 # Library on which the running package depends
