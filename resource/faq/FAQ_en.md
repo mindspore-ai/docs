@@ -9,12 +9,6 @@ A: Add the `--trusted-host=ms-release.obs.cn-north-4.myhuaweicloud.com` paramete
 
 <br/>
 
-Q: Any specific requirements for Python version when pip install MindSpore?
-
-A: MindSpore utilizes many of the new features in Python3.7+，therefore we recommend you add Python3.7.5 develop environment via `conda`.
-
-<br/>
-
 Q：What should I do when error `ProxyError(Cannot connect to proxy)` prompts during pip install?
 
 A：It is generally a proxy configuration problem, you can using `export http_proxy={your_proxy}` on Ubuntu environment, and using `set http_proxy={your_proxy}` in cmd on Windows environment to config your proxy.

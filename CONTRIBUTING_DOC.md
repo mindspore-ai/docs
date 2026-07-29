@@ -128,9 +128,3 @@ The procedure for submitting the modification is the same as that for submitting
     ```
     Need to replace your local path *your_ path*. 
     ```
-
-  - In code snippet
-
-    ```
-    conda activate {your_env_name}
-    ```
