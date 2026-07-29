@@ -129,12 +129,6 @@
     需要替换你的本地路径*your_path*。
     ```
 
-    - 代码片段中
-
-    ```markdown
-    conda activate {your_env_name}
-    ```
-
 ## 文档检查
 
 Markdownlint是一款检查Markdown文件格式正确性的工具，可以根据设置的规则以及创建的新规则对Markdown文件进行全面的检查。
