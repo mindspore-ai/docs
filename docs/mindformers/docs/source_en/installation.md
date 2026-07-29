@@ -141,7 +141,7 @@ If you do not want to configure the Python/CANN/MindSpore environment directly o
 
 The MindSpore Transformers Ascend image is hosted in the Huawei Cloud SWR image repository; it is ready to use out of the box and does not require local building.
 
-> The official pre-built image for the corresponding version may not yet be available in the image repository; please refer to the actually available tags in [docker/OVERVIEW.md](https://gitcode.com/mindspore/mindformers/blob/master/docker/OVERVIEW.md). If the required version is not currently available, you can use `Method 2: Build the Image Yourself` described below.
+> The official pre-built image for version 2.0 and later may not yet be available in the image repository; please refer to the actually available tags in [docker/OVERVIEW.md](https://gitcode.com/mindspore/mindformers/blob/master/docker/OVERVIEW.md). If the required version is not currently available, you can use `Method 2: Build the Image Yourself` described below.
 
 **Image Repository URL:**
 

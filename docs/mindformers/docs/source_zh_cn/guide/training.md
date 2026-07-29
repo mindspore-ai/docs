@@ -80,7 +80,7 @@ MindSpore Transformers支持了不同系列的预训练模型，例如DeepSeek�
   <tr>
     <td>并行配置</td>
     <td>
-    <a href=https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/configuration.html#parallelism-%E5%A4%9A%E7%BB%B4%E5%B9%B6%E8%A1%8C target="_blank">并行配置项说明</a><br>
+    <a href=https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/configuration.html#parallelism-——-多维并行 target="_blank">并行配置项说明</a><br>
     <a href=https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/parallel_training.html target="_blank">分布式并行训练指南</a>
     </td>
   </tr>
@@ -97,7 +97,7 @@ MindSpore Transformers支持了不同系列的预训练模型，例如DeepSeek�
     <td>权重保存</td>
     <td>
       <a href=https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/save_load_checkpoint.html target="_blank">权重保存与加载（Safetensors）</a><br>
-      <a href=https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/configuration.html#checkpoint-%E6%9D%83%E9%87%8D%E4%BF%9D%E5%AD%98%E4%B8%8E%E5%8A%A0%E8%BD%BD target="_blank">Callbacks配置CheckpointMonitor</a>
+      <a href=https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/configuration.html#checkpoint-——-权重保存与加载 target="_blank">Callbacks配置CheckpointMonitor</a>
     </td>
   </tr>
   <tr>
