@@ -15,6 +15,7 @@ The open-source code repository for MindSpore Transformers is located at `AtomGi
    :caption: Introduction
    :hidden:
 
+   quick_start/quick_start
    introduction/overview
    introduction/models
 
@@ -25,6 +26,42 @@ The open-source code repository for MindSpore Transformers is located at `AtomGi
    :hidden:
 
    installation
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: Training Guide
+   :hidden:
+
+   guide/training
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: Function Features
+   :hidden:
+
+   feature/overview
+   feature/start_task
+   feature/configuration
+   feature/logging
+   feature/dataset
+   feature/training_hyperparameters
+   feature/parallel_training
+   feature/memory_optimization
+   feature/save_load_checkpoint
+   feature/resume_training
+   feature/monitor
+   feature/other_training_features
+   feature/static_graph_features
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: Environment Variables
+   :hidden:
+
+   env_variables
 
 .. toctree::
    :glob:

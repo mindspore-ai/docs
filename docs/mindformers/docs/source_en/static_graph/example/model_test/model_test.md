@@ -40,7 +40,7 @@ bash build_image.sh
 
 > If the image building times out, you can add `ENV UV_HTTP_TIMEOUT=3000` to the `build_image.sh` script and replace the image repository with a faster one in the `install_depend_pkgs.sh` script.
 
-Create a Docker based on the server configuration. For details, see [Docker Installation](https://www.mindspore.cn/vllm_mindspore/docs/en/master/getting_started/installation/installation.html).
+Create a Docker based on the server configuration. For details, see [Docker Installation](https://www.mindspore.cn/vllm_mindspore/docs/en/r2.10.0/getting_started/installation/installation.html).
 
 ### 1.3 lm-eval
 
