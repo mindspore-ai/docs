@@ -212,7 +212,7 @@ class ExhaleNode(object):
         '''
         # allows alphabetical sorting within types
         if self.kind == other.kind:
-            return self.name.lower() < other.name.lower()
+            return (self.name.lower(), self.name) < (other.name.lower(), other.name)
         # treat structs and classes as the same type
         elif self.kind == "struct" or self.kind == "class":
             if other.kind != "struct" and other.kind != "class":
