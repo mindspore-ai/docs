@@ -129,12 +129,6 @@ The procedure for submitting the modification is the same as that for submitting
     Need to replace your local path *your_ path*.
     ```
 
-    - In code snippet
-
-    ```markdown
-    conda activate {your_env_name}
-    ```
-
 ## Markdown Check
 
 Markdownlint is a tool for checking the correctness of the Markdown file format. It can perform a comprehensive check on the Markdown file according to the set rules and the new rules created by users.

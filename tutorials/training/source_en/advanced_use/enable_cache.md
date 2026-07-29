@@ -12,12 +12,7 @@ This tutorial demonstrates how to use the single-node cache service to cache dat
 
 ## Configuring the Environment
 
-Before using the cache service, you need to install MindSpore and set related environment variables. The Conda environment is used as an example. The setting method is as follows:
-
-```shell
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:{path_to_conda}/envs/{your_env_name}/lib/python3.7/site-packages/mindspore:{path_to_conda}/envs/{your_env_name}/lib/python3.7/site-packages/mindspore/lib
-export PATH=$PATH:{path_to_conda}/envs/{your_env_name}/bin
-```
+Before using the cache service, you need to install MindSpore and set related environment variables.
 
 ## Starting the Cache Server
 
@@ -30,12 +25,6 @@ The cache server daemon has been created as process id 10394 and is listening on
 
 Recommendation:
 Since the server is detached into its own daemon process, monitor the server logs (under /tmp/mindspore/cache/log) for any issues that may happen after startup
-```
-
-If the system displays a message indicating that the `libpython3.7m.so.1.0` file cannot be found, search for the file path in the virtual environment and set environment variables.
-
-```shell
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:{path_to_conda}/envs/{your_env_name}/lib
 ```
 
 ## Creating a Cache Session

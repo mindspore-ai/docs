@@ -18,12 +18,6 @@ A: Add the `--trusted-host=ms-release.obs.cn-north-4.myhuaweicloud.com` paramete
 
 <br/>
 
-<font size=3>**Q: Any specific requirements for Python version when pip install MindSpore?**</font>
-
-A: MindSpore utilizes many of the new features in Python3.7+，therefore we recommend you add Python3.7.5 develop environment via `conda`.
-
-<br/>
-
 <font size=3>**Q: Any specific requirements for protobuf version when use MindSpore?**</font>
 
 A: MindSpore installs version 3.8.0 of protobuf by default. If you have installed 3.12.0 or later version of protobuf locally, there will be many warnings in the log when using pytest to test the code. It is recommended that you use the command 'pip install protobuf==3.8.0' to reinstall version 3.8.0.
