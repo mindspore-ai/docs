@@ -137,7 +137,7 @@ Log in to the GPU environment, and create the `model` directory to store the `re
 Set the environment variable base on the actual situation, where the TensorRT is an optional configuration item. It is recommended to add `TensorRT` path to `LD_LIBRARY_PATH` to improve mode inference performance.
 
 ```bash
-export LD_PRELOAD=/home/miniconda3/lib/libpython37m.so
+export LD_PRELOAD=/path/to/libpython37m.so
 export LD_LIBRARY_PATH=/usr/local/TensorRT-7.2.2.3/lib/:$LD_LIBRARY_PATH
 ```
 
