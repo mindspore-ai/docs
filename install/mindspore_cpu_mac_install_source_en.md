@@ -4,8 +4,7 @@
 
 - [Installing MindSpore in CPU by Source Code-macOS](#installing-mindspore-in-cpu-by-source-code-macos)
     - [System Environment Information Confirmation](#system-environment-information-confirmation)
-    - [Installing Conda](#installing-conda)
-    - [Creating and Accessing the Conda Virtual Environment](#creating-and-accessing-the-conda-virtual-environment)
+    - [Installing Python](#installing-python)
     - [Python requirements Confirmation](#python-requirements-confirmation)
     - [Downloading Source Code from Code Repository](#downloading-source-code-from-code-repository)
     - [Compiling MindSpore](#compiling-mindspore)
@@ -17,23 +16,7 @@
 
 [![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.9.0/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/r2.9.0/install/mindspore_cpu_mac_install_source_en.md)
 
-[Conda](https://docs.conda.io/en/latest/) is an open-source, cross-platform, language-agnostic package manager and environment management system. It allows users to easily install different versions of binary software packages and any required libraries appropriate for their computing platform.
-
-This document describes how to install MindSpore by compiling source code on macOS with Conda installed.
-
 ## System Environment Information Confirmation
-
-- According to the system and chip situation in the table below, determine the appropriate Python and Conda versions, and for the macOS version and chip information, click on the Apple logo in the upper left corner of the desktop - > `About this mac`:
-
-    |Chip|Architecture|macOS Version|Supported Python Version|Supported Conda Version|
-    |-|-|-|-|-|
-    |M1|ARM|14.8.5|Python 3.9-3.12|Mambaforge or Miniforge|
-    |Intel|x86_64|10.15/11.3|Python 3.9-3.12|Anaconda or Miniconda|
-
-- Ensure that the Conda version is compatible with the current system and chip.
-
-    - If you prefer the complete capabilities provided by Conda, you may download [Anaconda3](https://repo.anaconda.com/archive/) or [Mambaforge](https://github.com/conda-forge/miniforge).
-    - If you want to save disk space or prefer customizing Conda installation package, you may download [Miniconda3](https://repo.anaconda.com/miniconda/) or [Miniforge](https://github.com/conda-forge/miniforge).
 
 - Ensure that [Xcode](https://xcodereleases.com/) is installed, where 12.4(X86) and 13.4(m1) are verified.
 
@@ -43,41 +26,27 @@ This document describes how to install MindSpore by compiling source code on mac
 
 - Ensure that [patch 2.5](https://ftp.gnu.org/gnu/patch/) is installed. Use `brew install patch` if it's not installed.
 
-## Installing Conda
+## Installing Python
 
-Run the following command to install Miniconda.
+Please refer to the [Python official website](https://www.python.org/) to install Python by yourself. The version must be 3.9-3.12.
+
+After the installation is complete, you can check the Python version with the following command.
 
 ```bash
-cd /tmp
-curl -O https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/Miniconda3-latest-MacOSX-$(arch).sh
-bash Miniconda3-latest-MacOSX-$(arch).sh
-source ~/.zshrc
+python --version
 ```
-
-After the installation is complete, you can set up Tsinghua Source to accelerate the download for Conda, and refer to [Here](https://mirrors.tuna.tsinghua.edu.cn/help/anaconda/).
-
-## Creating and Accessing the Conda Virtual Environment
-
-Create a Conda virtual environment based on the Python version you want to use and go to the virtual environment.
-
-- If you want to use Python 3.10.20:
-
-  ```bash
-  conda create -c conda-forge -n mindspore_py310 -c conda-forge python=3.10.20
-  conda activate mindspore_py310
-  ```
 
 ## Python requirements Confirmation
 
 In Python environment which MindSpore will be built upon, ensure that the following packages are installed:
 
-- Ensure that [wheel 0.32.0 or later](https://pypi.org/project/wheel/) is installed. Use `conda install wheel` if it's not installed.
+- Ensure that [wheel 0.32.0 or later](https://pypi.org/project/wheel/) is installed. Use `pip install wheel` if it's not installed.
 
-- Ensure that [PyYAML](https://pypi.org/project/pyyaml/) (>=6.0 and <= 6.0.2) is installed. Use `conda install pyyaml` if it's not installed.
+- Ensure that [PyYAML](https://pypi.org/project/pyyaml/) (>=6.0 and <= 6.0.2) is installed. Use `pip install pyyaml` if it's not installed.
 
 - Ensure that [autoconf](https://ftp.gnu.org/gnu/autoconf/) is installed. Use `brew install autoconf` if it's not installed.
 
-- Ensure that [Numpy](https://pypi.org/project/numpy/) (>=1.19.3 and <= 1.26.4) is installed. Use `conda install numpy` if it's not installed.
+- Ensure that [Numpy](https://pypi.org/project/numpy/) (>=1.19.3 and <= 1.26.4) is installed. Use `pip install numpy` if it's not installed.
 
 ## Downloading Source Code from Code Repository
 
@@ -99,7 +68,7 @@ bash build.sh -e cpu -S on -j4   # -j is a thread configuration when compiled, a
 
 ```bash
 # install prerequisites
-conda install scipy -c conda-forge
+pip install scipy
 
 pip install output/mindspore-*.whl -i https://repo.huaweicloud.com/repository/pypi/simple/
 ```

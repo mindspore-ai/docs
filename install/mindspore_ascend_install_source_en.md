@@ -50,29 +50,9 @@ The following describes how to install the third-party dependencies.
 
 ### Installing Python
 
-[Python](https://www.python.org/) can be installed by Conda.
+Please refer to the [Python official website](https://www.python.org/) to install Python by yourself. The version must be 3.9-3.12.
 
-Install Miniconda:
-
-```bash
-cd /tmp
-curl -O https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/Miniconda3-py310_26.1.1-1-Linux-$(arch).sh
-bash Miniconda3-py310_26.1.1-1-Linux-$(arch).sh -b
-cd -
-. ~/miniconda3/etc/profile.d/conda.sh
-conda init bash
-```
-
-After the installation is complete, you can set up Tsinghua source acceleration download for Conda, and see [here](https://mirrors.tuna.tsinghua.edu.cn/help/anaconda/).
-
-Create a virtual environment, taking Python 3.10.20 as an example:
-
-```bash
-conda create -n mindspore_py310 python=3.10.20 -y
-conda activate mindspore_py310
-```
-
-Run the following command to check the Python version.
+After the installation is complete, you can check the Python version with the following command.
 
 ```bash
 python --version
