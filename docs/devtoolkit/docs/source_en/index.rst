@@ -39,7 +39,6 @@ System Requirements
    api_search
    api_scanning
    knowledge_search
-   mindspore_project_wizard
 
 .. toctree::
    :glob:

@@ -39,7 +39,6 @@ MindSpore Dev Toolkit通过深度学习、智能搜索及智能推荐等技术�
    api_search
    api_scanning
    knowledge_search
-   mindspore_project_wizard
 
 .. toctree::
    :glob:
