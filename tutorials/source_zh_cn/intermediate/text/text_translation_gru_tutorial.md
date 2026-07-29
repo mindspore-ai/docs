@@ -36,7 +36,7 @@ seq2seq
 └─ output        # 存储结果文件夹
 ```
 
-此外还需要下载自然语言工具包 `nltk` ，可通过 `pip` 或 `conda` 完成安装：
+此外还需要下载自然语言工具包 `nltk` ，可通过 `pip` 完成安装：
 
 ```python
 pip install nltk
