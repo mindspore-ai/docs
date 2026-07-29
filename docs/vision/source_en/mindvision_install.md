@@ -16,13 +16,6 @@
 
 ### Prepare environment
 
-- Create a conda virtual environment and activate it.
-
-    ```shell
-    conda create -n mindvision python=3.7.5 -y
-    conda activate mindvision
-    ```
-
 - Install MindSpore
 
     ```shell
