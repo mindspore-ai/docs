@@ -25,38 +25,14 @@ The following table lists the system environment and third-party dependencies re
 | software                       | version     | description                                             |
 | ------------------------------ | ----------- | ------------------------------------------------------- |
 | Ubuntu                         | 18.04       | OS for running MindSpore                                |
-| [Python](#installing-python)   | 3.9-3.11     | Python environment that MindSpore depends               |
+| [Python](#installing-python)   | 3.10-3.12     | Python environment that MindSpore depends               |
 | [GCC](#installing-gcc) | 9.5.0-11.3.0 (preferred version 9.5.0) | C++ compiler for compiling MindSpore                    |
 
 The following describes how to install the third-party dependencies.
 
 ### Installing Python
 
-[Python](https://www.python.org/) can be installed in multiple ways.
-
-- Install Python with Conda.
-
-  Install Miniconda:
-
-  ```bash
-  cd /tmp
-  curl -O https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/Miniconda3-py310_26.1.1-1-Linux-$(arch).sh
-  bash Miniconda3-py310_26.1.1-1-Linux-$(arch).sh -b
-  cd -
-  . ~/miniconda3/etc/profile.d/conda.sh
-  conda init bash
-  ```
-
-  After the installation is complete, you can set up Tsinghua source acceleration download for Conda, and see [here](https://mirrors.tuna.tsinghua.edu.cn/help/anaconda/).
-
-  Create a virtual environment, taking Python 3.10.20 as an example:
-
-  ```bash
-  conda create -n mindspore_py310 python=3.10.20 -y
-  conda activate mindspore_py310
-  ```
-
-- Or install Python via APT with the following command.
+[Python](https://www.python.org/) can be installed via APT with the following command.
 
   ```bash
   sudo apt-get update

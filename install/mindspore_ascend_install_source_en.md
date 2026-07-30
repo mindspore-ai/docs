@@ -31,8 +31,8 @@ The following table lists the system environment and third-party dependencies re
 |Software|Version|Description|
 |-|-|-|
 |Debian series OS / openEuler series OS|Debianseries: Debian, Ubuntu, veLinux / openEuler serires: openEuler, CentOS, Kylin, BCLinux, UOS V20, AntOS, CTyunOS, CULinux, Tlinux, MTOS|Operating Systems compatible to MindSpore|
-|[Python](#installing-python)|3.9-3.12|Python environment that MindSpore depends on|
-|[Ascend AI processor software package](#installing-ascend-ai-processor-software-package)|CANN 9.0.x, CANN 8.5.x, CANN 8.3.RC1|Ascend platform AI computing library used by MindSpore|
+|[Python](#installing-python)|3.10-3.12|Python environment that MindSpore depends on|
+|[Ascend AI processor software package](#installing-ascend-ai-processor-software-package)|CANN 9.1.x, CANN 9.0.x, CANN 8.5.x|Ascend platform AI computing library used by MindSpore|
 |[wheel](#installing-wheel-setuptools-pyyaml-and-numpy)|0.32.0 or later|Python packaging tool used by MindSpore|
 |[setuptools](#installing-wheel-setuptools-pyyaml-and-numpy)|44.0 or later|Python package management tool used by MindSpore|
 |[PyYAML](#installing-wheel-setuptools-pyyaml-and-numpy)|6.0-6.0.2|PyYAML module that operator compilation in MindSpore depends on|
@@ -50,29 +50,9 @@ The following describes how to install the third-party dependencies.
 
 ### Installing Python
 
-[Python](https://www.python.org/) can be installed by Conda.
+Please refer to the [Python official website](https://www.python.org/) to install Python by yourself. The version must be 3.10-3.12.
 
-Install Miniconda:
-
-```bash
-cd /tmp
-curl -O https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/Miniconda3-py310_26.1.1-1-Linux-$(arch).sh
-bash Miniconda3-py310_26.1.1-1-Linux-$(arch).sh -b
-cd -
-. ~/miniconda3/etc/profile.d/conda.sh
-conda init bash
-```
-
-After the installation is complete, you can set up Tsinghua source acceleration download for Conda, and see [here](https://mirrors.tuna.tsinghua.edu.cn/help/anaconda/).
-
-Create a virtual environment, taking Python 3.10.20 as an example:
-
-```bash
-conda create -n mindspore_py310 python=3.10.20 -y
-conda activate mindspore_py310
-```
-
-Run the following command to check the Python version.
+After the installation is complete, you can check the Python version with the following command.
 
 ```bash
 python --version
@@ -80,7 +60,7 @@ python --version
 
 ### Installing Ascend AI processor software package
 
-Ascend CANN `9.0.0` and installation instructions are available via [Quick install](https://www.hiascend.com/cann/download).
+Ascend CANN `9.1.x` and installation instructions are available via [Quick install](https://www.hiascend.com/cann/download).
 
 The default installation path of the installation package is `/usr/local/Ascend`. Ensure that the current user has the right to access the installation path `/usr/local/Ascend` of Ascend AI processor software package. If not, the root user needs to add the current user to the user group where `/usr/local/Ascend` is located.
 

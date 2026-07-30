@@ -25,37 +25,17 @@
 |软件名称|版本|作用|
 |-|-|-|
 |Debian系列操作系统 / openEuler系列操作系统|Debian系列：Debian、Ubuntu、veLinux / openEuler系列：openEuler、CentOS、Kylin、BCLinux、UOS V20、AntOS、CTyunOS、CULinux、Tlinux、MTOS|编译和运行MindSpore的操作系统|
-|[Python](#安装python)|3.9-3.12|MindSpore的使用依赖Python环境|
-|[昇腾AI处理器配套软件包](#安装昇腾ai处理器配套软件包)|CANN 9.0.x、CANN 8.5.x、CANN 8.3.RC1|MindSpore使用的Ascend平台AI计算库|
+|[Python](#安装python)|3.10-3.12|MindSpore的使用依赖Python环境|
+|[昇腾AI处理器配套软件包](#安装昇腾ai处理器配套软件包)|CANN 9.1.x、CANN 9.0.x、CANN 8.5.x|MindSpore使用的Ascend平台AI计算库|
 |[GCC](#安装gcc)|9.5.0-11.3.0（优选9.5.0）|用于编译MindSpore的C++编译器|
 
 下面给出第三方依赖的安装方法。
 
 ### 安装Python
 
-[Python](https://www.python.org/)可通过Conda进行安装。
+请参照[Python官网](https://www.python.org/)自行安装Python，版本要求为3.10-3.12。
 
-安装Miniconda：
-
-```bash
-cd /tmp
-curl -O https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/Miniconda3-py310_26.1.1-1-Linux-$(arch).sh
-bash Miniconda3-py310_26.1.1-1-Linux-$(arch).sh -b
-cd -
-. ~/miniconda3/etc/profile.d/conda.sh
-conda init bash
-```
-
-安装完成后，可以为Conda设置清华源加速下载，参考[此处](https://mirrors.tuna.tsinghua.edu.cn/help/anaconda/)。
-
-创建虚拟环境，以Python 3.10.20为例：
-
-```bash
-conda create -n mindspore_py310 python=3.10.20 -y
-conda activate mindspore_py310
-```
-
-可以通过以下命令查看Python版本。
+安装完成后，可以通过以下命令查看Python版本。
 
 ```bash
 python --version
@@ -69,7 +49,7 @@ python -m pip install -U pip
 
 ### 安装昇腾AI处理器配套软件包
 
-昇腾计算架构（CANN）`9.0.0`版本的下载链接与安装指南请前往[快速安装](https://www.hiascend.com/cann/download)页面获取。
+昇腾计算架构（CANN）`9.1.x`版本的下载链接与安装指南请前往[快速安装](https://www.hiascend.com/cann/download)页面获取。
 
 安装包默认安装路径为`/usr/local/Ascend`。安装后确认当前用户有权限访问昇腾AI处理器配套软件包的安装路径，若无权限，需要root用户将当前用户添加到`/usr/local/Ascend`所在的用户组。
 
@@ -111,10 +91,10 @@ pip install sympy protobuf attrs cloudpickle decorator ml-dtypes psutil scipy to
 
 ### 安装MindSpore
 
-首先参考[版本列表](https://www.mindspore.cn/versions)，选择想要安装的MindSpore版本，并进行SHA-256完整性校验。以2.9.0版本为例，执行以下命令。
+首先参考[版本列表](https://www.mindspore.cn/versions)，选择想要安装的MindSpore版本，并进行SHA-256完整性校验。以2.10.0版本为例，执行以下命令。
 
 ```bash
-export MS_VERSION=2.9.0
+export MS_VERSION=2.10.0
 ```
 
 然后执行以下命令安装MindSpore。

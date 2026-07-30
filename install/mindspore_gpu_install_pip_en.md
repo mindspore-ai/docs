@@ -28,7 +28,7 @@ The following table lists the system environment and third-party dependencies re
 |Ubuntu|18.04|OS for compiling and running MindSpore|
 |[CUDA](#installing-cuda)|11.1 or 11.6|parallel computing architecture for MindSpore GPU|
 |[cuDNN](#installing-cudnn)|7.6.x or 8.0.x or 8.5.x|deep neural network acceleration library used by MindSpore GPU|
-|[Python](#installing-python)|3.9-3.11|Python environment that MindSpore depends on|
+|[Python](#installing-python)|3.10-3.12|Python environment that MindSpore depends on|
 |[GCC](#installing-gcc)|9.5.0-11.3.0 (preferred version 9.5.0)|C++ compiler for compiling MindSpore|
 |[TensorRT](#installing-tensorrt-optional)|7.2.2 or 8.4|high performance deep learning inference SDK used by MindSpore (optional, required for serving inference)|
 
@@ -84,46 +84,22 @@ If a different version of CUDA have been installed or the CUDA installation path
 
 ### Installing Python
 
-[Python](https://www.python.org/) can be installed in multiple ways.
+[Python](https://www.python.org/) can be installed via APT with the following command.
 
-- Install Python with Conda.
+```bash
+sudo apt-get update
+sudo apt-get install software-properties-common -y
+sudo add-apt-repository ppa:deadsnakes/ppa -y
+sudo apt-get install python3.10 python3.10-dev python3.10-distutils python3-pip -y
+# set new installed Python as default
+sudo update-alternatives --install /usr/bin/python python /usr/bin/python3.10 100
+# install pip
+python -m pip install pip -i https://repo.huaweicloud.com/repository/pypi/simple
+sudo update-alternatives --install /usr/bin/pip pip ~/.local/bin/pip3.10 100
+pip config set global.index-url https://repo.huaweicloud.com/repository/pypi/simple
+```
 
-    Install Miniconda:
-
-    ```bash
-    cd /tmp
-    curl -O https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/Miniconda3-py310_26.1.1-1-Linux-$(arch).sh
-    bash Miniconda3-py310_26.1.1-1-Linux-$(arch).sh -b
-    cd -
-    . ~/miniconda3/etc/profile.d/conda.sh
-    conda init bash
-    ```
-
-    After the installation is complete, you can set up Tsinghua source acceleration download for Conda, and see [here](https://mirrors.tuna.tsinghua.edu.cn/help/anaconda/).
-
-    Create a virtual environment, taking Python 3.10.20 as an example:
-
-    ```bash
-    conda create -n mindspore_py310 python=3.10.20 -y
-    conda activate mindspore_py310
-    ```
-
-- Or install Python via APT with the following command.
-
-    ```bash
-    sudo apt-get update
-    sudo apt-get install software-properties-common -y
-    sudo add-apt-repository ppa:deadsnakes/ppa -y
-    sudo apt-get install python3.9 python3.9-dev python3.9-distutils python3-pip -y
-    # set new installed Python as default
-    sudo update-alternatives --install /usr/bin/python python /usr/bin/python3.9 100
-    # install pip
-    python -m pip install pip -i https://repo.huaweicloud.com/repository/pypi/simple
-    sudo update-alternatives --install /usr/bin/pip pip ~/.local/bin/pip3.9 100
-    pip config set global.index-url https://repo.huaweicloud.com/repository/pypi/simple
-    ```
-
-    To install other Python versions, just change `3.9` in the command.
+To install other Python versions, just change `3.10` in the command.
 
 Run the following command to check the Python version.
 
@@ -157,10 +133,10 @@ cd -
 
 ### Installing MindSpore
 
-First, refer to [Version List](https://www.mindspore.cn/versions) to select the version of MindSpore you want to install, and perform SHA-256 integrity check. Taking version 2.9.0 as an example, execute the following commands.
+First, refer to [Version List](https://www.mindspore.cn/versions) to select the version of MindSpore you want to install, and perform SHA-256 integrity check. Taking version 2.10.0 as an example, execute the following commands.
 
 ```bash
-export MS_VERSION=2.9.0
+export MS_VERSION=2.10.0
 ```
 
 Then run the following command to install MindSpore.

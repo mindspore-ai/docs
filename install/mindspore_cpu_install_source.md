@@ -29,7 +29,7 @@
 |软件名称|版本|作用|
 |-|-|-|
 |Ubuntu|18.04|编译和运行MindSpore的操作系统|
-|[Python](#安装python)|3.9-3.12|MindSpore的使用依赖Python环境|
+|[Python](#安装python)|3.10-3.12|MindSpore的使用依赖Python环境|
 |[wheel](#安装wheel-setuptools-pyyaml和numpy)|0.32.0及以上|MindSpore使用的Python打包工具|
 |[setuptools](#安装wheel-setuptools-pyyaml和numpy)|44.0及以上|MindSpore使用的Python包管理工具|
 |[PyYAML](#安装wheel-setuptools-pyyaml和numpy)|6.0-6.0.2|MindSpore里的算子编译功能依赖PyYAML模块|
@@ -46,29 +46,9 @@
 
 ### 安装Python
 
-[Python](https://www.python.org/)可通过Conda进行安装。
+请参照[Python官网](https://www.python.org/)自行安装Python，版本要求为3.10-3.12。
 
-安装Miniconda：
-
-```bash
-cd /tmp
-curl -O https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/Miniconda3-py310_26.1.1-1-Linux-$(arch).sh
-bash Miniconda3-py310_26.1.1-1-Linux-$(arch).sh -b
-cd -
-. ~/miniconda3/etc/profile.d/conda.sh
-conda init bash
-```
-
-安装完成后，可以为Conda设置清华源加速下载，参考[此处](https://mirrors.tuna.tsinghua.edu.cn/help/anaconda/)。
-
-创建虚拟环境，以Python 3.10.20为例：
-
-```bash
-conda create -n mindspore_py310 python=3.10.20 -y
-conda activate mindspore_py310
-```
-
-可以通过以下命令查看Python版本。
+安装完成后，可以通过以下命令查看Python版本。
 
 ```bash
 python --version
