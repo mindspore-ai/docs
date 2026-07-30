@@ -3,8 +3,7 @@
 <!-- TOC -->
 
 - [Installing MindSpore CPU Nightly by pip-macOS](#installing-mindspore-cpu-nightly-by-pip-macos)
-    - [System Environment Information Confirmation](#system-environment-information-confirmation)
-    - [Installing Conda](#installing-conda)
+    - [Installing Python](#installing-python)
     - [Creating and Accessing the Conda Virtual Environment](#creating-and-accessing-the-conda-virtual-environment)
     - [Downloading and Installing MindSpore](#downloading-and-installing-mindspore)
     - [Installation Verification](#installation-verification)
@@ -16,47 +15,15 @@
 
 MindSpore Nightly is a preview version which includes latest features and bugfixes, not fully supported and tested. Install MindSpore Nightly version if you wish to try out the latest features or bug fixes can use this version.
 
-[Conda](https://docs.conda.io/en/latest/) is an open-source, cross-platform, language-agnostic package manager and environment management system. It allows users to easily install different versions of binary software packages and any required libraries appropriate for their computing platform.
+## Installing Python
 
-This document describes how to install MindSpore Nightly by pip in a macOS system with Conda installed.
+Please refer to the [Python official website](https://www.python.org/) to install Python by yourself. The version requirement is 3.10-3.12.
 
-## System Environment Information Confirmation
-
-- According to the system and chip situation in the table below, determine the appropriate Python and Conda versions, and for the macOS version and chip information, click on the Apple logo in the upper left corner of the desktop - > `About this mac`:
-
-    |Chip|Architecture|macOS Version|Supported Python Version|Supported Conda Version|
-    |-|-|-|-|-|
-    |M1|ARM|14.8.5|Python 3.9-3.11|Mambaforge or Miniforge|
-    |Intel|x86_64|10.15/11.3|Python 3.9-3.11|Anaconda or Miniconda|
-
-- Ensure that the Conda version is compatible with the current system and chip.
-
-    - If you prefer the complete capabilities provided by Conda, you may download [Anaconda3](https://repo.anaconda.com/archive/) or [Mambaforge](https://github.com/conda-forge/miniforge).
-    - If you want to save disk space or prefer customizing Conda installation package, you may download [Miniconda3](https://repo.anaconda.com/miniconda/) or [Miniforge](https://github.com/conda-forge/miniforge).
-
-## Installing Conda
-
-Run the following command to install Miniconda.
+After the installation, you can check the Python version with the following command.
 
 ```bash
-cd /tmp
-curl -O https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/Miniconda3-latest-MacOSX-$(arch).sh
-bash Miniconda3-latest-MacOSX-$(arch).sh
-source ~/.zshrc
+python --version
 ```
-
-After the installation is complete, you can set up Tsinghua Source to accelerate the download for Conda, and refer to [Here](https://mirrors.tuna.tsinghua.edu.cn/help/anaconda/).
-
-## Creating and Accessing the Conda Virtual Environment
-
-Create a Conda virtual environment based on the Python version you want to use and go to the virtual environment.
-
-- If you want to use Python 3.10.20:
-
-  ```bash
-  conda create -c conda-forge -n mindspore_py310 -c conda-forge python=3.10.20
-  conda activate mindspore_py310
-  ```
 
 ## Downloading and Installing MindSpore
 

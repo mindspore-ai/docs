@@ -27,7 +27,7 @@ This document describes how to install MindSpore by compiling source code on Lin
 |Software|Version|Description|
 |-|-|-|
 |Ubuntu|18.04|OS for compiling and running MindSpore|
-|[Python](#installing-python)|3.9-3.12|Python environment that MindSpore depends|
+|[Python](#installing-python)|3.10-3.12|Python environment that MindSpore depends|
 |[wheel](#installing-wheel-setuptools-pyyaml-and-numpy)|0.32.0 or later|Python packaging tool used by MindSpore|
 |[setuptools](#installing-wheel-setuptools-pyyaml-and-numpy)|44.0 or later|Python package management tool used by MindSpore|
 |[PyYAML](#installing-wheel-setuptools-pyyaml-and-numpy)|6.0-6.0.2|PyYAML module that operator compilation in MindSpore depends on|
@@ -44,29 +44,9 @@ The following describes how to install the third-party dependencies.
 
 ### Installing Python
 
-[Python](https://www.python.org/) can be installed by Conda.
+Please refer to the [Python official website](https://www.python.org/) to install Python by yourself. The version must be 3.10-3.12.
 
-Install Miniconda:
-
-```bash
-cd /tmp
-curl -O https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/Miniconda3-py310_26.1.1-1-Linux-$(arch).sh
-bash Miniconda3-py310_26.1.1-1-Linux-$(arch).sh -b
-cd -
-. ~/miniconda3/etc/profile.d/conda.sh
-conda init bash
-```
-
-After the installation is complete, you can set up Tsinghua source acceleration download for Conda, and see [here](https://mirrors.tuna.tsinghua.edu.cn/help/anaconda/).
-
-Create a virtual environment, taking Python 3.10.20 as an example:
-
-```bash
-conda create -n mindspore_py310 python=3.10.20 -y
-conda activate mindspore_py310
-```
-
-Run the following command to check the Python version.
+After the installation is complete, you can check the Python version with the following command.
 
 ```bash
 python --version

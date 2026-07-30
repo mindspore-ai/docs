@@ -30,7 +30,7 @@ MindSpore Nightly是包含当前最新功能与bugfix的预览版本，但是可
 | Ubuntu                        | 18.04            | 编译和运行MindSpore的操作系统                                |
 | [CUDA](#安装cuda)             | 11.1或11.6  | MindSpore GPU使用的并行计算架构                              |
 | [cuDNN](#安装cudnn)           | 7.6.x或8.0.x或8.5.x| MindSpore GPU使用的深度神经网络加速库                        |
-| [Python](#安装python)         | 3.9-3.11          | MindSpore的使用依赖Python环境                                |
+| [Python](#安装python)         | 3.10-3.12          | MindSpore的使用依赖Python环境                                |
 | [GCC](#安装gcc)          | 9.5.0-11.3.0（优选9.5.0） | 用于编译MindSpore的C++编译器                                 |
 | [TensorRT](#安装tensorrt-可选) | 7.2.2或8.4        | MindSpore使用的高性能深度学习推理SDK（可选，Serving推理需要） |
 
@@ -86,31 +86,7 @@ sudo chmod a+r /usr/local/cuda-11.6/include/cudnn*.h /usr/local/cuda-11.6/lib64/
 
 ### 安装Python
 
-[Python](https://www.python.org/)可通过多种方式进行安装。
-
-- 通过Conda安装Python。
-
-  安装Miniconda：
-
-  ```bash
-  cd /tmp
-  curl -O https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/Miniconda3-py310_26.1.1-1-Linux-$(arch).sh
-  bash Miniconda3-py310_26.1.1-1-Linux-$(arch).sh -b
-  cd -
-  . ~/miniconda3/etc/profile.d/conda.sh
-  conda init bash
-  ```
-
-  安装完成后，可以为Conda设置清华源加速下载，参考[此处](https://mirrors.tuna.tsinghua.edu.cn/help/anaconda/)。
-
-  创建虚拟环境，以Python 3.10.20为例：
-
-  ```bash
-  conda create -n mindspore_py310 python=3.10.20 -y
-  conda activate mindspore_py310
-  ```
-
-- 通过APT安装Python，命令如下。
+[Python](https://www.python.org/)可通过APT安装，命令如下。
 
   ```bash
   sudo apt-get update

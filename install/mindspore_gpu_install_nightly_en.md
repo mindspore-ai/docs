@@ -30,7 +30,7 @@ The following table lists the system environment and third-party dependencies re
 | Ubuntu                                    | 18.04          | OS for compiling and running MindSpore                       |
 | [CUDA](#installing-cuda)                  | 11.1 or 11.6 | parallel computing architecture for MindSpore GPU            |
 | [cuDNN](#installing-cudnn)                | 7.6.x or 8.0.x or 8.5.x | deep neural network acceleration library used by MindSpore GPU |
-| [Python](#installing-python)              | 3.9-3.11        | Python environment that MindSpore depends on                 |
+| [Python](#installing-python)              | 3.10-3.12        | Python environment that MindSpore depends on                 |
 | [GCC](#installing-gcc)            | 9.5.0-11.3.0 (preferred version 9.5.0)    | C++ compiler for compiling MindSpore                         |
 | [TensorRT](#installing-tensorrt-optional) | 7.2.2 or 8.4   | high performance deep learning inference SDK used by MindSpore (optional, required for serving inference) |
 
@@ -86,31 +86,7 @@ If a different version of CUDA have been installed or the CUDA installation path
 
 ### Installing Python
 
-[Python](https://www.python.org/) can be installed in multiple ways.
-
-- Install Python with Conda.
-
-  Install Miniconda:
-
-  ```bash
-  cd /tmp
-  curl -O https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/Miniconda3-py310_26.1.1-1-Linux-$(arch).sh
-  bash Miniconda3-py310_26.1.1-1-Linux-$(arch).sh -b
-  cd -
-  . ~/miniconda3/etc/profile.d/conda.sh
-  conda init bash
-  ```
-
-  After the installation is complete, you can set up Tsinghua source acceleration download for Conda, and see [here](https://mirrors.tuna.tsinghua.edu.cn/help/anaconda/).
-
-  Create a virtual environment, taking Python 3.10.20 as an example:
-
-  ```bash
-  conda create -n mindspore_py310 python=3.10.20 -y
-  conda activate mindspore_py310
-  ```
-
-- Or install Python via APT with the following command.
+[Python](https://www.python.org/) can be installed via APT with the following command.
 
   ```bash
   sudo apt-get update
