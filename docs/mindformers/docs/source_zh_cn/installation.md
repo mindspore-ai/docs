@@ -141,7 +141,7 @@ python -c "from hyper_parallel import DTensor, DeviceMesh, PipelineStage; print(
 
 MindSpore Transformers Ascend 镜像托管在华为云 SWR 镜像仓库，开箱即用、无需本地构建。
 
-> 镜像仓库中可能尚未推出2.0及后续版本的官方预构建镜像，请以 [docker/OVERVIEW_CN.md](https://gitcode.com/mindspore/mindformers/blob/master/docker/OVERVIEW_CN.md) 中的实际可用 tag 为准。若暂无所需版本，可使用下文的「方式二：自行构建镜像」。
+> 镜像仓库中可能尚未推出2.0及后续版本的官方预构建镜像，请以 [docker/OVERVIEW_CN.md](https://gitcode.com/mindspore/mindformers/blob/r2.0.0/docker/OVERVIEW_CN.md) 中的实际可用 tag 为准。若暂无所需版本，可使用下文的「方式二：自行构建镜像」。
 
 **镜像仓库地址：**
 
@@ -158,7 +158,7 @@ swr.cn-south-1.myhuaweicloud.com/ascendhub/mindformers
 | 字段 | 示例值 | 说明 |
 |---|---|---|
 | 版本号 | `2.0.0` | MindSpore Transformers 发布版本 |
-| 硬件信息（芯片） | `<芯片架构>` | 昇腾芯片型号标识，具体取值见 [docker/OVERVIEW_CN.md](https://gitcode.com/mindspore/mindformers/blob/master/docker/OVERVIEW_CN.md) |
+| 硬件信息（芯片） | `<芯片架构>` | 昇腾芯片型号标识，具体取值见 [docker/OVERVIEW_CN.md](https://gitcode.com/mindspore/mindformers/blob/r2.0.0/docker/OVERVIEW_CN.md) |
 | 操作系统 | `ubuntu22.04` / `openeuler24.03` | 基础镜像操作系统发行版 |
 | Python 版本 | `py3.12` | 镜像内置 Python 大版本 |
 
@@ -168,7 +168,7 @@ swr.cn-south-1.myhuaweicloud.com/ascendhub/mindformers
 docker pull swr.cn-south-1.myhuaweicloud.com/ascendhub/mindformers:2.0.0-<芯片架构>-ubuntu22.04-py3.12
 ```
 
-> `<芯片架构>` 替换为实际芯片型号，完整取值列表见 [docker/OVERVIEW_CN.md](https://gitcode.com/mindspore/mindformers/blob/master/docker/OVERVIEW_CN.md)。可用 `docker manifest inspect <镜像>` 查看镜像支持的系统架构（ARM64 / x86_64）。
+> `<芯片架构>` 替换为实际芯片型号，完整取值列表见 [docker/OVERVIEW_CN.md](https://gitcode.com/mindspore/mindformers/blob/r2.0.0/docker/OVERVIEW_CN.md)。可用 `docker manifest inspect <镜像>` 查看镜像支持的系统架构（ARM64 / x86_64）。
 
 ### 方式二：自行构建镜像
 
@@ -192,7 +192,7 @@ docker build \
 | 参数 | 必填 | 说明 | 示例值 |
 |---|---|---|---|
 | `CANN_VERSION` | 是 | 昇腾 CANN 工具包版本（决定基础镜像 tag） | `9.1.0` |
-| `CHIP_ARCH` | 是 | 昇腾芯片架构标识，具体取值见 [docker/OVERVIEW_CN.md](https://gitcode.com/mindspore/mindformers/blob/master/docker/OVERVIEW_CN.md) | `<芯片架构>` |
+| `CHIP_ARCH` | 是 | 昇腾芯片架构标识，具体取值见 [docker/OVERVIEW_CN.md](https://gitcode.com/mindspore/mindformers/blob/r2.0.0/docker/OVERVIEW_CN.md) | `<芯片架构>` |
 | `OS_SYSTEM` | 是 | 基础镜像操作系统及版本 | `ubuntu22.04` / `openeuler24.03` |
 | `PY_VERSION` | 是 | 基础镜像内置 Python 版本 | `py3.12` |
 | `MINDSPORE_VERSION` | 是 | MindSpore 版本号（按配套表选取） | `2.10.0` |
