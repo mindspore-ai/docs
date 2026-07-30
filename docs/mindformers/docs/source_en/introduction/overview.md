@@ -7,7 +7,13 @@ Starting with **r2.0.0**, MindSpore Transformers has adopted a **dynamic graph (
 > **The Limits of Dynamic Graph Capabilities**
 >
 > - The source code for the dynamic graph is located in `mindformers/pynative/`.
-> - The current dynamic graph focuses on **pre-training and fine-tuning** scenarios; capabilities such as inference, service deployment, and quantization are still provided by the static graph. For more details, see the [Static Graph Implementation](../feature/static_graph_features.md) section.
+> - The current dynamic graph focuses on **pre-training and fine-tuning** scenarios; capabilities such as inference, service deployment, and quantization are still provided by the static graph. For more details, see [Static Graph Implementation](../static_graph/introduction/overview.md).
+
+The following figure shows the overall architecture of the dynamic graph training stack. From top to bottom, the **entry layer** (`run_mindformer.py --mode 1`) routes through the **control layer** (`Trainer`) to the MindSpore Transformers dynamic graph training stack. Its core capabilities consist of **model architecture** (GPTModel → transformers → layers), **training components** (configuration, optimizer, loss, callbacks, and tools), and **distributed training** (multi-dimensional parallelism and memory optimization), built on MindSpore, CANN, and Ascend AI hardware.
+
+![Overall architecture of the MindSpore Transformers dynamic graph (PyNative) training stack](./images/overall_architecture_pynative.svg)
+
+In the figure, Hyper-Parallel refers to the hyper-parallel layer. DP, TP, PP, CP, EP, and SP stand for Data Parallelism, Tensor Parallelism, Pipeline Parallelism, Context Parallelism, Expert Parallelism, and Sequence Parallelism, respectively. FSDP and HSDP stand for Fully Sharded Data Parallelism and Hybrid Sharded Data Parallelism, respectively.
 
 ## Overview
 
@@ -90,22 +96,18 @@ The following sections expand on the "Configuration" and "Distributed" modules, 
 
 `pynative/distributed/` undertakes both "parallelism sharding" and "memory optimization" responsibilities:
 
-- **Parallelism Dimensions**: DP (including FSDP/HSDP parameter sharding), TP, PP, CP, EP, SP. The device mesh is constructed based on the product of each dimension, satisfying `dp_replicate * dp_shard * cp * tp * pp == world_size` (`parallel_dims.py`).
-- **Memory Optimization**: Activation checkpointing, fine-grained SWAP, CPU offload.
+- **Parallelism Dimensions**: Data Parallelism (DP, including Fully Sharded Data Parallelism, FSDP, and Hybrid Sharded Data Parallelism, HSDP), Tensor Parallelism (TP), Pipeline Parallelism (PP), Context Parallelism (CP), Expert Parallelism (EP), and Sequence Parallelism (SP). The device mesh is constructed based on the product of each dimension, satisfying `dp_replicate * dp_shard * cp * tp * pp == world_size` (`parallel_dims.py`).
+- **Memory Optimization**: Activation checkpointing and fine-grained SWAP.
 
 > **About pet (LoRA) and models subdirectories**
 >
 >The `pynative/pet/` and `pynative/models/` directories currently only contain `__init__.py` and have no implementation yet. LoRA fine-tuning is **not yet implemented** in the dynamic graph: when triggered, it will raise `NotImplementedError("Lora model is not implemented yet.")` in `trainer/utils.py`. For LoRA, please use the static graph implementation.
-
----
 
 ## Model Architecture
 
 The dynamic graph adopts a **hierarchical abstraction + modular** design: `GPTModel` (General PreTrained Model) serves as the unified model interface, composing modular interfaces downwards such as `TransformerBlock`, `MoELayer`, `Attention`, `Linear`, `Embedding`, `Norm`, etc., and freely combines them to build models through the `ModuleSpec` mechanism. All modules have undergone parallel and operator fusion optimizations based on MindSpore's dynamic graph.
 
 The dynamic graph already covers both Dense and MoE (including MLA and MTP) model structures. For the list of implemented models, see [Model Support Library](./models.md).
-
----
 
 ## Training Capabilities
 
@@ -114,31 +116,12 @@ The dynamic graph training stack provides the following capabilities:
 - **Multi-dimensional Hybrid Parallelism**: Flexible combination of data parallelism (including FSDP/HSDP parameter sharding), tensor parallelism (TP), pipeline parallelism (PP, supporting 1F1B and interleave), context parallelism (CP, Colossal method), expert parallelism (EP), and sequence parallelism (SP).
 - **Optimizers and Learning Rates**: AdamW, Muon; multiple learning rate strategies with warmup.
 - **Dataset**: Megatron blended multi-source dataset (`BlendedMegatronDatasetDataLoader`, preprocessed `.bin`/`.idx` files).
-- **Memory Optimization**: Activation checkpointing (full/selective), fine-grained SWAP, CPU offload.
+- **Memory Optimization**: Activation checkpointing (full/selective) and fine-grained SWAP.
 - **Checkpoints**: Sharded saving and loading in Safetensors format, supporting asynchronous saving and redundancy elimination.
 - **Stability and Observability**: Resuming training from checkpoints, gradient/parameter norm and Loss monitoring, MaxLogits numerical health checks, and Profiling.
 
-## Next Steps
-
-After reading the architecture, the minimal path to getting started is as follows.
-
-**Single-card** (for debugging/validation):
-
-```bash
-python run_mindformer.py --config <your_config.yaml> --mode 1
-```
-
-**Multi-card msrun launch** (actual training, taking 8 cards as an example):
-
-```bash
-bash scripts/msrun_launcher.sh "run_mindformer.py --config <your_config.yaml> --mode 1"
-```
-
-`--mode 1` routes to the dynamic graph trainer. The full three-step process of `Prepare Configuration → Start → See Results` can be found in [Quick Start](../quick_start/quick_start.md). The training guide and feature pages will be updated online soon.
-
 ## Related Documentation
 
-- Quickly complete a dynamic graph training task: [Quick Start](../quick_start/quick_start.md)
-- Overview of all features: [Feature Overview](../feature/overview.md)
+- Install and verify MindSpore Transformers: [Installation](../installation.md)
 - Supported models: [Model Support Library](./models.md)
 - Capabilities provided by the static graph (inference/quantisation, etc.): [Static Graph Implementation](../static_graph/introduction/overview.md)
