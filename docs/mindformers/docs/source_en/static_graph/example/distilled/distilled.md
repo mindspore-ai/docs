@@ -24,7 +24,7 @@ For more information, see [DeepSeek-R1-Distill-Qwen-7B](https://hf-mirror.com/de
 
 For details, see [MindSpore Transformers Installation Guidelines](https://www.mindspore.cn/mindformers/docs/en/r2.0.0/installation.html).
 
-Copy the [distilled](https://atomgit.com/mindspore/docs/tree/r2.10.0/docs/mindformers/docs/source_zh_cn/static_graph/example/distilled/distilled) folder of this case to the root directory of the MindSpore Transformers source code.
+Copy the [distilled](https://atomgit.com/mindspore/docs/tree/r2.10.0/docs/mindformers/docs/source_en/static_graph/example/distilled) folder of this case to the root directory of the MindSpore Transformers source code.
 
 The final directory structure is as follows:
 

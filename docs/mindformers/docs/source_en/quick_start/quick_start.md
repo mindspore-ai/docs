@@ -26,7 +26,7 @@ For details about the complete process and detailed configuration of each capabi
 
 ## Step 1: Preparing the Configuration File
 
-The dynamic graph uses the YAML configuration in dataclass style. The top-level sections correspond to the weight, training, parallelism, optimizer, learning rate, data, and model. This page provides a complete example configuration for two devices [`pynative_ds3.yaml`](https://atomgit.com/mindspore/docs/blob/r2.10.0/docs/mindformers/docs/source_en/example/quick_start/pynative_ds3.yaml), which can be directly downloaded and used. The content of each section is as follows (for details about the complete field description, see "Configuration File Description"):
+The dynamic graph uses the YAML configuration in dataclass style. The top-level sections correspond to the weight, training, parallelism, optimizer, learning rate, data, and model. This page provides a complete example configuration for two devices [`pynative_ds3.yaml`](https://atomgit.com/mindspore/docs/blob/r2.10.0/docs/mindformers/docs/source_zh_cn/example/quick_start/pynative_ds3.yaml), which can be directly downloaded and used. The content of each section is as follows (for details about the complete field description, see "Configuration File Description"):
 
 ```yaml
 checkpoint:
@@ -111,7 +111,7 @@ When `BlendedMegatronDatasetDataLoader` is running, all of the following are `da
 
 ### Model Section
 
-The `model` section of DeepSeek-V3 contains dozens of structure hyperparameters (`hidden_size`, `num_hidden_layers`, MoE routing, etc.), making manual writing both tedious and error-prone. The complete example configuration [`pynative_ds3.yaml`](https://atomgit.com/mindspore/docs/blob/r2.10.0/docs/mindformers/docs/source_en/example/quick_start/pynative_ds3.yaml) provided on this page already includes all `model` section fields (dataclass style and structure hyperparameter tiling). You can directly download and use it. You only need to ensure that `seq_length` is consistent with the dataset.
+The `model` section of DeepSeek-V3 contains dozens of structure hyperparameters (`hidden_size`, `num_hidden_layers`, MoE routing, etc.), making manual writing both tedious and error-prone. The complete example configuration [`pynative_ds3.yaml`](https://atomgit.com/mindspore/docs/blob/r2.10.0/docs/mindformers/docs/source_zh_cn/example/quick_start/pynative_ds3.yaml) provided on this page already includes all `model` section fields (dataclass style and structure hyperparameter tiling). You can directly download and use it. You only need to ensure that `seq_length` is consistent with the dataset.
 
 > Note: The configuration under `configs/deepseek3/` is the static graph legacy structure (the structure hyperparameters are nested under `model.model_config`, `architectures` is a list, and `context.mode` is set to `0`). You cannot replicate the entire section to the dynamic graph configuration. Instead, you need to move the structure hyperparameters up one level and tile them under `model:`, and change `architectures` to a string.
 
