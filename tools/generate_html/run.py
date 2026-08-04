@@ -180,6 +180,20 @@ def extra_download(user, pd, wgetdir, extra_whl_path, extra_whl_name, whl_dir):
                     if os.path.exists(save_path):
                         os.remove(save_path)
 
+def release_download(release_url, path, name):
+    urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+    download_url = release_url + path + name
+    try:
+        downloaded = requests.get(download_url, stream=True, verify=False, timeout=30)
+        with open(name, 'wb') as fd:
+            # shutil.copyfileobj(dowmloaded.raw, fd)
+            for chunk in downloaded.iter_content(chunk_size=512):
+                if chunk:
+                    fd.write(chunk)
+        print(f"Download {name} success!")
+    except Exception as e:
+        print(f"Failed to download {name}: {e}")
+
 #######################################
 # 运行检测
 #######################################
@@ -420,15 +434,11 @@ def main(version, user, pd, WGETDIR, release_url, generate_list, api_detect):
                             fd.write(chunk)
                 print(f"Download {data[i]['whl_name']} success!")
             if 'extra_whl_path' in data[i] and data[i]['extra_whl_path'] != "":
-                urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
-                download_url = release_url + data[i]['extra_whl_path'] + data[i]['extra_whl_name']
-                downloaded = requests.get(download_url, stream=True, verify=False, timeout=30)
-                with open(data[i]['extra_whl_name'], 'wb') as fd:
-                    #shutil.copyfileobj(dowmloaded.raw, fd)
-                    for chunk in downloaded.iter_content(chunk_size=512):
-                        if chunk:
-                            fd.write(chunk)
-                print(f"Download {data[i]['extra_whl_name']} success!")
+                if isinstance(data[i]['extra_whl_path'], str):
+                    release_download(release_url, data[i]['extra_whl_path'], data[i]['extra_whl_name'])
+                elif isinstance(data[i]['extra_whl_path'], list):
+                    for path, name in zip(data[i]['extra_whl_path'], data[i]['extra_whl_name']):
+                        release_download(release_url, path, name)
             if 'tar_path' in data[i].keys() and data[i]['tar_path'] != '':
                 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
                 download_url = release_url + data[i]['tar_path'] + data[i]['tar_name']
