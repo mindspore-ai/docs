@@ -22,7 +22,7 @@ This case provides a method for converting the model weights (in Safetensors for
     git clone https://github.com/NVIDIA/Megatron-LM.git -b core_r0.12.0
     ```
 
-2. Copy the [conversion script](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_en/static_graph/example/convert_ckpt_to_megatron/convert_ckpt_to_megatron/loader_core_mf.py) to the **Megatron-LM/tools/checkpoint/** directory.
+2. Copy the [conversion script](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/static_graph/example/convert_ckpt_to_megatron/convert_ckpt_to_megatron/loader_core_mf.py) to the **Megatron-LM/tools/checkpoint/** directory.
 
 ## Model Weight Preparations
 

@@ -22,7 +22,7 @@ Recomputation can significantly reduce activation memory usage during training b
 
 Users can enable recomputation by adding a `recompute_config` module to the YAML configuration file used for model training.
 
-Taking the [DeepSeek-V3 pre-training's YAML file](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_en/static_graph/example/deepseek3/pretrain_deepseek3_671b.yaml) as an example, it could be configured as follows:
+Taking the [DeepSeek-V3 pre-training's YAML file](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/static_graph/example/deepseek3/pretrain_deepseek3_671b.yaml) as an example, it could be configured as follows:
 
 ```yaml
 # recompute config
@@ -131,7 +131,7 @@ Fine-Grained Activations SWAP and Recomputation have coupling effects:
 
 ### Cases of Fine-Grained Activations SWAP
 
-This section demonstrates the usage of fine-grained activations SWAP using [DeepSeek-V3 pre-training's YAML file](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_en/static_graph/example/deepseek3/pretrain_deepseek3_671b.yaml) as an example.
+This section demonstrates the usage of fine-grained activations SWAP using [DeepSeek-V3 pre-training's YAML file](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/static_graph/example/deepseek3/pretrain_deepseek3_671b.yaml) as an example.
 
 #### Environmental Preparation
 
