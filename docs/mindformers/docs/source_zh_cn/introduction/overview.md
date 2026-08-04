@@ -7,7 +7,13 @@ MindSpore Transformers 自 **r2.0.0** 起以 **动态图（PyNative）实现** �
 > **动态图的能力边界**
 >
 > - 动态图实现源码位于 `mindformers/pynative/`。
-> - 当前动态图聚焦 **预训练/微调** 训练场景；尚未覆盖的能力由静态图承载，清单见 [静态图实现特性](../feature/static_graph_features.md)。
+> - 当前动态图聚焦 **预训练/微调** 训练场景；尚未覆盖的能力由静态图承载，详见 [静态图实现](../static_graph/introduction/overview.md)。
+
+下图为动态图训练栈的整体架构：自顶向下由**入口层**（`run_mindformer.py --mode 1`）经**总控层**（`Trainer`）路由到 MindSpore Transformers 动态图训练栈，其中「模型架构」（GPTModel → transformers → layers）、「训练组件」（配置/优化器/损失/回调/工具）与「分布式」（多维并行 + 显存优化）三部分构成核心能力，最终落到 MindSpore、CANN 与昇腾 AI 硬件之上。
+
+![MindSpore Transformers 动态图（PyNative）整体架构](./images/overall_architecture_pynative.svg)
+
+图中 Hyper-Parallel 表示超并行层；DP、TP、PP、CP、EP、SP 分别表示数据并行、张量并行、流水线并行、上下文并行、专家并行和序列并行；FSDP、HSDP 分别表示完全分片数据并行和混合分片数据并行。
 
 ## 概述
 
@@ -90,22 +96,18 @@ layers/           Linear · RMSNorm · SwiGlu · FlashAttention · 掩码生成
 
 `pynative/distributed/` 同时承担「并行切分」与「显存优化」两类职责：
 
-- **并行维度**：DP（含 FSDP/HSDP 参数切分）、TP、PP、CP、EP、SP。设备网格依据各维度乘积构建，满足 `dp_replicate * dp_shard * cp * tp * pp == world_size`（`parallel_dims.py`）。
-- **显存优化**：重计算（activation checkpoint）、细粒度 SWAP、CPU offload。
+- **并行维度**：数据并行（Data Parallel，DP，包含完全分片数据并行 FSDP 和混合分片数据并行 HSDP）、张量并行（Tensor Parallel，TP）、流水线并行（Pipeline Parallel，PP）、上下文并行（Context Parallel，CP）、专家并行（Expert Parallel，EP）和序列并行（Sequence Parallel，SP）。设备网格依据各维度乘积构建，满足 `dp_replicate * dp_shard * cp * tp * pp == world_size`（`parallel_dims.py`）。
+- **显存优化**：重计算（activation checkpoint）、细粒度 SWAP。
 
 > **关于 pet（LoRA）与 models 子目录**
 >
 > `pynative/pet/` 与 `pynative/models/` 目录当前仅含 `__init__.py`，尚无实现。LoRA 微调在动态图下**暂未实现**：触发时会在 `trainer/utils.py` 抛出 `NotImplementedError("Lora model is not implemented yet.")`。如需 LoRA，请使用静态图实现。
-
----
 
 ## 模型架构
 
 动态图采用 **分层抽象 + 模块化** 的设计：以 `GPTModel`（General PreTrained Model）为统一模型接口，向下组合 `TransformerBlock`、`MoELayer`、`Attention`、`Linear`、`Embedding`、`Norm` 等模块化接口，并通过 `ModuleSpec` 机制自由组合搭建模型。所有模块基于 MindSpore 动态图进行了并行与算子融合优化。
 
 动态图已覆盖 Dense 与 MoE（含 MLA、MTP）两类模型结构，已实现的模型清单见 [模型支持库](./models.md)。
-
----
 
 ## 训练能力
 
@@ -114,31 +116,12 @@ layers/           Linear · RMSNorm · SwiGlu · FlashAttention · 掩码生成
 - **多维混合并行**：数据并行（含 FSDP/HSDP 参数切分）、张量并行（TP）、流水线并行（PP，支持 1F1B 与 interleave）、上下文并行（CP，Colossal 方法）、专家并行（EP）与序列并行（SP）的灵活组合。
 - **优化器与学习率**：AdamW、Muon；多种带 warmup 的学习率策略。
 - **数据集**：Megatron 多源混合数据集（`BlendedMegatronDatasetDataLoader`，预处理后的 `.bin`/`.idx`）。
-- **显存优化**：重计算（全量/选择性）、细粒度 SWAP、CPU offload。
+- **显存优化**：重计算（全量/选择性）、细粒度 SWAP。
 - **权重**：Safetensors 格式的分片保存与加载，支持异步保存与冗余消除。
 - **稳定性与可观测**：断点续训、梯度/参数范数与 Loss 监控、MaxLogits 数值健康监测与 Profiling。
 
-## 下一步
-
-读完架构后，最小落地路径如下（以下命令均在 **mindformers 仓库根目录**下执行）。
-
-**单卡直跑**（调试/验证用）：
-
-```bash
-python run_mindformer.py --config <your_config.yaml> --mode 1
-```
-
-**多卡 msrun 拉起**（实际训练，以 8 卡为例）：
-
-```bash
-bash scripts/msrun_launcher.sh "run_mindformer.py --config <your_config.yaml> --mode 1"
-```
-
-`--mode 1` 即路由到动态图训练器。完整的「准备配置 → 启动 → 看结果」三步流程见 [快速开始](../quick_start/quick_start.md)，训练指南与各功能特性页正文将随后续提交上线。
-
 ## 相关文档
 
-- 快速完成一个动态图训练任务：[快速开始](../quick_start/quick_start.md)
-- 各能力一览：[功能特性概述](../feature/overview.md)
+- 安装并验证 MindSpore Transformers：[安装指南](../installation.md)
 - 已支持的模型：[模型支持库](./models.md)
 - 静态图提供的能力（推理/量化等）：[静态图实现](../static_graph/introduction/overview.md)

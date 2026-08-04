@@ -1,0 +1,162 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 1040" font-family="'Microsoft YaHei','PingFang SC','Noto Sans CJK SC',Helvetica,Arial,sans-serif">
+  <defs>
+    <linearGradient id="arrowGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#FFC46B"/>
+      <stop offset="1" stop-color="#FF8A4C"/>
+    </linearGradient>
+    <filter id="soft" x="-4%" y="-4%" width="108%" height="112%">
+      <feDropShadow dx="0" dy="1.5" stdDeviation="2.5" flood-color="#3a3f7a" flood-opacity="0.14"/>
+    </filter>
+  </defs>
+
+  <!-- background -->
+  <rect x="0" y="0" width="1400" height="1040" fill="#FFFFFF"/>
+
+  <!-- ============ ENTRY LAYER ============ -->
+  <rect x="32" y="26" width="1336" height="60" rx="12" fill="#EEF0FB" stroke="#C7CCEC"/>
+  <text x="120" y="62" font-size="20" font-weight="700" fill="#2A2E5A" text-anchor="middle">入口层</text>
+  <rect x="230" y="38" width="1128" height="36" rx="8" fill="#FFFFFF" stroke="#DEE2F1" filter="url(#soft)"/>
+  <text x="794" y="62" font-size="17" fill="#303F9F" text-anchor="middle">
+    <tspan font-weight="700">run_mindformer.py --mode 1</tspan><tspan fill="#5b5f86">　·　PYNATIVE_MODE 路由（config.mode == 1）</tspan>
+  </text>
+
+  <!-- chevron -->
+  <path d="M700 90 L714 90 L707 100 Z" fill="#9aa0d0"/>
+
+  <!-- ============ CONTROL LAYER (Trainer) ============ -->
+  <rect x="32" y="104" width="1336" height="72" rx="12" fill="#E3E7FA" stroke="#B9C0EA"/>
+  <text x="120" y="136" font-size="20" font-weight="700" fill="#2A2E5A" text-anchor="middle">总控层</text>
+  <text x="120" y="158" font-size="12.5" fill="#6165a0" text-anchor="middle">pynative.trainer</text>
+  <rect x="230" y="116" width="1128" height="48" rx="9" fill="#FFFFFF" stroke="#DEE2F1" filter="url(#soft)"/>
+  <text x="794" y="139" font-size="17" font-weight="700" fill="#303F9F" text-anchor="middle">Trainer · 训练总控</text>
+  <text x="794" y="157" font-size="12.5" fill="#5b5f86" text-anchor="middle">构建 模型 / 数据集 / 优化器　·　驱动训练循环（前向 → 反向 → 梯度同步 → 保存）　·　状态跟踪 / 断点续训</text>
+
+  <!-- chevron -->
+  <path d="M700 180 L714 180 L707 190 Z" fill="#9aa0d0"/>
+
+  <!-- ============ MAIN CONTAINER : MindSpore Transformers 动态图（PyNative）训练栈 ============ -->
+  <rect x="20" y="196" width="1360" height="604" rx="16" fill="#F6F7FD" stroke="#C7CCEC" stroke-width="1.5"/>
+  <text x="44" y="228" font-size="18" font-weight="700" fill="#2A2E5A">MindSpore Transformers · 动态图（PyNative）训练栈</text>
+  <text x="1356" y="228" font-size="13" fill="#8085b5" text-anchor="end">源码：mindformers/pynative/</text>
+
+  <!-- ===== LEFT : 模型架构 (green) ===== -->
+  <rect x="40" y="246" width="860" height="428" rx="12" fill="#E7F5EA" stroke="#BBE0C2"/>
+  <!-- header -->
+  <rect x="52" y="258" width="836" height="42" rx="8" fill="#C9E9CF"/>
+  <text x="66" y="285" font-size="15.5" font-weight="700" fill="#256C33">模型架构</text>
+  <text x="470" y="285" font-size="13.5" fill="#2f6b3a" text-anchor="middle">GPTModel 统一接口（Dense / MoE）　·　ModuleSpec 按配置组装　·　基于动态图并行 + 算子融合</text>
+
+  <!-- sub-band A: GPTModel / base_models -->
+  <rect x="52" y="310" width="600" height="82" rx="9" fill="#FFFFFF" stroke="#DEE2F1" filter="url(#soft)"/>
+  <text x="68" y="334" font-size="14.5" font-weight="700" fill="#2A2E5A">base_models/gpt · GPTModel</text>
+  <text x="68" y="356" font-size="12.5" fill="#5b5f86">General PreTrained Model — Dense / MoE 统一入口</text>
+  <text x="68" y="376" font-size="12.5" fill="#5b5f86">gpt_layer_specs / moe_module_specs（ModuleSpec 组装）</text>
+  <!-- embeddings chip -->
+  <rect x="664" y="310" width="224" height="82" rx="9" fill="#FFFFFF" stroke="#DEE2F1" filter="url(#soft)"/>
+  <text x="776" y="334" font-size="13.5" font-weight="700" fill="#2A2E5A" text-anchor="middle">base_models/common</text>
+  <text x="776" y="356" font-size="12.5" fill="#5b5f86" text-anchor="middle">embeddings 位置编码</text>
+  <text x="776" y="376" font-size="12.5" fill="#5b5f86" text-anchor="middle">RoPE · YaRN（供各层调用）</text>
+
+  <!-- down arrow -->
+  <path d="M356 393 L356 402 M348 398 L356 406 L364 398" stroke="#9aa0d0" stroke-width="1.6" fill="none"/>
+
+  <!-- sub-band B: transformers -->
+  <rect x="52" y="410" width="836" height="118" rx="9" fill="#FFFFFF" stroke="#DEE2F1" filter="url(#soft)"/>
+  <text x="68" y="434" font-size="14.5" font-weight="700" fill="#2A2E5A">transformers · Transformer 组件</text>
+  <!-- component chips -->
+  <g font-size="12.5" fill="#33517a">
+    <rect x="68" y="446" width="120" height="30" rx="6" fill="#EEF3FB" stroke="#D3DEF0"/><text x="128" y="466" text-anchor="middle">Attention</text>
+    <rect x="196" y="446" width="70"  height="30" rx="6" fill="#EEF3FB" stroke="#D3DEF0"/><text x="231" y="466" text-anchor="middle">MLA</text>
+    <rect x="274" y="446" width="70"  height="30" rx="6" fill="#EEF3FB" stroke="#D3DEF0"/><text x="309" y="466" text-anchor="middle">MTP</text>
+    <rect x="352" y="446" width="220" height="30" rx="6" fill="#EEF3FB" stroke="#D3DEF0"/><text x="462" y="466" text-anchor="middle">TransformerLayer / Block</text>
+    <rect x="580" y="446" width="70"  height="30" rx="6" fill="#EEF3FB" stroke="#D3DEF0"/><text x="615" y="466" text-anchor="middle">MLP</text>
+    <rect x="658" y="446" width="70"  height="30" rx="6" fill="#EEF3FB" stroke="#D3DEF0"/><text x="693" y="466" text-anchor="middle">MoE</text>
+    <rect x="736" y="446" width="140" height="30" rx="6" fill="#EEF3FB" stroke="#D3DEF0"/><text x="806" y="466" text-anchor="middle">HyperConnection</text>
+  </g>
+  <text x="68" y="500" font-size="12" fill="#7a7fa8">moe/ 子模块：router · experts · shared_experts · moe_layer</text>
+  <text x="68" y="519" font-size="12" fill="#7a7fa8">experimental_attention_variant/（可插拔注意力变体）</text>
+
+  <!-- down arrow -->
+  <path d="M470 529 L470 538 M462 534 L470 542 L478 534" stroke="#9aa0d0" stroke-width="1.6" fill="none"/>
+
+  <!-- sub-band C: layers -->
+  <rect x="52" y="546" width="836" height="114" rx="9" fill="#FFFFFF" stroke="#DEE2F1" filter="url(#soft)"/>
+  <text x="68" y="570" font-size="14.5" font-weight="700" fill="#2A2E5A">layers · 基础层（融合算子）</text>
+  <g font-size="12.5" fill="#33517a">
+    <rect x="68"  y="582" width="90"  height="30" rx="6" fill="#EEF3FB" stroke="#D3DEF0"/><text x="113" y="602" text-anchor="middle">Linear</text>
+    <rect x="166" y="582" width="110" height="30" rx="6" fill="#EEF3FB" stroke="#D3DEF0"/><text x="221" y="602" text-anchor="middle">RMSNorm</text>
+    <rect x="284" y="582" width="90"  height="30" rx="6" fill="#EEF3FB" stroke="#D3DEF0"/><text x="329" y="602" text-anchor="middle">SwiGlu</text>
+    <rect x="382" y="582" width="150" height="30" rx="6" fill="#EEF3FB" stroke="#D3DEF0"/><text x="457" y="602" text-anchor="middle">FlashAttention</text>
+    <rect x="540" y="582" width="130" height="30" rx="6" fill="#EEF3FB" stroke="#D3DEF0"/><text x="605" y="602" text-anchor="middle">掩码生成</text>
+    <rect x="678" y="582" width="90"  height="30" rx="6" fill="#EEF3FB" stroke="#D3DEF0"/><text x="723" y="602" text-anchor="middle">Dropout</text>
+  </g>
+  <text x="68" y="638" font-size="12" fill="#7a7fa8">activation · layer_norm · identity_op —— 基于 MindSpore 动态图算子实现</text>
+
+  <!-- ===== RIGHT : 训练组件 & 配置 ===== -->
+  <rect x="916" y="246" width="444" height="428" rx="12" fill="#EEF0FB" stroke="#C7CCEC"/>
+  <text x="1138" y="285" font-size="15.5" font-weight="700" fill="#2A2E5A" text-anchor="middle">训练组件 &amp; 配置</text>
+
+  <!-- config -->
+  <rect x="930" y="300" width="416" height="66" rx="9" fill="#FFFFFF" stroke="#DEE2F1" filter="url(#soft)"/>
+  <text x="946" y="324" font-size="14" font-weight="700" fill="#2A2E5A">Config（配置，dataclass）</text>
+  <text x="946" y="346" font-size="12" fill="#5b5f86">YAML → 数据集 / 训练 / 模型 / 并行 / 优化器配置校验</text>
+
+  <!-- optimizer -->
+  <rect x="930" y="376" width="416" height="60" rx="9" fill="#FFFFFF" stroke="#DEE2F1" filter="url(#soft)"/>
+  <text x="946" y="400" font-size="14" font-weight="700" fill="#2A2E5A">Optimizer（优化器）</text>
+  <text x="946" y="421" font-size="12" fill="#5b5f86">AdamW · Muon（分布式同步 + 混合精度）</text>
+
+  <!-- loss -->
+  <rect x="930" y="446" width="416" height="60" rx="9" fill="#FFFFFF" stroke="#DEE2F1" filter="url(#soft)"/>
+  <text x="946" y="470" font-size="14" font-weight="700" fill="#2A2E5A">Loss（损失）</text>
+  <text x="946" y="491" font-size="12" fill="#5b5f86">融合交叉熵损失（CrossEntropyLoss）</text>
+
+  <!-- callback -->
+  <rect x="930" y="516" width="416" height="66" rx="9" fill="#FFFFFF" stroke="#DEE2F1" filter="url(#soft)"/>
+  <text x="946" y="540" font-size="14" font-weight="700" fill="#2A2E5A">Callback（回调）</text>
+  <text x="946" y="562" font-size="12" fill="#5b5f86">Checkpoint 保存 · 断点续训 · MaxLogits 健康监测</text>
+
+  <!-- tools -->
+  <rect x="930" y="592" width="416" height="66" rx="9" fill="#FFFFFF" stroke="#DEE2F1" filter="url(#soft)"/>
+  <text x="946" y="616" font-size="14" font-weight="700" fill="#2A2E5A">Tools（工具）</text>
+  <text x="946" y="638" font-size="12" fill="#5b5f86">高可用 &amp; DFX：Monitor 指标监控 · Profiling</text>
+
+  <!-- ===== BOTTOM : 分布式 (green full width) ===== -->
+  <rect x="40" y="688" width="1320" height="98" rx="12" fill="#E7F5EA" stroke="#BBE0C2"/>
+  <text x="66" y="718" font-size="15.5" font-weight="700" fill="#256C33">分布式 / Hyper-Parallel</text>
+  <text x="66" y="738" font-size="11.5" fill="#5b8a63">distributed/</text>
+  <g font-size="12.5" fill="#256C33">
+    <rect x="150" y="702" width="150" height="34" rx="7" fill="#FFFFFF" stroke="#BBE0C2"/><text x="225" y="724" text-anchor="middle">DP（FSDP / HSDP）</text>
+    <rect x="308" y="702" width="60"  height="34" rx="7" fill="#FFFFFF" stroke="#BBE0C2"/><text x="338" y="724" text-anchor="middle">TP</text>
+    <rect x="376" y="702" width="180" height="34" rx="7" fill="#FFFFFF" stroke="#BBE0C2"/><text x="466" y="724" text-anchor="middle">PP（1F1B / interleave）</text>
+    <rect x="564" y="702" width="190" height="34" rx="7" fill="#FFFFFF" stroke="#BBE0C2"/><text x="659" y="724" text-anchor="middle">CP（Colossal / Ulysses）</text>
+    <rect x="762" y="702" width="60"  height="34" rx="7" fill="#FFFFFF" stroke="#BBE0C2"/><text x="792" y="724" text-anchor="middle">EP</text>
+    <rect x="830" y="702" width="60"  height="34" rx="7" fill="#FFFFFF" stroke="#BBE0C2"/><text x="860" y="724" text-anchor="middle">SP</text>
+    <text x="908" y="724" font-size="12" fill="#5b8a63">设备网格：dp_replicate · dp_shard · cp · tp · pp = world_size</text>
+  </g>
+  <g font-size="12.5" fill="#256C33">
+    <text x="66" y="768" font-size="13" font-weight="700" fill="#256C33">显存优化</text>
+    <rect x="150" y="750" width="180" height="30" rx="7" fill="#F1FAF3" stroke="#BBE0C2"/><text x="240" y="770" text-anchor="middle">重计算（全量 / 选择性）</text>
+    <rect x="338" y="750" width="150" height="30" rx="7" fill="#F1FAF3" stroke="#BBE0C2"/><text x="413" y="770" text-anchor="middle">细粒度 SWAP</text>
+    <text x="520" y="770" font-size="12" fill="#5b8a63">通信优化：EP overlap</text>
+  </g>
+
+  <!-- chevron -->
+  <path d="M700 804 L714 804 L707 814 Z" fill="#9aa0d0"/>
+
+  <!-- ============ FOUNDATION LAYERS ============ -->
+  <rect x="32" y="818" width="1336" height="50" rx="10" fill="#E3E7FA" stroke="#B9C0EA"/>
+  <text x="120" y="849" font-size="17" font-weight="700" fill="#2A2E5A" text-anchor="middle">AI 框架</text>
+  <text x="794" y="849" font-size="15.5" fill="#303F9F" text-anchor="middle">MindSpore　（动态图 PyNative　|　Hyper-Parallel　|　融合算子）</text>
+
+  <rect x="32" y="876" width="1336" height="50" rx="10" fill="#EAEDFB" stroke="#C0C6EC"/>
+  <text x="120" y="907" font-size="17" font-weight="700" fill="#2A2E5A" text-anchor="middle">硬件使能</text>
+  <text x="794" y="907" font-size="15.5" fill="#3d4272" text-anchor="middle">CANN</text>
+
+  <rect x="32" y="934" width="1336" height="50" rx="10" fill="#EEF0FB" stroke="#C7CCEC"/>
+  <text x="120" y="965" font-size="17" font-weight="700" fill="#2A2E5A" text-anchor="middle">昇腾 AI 硬件</text>
+  <text x="794" y="965" font-size="15.5" fill="#3d4272" text-anchor="middle">Atlas 800T A2　|　Atlas 800I A2　|　Atlas 900 A3 SuperPoD</text>
+
+  <!-- footnote -->
+  <text x="1368" y="1008" font-size="12" fill="#9095c0" text-anchor="end">动态图聚焦预训练 / 微调；未覆盖能力由静态图承载</text>
+</svg>

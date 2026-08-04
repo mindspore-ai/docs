@@ -27,7 +27,7 @@
 
 #### 确定指定规格模型
 
-MindSpore Transformers支持了不同系列的预训练模型，例如DeepSeek系列以及Qwen3系列的一些典型规格。其中，动态图（PyNative）实现当前已支持 **DeepSeek-V3**（MoE + MLA + MTP）与 **Qwen3**（Dense）两类模型结构，对应实现位于 `mindformers/models/*/modeling_*_pynative.py`；其余既有模型为静态图实现，详见[模型支持库](../introduction/models.md)。
+MindSpore Transformers 支持不同系列的预训练模型。动态图（PyNative）实现当前已支持 **DeepSeek-V3**（MoE + MLA + MTP），对应实现位于 `mindformers/models/*/modeling_*_pynative.py`；其余既有模型为静态图实现，详见[模型支持库](../introduction/models.md)。
 
 动态图采用 **分层抽象 + 模块化** 的设计：以 `GPTModel`（General PreTrained Model）为统一模型接口，向下组合 `TransformerBlock`、`MoELayer`、`Attention`、`Linear`、`Embedding`、`Norm` 等模块化接口，并通过 `ModuleSpec` 机制自由组合搭建模型。模型结构与超参通过 YAML 配置文件中 `model` 段显式配置（`model_type`、`architectures` 为固定字段，其余结构超参按透传交给模型类），动态图当前不支持通过 `pretrained_model_dir` 自动合并 HuggingFace `config.json`，结构参数须在 YAML 中显式写明。动态图整体架构详见[整体架构](../introduction/overview.md)。
 

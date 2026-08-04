@@ -8,17 +8,17 @@
 
 动态图训练以统一脚本 `run_mindformer.py` 为入口，通过 `--mode 1` 路由到动态图训练器 `mindformers.pynative.trainer.Trainer`，由其完成模型、数据集、优化器的构建并驱动训练循环。一次任务可归纳为三步：
 
-1. **准备配置文件** —— 编写一份动态图 YAML，把模型、数据、并行、优化器串起来；
-2. **启动训练** —— 使用 `msrun` 完成多卡启动；
+1. **准备配置文件** —— 准备包含模型、数据集、并行策略和优化器等设置的动态图 YAML 文件；
+2. **启动训练** —— 使用 `scripts/msrun_launcher.sh` 启动多卡训练；
 3. **查看结果** —— 通过日志确认每步 loss/grad norm 正常下降。
 
-完整流程与各能力的详细配置见 [功能特性](../feature/overview.md)（训练指南与各特性页正文将随后续提交上线）。
+完整流程与各能力的详细配置见[功能特性概述](../feature/overview.md)。
 
 ## 前置条件
 
 - 已安装 MindSpore 与 MindSpore Transformers，详见 [安装指南](../installation.md)；
 - 昇腾（Ascend）硬件环境，且已正确配置 CANN；
-- 已准备 **Megatron 格式数据集**（`.bin`/`.idx`）。数据集制作（json → bin/idx）可用仓库脚本 [`preprocess_indexed_dataset.py`](https://atomgit.com/mindspore/mindformers/blob/master/toolkit/data_preprocess/megatron/preprocess_indexed_dataset.py)，详见「数据集」文档（将随后续提交上线）。
+- 已准备 **Megatron 格式数据集**（`.bin`/`.idx`）。数据集制作（json → bin/idx）可使用仓库脚本 [`preprocess_indexed_dataset.py`](https://atomgit.com/mindspore/mindformers/blob/master/toolkit/data_preprocess/megatron/preprocess_indexed_dataset.py)，详见[数据集](../feature/dataset.md)。
 
 > **数据路径如何衔接配置**
 >
@@ -26,7 +26,7 @@
 
 ## 第一步：准备配置文件
 
-动态图使用 dataclass 风格的 YAML 配置，顶层各段分别对应权重、训练、并行、优化器、学习率、数据、模型等。本页配套提供完整的 2 卡示例配置 [`pynative_ds3.yaml`](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/example/quick_start/pynative_ds3.yaml)，可直接下载使用；其各段内容如下（完整字段说明见「配置文件说明」文档）：
+动态图使用 dataclass 风格的 YAML 配置，顶层各段分别对应权重、训练、并行、优化器、学习率、数据、模型等。本页配套提供完整的 2 卡示例配置 [`pynative_ds3.yaml`](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/example/quick_start/pynative_ds3.yaml)，可直接下载使用；其各段内容如下，完整字段说明见[配置文件说明](../feature/configuration.md)：
 
 ```yaml
 checkpoint:
@@ -92,7 +92,7 @@ model:
 
 ```
 
-> `global_batch_size` 的精确含义：框架按 `num_accumulation_steps = global_batch_size // (data_parallel × local_batch_size)` 推导梯度累积步数。未启用梯度累积时（即三者相乘恰好相等），`global_batch_size = local_batch_size × 数据并行度`；一旦 `global_batch_size` 大于该乘积，多出的倍数即为梯度累积步数。精确定义见「配置文件说明」文档。
+> `global_batch_size` 的精确含义：框架按 `num_accumulation_steps = global_batch_size // (data_parallel × local_batch_size)` 推导梯度累积步数。未启用梯度累积时（即三者相乘恰好相等），`global_batch_size = local_batch_size × 数据并行度`；一旦 `global_batch_size` 大于该乘积，多出的倍数即为梯度累积步数。精确定义见[配置文件说明](../feature/configuration.md)。
 
 ### 关于数据集段
 
@@ -107,7 +107,7 @@ model:
 | `config.eod` / `config.pad` | eod(eos)/pad 的 token id，取自预处理时的 tokenizer |
 | `config.data_path` | 列表，每两个元素为一组「采样权重, bin 前缀」，权重为相对值、自动归一化（不要求之和为 1）；bin 前缀含 `_text_document` 后缀 |
 
-> 这些字段的逐项含义、多数据源混合、压缩 EOD mask 等场景化配置见「数据集」文档。本页只给最小可跑配置。
+> 这些字段的逐项含义、多数据源混合、压缩 EOD mask 等场景化配置见[数据集](../feature/dataset.md)。本页只给最小可跑配置。
 
 ### 关于模型段
 
@@ -117,25 +117,24 @@ DeepSeek-V3 的 `model` 段包含数十个结构超参（`hidden_size`、`num_hi
 
 ## 第二步：启动训练
 
-动态图训练通过 `msrun` 启动多卡。以下命令在 **mindformers 仓库根目录**下执行（将下载的 `pynative_ds3.yaml` 放在该目录），在 2 卡上启动训练：
+动态图训练通过 `scripts/msrun_launcher.sh` 启动多卡。以下命令在 **mindformers 仓库根目录**下执行（将下载的 `pynative_ds3.yaml` 放在该目录），在 2 卡上启动训练：
 
 ```bash
-msrun --worker_num=2 --local_worker_num=2 --master_port=8118 \
-      --join=True --log_dir=./msrun_log \
-      run_mindformer.py --config pynative_ds3.yaml --mode 1
+bash scripts/msrun_launcher.sh \
+  "run_mindformer.py --config pynative_ds3.yaml --mode 1" 2
 ```
 
-- `--worker_num` / `--local_worker_num`：总卡数 / 本机卡数；
+- 命令末尾的 `2`：总卡数（单机运行时也表示本机卡数）；
 - `--config`：上一步的 YAML；
 - `--mode 1`：使用动态图。
 
 > 进入动态图训练**必须在启动命令显式传入 `--mode 1`**（入口只读取命令行 `--mode`，不读取 YAML）。YAML 的 `context` 段可省略：默认即动态图模式（`mode: 1`）、Ascend 后端；如需调整 `max_device_memory` 等再显式配置。
 
-更多集群规模（单卡、多机）的启动方式见「启动任务」文档。
+更多集群规模（单卡、多机）的启动方式见[启动任务](../feature/start_task.md)。
 
 ## 第三步：查看结果
 
-训练日志输出在 `--log_dir` 指定目录下，每个 worker 一份子目录（如 `./msrun_log/worker_0.log`）。打开任一 worker 日志，看到形如下面的逐步输出即说明训练已正常运行：
+启动脚本默认将训练日志输出到 `output/msrun_log/`，每个 worker 一份日志（如 `output/msrun_log/worker_0.log`）。打开任一 worker 日志，看到形如下面的逐步输出即说明训练已正常运行：
 
 ```text
 { step:[    1/   10], loss:  11.813965, per_step_time:  13570ms, load_balancing_loss:   1.093977, lr: 1.000000e-05, grad_norm:  13.831877, throughput:   1.36T }
@@ -152,10 +151,13 @@ msrun --worker_num=2 --local_worker_num=2 --master_port=8118 \
 此外：
 
 - **权重**：若开启 `checkpoint.enable_save`，权重以 Safetensors 格式保存到 `checkpoint.save_path`；
-- **更多指标**：可通过 `monitor.train_state` 采集逐参数范数与本地/设备级 loss（注意：动态图监控指标当前仅通过训练日志输出，TensorBoard 配置暂不生效），详见「训练指标监控与 Profiling」文档。
+- **更多指标**：可通过 `monitor.train_state` 采集逐参数范数与本地/设备级 loss，详见[训练指标监控与 Profiling](../feature/monitor.md)。
 
 ## 相关文档
 
 - 动态图整体架构：[整体架构](../introduction/overview.md)
 - 当前支持的模型：[模型支持库](../introduction/models.md)
 - 各能力一览：[功能特性概述](../feature/overview.md)
+- 配置字段说明：[配置文件说明](../feature/configuration.md)
+- 数据准备与加载：[数据集](../feature/dataset.md)
+- 单机与多机启动：[启动任务](../feature/start_task.md)

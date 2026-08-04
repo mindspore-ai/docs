@@ -2,24 +2,26 @@
 
 [![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_en/introduction/models.md)
 
-This page serves as the unified **Model Support Library** for MindSpore Transformers. The **Execution Mode** column in the table below indicates the runtime modes supported by each model:
+This page serves as the unified **Model Support Library** for MindSpore Transformers. The current `master` branch is under development, while released-version support is synchronized through **r2.0.0**. The **Execution Mode** column in the table below indicates the runtime modes supported by each model:
 
-- **PyNative (Dynamic Graph)**: Enabled via `--mode 1`. Operations are dispatched and executed eagerly on-the-fly, facilitating debugging and development. Models currently supporting PyNative are marked in the table below, with corresponding implementations located at `mindformers/models/*/modeling_*_pynative.py`.
-- **GRAPH_MODE (Static Graph)**: The entire graph is compiled and executed as a whole. For details, refer to [Static Graph Implementation](../static_graph/introduction/overview.md).
+- **Dynamic Graph (PyNative Mode)**: Enabled via `--mode 1`. Operations are dispatched and executed eagerly on-the-fly, facilitating debugging and development. Models currently supporting PyNative are marked in the table below, with corresponding implementations located at `mindformers/models/*/modeling_*_pynative.py`.
+- **Static Graph (Graph Mode)**: The entire graph is compiled and executed as a whole. For details, refer to [Static Graph Implementation](../static_graph/introduction/overview.md).
 
-Currently, PyNative is supported for: **DeepSeek-V3** (MoE + MLA + MTP) and **Qwen3** (Dense). All other existing models are implemented for static graph execution.
+Currently, PyNative is supported for: **DeepSeek-V3** (MoE + MLA + MTP). All other existing models are implemented for static graph execution.
 
 ## Model List
 
 | Model Name | Supported Specs | Model Type | Model Architecture | Execution Mode | Latest Supported Version |
 |:---|:---|:---:|:---:|:---:|:---:|
-| [DeepSeek-V3](https://atomgit.com/mindspore/mindformers/tree/master/mindformers/models/deepseek3) | 671B | Sparse LLM | Mcore/Legacy | **PyNative** / Static Graph | 1.7.0, WIP |
-| [Qwen3](https://atomgit.com/mindspore/mindformers/tree/master/mindformers/models/qwen3) | 0.6B/1.7B/4B/8B/14B/32B | Dense LLM | Mcore | **PyNative** / Static Graph | 1.7.0, WIP |
-| [Qwen3-MoE](https://atomgit.com/mindspore/mindformers/tree/master/configs/qwen3_moe) | 30B-A3B/235B-A22B | Sparse LLM | Mcore | Static Graph | 1.7.0, WIP |
-| [GLM4.5](https://atomgit.com/mindspore/mindformers/tree/master/configs/glm4_moe) | 106B-A12B/355B-A32B | Sparse LLM | Mcore | Static Graph | 1.7.0, WIP |
-| [GLM4](https://atomgit.com/mindspore/mindformers/tree/master/configs/glm4) | 9B | Dense LLM | Mcore/Legacy | Static Graph | 1.7.0, WIP |
-| [Qwen2.5](https://atomgit.com/mindspore/mindformers/tree/master/research/qwen2_5) | 0.5B/1.5B/7B/14B/32B/72B | Dense LLM | Legacy | Static Graph | 1.7.0, WIP |
-| [TeleChat2](https://atomgit.com/mindspore/mindformers/tree/master/research/telechat2) | 7B/35B/115B | Dense LLM | Mcore | Static Graph | 1.7.0, WIP |
+| [TeleChat3](https://atomgit.com/mindspore/mindformers/tree/master/configs/telechat3) | 36B | Dense LLM | Mcore | Static Graph | 1.9.0, r2.0.0 |
+| [TeleChat3-MoE](https://atomgit.com/mindspore/mindformers/tree/master/configs/telechat3_moe) | 105B-A4.7B | Sparse LLM | Mcore | Static Graph | 1.9.0, r2.0.0 |
+| [Qwen3](https://atomgit.com/mindspore/mindformers/tree/master/mindformers/models/qwen3) | 0.6B/1.7B/4B/8B/14B/32B | Dense LLM | Mcore | Static Graph | 1.9.0, r2.0.0 |
+| [Qwen3-MoE](https://atomgit.com/mindspore/mindformers/tree/master/configs/qwen3_moe) | 30B-A3B/235B-A22B | Sparse LLM | Mcore | Static Graph | 1.9.0, r2.0.0 |
+| [DeepSeek-V3](https://atomgit.com/mindspore/mindformers/tree/master/mindformers/models/deepseek3) | 671B | Sparse LLM | Mcore/Legacy | **PyNative** / Static Graph | 1.9.0, r2.0.0 |
+| [GLM4.5](https://atomgit.com/mindspore/mindformers/tree/master/configs/glm4_moe) | 106B-A12B/355B-A32B | Sparse LLM | Mcore | Static Graph | 1.9.0, r2.0.0 |
+| [GLM4](https://atomgit.com/mindspore/mindformers/tree/master/configs/glm4) | 9B | Dense LLM | Mcore/Legacy | Static Graph | 1.9.0, r2.0.0 |
+| [Qwen2.5](https://atomgit.com/mindspore/mindformers/tree/master/research/qwen2_5) | 0.5B/1.5B/7B/14B/32B/72B | Dense LLM | Legacy | Static Graph | 1.9.0, r2.0.0 |
+| [TeleChat2](https://atomgit.com/mindspore/mindformers/tree/master/research/telechat2) | 7B/35B/115B | Dense LLM | Mcore/Legacy | Static Graph | 1.9.0, r2.0.0 |
 | [Llama3.1](https://atomgit.com/mindspore/mindformers/tree/r1.7.0/research/llama3_1) | 8B/70B | Dense LLM | Legacy | Static Graph | 1.7.0 |
 | [Mixtral](https://atomgit.com/mindspore/mindformers/tree/r1.7.0/research/mixtral) | 8x7B | Sparse LLM | Legacy | Static Graph | 1.7.0 |
 | [CodeLlama](https://atomgit.com/mindspore/mindformers/blob/r1.5.0/docs/model_cards/codellama.md) | 34B | Dense LLM | Legacy | Static Graph | 1.5.0 |
@@ -68,4 +70,4 @@ Currently, PyNative is supported for: **DeepSeek-V3** (MoE + MLA + MTP) and **Qw
 | [Ziya](https://atomgit.com/mindspore/mindformers/blob/r1.0/research/ziya/ziya.md) | 13B | Dense LLM | Legacy | Static Graph | 1.0 |
 | [Bert](https://atomgit.com/mindspore/mindformers/blob/r0.8/docs/model_cards/bert.md) | 4M/110M | Dense LLM | Legacy | Static Graph | 0.8 |
 
-*Notes: **LLM** stands for Large Language Model; **MM** stands for Multi-Modal. Models marked with **"PyNative / Static Graph"** in the **Execution Mode** column support both runtime modes. For instructions on enabling PyNative, refer to [Quick Start](../quick_start/quick_start.md); for static graph implementation details, see [Static Graph Implementation](../static_graph/introduction/overview.md).*
+*Notes: **LLM** stands for Large Language Model; **MM** stands for Multi-Modal. Models marked with **"PyNative / Static Graph"** in the **Execution Mode** column support both runtime modes. For instructions on enabling PyNative, refer to [Installation](../installation.md); for static graph implementation details, see [Static Graph Implementation](../static_graph/introduction/overview.md). The current `master` branch is under development, and `r2.0.0` denotes the released version.*
