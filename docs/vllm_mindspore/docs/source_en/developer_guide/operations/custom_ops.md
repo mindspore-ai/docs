@@ -142,13 +142,7 @@ Here, importing `_C_ops` allows user to use the Python module for the custom ope
 
 1. **Code Integration**: Merge the code into the vLLM-MindSpore Plugin project.
 2. **Project Compilation**: Run `pip install .` in vllm-mindspore to build and install vLLM-MindSpore Plugin.
-3. **Operator Testing**: Call the operator interface via `_custom_ops`. Refer to testcase [test_custom_advstepflash.py](https://atomgit.com/mindspore/vllm-mindspore/blob/master/tests/ut/ops/test_custom_advstepflash.py):
-
-```python
-from vllm_mindspore import _custom_ops as custom_ops
-
-custom_ops.advance_step_flashattn(...)
-```
+3. **Operator Testing**: Call the operator interface via `_custom_ops`.
 
 ## Custom Operator Compilation Project
 

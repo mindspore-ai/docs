@@ -541,7 +541,7 @@ The following uses `qwen3-8b` as an example to describe related functions. The s
 
 1. Download the `alpaca` dataset from [link](https://github.com/tatsu-lab/stanford_alpaca/blob/main/alpaca_data.json).
 
-2. Run the data processing script [alpaca_converter.py](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_en/static_graph/example/qwen3/alpaca_converter.py) to convert the `alpaca` dataset into a dialog format.
+2. Run the data processing script [alpaca_converter.py](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/static_graph/example/qwen3/alpaca_converter.py) to convert the `alpaca` dataset into a dialog format.
 
    ```shell
    python alpaca_converter.py \
