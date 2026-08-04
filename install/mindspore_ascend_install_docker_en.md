@@ -20,6 +20,7 @@
         - [How to Extend for Custom Development](#how-to-extend-for-custom-development)
     - [Supported Hardware](#supported-hardware)
     - [License](#license)
+    - [Image Usage Responsibility](#image-usage-responsibility)
 
 <!-- /TOC -->
 
@@ -263,3 +264,7 @@ CMD ["python", "train.py"]
 View the [license information](https://atomgit.com/mindspore/mindspore/blob/master/LICENSE) for MindSpore included in these images.
 
 As with all container images, pre-installed software packages (Python, system libraries, etc.) may be subject to their respective licenses.
+
+## Image Usage Responsibility
+
+The released Atlas software images are community versions, not intended for commercial use, and serve only as references for production practices.
