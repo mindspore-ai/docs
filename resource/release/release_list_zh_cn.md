@@ -93,6 +93,12 @@
 |--------|------------------|
 | CANN 9.1.x | [安装指南](https://www.hiascend.com/cann/download) |
 
+**配套资料**
+
+|   版本说明和接口变更   |   安装   |      教程      |  文档    |  API|
+|    ---  |    ---   |       ---      |     ---     |     ---      |
+|   [ReleaseNotes](https://www.mindspore.cn/docs/zh-CN/r2.10.0/RELEASE.html)   | [安装指南](https://atomgit.com/mindspore/docs/tree/r2.10.0/install)  |  [快速上手](https://www.mindspore.cn/tutorials/zh-CN/r2.10.0/beginner/quick_start.html)      <br> [实践案例](https://www.mindspore.cn/tutorials/zh-CN/r2.10.0/cv.html)  | [MindSpore](https://www.mindspore.cn/docs/zh-CN/r2.10.0/index.html) |  [MindSpore](https://www.mindspore.cn/docs/zh-CN/r2.10.0/api_python/mindspore.html)  |
+
 ## 2.9.0
 
 | 组件        | 硬件平台          | 操作系统          | Python版本   | 链接                                                                                                                                                                                        | SHA-256                                                          |
