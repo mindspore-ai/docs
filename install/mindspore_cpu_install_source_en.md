@@ -43,29 +43,7 @@ The following describes how to install the third-party dependencies.
 
 ### Installing Python
 
-[Python](https://www.python.org/) can be installed in multiple ways.
-
-- Install Python with Conda.
-
-    Install Miniconda:
-
-    ```bash
-    cd /tmp
-    curl -O https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/Miniconda3-py37_4.10.3-Linux-$(arch).sh
-    bash Miniconda3-py37_4.10.3-Linux-$(arch).sh -b
-    cd -
-    . ~/miniconda3/etc/profile.d/conda.sh
-    conda init bash
-    ```
-
-    After the installation is complete, you can set up Tsinghua source acceleration download for Conda, and see [here](https://mirrors.tuna.tsinghua.edu.cn/help/anaconda/).
-
-    Create a virtual environment, taking Python 3.9.11 as an example:
-
-    ```bash
-    conda create -n mindspore_py39 python=3.9.11 -y
-    conda activate mindspore_py39
-    ```
+[Python](https://www.python.org/) can be installed in the following ways.
 
 - Or install Python via APT with the following command.
 
