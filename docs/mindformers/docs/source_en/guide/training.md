@@ -49,7 +49,7 @@ For the Megatron dataset, MindSpore Transformers provides the data preprocessing
 - **Flexible configuration**: Multiple bin data files can be loaded at the same time, and the sampling ratio parameter can be used to control the hybrid weight of different data sources.
 - **Efficient training**: The binary storage format greatly improves I/O efficiency, which is especially suitable for large-scale pretraining scenarios.
 
-After the preprocessing is complete, you can configure `BlendedMegatronDatasetDataLoader` to load the Megatron dataset for pretraining. For details, see [Datasets > Megatron Datasets](../feature/dataset.md#megatron-dataset). In addition, MindRecord datasets can be efficiently loaded and sampled from multiple sources using `MultiSourceDataLoader`. For details, see [Datasets > MindRecord Datasets](../feature/dataset.md#mindrecord-datasets).
+After the preprocessing is complete, you can configure `BlendedMegatronDatasetDataLoader` to load the Megatron dataset for pretraining. For details, see [Datasets > Megatron Datasets](../feature/dataset.md#megatron-datasets). In addition, MindRecord datasets can be efficiently loaded and sampled from multiple sources using `MultiSourceDataLoader`. For details, see [Datasets > MindRecord Datasets](../feature/dataset.md#mindrecord-datasets).
 
 ### 2. Preparing Configuration Files
 
