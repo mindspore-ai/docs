@@ -75,20 +75,20 @@ MindSpore Transformers classifies configurable parameters by configuration type 
     <td rowspan="3">Basic configurations</td>
     <td rowspan="3">You can specify the corresponding configuration items to start a simple training task based on the current model structure.</td>
     <td>Dataset</td>
-    <td><a href=https://www.mindspore.cn/mindformers/docs/en/r2.10.0/feature/dataset.html target="_blank">Dataset usage</a></td>
+    <td><a href=https://www.mindspore.cn/mindformers/docs/en/r2.0.0/feature/dataset.html target="_blank">Dataset usage</a></td>
   </tr>
   <tr>
     <td>Parallelism configurations</td>
     <td>
-    <a href=https://www.mindspore.cn/mindformers/docs/en/r2.10.0/feature/configuration.html#parallelism—multidimensional-parallelism target="_blank">Parallelism configuration items</a><br>
-    <a href=https://www.mindspore.cn/mindformers/docs/en/r2.10.0/feature/parallel_training.html target="_blank">Distributed parallel training guide</a>
+    <a href=https://www.mindspore.cn/mindformers/docs/en/r2.0.0/feature/configuration.html#parallelism—multidimensional-parallelism target="_blank">Parallelism configuration items</a><br>
+    <a href=https://www.mindspore.cn/mindformers/docs/en/r2.0.0/feature/parallel_training.html target="_blank">Distributed parallel training guide</a>
     </td>
   </tr>
   <tr>
     <td>Hyperparameter training</td>
     <td>
-    <a href=https://www.mindspore.cn/mindformers/docs/en/r2.10.0/feature/training_hyperparameters.html target="_blank">Hyperparameters and optimizers for training</a><br>
-    <a href=https://www.mindspore.cn/mindformers/docs/en/r2.10.0/feature/other_training_features.html target="_blank">Other training features (gradient accumulation/gradient clipping/operator fusion/hybrid precision)</a>
+    <a href=https://www.mindspore.cn/mindformers/docs/en/r2.0.0/feature/training_hyperparameters.html target="_blank">Hyperparameters and optimizers for training</a><br>
+    <a href=https://www.mindspore.cn/mindformers/docs/en/r2.0.0/feature/other_training_features.html target="_blank">Other training features (gradient accumulation/gradient clipping/operator fusion/hybrid precision)</a>
     </td>
   </tr>
   <tr>
@@ -96,20 +96,20 @@ MindSpore Transformers classifies configurable parameters by configuration type 
     <td rowspan="3">By configuring this part, you can detect the training status and ensure the continuous execution of multiple training tasks.</td>
     <td>Weight saving</td>
     <td>
-      <a href=https://www.mindspore.cn/mindformers/docs/en/r2.10.0/feature/save_load_checkpoint.html target="_blank">Safetensors weight saving and loading</a><br>
-      <a href=https://www.mindspore.cn/mindformers/docs/en/r2.10.0/feature/configuration.html#checkpoint—weight-saving-and-loading target="_blank">Callbacks configuration > CheckpointMonitor</a>
+      <a href=https://www.mindspore.cn/mindformers/docs/en/r2.0.0/feature/save_load_checkpoint.html target="_blank">Safetensors weight saving and loading</a><br>
+      <a href=https://www.mindspore.cn/mindformers/docs/en/r2.0.0/feature/configuration.html#checkpoint—weight-saving-and-loading target="_blank">Callbacks configuration > CheckpointMonitor</a>
     </td>
   </tr>
   <tr>
     <td>Resumable training</td>
     <td>
-      <a href=https://www.mindspore.cn/mindformers/docs/en/r2.10.0/feature/resume_training.html target="_blank">Examples for resumable training after breakpoint</a>
+      <a href=https://www.mindspore.cn/mindformers/docs/en/r2.0.0/feature/resume_training.html target="_blank">Examples for resumable training after breakpoint</a>
     </td>
   </tr>
   <tr>
     <td>Online monitoring</td>
     <td>
-      <a href=https://www.mindspore.cn/mindformers/docs/en/r2.10.0/feature/monitor.html target="_blank">Training metrics monitoring and profiling</a>
+      <a href=https://www.mindspore.cn/mindformers/docs/en/r2.0.0/feature/monitor.html target="_blank">Training metrics monitoring and profiling</a>
     </td>
   </tr>
   <tr>
@@ -117,18 +117,18 @@ MindSpore Transformers classifies configurable parameters by configuration type 
     <td rowspan="2">By specifying these configuration items, you can monitor the status of the training process and optimize performance to ensure stable and high-performance training across different cluster scales.</td>
     <td>Performance optimization</td>
     <td>
-      <a href=https://www.mindspore.cn/mindformers/docs/en/r2.10.0/feature/memory_optimization.html target="_blank">Training memory optimization</a>
+      <a href=https://www.mindspore.cn/mindformers/docs/en/r2.0.0/feature/memory_optimization.html target="_blank">Training memory optimization</a>
     </td>
   </tr>
   <tr>
     <td>Other training features</td>
     <td>
-      <a href=https://www.mindspore.cn/mindformers/docs/en/r2.10.0/feature/other_training_features.html#2-gradient-clipping target="_blank">Gradient accumulation/gradient clipping/operator fusion/hybrid precision</a>
+      <a href=https://www.mindspore.cn/mindformers/docs/en/r2.0.0/feature/other_training_features.html#2-gradient-clipping target="_blank">Gradient accumulation/gradient clipping/operator fusion/hybrid precision</a>
     </td>
   </tr>
 </table>
 
-Except the preceding configuration items, all configuration items of training tasks are controlled by the [configuration file](https://www.mindspore.cn/mindformers/docs/en/r2.10.0/feature/configuration.html). You can adjust them based on the configuration item description.
+Except the preceding configuration items, all configuration items of training tasks are controlled by the [configuration file](https://www.mindspore.cn/mindformers/docs/en/r2.0.0/feature/configuration.html). You can adjust them based on the configuration item description.
 
 > **Configuration Differences Between Dynamic and Static Graphs**
 >

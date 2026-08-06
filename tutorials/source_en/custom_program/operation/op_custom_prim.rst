@@ -58,7 +58,7 @@ To help you better use custom operators, we have used [the pyfunc-type custom op
 - `Advanced usage of custom operators <https://www.mindspore.cn/tutorials/en/r2.10.0/custom_program/operation/op_custom_adv.html>`_ : registering the operator information and defining the backward functions for operators.
 
 .. note::
-    More examples can be found in the MindSpore source code `tests/st/custom/ops_custom <https://atomgit.com/mindspore/mindspore/tree/v2.10/tests/st/custom/ops_custom>`_ .
+    More examples can be found in the MindSpore source code `tests/st/custom/ops_custom <https://atomgit.com/mindspore/mindspore/tree/v2.10.0/tests/st/custom/ops_custom>`_ .
 
 An Example of Custom Operators
 --------------------------------

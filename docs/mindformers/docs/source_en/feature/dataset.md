@@ -597,7 +597,7 @@ You can generate a MindRecord dataset for `qwen3-8b` model fine-tuning by referr
 
 2. Start model fine-tuning.
 
-   After modifying the dataset-related configuration items in the model configuration file, you can start a model fine-tuning task by referring to the model document. The following uses the [Qwen3 model document](https://atomgit.com/mindspore/mindformers/blob/r2.10.0/configs/qwen3/README.md) as an example.
+   After modifying the dataset-related configuration items in the model configuration file, you can start a model fine-tuning task by referring to the model document. The following uses the [Qwen3 model document](https://atomgit.com/mindspore/mindformers/blob/r2.0.0/configs/qwen3/README.md) as an example.
 
 ### Multi-Source Datasets
 

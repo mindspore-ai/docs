@@ -149,7 +149,7 @@ assert output.asnumpy().dtype == 'float32'
 assert output.asnumpy().shape == (1280, 1280)
 ```
 
-您可以查看MindSpore仓中的[自定义算子测试用例](https://atomgit.com/mindspore/mindspore/tree/v2.10/tests/st/custom/ops_custom/ascendc)，获取更多数据类型与使用场景的Ascend C自定义算子用例。
+您可以查看MindSpore仓中的[自定义算子测试用例](https://atomgit.com/mindspore/mindspore/tree/v2.10.0/tests/st/custom/ops_custom/ascendc)，获取更多数据类型与使用场景的Ascend C自定义算子用例。
 样例工程的目录结构如下：
 
 ```text

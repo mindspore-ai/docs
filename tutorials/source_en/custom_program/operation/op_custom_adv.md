@@ -86,4 +86,4 @@ The execution result is as follows:
 [ 2.  8. 18.]
 ```
 
-> More examples can be found in the MindSpore source code [tests/st/custom/ops_custom](https://atomgit.com/mindspore/mindspore/tree/v2.10/tests/st/custom/ops_custom).
+> More examples can be found in the MindSpore source code [tests/st/custom/ops_custom](https://atomgit.com/mindspore/mindspore/tree/v2.10.0/tests/st/custom/ops_custom).
