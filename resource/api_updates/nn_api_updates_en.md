@@ -25,5 +25,3 @@ Compared with the version 2.7.2, the added, deleted and supported platforms chan
 Compared with the version 2.7.1, the information of `mindspore.nn` operators in MindSpore has no changes in version 2.7.2.
 
 Compared with the version 2.6.0, the information of `mindspore.nn` operators in MindSpore has no changes in version 2.7.0.
-
-Compared with the version 2.6.0, the information of `mindspore.nn` operators in MindSpore in version 2.7.0 has no changes.
