@@ -145,7 +145,7 @@ assert output.asnumpy().dtype == 'float32'
 assert output.asnumpy().shape == (1280, 1280)
 ```
 
-You can view the [custom operator test cases](https://atomgit.com/mindspore/mindspore/tree/v2.10/tests/st/custom/ops_custom/ascendc) in the MindSpore repository to obtain Ascend C custom operator test cases for more data types and usage scenarios. The sample project directory structure is as follows:
+You can view the [custom operator test cases](https://atomgit.com/mindspore/mindspore/tree/v2.10.0/tests/st/custom/ops_custom/ascendc) in the MindSpore repository to obtain Ascend C custom operator test cases for more data types and usage scenarios. The sample project directory structure is as follows:
 
 ```text
 .
