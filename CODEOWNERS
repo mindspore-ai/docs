@@ -67,7 +67,7 @@
 /docs/lite/api/source_zh_cn/conf.py @gemini524
 
 # The maintainers of MindSpore Transformers docs.
-/docs/mindformers/docs/source_zh_cn/ @hss-shuai @gemini524
+/docs/mindformers/docs/source_zh_cn/ @senzhen-town @gemini524
 /docs/mindformers/docs/source_zh_cn/feature/high_availability.md @zhangbuxue @gemini524
 /docs/mindformers/docs/source_zh_cn/_templates/ @gemini524
 /docs/mindformers/docs/source_zh_cn/conf.py @gemini524
