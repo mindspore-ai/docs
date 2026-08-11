@@ -37,6 +37,9 @@ release = 'master'
 # ones.
 myst_enable_extensions = ["dollarmath", "amsmath"]
 
+lib_path = "/doc-lib/jquery.js"
+USE_LIB = os.path.exists(lib_path)
+html_context = {'use_lib': USE_LIB}
 
 myst_heading_anchors = 5
 extensions = [
@@ -66,13 +69,13 @@ templates_path = ['_templates']
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
 # This pattern also affects html_static_path and html_extra_path.
-mathjax_path = 'https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/mathjax/MathJax-3.2.2/es5/tex-mml-chtml.js'
+mathjax_path = 'https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/mathjax/MathJax-4.0.0/tex-mml-chtml.js'
 
 mathjax_options = {
     'async':'async'
 }
 
-nbsphinx_requirejs_path = 'https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js'
+nbsphinx_requirejs_path = 'https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.7/require.min.js'
 
 nbsphinx_requirejs_options = {
     "crossorigin": "anonymous",

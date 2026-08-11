@@ -58,50 +58,11 @@
 },
 {
     "id" : 5 ,
-    "name" : "vllm_mindspore",
-    "branch" : "master",
-    "whl_path" : "",
-    "whl_name" : "",
-    "environ" : "",
-    "uninstall_name" : ""
-},
-{
-    "id" : 6 ,
-    "name" : "mindstudio",
-    "branch" : "master",
-    "whl_path" : "",
-    "whl_name" : "",
-    "environ" : "",
-    "uninstall_name" : ""
-},
-{
-    "id" : 7 ,
     "name" : "mindquantum",
     "branch" : "master",
     "whl_path" : "/mindquantum/newest/gpu/x86_64/cuda-11.1/",
     "whl_name" : "mindquantum-.*-cp312-cp312-linux_x86_64.whl$",
     "environ" : "MQ_PATH",
     "uninstall_name" : "mindquantum"
-},
-{
-    "id" : 8 ,
-    "name" : "mindscience",
-    "branch" : "master",
-    "whl_search" : "ascend/x86_64/",
-    "whl_path" : "/mindscience/version/",
-    "whl_name" : "mindscience-.*-linux_x86_64.whl$",
-    "environ" : "MSC_PATH",
-    "uninstall_name" : "mindscience",
-    "extra_whl_path" : "/mindspore/website/master/cpu/x86_64",
-    "extra_whl_name" : "mindspore-.*-cp312-cp312-linux_x86_64.whl$"
-},
-{
-    "id" : 10 ,
-    "name" : "msadapter",
-    "branch" : "master",
-    "whl_path" : "",
-    "whl_name" : "",
-    "environ" : "",
-    "uninstall_name" : ""
 }
 ]

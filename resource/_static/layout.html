@@ -12,6 +12,9 @@
 {%- set (_ver_major, _ver_minor) = (sphinx_version.split('.') | list)[:2] | map('int') -%}
 {%- set sphinx_version_info = (_ver_major, _ver_minor, -1) -%}
 
+{# 检测是否使用 lib #}
+{%- set use_lib = use_lib is defined and use_lib %}
+
 <!DOCTYPE html>
 <html class="writer-html5" lang="{{ lang_attr }}"{% if sphinx_version_info >= (7, 2) %} data-content_root="{{ content_root }}"{% endif %}>
 <head>
@@ -63,8 +66,20 @@
   {%- block scripts %}
   {%- if not embedded %}
     <script src="/check-dark-mode.js"></script>
+    {%- if use_lib %}
+      {# 使用共享 jquery #}
+      <script src="/doc-lib/jquery.js"></script>
+    {%- else %}
+      {# 使用默认 jquery #}
+      <script src="{{ pathto('_static/jquery.js', 1) }}"></script>
+    {%- endif %}
     {%- for scriptfile in script_files %}
-      {{ js_tag(scriptfile) }}
+      {# 跳过 Sphinx 的 jquery.js #}
+      {# 获取文件名：如果是对象则获取 filename 属性 #}
+      {%- set filename = scriptfile.filename if scriptfile.filename is defined else scriptfile %}
+      {%- if 'jquery' not in filename %}
+        {{ js_tag(scriptfile) }}
+      {%- endif %}
     {%- endfor %}
     {{ js_tag('_static/js/theme.js') }}
 

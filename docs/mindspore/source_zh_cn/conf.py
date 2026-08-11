@@ -192,6 +192,9 @@ release = 'master'
 # ones.
 myst_enable_extensions = ["dollarmath", "amsmath"]
 
+lib_path = "/doc-lib/jquery.js"
+USE_LIB = os.path.exists(lib_path)
+html_context = {'use_lib': USE_LIB}
 
 myst_heading_anchors = 5
 extensions = [
@@ -204,7 +207,6 @@ extensions = [
     'sphinx.ext.napoleon',
     'sphinx.ext.linkcode',
     'sphinxcontrib.jquery',
-    'sphinxcontrib.mermaid',
     'myst_parser',
     'nbsphinx',
     'sphinx.ext.mathjax',
@@ -222,13 +224,13 @@ templates_path = ['_templates']
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
 # This pattern also affects html_static_path and html_extra_path.
-mathjax_path = 'https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/mathjax/MathJax-3.2.2/es5/tex-mml-chtml.js'
+mathjax_path = 'https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/mathjax/MathJax-4.0.0/tex-mml-chtml.js'
 
 mathjax_options = {
     'async':'async'
 }
 
-nbsphinx_requirejs_path = 'https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js'
+nbsphinx_requirejs_path = 'https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.7/require.min.js'
 
 nbsphinx_requirejs_options = {
     "crossorigin": "anonymous",
@@ -249,9 +251,6 @@ autosummary_generate_overwrite = False
 
 html_static_path = ['_static']
 
-mermaid_version = ""
-
-mermaid_init_js = ""
 
 # -- Options for HTML output -------------------------------------------------
 
@@ -764,7 +763,6 @@ def setup(app):
     app.add_config_value('rst_files', set(), False)
     app.add_config_value('mint_aclnn', {}, True)
     app.add_directive('includecode', IncludeCodeDirective)
-    app.add_js_file('js/mermaid-9.3.0.js')
 
 src_release = os.path.join(repo_path, 'RELEASE_CN.md')
 des_release = "./RELEASE.md"
