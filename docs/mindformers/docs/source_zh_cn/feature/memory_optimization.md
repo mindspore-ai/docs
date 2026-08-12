@@ -1,37 +1,68 @@
-# 训练内存优化
+# 训练显存优化
 
 [![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/feature/memory_optimization.md)
 
-大模型训练中，**激活值（activation）** 通常是显存占用的主要来源。MindSpore Transformers 动态图（PyNative）提供多种显存优化功能，可在配置文件中独立或组合启用，核心思路是以 **算力** 或 **PCIe 带宽** 换取显存。
+大模型训练中，**激活值（activation）** 通常是显存占用的主要来源。MindSpore Transformers 动态图（PyNative）提供多种显存优化功能，可在配置文件中独立或组合启用。本文介绍显存优化的概念与必要性、各类方法的原理，以及 MindSpore Transformers 支持的场景与配置方法。
 
-所有功能由 `mindformers/pynative/distributed/activation_checkpoint.py` 的 `apply_ac` 统一使能。配置分别映射到 `RecomputeConfig` / `RecomputeCommConfig` / `SwapConfig`，详见 `mindformers/pynative/config/config.py`。
+## 一、显存优化概念与必要性
 
-本文首先提供选型速查表，以便快速选择合适的优化方式；随后按显存压力由轻到重给出场景化推荐；最后对每种优化机制分别介绍其原理、适用场景和配置方法，并给出完整的 YAML 配置示例。
+大模型训练的显存占用主要来源于四部分：**模型权重**、**优化器状态**、**梯度**、**激活值**。前三者可通过并行切分（TP/PP/EP）分摊到多卡，而激活值与序列长度、batch、层数强相关，**在大模型训练中通常是显存瓶颈**。
 
-## 选型速查
+因此，显存优化的核心目标是在不改变数值结果的前提下，降低激活值的显存占用。本质是 **以其他资源换取显存**，主要有两种思路：
+
+- **以算力换显存**：丢弃前向激活值，反向时重新计算 —— 即 **重计算（Recompute）**。
+- **以 PCIe 带宽/延迟换显存**：保留激活值但搬运到 CPU 内存，反向前再预取回 NPU —— 即 **激活值 Swap**。
+
+两者效果相近，区别在于代价不同：重计算消耗额外算力，Swap 消耗 PCIe 带宽与延迟。可根据集群资源余量选择，也可组合使用（分配到不同层）。
+
+## 二、显存优化方法
+
+### 重计算（Recompute）
+
+[重计算](https://www.mindspore.cn/tutorials/zh-CN/master/parallel/recompute.html)（Activation Checkpointing）在前向传播时丢弃部分中间激活值，反向传播时再重新计算所需激活值，以算力换取显存。
+
+按丢弃与重算的粒度，分为两类：
+
+- **激活重计算**：对模型层或层内模块做重计算。
+  - `full`（完全重计算）：对指定整层重计算，整层激活值全部丢弃。显存收益最大，算力开销也最大。
+  - `select`（选择重计算）：仅对指定模块（如 MLP）重计算。粒度细、开销小，适合精确控制范围。
+- **通信重计算**：并行切分（TP/EP）引入的通信算子（如 AllGather、ReduceScatter）激活值占用较大时，单独对这些通信算子重计算，无需整层重计算。
+
+> 通信重计算与激活重计算功能独立，可同时开启或关闭。
+
+### 激活值 Swap
+
+激活值 Swap 通过把激活值卸载到 CPU 内存来节省 NPU 显存，反向计算前从 CPU 侧搬回 NPU 来计算梯度，主要以 PCIe 带宽/延迟换取显存，通过提前预取来隐藏取回延迟。
+
+按卸载粒度，分为两种：
+
+- **整层 Swap（`layer_swap`）**：将指定层的激活值整体卸载到 CPU。显存收益高。
+- **算子级 Swap（`op_swap`）**：仅卸载指定算子的激活值。粒度细，可灵活权衡。
+
+> **重计算与 Swap 的本质区别**
+>
+> - **重计算**：丢弃前向激活值，反向再重算 —— 用 **算力** 换显存。
+> - **Swap**：保留激活值但搬到 CPU 内存，反向前预取回 NPU —— 用 **PCIe 带宽/延迟** 换显存。
+
+## 三、支持的场景与配置方法
+
+### 选型速查
 
 | 机制         | 配置段              | 典型场景                 | 显存收益 | 主要代价              | 关键字段                                             |
 |------------|------------------|----------------------|------|-------------------|--------------------------------------------------|
 | 重计算-full   | `recompute`      | 整层激活值全部丢弃，显存极紧张      | 高    | 反向重算整层前向（算力）      | `mode: full`、`full_recompute_layer`、`exclude_op` |
 | 重计算-select | `recompute`      | 仅省热点模块（如 MLP），灵活权衡   | 中    | 重算选中模块（算力）        | `mode: select`、`select_module`、`exclude_op`      |
 | 通信重计算      | `recompute_comm` | 切分通信算子的激活值占用较大       | 低-中  | 反向重做通信算子（算力+少量通信） | `enable`、`select_module`                         |
-| SWAP-layer | `swap`           | 重计算后仍超额，整层激活值卸载到 CPU | 高    | PCIe 带宽/延迟，通过预取隐藏 | `enable`、`layer_swap`、`default_prefetch`         |
-| SWAP-op    | `swap`           | 仅卸载指定算子的激活值          | 中    | PCIe 带宽/延迟        | `enable`、`op_swap`、`default_prefetch`            |
+| 整层 Swap  | `swap`           | 重计算后仍超额，整层激活值卸载到 CPU | 高    | PCIe 带宽/延迟，通过预取隐藏 | `enable`、`layer_swap`、`default_prefetch`         |
+| 算子级 Swap | `swap`           | 仅卸载指定算子的激活值          | 中    | PCIe 带宽/延迟        | `enable`、`op_swap`、`default_prefetch`            |
 
-> **两者的本质区别**
->
-> - **重计算**：丢弃前向激活值，反向再重算 —— 用 **算力** 换显存。
-> - **SWAP**：保留激活值但搬到 CPU 内存，反向前预取回 NPU —— 用 **PCIe 带宽/延迟** 换显存。
+### 不同场景显存优化策略
 
-## 显存不够时怎么选（场景化策略）
+大模型训练遇到显存不足(OOM)时无需同时启用所有功能。可以按牺牲性能由低到高的方式逐步降低显存占用：先用代价最低的选择重计算；若不够，再逐步扩大重计算范围，也可以叠加使用通信重计算以及Swap。
 
-遇到 OOM 时无需同时启用所有功能。重计算与 SWAP 在减少激活值显存方面效果相近，区别在于代价不同：重计算以 **算力** 换显存，SWAP 以 **PCIe 带宽/延迟** 换显存。可根据集群资源余量选择合适的方式，也可组合使用（分配到不同层）。以下按代价由低到高给出推荐路径：先用代价最低的选择重计算；若不够，再扩大重计算范围；仍不够，再组合 SWAP。
+#### 第一级 · 轻度超额：选择重计算热点模块
 
-### 第一级 · 轻度超额：选择重计算热点模块
-
-显存仅小幅超额时，先用 `select` 模式选择重计算 **激活值占用最大的模块**（通常是 MLP）。`select` 仅重算选中模块的前向，算力开销远小于整层重计算。
-
-> 重计算以算力换显存。`select` 粒度细、开销小，建议优先使用。
+显存仅小幅超额时，用 `select` 模式重计算 **激活值占用最大的模块**（通常是 MLP）。`select` 仅重算选中模块，算力开销远小于整层重计算，建议优先使用。
 
 ```yaml
 # 假设模型 num_layers = 32
@@ -45,11 +76,9 @@ swap:
   enable: False
 ```
 
-### 第二级 · 中度超额：完全重计算指定层区间
+#### 第二级 · 中度超额：完全重计算指定层区间
 
-当 `select` 仍不足以缓解显存压力时，对部分层做 **整层重计算**。整层激活值全部丢弃、反向重算，单层收益最大；通常只需覆盖前若干层即可显著缓解。
-
-> 完全重计算模式节省显存最多，但算力开销也最大。建议仅对必要的层启用，按需扩大 `full_recompute_layer` 区间。
+当 `select` 仍不足以缓解显存压力时，对部分层做 **整层重计算**。单层收益最大，通常只需覆盖前若干层即可显著缓解。
 
 ```yaml
 # 假设模型 num_layers = 32
@@ -69,19 +98,22 @@ swap:
 recompute:
   mode: full
   full_recompute_layer: [0-15]
-  exclude_op: ["AllGather", "ReduceScatter", "AllToAll"]
+  exclude_op:
+    '.*allgather': [0-15]       # 排除 AllGather
+    '.*reducescatter': [0-15]   # 排除 ReduceScatter
+    '.*alltoall': [0-15]        # 排除 AllToAll
+    '.*alltoallsingle': [0-15]  # 排除 AllToAllSingle
 recompute_comm:
   enable: False
 swap:
   enable: False
 ```
 
-### 第三级 · 重度超额：完全重计算 或 重计算 + 激活 SWAP
+#### 第三级 · 重度超额：完全重计算 或 重计算 + 激活 Swap
 
-选择重计算仍不够时，可对全部层做 **完全重计算**（`full_recompute_layer` 覆盖所有层），以最大算力代价换取最大显存节省。若完全重计算仍无法满足，或算力不足以支撑完全重计算，可引入 **激活 SWAP**：将另一批层的激活值卸载到 CPU 内存，反向前预取回 NPU，与重计算分担不同层。
+可对全部层做 **完全重计算**（`full_recompute_layer` 覆盖所有层），以最大算力代价换取最大显存节省。若完全重计算仍无法满足，或算力不足以支撑完全重计算，可引入 **激活 Swap**：将另一批层的激活值卸载到 CPU，与重计算分担不同层。
 
-> - SWAP 以 PCIe 带宽/延迟换显存，取回延迟通过 `default_prefetch` 提前预取来隐藏。
-> - **同一层不能同时做重计算与 SWAP**，否则配置校验报错。下例中 `0-15` 走重计算、`16-30` 走 SWAP，互不重叠。
+> **同一层不能同时做重计算与 Swap**，否则配置校验报错。下例中 `0-15` 走重计算、`16-30` 走 Swap，互不重叠。
 
 ```yaml
 # 假设模型 num_layers = 32
@@ -95,7 +127,7 @@ swap:
 ```
 
 ```yaml
-# 假设模型 num_layers = 32，重计算 + SWAP 组合
+# 假设模型 num_layers = 32，重计算 + Swap 组合
 recompute:
   mode: full
   full_recompute_layer: [0-15]   # 前 16 层重计算
@@ -105,94 +137,94 @@ swap:
   enable: True
   default_prefetch: 1
   layer_swap:
-    - layers: [16-30]            # 16-30 层整层激活 SWAP，与重计算层不重叠
+    - layers: [16-30]            # 16-30 层整层激活 Swap，与重计算层不重叠
 ```
 
-## 重计算（recompute）
-
-### 概述
-
-重计算（Activation Checkpointing）可以显著降低训练时的激活内存占用，但会额外增加一些计算开销。其核心思想是在前向传播阶段丢弃部分中间激活值，在反向传播时再重新计算所需激活值，以算力换取显存。关于重计算的原理和框架侧能力可参考 [MindSpore 教程文档：重计算](https://www.mindspore.cn/tutorials/zh-CN/master/parallel/recompute.html)。
-
-动态图模式下，`recompute` 段通过 `mode` 字段控制重计算的粒度：
-
-- `None`：关闭重计算。
-- `full`：完全重计算，对 `full_recompute_layer` 指定的整层进行重计算。
-- `select`：选择重计算，对 `select_module` 指定的模块或算子做选择性重计算，可对 `full_recompute_layer` 指定的层同时做整层重计算。
-
-### 适用场景
-
-- 显存超额较小、需精确控制重计算范围时，使用 `select`（如只重算 `.*mlp`）。
-- 显存超额较大、需要最大显存节省时，使用 `full`，并仅覆盖必要的层区间。
-
-### 字段说明
+### 重计算（recompute）配置
 
 | 参数名称                   | 数据类型        | 是否可选 | 默认值      | 取值说明                                                                                                                                                                                                                                         |
 |------------------------|-------------|------|----------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `mode`                 | str         | 可选   | `"None"` | 重计算模式：`None` / `full` / `select`（其它取值在构造时报错）。                                                                                                                                                                                                |
-| `full_recompute_layer` | list/tuple  | 可选   | `None`   | 整层重计算的层范围，元素为层号或区间，如 `[0-3, 8]`。`mode=full` 时必填，`mode=select` 时也可指定，指定层做整层重计算、其余层按 `select_module` 做选择性重计算。                                                                                                                                  |
-| `select_module`        | dict        | 可选   | `None`   | `select` 模式下的「模块路径 → 层范围」映射，键为模块路径正则。`mode=select` 时必填。                                                                                                                                                                                      |
-| `exclude_op`           | list/tuple  | 可选   | `None`   | 重计算时需排除的算子名称列表。当 `mode` 为 `full` 或 `select` 时，若某个算子的名称包含列表中某项（大小写不敏感），则该算子的前向输出会被保留（`MUST_SAVE`），反向时直接复用而非重算；其余算子仍正常重计算。例如 `["AllGather", "ReduceScatter", "AllToAll"]` 保留通信算子输出以避免反向重算时重复发起集合通信。匹配基于算子名称的全局子串匹配，不限定于特定模块路径。`mode=None` 时无效。 |
+| `mode`                 | str         | 可选   | `"None"` | 重计算模式：`None` / `full` / `select`。                                                                                                                                                                                                |
+| `full_recompute_layer` | list/tuple  | 可选   | `None`   | 整层重计算的层范围，如 `[0-3, 8]`。`mode=full` 时必填，`mode=select` 时也可指定。                                                                                                                                  |
+| `select_module`        | dict        | 可选   | `None`   | `select` 模式下的「模块路径正则 → 层范围」映射，如 `{'.*mlp': [0-31]}`。`mode=select` 时必填。                                                                                                                                                                                      |
+| `exclude_op`           | dict        | 可选   | `None`   | 重计算时需排除的模块/算子，格式与 `select_module` 一致。匹配到的模块/算子在重算时直接复用前向输出，跳过重算。对 `full` 和 `select` 模式均生效，`mode=None` 时无效。 |
 
-### 选择重计算的关键行为
+> **层范围格式**：单层写 `5`，区间写 `0-19`；同一列表内层号须升序且不重叠；层号不得超出 `[0, num_layers-1]`。
 
-`select_module` 的键不是固定字段名，而是 **层内模块/算子路径的正则**：
-
-- 框架先用 `_get_single_layer_whitelist` 收集每层的全部子模块（cell）与算子（function）路径，构成白名单。
-- 再用 `regex.fullmatch` 对白名单中每条路径做 **全匹配**（不是部分匹配），匹配成功后对该模块/算子使能重计算。因此正则需匹配 **整条路径**，例如 `.*mlp` 可匹配名为 `mlp` 的子模块。
-- **父模块配置自动覆盖子模块**：若某层已配置父模块（如 `attention`），其子模块（如 `attention.core`）会被去重跳过，无需重复列出。
-- **未匹配到任何模块只告警、不报错**：正则写错或层内无对应模块时，日志输出 `select_module pattern '...' did not match any module`，训练继续，但该项不生效。
-
-> **层范围校验**：`select_module` 每个键的 `ranges` 与 `full_recompute_layer` 使用相同的校验规则（`_validate_layer_specs`）：
->
-> - 单层写 `5`，区间写 `0-19`（`start <= end`）。
-> - 同一列表内层号须 **严格升序且不重叠**。
-> - 层号不得超出模型层数 `[0, num_layers-1]`。
-
-### exclude_op 的关键行为
-
-`exclude_op` 用于在重计算时排除特定算子，使其前向输出被保留而非丢弃：
-
-- 匹配方式为 **大小写不敏感的子串匹配**：若算子名称包含列表中某项，则该算子输出保留。例如 `["AllGather"]` 可匹配 `InnerCommAllGather`。
-- 匹配范围是 **全局的**，不限定于特定模块路径。例如 `["AllGather"]` 会保留重计算 cell 内所有名称包含 `AllGather` 的算子输出（如 `InnerCommAllGather`）。
-- 该字段对 `full` 和 `select` 模式均生效，`mode=None` 时无效。
-- 使用 `exclude_op` 保留算子输出会额外占用显存（保留的张量不再被丢弃），需在显存与重计算算力之间权衡。
-
-### 场景化配置：选择重计算 attention 与 MLP
+**选择重计算模块与算子**：`select_module` 的键为层内模块/算子路径的正则，既可匹配子模块，也可匹配算子（可调用属性）：
 
 ```yaml
 # 假设模型 num_layers = 8
 recompute:
   mode: select
   select_module:
-    '.*attention': [0-3]   # 0-3 层重计算 attention 子模块
-    '.*mlp': [4-7]         # 4-7 层重计算 mlp 子模块
+    '.*attention': [0-3]          # 0-3 层重计算 attention 子模块
+    '.*mlp': [4-7]                # 4-7 层重计算 mlp 子模块
+    'self_attention.cast': [5]    # 5 层 attention 的 cast 算子也做重计算
 recompute_comm:
   enable: False
 swap:
   enable: False
 ```
 
-## 通信重计算（recompute_comm）
+`exclude_op` 支持排除三类目标，可在同一个字典中组合使用：
 
-### 概述
+**排除指定模块（cell）**：整个子模块在重算时直接复用前向缓存输出，跳过该模块的所有计算。
 
-`recompute_comm` 对选定的 **通信算子** 做重计算。其 `enable` 与 `recompute.mode` **相互独立**，可单独启用，也可与重计算并存。
+```yaml
+# 假设模型 num_layers = 8
+recompute:
+  mode: full
+  full_recompute_layer: [0-7]
+  exclude_op:
+    'self_attention.linear_proj': [0-1]   # 0-1 层排除 attention 输出投影模块
+    'mlp.linear_fc2': [2-3]               # 2-3 层排除 MLP 输出投影模块
+recompute_comm:
+  enable: False
+swap:
+  enable: False
+```
 
-### 适用场景
+**排除指定普通算子（可调用属性）**：模块上的函数或算子属性（如 `add`、`reshape`、`cast`、`sigmoid` 等）在重算时保留前向输出。
 
-并行切分引入的通信算子（如 all-gather / reduce-scatter）的激活值占用较大、又不想整层重计算时，单独对这些通信算子重计算。
+```yaml
+# 假设模型 num_layers = 8
+recompute:
+  mode: full
+  full_recompute_layer: [0-7]
+  exclude_op:
+    '.*add': [2-3]              # 全局匹配名为 add 的算子属性
+    'self_attention.cast': [5]  # 5 层 attention 的 cast
+recompute_comm:
+  enable: False
+swap:
+  enable: False
+```
 
-### 字段说明
+**排除指定通信算子**：TP / EP 通信算子在重算时保留前向输出，避免反向重复发起集合通信。
+
+```yaml
+# 假设模型 num_layers = 8，开启 TP + EP
+recompute:
+  mode: full
+  full_recompute_layer: [0-7]
+  exclude_op:
+    '.*allgather': [4-7]                                      # 排除 AllGather
+    'self_attention.linear_proj.output.reducescatter': [4-7]  # 排除指定位置的 ReduceScatter
+recompute_comm:
+  enable: False
+swap:
+  enable: False
+```
+
+### 通信重计算（recompute_comm）配置
 
 | 参数名称             | 数据类型  | 是否可选 | 默认值     | 取值说明                                 |
 |------------------|-------|------|---------|--------------------------------------|
 | `enable`         | bool  | 可选   | `False` | 是否启用通信重计算。                           |
 | `select_module`  | dict  | 可选   | `None`  | 「通信算子路径 → 层范围」映射；`enable=True` 时必填。  |
 
-> 通信重计算的 `select_module` 必须匹配到 **算子**。若正则命中的是一个 cell（子模块）而非算子，日志会提示「is expected to be operation but got cell, this configuration will not be effective」，该项 **不生效**。匹配、层范围校验、父子去重、未匹配告警等行为与重计算 `select` 一致。
-
-### 场景化配置：对 all-gather 通信算子重计算
+**对 all-gather 通信算子重计算**
 
 ```yaml
 # 假设模型 num_layers = 8
@@ -206,33 +238,18 @@ swap:
   enable: False
 ```
 
-## 激活值 SWAP（swap）
-
-### 概述
-
-`swap` 段把激活值卸载到 CPU 内存，反向计算前再预取回 NPU，以 PCIe 带宽/延迟换取显存。支持 **整层卸载（`layer_swap`）** 与 **算子级卸载（`op_swap`）**。框架通过策略函数自动跳过注意力掩码等需常驻 NPU 的张量。
-
-> **SWAP 目前不支持流水线并行**：当 `pp > 1` 时，启用 SWAP 会在配置校验阶段直接拦截。如需在流水线并行场景下节省显存，请使用重计算。
-
-### 适用场景
-
-当重计算无法进一步释放显存时，对未做重计算的层启用 SWAP。取回延迟通过 `default_prefetch` 在反向 FlashAttention 算子前提前预取来隐藏。
-
-### 字段说明
+### 激活值 Swap 配置
 
 | 参数名称               | 数据类型  | 是否可选 | 默认值     | 取值说明                                                              |
 |--------------------|-------|------|---------|-------------------------------------------------------------------|
-| `enable`           | bool  | 可选   | `False` | 是否启用激活值 SWAP。                                                     |
-| `default_prefetch` | int   | 可选   | `1`     | 反向计算时预取激活值的层偏移量，即在反向计算当前层时提前预取前方第 N 层的激活值回 NPU，用于隐藏 CPU→NPU 取回延迟。 |
-| `layer_swap`       | list  | 可选   | `None`  | 整层 SWAP 条目列表，每项为 `{layers: [...]}`。                               |
-| `op_swap`          | list  | 可选   | `None`  | 算子级 SWAP 条目列表，每项为 `{op_name: ..., layers: [...]}`。                |
+| `enable`           | bool  | 可选   | `False` | 是否启用激活值 Swap。                                                     |
+| `default_prefetch` | int   | 可选   | `1`     | 反向计算时提前预取前方第 N 层的激活值回 NPU，用于隐藏 CPU→NPU 取回延迟。 |
+| `layer_swap`       | list  | 可选   | `None`  | 整层 Swap 条目列表，每项为 `{layers: [...]}`。                               |
+| `op_swap`          | list  | 可选   | `None`  | 算子级 Swap 条目列表，每项为 `{op_name: ..., layers: [...]}`。                |
 
-> - **`default_prefetch`** **必须落在** **`[1, num_layers-1]`**，否则校验报错。
-> - **最大层号 +** **`default_prefetch`** **不得达到** **`num_layers`**（即需 `max_layer + prefetch < num_layers`），否则预取会越界报错；最大可用层号为 `num_layers - prefetch - 1`。
-> - **`layer_swap`** **实际只取第一条 entry**（源码 `sc.layer_swap[0]`）。配置多条 `layer_swap` 时，第二条及以后会被忽略，所有需整层 SWAP 的层应合并写入第一条的 `layers` 列表。
-> - `op_swap` 的层范围同样须满足升序、不越界校验。
+> **Swap 目前不支持流水线并行**：当 `pp > 1` 时，启用 Swap 会在配置校验阶段直接拦截。如需在流水线并行场景下节省显存，请使用重计算。
 
-### 场景化配置：整层 SWAP + 算子级 SWAP
+**场景：整层 Swap + 算子级 Swap**
 
 ```yaml
 # 假设模型 num_layers = 8
@@ -240,24 +257,20 @@ swap:
   enable: True
   default_prefetch: 1
   layer_swap:
-    - layers: [0-1]        # 前 2 层整层 SWAP
+    - layers: [0-1]        # 前 2 层整层 Swap
   op_swap:
     - op_name: '.*mlp'
-      layers: [2-3]        # 2-3 层的 mlp 算子做 SWAP
+      layers: [2-3]        # 2-3 层的 mlp 算子做 Swap
 recompute:
   mode: None
 recompute_comm:
   enable: False
 ```
 
-## 组合约束
+### 组合约束
 
-> **同层互斥**：同一层不能同时配置整层重计算与整层 SWAP；算子级重计算与算子级 SWAP 也不允许落在同一模块（含父子模块）上，否则在 `apply_ac` 的校验阶段（`_check_recompute_swap_overlap`）直接报错。规划时须确保重计算层与 SWAP 层不重叠。
-
-- `recompute.mode != "None"` 时必须提供对应的 `full_recompute_layer`（full）或 `select_module`（select）。
-- `recompute_comm.enable: True` 时必须提供 `select_module`。
-- 所有层范围须 **升序、不越界**；`swap.default_prefetch` 须落在 `[1, num_layers-1]`，且最大层号加 `default_prefetch` 须小于 `num_layers`。
-- 重计算与 SWAP 同时启用时，框架在使能前先做重叠检测；通过后再分别校验与使能。
+- **同层互斥**：同一层不能同时配置整层重计算与整层 Swap；算子级重计算与算子级 Swap 也不允许落在同一模块上，否则校验报错。规划时须确保重计算层与 Swap 层不重叠。
+- `recompute.mode` 不为 None 时必须提供对应的 `full_recompute_layer`（full）或 `select_module`（select）；`recompute_comm.enable` 为 True 时必须提供 `select_module`。
 
 ## 相关文档
 
@@ -266,4 +279,3 @@ recompute_comm:
 - 配置文件总览与字段上下文：[配置文件说明](./configuration.md)
 - 数据侧节省显存（压缩 EOD mask、变长 FlashAttention）：[数据集](./dataset.md)
 - 框架能力总览：[概述](../introduction/overview.md)
-
