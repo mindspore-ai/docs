@@ -33,29 +33,9 @@ The following describes how to install the third-party dependencies.
 
 ### Installing Python
 
-[Python](https://www.python.org/) can be installed by Conda.
+Please refer to the [Python official website](https://www.python.org/) to install Python by yourself. The version must be 3.8-3.10.
 
-Install Miniconda:
-
-```bash
-cd /tmp
-curl -O https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/Miniconda3-py37_4.10.3-Linux-$(arch).sh
-bash Miniconda3-py37_4.10.3-Linux-$(arch).sh -b
-cd -
-. ~/miniconda3/etc/profile.d/conda.sh
-conda init bash
-```
-
-After the installation is complete, you can set up Tsinghua source acceleration download for Conda, and see [here](https://mirrors.tuna.tsinghua.edu.cn/help/anaconda/).
-
-Create a virtual environment, taking Python 3.9.11 as an example:
-
-```bash
-conda create -n mindspore_py39 python=3.9.11 -y
-conda activate mindspore_py39
-```
-
-Run the following command to check the Python version.
+After the installation is complete, you can check the Python version with the following command.
 
 ```bash
 python --version
@@ -155,7 +135,6 @@ When the network is connected, dependencies of MindSpore are automatically downl
 # control log level. 0-DEBUG, 1-INFO, 2-WARNING, 3-ERROR, 4-CRITICAL, default level is WARNING.
 export GLOG_v=2
 
-# Conda environmental options
 LOCAL_ASCEND=/usr/local/Ascend # the root directory of run package
 
 # lib libraries that the run package depends on
