@@ -245,7 +245,7 @@ for _split in ['val']:
 
    **报错现象**：
 
-   ```plaintext
+   ```text
    INFO: 127.0.0.1:53456 - "POST /v1/completions HTTP/1.1" 400 Bad Request
    INFO: 127.0.0.1:53470 - "POST /v1/completions HTTP/1.1" 400 Bad Request
    ```
@@ -256,7 +256,7 @@ for _split in ['val']:
 
    **报错现象**：
 
-   ```plaintext
+   ```text
    [serving_chat.py:135] Error with model object='error' message='The model 'Qwen3-30B-A3B-Instruct-2507' does not exist.' param=None code=404
    "POST /v1/chat/completions HTTP/1.1" 404 Not Found
    [serving_chat.py:135] Error with model object='error' message='The model 'Qwen3-30B-A3B-Instruct-2507' does not exist.'
