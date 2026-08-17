@@ -157,29 +157,7 @@ sudo chmod a+r /usr/local/cuda-11.6/include/cudnn*.h /usr/local/cuda-11.6/lib64/
 
 ### 安装Python
 
-[Python](https://www.python.org/)可通过多种方式进行安装。
-
-- 通过Conda安装Python。
-
-    安装Miniconda：
-
-    ```bash
-    cd /tmp
-    curl -O https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/Miniconda3-py37_4.10.3-Linux-$(arch).sh
-    bash Miniconda3-py37_4.10.3-Linux-$(arch).sh -b
-    cd -
-    . ~/miniconda3/etc/profile.d/conda.sh
-    conda init bash
-    ```
-
-    安装完成后，可以为Conda设置清华源加速下载，参考[此处](https://mirrors.tuna.tsinghua.edu.cn/help/anaconda/)。
-
-    创建虚拟环境，以Python 3.7.5为例：
-
-    ```bash
-    conda create -n mindspore_py37 python=3.7.5 -y
-    conda activate mindspore_py37
-    ```
+[Python](https://www.python.org/)可通过以下方式进行安装。
 
 - 通过APT安装Python，命令如下。
 
