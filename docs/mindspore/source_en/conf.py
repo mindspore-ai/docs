@@ -128,7 +128,7 @@ source_suffix = {
 templates_path = ['_templates']
 
 # config for mathjax
-mathjax_path = 'https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/mathjax/MathJax-4.0.0/tex-mml-chtml.js'
+mathjax_path = 'https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/mathjax/MathJax-3.2.2/es5/tex-mml-chtml.js'
 
 mathjax_options = {
     'async':'async'
