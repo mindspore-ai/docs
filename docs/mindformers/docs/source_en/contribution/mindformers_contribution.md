@@ -159,7 +159,7 @@ Please use the following md template.
 
 #### Directory Structure
 
-```ColdFusion
+```text
     tests/  
     ├── st/                        # System Testing: Verify end-to-end workflows of multi-component collaboration  
     │   ├── test_auto_register/        # Test automatic registration of custom models/operators  
