@@ -159,7 +159,7 @@ squash 01234567 对功能A进行了一些优化
 
 #### 目录结构
 
-```ColdFusion
+```text
     tests/  
     ├── st/                        # 系统测试：验证多组件协同的端到端流程  
     │   ├── test_auto_register/        # 测试自定义模型/算子自动注册  
