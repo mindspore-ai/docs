@@ -230,12 +230,6 @@ mathjax_options = {
     'async':'async'
 }
 
-nbsphinx_requirejs_path = 'https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.7/require.min.js'
-
-nbsphinx_requirejs_options = {
-    "crossorigin": "anonymous",
-    "integrity": "sha512-J5ha2LF4Le+PBQnI5+xAVJDR+sZG9uSgroy4n/A6TLjNkvYQbqZA8WHZdaOvJ0HiKkBC9Frmvs10rFDSHKmveQ=="
-}
 
 smartquotes_action = 'De'
 
