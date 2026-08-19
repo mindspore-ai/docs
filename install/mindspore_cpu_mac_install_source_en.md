@@ -25,8 +25,6 @@ This document describes how to install MindSpore by compiling source code on mac
     |M1|ARM|11.3|Python 3.8-3.9|
     |Intel|x86_64|10.15/11.3|Python 3.7-3.9|
 
-> Note: [Python 3.8.10](https://www.python.org/downloads/release/python-3810/) or Python 3.8.5 via Conda are the oldest Python releases that supports macOS for ARM
-
 - Ensure that a correct version of Python is installed. If not installed, follow the links to [Python official website](https://www.python.org/downloads/macos/) or [Huawei Cloud](https://repo.huaweicloud.com/python/) to download and install Python.
 
 - Ensure that [Xcode](https://xcodereleases.com/) (>=12.4 and <= 13.0) is installed, where 12.4(X86) and 13.0(m1) are verified.
