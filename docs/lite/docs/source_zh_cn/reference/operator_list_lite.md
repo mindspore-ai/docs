@@ -2,7 +2,7 @@
 
 [![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.10.0/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/r2.10.0/docs/lite/docs/source_zh_cn/reference/operator_list_lite.md)
 
-| 算子名称                            | 算子功能                                                     | CPU                                                 | Kirin NPU | GPU(Mali/Adreno)        | Ascend  |
+| 算子名称                            | 算子功能                                                     | CPU&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                                                 | Kirin NPU | GPU(Mali/Adreno)        | Ascend  |
 | ----------------------------------- | ------------------------------------------------------------ | --------------------------------------------------- | --------- | ----------------------- | ----------------------- |
 | Abs                                 | 逐元素计算绝对值                                             | FP16<br>FP32<br/>Int32<br/>Int8<br/>UInt8           | FP16      | FP16<br/>FP32           | FP16       |
 | AbsGrad                             | 计算绝对值函数的梯度                                         | FP32                                                | -         | -                       |                        |
