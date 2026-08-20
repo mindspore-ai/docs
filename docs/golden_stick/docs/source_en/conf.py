@@ -70,6 +70,7 @@ mathjax_options = {
     'async':'async'
 }
 
+nbsphinx_requirejs_path = ""
 
 smartquotes_action = 'De'
 
