@@ -64,7 +64,6 @@ extensions = [
     'sphinx.ext.viewcode',
     'sphinxcontrib.jquery',
     'myst_parser',
-    'nbsphinx',
     'sphinx.ext.mathjax',
     'IPython.sphinxext.ipython_console_highlighting'
 ]
@@ -85,7 +84,6 @@ mathjax_path = 'https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/mathj
 mathjax_options = {
     'async':'async'
 }
-
 
 smartquotes_action = 'De'
 
@@ -367,9 +365,7 @@ for cur, _, files in os.walk(moment_dir):
                 except Exception:
                     print(f'打开{i}文件失败')
 
-
 sys.path.append(os.path.abspath('../../../../resource/sphinx_ext'))
-import nbsphinx_mod
 
 # 发版本时这里启用
 # src_release = os.path.join(os.getenv("MFM_PATH"), 'RELEASE_CN.md')

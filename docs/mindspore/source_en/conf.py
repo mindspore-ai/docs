@@ -134,6 +134,7 @@ mathjax_options = {
     'async':'async'
 }
 
+nbsphinx_requirejs_path = ""
 
 # Intelligent punctuation replacement
 smartquotes_action = 'De'

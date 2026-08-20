@@ -58,7 +58,6 @@ extensions = [
     'sphinx.ext.viewcode',
     'sphinxcontrib.jquery',
     'myst_parser',
-    'nbsphinx',
     'sphinx.ext.mathjax',
     'IPython.sphinxext.ipython_console_highlighting'
 ]
@@ -293,7 +292,6 @@ import json
 #     app.add_config_value('repo_whl', '', True)
 
 sys.path.append(os.path.abspath('../../../../resource/sphinx_ext'))
-import nbsphinx_mod
 
 src_release = "./release_notes/release_notes.md"
 des_release = "./RELEASE.md"
