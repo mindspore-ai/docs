@@ -1,8 +1,8 @@
 # 贡献文档
 
-[View English](./CONTRIBUTING_DOC.md#)
+[View English](./CONTRIBUTING_DOC.md)
 
-欢迎参与MindSpore文档贡献，符合要求的文档将会在[MindSpore官网](http://www.mindspore.cn)中呈现。
+欢迎参与MindSpore文档贡献，符合要求的文档将会在[MindSpore官网](https://www.mindspore.cn)中呈现。
 
 本项目支持Markdown、reStructuredText和Jupyter Notebook格式的内容贡献，对应地可创建`.md`、`.rst`和`.ipynb`为后缀的文档或修改已存在的文档。
 
@@ -64,7 +64,7 @@ MindSpore CI采用了Markdownlint、Pylint、Shellcheck、Cppcheck、Cpplint、T
 - MD009（行尾空格）规则将参数br_spaces设置为2，表示行尾可以有0个或2个空格。
 - MD029（有序列表的前缀序号）规则将参数style设置为ordered，表示有序列表的前缀序号需按顺序递增。
 
-更为详细规则信息请参考[RULES](https://github.com/markdownlint/markdownlint/blob/master/docs/RULES.md#)。
+更为详细规则信息请参考[RULES](https://github.com/markdownlint/markdownlint/blob/master/docs/RULES.md)。
 
 ### AI辅助检查
 
@@ -134,7 +134,7 @@ MindSpore的docs仓提供了[API注释写作要求](https://atomgit.com/mindspor
 
 提交PR后，需要确保有`mindspore-cla/yes`和`ci-pipeline-passed`标签，没有`stat/need-squash`标签，并经过Committer审核后方可合入。
 
-各标签的详细说明可参见[检查文档](#检查文档)中的相关内容。
+各标签的详细说明可参见[门禁检查](#门禁检查)中的相关内容。
 
 MindSpore CI采用了Pylint检查工具。
 
