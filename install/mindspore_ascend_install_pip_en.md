@@ -48,18 +48,6 @@ This script performs the following operations:
 
 After the script is executed, you need to reopen the terminal window to make the environment variables take effect.
 
-The automatic installation script creates a virtual environment named `mindspore_pyXX` for MindSpore. Where `XX` is the Python version, such as Python 3.7, the virtual environment name is `mindspore_py37`. Run the following command to show all virtual environments.
-
-```bash
-conda env list
-```
-
-To activate the virtual environment, take Python 3.7 as an example, execute the following command.
-
-```bash
-conda activate mindspore_py37
-```
-
 Now you can jump to the [Configuring Environment Variables](#configuring-environment-variables) section to set the relevant environment variables.
 
 For more usage, see the script header description.
@@ -79,29 +67,9 @@ The following describes how to install the third-party dependencies.
 
 ### Installing Python
 
-[Python](https://www.python.org/) can be installed by Conda.
+Please refer to the [Python official website](https://www.python.org/) to install Python by yourself. The version must be 3.7-3.9.
 
-Install Miniconda:
-
-```bash
-cd /tmp
-curl -O https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/Miniconda3-py37_4.10.3-Linux-$(arch).sh
-bash Miniconda3-py37_4.10.3-Linux-$(arch).sh -b
-cd -
-. ~/miniconda3/etc/profile.d/conda.sh
-conda init bash
-```
-
-After the installation is complete, you can set up Tsinghua source acceleration download for Conda, and see [here](https://mirrors.tuna.tsinghua.edu.cn/help/anaconda/).
-
-Create a virtual environment, taking Python 3.7.5 as an example:
-
-```bash
-conda create -n mindspore_py37 python=3.7.5 -y
-conda activate mindspore_py37
-```
-
-Run the following command to check the Python version.
+After the installation is complete, you can check the Python version with the following command.
 
 ```bash
 python --version
@@ -202,7 +170,6 @@ When the network is connected, dependencies of MindSpore are automatically downl
 # control log level. 0-DEBUG, 1-INFO, 2-WARNING, 3-ERROR, 4-CRITICAL, default level is WARNING.
 export GLOG_v=2
 
-# Conda environmental options
 LOCAL_ASCEND=/usr/local/Ascend # the root directory of run package
 
 # lib libraries that the run package depends on
