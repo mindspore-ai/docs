@@ -4,13 +4,13 @@
 
 作者：[damon0626](https://gitee.com/damon0626)
 
-本文档介绍如何在```Ubuntu 18.04 64```位操作系统```CPU```环境下，使用源码编译方式安装```MindSpore```。
+本文档介绍如何在`Ubuntu 18.04 64`位操作系统`CPU`环境下，使用源码编译方式安装`MindSpore`。
 
 ## 确认系统环境信息
 
 ### 1. 确认安装Ubuntu 18.04是64位操作系统
 
-（1）确认系统版本号，在终端输入```lsb_release -a```
+（1）确认系统版本号，在终端输入`lsb_release -a`
 
 ```text
 ms-sd@mssd:~$ lsb_release -a
@@ -21,7 +21,7 @@ Release:18.04
 Codename:bionic
 ```
 
-（2）确认系统位数，在终端输入```uname -a```
+（2）确认系统位数，在终端输入`uname -a`
 
 ```text
 ms-sd@mssd:~$ uname -a
@@ -32,7 +32,7 @@ Linux mssd 5.4.0-42-generic #46~18.04.1-Ubuntu SMP Fri Jul 10 07:21:24 UTC 2020 
 
 （1）确认当前系统安装的GCC版本
 
-在终端输入```gcc --version```，系统已安装版本为7.5.0
+在终端输入`gcc --version`，系统已安装版本为7.5.0
 
 ```text
 ms-sd@mssd:~/gcc-7.3.0/build$ gcc --version
@@ -59,7 +59,7 @@ tar -xvzf gcc-7.3.0.tar.gz
 cd gcc-7.3.0
 ```
 
-（5）运行```download_prerequesites```，运行该文件的目的是
+（5）运行`download_prerequisites`，运行该文件的目的是
 
 > 1. Download some prerequisites needed by gcc.
 > 2. Run this from the top level of the gcc source tree and the gcc build will do the right thing.
@@ -112,7 +112,7 @@ There is NOwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PU
 
 ### 3. 确认安装Python 3.7.5版本
 
-**注意:** ```Ubuntu 18.04``` 系统自带的 ```python3```版本为```python3.6.9```，系统自带```python```不要删除，防止依赖错误。```Linux```发行版中, ```Debian```系的提供了```update-alternatives```工具，用于在多个同功能的软件，或软件的多个不同版本间选择，这里采用```update-alternatives```工具控制多个Python版本。
+**注意:** `Ubuntu 18.04` 系统自带的 `python3`版本为`python3.6.9`，系统自带`python`不要删除，防止依赖错误。`Linux`发行版中, `Debian`系的提供了`update-alternatives`工具，用于在多个同功能的软件，或软件的多个不同版本间选择，这里采用`update-alternatives`工具控制多个Python版本。
 
 （1）查看系统Python版本
 
@@ -140,7 +140,7 @@ ms-sd@mssd:~/Python-3.7.5$ ./configure --prefix=/usr/local/python3.7.5 --with-ss
 > --prefix=/usr/local/python3.7.5  
 > 可执行文件放在/usr/local/python3.7.5/bin下，  
 > 库文件放在/usr/local/python3.7.5/lib，  
-> 配置文件放在/usr/local/python3.7.1/include，  
+> 配置文件放在/usr/local/python3.7.5/include，  
 > 其他资源文件放在/usr/local/python3.7.5下  
 >  
 > --with-ssl：确保pip安装库时能找到SSL
@@ -167,7 +167,7 @@ lrwxrwxrwx 1 root root          31 12月 18 21:44 py3versions -> ../share/python
 lrwxrwxrwx 1 root root           9 12月 18 21:44 python3 -> python3.6
 -rwxr-xr-x 2 root root     4526456 10月  8 20:12 python3.6
 -rwxr-xr-x 2 root root     4526456 10月  8 20:12 python3.6m
-lrwxrwxrwx 1 root root          10 12月 18 21:44 python3m -> python3.6m（）
+lrwxrwxrwx 1 root root          10 12月 18 21:44 python3m -> python3.6m
 ```
 
 （8）备份原来的python3链接，重新建立新的python3指向以更改python3默认指向
@@ -193,7 +193,7 @@ Type "help", "copyright", "credits" or "license" for more information.
 >>>
 ```
 
-（11）更新```update-alternatives```python列表
+（11）更新`update-alternatives`python列表
 
 ```bash
 sudo update-alternatives --install /usr/bin/python python /usr/bin/python2 100
@@ -285,7 +285,7 @@ index-url = https://pypi.tuna.tsinghua.edu.cn/simple
 
 （2）安装wheel 0.32.0
 
-```shell
+```bash
 ms-sd@mssd:~$ sudo pip3 install wheel==0.32.0
 ```
 
@@ -364,7 +364,7 @@ success building mindspore project!
 ---------------- mindspore: build end   ----------------
 ```
 
-同时在```/mindspore/output/```文件夹下生成了```mindspore-1.1.0-cp37-cp37m-linux_x86_64.whl```文件。
+同时在`/mindspore/output/`文件夹下生成了`mindspore-1.1.0-cp37-cp37m-linux_x86_64.whl`文件。
 
 （5）pip3安装MindSpore安装文件
 
