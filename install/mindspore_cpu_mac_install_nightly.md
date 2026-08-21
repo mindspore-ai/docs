@@ -3,7 +3,7 @@
 <!-- TOC -->
 
 - [pip方式安装MindSpore CPU Nightly版本-macOS](#pip方式安装mindspore-cpu-nightly版本-macos)
-    - [安装Python](安装python)
+    - [安装Python](#安装python)
     - [创建并进入Conda虚拟环境](#创建并进入conda虚拟环境)
     - [下载安装MindSpore](#下载安装mindspore)
     - [验证是否成功安装](#验证是否成功安装)
