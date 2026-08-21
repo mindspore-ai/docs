@@ -34,29 +34,9 @@
 
 ### 安装Python
 
-[Python](https://www.python.org/)可通过Conda进行安装。
+请参照[Python官网](https://www.python.org/)自行安装Python，版本要求为3.7-3.9。
 
-安装Miniconda：
-
-```bash
-cd /tmp
-curl -O https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/Miniconda3-py37_4.10.3-Linux-x86_64.sh
-bash Miniconda3-py37_4.10.3-Linux-x86_64.sh -b
-cd -
-. ~/miniconda3/etc/profile.d/conda.sh
-conda init bash
-```
-
-安装完成后，可以为Conda设置清华源加速下载，参考[此处](https://mirrors.tuna.tsinghua.edu.cn/help/anaconda/)。
-
-创建虚拟环境，以Python 3.7.5为例：
-
-```bash
-conda create -n mindspore_py37 python=3.7.5 -y
-conda activate mindspore_py37
-```
-
-可以通过以下命令查看Python版本。
+安装完成后，可以通过以下命令查看Python版本。
 
 ```bash
 python --version
@@ -184,7 +164,6 @@ tar -zxf mindspore_ascend-${MS_VERSION/-/}-linux_aarch64.tar.gz
 # control log level. 0-DEBUG, 1-INFO, 2-WARNING, 3-ERROR, 4-CRITICAL, default level is WARNING.
 export GLOG_v=2
 
-# Conda environmental options
 LOCAL_ASCEND=/usr/local/Ascend # the root directory of run package
 
 # lib libraries that the run package depends on
