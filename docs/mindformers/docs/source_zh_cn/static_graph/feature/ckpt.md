@@ -31,13 +31,13 @@ MindSpore Transformers提供了统一的权重转换工具，能够将模型权�
 
 权重转换脚本依赖torch，运行前请执行如下指令安装torch：
 
-```shell
+```bash
 pip install torch>=2.10.0
 ```
 
 然后进行权重转换：
 
-```shell
+```bash
 python convert_weight.py [-h] --model MODEL [--reversed] --input_path INPUT_PATH  --output_path OUTPUT_PATH [--dtype DTYPE] [--telechat_type TELECHAT_TYPE]
 ```
 
@@ -251,7 +251,7 @@ MindSpore每次运行分布式任务后都会在`output/strategy`文件夹下生
 
 **运行命令**：
 
-```shell
+```bash
 python transform_checkpoint.py \
   --src_checkpoint /worker/checkpoint/qwen2_5-7b-2layer/rank_0/qwen2_5-7b.ckpt \
   --dst_checkpoint_dir /worker/transform_ckpt/qwen2_5-7b_1to8/ \
@@ -265,7 +265,7 @@ python transform_checkpoint.py \
 
 **运行命令**：
 
-```shell
+```bash
 bash transform_checkpoint.sh \
   /worker/checkpoint/qwen2_5-7b-2layer/rank_0/qwen2_5-7b.ckpt \
   None \
@@ -351,7 +351,7 @@ bash transform_checkpoint.sh \
 
   使用[mindformers/scripts/msrun_launcher.sh](https://atomgit.com/mindspore/mindformers/blob/master/scripts/msrun_launcher.sh)进行任务启动。
 
-  ```shell
+  ```bash
   # 第一台服务器（主节点）
   bash scripts/msrun_launcher.sh "run_mindformer.py \
     --config {CONFIG_PATH} \
@@ -404,7 +404,7 @@ bash transform_checkpoint.sh \
 
   **单进程转换：**
 
-  ```shell
+  ```bash
   python mindformers/tools/ckpt_transform/transform_checkpoint.py \
     --src_checkpoint /worker/checkpoint/qwen2_5-7b/rank_0/qwen2_5-7b.ckpt \
     --dst_checkpoint ./output/qwen2_5-7b_dp2mp4pp2 \
@@ -413,7 +413,7 @@ bash transform_checkpoint.sh \
 
   **多进程转换（可选）：**
 
-  ```shell
+  ```bash
   # 使用2个进程进行转换
   bash mindformers/tools/ckpt_transform/transform_checkpoint.sh \
     /worker/checkpoint/qwen2_5-7b/rank_0/qwen2_5-7b.ckpt \
@@ -477,7 +477,7 @@ LoRA（Low-Rank Adaptation）的基本原理是对原始模型的参数进行低
 
 使用MindSpore Transformers提供的[LoRA权重合并脚本](https://atomgit.com/mindspore/mindformers/blob/master/mindformers/tools/transform_ckpt_lora.py)，按照如下方式进行LoRA权重合并。
 
-```shell
+```bash
 python mindformers/tools/transform_ckpt_lora.py \
   --src_ckpt_strategy src_strategy_path_or_dir \
   --src_ckpt_path_or_dir src_ckpt_path_or_dir \
@@ -506,7 +506,7 @@ python mindformers/tools/transform_ckpt_lora.py \
 
 如果合并前的权重是完整的权重文件，可以按照以下方式填写参数（直接输入完整权重的路径）：
 
-```shell
+```bash
 python mindformers/tools/transform_ckpt_lora.py \
   --src_ckpt_path_or_dir .../xxx/xxx.ckpt \
   --dst_ckpt_dir dst_ckpt_dir \
@@ -518,7 +518,7 @@ python mindformers/tools/transform_ckpt_lora.py \
 
 如果合并前的权重是分布式的权重文件，可以按照以下方式填写参数（需输入分布式权重文件夹路径和分布式策略文件夹路径），最后得到的权重会自动合并为完整的权重文件：
 
-```shell
+```bash
 python mindformers/tools/transform_ckpt_lora.py \
   --src_ckpt_strategy .../xxx/mindformers/output/strategy/ \
   --src_ckpt_path_or_dir .../xxx/model_dir \

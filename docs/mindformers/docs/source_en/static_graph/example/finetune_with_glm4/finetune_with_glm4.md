@@ -92,7 +92,7 @@ During multi-device training of MindSpore Transformers, you need to convert the 
 
 The weight conversion script depends on torch. Before running the script, run the following command to install torch:
 
-```shell
+```bash
 pip install torch>=2.10.0
 ```
 

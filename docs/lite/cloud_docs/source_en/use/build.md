@@ -130,7 +130,7 @@ Use x86_64 or ARM64 environment.
 
 The CPU backend of the graph kernel fusion in the converter needs to rely on LLVM-12. Run the following commands to install [LLVM](https://llvm.org/) to enable CPU backend. If LLVM-12 is not installed, the graph kernel fusion can only support Ascend backend.
 
-```shell
+```bash
 wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -
 sudo add-apt-repository "deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic-12 main"
 sudo apt-get update

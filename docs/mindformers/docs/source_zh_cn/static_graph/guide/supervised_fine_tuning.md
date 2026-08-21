@@ -111,7 +111,7 @@ parallel_config:
 
 启动命令如下：
 
-```shell
+```bash
 python run_mindformer.py \
  --config configs/qwen3/finetune_qwen3.yaml \
  --use_parallel False \
@@ -248,7 +248,7 @@ LoRA微调过程中使用的数据集可以参考全参微调部分的[数据集
 
 以 Qwen3-8B 为例，可以执行以下 msrun 启动脚本，进行 8 卡分布式微调。
 
-```shell
+```bash
 bash scripts/msrun_launcher.sh "run_mindformer.py \
  --config /path/to/finetune_qwen3_8b_lora.yaml \
  --use_parallel True \

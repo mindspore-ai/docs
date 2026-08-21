@@ -65,7 +65,7 @@ mindformers
 
     执行以下命令安装所需依赖：
 
-    ```shell
+    ```bash
     pip install datasets tqdm aiofiles aiohttp uvloop math_verify
     ```
 
@@ -85,7 +85,7 @@ mindformers
 
     执行以下命令调用推理服务的接口，使用种子数据集中的问题，生成CoT数据：
 
-    ```shell
+    ```bash
     python distilled/generate_reasoning.py \
         --model DeepSeek-R1 \
         --dataset-name AI-MO/NuminaMath-1.5 \
@@ -115,7 +115,7 @@ mindformers
 
     **目标**：过滤掉推理数据中的错误或不准确的CoT数据，确保数据质量。
 
-    ```shell
+    ```bash
     python distilled/reject_sampling.py \
         --src /path/to/numinamath_r1_generations.jsonl \
         --dst /path/to/numinamath_r1_generations_filtered.jsonl
@@ -190,7 +190,7 @@ mindformers
 
     在MindSpore Transformers源码根目录下执行以下数据预处理脚本：
 
-    ```shell
+    ```bash
     python toolkit/data_preprocess/huggingface/datasets_preprocess.py \
         --config distilled/data_process_handling.yaml \
         --save_path /path/to/handled_data \
@@ -219,7 +219,7 @@ train_dataset:
 
 并在MindSpore Transformers源码根目录下执行如下脚本：
 
-```shell
+```bash
 python toolkit/data_preprocess/huggingface/datasets_preprocess.py \
     --config distilled/data_process_packing.yaml \
     --save_path /path/to/packed_data \

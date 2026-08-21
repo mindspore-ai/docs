@@ -189,7 +189,7 @@ The mindformers repository provides a one-click pull-up MindIE script with preco
 
 Go to the `scripts` directory and execute the MindIE startup script:
 
-```shell
+```bash
 cd ./scripts
 bash run_mindie.sh --model-name xxx --model-path /path/to/model
 
@@ -322,7 +322,7 @@ mkdir -p mf_model/qwen1_5_72b
 
 Go to the `scripts` directory and execute the mindie startup script:
 
-```shell
+```bash
 cd ./scripts
 bash run_mindie.sh --model-name qwen1_5_72b --model-path /path/to/mf_model/qwen1_5_72b
 ```

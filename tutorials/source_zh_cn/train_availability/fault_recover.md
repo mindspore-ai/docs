@@ -203,7 +203,7 @@ model.train(10, train_dataset, callbacks=ckpoint_cb, initial_epoch=epoch_num, da
 
 ### 训练结束
 
-训练结束， `./lenet` 目录下新生成4个Checkpoint文件。根据Checkpoint文件名可以看出，在故障发生后，模型重新在第7个epoch进行训练，并在第10个epoch结束。故障恢复成功。
+训练结束，`./lenet` 目录下新生成4个Checkpoint文件。根据Checkpoint文件名可以看出，在故障发生后，模型重新在第7个epoch进行训练，并在第10个epoch结束。故障恢复成功。
 
 ```text
 └── lenet

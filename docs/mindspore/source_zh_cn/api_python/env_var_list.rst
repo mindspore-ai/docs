@@ -260,7 +260,7 @@
 
        switch_inline: 是否开启后端控制流inline，仅在O0或O1模式下生效，默认值为true。
 
-       multi_stream: 后端分流方式, 取值可为 1）true 通信计算各一条流。 2）false：关闭多流，通信计算单流。3）group(默认值)：通信算子按照通信域分流。
+       multi_stream: 后端分流方式，取值可为 1）true 通信计算各一条流。 2）false：关闭多流，通信计算单流。3）group(默认值)：通信算子按照通信域分流。
 
        pipeline: 是否使能运行时流水，仅在O0或O1模式下生效，默认值为true。
 
@@ -274,7 +274,7 @@
 
        view: 是否使能view算子功能，仅在O0或O1模式下生效，默认值为true。
 
-       actor_thread_fix_bind：在使能线程级绑核功能时，是否使能对 runtime 线程采用“固定绑定”的策略。runtime 共包含5个actor线程，采用“固定绑定”策略时，每个线程顺序绑定范围段内的一个 CPU，例如对device0的runtime绑定范围为"5-9"，即 `actor_thread0` 绑定CPU 5， `actor_thread1` 绑定CPU 6，以此类推。默认值为false。
+       actor_thread_fix_bind：在使能线程级绑核功能时，是否使能对 runtime 线程采用“固定绑定”的策略。runtime 共包含5个actor线程，采用“固定绑定”策略时，每个线程顺序绑定范围段内的一个 CPU，例如对device0的runtime绑定范围为"5-9"，即 `actor_thread0` 绑定CPU 5，`actor_thread1` 绑定CPU 6，以此类推。默认值为false。
      -
    * - MS_DEV_VIEW_OP
      - 在MS_DEV_RUNTIME_CONF开启view的情况下，指定某些算子进行view替换
@@ -634,7 +634,7 @@ Dump调试
 
        stage_xxx(string)：用于多卡多图场景，即不同的卡执行不同的图（如流水并行），其中stage_xxx只是一个序号标签，序号值没有实际指向意义。
 
-       graph_id(int)：用于区分子图信息，graph_id号需要与实际执行的graph_id一致, 不一致插入控制边的动作将失效。
+       graph_id(int)：用于区分子图信息，graph_id号需要与实际执行的graph_id一致，不一致插入控制边的动作将失效。
 
        depend_src_list(List[string])：需要插入控制边的源端算子名称列表，需要和depend_dest_list中的算子按顺序一一对应，否则插入控制边的动作将失效。
 
@@ -741,7 +741,7 @@ Dump调试
 
        若指定了 `GLOG_log_dir` 且 `GLOG_logtostderr` 的值为1时，则日志输出到屏幕，不输出到文件
 
-       日志保存路径为： `指定的路径/rank_${RANK_ID}/logs/` ，非分布式训练场景下， `RANK_ID` 为0；分布式训练场景下， `RANK_ID` 为当前设备在集群中的ID
+       日志保存路径为： `指定的路径/rank_${RANK_ID}/logs/` ，非分布式训练场景下，`RANK_ID` 为0；分布式训练场景下，`RANK_ID` 为当前设备在集群中的ID
 
        C++和Python的日志会被输出到不同的文件中，C++日志的文件名遵从 `GLOG` 日志文件的命名规则，这里是 `mindspore.机器名.用户名.log.日志级别.时间戳.进程ID` ，Python日志的文件名为 `mindspore.log.进程ID`
 
@@ -798,7 +798,7 @@ Dump调试
 
      - 格式1： `VLOG_v=number`，仅输出verbose level值等于 `number` 的日志。
 
-       格式2： `VLOG_v=(number1,number2)`，仅输出verbose level值介于 `number1` 和 `number2` 之间（包含 `number1` 和 `number2`）的日志。特别地， `VLOG_v=(,number2)` 输出 verbose level 介于 `1 ~ number2` 的日志，而 `VLOG_v=(number1,)` 输出 verbose level 介于 `number1 ~ 0x7fffffff` 的日志。
+       格式2： `VLOG_v=(number1,number2)`，仅输出verbose level值介于 `number1` 和 `number2` 之间（包含 `number1` 和 `number2`）的日志。特别地，`VLOG_v=(,number2)` 输出 verbose level 介于 `1 ~ number2` 的日志，而 `VLOG_v=(number1,)` 输出 verbose level 介于 `number1 ~ 0x7fffffff` 的日志。
 
        上面 `number`、 `number1`、 `number2` 的取值只接受非负十进制整数值，最大值取值为 `int` 类型的最大值 `0x7fffffff`。 `VLOG_v` 字符串中不能包含空白字符。
 

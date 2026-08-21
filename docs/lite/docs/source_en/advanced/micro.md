@@ -987,7 +987,7 @@ This tutorial uses the Hi3516 development board as an example to demonstrate how
 
 Use converter_lite to compile the [lenet model](https://download.mindspore.cn/model_zoo/official/lite/quick_start/micro/mnist.tar.gz) and generate the inference code corresponding to the light Harmony platform. The command is as follows:
 
-```shell
+```bash
 ./converter_lite --fmk=TFLITE --modelFile=mnist.tflite --outputFile=${SOURCE_CODE_DIR} --configFile=${COFIG_FILE}
 ```
 
@@ -1130,7 +1130,7 @@ We use Hi3516D board as an example to show you how to use kernel register in Mic
 
 The manner that the model generates code is consistent with that of the non-custom operator model.
 
-```shell
+```bash
 ./converter_lite --fmk=TFLITE --modelFile=mnist.tflite --outputFile=${SOURCE_CODE_DIR} --configFile=${COFIG_FILE}
 ```
 
@@ -1158,7 +1158,7 @@ int CustomKernel(TensorC *inputs, int input_num, TensorC *outputs, int output_nu
 
 Users need to implement this function and add their source files to the cmake project. For example, we provide the custom kernel example dynamic library libmicro_nnie.so that supports NNIE from Hysis, which is included in the [official download page](https://www.mindspore.cn/lite/docs/en/master/use/downloads.html) "NNIE inference runtime lib, benchmark tool" component. Users need to modify the CMakeLists.txt of the generated code, add the name and path of the linked library.
 
-```shell
+```bash
 
 link_directories(<YOUR_PATH>/mindspore-lite-1.8.1-linux-aarch32/providers/Hi3516D)
 
@@ -1171,7 +1171,7 @@ target_link_libraries(benchmark net micro_nnie nnie mpi VoiceEngine upvqe dnvqe 
 In the generated `benchmark/benchmark.c` file, add the [NNIE device related initialization code](https://atomgit.com/mindspore/mindspore-lite/blob/master/mindspore-lite/test/config_level0/micro/svp_sys_init.c) before and after calling the main function.
 Finally, we compile the source code:
 
-```shell
+```bash
 
 mkdir build && cd build
 

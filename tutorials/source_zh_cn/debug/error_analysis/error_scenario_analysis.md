@@ -207,7 +207,7 @@ class MySub(nn.Cell):
 msrun --worker_num=8 --local_worker_num=8 --master_port=8118 --log_dir=msrun_log --join=True --cluster_time_out=300 train.py
 ```
 
-并行场景经常遇到`Distribute Task Failed`问题， 此时需要分析报错问题时出现在计算图编译阶段，还是在打印训练loss的执行阶段，这个可以缩小问题的范围。
+并行场景经常遇到`Distribute Task Failed`问题，此时需要分析报错问题时出现在计算图编译阶段，还是在打印训练loss的执行阶段，这个可以缩小问题的范围。
 
 参考实例：
 

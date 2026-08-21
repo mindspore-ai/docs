@@ -122,7 +122,7 @@ tensorboard --logdir=./worker/tensorboard/ --host=0.0.0.0 --port=6006
 
 The following is displayed when the command in the sample is entered:
 
-```shell
+```bash
 TensorBoard 2.18.0 at http://0.0.0.0:6006/ (Press CTRL+C to quit)
 ```
 

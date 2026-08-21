@@ -37,7 +37,7 @@
 
   如果您想将代码下载到本地计算机，最好使用git方法。
 
-  ```shell
+  ```bash
   # 在AtomGit上克隆仓库
   git clone https://atomgit.com/(insert_your_forked_repo)/mindformers.git
   ```
@@ -46,7 +46,7 @@
 
   `master`为开发分支，请从`master`分支拉取最新代码进行开发。在提交Pull Request时，请提交到`master`分支。
 
-  ```shell
+  ```bash
   git checkout -b {新分支名称} origin/master
   ```
 
@@ -54,7 +54,7 @@
 
   在最后一步中，您需要在新分支和`MindSpore Transformers`主分支之间创建Pull Request。完成Pull Request后，`Jenkins CI`将自动进行构建测试。PR应该尽快合并到上游master分支中，以降低合并风险。
 
-  ```shell
+  ```bash
   # 添加所有更改到暂存区
   git add .
 
@@ -103,13 +103,13 @@
 对于多commit的PR，请使用`squash`命令将多个commit合并为一个。
 例如使用：
 
-```shell
+```bash
 git rebase -i HEAD~3
 ```
 
 可以看到:
 
-```shell
+```bash
 pick 1234567 添加新功能A
 pick 89abcdef 修复了功能A中的bug
 pick 01234567 对功能A进行了一些优化
@@ -117,7 +117,7 @@ pick 01234567 对功能A进行了一些优化
 
 squash合并commit（可简化为 s, p, f 等简写）
 
-```shell
+```bash
 pick 1234567 添加新功能A
 squash 89abcdef 修复了功能A中的bug
 squash 01234567 对功能A进行了一些优化

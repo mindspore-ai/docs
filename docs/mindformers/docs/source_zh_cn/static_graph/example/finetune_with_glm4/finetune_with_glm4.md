@@ -92,7 +92,7 @@ MindSpore Transformers在多卡训练时，需要预先将权重进行转换，�
 
 权重转换脚本依赖torch，运行前请执行如下指令安装torch：
 
-```shell
+```bash
 pip install torch>=2.10.0
 ```
 
@@ -213,7 +213,7 @@ with open(converted_model_index_file, "w") as f:
     f.write(json_string)
 ```
 
-运行反向转换脚本。此时文件目录下已经保存好了转换后的safetensors格式权重文件,和一个 `model.safetensors.index.json` ，文件目录如下（假设权重分为40份存储，即`--safetensor_split_num`传入的值为40）：
+运行反向转换脚本。此时文件目录下已经保存好了转换后的safetensors格式权重文件，和一个 `model.safetensors.index.json` ，文件目录如下（假设权重分为40份存储，即`--safetensor_split_num`传入的值为40）：
 
 ```text
 - model-00001-of-00040.safetensors

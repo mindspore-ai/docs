@@ -76,7 +76,7 @@ extern "C" int CustomAdd(int nparam, void **params, int *ndims, int64_t **shapes
 
 将add.cu编译成动态库add.so：
 
-```shell
+```bash
 nvcc --shared -Xcompiler -fPIC -o add.so add.cu
 ```
 
@@ -107,7 +107,7 @@ if __name__ == "__main__":
 
 执行用例：
 
-```shell
+```bash
 python test_custom_aot.py
 ```
 
@@ -150,7 +150,7 @@ extern "C" int CustomAdd(int nparam, void **params, int *ndims, int64_t **shapes
 
 将add.cc编译成动态库add.so：
 
-```shell
+```bash
 g++ --shared -fPIC -o add.so add.cc
 ```
 
@@ -181,7 +181,7 @@ if __name__ == "__main__":
 
 执行用例：
 
-```shell
+```bash
 python test_custom_aot.py
 ```
 

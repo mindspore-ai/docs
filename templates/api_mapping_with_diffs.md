@@ -33,8 +33,8 @@ MindSpore：MindSpore此API实现功能与PyTorch基本一致，不过广播机�
 ### 代码示例1
 
 说明：
-PyTorch的参数x， y， condition三者shape不同的时候也支持广播。MindSpore目前支持x或者y为scalar，cond为tensor情况下的广播， 暂时不支持三者为shape不同的Tensor进行广播。
-但是可以通过API组和实现同样的功能。当x或者y其中一个为Tensor且与cond形状不相同且可以广播时， 可以先将x或者y的shape使用ops.broadcast_to广播为cond的shape， 然后正常调用ops.select进行计算。
+PyTorch的参数x，y，condition三者shape不同的时候也支持广播。MindSpore目前支持x或者y为scalar，cond为tensor情况下的广播，暂时不支持三者为shape不同的Tensor进行广播。
+但是可以通过API组和实现同样的功能。当x或者y其中一个为Tensor且与cond形状不相同且可以广播时，可以先将x或者y的shape使用ops.broadcast_to广播为cond的shape，然后正常调用ops.select进行计算。
 
 ```python
 # PyTorch

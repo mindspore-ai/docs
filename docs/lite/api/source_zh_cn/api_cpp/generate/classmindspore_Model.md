@@ -603,7 +603,7 @@ inline std::vector<MSTensor> GetOutputsByNodeName(const std::string &node_name)
 
 - 参数
 
-    - `inputGLTexture`: 模型输入的OpenGL纹理数据, key为输入Tensor的名称，value为OpenGL纹理。
+    - `inputGLTexture`: 模型输入的OpenGL纹理数据，key为输入Tensor的名称，value为OpenGL纹理。
     - `outputGLTexture`: 模型输出的OpenGL纹理数据，key为输出Tensor的名称，value为OpenGL纹理。
 
 - 返回值

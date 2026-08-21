@@ -231,19 +231,19 @@ Context配置主要用于指定[mindspore.set_context](https://www.mindspore.cn/
 
 为了保障模型训练过程的可控性与容错能力，在长周期训练或大规模分布式场景中通常需要为权重管理配置保存与加载策略，模型训练权重相关配置如下：
 
-| 参数                                | 说明                                                                                                                                                                                                                                  | 类型   |
-|-----------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------|
-| checkpoint.save_path              | 设置权重文件的保存目录。若未配置，则默认保存在`output_dir` 指定路径下的 `checkpoint/` 子目录中。                                                                                                                                                                      | str  |
-| checkpoint.save_max               | 最多保留的权重文件数量。当保存数量超过该值时，系统将按创建时间顺序删除最早的文件，确保总数不超过此限制。用于控制磁盘空间使用。默认值`5`。                                                                                                                                                              | int  |
-| checkpoint.save_interleaved_steps | 以训练步数间隔方式设置自动保存权重的周期（单位：steps）。与`save_checkpoint_seconds` 互斥，若两者均设置，以时间优先。例如每1000步保存一次。默认值`1`。                                                                                                                                      | int  |
-| checkpoint.no_save_optim          | 优化器权重保存功能开关（控制是否保存优化器权重信息）。默认值`True`。                                                                                                                                                                                               | bool |
-| checkpoint.async_save             | 是否异步执行权重保存。开启后保存操作不会阻塞训练主流程，提升训练效率，但需注意 I/O 资源竞争可能导致延迟写入。默认值`False`。                                                                                                                                                                | bool |
-| checkpoint.prefix                 | 设置保存权重文件名的前缀。例如生成`CKP-100.ckpt`。若未配置，则使用默认值 `'CKP'`。                                                                                                                                                                                | str  |
-| checkpoint.save_remove_redundancy | 保存权重时是否去除模型权重的冗余，默认值为`False`。                                                                                                                                                                                                       | bool |
-| checkpoint.load_path              | 加载权重的文件或文件夹路径，支持以下三种场景：<br/>1. 完整权重文件路径；<br/>2. 离线切分后的分布式权重文件夹路径；<br/>3. 包含 LoRA 增量权重和 base 模型权重的文件夹路径。<br/>各种权重的获取方式详见 [权重转换功能](https://www.mindspore.cn/mindformers/docs/zh-CN/master/static_graph/feature/ckpt.html)。默认值为`''`。                | str  |
-| checkpoint.load_balanced          | 权重均衡加载功能开关，**仅支持在分布式任务中开启**；设为 `True` 时，各 rank 按参数均衡分配策略加载权重，再通过参数广播获取最终权重。默认值为`False`。                                                                                                                                             | str  |
-| checkpoint.no_load_optim          | 加载权重文件时是否加载优化器参数。是否开启断点续训功能取反。开启后将从`load_checkpoint` 指定的路径恢复优化器状态、学习率调度器状态等，继续训练。详情见 [断点续训功能](https://www.mindspore.cn/mindformers/docs/zh-CN/master/static_graph/feature/resume_training.html#%E6%96%AD%E7%82%B9%E7%BB%AD%E8%AE%AD)。默认值为`True`。 | bool |
-| checkpoint.reshard_worker_number  | 指定并行权重 Reshard 的线程数。对于权重需要在线 Reshard 的场景，可配置该字段进行并行加速。默认值 `1`。                                                                                                                                                                      | int  |
+| 参数 | 说明 | 类型 |
+| ----------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------ |
+| checkpoint.save_path | 设置权重文件的保存目录。若未配置，则默认保存在`output_dir` 指定路径下的 `checkpoint/` 子目录中。 | str |
+| checkpoint.save_max | 最多保留的权重文件数量。当保存数量超过该值时，系统将按创建时间顺序删除最早的文件，确保总数不超过此限制。用于控制磁盘空间使用。默认值`5`。 | int |
+| checkpoint.save_interleaved_steps | 以训练步数间隔方式设置自动保存权重的周期（单位：steps）。与`save_checkpoint_seconds` 互斥，若两者均设置，以时间优先。例如每1000步保存一次。默认值`1`。 | int |
+| checkpoint.no_save_optim | 优化器权重保存功能开关（控制是否保存优化器权重信息）。默认值`True`。 | bool |
+| checkpoint.async_save | 是否异步执行权重保存。开启后保存操作不会阻塞训练主流程，提升训练效率，但需注意 I/O 资源竞争可能导致延迟写入。默认值`False`。 | bool |
+| checkpoint.prefix | 设置保存权重文件名的前缀。例如生成`CKP-100.ckpt`。若未配置，则使用默认值 `'CKP'`。 | str |
+| checkpoint.save_remove_redundancy | 保存权重时是否去除模型权重的冗余，默认值为`False`。 | bool |
+| checkpoint.load_path | 加载权重的文件或文件夹路径，支持以下三种场景：<br/>1. 完整权重文件路径；<br/>2. 离线切分后的分布式权重文件夹路径；<br/>3. 包含 LoRA 增量权重和 base 模型权重的文件夹路径。<br/>各种权重的获取方式详见 [权重转换功能](https://www.mindspore.cn/mindformers/docs/zh-CN/master/static_graph/feature/ckpt.html)。默认值为`''`。 | str |
+| checkpoint.load_balanced | 权重均衡加载功能开关，**仅支持在分布式任务中开启**；设为 `True` 时，各 rank 按参数均衡分配策略加载权重，再通过参数广播获取最终权重。默认值为`False`。 | str |
+| checkpoint.no_load_optim | 加载权重文件时是否加载优化器参数。是否开启断点续训功能取反。开启后将从`load_checkpoint` 指定的路径恢复优化器状态、学习率调度器状态等，继续训练。详情见 [断点续训功能](https://www.mindspore.cn/mindformers/docs/zh-CN/master/static_graph/feature/resume_training.html#%E6%96%AD%E7%82%B9%E7%BB%AD%E8%AE%AD)。默认值为`True`。 | bool |
+| checkpoint.reshard_worker_number | 指定并行权重 Reshard 的线程数。对于权重需要在线 Reshard 的场景，可配置该字段进行并行加速。默认值 `1`。 | int |
 
 ### 并行配置
 
@@ -262,7 +262,7 @@ Context配置主要用于指定[mindspore.set_context](https://www.mindspore.cn/
 | parallel_config.context_parallel_algo                           | 设置长序列并行方案，可选`colossalai_cp`、`ulysses_cp`和`hybrid_cp`，仅在`context_parallel`切分数大于1时生效。                                                                                                                                                                                                                                                                                     | str  |
 | parallel_config.ulysses_degree_in_cp                            | 设置Ulysses序列并行维度，与`hybrid_cp`长序列并行方案同步配置，需要确保`context_parallel`可以被该参数整除且大于1，同时确保`ulysses_degree_in_cp`可以被attention head数整除。                                                                                                                                                                                                                       | int  |
 | micro_batch_interleave_num                                      | 设置多副本并行数，大于1时开启多副本并行。通常在使用模型并行时开启，主要用于优化模型并行产生的通信损耗，仅使用流水并行时不建议开启。详情可参考[MicroBatchInterleaved](https://www.mindspore.cn/docs/zh-CN/master/api_python/parallel/mindspore.parallel.nn.MicroBatchInterleaved.html)。                                                                                                           | int  |
-| parallel.parallel_mode                                          | 设置并行模式，`0`表示数据并行模式, `1`表示半自动并行模式, `2`表示自动并行模式, `3`表示混合并行模式，一般设置为半自动并行模式。                                                                                                                                                                                                                                                                    | int  |
+| parallel.parallel_mode                                          | 设置并行模式，`0`表示数据并行模式，`1`表示半自动并行模式，`2`表示自动并行模式，`3`表示混合并行模式，一般设置为半自动并行模式。                                                                                                                                                                                                                                                                    | int  |
 | parallel.gradients_mean                                         | 是否在梯度AllReduce后执行平均算子。通常半自动并行模式下设为`False`，数据并行模式下设为`True`。                                                                                                                                                                                                                                                                                                    | bool |
 | parallel.enable_alltoall                                        | 是否在通信期间生成AllToAll通信算子。通常仅在MOE场景下设为`True`，默认值为`False`。                                                                                                                                                                                                                                                                                                                | bool |
 | parallel.full_batch                                             | 是否在并行模式下从数据集中读取加载完整的批数据，设置为`True`表示所有rank都读取完整的批数据，设置为`False`表示每个rank仅加载对应的批数据，设置为`False`时必须设置对应的`dataset_strategy`。                                                                                                                                                                                                        | bool |
@@ -292,6 +292,7 @@ Context配置主要用于指定[mindspore.set_context](https://www.mindspore.cn/
    | recompute_config.recompute_slice_activation        | 是否对保留在内存中的Cell输出切片。该参数仅支持legacy模型。 | bool            |
    | recompute_config.select_recompute_exclude          | 关闭指定算子的重计算，只对Primitive算子有效。              | bool/list       |
    | recompute_config.select_comm_recompute_exclude     | 关闭指定算子的通讯重计算，只对Primitive算子有效。          | bool/list       |
+
 2. MindSpore Transformers提供细粒度激活值SWAP相关配置，以降低模型在训练时的内存占用，详情可参考[细粒度激活值SWAP](https://www.mindspore.cn/mindformers/docs/zh-CN/master/static_graph/feature/memory_optimization.html#%E7%BB%86%E7%B2%92%E5%BA%A6%E6%BF%80%E6%B4%BB%E5%80%BCswap)。
 
    **Legacy配置（swap_config）：**
@@ -333,6 +334,7 @@ MindSpore Transformers提供封装后的Callbacks函数类，主要实现在模�
    | global_batch_size              | int      | 可选     | 0      | 设置`MFLossMonitor` 中的全局批大小（即每个训练 step 所使用的总样本数）。若未配置，则根据数据集大小和并行策略自动计算。                                         |
    | gradient_accumulation_steps    | int      | 可选     | 1      | 设置`MFLossMonitor` 中的梯度累积步数。若未配置，则与 [模型训练配置](#模型训练配置) 中 `gradient_accumulation_steps` 一致。用于 loss 归一化和训练进度估算。     |
    | check_for_nan_in_loss_and_grad | bool     | 可选     | False  | 是否在`MFLossMonitor` 中开启损失值和梯度的 NaN/Inf 检测。开启后，若检测到溢出（NaN 或 INF），则终止训练，默认值为`False`。建议在调试阶段开启以提升训练稳定性。 |
+
 2. SummaryMonitor
 
    该回调函数类主要用于收集Summary数据，详情可参考[mindspore.SummaryCollector](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.SummaryCollector.html)。

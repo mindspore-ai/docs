@@ -145,7 +145,7 @@ Execute the Python script in the root directory of the MindSpore Transformers co
 
 2. Execute `run_mindformer.py` to start the single-GPU fine-tuning task. An example usage is provided below:
 
-    ```shell
+    ```bash
     python run_mindformer.py \
      --config configs/qwen3/finetune_qwen3.yaml \
      --use_parallel False \
@@ -217,7 +217,7 @@ Take Qwen3-8B as an example to perform 2-node 16-device fine-tuning.
 
     For distributed tasks by executing scripts on multiple nodes and multiple devices, it is necessary to run the scripts on different nodes respectively and set the parameter `MASTER_ADDR` to the IP address of the main node. The IP addresses set for all nodes are the same, and only the parameter `NODE_RANK` is different among different nodes.
 
-    ```shell
+    ```bash
     # Node 0. Set the IP address of node 0 to the value of {master_addr}, which is used as the IP address of the primary node. There are 16 devices in total with 2 devices for each node.
     bash scripts/msrun_launcher.sh "run_mindformer.py \
       --config configs/qwen3/finetune_qwen3.yaml \

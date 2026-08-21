@@ -65,7 +65,7 @@ This case provides three dataset preparation modes:
 
     Run the following command to install dependencies:
 
-    ```shell
+    ```bash
     pip install datasets tqdm aiofiles aiohttp uvloop math_verify
     ```
 
@@ -85,7 +85,7 @@ This case provides three dataset preparation modes:
 
     Run the following commands to call the inference service API and generate CoT data using the questions in the seed dataset:
 
-    ```shell
+    ```bash
     python distilled/generate_reasoning.py \
         --model DeepSeek-R1 \
         --dataset-name AI-MO/NuminaMath-1.5 \
@@ -115,7 +115,7 @@ This case provides three dataset preparation modes:
 
     **Objective**: Filter out incorrect or inaccurate CoT data in the inference data to ensure data quality.
 
-    ```shell
+    ```bash
     python distilled/reject_sampling.py \
         --src /path/to/numinamath_r1_generations.jsonl \
         --dst /path/to/numinamath_r1_generations_filtered.jsonl
@@ -190,7 +190,7 @@ You need to modify the dataset processing configuration file `data_process_handl
 
     Run the following data preprocessing script in the root directory of the MindSpore Transformers source code:
 
-    ```shell
+    ```bash
     python toolkit/data_preprocess/huggingface/datasets_preprocess.py \
         --config distilled/data_process_handling.yaml \
         --save_path /path/to/handled_data \
@@ -219,7 +219,7 @@ train_dataset:
 
 Execute the following script in the root directory of the MindSpore Transformers source code:
 
-```shell
+```bash
 python toolkit/data_preprocess/huggingface/datasets_preprocess.py \
     --config distilled/data_process_packing.yaml \
     --save_path /path/to/packed_data \

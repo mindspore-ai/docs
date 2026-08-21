@@ -31,13 +31,13 @@ To perform weight conversion, clone the complete HuggingFace repository of the m
 
 The weight conversion script depends on torch. Please execute the following command to install torch before running it:
 
-```shell
+```bash
 pip install torch>=2.10.0
 ```
 
 Then proceed with the weight conversion:
 
-```shell
+```bash
 python convert_weight.py [-h] --model MODEL [--reversed] --input_path INPUT_PATH  --output_path OUTPUT_PATH [--dtype DTYPE] [--telechat_type TELECHAT_TYPE]
 ```
 
@@ -251,7 +251,7 @@ Use [mindformers/tools/ckpt_transform/transform_checkpoint.py](https://atomgit.c
 
 **Run the command.**
 
-```shell
+```bash
 python transform_checkpoint.py \
   --src_checkpoint /worker/checkpoint/qwen2_5-7b-2layer/rank_0/qwen2_5-7b.ckpt \
   --dst_checkpoint /worker/transform_ckpt/qwen2_5-7b_1to8/ \
@@ -265,7 +265,7 @@ Use [mindformers/tools/ckpt_transform/transform_checkpoint.sh](https://atomgit.c
 
 **Run the command.**
 
-```shell
+```bash
 bash transform_checkpoint.sh \
   /worker/checkpoint/qwen2_5-7b-2layer/rank_0/qwen2_5-7b.ckpt \
   None \
@@ -351,7 +351,7 @@ If a unified shared storage path (such as the NFS-mounted /worker directory) is 
 
   Use [mindformers/scripts/msrun_launcher.sh](https://atomgit.com/mindspore/mindformers/blob/master/scripts/msrun_launcher.sh) to start the task.
 
-  ```shell
+  ```bash
   # First server (main node)
   bash scripts/msrun_launcher.sh "run_mindformer.py \
     --config {CONFIG_PATH} \
@@ -404,7 +404,7 @@ If there is no shared path between servers, you need to use the offline weight c
 
   **Single-process conversion**
 
-  ```shell
+  ```bash
   python mindformers/tools/ckpt_transform/transform_checkpoint.py \
     --src_checkpoint /worker/checkpoint/qwen2_5-7b/rank_0/qwen2_5-7b.ckpt \
     --dst_checkpoint ./output/qwen2_5-7b_dp2mp4pp2 \
@@ -413,7 +413,7 @@ If there is no shared path between servers, you need to use the offline weight c
 
   **Multi-process conversion (optional)**
 
-  ```shell
+  ```bash
   # Use two processes for conversion.
   bash mindformers/tools/ckpt_transform/transform_checkpoint.sh \
     /worker/checkpoint/qwen2_5-7b/rank_0/qwen2_5-7b.ckpt \
@@ -477,7 +477,7 @@ For details about the principles and implementation of LoRA, see the following r
 
 Use the [LoRA weight merging script](https://atomgit.com/mindspore/mindformers/blob/master/mindformers/tools/transform_ckpt_lora.py) provided by MindSpore Transformers to merge LoRA weights as follows:
 
-```shell
+```bash
 python mindformers/tools/transform_ckpt_lora.py \
   --src_ckpt_strategy src_strategy_path_or_dir \
   --src_ckpt_path_or_dir src_ckpt_path_or_dir \
@@ -506,7 +506,7 @@ python mindformers/tools/transform_ckpt_lora.py \
 
 If the weight file before merging is a complete one, you can set the parameters as follows (directly enter the path of the complete set of weights):
 
-```shell
+```bash
 python mindformers/tools/transform_ckpt_lora.py \
   --src_ckpt_path_or_dir .../xxx/xxx.ckpt \
   --dst_ckpt_dir dst_ckpt_dir \
@@ -518,7 +518,7 @@ python mindformers/tools/transform_ckpt_lora.py \
 
 If the weight file before merging contains distributed weights, you can set the parameters as follows (enter the path of the distributed weight folder and the path of the distributed strategy folder). The obtained weights are automatically merged into a complete weight file.
 
-```shell
+```bash
 python mindformers/tools/transform_ckpt_lora.py \
   --src_ckpt_strategy .../xxx/mindformers/output/strategy/ \
   --src_ckpt_path_or_dir .../xxx/model_dir \

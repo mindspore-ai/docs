@@ -330,7 +330,7 @@ During the single-node multi-device distributed training, the cache operation al
 
     Create the Shell script `cache.sh` for starting Python training and run the following command to generate a cache session ID:
 
-    ```shell
+    ```bash
     #!/bin/bash
     # This shell script will launch parallel pipelines
 

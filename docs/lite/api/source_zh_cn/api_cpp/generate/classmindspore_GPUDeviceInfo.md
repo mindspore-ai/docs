@@ -86,7 +86,7 @@ inline void SetPrecisionMode(const std::string &precision_mode)
 
 - 参数
 
-    - `precision_mode`: 可选值`origin`（以模型中指定精度进行推理）， `fp16`（以FP16精度进行推理），默认值: `origin`。
+    - `precision_mode`: 可选值`origin`（以模型中指定精度进行推理），`fp16`（以FP16精度进行推理），默认值: `origin`。
 
 ### GetPrecisionMode
 

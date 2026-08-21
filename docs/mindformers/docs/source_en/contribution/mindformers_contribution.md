@@ -37,7 +37,7 @@ Please follow this style for MindSpore Transformers review, maintenance and deve
 
   If you want to download the code to your local computer, it is best to use the git method.
 
-  ```shell
+  ```bash
   # Clone repositories on AtomGit
   git clone https://atomgit.com/(insert_your_forked_repo)/mindformers.git
   ```
@@ -46,7 +46,7 @@ Please follow this style for MindSpore Transformers review, maintenance and deve
 
   `master` is the development branch. Please pull the latest code from `master` branch for development. And submit it to the `master` branch when you submit your Pull Request.
 
-  ```shell
+  ```bash
   git checkout -b {new branch name} origin/master
   ```
 
@@ -54,7 +54,7 @@ Please follow this style for MindSpore Transformers review, maintenance and deve
 
   In the last step, you need to pull a compare request between the new branch and the `MindSpore Transformers` master branch. After completing the pull request, `Jenkins CI` will be automatically set up for build testing. PR should be merged into the upstream master branch as soon as possible to minimize the risk of merging.
 
-  ```shell
+  ```bash
   # Add all changes to the staging area
   git add .
 
@@ -103,13 +103,13 @@ If you wish to merge custom models into the `MindSpore Transformers` code reposi
 For multi-commit PRs, use the `squash` command to merge multiple commits into one.
 For example, use:
 
-```shell
+```bash
 git rebase -i HEAD~3
 ```
 
 You can see:
 
-```shell
+```bash
 pick 1234567 Add new function A
 pick 89abcdef Fixed bugs in A
 pick 01234567 Some optimizations to A
@@ -117,7 +117,7 @@ pick 01234567 Some optimizations to A
 
 squash merge commit (can be simplified to abbreviations such as s, p, f, etc.)
 
-```shell
+```bash
 pick 1234567 Add new function A
 squash 89abcdef Fixed bugs in A
 squash 01234567 Some optimizations to A

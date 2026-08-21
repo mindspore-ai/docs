@@ -112,7 +112,7 @@ There is NOwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PU
 
 ### 3. 确认安装Python 3.7.5版本
 
-**注意:** `Ubuntu 18.04` 系统自带的 `python3`版本为`python3.6.9`，系统自带`python`不要删除，防止依赖错误。`Linux`发行版中, `Debian`系的提供了`update-alternatives`工具，用于在多个同功能的软件，或软件的多个不同版本间选择，这里采用`update-alternatives`工具控制多个Python版本。
+**注意：** `Ubuntu 18.04` 系统自带的 `python3` 版本为 `python3.6.9`，系统自带 `python` 不要删除，防止依赖错误。`Linux` 发行版中，`Debian` 系的提供了 `update-alternatives` 工具，用于在多个同功能的软件，或软件的多个不同版本间选择，这里采用 `update-alternatives` 工具控制多个Python版本。
 
 （1）查看系统Python版本
 
@@ -138,11 +138,11 @@ ms-sd@mssd:~/Python-3.7.5$ ./configure --prefix=/usr/local/python3.7.5 --with-ss
 
 > 参数解释：  
 > --prefix=/usr/local/python3.7.5  
-> 可执行文件放在/usr/local/python3.7.5/bin下，  
-> 库文件放在/usr/local/python3.7.5/lib，  
-> 配置文件放在/usr/local/python3.7.5/include，  
+> 可执行文件放在/usr/local/python3.7.5/bin下，
+> 库文件放在/usr/local/python3.7.5/lib，
+> 配置文件放在/usr/local/python3.7.5/include，
 > 其他资源文件放在/usr/local/python3.7.5下  
->  
+>
 > --with-ssl：确保pip安装库时能找到SSL
 
 （5）安装必要的依赖
@@ -193,7 +193,7 @@ Type "help", "copyright", "credits" or "license" for more information.
 >>>
 ```
 
-（11）更新`update-alternatives`python列表
+（11）更新 `update-alternatives` python列表
 
 ```bash
 sudo update-alternatives --install /usr/bin/python python /usr/bin/python2 100
@@ -276,7 +276,7 @@ CMake suite maintained and supported by Kitware (kitware.com/cmake).
 
 （1）更新pip源
 
-修改 ~/.pip/pip.conf (如果没有该文件，创建一个)， 内容如下：
+修改 ~/.pip/pip.conf (如果没有该文件，创建一个)，内容如下：
 
 ```bash
 [global]
@@ -364,7 +364,7 @@ success building mindspore project!
 ---------------- mindspore: build end   ----------------
 ```
 
-同时在`/mindspore/output/`文件夹下生成了`mindspore-1.1.0-cp37-cp37m-linux_x86_64.whl`文件。
+同时在 `/mindspore/output/` 文件夹下生成了 `mindspore-1.1.0-cp37-cp37m-linux_x86_64.whl` 文件。
 
 （5）pip3安装MindSpore安装文件
 

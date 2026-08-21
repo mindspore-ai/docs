@@ -109,7 +109,7 @@ parallel_config:
 
 Run `run_mindformer.py` to start the single-NPU fine-tuning task. The command is as follows:
 
-```shell
+```bash
 python run_mindformer.py \
  --config configs/qwen3/finetune_qwen3.yaml \
  --use_parallel False \
@@ -245,7 +245,7 @@ The dataset used for LoRA fine-tuning can be prepared as described in the [Datas
 
 For the Qwen3-8B model, the following msrun startup command can be executed for 8-NPU distributed fine-tuning:
 
-```shell
+```bash
 bash scripts/msrun_launcher.sh "run_mindformer.py \
  --config /path/to/finetune_qwen3_8b_lora.yaml \
  --use_parallel True \

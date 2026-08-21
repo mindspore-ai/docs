@@ -309,7 +309,7 @@ Harness supports two installation methods: pip installation and source code comp
 
 Users can execute the following command to install Harness (It is recommended to use version 0.4.4):
 
-```shell
+```bash
 pip install lm_eval==0.4.4
 ```
 
@@ -383,7 +383,7 @@ Harness evaluation supports single-device single-card, single-device multiple-ca
 
 1. Single Card Evaluation Example
 
-   ```shell
+   ```bash
    source toolkit/benchmarks/run_harness.sh \
    --register_path mindformers/research/llama3_1 \
    --model mf \
@@ -393,7 +393,7 @@ Harness evaluation supports single-device single-card, single-device multiple-ca
 
 2. Multi Card Evaluation Example
 
-   ```shell
+   ```bash
    source toolkit/benchmarks/run_harness.sh \
    --register_path mindformers/research/llama3_1 \
    --model mf \
@@ -409,7 +409,7 @@ Harness evaluation supports single-device single-card, single-device multiple-ca
 
    Node 0 (Master) Command:
 
-      ```shell
+      ```bash
       source toolkit/benchmarks/run_harness.sh \
       --register_path mindformers/research/llama3_1 \
       --model mf \
@@ -420,7 +420,7 @@ Harness evaluation supports single-device single-card, single-device multiple-ca
 
    Node 1 (Secondary Node) Command:
 
-      ```shell
+      ```bash
       source toolkit/benchmarks/run_harness.sh \
       --register_path mindformers/research/llama3_1 \
       --model mf \
@@ -431,7 +431,7 @@ Harness evaluation supports single-device single-card, single-device multiple-ca
 
    Node n (Nth Node) Command:
 
-      ```shell
+      ```bash
       source toolkit/benchmarks/run_harness.sh \
       --register_path mindformers/research/llama3_1 \
       --model mf \
@@ -484,7 +484,7 @@ MindSpore Transformers provides a [safetensors weight merging script](https://at
 
 The merging instruction is as follows (the Adam optimizer parameters are merged for the training weights in step 1000, and the redundancy removal function is enabled when saving the training weights):
 
-```shell
+```bash
 python toolkit/safetensors/unified_safetensors.py \
   --src_strategy_dirs output/strategy \
   --mindspore_ckpt_dir output/checkpoint \
@@ -531,7 +531,7 @@ After the weights and configuration files are ready, use a single data input for
 
 For example, taking Qwen3 single-card inference as an example, the command to start the inference task is:
 
-```shell
+```bash
 python run_mindformer.py \
 --config configs/qwen3/predict_qwen3.yaml \
 --run_mode predict \

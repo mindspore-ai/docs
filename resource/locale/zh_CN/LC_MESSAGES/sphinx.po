@@ -3150,7 +3150,7 @@ msgstr "搜索完成，有 %s 个页面匹配。"
 
 #: sphinx/themes/basic/static/searchtools.js:342
 msgid ", in "
-msgstr "， 在 "
+msgstr "，在 "
 
 #: sphinx/themes/classic/static/sidebar.js_t:83
 msgid "Expand sidebar"
