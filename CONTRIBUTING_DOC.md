@@ -1,10 +1,10 @@
-# Contributing Documents
+﻿# Contributing Documents
 
-[查看中文](./CONTRIBUTING_DOC_CN.md#)
+[查看中文](./CONTRIBUTING_DOC_CN.md)
 
 You are welcome to contribute MindSpore documents. Documents that meet requirements will be displayed on the [MindSpore website](https://www.mindspore.cn/en).
 
-This project supports contribution documents in markdown and reStructuredText formats. You can create `.md` or `.rst` files or modify existing files.
+This project supports contribution documents in markdown, reStructuredText, and Jupyter Notebook formats. You can create `.md`, `.rst`, or `.ipynb` files or modify existing files.
 
 ## Document
 
@@ -64,7 +64,7 @@ Markdownlint is a tool for checking the markdown file format. You can use the to
 - MD009 (spaces at the line end): The **br_spaces** parameter is set to **2**, indicating that there can be 0 or 2 spaces at the end of a line.
 - MD029 (sequence numbers of an ordered list): The **style** parameter is set to **ordered**, indicating that the sequence numbers of the ordered list are in ascending order.
 
-For details, see [RULES](https://github.com/markdownlint/markdownlint/blob/master/docs/RULES.md#).
+For details, see [RULES](https://github.com/markdownlint/markdownlint/blob/master/docs/RULES.md).
 
 ### AI-assisted Check
 
@@ -80,17 +80,17 @@ By default, tutorials and documents of the latest version are displayed on the o
 
 ![master_doc_en](./resource/_static/master_doc_en.png)
 
-Take **Quick Start** as an example. The document link is <https://www.mindspore.cn/tutorials/en/master/beginner/quick_start.html>.
+Take **Quick Start** as an example. The document link is <https://www.mindspore.cn/tutorials/en/master/beginner/quick_start.html>.
 
 ## API
 
 MindSpore docs repository provides [API Comment Specifications](https://atomgit.com/mindspore/docs/wiki/%E8%A7%84%E8%8C%83%2FMindSpore%20API%20Comment%20Specifications.md) for your reference.
 
-### Updating or Adding an API
+### Updating or Adding an API
 
 #### Updating a Python API
 
-If you want to update an existing API, find the source file of the API in the MindSpore code.
+If you want to update an existing API, find the source file of the API in the MindSpore code.
 
 If you do not know the file link, click **source** and find the file link by referring to the content following `_modules` in the link.
 
@@ -134,7 +134,7 @@ After completing the preceding modification, commit to a PR to make contribution
 
 After committing to a PR, ensure that the `mindspore-cla/yes` and `ci-pipeline-passed` labels exist and the `stat/need-squash` label does not exist. The PR can be merged only after being approved by the committer.
 
-For details about each label, see [Checking a Document](#checking-a-document).
+For details about each label, see [Gate Access Check](#gate-access-check).
 
 MindSpore CI uses the Pylint check tool.
 
@@ -169,7 +169,7 @@ For specific image requirements and specifications, please refer to [Image Speci
 
 ### Updating or Adding an Image
 
-If you want to update an existing image or adding a new image, click ![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg) on the top of the page to go to the source file. Usually the images will be stored in the directory ./images. You only need to put the new images into this directory, or replace the modified images with the original ones, and commit changes to a PR to make the contribution.
+If you want to update an existing image or add a new image, click ![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg) on the top of the page to go to the source file. Usually the images will be stored in the directory ./images. You only need to put the new images into this directory, or replace the modified images with the original ones, and commit changes to a PR to make the contribution.
 
 > Please submit the original image to AtomGit at the same time, and put it in the same path as the image for subsequent modification.
 
