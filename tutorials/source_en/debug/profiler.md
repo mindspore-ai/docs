@@ -178,7 +178,7 @@ Users can use the environment variable enabling method to enable Profiler most s
 
 Environment variable enabling method related configuration items, sample as follows:
 
-```shell
+```bash
 export MS_PROFILER_OPTIONS='
 {"start": true,
 "output_path": "/XXX",
@@ -235,7 +235,7 @@ After collecting performance data, the original data will be stored according to
 > - The following data files are not required to be opened and viewed by users. Users can refer to the [MindStudio Insight user guide](https://www.hiascend.com/document/detail/zh/mindstudio/80RC1/msinsightug/msascendinsightug/AscendInsight_0002.html) for viewing and analyzing performance data.
 > - The following is the full set of result files. MindSpore Profiler interface will associate and integrate the framework side data and CANN Profiling data to form trace, kernel, and memory performance data files in the `ASCEND_PROFILER_OUTPUT` directory. The actual file number and content depend on the user's parameter configuration and the actual training scenario, if the user does not configure the related parameters or does not involve the related scenarios in the training, the corresponding data files will not be generated.  
 
-```sh
+```bash
 └── localhost.localdomain_*_ascend_ms  // Collection and analysis result directory, named format: {worker_name}_{timestamp}_ascend_ms, by default {worker_name} is {hostname}_{pid}
     ├── profiler_info_{Rank_ID}.json   // Used to record Profiler related metadata, Rank_ID is the card number
     ├── profiler_metadata.json         // It is used to store information and other Profiler related metadata that users add through the add_metadata interface

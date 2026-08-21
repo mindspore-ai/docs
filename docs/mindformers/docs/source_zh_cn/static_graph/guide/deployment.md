@@ -188,7 +188,7 @@ MindSpore Transformers仓上提供一键拉起MindIE脚本，脚本中已预置�
 
 进入`scripts`目录下，执行MindIE启动脚本：
 
-```shell
+```bash
 cd ./scripts
 bash run_mindie.sh --model-name xxx --model-path /path/to/model
 
@@ -321,7 +321,7 @@ mkdir -p mf_model/qwen1_5_72b
 
 进入`scripts`目录下，执行mindie启动脚本：
 
-```shell
+```bash
 cd ./scripts
 bash run_mindie.sh --model-name qwen1_5_72b --model-path /path/to/mf_model/qwen1_5_72b
 ```

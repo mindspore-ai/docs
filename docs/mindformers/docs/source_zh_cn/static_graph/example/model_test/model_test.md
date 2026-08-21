@@ -214,9 +214,9 @@ unzip OpenCompassData-core-20240207.zip
 
 修改`path`为部署模型的名字，修改`openai_api_base`为部署模型的`url`，配置模型的`tokenizer_path`，`batch_size`可以适当调大来加速。
 
-数据集一般不用自己配置，参考[text](https://opencompass.readthedocs.io/zh-cn/latest/advanced_guides/accelerator_intro.html#api)获得推荐配置，或是在每个数据集的config路径下查找合适的配置。例如bbh（big bench hard）数据集，在`opencompass/opencompass/configs/datasets/bbh/`下有`bbh_gen_ee62e9.py`、`bbh_0shot_nocot_academic_gen.py`等， 分别是zero-shot和five-shot的配置，根据需要自由选择。
+数据集一般不用自己配置，参考[text](https://opencompass.readthedocs.io/zh-cn/latest/advanced_guides/accelerator_intro.html#api)获得推荐配置，或是在每个数据集的config路径下查找合适的配置。例如bbh（big bench hard）数据集，在`opencompass/opencompass/configs/datasets/bbh/`下有`bbh_gen_ee62e9.py`、`bbh_0shot_nocot_academic_gen.py`等，分别是zero-shot和five-shot的配置，根据需要自由选择。
 
-运行脚本参考[eval_api_demo.py](https://github.com/open-compass/opencompass/blob/main/examples/eval_api_demo.py)进行修改, 导入需要评测的模型配置和需要测试的数据集即可
+运行脚本参考[eval_api_demo.py](https://github.com/open-compass/opencompass/blob/main/examples/eval_api_demo.py)进行修改，导入需要评测的模型配置和需要测试的数据集即可
 
 **可能遇到的报错**：
 
@@ -228,7 +228,7 @@ Traceback (most recent call last):
 RuntimeError
 ```
 
-解决方法：把该文件```with open(os.path.join(hard_coded_path, 'lib_prompt', f'{_name}.txt'), 'r') as f:```中的地址硬编码为如下：
+解决方法：把该文件`with open(os.path.join(hard_coded_path, 'lib_prompt', f'{_name}.txt'), 'r') as f:`中的地址硬编码为如下：
 
 ```bash
 hard_coded_path = '/path/to/datasets/bbh' \

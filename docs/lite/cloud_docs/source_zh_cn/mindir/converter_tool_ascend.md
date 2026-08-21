@@ -298,7 +298,7 @@ Ascend推理时，运行时指定 `provider` 为 ``ge`` 时，支持多个模型
 
     `aoe_mode` 当前仅限定为 `subgraph tuning` 或 `operator tuning` ，暂不支持 `subgraph tuning, operator tuning`，即不支持同一个调优过程进行子图和算子调优，如需要，可通过两次调用转换工具分别启动子图调优和算子调优。
 
-    `[aoe_global_options]` 中， `job_type` 为 ``1`` 时为子图调优， `job_type` 为 `2` 时为算子调优。
+    `[aoe_global_options]` 中，`job_type` 为 ``1`` 时为子图调优，`job_type` 为 `2` 时为算子调优。
 
     ```bash
     [ascend_context]
@@ -317,7 +317,7 @@ Ascend推理时，运行时指定 `provider` 为 ``ge`` 时，支持多个模型
 
 4. 动态分档
 
-    可在 `[acl_option_cfg_param]` 、`[ascend_context]` 、 `[ge_graph_options]` 、 `[aoe_tuning_options]` 设置动态分档信息，优先级从低到高。以下设置方式等价。 `[ascend_context]` 分档设置可参考 [动态shape配置](https://www.mindspore.cn/lite/cloud_docs/zh-CN/master/mindir/converter_tool_ascend.html#%E5%8A%A8%E6%80%81shape%E9%85%8D%E7%BD%AE)。 `[acl_option_cfg_param]` 、 `[ge_graph_options]` 、 `[aoe_tuning_options]` 分档设置可参考 [dynamic_dims](https://www.hiascend.com/document/detail/zh/canncommercial/80RC3/devaids/devtools/aoe/aoepar_16_013.html)、[dynamic_batch_size](https://www.hiascend.com/document/detail/zh/canncommercial/80RC3/devaids/devtools/aoe/aoepar_16_011.html)、[dynamic_image_size](https://www.hiascend.com/document/detail/zh/canncommercial/80RC3/devaids/devtools/aoe/aoepar_16_012.html)。注意， `[ge_graph_options]` 仅支持 `ge.dynamicDims` ，不支持类似 `dynamic_batch_size` 和 `dynamic_image_size` 的形式。 `input_format` 用于指定动态分档的输入维度排布，使用 `dynamic_image_size` 时需要指定 `input_format` 为 `NCHW` 或 `NHWC` 指示 `H` 和 `W` 维度所在位置。
+    可在 `[acl_option_cfg_param]` 、`[ascend_context]` 、 `[ge_graph_options]` 、 `[aoe_tuning_options]` 设置动态分档信息，优先级从低到高。以下设置方式等价。 `[ascend_context]` 分档设置可参考 [动态shape配置](https://www.mindspore.cn/lite/cloud_docs/zh-CN/master/mindir/converter_tool_ascend.html#%E5%8A%A8%E6%80%81shape%E9%85%8D%E7%BD%AE)。 `[acl_option_cfg_param]` 、 `[ge_graph_options]` 、 `[aoe_tuning_options]` 分档设置可参考 [dynamic_dims](https://www.hiascend.com/document/detail/zh/canncommercial/80RC3/devaids/devtools/aoe/aoepar_16_013.html)、[dynamic_batch_size](https://www.hiascend.com/document/detail/zh/canncommercial/80RC3/devaids/devtools/aoe/aoepar_16_011.html)、[dynamic_image_size](https://www.hiascend.com/document/detail/zh/canncommercial/80RC3/devaids/devtools/aoe/aoepar_16_012.html)。注意，`[ge_graph_options]` 仅支持 `ge.dynamicDims` ，不支持类似 `dynamic_batch_size` 和 `dynamic_image_size` 的形式。 `input_format` 用于指定动态分档的输入维度排布，使用 `dynamic_image_size` 时需要指定 `input_format` 为 `NCHW` 或 `NHWC` 指示 `H` 和 `W` 维度所在位置。
 
     ```bash
     [ascend_context]

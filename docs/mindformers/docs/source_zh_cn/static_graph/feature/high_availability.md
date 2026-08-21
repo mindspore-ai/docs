@@ -53,7 +53,7 @@ MindSpore Transformers 高可用特性提供了如下几个功能：
 
 ### 环境变量配置
 
-```shell
+```bash
 export MINDIO_FOR_MINDSPORE=1
 export MS_ENABLE_TFT="{TTP:1,UCE:1,HCCE:1,ARF:1,TRE:1,TSP:1}"
 export MS_TFT_IP=127.0.0.1
@@ -323,13 +323,13 @@ YAML配置包含两部分：临终 CKPT 的保存及恢复配置和卡间副本�
 
 3. 配置环境变量：
 
-   ```shell
+   ```bash
    export MS_ENABLE_TFT="{TRE:1}"
    ```
 
 4. 运行以下命令，开启训练：
 
-    ```shell
+    ```bash
     cd mindformers
 
     bash scripts/msrun_launcher.sh "run_mindformer.py \

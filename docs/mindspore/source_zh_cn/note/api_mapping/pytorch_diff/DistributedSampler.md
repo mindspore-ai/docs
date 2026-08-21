@@ -20,7 +20,7 @@ class mindspore.dataset.DistributedSampler(num_shards, shard_id, shuffle=True, n
 
 ## 差异对比
 
-PyTorch：将数据集进行分片，可用于分布式训练。`drop_last` 参数控制是否丢弃多余的数据或对每个设备上的数据进行补齐， `seed` 参数控制混洗的随机种子。
+PyTorch：将数据集进行分片，可用于分布式训练。`drop_last` 参数控制是否丢弃多余的数据或对每个设备上的数据进行补齐，`seed` 参数控制混洗的随机种子。
 
 MindSpore：将数据集进行分片，可用于分布式训练。不支持自动丢弃多余数据或补齐每个设备上的数据，不支持在混洗时指定随机种子。
 

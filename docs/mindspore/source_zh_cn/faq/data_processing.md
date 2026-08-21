@@ -384,7 +384,7 @@ A: 在使用`GeneratorDataset`加载Pyfunc返回的Numpy array时，MindSpore框
 
 ### Q: 如何根据数据预处理退出状态判断GetNext超时原因？
 
-A: 在使用数据下沉模式（此时 `数据预处理` -> `发送队列` -> `网络计算` 三者构成Pipeline模式）进行训练时，当出现GetNext超时报错，数据预处理模块会输出状态信息，帮助用户分析出错原因。用户可以通过环境变量 `export MS_SUBMODULE_LOG_v={MD:1}` 来开启日志输出。其中： `channel_name` 代表host侧向设备侧发送数据通道的名称， `have_sent` 代表已经向设备发送的数据总条数， `host_queue` 代表最近10次dataset host侧队列的大小， `device_queue` 代表最近10次设备侧队列大小， `push_first_start_time` 和 `push_first_end_time` 代表host侧向设备发送第一条数据的起始时间， `push_start_time` 和 `push_end_time` 代表最近10次host侧向设备侧发送数据的起始时间。用户可以在日志中看到如下几种情况，具体原因及改进方法可参考：
+A: 在使用数据下沉模式（此时 `数据预处理` -> `发送队列` -> `网络计算` 三者构成Pipeline模式）进行训练时，当出现GetNext超时报错，数据预处理模块会输出状态信息，帮助用户分析出错原因。用户可以通过环境变量 `export MS_SUBMODULE_LOG_v={MD:1}` 来开启日志输出。其中： `channel_name` 代表host侧向设备侧发送数据通道的名称，`have_sent` 代表已经向设备发送的数据总条数，`host_queue` 代表最近10次dataset host侧队列的大小，`device_queue` 代表最近10次设备侧队列大小，`push_first_start_time` 和 `push_first_end_time` 代表host侧向设备发送第一条数据的起始时间，`push_start_time` 和 `push_end_time` 代表最近10次host侧向设备侧发送数据的起始时间。用户可以在日志中看到如下几种情况，具体原因及改进方法可参考：
 
 1. 当日志输出类似如下时，表示数据预处理没有产生任何可用于训练的数据。
 

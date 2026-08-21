@@ -22,7 +22,7 @@
 
 1. torch自定义算子涉及dispatch部分
 
-**MSAdapter支持.to()操作， 但是默认将模型与Tensor放置于Ascend NPU，与torch在默认行为上有区别。**
+**MSAdapter支持.to()操作，但是默认将模型与Tensor放置于Ascend NPU，与torch在默认行为上有区别。**
 
 ## Storage机制
 

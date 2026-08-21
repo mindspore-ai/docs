@@ -20,7 +20,7 @@
 
 - **RmsNorm&Add**：由于RmsNorm需要对一行数据进行归一操作，需要有全局信息，因此无法有效并行计算，此处需要先通过all_reduce将数据汇总，然后计算。同时，Add和RmsNorm通常在一起出现，因此都不进行切分。
 
-- **LMHead**：LMHead层实际就是一层Linear层，输入shape通常是（batch_size， hidden_size）*（hidden_size， vocab_size），我们可以对vocab_size维度进行切分，并在最后通过all_gather合并以此提速。
+- **LMHead**：LMHead层实际就是一层Linear层，输入shape通常是（batch_size，hidden_size）*（hidden_size，vocab_size），我们可以对vocab_size维度进行切分，并在最后通过all_gather合并以此提速。
 
 下图是在并行度为2的1层Qwen2的切分执行示意图：
 

@@ -76,7 +76,7 @@ extern "C" int CustomAdd(int nparam, void **params, int *ndims, int64_t **shapes
 
 Compile add.cu into a dynamic library add.so:
 
-```shell
+```bash
 nvcc --shared -Xcompiler -fPIC -o add.so add.cu
 ```
 
@@ -107,7 +107,7 @@ The following points need to be explained in this example:
 
 Execute case:
 
-```shell
+```bash
 python test_custom_aot.py
 ```
 
@@ -150,7 +150,7 @@ extern "C" int CustomAdd(int nparam, void **params, int *ndims, int64_t **shapes
 
 Compile add.cc into a dynamic library add.so:
 
-```shell
+```bash
 g++ --shared -fPIC -o add.so add.cc
 ```
 
@@ -181,7 +181,7 @@ The following points need to be explained in this example:
 
 Execute case:
 
-```shell
+```bash
 python test_custom_aot.py
 ```
 

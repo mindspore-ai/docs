@@ -1,10 +1,10 @@
-﻿# Contributing Documents
+# Contributing Documents
 
 [查看中文](./CONTRIBUTING_DOC_CN.md)
 
 You are welcome to contribute MindSpore documents. Documents that meet requirements will be displayed on the [MindSpore website](https://www.mindspore.cn/en).
 
-This project supports contribution documents in markdown, reStructuredText, and Jupyter Notebook formats. You can create `.md`, `.rst`, or `.ipynb` files or modify existing files.
+This project supports contribution documents in Markdown, reStructuredText, and Jupyter Notebook formats. You can create `.md`, `.rst`, or `.ipynb` files or modify existing files.
 
 ## Document
 

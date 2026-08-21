@@ -99,13 +99,13 @@ model:
 `BlendedMegatronDatasetDataLoader` 运行时**必须**有 `datasets_type`、`sizes` 以及嵌套的 `config` 块（含 `seq_length`/`split`/`eod`/`pad`/`data_path`/`create_compressed_eod_mask` 等），缺一不可。其中：
 
 | 字段 | 说明 |
-|---|---|
+| --- | --- |
 | `datasets_type` | 数据集类型，预训练用 `"GPTDataset"` |
-| `sizes` | `[训练, 测试, 评估]` 样本数，当前仅训练集生效 |
+| `sizes` | `[训练，测试，评估]` 样本数，当前仅训练集生效 |
 | `config.seq_length` | 返回序列长度，**须与 `model.seq_length` 一致** |
 | `config.split` | 训练/测试/评估划分比例（如 `"1, 0, 0"`）；设了 `data_path` 即必填 |
 | `config.eod` / `config.pad` | eod(eos)/pad 的 token id，取自预处理时的 tokenizer |
-| `config.data_path` | 列表，每两个元素为一组「采样权重, bin 前缀」，权重为相对值、自动归一化（不要求之和为 1）；bin 前缀含 `_text_document` 后缀 |
+| `config.data_path` | 列表，每两个元素为一组「采样权重，bin 前缀」，权重为相对值、自动归一化（不要求之和为 1）；bin 前缀含 `_text_document` 后缀 |
 
 > 这些字段的逐项含义、多数据源混合、压缩 EOD mask 等场景化配置见[数据集](../feature/dataset.md)。本页只给最小可跑配置。
 

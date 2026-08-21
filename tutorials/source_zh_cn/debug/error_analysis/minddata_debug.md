@@ -516,7 +516,7 @@ data step 3 , time 480.023415324343
 data step 4 , time 480.051423635473
 ```
 
-可以看到，从第2条数据开始，每一条数据都要等到60s以上才处理完成, 对于上述“修改过的代码”其实是好解决的，检查一下代码会发现：
+可以看到，从第2条数据开始，每一条数据都要等到60s以上才处理完成，对于上述“修改过的代码”其实是好解决的，检查一下代码会发现：
 
 ```python
 def __getitem__(self, index):
@@ -727,7 +727,7 @@ RuntimeError: Unexpected error. Failed to open file, file path E:\深度学习\m
 
     参考解决方法：
 
-    使用MindSpore的 set_page_size API，将 pagesize 设置大一点,设置方法如下：
+    使用MindSpore的 set_page_size API，将 pagesize 设置大一点，设置方法如下：
 
     ```python
     from mindspore.mindrecord import FileWriter

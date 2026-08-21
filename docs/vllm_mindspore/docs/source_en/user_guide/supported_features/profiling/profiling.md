@@ -32,7 +32,7 @@ INFO: Application startup complete.
 
 Once the service is running, user can send the following requests to perform a profiling collection:
 
-```shell
+```bash
 # Request to start profiling
 curl -X POST http://127.0.0.1:8000/start_profile
 

@@ -53,7 +53,7 @@ For high availability functions which depend on MindIO, the user needs to instal
 
 ### Environment Variable Configuration
 
-```shell
+```bash
 export MINDIO_FOR_MINDSPORE=1
 export MS_ENABLE_TFT="{TTP:1,UCE:1,HCCE:1,ARF:1,TRE:1,TSP:1}"
 export MS_TFT_IP=127.0.0.1
@@ -323,13 +323,13 @@ This chapter uses Qwen3-8B training as an example to demonstrate the use of rapi
 
 3. Configure environment variables:
 
-   ```shell
+   ```bash
    export MS_ENABLE_TFT="{TRE:1}"
    ```
 
 4. Run the following command to start training:
 
-    ```shell
+    ```bash
     cd mindformers
 
     bash scripts/msrun_launcher.sh "run_mindformer.py \

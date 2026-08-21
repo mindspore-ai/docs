@@ -90,7 +90,7 @@ concept = ConceptDriftCheckTimeSeries(window_size=100, rolling_window=10, step=1
 
 初始化参数含义：
 
-- `window_size(int)`：概念窗口。数值不小于10，如果给定输入数据`data`的长度， `window_size`范围在[10, 1/3*len(`data`)] 之间。一般，如果时序数据为周期性函数，`window_size`的大小可以选择2-5倍的周期长度。举例，`data`的长度为1000，周期为30，那么`window_size`的范围可以在[10, 333]，考虑到数据周期性，`window_size`可以取值90。
+- `window_size(int)`：概念窗口。数值不小于10，如果给定输入数据`data`的长度，`window_size`范围在[10, 1/3*len(`data`)] 之间。一般，如果时序数据为周期性函数，`window_size`的大小可以选择2-5倍的周期长度。举例，`data`的长度为1000，周期为30，那么`window_size`的范围可以在[10, 333]，考虑到数据周期性，`window_size`可以取值90。
 - `rolling_window(int)`：平滑窗口。数值大小 [1, `window_size`]。默认值：10。
 - `step(int)`: 窗口滑动步长。数值范围在 [1,`window_size`]之间。默认值：10。
 - `threshold_index(float)`：阈值系数。阈值系数越高，阈值越大。默认值: 1.5。

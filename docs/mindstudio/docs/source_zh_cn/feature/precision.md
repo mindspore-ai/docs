@@ -58,13 +58,13 @@ msprobe 是 MindStudio Training Tools 工具链下精度调试部分的工具包
     <tr>
         <td><a href="https://atomgit.com/Ascend/mstt/blob/br_release_MindStudio_8.2.RC1_TR5_20260923/debug/accuracy_tools/msprobe/docs/32.ckpt_compare.md">Checkpoint比对</a></td>
         <td>训练过程中或结束后，比较两个不同的Checkpoint，评估模型相似度。</td>
-        <td>在模型训练过程中或结束后，可能保存一些检查点文件 (Checkpoint，简称ckpt) 记录当前模型、优化器等训练状态, 工具支持比较两个不同的ckpt，评估模型相似度。</td>
+        <td>在模型训练过程中或结束后，可能保存一些检查点文件 (Checkpoint，简称ckpt) 记录当前模型、优化器等训练状态，工具支持比较两个不同的ckpt，评估模型相似度。</td>
         <td>当前支持Megatron-LM、MindSpeed (PyTorch/MindTorch) 的ckpt比较。支持TP、PP、EP、VPP模型并行；支持megatron.core、megatron.legacy、TransformerEngine的模型实现。</td>
     </tr>
     <tr>
         <td><a href="https://atomgit.com/Ascend/mstt/blob/br_release_MindStudio_8.2.RC1_TR5_20260923/debug/accuracy_tools/msprobe/docs/16.free_benchmarking_MindSpore.md">无标杆比对</a></td>
         <td>不依赖标杆数据，通过对算子输入增加微小扰动，计算扰动后输出与原始输出的相对误差，识别有精度风险的算子。</td>
         <td>1. 无标杆数据场景下的算子精度排查 <br>2. 对个别算子进行升精度修复，验证其对模型loss的影响</td>
-        <td>1. 仅支持动态图场景 <br>2. 由于需要拷贝输入进行二次执行，所以在遇到大张量输入时容易发生显存OOM问题, 特别是反向比对过程。建议配置该功能下<a href="https://atomgit.com/Ascend/mstt/blob/br_release_MindStudio_8.2.RC1_TR5_20260923/debug/accuracy_tools/msprobe/docs/02.config_introduction.md#16-task-配置为-free_benchmark">list</a>参数，减少需比对的API数量<br>3. 比对会延长训练时间，整网比对可能会造成严重的耗时膨胀，建议配置该功能下<a href="https://atomgit.com/Ascend/mstt/blob/br_release_MindStudio_8.2.RC1_TR5_20260923/debug/accuracy_tools/msprobe/docs/02.config_introduction.md#16-task-配置为-free_benchmark">list</a>参数，减少需比对的API数量<br>4. 不支持“to cpu”操作，不支持预热功能</td>
+        <td>1. 仅支持动态图场景 <br>2. 由于需要拷贝输入进行二次执行，所以在遇到大张量输入时容易发生显存OOM问题，特别是反向比对过程。建议配置该功能下<a href="https://atomgit.com/Ascend/mstt/blob/br_release_MindStudio_8.2.RC1_TR5_20260923/debug/accuracy_tools/msprobe/docs/02.config_introduction.md#16-task-配置为-free_benchmark">list</a>参数，减少需比对的API数量<br>3. 比对会延长训练时间，整网比对可能会造成严重的耗时膨胀，建议配置该功能下<a href="https://atomgit.com/Ascend/mstt/blob/br_release_MindStudio_8.2.RC1_TR5_20260923/debug/accuracy_tools/msprobe/docs/02.config_introduction.md#16-task-配置为-free_benchmark">list</a>参数，减少需比对的API数量<br>4. 不支持“to cpu”操作，不支持预热功能</td>
     </tr>
 </table>

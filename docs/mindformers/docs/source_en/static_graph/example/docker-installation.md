@@ -61,7 +61,7 @@ Build the **MindSpore Transformers** image as follows:
 
 - Create a folder.
 
-  ```shell
+  ```bash
   # Create a directory for storing Dockerfiles and enter the directory.
   mkdir -p mindformers-Dockerfiles
   cd mindformers-Dockerfiles

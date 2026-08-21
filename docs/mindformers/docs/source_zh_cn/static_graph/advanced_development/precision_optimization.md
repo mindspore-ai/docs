@@ -285,7 +285,7 @@ $$
 localnorm = \sqrt{x_1^2 + x_2^2 + \cdots + x_n^2}
 $$
 
-其中 $x_1 ， x_2， \cdots， x_n$ 为某一个权重的梯度。MindSpore Transformers中支持通过yaml配置打印local norm，配置方式如下所示：
+其中 $x_1 ，x_2，\cdots，x_n$ 为某一个权重的梯度。MindSpore Transformers中支持通过yaml配置打印local norm，配置方式如下所示：
 
 ```yaml
 # wrapper cell config
@@ -500,7 +500,7 @@ class MFTrainOneStepCell(nn.TrainOneStepWithLossScaleCell):
 
 * Weight decay实现不一致，用户PyTorch网络所有权重均进行weight decay。MindSpore Transformers中bias权重及一维权重默认不进行weight decay。
 
-修复问题后，再次进行实验，训练1万step，loss差异在0轴附近波动，且小于0.03， 精度符合预期，单卡精度对齐。
+修复问题后，再次进行实验，训练1万step，loss差异在0轴附近波动，且小于0.03，精度符合预期，单卡精度对齐。
 
 完成单卡训练后，启动多卡训练测试：设置learning rate=1e-5，训练1千step。训练后期收敛一致，但训练中期存在稳定的0.05误差。
 

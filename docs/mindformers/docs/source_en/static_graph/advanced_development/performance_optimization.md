@@ -163,7 +163,7 @@ MindSpore Transformers itself integrates profiling data collection with the foll
 
    The collection tool does not generate files of mstx information directly, so it need to be extracted from `profile` folder manually via command line. Taking the first device for example, the corresponding directory structure is shown below:
 
-   ```sh
+   ```bash
    output
    └── profile
        └── rank_0
@@ -173,7 +173,7 @@ MindSpore Transformers itself integrates profiling data collection with the foll
 
    Execute the command below:
 
-   ```shell
+   ```bash
    msprof --export=on --output={path}/output/profile/rank_0/{hostname}_{pid}_{timestamp}_ascend_ms/PROF_{number}_{timestamp}_{string} # replace with the real path
    ```
 
@@ -194,7 +194,7 @@ context:
 
 Create a new script `dry_run.sh` with the following contents:
 
-```shell
+```bash
 #!/bin/bash
 
 YAML_FILE=$1
@@ -220,7 +220,7 @@ done
 
 Execute the script:
 
-```shell
+```bash
 bash dry_run.sh $train.yaml $rank_size $stage
 ```
 

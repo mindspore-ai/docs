@@ -109,7 +109,7 @@ moe_config:
 When using the gmm fusion operator, an error may occur if the workload is unbalanced, resulting in no tokens being assigned to an expert on a specific NPU. The error is as follows:
 
 ```text
-ValueError: For primitive[Reshape]， the accumulate of x_shape must be equal to out_shape, but got x_shape: [const vector]{}, and output_shape: [const vector]{0, hiddensize}
+ValueError: For primitive[Reshape], the accumulate of x_shape must be equal to out_shape, but got x_shape: [const vector]{}, and output_shape: [const vector]{0, hiddensize}
 ```
 
 In this case, you can configure `enable_gmm_safe_tokens: True` to ensure each expert is assigned at least 1 token, avoiding program errors.

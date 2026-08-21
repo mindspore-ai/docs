@@ -984,7 +984,7 @@ ${STMSTM32CubePrg_PATH}为`STMSTM32CubePrg`安装路径。关于命令中的各�
 
 使用converter_lite编译[lenet模型](https://download.mindspore.cn/model_zoo/official/lite/quick_start/micro/mnist.tar.gz)，生成对应轻鸿蒙平台的推理代码，命令如下：
 
-```shell
+```bash
 ./converter_lite --fmk=TFLITE --modelFile=mnist.tflite --outputFile=${SOURCE_CODE_DIR} --configFile=${COFIG_FILE}
 ```
 
@@ -1125,7 +1125,7 @@ name: int8toft32_Softmax-7_post0/output-0, DataType: 43, Elements: 10, Shape: [1
 
 模型生成代码方式与非自定义算子模型保持一致：
 
-```shell
+```bash
 
 ./converter_lite --fmk=TFLITE --modelFile=mnist.tflite --outputFile=${SOURCE_CODE_DIR} --configFile=${COFIG_FILE}
 
@@ -1155,7 +1155,7 @@ int CustomKernel(TensorC *inputs, int input_num, TensorC *outputs, int output_nu
 
 用户需要提供该函数的实现，并将相关源码或者库集成到生成代码的cmake工程中。例如，我们提供了支持海思NNIE的custom kernel示例动态库libmicro_nnie.so，该文件包含在[官网下载页](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html)“NNIE 推理runtime库、benchmark工具”组件中。用户需要修改生成代码的CMakeLists.txt，添加链接的库名称和路径。例如：
 
-```shell
+```bash
 
 link_directories(<YOUR_PATH>/mindspore-lite-1.8.1-linux-aarch32/providers/Hi3516D)
 
@@ -1167,7 +1167,7 @@ target_link_libraries(benchmark net micro_nnie nnie mpi VoiceEngine upvqe dnvqe 
 
 在生成的`benchmark/benchmark.c`文件中，在main函数的调用前后添加[NNIE设备相关初始化代码](https://atomgit.com/mindspore/mindspore-lite/blob/master/mindspore-lite/test/config_level0/micro/svp_sys_init.c)，最后进行源码编译：
 
-```shell
+```bash
 
 mkdir build && cd build
 

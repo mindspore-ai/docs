@@ -163,7 +163,7 @@ MindSpore Transformers本身集成了profiling数据采集的功能，使用步�
 
    mstx记录信息不会由采集工具直接生成，需要手动通过命令行从`profile`文件夹中提取。以第一张卡为例，如下为相应的目录结构:
 
-   ```sh
+   ```bash
    output
    └── profile
        └── rank_0
@@ -173,7 +173,7 @@ MindSpore Transformers本身集成了profiling数据采集的功能，使用步�
 
    执行以下命令：
 
-   ```shell
+   ```bash
    msprof --export=on --output={path}/output/profile/rank_0/{hostname}_{pid}_{时间戳}_ascend_ms/PROF_{数字}_{时间戳}_{字符串} # 替换为实际路径
    ```
 
@@ -194,7 +194,7 @@ context:
 
 新建脚本`dry_run.sh`，脚本内容如下：
 
-```shell
+```bash
 #!/bin/bash
 
 YAML_FILE=$1
@@ -220,7 +220,7 @@ done
 
 执行脚本：
 
-```shell
+```bash
 bash dry_run.sh $train.yaml $rank_size $stage
 ```
 

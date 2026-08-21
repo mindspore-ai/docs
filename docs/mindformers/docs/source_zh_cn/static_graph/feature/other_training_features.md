@@ -109,7 +109,7 @@ moe_config:
 使用GroupedMatmul融合算子，在负载不均衡时可能会出现某张卡上的专家未被分配任何token的情况，导致程序报错。报错如下：
 
 ```text
-ValueError: For primitive[Reshape]， the accumulate of x_shape must be equal to out_shape, but got x_shape: [const vector]{}, and output_shape: [const vector]{0, hiddensize}
+ValueError: For primitive[Reshape]，the accumulate of x_shape must be equal to out_shape, but got x_shape: [const vector]{}, and output_shape: [const vector]{0, hiddensize}
 ```
 
 此时，可以配置`enable_gmm_safe_tokens: True`，保证每个专家至少分配1个tokens，避免程序报错。
@@ -256,7 +256,7 @@ JSON配置文件示例如下，详细配置可参考 [使用 JSON 统一配置 C
 }
 ```
 
-> 在 JSON 文件中， CPU 的配置方式使用 **绝对 CPU ID** ，例如 JSON 中 `"main": "10-12"` 表示直接绑定到物理 CPU ID 10、11、12；自定义配置（`affinity_cpu_list` + `module_to_cpu_dict`）使用 **绝对CPU范围段 + 相对索引机制** ，`affinity_cpu_list` 定义可用范围（绝对 ID），`module_to_cpu_dict` 在该范围内使用索引，例如 `affinity_cpu_list: ["10-20"]`，`module_to_cpu_dict: {main: [0, 1, 2]}` 表示在范围 10-20 中选择索引 0、1、2，即绑定到物理 CPU ID 10、11、12。
+> 在 JSON 文件中，CPU 的配置方式使用 **绝对 CPU ID** ，例如 JSON 中 `"main": "10-12"` 表示直接绑定到物理 CPU ID 10、11、12；自定义配置（`affinity_cpu_list` + `module_to_cpu_dict`）使用 **绝对CPU范围段 + 相对索引机制** ，`affinity_cpu_list` 定义可用范围（绝对 ID），`module_to_cpu_dict` 在该范围内使用索引，例如 `affinity_cpu_list: ["10-20"]`，`module_to_cpu_dict: {main: [0, 1, 2]}` 表示在范围 10-20 中选择索引 0、1、2，即绑定到物理 CPU ID 10、11、12。
 
 #### 主要配置参数介绍
 

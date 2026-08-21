@@ -311,7 +311,7 @@ Harness支持pip安装和源码编译安装两种方式。pip安装更简单快�
 
 用户可以执行如下命令安装Harness（推荐使用0.4.4版本）：
 
-```shell
+```bash
 pip install lm_eval==0.4.4
 ```
 
@@ -385,7 +385,7 @@ Harness评测支持单机单卡、单机多卡、多机多卡场景，每种场�
 
 1. 单卡评测样例
 
-   ```shell
+   ```bash
       source toolkit/benchmarks/run_harness.sh \
        --register_path mindformers/research/llama3_1 \
        --model mf \
@@ -395,7 +395,7 @@ Harness评测支持单机单卡、单机多卡、多机多卡场景，每种场�
 
 2. 多卡评测样例
 
-   ```shell
+   ```bash
       source toolkit/benchmarks/run_harness.sh \
        --register_path mindformers/research/llama3_1 \
        --model mf \
@@ -411,7 +411,7 @@ Harness评测支持单机单卡、单机多卡、多机多卡场景，每种场�
 
    节点0（主节点）命令：
 
-   ```shell
+   ```bash
       source toolkit/benchmarks/run_harness.sh \
        --register_path mindformers/research/llama3_1 \
        --model mf \
@@ -422,7 +422,7 @@ Harness评测支持单机单卡、单机多卡、多机多卡场景，每种场�
 
    节点1（副节点）命令：
 
-   ```shell
+   ```bash
       source toolkit/benchmarks/run_harness.sh \
        --register_path mindformers/research/llama3_1 \
        --model mf \
@@ -433,7 +433,7 @@ Harness评测支持单机单卡、单机多卡、多机多卡场景，每种场�
 
    节点n（副节点）命令：
 
-   ```shell
+   ```bash
       source toolkit/benchmarks/run_harness.sh \
        --register_path mindformers/research/llama3_1 \
        --model mf \
@@ -450,7 +450,7 @@ Harness评测支持单机单卡、单机多卡、多机多卡场景，每种场�
    - `NODE_RANK`为当前节点的rank id；
    - `CLUSTER_TIME_OUT`为分布式启动的等待时间，单位为秒。
 
-   多机多卡评测需要分别在不同节点运行脚本，并将参数MASTER_ADDR设置为主节点的ip地址， 所有节点设置的ip地址相同，不同节点之间仅参数NODE_RANK不同。
+   多机多卡评测需要分别在不同节点运行脚本，并将参数MASTER_ADDR设置为主节点的ip地址，所有节点设置的ip地址相同，不同节点之间仅参数NODE_RANK不同。
 
 ### 查看评测结果
 
@@ -486,7 +486,7 @@ MindSpore Transformers 提供了一份 [safetensors 权重合并脚本](https://
 
 合并指令参考如下（对第 1000 步训练权重进行去 adam 优化器参数合并，且训练权重在保存时开启了去冗余功能）：
 
-```shell
+```bash
 python toolkit/safetensors/unified_safetensors.py \
   --src_strategy_dirs output/strategy \
   --mindspore_ckpt_dir output/checkpoint \
@@ -533,7 +533,7 @@ Qwen3 训练配置主要修改点包括：
 
 如，以 Qwen3 单卡推理为例，拉起推理任务的指令为：
 
-```shell
+```bash
 python run_mindformer.py \
 --config configs/qwen3/predict_qwen3.yaml \
 --run_mode predict \

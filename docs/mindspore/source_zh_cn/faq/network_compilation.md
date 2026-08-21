@@ -58,7 +58,7 @@ class Net(nn.Cell):
         if a > b:    # if的两个分支返回值的type不一致
             return self.relu(x)    # shape: (2, 3, 4, 5), dtype:Float32
         else:
-            return self.cast(self.relu(x), ms.float16)    # shape: (2, 3, 4, 5)， dtype:Float16
+            return self.cast(self.relu(x), ms.float16)    # shape: (2, 3, 4, 5)，dtype:Float16
 
 input_x = ms.Tensor(np.random.rand(2, 3, 4, 5).astype(np.float32))
 input_a = ms.Tensor(2, ms.float32)

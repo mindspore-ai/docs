@@ -659,7 +659,7 @@ class CacheManager:
 
 ### Sampler
 
-当主干网络计算完毕后，此时网络的输出是一个shape为[batch_size， vocab_size]的词表，表示batch中多个推理请求的下一个单词的概率分布，需要从中选择一个词作为最终的结果返回，此处为了简单和消除随机性，每次都选择概率最大的单词作为输出，即通过一次argmax计算，代码可以参考如下：
+当主干网络计算完毕后，此时网络的输出是一个shape为[batch_size，vocab_size]的词表，表示batch中多个推理请求的下一个单词的概率分布，需要从中选择一个词作为最终的结果返回，此处为了简单和消除随机性，每次都选择概率最大的单词作为输出，即通过一次argmax计算，代码可以参考如下：
 
 ```python
 from mindspore import Tensor

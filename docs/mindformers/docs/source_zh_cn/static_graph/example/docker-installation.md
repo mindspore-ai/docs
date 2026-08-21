@@ -61,7 +61,7 @@ Dockerfile的内容可参考[社区 issue](https://atomgit.com/mindspore/mindfor
 
 - 创建文件夹
 
-  ```shell
+  ```bash
   # 创建并进入存放 Dockerfile 的目录
   mkdir -p mindformers-Dockerfiles
   cd mindformers-Dockerfiles

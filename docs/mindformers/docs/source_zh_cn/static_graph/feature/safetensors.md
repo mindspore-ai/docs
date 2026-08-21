@@ -128,7 +128,7 @@ output
 | 文件                                | 描述                                                         |
 | ----------------------------------- | ------------------------------------------------------------ |
 | meta.json                           | 记录最后保存的权重的 `epoch` 、 `step` 和权重名，每个 rank 进程独立维护一个 `meta.json` 文件。 |
-| {prefix}-{epoch}_{step}.safetensors | 保存的权重文件， `prefix` 包含 rank_id 信息，格式为 `{prefix}-{epoch}_{step}.safetensors` 。如果前缀相同的文件已经存在，系统会自动递增后缀。<br>开启数据下沉时， `epoch` 位置计算方式为 $\frac{CurrentTotalStepNumber}{SinkSize} = \frac{((CurrentEpoch-1)*StepsPerEpoch+CurrentStepInEpoch)}{SinkSize}$，`step` 固定为 `sink_size` 。 |
+| {prefix}-{epoch}_{step}.safetensors | 保存的权重文件，`prefix` 包含 rank_id 信息，格式为 `{prefix}-{epoch}_{step}.safetensors` 。如果前缀相同的文件已经存在，系统会自动递增后缀。<br>开启数据下沉时，`epoch` 位置计算方式为 $\frac{CurrentTotalStepNumber}{SinkSize} = \frac{((CurrentEpoch-1)*StepsPerEpoch+CurrentStepInEpoch)}{SinkSize}$，`step` 固定为 `sink_size` 。 |
 
 ### 配置与使用
 

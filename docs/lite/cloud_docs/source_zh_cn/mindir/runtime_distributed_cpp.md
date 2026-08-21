@@ -59,7 +59,7 @@ if (device_info == nullptr) {
   std::cerr << "New AscendDeviceInfo failed." << std::endl;
   return nullptr;
 }
-// Set Atlas training series device id， rank id and provider.
+// Set Atlas training series device id, rank id and provider.
 device_info->SetDeviceID(device_id);
 device_info->SetRankID(rank_id);
 device_info->SetProvider("ge");

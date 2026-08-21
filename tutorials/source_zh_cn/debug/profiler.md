@@ -180,7 +180,7 @@ for _ in range(STEP_NUM):
 
 环境变量使能方式的相关配置项样例如下：
 
-```shell
+```bash
 export MS_PROFILER_OPTIONS='
 {"start": true,
 "output_path": "/XXX",
@@ -237,7 +237,7 @@ mstx.range_end(range_id)
 > - 以下数据文件用户无需打开查看，可根据[MindStudio Insight用户指南](https://www.hiascend.com/document/detail/zh/mindstudio/80RC1/msinsightug/msascendinsightug/AscendInsight_0002.html)指导进行性能数据的查看和分析。
 > - 以下是结果文件全集。MindSpore Profiler接口将框架侧的数据与CANN Profiling的数据关联整合，形成trace、kernel以及memory等性能数据文件于`ASCEND_PROFILER_OUTPUT`目录下。实际文件数量和内容根据用户的参数配置以及实际的训练场景生成。如果用户没有使能相关参数或是训练中没有涉及到相关场景，则不会生成对应的数据文件。  
 
-```sh
+```bash
 └── localhost.localdomain_*_ascend_ms  // 采集、解析结果目录，命名格式：{worker_name}_{时间戳}_ascend_ms，默认情况下{worker_name}为{hostname}_{pid}
     ├── profiler_info_{Rank_ID}.json   // 用于记录Profiler相关的元数据，Rank_ID为卡号
     ├── profiler_metadata.json         // 用来保存用户通过add_metadata接口添加的信息和其他Profiler相关的元数据

@@ -145,7 +145,7 @@ bash msrun_launcher.sh [EXECUTE_ORDER] [WORKER_NUM] [LOCAL_WORKER] [MASTER_ADDR]
 
 2. 执行`run_mindformer.py`启动单卡的微调任务，下面提供了一个使用示例：
 
-    ```shell
+    ```bash
     python run_mindformer.py \
      --config configs/qwen3/finetune_qwen3.yaml \
      --use_parallel False \
@@ -217,7 +217,7 @@ bash msrun_launcher.sh [EXECUTE_ORDER] [WORKER_NUM] [LOCAL_WORKER] [MASTER_ADDR]
 
     多机多卡执行脚本进行分布式任务需要分别在不同节点运行脚本，并将参数`MASTER_ADDR`设置为主节点的ip地址，所有节点设置的ip地址相同，不同节点之间仅参数`NODE_RANK`不同。
 
-    ```shell
+    ```bash
     # 节点0作为主节点, {master_addr}处填写节点0实际ip, 总共16卡且每个节点8卡
     bash scripts/msrun_launcher.sh "run_mindformer.py \
       --config configs/qwen3/finetune_qwen3.yaml \
