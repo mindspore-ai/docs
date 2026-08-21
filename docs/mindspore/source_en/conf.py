@@ -331,7 +331,10 @@ decorator_list = [("mindspore/common/_decorator.py", "deprecated",
                    ("mindspore/nn/cell.py","generate api",
                    "    @jit_forbidden_register","    # generate api by del decorator."),
                    ("mindspore/profiler/dynamic_profiler.py","generate api",
-                   "    @no_exception_func()","    # generate api by del decorator.")]
+                   "    @no_exception_func()","    # generate api by del decorator."),
+                   ("mindspore/ops/operations/math_ops.py", "fix math formula",
+                    "\\end{matrix}\\right",
+                    "\\end{matrix}\\right.")]
 
 base_path = os.path.dirname(os.path.dirname(sphinx.__file__))
 for i in decorator_list:
