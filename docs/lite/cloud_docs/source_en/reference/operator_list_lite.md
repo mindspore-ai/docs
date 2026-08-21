@@ -2,7 +2,7 @@
 
 [![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/lite/cloud_docs/source_en/reference/operator_list_lite.md)
 
-| Operator Names                            | Operator Functions                                                     | CPU                                                 | Kirin NPU | GPU (Mali/Adreno)        | Ascend  |
+| Operator Names                            | Operator Functions                                                     | CPU&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                                                 | Kirin NPU | GPU (Mali/Adreno)        | Ascend  |
 | ----------------------------------- | ------------------------------------------------------------ | --------------------------------------------------- | --------- | ----------------------- | ----------------------- |
 | Abs                                 | Element-wise calculate the absolute value                                             | FP16<br>FP32<br/>Int32<br/>Int8<br/>UInt8           | FP16      | FP16<br/>FP32           | FP16       |
 | AbsGrad                             | Compute the gradient of the absolute value function                                         | FP32                                                | -         | -                       |                        |
