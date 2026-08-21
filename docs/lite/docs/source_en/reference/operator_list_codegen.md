@@ -4,7 +4,7 @@
 
 This article lists the operators supported by MindSpore Lite Codegen.
 
-| Operation <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   | CPU<br/>FP32 | CPU<br/>Int8 | CMSIS<br/>Int8  | TensorFlow Lite<br/>operators supported    | Caffe Lite<br/>operators supported  | Onnx Lite<br/>operators supported          |TensorFlow<br/>operators supported          |
+| Operation <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   | CPU<br/>FP32 | CPU<br/>Int8 | CMSIS<br/>Int8  | TensorFlow Lite<br/>operators supported    | Caffe Lite<br/>operators supported  | Onnx Lite<br/>operators supported          |TensorFlow<br/>operators supported          |
 |-----------------------|:--------------:|:--------------:|:-----------------:|---------------------------------|--------------------------|-------------------------------------------------|-------------------------------------------------|
 | Abs                   | ✅    |              |                 | Abs                             |                          | Abs                                             |                                                 |
 | Add                   | ✅    | ✅    | ✅       | Add                             |                          | Add, Int8Add                                    | Add, AddV2                                      |

@@ -4,7 +4,7 @@
 
 本文列举MindSpore Lite Codegen支持的算子。
 
-| 操作名 <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   | CPU<br/>FP32 | CPU<br/>Int8 | CMSIS<br/>Int8  | 支持的TensorFlow Lite算子    | 支持的Caffe Lite算子  | 支持的Onnx Lite算子                          |支持的TensorFlow算子                         |
+| 操作名 <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   | CPU<br/>FP32 | CPU<br/>Int8 | CMSIS<br/>Int8  | 支持的TensorFlow Lite<br/>算子    | 支持的Caffe Lite<br/>算子  | 支持的Onnx Lite<br/>算子                          |支持的TensorFlow<br/>算子                         |
 |-----------------------|:--------------:|:--------------:|:-----------------:|---------------------------------|--------------------------|-------------------------------------------------|-------------------------------------------------|
 | Abs                   | ✅    |              |                 | Abs                             |                          | Abs                                             |                                                 |
 | Add                   | ✅    | ✅    | ✅       | Add                             |                          | Add,<br/>Int8Add                                    | Add, AddV2                                      |
