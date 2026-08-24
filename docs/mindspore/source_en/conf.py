@@ -132,12 +132,7 @@ mathjax_options = {
 }
 
 # config for require.min.js
-nbsphinx_requirejs_path = 'https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js'
-
-nbsphinx_requirejs_options = {
-    "crossorigin": "anonymous",
-    "integrity": "sha256-1fEPhSsRKlFKGfK3eO710tEweHh1fwokU5wFGDHO+vg="
-}
+nbsphinx_requirejs_path = ''
 
 # Intelligent punctuation replacement
 smartquotes_action = 'De'
