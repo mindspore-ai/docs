@@ -61,7 +61,6 @@ extensions = [
     'sphinx.ext.viewcode',
     'sphinxcontrib.jquery',
     'myst_parser',
-    'nbsphinx',
     'sphinx.ext.mathjax',
     'IPython.sphinxext.ipython_console_highlighting'
 ]
@@ -81,13 +80,6 @@ mathjax_path = 'https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/mathj
 
 mathjax_options = {
     'async':'async'
-}
-
-nbsphinx_requirejs_path = 'https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js'
-
-nbsphinx_requirejs_options = {
-    "crossorigin": "anonymous",
-    "integrity": "sha256-1fEPhSsRKlFKGfK3eO710tEweHh1fwokU5wFGDHO+vg="
 }
 
 smartquotes_action = 'De'
@@ -369,7 +361,7 @@ for cur, _, files in os.walk(moment_dir):
 
 
 sys.path.append(os.path.abspath('../../../../resource/sphinx_ext'))
-import nbsphinx_mod
+
 
 # 发版本时这里启用
 src_release = os.path.join(os.getenv("MFM_PATH"), 'RELEASE_CN.md')
