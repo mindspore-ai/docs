@@ -14,8 +14,8 @@ MindSpore Documentation
 .. raw:: html
 
    <div class="container">
-			<div class="row">
-				<div class="col-md-6">
+      <div class="row">
+         <div class="col-md-6">
                <div class="doc-article-list">
                   <div class="doc-article-item">
                      <a href="./features/overview.html" class="article-link">
@@ -29,27 +29,9 @@ MindSpore Documentation
                         </div>
                      </a>
                   </div>
-					</div>
-				</div>
-            <div class="col-md-6">
-               <div class="doc-article-list">
-                  <div class="doc-article-item">
-                     <a href="./features/models/official_models.html" class="article-link">
-                        <div>
-                           <div class="doc-article-head">
-                              <span class="doc-head-content">Model Library</span>
-                           </div>
-                           <div class="doc-article-desc">
-                              Contains model examples and performance data for different domains.
-                           </div>
-                        </div>
-                     </a>
-                  </div>
-					</div>
-				</div>
+               </div>
          </div>
-         <div class="row">
-            <div class="col-md-6">
+         <div class="col-md-6">
                <div class="doc-article-list">
                   <div class="doc-article-item">
                      <a href="./api_python/mindspore.html" class="article-link">
@@ -63,61 +45,11 @@ MindSpore Documentation
                         </div>
                      </a>
                   </div>
-					</div>
-				</div>
-            <div class="col-md-6">
-               <div class="doc-article-list">
-                  <div class="doc-article-item">
-                     <a href="./note/api_mapping/pytorch_api_mapping.html" class="article-link">
-                        <div>
-                           <div class="doc-article-head">
-                              <span class="doc-head-content">API Mapping</span>
-                           </div>
-                           <div class="doc-article-desc">
-                              API mapping between community-provided PyTorch and MindSpore.
-                           </div>
-                        </div>
-                     </a>
-                  </div>
-					</div>
-				</div>
+               </div>
          </div>
-         <div class="row">
-            <div class="col-md-6">
-               <div class="doc-article-list">
-                  <div class="doc-article-item">
-                     <a href="./migration_guide/overview.html" class="article-link">
-                        <div>
-                           <div class="doc-article-head">
-                              <span class="doc-head-content">Migration Guide</span>
-                           </div>
-                           <div class="doc-article-desc">
-                              Complete steps and considerations for migrating neural networks to MindSpore from other machine learning frameworks.
-                           </div>
-                        </div>
-                     </a>
-                  </div>
-					</div>
-				</div>
-            <div class="col-md-6">
-               <div class="doc-article-list">
-                  <div class="doc-article-item">
-                     <a href="./features/program_form/static_graph.html" class="article-link">
-                        <div>
-                           <div class="doc-article-head">
-                              <span class="doc-head-content">Syntax Support</span>
-                           </div>
-                           <div class="doc-article-desc">
-                              Syntax support for static graphs, Tensor indexing, etc.
-                           </div>
-                        </div>
-                     </a>
-                  </div>
-					</div>
-				</div>
-         </div>
-         <div class="row">
-            <div class="col-md-6">
+      </div>
+      <div class="row">
+         <div class="col-md-6">
                <div class="doc-article-list">
                   <div class="doc-article-item">
                      <a href="./faq/installation.html" class="article-link">
@@ -131,9 +63,9 @@ MindSpore Documentation
                         </div>
                      </a>
                   </div>
-					</div>
-				</div>
-            <div class="col-md-6">
+               </div>
+         </div>
+         <div class="col-md-6">
                <div class="doc-article-list">
                   <div class="doc-article-item">
                      <a href="./RELEASE.html" class="article-link">
@@ -147,7 +79,7 @@ MindSpore Documentation
                         </div>
                      </a>
                   </div>
-					</div>
-				</div>
-		   </div>
-	</div>
+               </div>
+         </div>
+      </div>
+   </div>
