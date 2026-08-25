@@ -53,9 +53,8 @@ The processed dataset should be in the following format:
         ]
     },
     {
-      #  "Second data record..."
+      //  "Second data record..."
     },
-    ...
 ]
 ```
 
