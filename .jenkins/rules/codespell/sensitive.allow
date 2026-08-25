@@ -16,3 +16,4 @@ Ascend-cann-kernels-910b_8
 2.9.0-910b-ubuntu22.04-py3.11
 CHIP_ARCH=910b
 2.10.0-cann9.1.0-910b-ubuntu22.04-py3.12
+910b

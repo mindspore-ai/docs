@@ -29,12 +29,10 @@
 
 ### 版本配套关系
 
-动态图（r2.0.0 / 在研版本）需安装以下组件。由于依赖 HyperParallel，**MindSpore 必须 >= 2.10**（建议使用最新版本），CANN 与固件/驱动需与所选 MindSpore 版本对应。
-
-| 组件 | 版本要求 | 获取方式 |
-|---|---|---|
-| MindSpore Transformers | 在研版本（master 分支） | [源码安装](#源码安装) |
-| HyperParallel | 在研版本（与 MindSpore 配套） | [源码安装](#安装-hyperparallel动态图训练必需) |
+| 组件 | 版本要求                | 获取方式                                              |
+|---|---------------------|---------------------------------------------------|
+| MindSpore Transformers | 2.0.0               | [源码安装](#源码安装)、 [pip安装](#pip-安装)                   |
+| HyperParallel | 1.0.0               | [源码安装](#hyperparallel-源码安装)、 [pip安装](#hyperparallel-pip-安装)                       |
 | MindSpore | **>= 2.10**（建议最新版本） | [MindSpore 安装](https://www.mindspore.cn/install/) |
 
 ## 安装 MindSpore Transformers
@@ -45,20 +43,11 @@
 
 | 方式 | 适用场景 | 取得的版本 |
 |---|---|---|
-| **源码安装** | 需要在研（master）最新特性、要改源码或调试 | master 分支当前代码 |
+| **源码安装** | 需要（2.0.0）最新特性、要改源码或调试 | 2.0.0 当前代码 |
 | **pip 安装** | 只想用已发布的稳定版本，环境已就绪 | PyPI 上的发布版本 |
 | **Docker 安装** | 不想在宿主机上动 Python/CANN/MindSpore 环境，希望开箱即用 | 镜像内预置的发布版本 |
 
-> 在研版本（master）目前**仅支持源码安装**；pip 安装对应的是已发布版本，请按[版本配套关系](#版本配套关系)选定版本号。
-
 ### 源码安装
-
-```bash
-# 在研版本（master 分支，最新特性）
-git clone -b master https://atomgit.com/mindspore/mindformers.git
-cd mindformers
-bash build.sh
-```
 
 ```bash
 # r2.0.0 版本（r2.0.0 分支，对应 2.0.0 发布版本）
@@ -84,23 +73,16 @@ bash build.sh
 
 编译前置依赖：源码安装会触发本地打包，请确保已安装 `wheel`、`setuptools`，且 `requirements.txt` 中依赖可正常拉取。若 `bash build.sh` 失败，优先检查：网络能否访问 pip 源、Python 版本是否在受支持范围、是否已成功安装匹配版本的 MindSpore。
 
-### pip 安装（已发布版本）
+### pip 安装
 
 已发布版本可通过 pip 直接安装。版本号请参考上述[版本配套关系](#版本配套关系)表，与已安装的 MindSpore 整行对应：
 
 ```bash
 # 安装与配套表对应的指定版本（推荐，避免错配）
 pip install mindformers==2.0.0
-
-# 或安装 PyPI 上的最新发布版本
-pip install mindformers
 ```
 
-> 指定版本号能确保与已装的 CANN/MindSpore 配套；不带版本号时会安装最新发布版，需自行确认是否与本机 MindSpore 匹配。
->
-> `2.0.0` 当前暂未发布到 PyPI，pip 安装尚不可用。现阶段请使用上述[「源码安装」](#源码安装)方式获取 master 分支代码。
-
-## 安装 HyperParallel（动态图训练必需）
+## 安装 HyperParallel
 
 动态图（PyNative）训练栈依赖 [HyperParallel](https://gitcode.com/mindspore/hyper-parallel/) —— 昇腾超节点亲和的分布式并行加速库。它为动态图提供 `DTensor` / `DeviceMesh`、FSDP/HSDP、流水线并行（PP，1F1B/VPP）调度，以及 MindSpore 动态图反向兼容层等核心能力。
 
@@ -110,9 +92,12 @@ pip install mindformers
 >
 > HyperParallel 要求 **MindSpore >= 2.10**（建议使用最新版本）。请确保本机 MindSpore 满足该要求，详见仓库 README 的安装说明。
 
-以下演示通过源码安装 HyperParallel：
+### HyperParallel 源码安装
+
+以下演示通过源码安装 HyperParallel 1.0.0 版本：
 
 ```bash
+# HyperParallel 1.0.0 版本（r1.0.0 分支）
 git clone https://gitcode.com/mindspore/hyper-parallel.git -b r1.0.0
 cd hyper-parallel
 python setup.py bdist_wheel
@@ -123,6 +108,12 @@ pip install dist/hyper_parallel-*-py3-none-any.whl
 
 ```bash
 python -c "from hyper_parallel import DTensor, DeviceMesh, PipelineStage; print('hyper_parallel OK')"
+```
+
+### HyperParallel pip 安装
+
+```bash
+pip install hyper-parallel==1.0.0 -i https://repo.mindspore.cn/pypi/simple --trusted-host repo.mindspore.cn
 ```
 
 > **Docker 用户**：使用官方预构建镜像或自行构建镜像时，请确认镜像内是否已预置 HyperParallel；若未预置，进入容器后按上述源码方式安装。
@@ -141,8 +132,6 @@ python -c "from hyper_parallel import DTensor, DeviceMesh, PipelineStage; print(
 
 MindSpore Transformers Ascend 镜像托管在华为云 SWR 镜像仓库，开箱即用、无需本地构建。
 
-> 镜像仓库中可能尚未推出2.0及后续版本的官方预构建镜像，请以 [docker/OVERVIEW_CN.md](https://gitcode.com/mindspore/mindformers/blob/r2.0.0/docker/OVERVIEW_CN.md) 中的实际可用 tag 为准。若暂无所需版本，可使用下文的「方式二：自行构建镜像」。
-
 **镜像仓库地址：**
 
 ```text
@@ -152,20 +141,22 @@ swr.cn-south-1.myhuaweicloud.com/ascendhub/mindformers
 **Tag 规范**（系统架构由 Docker Manifest 自动识别，无需在 tag 中指定）：
 
 ```text
-<MindSpore Transformers 版本号>-<硬件信息（芯片）>-<操作系统>-<Python 版本>
+mindformers:<MindSpore Transformers 版本号>-cann-<CANN 版本>-mindspore<MindSpore 版本>-<芯片型号>-<操作系统>-<Python 版本>
 ```
 
 | 字段 | 示例值 | 说明 |
 |---|---|---|
 | 版本号 | `2.0.0` | MindSpore Transformers 发布版本 |
-| 硬件信息（芯片） | `<芯片架构>` | 昇腾芯片型号标识，具体取值见 [docker/OVERVIEW_CN.md](https://gitcode.com/mindspore/mindformers/blob/r2.0.0/docker/OVERVIEW_CN.md) |
+| CANN 版本 | `9.1.0` | CANN 工具包版本 |
+| MindSpore 版本 | `2.10.0` | MindSpore 版本 |
+| 硬件信息（芯片） | `910b` | 昇腾芯片型号标识 |
 | 操作系统 | `ubuntu22.04` / `openeuler24.03` | 基础镜像操作系统发行版 |
 | Python 版本 | `py3.12` | 镜像内置 Python 大版本 |
 
-**拉取镜像**（以 `2.0.0-<芯片架构>-ubuntu22.04-py3.12` 为例）：
+**拉取镜像**（以 `mindformers:2.0.0-cann-9.1.0-mindspore2.10.0-910b-ubuntu22.04-py3.12` 为例）：
 
 ```bash
-docker pull swr.cn-south-1.myhuaweicloud.com/ascendhub/mindformers:2.0.0-<芯片架构>-ubuntu22.04-py3.12
+docker pull swr.cn-south-1.myhuaweicloud.com/ascendhub/mindformers:2.0.0-cann-9.1.0-mindspore2.10.0-910b-ubuntu22.04-py3.12
 ```
 
 > `<芯片架构>` 替换为实际芯片型号，完整取值列表见 [docker/OVERVIEW_CN.md](https://gitcode.com/mindspore/mindformers/blob/r2.0.0/docker/OVERVIEW_CN.md)。可用 `docker manifest inspect <镜像>` 查看镜像支持的系统架构（ARM64 / x86_64）。
@@ -183,7 +174,7 @@ docker build \
   --build-arg MINDSPORE_VERSION=2.10.0 \
   --build-arg MINDFORMERS_VERSION=2.0.0 \
   --build-arg PIP_INDEX_URL=https://mirrors.huaweicloud.com/repository/pypi/simple \
-  -t mindformers:2.0.0-<芯片架构>-ubuntu22.04-py3.12 \
+  -t mindformers:2.0.0-cann-9.1.0-mindspore2.10.0-910b-ubuntu22.04-py3.12 \
   -f docker/Dockerfile .
 ```
 
@@ -275,7 +266,7 @@ python -c "import mindformers as mf;mf.run_check()"
 | 提示 `ASCEND_HOME_PATH` 未设置 / 找不到 CANN 信息 | 检查 CANN 是否安装、是否 `source` 了环境变量 `set_env.sh` |
 | 找不到驱动 version.info | 检查 NPU 驱动/固件是否安装、`npu-smi info` 是否正常 |
 | 版本不匹配 | 按推荐版本与[版本配套关系](#版本配套关系)整行重装 |
-| 运行动态图任务报 `ModuleNotFoundError: hyper_parallel` | 未安装 HyperParallel，见[安装 HyperParallel](#安装-hyperparallel动态图训练必需) |
+| 运行动态图任务报 `ModuleNotFoundError: hyper_parallel` | 未安装 HyperParallel，见[安装 HyperParallel](#安装-hyperparallel) |
 
 ### 运行一步动态图自检
 
