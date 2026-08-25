@@ -55,7 +55,6 @@ The following is an example of a file in `json` format:
 ```json
 {"src": "www.nvidia.com", "text": "The quick brown fox", "type": "Eng", "id": "0", "title": "First Part"}
 {"src": "The Internet", "text": "jumps over the lazy dog", "type": "Eng", "id": "42", "title": "Second Part"}
-...
 ```
 
 The description of each data field is as follows.
