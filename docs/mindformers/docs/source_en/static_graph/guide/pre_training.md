@@ -65,7 +65,6 @@ To create a Megatron-formatted dataset, two steps are required. First, convert t
   ```json
   {"src": "www.nvidia.com", "text": "The quick brown fox", "type": "Eng", "id": "0", "title": "First Part"}
   {"src": "The Internet", "text": "jumps over the lazy dog", "type": "Eng", "id": "42", "title": "Second Part"}
-  ...
   ```
 
 - Convert `jsonl` format data to `bin` format data

@@ -55,7 +55,6 @@ MindSpore Transformers 提供了数据预处理脚本 [preprocess_indexed_datase
 ```json
 {"src": "www.nvidia.com", "text": "The quick brown fox", "type": "Eng", "id": "0", "title": "First Part"}
 {"src": "The Internet", "text": "jumps over the lazy dog", "type": "Eng", "id": "42", "title": "Second Part"}
-...
 ```
 
 各数据字段的说明如下：

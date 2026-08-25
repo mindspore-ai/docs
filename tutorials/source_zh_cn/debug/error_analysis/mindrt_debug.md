@@ -46,14 +46,14 @@ TypeError: The function construct needs 0 positional argument and 0 default argu
 
 静态图模式下，Python代码并不是由Python解释器去执行，而是将代码编译成静态计算图，然后执行静态计算图。MindSpore支持的控制流语法涉及if语句、for语句以及while语句。if语句可能存在不同分支返回对象的属性不一致，导致报错。报错信息如下所示：
 
-```c++
+```text
 TypeError: Cannot join the return values of different branches, perhaps you need to make them equal.
 Type Join Failed: dtype1 = Float32, dtype2 = Float16.
 ```
 
 此时由报错信息可知，报错原因是if语句不同分支返回值的类型不一致：一个是float32，另一个是float16，导致编译报错。
 
-```c++
+```text
 ValueError: Cannot join the return values of different branches, perhaps you need to make them equal.
 Shape Join Failed: shape1 = (2, 3, 4, 5), shape2 = ().
 ```
@@ -66,7 +66,7 @@ Shape Join Failed: shape1 = (2, 3, 4, 5), shape2 = ().
 
 for语句以及while语句可能存在循环次数过大，导致函数调用栈超限的问题。报错信息如下所示：
 
-```c++
+```text
 RuntimeError: Exceed function call depth limit 1000, (function call depth: 1001, simulate call depth: 997).
 ```
 
@@ -82,7 +82,7 @@ RuntimeError: Exceed function call depth limit 1000, (function call depth: 1001,
 
 例如，使用ReduceSum算子时，输入数据超过八维时报错信息如下：
 
-```c++
+```text
 RuntimeError: ({'errCode': 'E80012', 'op_name': 'reduce_sum_d', 'param_name': 'x', 'min_value': 0, 'max_value': 8, 'real_value': 10}, 'In op, the num of dimensions of input/output[x] should be in the range of [0, 8], but actually is [10].')
 ```
 
@@ -92,7 +92,7 @@ RuntimeError: ({'errCode': 'E80012', 'op_name': 'reduce_sum_d', 'param_name': 'x
 
 例如，Parameter参数不支持类型自动转换，使用Parameter算子时，进行数据类型转换时报错，报错信息如下：
 
-```c++
+```text
 RuntimeError: Data type conversion of 'Parameter' is not supported, so data type int32 cannot be converted to data type float32 automatically.
 ```
 

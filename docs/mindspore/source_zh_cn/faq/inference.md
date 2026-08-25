@@ -32,10 +32,8 @@ Atlas 200/300/500推理产品是面向边缘场景的高能效高集成度AI处�
     举例，设环境变量``MINDSPORE_PATH=/path/to/mindspore-lite``，cmake改写为如下方式：
 
     ```cmake
-    ...
     include_directories(${MINDSPORE_PATH})
     include_directories(${MINDSPORE_PATH}/include)
-    ...
 
     if(EXISTS ${MINDSPORE_PATH}/lib/libmindspore-lite.so)
         message(--------------- Compile-with-MindSpore-Lite ----------------)

@@ -65,7 +65,6 @@ MindSpore Transformers 预训练阶段当前已支持[Megatron格式的数据集
   ```json
   {"src": "www.nvidia.com", "text": "The quick brown fox", "type": "Eng", "id": "0", "title": "First Part"}
   {"src": "The Internet", "text": "jumps over the lazy dog", "type": "Eng", "id": "42", "title": "Second Part"}
-  ...
   ```
 
 - `jsonl`格式数据 转为 `bin`格式数据
