@@ -33,10 +33,8 @@ The original Atlas 200/300/500 inference product inference service built based o
     For example, set the environment variable ``MINDSPORE_PATH=/path/to/mindspore-lite``, and cmake is rewritten in the following way:
 
     ```cmake
-    ...
     include_directories(${MINDSPORE_PATH})
     include_directories(${MINDSPORE_PATH}/include)
-    ...
 
     if(EXISTS ${MINDSPORE_PATH}/lib/libmindspore-lite.so)
         message(--------------- Compile-with-MindSpore-Lite ----------------)

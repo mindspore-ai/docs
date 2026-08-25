@@ -33,7 +33,6 @@ Below is an example of a `json` format file:
 ```json
 {"src": "www.nvidia.com", "text": "The quick brown fox", "type": "Eng", "id": "0", "title": "First Part"}
 {"src": "The Internet", "text": "jumps over the lazy dog", "type": "Eng", "id": "42", "title": "Second Part"}
-...
 ```
 
 The descriptions for each data field are as follows:
