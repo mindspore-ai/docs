@@ -17,7 +17,7 @@ AICORE operator compilation errors will start with `E5`~`EB` according to differ
 
 ### E80000: StridedSliceGradD Illegal Input Value
 
-```c++
+```text
 [WARNING] CORE(51545,ffff8ba74480,python):2019-07-25-19:17:35.411.770 [mindspore/core/ir/anf_extends.cc:66] fullname_with_scope] Input 0 of cnode is not a value node, its type is CNode.
 [WARNING] DEVICE(51545,ffff8ba74480,python):2019-07-25-19:17:41.850.324 [mindspore/ccsrc/runtime/hardware/ascend/ascend_graph_optimization.cc:255] SelectKernel] There are 2 node/nodes used raise precision to selected the kernel!
 [CRITICAL] KERNEL(51545,ffff8ba74480,python):2019-07-25-19:17:54.525.980 [mindspore/ccsrc/backend/kernel_compiler/tbe/tbe_kernel_compile.cc:494] QueryProcess] Single op compile failed, op: strided_slice_grad_d_1157509189447431479_0
@@ -54,7 +54,7 @@ From the error message of the above error code, we can see that the first data i
 
 ### E80012: ReduceSum Operator Input Dimension Is Too High
 
-```c++
+```text
 RuntimeError: ({'errCode': 'E80012', 'op_name': 'reduce_sum_d', 'param_name': 'x', 'min_value': 0, 'max_value': 8, 'real_value': 10}, 'In op, the num of dimensions of input/output[x] should be in the range of [0, 8], but actually is [10].')
 ```
 
@@ -62,7 +62,7 @@ As you can see from the error message in the error code above, the input and out
 
 ### E80029: Assign Operator Shape Inconsistency
 
-```c++
+```text
 RuntimeError: ({'errCode': 'E80029', 'op_name': 'assign', 'param_name1': 'ref', 'param_name2': 'value', 'error_detail': 'Shape of ref and value should be same'}, 'In op[assign], the shape of inputs[ref][value] are invalid, [Shape of ref and value should be same].')
 ```
 
@@ -70,7 +70,7 @@ The logic of the Assign operator is to use the second input (i.e. value) to assi
 
 ### EB0000: Transpose Specifications Are Not Supported
 
-```c++
+```text
 [ERROR] KERNEL(1062,fffe557fa160,python):2021-10-11-22:37:53.881.210 [mindspore/ccsrc/backend/kernel_compiler/tbe/tbe_kernel_parallel_build.cc:99] TbeOpParallelBuild] task compile Failed, task id:3, cause:TBEException:ERROR:
 
 Traceback (most recent call last):
@@ -127,7 +127,7 @@ From the error message reported in the above error code, we can see that the spe
 
 Generally AICORE operator execution failure will report `EZ9999` error, while MindSpore side will have `Call rt api rtStreamSynchronize failed` error log. According to the error code log, it may be possible to specify the operator that failed to execute, such as the following error reporting scenario where the execution of the Add operator failed:
 
-```c++
+```text
 [EXCEPTION] GE(118114,ffff4effd1e0,python):2021-09-11-16:48:31.511.063 [mindspore/ccsrc/runtime/device/ascend/ge_runtime/runtime_model.cc:233] Run] Call rt api rtStreamSynchronize failed, ret: 507011
 [WARNING] DEVICE(118114,ffff4effd1e0,python):2021-09-11-16:48:31.511.239 [mindspore/ccsrc/runtime/device/ascend/ascend_kernel_runtime.cc:662] GetDumpPath] MS_OM_PATH is null, so dump to process local path, as ./rank_id/node_dump/...
 [ERROR] DEVICE(118114,ffff4effd1e0,python):2021-09-11-16:48:31.511.290 [mindspore/ccsrc/runtime/device/ascend/ascend_kernel_runtime.cc:679] DumpTaskExceptionInfo] Task fail infos task_id: 13, stream_id: 14, tid: 118198, device_id: 0, retcode: 507011 ( model execute failed)
@@ -171,7 +171,7 @@ The AICPU operator problem error starts with `E3`.
 
 Generally the AICPU operator will report `E39999` error during operator execution failure, while there will be `Call rt api rtStreamSynchronize failed` error log on MindSpore side. According to the error code log, it is possible to specify the operator that failed to execute, such as the following error reporting scenario:
 
-```c++
+```text
 [ERROR] RUNTIME(150840,python):2021-09-14-09:26:01.014.355 [engine.cc:914]150900 ReportExceptProc:Task exception! device_id=0, stream_id=117, task_id=23, type=13, retCode=0x91.
 [ERROR] RUNTIME(150840,python):2021-09-14-09:26:01.014.485 [task.cc:600]150900 PrintAicpuErrorInfo:Aicpu kernel execute failed, device_id=0, stream_id=116, task_id=2, fault so_name=libaicpu_kernels.so, fault kernel_name=GetNext, fault op_name=, extend_info=.
 [ERROR] RUNTIME(150840,python):2021-09-14-09:26:01.014.498 [task.cc:2292]150900 ReportErrorInfo:model execute error, retCode=0x91, [the model stream execute failed].
@@ -206,7 +206,7 @@ The Runtime module takes over the calls of MindSpore, ACL, GE, HCCL and schedule
 
 When the On-Chip memory requested by the framework exceeds the remaining memory of the Device, a `halMemAlloc failed` error is reported, as shown in the following error scenario:
 
-```c++
+```text
 [EXCEPTION] DEVICE(170414,fffe397fa1e0,python):2021-09-13-15:29:07.465.388 [mindspore/ccsrc/runtime/device/ascend/ascend_memory_manager.cc:62] MallocDeviceMemory] Malloc device memory failed, size[32212254720], ret[207001], Device 6 may be other processes occupying this card, check as: ps -ef|grep python
 [ERROR] DEVICE(170414,fffe397fa1e0,python):2021-09-13-15:29:07.466.049 [mindspore/ccsrc/runtime/device/ascend/ascend_kernel_runtime.cc:375] Init] Ascend error occurred, error message:
 EE9999: Inner Error!
@@ -248,7 +248,7 @@ When encounter such an error, you can first check whether the card running the p
 
 In addition, currently MindSpore will verify the remaining Device memory of the device during program initialization. If the remaining Device memory is less than half of the total, the following error will be reported to indicate that the device is occupied:
 
-```c++
+```text
 [CRITICAL] DEVICE(164104,ffff841795d0,python):2022-12-01-03:58:52.033.238 [mindspore/ccsrc/runtime/device/kernel_runtime.cc:124] LockRuntime] The pointer[stream] is null.
 [ERROR] DEVICE(164104,ffff841795d0,python):2022-12-01-03:58:52.033.355 [mindspore/ccsrc/runtime/device/kernel_runtime_manager.cc:138] WaitTaskFinishOnDevice] SyncStream failed, exception:The pointer[stream] is null.
 
@@ -296,7 +296,7 @@ Malloc device memory failed, free memory size is less than half of total memory 
 
 The operator or task of runtime is generally related to the control flow, such as event wait, send, recv, etc. When the task of runtime fails, it will report an `EE9999 Task execute failed` error, as below:
 
-```c++
+```text
 [CRITICAL] DEVICE(160186,fffd5affd0f0,python):2023-01-10-09:15:46.798.038 [mindspore/ccsrc/plugin/device/ascend/hal/device/ascend_data_queue.cc:291] ParseType] Got unsupported acl datatype: -1
 [ERROR] MD(160186,fffd5affd0f0,python):2023-01-10-09:15:46.798.688 [mindspore/ccsrc/minddata/dataset/util/task.cc:75] operator()] Unexpected error. Got unsupported acl datatype: -1
 
@@ -384,7 +384,7 @@ If the problem is not caused by GetNext timeout, users can submit issues to [Min
 
 Users can specify which card their application runs on by using the environment variable DEVICE_ID or by setting the device_id in the context. If the device id is not set correctly, it may report `EE1001` error, such as the following error scenario. There are only 8 cards in the server, the available device id range is [0, 8), and the user incorrectly set the device_id=8.
 
-```c++
+```text
 Traceback (most recent call last):
   File "train.py", line 379, in <module>
     train_net()
@@ -428,7 +428,7 @@ The error codes for HCCL & HCCP start with `EI` and `EJ`. Throughout the communi
 
 When the socket build timeout occurs, it will report an `EI0006` error, and the MindSpore log will show a `Distribute Task Failed` error. This means the cluster has a socket build timeout error, as shown in the following log:
 
-```c++
+```text
 [ERROR] ASCENDCL(83434,python):2022-11-30-23:31:08.729.325 [tensor_data_transfer.cpp:899]89062 acltdtSendTensor: [Push][Data]failed to send, tdt result = -1, device is 1, name is 62576f78-70c2-11ed-b633-000132214e48
 [WARNING] DEVICE(83434,fffcf1ffb1e0,python):2022-11-30-23:31:08.986.720 [mindspore/ccsrc/plugin/device/ascend/hal/device/ascend_data_queue.cc:257] Push] Device queue thread had been interrupted by TdtHandle::DestroyHandle, you can ignore the above error: 'failed to send...'. In this scenario, the training ends first without using all epoch(s) data, and the data preprocessing is blocked by the data transmission channel on the device side. So we force the data transmission channel to stop.
 [WARNING] MD(83434,ffff852cf5d0,python):2022-11-30-23:31:08.999.090 [mindspore/ccsrc/minddata/dataset/engine/datasetops/data_queue_op.cc:93] ~DataQueueOp] preprocess_batch: 49; batch_queue: 0, 0, 0, 0, 0, 0, 0, 0, 0, 64; push_start_time: 2022-11-30-23:19:41.234.869, 2022-11-30-23:19:41.273.919, 2022-11-30-23:19:41.333.753, 2022-11-30-23:19:41.415.529, 2022-11-30-23:19:41.479.177, 2022-11-30-23:19:41.557.576, 2022-11-30-23:19:41.605.967, 2022-11-30-23:19:41.682.957, 2022-11-30-23:19:41.719.645, 2022-11-30-23:19:41.785.832; push_end_time: 2022-11-30-23:19:41.245.668, 2022-11-30-23:19:41.284.989, 2022-11-30-23:19:41.344.248, 2022-11-30-23:19:41.430.124, 2022-11-30-23:19:41.491.263, 2022-11-30-23:19:41.569.235, 2022-11-30-23:19:41.624.471, 2022-11-30-23:19:41.700.708, 2022-11-30-23:19:41.735.413, 2022-11-30-23:31:08.986.853.
@@ -499,7 +499,7 @@ After collecting INFO logs (including CANN logs) for all cards in the cluster, t
 
 Commonly used in the execution phase. The task of the HCCL operator is executed on each Device of the specified cluster, and the state is synchronized via notify. If an exception occurs on any card or communication link before/during the execution, the cluster synchronization will fail and the remaining cards will have a notify wait timeout and report an `EI0002` error as follows:
 
-```c++
+```text
 [ERROR] ASCENDCL(162844,python):2022-12-01-00:26:58.086.834 [tensor_data_transfer.cpp:899]168498 acltdtSendTensor: [Push][Data]failed to send, tdt result = -1, device is 1, name is 1393be34-70ca-11ed-9be5-000132214e48
 [WARNING] DEVICE(162844,fffce77fe1e0,python):2022-12-01-00:26:58.388.563 [mindspore/ccsrc/plugin/device/ascend/hal/device/ascend_data_queue.cc:257] Push] Device queue thread had been interrupted by TdtHandle::DestroyHandle, you can ignore the above error: 'failed to send...'. In this scenario, the training ends first without using all epoch(s) data, and the data preprocessing is blocked by the data transmission channel on the device side. So we force the data transmission channel to stop.
 [CRITICAL] DEVICE(162844,fffd6cff91e0,python):2022-12-01-00:26:58.399.787 [mindspore/ccsrc/plugin/device/ascend/hal/hardware/ascend_graph_executor.cc:240] RunGraph] Run task for graph:kernel_graph_1 error! The details refer to 'Ascend Error Message'.Ascend Error Message:EI0002: The wait execution of the Notify register times out. Reason: The Notify register has not received the Notify record from remote rank [0].base information: [streamID:[14], taskID[4], taskType[Notify Wait], tag[HcomAllReduce_6629421139219749105_0].] task information: [notify id:[0x0000000100000058], stage:[ffffffff], remote rank:[0].
@@ -539,7 +539,7 @@ After collecting INFO logs (including CANN logs) for all cards in the cluster, t
 
 The user needs to configure the multi-machine multi-card information needed for distributed training through the ranktable file for HCCL initialization. If the relevant ranktable configuration is illegal, an `EI0004` error will be reported, such as the following error scenario, where two device_id are repeatedly set to 1 in the ranktable, resulting in an illegal configuration.
 
-```c++
+```text
 [WARNING] HCCL_ADPT(89999,ffffa5a47010,python):2023-01-16-20:43:48.480.465 [mindspore/ccsrc/plugin/device/ascend/hal/hccl_adapter/hccl_adapter.cc:47] GenHcclOptions] The environment variable DEPLOY_MODE is not set. Now set to default value 0
 
 Traceback (most recent call last):
@@ -581,7 +581,7 @@ When you encounter such an error, just fix the ranktable configuration file acco
 
 The `EI0005` error is reported when there are inconsistencies in the communication parameters between cards, such as inconsistencies in the size of the input shape used for AllReduce between cards, as in the following error reporting scenario, where there is a parameter named count that is inconsistent in size when communicating between cards.
 
-```c++
+```text
 [WARNING] HCCL_ADPT(50288,ffff8fec4010,python):2023-01-16-20:37:22.585.027 [mindspore/ccsrc/plugin/device/ascend/hal/hccl_adapter/hccl_adapter.cc:47] GenHcclOptions] The environment variable DEPLOY_MODE is not set. Now set to default value 0
 [WARNING] MD(50288,fffe35f4b0f0,python):2023-01-16-20:38:57.747.318 [mindspore/ccsrc/minddata/dataset/engine/datasetops/source/generator_op.cc:198] operator()] Bad performance attention, it takes more than 25 seconds to generator.__next__ new row, which might cause `GetNext` timeout problem when sink_mode=True. You can increase the parameter num_parallel_workers in GeneratorDataset / optimize the efficiency of obtaining samples in the user-defined generator function.
 dataset length:  848
@@ -630,7 +630,7 @@ When such errors are occurred, the communication parameters in error can be iden
 
 The HCCP process is responsible for implementing the communication function, and HCCL can call the HCCP interface for communication. HCCP initialization failure will report `EJ0001` error, such as the following scenario. When the previous eight-card training task has not yet finished in the same server to start a new eight-card training task, initialization failure will occur. You need to wait for the previous eight-card training task to finish before starting a new eight-card training task.
 
-```c++
+```text
 [ERROR] HCCL(17381,python):2022-12-01-03:02:29.001.054 [network_manager.cc:64][hccl-17381-0-1669834948-hccl_world_group][0]call trace: ret -> 7
 [ERROR] HCCL(17381,python):2022-12-01-03:02:29.001.066 [hccl_impl_base.cc:239][hccl-17381-0-1669834948-hccl_world_group][0]call trace: ret -> 7
 [ERROR] HCCL(17381,python):2022-12-01-03:02:29.001.076 [hccl_impl.cc:731][hccl-17381-0-1669834948-hccl_world_group][0]call trace: ret -> 7
@@ -710,7 +710,7 @@ The profiling issue error code starts with `EK`.
 
 The `EK0001` error is reported when CANN's profiling module interface encounters an illegal parameter. The most common illegal parameter error for users is the incorrect path setting for profiling, such as the following error:
 
-```c++
+```text
 [ERROR] PROFILER(138694,ffffaa6c8480,python):2022-01-10-14:19:56.741.053 [mindspore/ccsrc/profiler/device/ascend/ascend_profiling.cc:51] ReportErrorMessage] Ascend error occurred, error message:
 EK0001: Path [/ms_test/ci/user_scene/profiler_chinese_中文/resnet/scripts/train/data/profiler] for [profilerResultPath] is invalid or does not exist. The Path name can only contain A-Za-z0-9-_.
 

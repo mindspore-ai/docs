@@ -53,9 +53,8 @@ MindSpore Transformers接收输入的数据集格式之一为`MindRecord`格式�
         ]
     },
     {
-      #  "第二条数据..."
+      //  "第二条数据..."
     },
-    ...
 ]
 ```
 

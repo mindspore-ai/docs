@@ -46,14 +46,14 @@ For details, visit the following website:
 
 In static graph mode, Python code is not executed by the Python interpreter. Instead, the code is built into a static computational graph for execution. The control flow syntax supported by MindSpore includes if, for, and while statements. The attributes of the objects returned by different branches of the if statement may be inconsistent. As a result, an error is reported. The error message is displayed as follows:
 
-```c++
+```text
 TypeError: Cannot join the return values of different branches, perhaps you need to make them equal.
 Type Join Failed: dtype1 = Float32, dtype2 = Float16.
 ```
 
 According to the error message, the return values of different branches of the if statement are of different types. One is float32, and the other is float16. As a result, a build error is reported.
 
-```c++
+```text
 ValueError: Cannot join the return values of different branches, perhaps you need to make them equal.
 Shape Join Failed: shape1 = (2, 3, 4, 5), shape2 = ().
 ```
@@ -66,7 +66,7 @@ For details, visit the following website:
 
 The number of loops of the for and while statements may exceed the permitted range. As a result, the function call stack exceeds the threshold. The error message is displayed as follows:
 
-```c++
+```text
 RuntimeError: Exceed function call depth limit 1000, (function call depth: 1001, simulate call depth: 997).
 ```
 
@@ -82,7 +82,7 @@ Operator build errors are mainly caused by input parameters that do not meet req
 
 For example, when the ReduceSum operator is used, the following error message is displayed if the input data exceeds eight dimensions:
 
-```c++
+```text
 RuntimeError: ({'errCode': 'E80012', 'op_name': 'reduce_sum_d', 'param_name': 'x', 'min_value': 0, 'max_value': 8, 'real_value': 10}, 'In op, the num of dimensions of input/output[x] should be in the range of [0, 8], but actually is [10].')
 ```
 
@@ -92,7 +92,7 @@ For details, visit the following website:
 
 For example, the Parameter parameter does not support automatic type conversion. When the Parameter operator is used, an error is reported during data type conversion. The error message is as follows:
 
-```c++
+```text
 RuntimeError: Data type conversion of 'Parameter' is not supported, so data type int32 cannot be converted to data type float32 automatically.
 ```
 
