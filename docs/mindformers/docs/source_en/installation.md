@@ -8,7 +8,7 @@ Installation consists of four main steps: **① Prepare Ascend hardware and inst
 
 > **Additional MindSpore Version Requirements for Dynamic Graph**
 >
-> The dynamic graph training stack depends on [HyperParallel](https://gitcode.com/mindspore/hyper-parallel/), which requires **MindSpore >= 2.10** (latest version recommended). Therefore, please select MindSpore >= 2.10. See the [Version Compatibility](#version-compatibility) section below for details.
+> The dynamic graph training stack depends on [HyperParallel](https://atomgit.com/mindspore/hyper-parallel/), which requires **MindSpore >= 2.10** (latest version recommended). Therefore, please select MindSpore >= 2.10. See the [Version Compatibility](#version-compatibility) section below for details.
 
 ## Environment Dependencies
 
@@ -84,7 +84,7 @@ pip install mindformers==2.0.0
 
 ## Installing HyperParallel
 
-The dynamic graph (PyNative) training stack depends on [HyperParallel](https://gitcode.com/mindspore/hyper-parallel/), a distributed parallel acceleration library optimized for Ascend supernodes. It provides core capabilities for dynamic graphs, including `DTensor` / `DeviceMesh`, FSDP/HSDP, pipeline parallelism (PP, 1F1B/VPP) scheduling, and the MindSpore dynamic graph backward compatibility layer.
+The dynamic graph (PyNative) training stack depends on [HyperParallel](https://atomgit.com/mindspore/hyper-parallel/), a distributed parallel acceleration library optimized for Ascend supernodes. It provides core capabilities for dynamic graphs, including `DTensor` / `DeviceMesh`, FSDP/HSDP, pipeline parallelism (PP, 1F1B/VPP) scheduling, and the MindSpore dynamic graph backward compatibility layer.
 
 Trainers, optimizers, and parallel splitting and fusion operators under `mindformers/pynative/` all directly `import hyper_parallel`; therefore, **without HyperParallel installed, no dynamic graph tasks will run** (including single-card training).
 
@@ -98,7 +98,7 @@ The following demonstrates how to install HyperParallel 1.0.0 from source:
 
 ```bash
 # HyperParallel 1.0.0 version (r1.0.0 branch)
-git clone https://gitcode.com/mindspore/hyper-parallel.git -b r1.0.0
+git clone https://atomgit.com/mindspore/hyper-parallel.git -b r1.0.0
 cd hyper-parallel
 python setup.py bdist_wheel
 pip install dist/hyper_parallel-*-py3-none-any.whl
@@ -159,7 +159,7 @@ mindformers:<MindSpore Transformers version number>-cann-<CANN version>-mindspor
 docker pull swr.cn-south-1.myhuaweicloud.com/ascendhub/mindformers:2.0.0-cann-9.1.0-mindspore2.10.0-910b-ubuntu22.04-py3.12
 ```
 
-> Replace `<chip architecture>` with the actual chip model; see [docker/OVERVIEW.md](https://gitcode.com/mindspore/mindformers/blob/r2.0.0/docker/OVERVIEW.md) for the complete list of supported architectures. You can use `docker manifest inspect <image>` to view the system architectures supported by the image (ARM64 / x86_64).
+> Replace `<chip architecture>` with the actual chip model; see [docker/OVERVIEW.md](https://atomgit.com/mindspore/mindformers/blob/r2.0.0/docker/OVERVIEW.md) for the complete list of supported architectures. You can use `docker manifest inspect <image>` to view the system architectures supported by the image (ARM64 / x86_64).
 
 ### Method 2: Build the Image Yourself
 
@@ -183,7 +183,7 @@ Meaning of each `build-arg` (consistent with the `docker/Dockerfile` repository)
 | Parameter | Required | Description | Example Value |
 |---|---|---|---|
 | `CANN_VERSION` | Yes | Ascend CANN toolkit version (determines the base image tag) | `9.1.0` |
-| `CHIP_ARCH` | Yes | Ascend chip architecture identifier; see [docker/OVERVIEW.md](https://gitcode.com/mindspore/mindformers/blob/r2.0.0/docker/OVERVIEW.md) for specific values | `<chip architecture>` |
+| `CHIP_ARCH` | Yes | Ascend chip architecture identifier; see [docker/OVERVIEW.md](https://atomgit.com/mindspore/mindformers/blob/r2.0.0/docker/OVERVIEW.md) for specific values | `<chip architecture>` |
 | `OS_SYSTEM` | Yes | Base image operating system and version | `ubuntu22.04` / `openeuler24.03` |
 | `PY_VERSION` | Yes | Python version pre-installed in the base image | `py3.12` |
 | `MINDSPORE_VERSION` | Yes | MindSpore version (select from the corresponding table) | `2.10.0` |

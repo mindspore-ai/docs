@@ -8,7 +8,7 @@
 
 > **动态图对 MindSpore 版本的额外要求**
 >
-> 动态图训练栈依赖 [HyperParallel](https://gitcode.com/mindspore/hyper-parallel/)，其要求 **MindSpore >= 2.10**（建议最新版本）。因此请选择 MindSpore >= 2.10，详见以下[版本配套关系](#版本配套关系)。
+> 动态图训练栈依赖 [HyperParallel](https://atomgit.com/mindspore/hyper-parallel/)，其要求 **MindSpore >= 2.10**（建议最新版本）。因此请选择 MindSpore >= 2.10，详见以下[版本配套关系](#版本配套关系)。
 
 ## 环境依赖
 
@@ -84,7 +84,7 @@ pip install mindformers==2.0.0
 
 ## 安装 HyperParallel
 
-动态图（PyNative）训练栈依赖 [HyperParallel](https://gitcode.com/mindspore/hyper-parallel/) —— 昇腾超节点亲和的分布式并行加速库。它为动态图提供 `DTensor` / `DeviceMesh`、FSDP/HSDP、流水线并行（PP，1F1B/VPP）调度，以及 MindSpore 动态图反向兼容层等核心能力。
+动态图（PyNative）训练栈依赖 [HyperParallel](https://atomgit.com/mindspore/hyper-parallel/) —— 昇腾超节点亲和的分布式并行加速库。它为动态图提供 `DTensor` / `DeviceMesh`、FSDP/HSDP、流水线并行（PP，1F1B/VPP）调度，以及 MindSpore 动态图反向兼容层等核心能力。
 
 `mindformers/pynative/` 下的训练器、优化器、并行切分与融合算子均直接 `import hyper_parallel`，因此**未安装 HyperParallel 将无法运行任何动态图任务**（包括单卡训练）
 
@@ -98,7 +98,7 @@ pip install mindformers==2.0.0
 
 ```bash
 # HyperParallel 1.0.0 版本（r1.0.0 分支）
-git clone https://gitcode.com/mindspore/hyper-parallel.git -b r1.0.0
+git clone https://atomgit.com/mindspore/hyper-parallel.git -b r1.0.0
 cd hyper-parallel
 python setup.py bdist_wheel
 pip install dist/hyper_parallel-*-py3-none-any.whl
@@ -159,7 +159,7 @@ mindformers:<MindSpore Transformers 版本号>-cann-<CANN 版本>-mindspore<Mind
 docker pull swr.cn-south-1.myhuaweicloud.com/ascendhub/mindformers:2.0.0-cann-9.1.0-mindspore2.10.0-910b-ubuntu22.04-py3.12
 ```
 
-> `<芯片架构>` 替换为实际芯片型号，完整取值列表见 [docker/OVERVIEW_CN.md](https://gitcode.com/mindspore/mindformers/blob/r2.0.0/docker/OVERVIEW_CN.md)。可用 `docker manifest inspect <镜像>` 查看镜像支持的系统架构（ARM64 / x86_64）。
+> `<芯片架构>` 替换为实际芯片型号，完整取值列表见 [docker/OVERVIEW_CN.md](https://atomgit.com/mindspore/mindformers/blob/r2.0.0/docker/OVERVIEW_CN.md)。可用 `docker manifest inspect <镜像>` 查看镜像支持的系统架构（ARM64 / x86_64）。
 
 ### 方式二：自行构建镜像
 
@@ -183,7 +183,7 @@ docker build \
 | 参数 | 必填 | 说明 | 示例值 |
 |---|---|---|---|
 | `CANN_VERSION` | 是 | 昇腾 CANN 工具包版本（决定基础镜像 tag） | `9.1.0` |
-| `CHIP_ARCH` | 是 | 昇腾芯片架构标识，具体取值见 [docker/OVERVIEW_CN.md](https://gitcode.com/mindspore/mindformers/blob/r2.0.0/docker/OVERVIEW_CN.md) | `<芯片架构>` |
+| `CHIP_ARCH` | 是 | 昇腾芯片架构标识，具体取值见 [docker/OVERVIEW_CN.md](https://atomgit.com/mindspore/mindformers/blob/r2.0.0/docker/OVERVIEW_CN.md) | `<芯片架构>` |
 | `OS_SYSTEM` | 是 | 基础镜像操作系统及版本 | `ubuntu22.04` / `openeuler24.03` |
 | `PY_VERSION` | 是 | 基础镜像内置 Python 版本 | `py3.12` |
 | `MINDSPORE_VERSION` | 是 | MindSpore 版本号（按配套表选取） | `2.10.0` |
