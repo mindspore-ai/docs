@@ -141,7 +141,7 @@ swr.cn-south-1.myhuaweicloud.com/ascendhub/mindformers
 **Tag Specifications** (The system architecture is automatically recognized by the Docker Manifest; there is no need to specify it in the tag):
 
 ```text
-mindformers:<MindSpore Transformers version number>-cann-<CANN version>-mindspore<MindSpore version>-<chip model>-<operating system>-<Python version>
+mindformers:<MindSpore Transformers version number>-cann<CANN version>-mindspore<MindSpore version>-<chip model>-<operating system>-<Python version>
 ```
 
 | Field | Example Value | Description |
@@ -153,10 +153,10 @@ mindformers:<MindSpore Transformers version number>-cann-<CANN version>-mindspor
 | Operating System | `ubuntu22.04` / `openeuler24.03` | Base image operating system distribution |
 | Python Version | `py3.12` | Major Python version included in the image |
 
-**Pull the image** (using `mindformers:2.0.0-cann-9.1.0-mindspore2.10.0-910b-ubuntu22.04-py3.12` as an example):
+**Pull the image** (using `mindformers:2.0.0-cann9.1.0-mindspore2.10.0-910b-ubuntu22.04-py3.12` as an example):
 
 ```bash
-docker pull swr.cn-south-1.myhuaweicloud.com/ascendhub/mindformers:2.0.0-cann-9.1.0-mindspore2.10.0-910b-ubuntu22.04-py3.12
+docker pull swr.cn-south-1.myhuaweicloud.com/ascendhub/mindformers:2.0.0-cann9.1.0-mindspore2.10.0-910b-ubuntu22.04-py3.12
 ```
 
 > Replace `<chip architecture>` with the actual chip model; see [docker/OVERVIEW.md](https://gitcode.com/mindspore/mindformers/blob/r2.0.0/docker/OVERVIEW.md) for the complete list of supported architectures. You can use `docker manifest inspect <image>` to view the system architectures supported by the image (ARM64 / x86_64).
@@ -172,9 +172,10 @@ docker build \
   --build-arg OS_SYSTEM=ubuntu22.04 \
   --build-arg PY_VERSION=py3.12 \
   --build-arg MINDSPORE_VERSION=2.10.0 \
+  --build-arg HYPER_PARALLEL_VERSION=1.0.0 \
   --build-arg MINDFORMERS_VERSION=2.0.0 \
   --build-arg PIP_INDEX_URL=https://mirrors.huaweicloud.com/repository/pypi/simple \
-  -t mindformers:2.0.0-cann-9.1.0-mindspore2.10.0-910b-ubuntu22.04-py3.12 \
+  -t mindformers:2.0.0-cann9.1.0-mindspore2.10.0-910b-ubuntu22.04-py3.12 \
   -f docker/Dockerfile .
 ```
 
@@ -187,6 +188,7 @@ Meaning of each `build-arg` (consistent with the `docker/Dockerfile` repository)
 | `OS_SYSTEM` | Yes | Base image operating system and version | `ubuntu22.04` / `openeuler24.03` |
 | `PY_VERSION` | Yes | Python version pre-installed in the base image | `py3.12` |
 | `MINDSPORE_VERSION` | Yes | MindSpore version (select from the corresponding table) | `2.10.0` |
+| `HYPER_PARALLEL_VERSION` | Yes | HyperParallel version (select from the corresponding table) | `1.0.0` |
 | `MINDFORMERS_VERSION` | Yes | MindSpore Transformers version | `2.0.0` |
 | `PIP_INDEX_URL` | No | pip installation source URL; Huawei Cloud source by default | `https://mirrors.huaweicloud.com/repository/pypi/simple` |
 

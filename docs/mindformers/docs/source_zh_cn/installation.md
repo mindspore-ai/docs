@@ -141,7 +141,7 @@ swr.cn-south-1.myhuaweicloud.com/ascendhub/mindformers
 **Tag 规范**（系统架构由 Docker Manifest 自动识别，无需在 tag 中指定）：
 
 ```text
-mindformers:<MindSpore Transformers 版本号>-cann-<CANN 版本>-mindspore<MindSpore 版本>-<芯片型号>-<操作系统>-<Python 版本>
+mindformers:<MindSpore Transformers 版本号>-cann<CANN 版本>-mindspore<MindSpore 版本>-<芯片型号>-<操作系统>-<Python 版本>
 ```
 
 | 字段 | 示例值 | 说明 |
@@ -153,10 +153,10 @@ mindformers:<MindSpore Transformers 版本号>-cann-<CANN 版本>-mindspore<Mind
 | 操作系统 | `ubuntu22.04` / `openeuler24.03` | 基础镜像操作系统发行版 |
 | Python 版本 | `py3.12` | 镜像内置 Python 大版本 |
 
-**拉取镜像**（以 `mindformers:2.0.0-cann-9.1.0-mindspore2.10.0-910b-ubuntu22.04-py3.12` 为例）：
+**拉取镜像**（以 `mindformers:2.0.0-cann9.1.0-mindspore2.10.0-910b-ubuntu22.04-py3.12` 为例）：
 
 ```bash
-docker pull swr.cn-south-1.myhuaweicloud.com/ascendhub/mindformers:2.0.0-cann-9.1.0-mindspore2.10.0-910b-ubuntu22.04-py3.12
+docker pull swr.cn-south-1.myhuaweicloud.com/ascendhub/mindformers:2.0.0-cann9.1.0-mindspore2.10.0-910b-ubuntu22.04-py3.12
 ```
 
 > `<芯片架构>` 替换为实际芯片型号，完整取值列表见 [docker/OVERVIEW_CN.md](https://gitcode.com/mindspore/mindformers/blob/r2.0.0/docker/OVERVIEW_CN.md)。可用 `docker manifest inspect <镜像>` 查看镜像支持的系统架构（ARM64 / x86_64）。
@@ -172,9 +172,10 @@ docker build \
   --build-arg OS_SYSTEM=ubuntu22.04 \
   --build-arg PY_VERSION=py3.12 \
   --build-arg MINDSPORE_VERSION=2.10.0 \
+  --build-arg HYPER_PARALLEL_VERSION=1.0.0 \
   --build-arg MINDFORMERS_VERSION=2.0.0 \
   --build-arg PIP_INDEX_URL=https://mirrors.huaweicloud.com/repository/pypi/simple \
-  -t mindformers:2.0.0-cann-9.1.0-mindspore2.10.0-910b-ubuntu22.04-py3.12 \
+  -t mindformers:2.0.0-cann9.1.0-mindspore2.10.0-910b-ubuntu22.04-py3.12 \
   -f docker/Dockerfile .
 ```
 
@@ -187,6 +188,7 @@ docker build \
 | `OS_SYSTEM` | 是 | 基础镜像操作系统及版本 | `ubuntu22.04` / `openeuler24.03` |
 | `PY_VERSION` | 是 | 基础镜像内置 Python 版本 | `py3.12` |
 | `MINDSPORE_VERSION` | 是 | MindSpore 版本号（按配套表选取） | `2.10.0` |
+| `HYPER_PARALLEL_VERSION` | 是 | HyperParallel 版本号（按配套表选取） | `1.0.0` |
 | `MINDFORMERS_VERSION` | 是 | MindSpore Transformers 版本号 | `2.0.0` |
 | `PIP_INDEX_URL` | 否 | pip 安装源地址，默认华为云源 | `https://mirrors.huaweicloud.com/repository/pypi/simple` |
 
