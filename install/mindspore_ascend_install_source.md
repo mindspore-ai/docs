@@ -122,7 +122,6 @@ pip install output/mindspore_ascend-{version}-{python_version}-linux_{arch}.whl 
 # control log level. 0-DEBUG, 1-INFO, 2-WARNING, 3-ERROR, 4-CRITICAL, default level is WARNING.
 export GLOG_v=2
 
-# Conda environmental options
 LOCAL_ASCEND=/usr/local/Ascend # the root directory of run package
 
 # lib libraries that the run package depends on

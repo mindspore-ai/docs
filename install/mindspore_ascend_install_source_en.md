@@ -123,8 +123,7 @@ Of which,
     # control log level. 0-DEBUG, 1-INFO, 2-WARNING, 3-ERROR, 4-CRITICAL, default level is WARNING.
     export GLOG_v=2
 
-    # Conda environmental options
-    LOCAL_ASCEND=/usr/local/Ascend # the root directory of run package
+LOCAL_ASCEND=/usr/local/Ascend # the root directory of run package
 
     # lib libraries that the run package depends on
     export LD_LIBRARY_PATH=${LOCAL_ASCEND}/ascend-toolkit/latest/fwkacllib/lib64:${LOCAL_ASCEND}/driver/lib64:${LOCAL_ASCEND}/ascend-toolkit/latest/opp/op_impl/built-in/ai_core/tbe/op_tiling:${LD_LIBRARY_PATH}
