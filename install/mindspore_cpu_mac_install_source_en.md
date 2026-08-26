@@ -65,7 +65,7 @@ The artifact of MindSpore should lie in directory `output/` within the repo dire
 pip install output/mindspore-*.whl -i https://pypi.tuna.tsinghua.edu.cn/simple
 ```
 
->If there is any compile error when installing scipy package, please use `pip install --pre -i https://pypi.anaconda.org/scipy-wheels-nightly/simple scipy` to install scipy package first, then install mindspore package as normal.
+>If there is any compile error when installing scipy package, please use `pip install scipy` to install scipy package first, then install mindspore package as normal.
 
 ## Installation Verification
 

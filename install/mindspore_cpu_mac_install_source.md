@@ -66,7 +66,7 @@ pip install output/mindspore-*.whl -i https://pypi.tuna.tsinghua.edu.cn/simple
 如果在安装scipy包时出现编译错误，可以尝试先使用下面的命令安装scipy包，再安装MindSpore包。
 
 ```bash
-pip install --pre -i https://pypi.anaconda.org/scipy-wheels-nightly/simple scipy
+pip install scipy
 ```
 
 ## 验证安装是否成功
