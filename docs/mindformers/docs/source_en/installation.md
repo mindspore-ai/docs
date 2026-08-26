@@ -8,7 +8,7 @@ Installation consists of four main steps: **① Prepare Ascend hardware and inst
 
 > **Additional MindSpore Version Requirements for Dynamic Graph**
 >
-> The dynamic graph training stack depends on [HyperParallel](https://gitcode.com/mindspore/hyper-parallel/), which requires **MindSpore >= 2.10** (latest version recommended). Therefore, please select MindSpore >= 2.10. See the [Version Compatibility](#version-compatibility) section below for details.
+> The dynamic graph training stack depends on [HyperParallel](https://atomgit.com/mindspore/hyper-parallel/), which requires **MindSpore >= 2.10** (latest version recommended). Therefore, please select MindSpore >= 2.10. See the [Version Compatibility](#version-compatibility) section below for details.
 
 ## Environment Dependencies
 
@@ -102,7 +102,7 @@ pip install mindformers
 
 ## Installing HyperParallel (Required for Dynamic Graph Training)
 
-The dynamic graph (PyNative) training stack depends on [HyperParallel](https://gitcode.com/mindspore/hyper-parallel/), a distributed parallel acceleration library optimized for Ascend supernodes. It provides core capabilities for dynamic graphs, including `DTensor` / `DeviceMesh`, FSDP/HSDP, pipeline parallelism (PP, 1F1B/VPP) scheduling, and the MindSpore dynamic graph backward compatibility layer.
+The dynamic graph (PyNative) training stack depends on [HyperParallel](https://atomgit.com/mindspore/hyper-parallel/), a distributed parallel acceleration library optimized for Ascend supernodes. It provides core capabilities for dynamic graphs, including `DTensor` / `DeviceMesh`, FSDP/HSDP, pipeline parallelism (PP, 1F1B/VPP) scheduling, and the MindSpore dynamic graph backward compatibility layer.
 
 Trainers, optimizers, and parallel splitting and fusion operators under `mindformers/pynative/` all directly `import hyper_parallel`; therefore, **without HyperParallel installed, no dynamic graph tasks will run** (including single-card training).
 
@@ -113,7 +113,7 @@ Trainers, optimizers, and parallel splitting and fusion operators under `mindfor
 The following demonstrates how to install HyperParallel from source:
 
 ```bash
-git clone https://gitcode.com/mindspore/hyper-parallel.git
+git clone https://atomgit.com/mindspore/hyper-parallel.git
 cd hyper-parallel
 python setup.py bdist_wheel
 pip install dist/hyper_parallel-*-py3-none-any.whl
@@ -141,7 +141,7 @@ If you do not want to configure the Python/CANN/MindSpore environment directly o
 
 The MindSpore Transformers Ascend image is hosted in the Huawei Cloud SWR image repository; it is ready to use out of the box and does not require local building.
 
-> The official pre-built image for version 2.0 and later may not yet be available in the image repository; please refer to the actually available tags in [docker/OVERVIEW.md](https://gitcode.com/mindspore/mindformers/blob/master/docker/OVERVIEW.md). If the required version is not currently available, you can use `Method 2: Build the Image Yourself` described below.
+> The official pre-built image for version 2.0 and later may not yet be available in the image repository; please refer to the actually available tags in [docker/OVERVIEW.md](https://atomgit.com/mindspore/mindformers/blob/master/docker/OVERVIEW.md). If the required version is not currently available, you can use `Method 2: Build the Image Yourself` described below.
 
 **Image Repository URL:**
 
@@ -158,7 +158,7 @@ swr.cn-south-1.myhuaweicloud.com/ascendhub/mindformers
 | Field | Example Value | Description |
 |---|---|---|
 | Version | `2.0.0` | MindSpore Transformers release version |
-| Hardware Information (Chip) | `<Chip Architecture>` | Ascend chip model identifier; see [docker/OVERVIEW.md](https://gitcode.com/mindspore/mindformers/blob/master/docker/OVERVIEW.md) for specific values |
+| Hardware Information (Chip) | `<Chip Architecture>` | Ascend chip model identifier; see [docker/OVERVIEW.md](https://atomgit.com/mindspore/mindformers/blob/master/docker/OVERVIEW.md) for specific values |
 | Operating System | `ubuntu22.04` / `openeuler24.03` | Base image operating system distribution |
 | Python Version | `py3.12` | Major Python version included in the image |
 
@@ -168,7 +168,7 @@ swr.cn-south-1.myhuaweicloud.com/ascendhub/mindformers
 docker pull swr.cn-south-1.myhuaweicloud.com/ascendhub/mindformers:2.0.0-<chip architecture>-ubuntu22.04-py3.12
 ```
 
-> Replace `<chip architecture>` with the actual chip model; see [docker/OVERVIEW.md](https://gitcode.com/mindspore/mindformers/blob/master/docker/OVERVIEW.md) for the complete list of supported architectures. You can use `docker manifest inspect <image>` to view the system architectures supported by the image (ARM64 / x86_64).
+> Replace `<chip architecture>` with the actual chip model; see [docker/OVERVIEW.md](https://atomgit.com/mindspore/mindformers/blob/master/docker/OVERVIEW.md) for the complete list of supported architectures. You can use `docker manifest inspect <image>` to view the system architectures supported by the image (ARM64 / x86_64).
 
 ### Method 2: Build the Image Yourself
 
@@ -192,7 +192,7 @@ Meaning of each `build-arg` (consistent with the `docker/Dockerfile` repository)
 | Parameter | Required | Description | Example Value |
 |---|---|---|---|
 | `CANN_VERSION` | Yes | Ascend CANN toolkit version (determines the base image tag) | `9.1.0` |
-| `CHIP_ARCH` | Yes | Ascend chip architecture identifier; see [docker/OVERVIEW.md](https://gitcode.com/mindspore/mindformers/blob/master/docker/OVERVIEW.md) for specific values | `<chip architecture>` |
+| `CHIP_ARCH` | Yes | Ascend chip architecture identifier; see [docker/OVERVIEW.md](https://atomgit.com/mindspore/mindformers/blob/master/docker/OVERVIEW.md) for specific values | `<chip architecture>` |
 | `OS_SYSTEM` | Yes | Base image operating system and version | `ubuntu22.04` / `openeuler24.03` |
 | `PY_VERSION` | Yes | Python version pre-installed in the base image | `py3.12` |
 | `MINDSPORE_VERSION` | Yes | MindSpore version (select from the corresponding table) | `2.10.0` |
