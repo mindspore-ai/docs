@@ -321,7 +321,7 @@ re_url = r"(((atomgit.com/mindspore/docs/mindspore-lite)|(atomgit.com/mindspore/
 
 re_url2 = r"(atomgit.com/mindspore/mindspore[\w\d/_.-]*?)/(master)"
 
-# re_url3 = r"(((atomgit.com/mindspore/mindformers)|(mindspore.cn/mindformers))[\w\d/_.-]*?)/(master)"
+re_url3 = r"(((atomgit.com/mindspore/mindformers)|(mindspore.cn/mindformers))[\w\d/_.-]*?)/(master)"
 
 re_url4 = r"(atomgit.com/mindspore/mindspore-lite[\w\d/_.-]*?)/(master)"
 
@@ -349,7 +349,7 @@ for cur, _, files in os.walk(moment_dir):
                         # 发版本时这里启用
                         new_content = re.sub(re_url, r'\1/r2.10.0', new_content)
                         new_content = re.sub(re_url2, r'\1/v2.10.0', new_content)
-                        # new_content = re.sub(re_url3, r'\1/r2.0.0', new_content)
+                        new_content = re.sub(re_url3, r'\1/r2.0.0', new_content)
                         new_content = re.sub(re_url4, r'\1/r2.10', new_content)
 
                         if new_content != content:
@@ -368,6 +368,14 @@ src_release = os.path.join(os.getenv("MFM_PATH"), 'RELEASE_CN.md')
 des_release = "./RELEASE.md"
 with open(src_release, "r", encoding="utf-8") as f:
     data = f.read()
+replacements = [
+    (
+        "(configs/deepseek3/pretrain_deepseek3_1b_8p_pynative.yaml)",
+        "(https://atomgit.com/mindspore/mindformers/blob/r2.0.0/configs/deepseek3/pretrain_deepseek3_1b_8p_pynative.yaml)"
+    )
+]
+for old, new in replacements:
+    data = data.replace(old, new)
 if len(re.findall("\n## (.*?)\n",data)) > 1:
     content = re.findall("(## [\s\S\n]*?)\n## ", data)
 else:

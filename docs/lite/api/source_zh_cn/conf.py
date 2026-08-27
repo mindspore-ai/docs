@@ -374,7 +374,7 @@ re_url = r"(((atomgit.com/mindspore/docs/mindspore-lite)|(atomgit.com/mindspore/
 
 re_url2 = r"(atomgit.com/mindspore/mindspore[\w\d/_.-]*?)/(master)"
 
-# re_url3 = r"(((atomgit.com/mindspore/mindformers)|(mindspore.cn/mindformers))[\w\d/_.-]*?)/(master)"
+re_url3 = r"(((atomgit.com/mindspore/mindformers)|(mindspore.cn/mindformers))[\w\d/_.-]*?)/(master)"
 
 re_url4 = r"(atomgit.com/mindspore/mindspore-lite[\w\d/_.-]*?)/(master)"
 
@@ -386,7 +386,7 @@ for cur, _, files in os.walk(present_path):
                 with open(os.path.join(cur, i), 'r+', encoding='utf-8') as f:
                     content = f.read()
                     new_content = re.sub(re_url, r'\1/r2.10.0', content)
-                    # new_content = re.sub(re_url3, r'\1/r2.0.0', new_content)
+                    new_content = re.sub(re_url3, r'\1/r2.0.0', new_content)
                     new_content = re.sub(re_url4, r'\1/r2.10', new_content)
                     if i.endswith('.rst'):
                         new_content = re.sub(re_url2, r'\1/v2.10.0', new_content)
