@@ -115,5 +115,14 @@
             ]
         },
         "theme": "theme-lite"
+    },
+    {
+        "version": "r2.0.0",
+        "label": {
+            "zh": "MindSpore Transformers",
+            "en": "MindSpore Transformers"
+        },
+        "repo_name": "mindformers",
+        "theme": "theme-docs"
     }
 ]

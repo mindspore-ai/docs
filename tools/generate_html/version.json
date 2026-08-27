@@ -41,5 +41,23 @@
         "whl_name" : "",
         "environ" : "",
         "uninstall_name" : ""
+     },
+     {
+        "id" : 4 ,
+        "name" : "mindformers",
+        "branch" : "r2.0.0",
+        "html_version" : "r2.0.0",
+        "whl_path" : "2.10.0/MindFormers/any/",
+        "whl_name" : "mindformers-2.0.0-py3-none-any.whl",
+        "environ" : "MFM_PATH",
+        "uninstall_name" : ["mindformers", "hyper_parallel"],
+        "extra_whl_path" : [
+            "2.10.0/MindSpore/unified/x86_64/",
+            "https://repo.mindspore.cn/pypi/simple/hyper-parallel/"
+        ],
+        "extra_whl_name" : [
+            "mindspore-2.10.0-cp312-cp312-linux_x86_64.whl",
+            "hyper_parallel-1.0.0-cp312-cp312-linux_x86_64.whl"
+        ]
      }
 ]

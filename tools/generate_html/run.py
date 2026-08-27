@@ -149,7 +149,11 @@ def download_with_retry(url, max_retries=3, auth=None, verify=True):
 
 def extra_download(user, pd, wgetdir, extra_whl_path, extra_whl_name, whl_dir):
     s = requests.session()
-    url = f"{wgetdir}/{extra_whl_path}"
+    # 判断是否为完整url
+    if extra_whl_path.startswith("http"):
+        url = extra_whl_path
+    else:
+        url = f"{wgetdir}/{extra_whl_path}"
     if not url.endswith(".html") and not url.endswith("/"):
         url += "/"
     re_name = extra_whl_name.replace('.whl', '\\.whl')
