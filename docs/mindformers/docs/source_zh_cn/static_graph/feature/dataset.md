@@ -68,7 +68,6 @@ MindSpore Transformers提供了数据预处理脚本[preprocess_indexed_dataset.
    ```json
    {"id": 0, "text": "Valkyria Chronicles III is a tactical role-playing game..."}
    {"id": 1, "text": "The game is similar to its predecessors in terms of gameplay..."}
-   ...
    ```
 
 3. 下载模型的词表文件
