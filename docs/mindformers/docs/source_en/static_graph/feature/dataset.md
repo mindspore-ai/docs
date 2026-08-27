@@ -70,7 +70,6 @@ The following example demonstrates how to convert the `wikitext-103` dataset int
    ```json
    {"id": 0, "text": "Valkyria Chronicles III is a tactical role-playing game..."}
    {"id": 1, "text": "The game is similar to its predecessors in terms of gameplay..."}
-   ...
    ```
 
 3. Download the model's vocabulary file
