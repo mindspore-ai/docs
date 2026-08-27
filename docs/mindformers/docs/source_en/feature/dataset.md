@@ -92,7 +92,6 @@ The following uses the `wikitext-103` dataset as an example to describe how to c
    ```json
    {"id": 0, "text": "Valkyria Chronicles III is a tactical role-playing game..."}
    {"id": 1, "text": "The game is similar to its predecessors in terms of gameplay..."}
-   ...
    ```
 
 3. Download the vocabulary file of the model.
