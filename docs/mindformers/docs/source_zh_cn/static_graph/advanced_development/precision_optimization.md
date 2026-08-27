@@ -113,7 +113,7 @@
 | 溢出检测      | 溢出状态对齐PyTorch方式，建议使用INFNAN_MODE，即`export MS_ASCEND_CHECK_OVERFLOW_MODE=INFNAN_MODE`。                                                                                      |
 | 图算融合      | 关闭图算融合，即`enable_graph_kernel: False`。                                                                                                                                     |
 | 训推模板一致  | 若进行SFT训练，需要确认训练推理时使用的输入模板一致。                                                                                                                                              |
-| 版本检查      | 检查MindSpore、MindSpore Transformers、CANN版本是否配套，建议使用[最新的配套版本](https://www.mindspore.cn/mindformers/docs/zh-CN/r2.0.0/installation.html#%E7%A1%AE%E8%AE%A4%E7%89%88%E6%9C%AC%E5%8C%B9%E9%85%8D%E5%85%B3%E7%B3%BB)。 |
+| 版本检查      | 检查MindSpore、MindSpore Transformers、CANN版本是否配套，建议使用[最新的配套版本](https://www.mindspore.cn/mindformers/docs/zh-CN/r2.0.0/installation.html#%E7%89%88%E6%9C%AC%E9%85%8D%E5%A5%97%E5%85%B3%E7%B3%BB)。 |
 | 与开源差异    | MindSpore Transformers中已支持主流的开源LLM模型，也经过了较为充分的测试。如果用户基于MindSpore Transformers中开源模型进行开发，可以重点排查与MindSpore Transformers开源模型的差异。                                              |
 
 ## 精度调试工具介绍
