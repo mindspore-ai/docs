@@ -61,7 +61,6 @@ pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/{version}/MindSp
 # control log level. 0-DEBUG, 1-INFO, 2-WARNING, 3-ERROR, default level is WARNING.
 export GLOG_v=2
 
-# Conda environmental options
 LOCAL_ASCEND=/usr/local/Ascend # the root directory of run package
 
 # lib libraries that the run package depends on
