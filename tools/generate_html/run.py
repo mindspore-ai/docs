@@ -149,11 +149,7 @@ def download_with_retry(url, max_retries=3, auth=None, verify=True):
 
 def extra_download(user, pd, wgetdir, extra_whl_path, extra_whl_name, whl_dir):
     s = requests.session()
-    # 判断是否为完整url
-    if extra_whl_path.startswith("http"):
-        url = extra_whl_path
-    else:
-        url = f"{wgetdir}/{extra_whl_path}"
+    url = f"{wgetdir}/{extra_whl_path}"
     if not url.endswith(".html") and not url.endswith("/"):
         url += "/"
     re_name = extra_whl_name.replace('.whl', '\\.whl')
@@ -186,7 +182,11 @@ def extra_download(user, pd, wgetdir, extra_whl_path, extra_whl_name, whl_dir):
 
 def release_download(release_url, path, name):
     urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
-    download_url = release_url + path + name
+    # 判断path是否为url
+    if path.startswith("https://"):
+        download_url = path + name
+    else:
+        download_url = release_url + path + name
     try:
         downloaded = requests.get(download_url, stream=True, verify=False, timeout=30)
         with open(name, 'wb') as fd:
