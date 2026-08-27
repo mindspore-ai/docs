@@ -80,7 +80,7 @@ MindSpore Transformers classifies configurable parameters by configuration type 
   <tr>
     <td>Parallelism configurations</td>
     <td>
-    <a href=https://www.mindspore.cn/mindformers/docs/en/r2.0.0/feature/configuration.html#parallelism—multidimensional-parallelism target="_blank">Parallelism configuration items</a><br>
+    <a href=https://www.mindspore.cn/mindformers/docs/en/r2.0.0/feature/configuration.html#parallelism%E2%80%94multidimensional-parallelism target="_blank">Parallelism configuration items</a><br>
     <a href=https://www.mindspore.cn/mindformers/docs/en/r2.0.0/feature/parallel_training.html target="_blank">Distributed parallel training guide</a>
     </td>
   </tr>
@@ -97,7 +97,7 @@ MindSpore Transformers classifies configurable parameters by configuration type 
     <td>Weight saving</td>
     <td>
       <a href=https://www.mindspore.cn/mindformers/docs/en/r2.0.0/feature/save_load_checkpoint.html target="_blank">Safetensors weight saving and loading</a><br>
-      <a href=https://www.mindspore.cn/mindformers/docs/en/r2.0.0/feature/configuration.html#checkpoint—weight-saving-and-loading target="_blank">Callbacks configuration > CheckpointMonitor</a>
+      <a href=https://www.mindspore.cn/mindformers/docs/en/r2.0.0/feature/configuration.html#checkpoint%E2%80%94weight-saving-and-loading target="_blank">Callbacks configuration > CheckpointMonitor</a>
     </td>
   </tr>
   <tr>
