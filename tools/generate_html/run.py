@@ -514,6 +514,11 @@ def main(version, user, pd, WGETDIR, release_url, generate_list, api_detect):
                 cmd_install = [sys.executable, "-m", "pip", "install", i]
                 subprocess.run(cmd_install) 
                 break 
+        for i in whls:
+            if "hyper_parallel" in i and i.endswith('.whl'):
+                cmd_install = [sys.executable, "-m", "pip", "install", i]
+                subprocess.run(cmd_install)
+                break
         for i in whls: 
             if "mindspore_gs" in i or "torch" in i:
                 continue
