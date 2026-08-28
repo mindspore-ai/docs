@@ -46,6 +46,9 @@ release = '2.0.0'
 # ones.
 myst_enable_extensions = ["dollarmath", "amsmath"]
 
+lib_path = "/doc-lib/jquery.js"
+USE_LIB = os.path.exists(lib_path)
+html_context = {'use_lib': USE_LIB}
 
 myst_heading_anchors = 5
 extensions = [
