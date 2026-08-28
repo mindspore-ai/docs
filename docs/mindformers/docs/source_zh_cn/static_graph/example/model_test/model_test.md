@@ -40,7 +40,7 @@ bash build_image.sh
 
 > 如果构造镜像遇到超时问题，可以尝试在`build_image.sh`脚本中添加 `ENV UV_HTTP_TIMEOUT=3000`，并且在仓库`install_depend_pkgs.sh`脚本中更换速度更快的镜像站。
 
-用户根据服务器配置创建容器，详细请参考[容器创建教程](https://www.mindspore.cn/vllm_mindspore/docs/zh-CN/r2.10.0/getting_started/installation/installation.html)。
+用户根据服务器配置创建容器，详细请参考[容器创建教程](https://www.mindspore.cn/vllm_mindspore/docs/zh-CN/master/getting_started/installation/installation.html)。
 
 ### 1.3 lm-eval
 
