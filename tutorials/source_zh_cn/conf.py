@@ -48,6 +48,10 @@ html_title = author + ' ' + release + ' ' + project
 # ones.
 myst_enable_extensions = ["dollarmath", "amsmath"]
 
+lib_path = "/doc-lib/jquery.js"
+USE_LIB = os.path.exists(lib_path)
+html_context = {'use_lib': USE_LIB}
+
 # 允许生成几级及以上的锚点
 myst_heading_anchors = 5
 extensions = [
