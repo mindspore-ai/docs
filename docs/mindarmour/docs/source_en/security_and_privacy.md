@@ -44,7 +44,7 @@ For details, see [Protecting User Privacy with Differential Privacy Mechanism](h
 
 `SuppressModel` inherits `mindspore.train.Model` and provides the entry function for suppress privacy training.
 
-For details, see [Protecting User Privacy with Suppress Privacy Mechanism](https://www.mindspore.cn/mindarmour/docs/zh-CN/master/protect_user_privacy_with_suppress_privacy.html).
+For details, see [Protecting User Privacy with Suppress Privacy Mechanism](https://www.mindspore.cn/mindarmour/docs/en/master/protect_user_privacy_with_suppress_privacy.html).
 
 ## Privacy Breach Risk Assessment
 
@@ -52,4 +52,4 @@ For details, see [Protecting User Privacy with Suppress Privacy Mechanism](https
 
 The `MembershipInference` class provides a reverse analysis method. It can infer whether a sample is in the training set of a model based on the prediction information of the model on the sample to evaluate the privacy breach risk of the model.
 
-For details, see [Testing Model Security with Membership Inference](https://www.mindspore.cn/mindarmour/docs/zh-CN/master/test_model_security_membership_inference.html).
+For details, see [Testing Model Security with Membership Inference](https://www.mindspore.cn/mindarmour/docs/en/master/test_model_security_membership_inference.html).

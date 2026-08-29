@@ -284,7 +284,7 @@ int SpecifyInputDataExample(const std::string &model_path, const std::string &de
 
 ## Compilation and Execution
 
-Set the environment variables as described in the Environment Variables section in [quick start](https://www.mindspore.cn/lite/cloud_docs/zh-CN/master/use/build.html#%E6%89%A7%E8%A1%8C%E7%BC%96%E8%AF%91), and then compile the program as follows:
+Set the environment variables as described in the Environment Variables section in [quick start](https://www.mindspore.cn/lite/cloud_docs/en/master/use/build.html#executing-compilation), and then compile the program as follows:
 
 ```bash
 mkdir build && cd build
