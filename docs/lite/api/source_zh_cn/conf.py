@@ -13,6 +13,7 @@
 import os
 import re
 import sys
+import types
 import textwrap
 import shutil
 import ctypes
@@ -50,6 +51,19 @@ ctypes.CDLL = _safe_cdll
 for _key in list(sys.modules.keys()):
     if _key.startswith('lite_boost'):
         del sys.modules[_key]
+
+# 动态创建 torch.npu 模块（用于 CPU 环境）
+if 'torch.npu' not in sys.modules:
+    torch_npu = types.ModuleType('torch.npu')
+    class amp:
+        @staticmethod
+        def autocast(*args, **kwargs):
+            def decorator(func):
+                return func
+            return decorator
+    torch_npu.amp = amp
+    sys.modules['torch.npu'] = torch_npu
+    print("已动态创建 torch.npu 模块")
 
 # -- General configuration ---------------------------------------------------
 
