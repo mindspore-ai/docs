@@ -108,17 +108,6 @@ MindSpore教程
 .. toctree::
    :glob:
    :maxdepth: 1
-   :caption: 香橙派
-   :hidden:
-
-   orange_pi/overview
-   orange_pi/environment_setup
-   orange_pi/model_infer
-   orange_pi/dev_start
-
-.. toctree::
-   :glob:
-   :maxdepth: 1
    :caption: 模型案例
    :hidden:
 
@@ -267,22 +256,6 @@ MindSpore教程
          </div>
       </div>
       <div class="row">
-         <div class="col-md-6">
-               <div class="doc-article-list">
-                  <div class="doc-article-item">
-                     <a href="./orange_pi/overview.html" class="article-link">
-                        <div>
-                           <div class="doc-article-head">
-                              <span class="doc-head-content">香橙派</span>
-                           </div>
-                           <div class="doc-article-desc">
-                              提供香橙派环境搭建、开发、推理等功能案例。
-                           </div>
-                        </div>
-                     </a>
-                  </div>
-               </div>
-         </div>
          <div class="col-md-6">
                <div class="doc-article-list">
                   <div class="doc-article-item">

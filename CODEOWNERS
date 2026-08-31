@@ -38,7 +38,6 @@
 /tutorials/source_zh_cn/model_infer/lite_infer/ @YeFeng_24 @jjfeing @gemini524
 /tutorials/source_zh_cn/model_migration/ @zhao_ting_v @gemini524
 /tutorials/source_zh_cn/nlp/ @zhao_ting_v @gemini524
-/tutorials/source_zh_cn/orange_pi/ @xing-yiren @gemini524
 /tutorials/source_zh_cn/parallel/ @yangzhenzhang @gemini524
 /tutorials/source_zh_cn/parallel/startup_method.rst @zhangyinxia @gemini524
 /tutorials/source_zh_cn/parallel/msrun_launcher.md @zhangyinxia @gemini524
@@ -90,5 +89,5 @@
 /docs/mindquantum/docs/source_zh_cn/conf.py @gemini524
 
 # The maintainers of MSAdapter docs.
-/docs/msadapter/docs/source_zh_cn/ @lvyufenghw @gemini524
+/docs/msadapter/docs/source_zh_cn/ @gemini524
 /docs/msadapter/docs/source_zh_cn/conf.py @gemini524
