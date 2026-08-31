@@ -655,6 +655,12 @@ def main(version, user, pd, WGETDIR, release_url, generate_list, api_detect):
                         TARGET = f"{OUTPUTDIR}/{i}/en/{ArraySource[i]}"
                     os.makedirs(os.path.dirname(TARGET), exist_ok=True)
                     shutil.copytree("build_en/html", TARGET)
+                    # 删除_static/jquery.js (仅当/doc-lib/jquery.js存在时)
+                    if os.path.exists('/doc-lib/jquery.js'):
+                        jquery_file = os.path.join(TARGET, '_static', 'jquery.js')
+                        if os.path.exists(jquery_file):
+                            os.remove(jquery_file)
+                            print(f"已删除 {jquery_file} (使用 /doc-lib/jquery.js)")
             # pylint: disable=W0702
             except:
                 print(f"{i} 的 英文版本运行失败")
@@ -694,6 +700,12 @@ def main(version, user, pd, WGETDIR, release_url, generate_list, api_detect):
                         TARGET = f"{OUTPUTDIR}/{i}/zh-CN/{ArraySource[i]}"
                     os.makedirs(os.path.dirname(TARGET), exist_ok=True)
                     shutil.copytree("build_zh_cn/html", TARGET)
+                    # 删除_static/jquery.js (仅当/doc-lib/jquery.js存在时)
+                    if os.path.exists('/doc-lib/jquery.js'):
+                        jquery_file = os.path.join(TARGET, '_static', 'jquery.js')
+                        if os.path.exists(jquery_file):
+                            os.remove(jquery_file)
+                            print(f"已删除 {jquery_file} (使用 /doc-lib/jquery.js)")
             # pylint: disable=W0702
             except:
                 print(f"{i} 的 中文版本运行失败")
