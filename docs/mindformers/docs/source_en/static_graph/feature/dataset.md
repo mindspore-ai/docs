@@ -121,7 +121,7 @@ The following explains how to configure and use Megatron datasets in the configu
 1. Prepare the `parallel_speed_up.json` file
 
    Megatron dataset relies on the `dataset_broadcast_opt_level` feature for data broadcasting.
-   For more details, refer to the [documentation](https://www.mindspore.cn/docs/zh-CN/master/api_python/parallel/mindspore.parallel.auto_parallel.AutoParallel.html).
+   For more details, refer to the [documentation](https://www.mindspore.cn/docs/en/master/api_python/parallel/mindspore.parallel.auto_parallel.AutoParallel.html).
    Therefore, you need to create a `parallel_speed_up.json` file with the following content:
 
    ```json
@@ -196,7 +196,7 @@ The following explains how to configure and use Megatron datasets in the configu
    | pad                        | Token ID of the pad token in the dataset                                                                                                                                                                                               |
    | data_path                  | List, every two consecutive elements (number, string) are considered as a dataset, represent ratio of the dataset and the path to its bin file excluding `.bin` suffix respectively. The sum of datasets' ratios should be equal to 1. |
 
-   In addition, the Megatron dataset also depends on configurations such as `input_columns`, `construct_args_key`, and `full_batch`. For more details, refer to the [configuration file documentation](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/configuration.html).
+   In addition, the Megatron dataset also depends on configurations such as `input_columns`, `construct_args_key`, and `full_batch`. For more details, refer to the [configuration file documentation](https://www.mindspore.cn/mindformers/docs/en/master/feature/configuration.html).
 
    Here, we only explain how to configure them in different scenarios:
 
@@ -741,7 +741,7 @@ Following the above data preprocessing steps, you can generate a MindRecord data
 
 ### Multi-source Datasets
 
-The native MindSpore dataset loading module [MindDataset](https://www.mindspore.cn/docs/zh-CN/master/api_python/dataset/mindspore.dataset.MindDataset.html) has performance bottlenecks when loading and sampling multiple MindRecord datasets.
+The native MindSpore dataset loading module [MindDataset](https://www.mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.MindDataset.html) has performance bottlenecks when loading and sampling multiple MindRecord datasets.
 
 Therefore, MindSpore Transformers implements the `MultiSourceDataLoader` to achieve efficient loading and sampling across multiple datasets.
 

@@ -10,7 +10,7 @@ Performing inference with MindSpore Lite consists of the following main steps:
 
 1. Read model: Read the `.ms` model converted by [Model Conversion Tool](https://www.mindspore.cn/lite/docs/en/master/converter/converter_tool.html) from the file system.
 2. Create configuration context: Create a configuration [Context](https://www.mindspore.cn/lite/api/en/master/api_c/context_c.html) that holds some basic configuration parameters needed, to guide model compilation and model execution.
-3. Create, load and compile Model: Before executing inference, you need to call [MSModelBuildFromFile](https://www.mindspore.cn/lite/api/zh-CN/master/api_c/model_c.html#msmodelbuildfromfile) interface of [Model](https://www.mindspore.cn/lite/api/en/master/api_c/model_c.html) for model loading and compilation, and configure the Context obtained in the previous step into the Model. The model loading phase parses the file cache into a runtime model. The model compilation phase mainly carries out the process of operator selection scheduling, subgraph slicing, etc, which will consume more time, so it is recommended that the Model be created once, compiled once, and reasoned several times.
+3. Create, load and compile Model: Before executing inference, you need to call [MSModelBuildFromFile](https://www.mindspore.cn/lite/api/en/master/generate/function_model_c.h_MSModelBuildFromFile-1.html) interface of [Model](https://www.mindspore.cn/lite/api/en/master/api_c/model_c.html) for model loading and compilation, and configure the Context obtained in the previous step into the Model. The model loading phase parses the file cache into a runtime model. The model compilation phase mainly carries out the process of operator selection scheduling, subgraph slicing, etc, which will consume more time, so it is recommended that the Model be created once, compiled once, and reasoned several times.
 4. Input data: The data needs to be padded in the `Input Tensor` before model execution.
 5. Execute inference: Use [MSModelPredict](https://www.mindspore.cn/lite/api/en/master/generate/function_model_c.h_MSModelPredict-1.html) inferene of [Model](https://www.mindspore.cn/lite/api/en/master/api_c/model_c.html) for model inference.
 6. Obtain output: After the model execution, the inference result can be obtained by `output Tensor`.
@@ -170,7 +170,7 @@ endif()
 
 ## Creating, Loading and Compiling Model
 
-Model loading and compilation can be done by calling [MSModelBuildFromFile](https://www.mindspore.cn/lite/api/zh-CN/master/api_c/model_c.html#msmodelbuildfromfile)  interface of [Model](https://www.mindspore.cn/lite/api/en/master/api_c/model_c.html) to load and compile from the file path to get the runtime model. In this case, `argv[1]` corresponds to the model file path inputted from the console.
+Model loading and compilation can be done by calling [MSModelBuildFromFile](https://www.mindspore.cn/lite/api/en/master/generate/function_model_c.h_MSModelBuildFromFile-1.html)  interface of [Model](https://www.mindspore.cn/lite/api/en/master/api_c/model_c.html) to load and compile from the file path to get the runtime model. In this case, `argv[1]` corresponds to the model file path inputted from the console.
 
 ```c
   // Create model
