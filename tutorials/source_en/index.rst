@@ -108,17 +108,6 @@ MindSpore Tutorial
 .. toctree::
    :glob:
    :maxdepth: 1
-   :caption: Orange Pi
-   :hidden:
-
-   orange_pi/overview
-   orange_pi/environment_setup
-   orange_pi/model_infer
-   orange_pi/dev_start
-
-.. toctree::
-   :glob:
-   :maxdepth: 1
    :caption: Model Cases
    :hidden:
 
@@ -266,23 +255,6 @@ MindSpore Tutorial
                </div>
          </div>
       </div>
-      <div class="row">
-         <div class="col-md-6">
-               <div class="doc-article-list">
-                  <div class="doc-article-item">
-                     <a href="./orange_pi/overview.html" class="article-link">
-                        <div>
-                           <div class="doc-article-head">
-                              <span class="doc-head-content">Orange Pi</span>
-                           </div>
-                           <div class="doc-article-desc">
-                              Provide cases of setting up, developing, and reasoning the Orange Pie environment.
-                           </div>
-                        </div>
-                     </a>
-                  </div>
-               </div>
-         </div>
          <div class="col-md-6">
                <div class="doc-article-list">
                   <div class="doc-article-item">
