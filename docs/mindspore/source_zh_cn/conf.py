@@ -191,6 +191,9 @@ release = '2.9.0'
 # ones.
 myst_enable_extensions = ["dollarmath", "amsmath"]
 
+lib_path = "/doc-lib/jquery.js"
+USE_LIB = os.path.exists(lib_path)
+html_context = {'use_lib': USE_LIB}
 
 myst_heading_anchors = 5
 extensions = [
@@ -202,7 +205,6 @@ extensions = [
     'sphinx.ext.coverage',
     'sphinx.ext.napoleon',
     'sphinx.ext.linkcode',
-    'sphinxcontrib.mermaid',
     'myst_parser',
     'nbsphinx',
     'sphinx.ext.mathjax',
@@ -220,7 +222,11 @@ templates_path = ['_templates']
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
 # This pattern also affects html_static_path and html_extra_path.
-mathjax_path = 'https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/mathjax/MathJax-3.2.2/es5/tex-mml-chtml.js'
+local_mathjax_path = '/doc-lib/mathjax/tex-mml-chtml.js'
+if os.path.exists(local_mathjax_path):
+    mathjax_path = local_mathjax_path
+else:
+    mathjax_path = 'https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/mathjax/MathJax-4.0.0/tex-mml-chtml.js'
 
 mathjax_options = {
     'async':'async'
@@ -242,9 +248,6 @@ autosummary_generate_overwrite = False
 
 html_static_path = ['_static']
 
-mermaid_version = ""
-
-mermaid_init_js = ""
 
 # -- Options for HTML output -------------------------------------------------
 
@@ -333,6 +336,29 @@ copy_source(src_dir, des_sir)
 probability_dir = './api_python/probability'
 if os.path.exists(probability_dir):
     shutil.rmtree(probability_dir)
+
+files_to_fix = (
+    glob.glob("./api_python/mint/*clamp*.rst") +
+    glob.glob("./api_python/ops/*ApplyAdamWithAmsgradV2*.rst") +
+    glob.glob("./api_python/ops/*clamp*.rst") +
+    glob.glob("./api_python/ops/*clip_by_value*.rst") +
+    glob.glob("./api_python/ops/*elu*.rst")
+)
+
+old_align = r'\begin{array}{align}'
+new_align = r'\begin{array}{ll}'
+old_l1 = r'\begin{array}{l1}'
+
+for f in files_to_fix:
+    if os.path.exists(f):
+        with open(f, 'r', encoding='utf-8') as file:
+            content = file.read()
+        if old_align in content or old_l1 in content:
+            content = content.replace(old_align, new_align)
+            content = content.replace(old_l1, new_align)
+            with open(f, 'w', encoding='utf-8') as file:
+                file.write(content)
+            print(f"已替换: {f}")
 
 # 删除多余的接口的文件
 white_list = ['mindspore.ops.comm_note.rst', 'mindspore.mint.comm_note.rst']
@@ -722,7 +748,6 @@ def setup(app):
     app.add_config_value('rst_files', set(), False)
     app.add_config_value('mint_aclnn', {}, True)
     app.add_directive('includecode', IncludeCodeDirective)
-    app.add_js_file('js/mermaid-9.3.0.js')
 
 src_release = os.path.join(repo_path, 'RELEASE_CN.md')
 des_release = "./RELEASE.md"

@@ -98,6 +98,9 @@ release = '2.9.0'
 # ones.
 myst_enable_extensions = ["dollarmath", "amsmath"]
 
+lib_path = "/doc-lib/jquery.js"
+USE_LIB = os.path.exists(lib_path)
+html_context = {'use_lib': USE_LIB}
 
 myst_heading_anchors = 5
 extensions = [
@@ -109,7 +112,6 @@ extensions = [
     'sphinx.ext.coverage',
     'sphinx.ext.napoleon',
     "sphinx.ext.linkcode",
-    'sphinxcontrib.mermaid',
     'myst_parser',
     'nbsphinx',
     'sphinx.ext.mathjax',
@@ -125,7 +127,11 @@ source_suffix = {
 templates_path = ['_templates']
 
 # config for mathjax
-mathjax_path = 'https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/mathjax/MathJax-3.2.2/es5/tex-mml-chtml.js'
+local_mathjax_path = '/doc-lib/mathjax/tex-mml-chtml.js'
+if os.path.exists(local_mathjax_path):
+    mathjax_path = local_mathjax_path
+else:
+    mathjax_path = 'https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/mathjax/MathJax-4.0.0/tex-mml-chtml.js'
 
 mathjax_options = {
     'async':'async'
@@ -155,10 +161,6 @@ autosummary_generate_overwrite = False
 # html static file path
 html_static_path = ['_static']
 
-# mermaid config
-mermaid_version = ""
-
-mermaid_init_js = ""
 
 # -- Options for HTML output -------------------------------------------------
 
@@ -334,7 +336,17 @@ decorator_list = [("mindspore/common/dtype.py","del decorator",
                    ("mindspore/mint/__init__.py","del decorator",
                    "@jit_view_unsupported","# generate api by del decorator."),
                    ("mindspore/common/dtype.py","del class",
-                   "class QuantDtype(enum.Enum):","class QuantDtype():")
+                   "class QuantDtype(enum.Enum):","class QuantDtype():"),
+                   ("mindspore/ops/functional_overload.py", "fix math formula",
+                    "\\begin{array}{align}", "\\begin{array}{ll}"),
+                   ("mindspore/ops/auto_generate/gen_extend_func.py", "fix math formula",
+                    "\\begin{array}{align}", "\\begin{array}{ll}"),
+                   ("mindspore/ops/auto_generate/gen_ops_def.py", "fix math formula",
+                    "\\begin{array}{align}", "\\begin{array}{ll}"),
+                   ("mindspore/ops/function/clip_func.py", "fix math formula",
+                    "\\begin{array}{align}", "\\begin{array}{ll}"),
+                   ("mindspore/ops/operations/nn_ops.py", "fix math formula",
+                    "\\begin{array}{l1}", "\\begin{array}{ll}")
                    ]
 
 for i in decorator_list:
@@ -640,7 +652,6 @@ def setup(app):
     app.add_directive('msplatwarnautosummary', MsPlatWarnAutoSummary)
     app.add_directive('msnoteautosummary', MsNoteAutoSummary)
     app.add_directive('includecode', IncludeCodeDirective)
-    app.add_js_file('js/mermaid-9.3.0.js')
     app.add_config_value('docs_branch', '', True)
     app.add_config_value('branch', '', True)
     app.add_config_value('copy_repo', '', True)

@@ -73,7 +73,14 @@
       {%- endif -%}
       {%- for scriptfile in script_files %}
         {%- if 'jquery.js' in scriptfile -%}
-        {{ js_tag(scriptfile) }}
+        {# 替换为共享或默认jquery #}
+        {%- if use_lib %}
+          {# 使用共享 jquery #}
+          <script src="/doc-lib/jquery.js"></script>
+        {%- else %}
+          {# 使用默认 jquery #}
+          <script src="{{ pathto('_static/jquery.js', 1) }}"></script>
+        {%- endif %}
         <script src="/check-dark-mode.js"></script>{{ js_tag('_static/js/theme.js') }}
         {%- else -%}
         {{ js_tag(scriptfile) }}
