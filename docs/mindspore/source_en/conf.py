@@ -98,9 +98,15 @@ release = '2.9.0'
 # ones.
 myst_enable_extensions = ["dollarmath", "amsmath"]
 
-lib_path = "/doc-lib/jquery.js"
-USE_LIB = os.path.exists(lib_path)
-html_context = {'use_lib': USE_LIB}
+jquery_path = "/doc-lib/jquery.js"
+underscore_path = "/doc-lib/underscore.js"
+USE_JQUERY = os.path.exists(jquery_path)
+USE_UNDERSCORE = os.path.exists(underscore_path)
+html_context = {
+    'use_jquery': USE_JQUERY,
+    'use_underscore': USE_UNDERSCORE
+}
+
 
 myst_heading_anchors = 5
 extensions = [
