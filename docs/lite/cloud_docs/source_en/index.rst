@@ -100,7 +100,7 @@ Using the MindSpore Lite inference framework primarily involves the following st
 .. toctree::
    :glob:
    :maxdepth: 1
-   :caption: LiteBoost
+   :caption: LiteBoost Components
    :hidden:
 
    lite_boost/introduction
