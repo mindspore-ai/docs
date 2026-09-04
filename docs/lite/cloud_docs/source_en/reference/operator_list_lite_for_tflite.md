@@ -38,7 +38,7 @@
 | ExpFusion              | Exp                                                          |
 | ExpandDims             | ExpandDims                                                   |
 | Fill                   | Fill                                                         |
-| Floor                  | flOOR                                                        |
+| Floor                  | Floor                                                        |
 | FloorDiv               | FloorDiv                                                     |
 | FloorMod               | FloorMod                                                     |
 | FullConnection         | FullyConnected                                               |
