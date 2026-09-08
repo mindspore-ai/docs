@@ -745,6 +745,24 @@ def process_file(file_path):
     except Exception:
         print(f"{file_path}替换失败")
 
+def patch_searchtools(output_path):
+    for root, dirs, files in os.walk(output_path):
+        if 'searchtools.js' in files:
+            file_path = os.path.join(root, 'searchtools.js')
+            with open(file_path, 'r', encoding='utf-8') as f:
+                content = f.read()
+            # 修复 htmlToText (移除 style 标签)
+            old_line = 'htmlElement.querySelectorAll(".headerlink").forEach((el) => { el.remove() });'
+            new_line = """htmlElement.querySelectorAll('style').forEach((el) => { el.remove() });
+            htmlElement.querySelectorAll(".headerlink").forEach((el) => { el.remove() });"""
+            if old_line in content:
+                content = content.replace(old_line, new_line)
+                with open(file_path, 'w', encoding='utf-8') as f:
+                    f.write(content)
+                print(f" 已添加 style 移除: {file_path}")
+            else:
+                print(f" 未找到: {file_path}")
+
 if __name__ == "__main__":
     # 配置一个工作目录
     try:
@@ -891,6 +909,10 @@ if __name__ == "__main__":
                     print(f'替换{out_name}下{lg}样式文件失败!\n{e}')
                     continue
         print(f'替换样式文件成功!')
+        # 修改 searchtools.js
+        output_path = f"{MAINDIR}/{args.version}/output"
+        patch_searchtools(output_path)
+        print("searchtools.js 修改完成!")
     except (KeyboardInterrupt, SystemExit):
         print("程序即将终止....")
         time.sleep(1)
