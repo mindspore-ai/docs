@@ -754,7 +754,7 @@ def patch_searchtools(output_path):
             # 修复 htmlToText (移除 style 标签)
             old_line = 'htmlElement.querySelectorAll(".headerlink").forEach((el) => { el.remove() });'
             new_line = """htmlElement.querySelectorAll('style').forEach((el) => { el.remove() });
-            htmlElement.querySelectorAll(".headerlink").forEach((el) => { el.remove() });"""
+    htmlElement.querySelectorAll(".headerlink").forEach((el) => { el.remove() });"""
             if old_line in content:
                 content = content.replace(old_line, new_line)
                 with open(file_path, 'w', encoding='utf-8') as f:
