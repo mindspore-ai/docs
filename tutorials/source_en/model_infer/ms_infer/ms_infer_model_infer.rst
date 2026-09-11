@@ -11,7 +11,6 @@ MindSpore LLM Inference with Framework
 
    ms_infer_network_develop
    ms_infer_parallel_infer
-   ms_infer_model_serving_infer
 
 Background
 ------------
