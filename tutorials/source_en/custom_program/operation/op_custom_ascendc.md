@@ -20,8 +20,6 @@ The Ascend platform provides comprehensive tutorials for Ascend C operator devel
 
 **Operator Implementation**: Learn about [Custom Operator Development Based on Custom Operator Projects](https://www.hiascend.com/document/detail/zh/canncommercial/80RC3/developmentguide/opdevg/Ascendcopdevg/atlas_ascendc_10_0006.html?Mode=PmIns&OS=Ubuntu&Software=cannToolKit) to quickly understand the end-to-end process of custom operator development, with a focus on the implementation on the kernel side and the host side.
 
-**Development Samples**: Ascend Community provides a wealth of [Ascend C Operator Development Samples](https://gitee.com/ascend/samples/tree/master/operator/ascendc), covering various types of operators, helping you quickly understand the practical application of operator development. You can also view the [AddCustom Custom Operator Development Sample](https://gitee.com/ascend/samples/tree/master/operator/ascendc/0_introduction/1_add_frameworklaunch/AddCustom), which simply shows the core work needed for custom operator development.
-
 ## Offline Compilation and Deployment
 
 ### Environment Preparation
