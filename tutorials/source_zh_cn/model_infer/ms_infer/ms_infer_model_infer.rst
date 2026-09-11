@@ -11,7 +11,6 @@ MindSpore大语言模型带框架推理
 
    ms_infer_network_develop
    ms_infer_parallel_infer
-   ms_infer_model_serving_infer
 
 特性背景
 --------

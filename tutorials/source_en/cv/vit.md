@@ -2,7 +2,7 @@
 
 # Vision Transformer Image Classification
 
-Thanks to [ZOMI](https://atomgit.com/sanjaychan) for contributing to this article.
+Thanks to [ZOMI](https://gitee.com/sanjaychan) for contributing to this article.
 
 ## Introduction of ViT
 
