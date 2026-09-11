@@ -14,7 +14,7 @@ The following figure shows the security test design of the AI model.
 
 At the user interface layer, users need to provide the original dataset `DataSet`, tested model `Model`, and Fuzzer parameter `Fuzzer configuration`. After fuzzing the model and data, Fuzzer module returns the security report `Security Report`.
 
-Fuzz testting architecture consists of three modules:
+Fuzz testing architecture consists of three modules:
 
 1. Natural Threat/Adversarial Example Generator:
 
@@ -27,7 +27,7 @@ Fuzz testting architecture consists of three modules:
        - Add noise methods: UniformNoise, GaussianNoise, SaltAndPepperNoise, NaturalNoise.
    - Methods for generating adversarial examples based on white-box and black-box attacks: FGSM(FastGradientSignMethod), PGD(ProjectedGradientDescent), and MDIIM(MomentumDiverseInputIterativeMethod).
 
-2. Fuzzer Moduler:
+2. Fuzzer Module:
 
    Perform fuzz testing on the mutated data to observe the change of the neuron coverage rate. If the generated data increases the neuron coverage rate, add the data to the mutated seed queue for the next round of data mutation. Currently, the following neuron coverage metrics are supported: KMNC, NBC, SNAC, NC and TKNC.[2].
 
@@ -43,11 +43,11 @@ The fuzz testing process is as follows:
 
 1. Select seed A from the seed queue according to the policy.
 2. Randomly select a mutation policy to mutate seed A and generate multiple variants A1, A2, ...
-3. Use the target model to predict the variants. If the semantics of variant is consistent with the seed, the variant enters the Fuzzed Tests.
+3. Use the target model to predict the variants. If the semantics of the variant is consistent with the seed, the variant enters the Fuzzed Tests.
 4. If the prediction is correct, use the neuron coverage metric for analysis.
 5. If a variant increases the coverage rate, place the variant in the seed queue for the next round of mutation.
 
-Through multiple rounds of mutations, you can obtain a series of variant data in the Fuzzed Tests, perform further analysis, and provide security reports from multiple perspectives. You can use them to deeply analyze defects of the neural network model and enhance the model to improve its universality and robustness.
+Through multiple rounds of mutations, we can obtain a series of variant data in the Fuzzed Tests, perform further analysis, and provide security reports from multiple perspectives. We can use them to deeply analyze defects of the neural network model and enhance the model to improve its universality and robustness.
 
 ## Code Implementation
 

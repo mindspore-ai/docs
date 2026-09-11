@@ -4,7 +4,7 @@
 
 ## Overall Design
 
-The Differential-Privacy module of MindSpore Armour implements the differential privacy training capability. Model training consists of building training dataset, computing loss, computing gradient, and updating model parameters. Currently, the differential privacy training of MindSpore Armour focuses on the gradient computing process and uses the corresponding algorithm to clip and add noise to the gradient. In this way, user data privacy is protected.
+The Differential-Privacy module of MindSpore Armour implements the differential privacy training capability. Model training consists of building a training dataset, computing loss, computing gradient, and updating model parameters. Currently, the differential privacy training of MindSpore Armour focuses on the gradient computing process and uses the corresponding algorithm to clip and add noise to the gradient. In this way, user data privacy is protected.
 
 ![dp_arch](./images/dp_arch.png)
 
