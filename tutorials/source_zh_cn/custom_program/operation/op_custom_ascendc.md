@@ -22,8 +22,6 @@ AOT类型的自定义算子支持昇腾平台的Ascend C编程语言。这是一
 
 **算子实现**：学习[基于自定义算子工程的算子开发](https://www.hiascend.com/document/detail/zh/canncommercial/80RC3/developmentguide/opdevg/Ascendcopdevg/atlas_ascendc_10_0006.html?Mode=PmIns&OS=Ubuntu&Software=cannToolKit)，快速了解自定义算子开发的端到端流程，重点关注kernel侧实现和host侧实现。
 
-**开发样例**：昇腾社区提供了丰富的 [Ascend C算子开发样例](https://gitee.com/ascend/samples/tree/master/operator/ascendc)，覆盖了多种类型算子，帮助您快速理解算子开发的实际应用。也可以查看 [AddCustom自定义算子开发样例](https://gitee.com/ascend/samples/tree/master/operator/ascendc/0_introduction/1_add_frameworklaunch/AddCustom)，它简洁展示了一个自定义算子开发需要的核心工作。
-
 ## 编译与部署方法
 
 ### 环境准备
