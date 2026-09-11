@@ -27,7 +27,7 @@ Fuzz Testing架构主要包括三个模块：
        - 加噪类方法：UniformNoise、GaussianNoise、SaltAndPepperNoise、NaturalNoise。
    - 基于对抗攻击的白盒、黑盒对抗样本生成方法：FGSM（FastGradientSignMethod）、PGD（ProjectedGradientDescent）、MDIIM（MomentumDiverseInputIterativeMethod）。
 
-2. Fuzzer moduler（变异指导模块）:
+2. Fuzzer module（变异指导模块）:
 
    对变异生成的数据进行fuzz测试，观察神经元覆盖率的变化情况，如果生成的数据使得神经元覆盖率增加，则加入变异的种子队列，用于下一轮的数据变异。目前支持的神经元覆盖率指标包括KMNC、NBC、SNAC、NC、TKNC[2]。
 

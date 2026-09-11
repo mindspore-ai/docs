@@ -17,7 +17,7 @@ This section describes how to use MindSpore Armour in adversarial attack and def
 > The current sample is for CPU, GPU and Atlas training series. You can find the complete executable sample code at
 > <https://atomgit.com/mindspore/mindarmour/blob/master/examples/model_security/model_defenses/mnist_defense_nad.py>
 
-## Creating an Target Model
+## Creating a Target Model
 
 The MNIST dataset is used as an example to describe how to customize a simple model as the target model.
 
@@ -250,13 +250,13 @@ The average structural similarity between original samples and adversarial sampl
 
 After the untargeted FGSM attack is performed on the model, the accuracy of model decreases from 98.9% to 5.2% on adversarial examples, while the misclassification ratio reaches 95%, and the Average Confidence of Adversarial Class (ACAC) is 0.803375, the Average Confidence of True Class (ACTC) is 0.042139. The zero-norm distance, two-norm distance, and infinity-norm distance between the generated adversarial examples and the original benign examples are provided. The average structural similarity between each adversarial example and the original example is 0.332538. It takes 0.003125s to generate an adversarial example on average.
 
-The following figure shows the effect before and after the attack. The left part is the original example, and the right part is the adversarial example generated after the untargeted FGSM attack. From a visual point of view, there is little difference between the right images and the left images, but all images on the right successfully mislead the model into misclassifying the sample as another incorrect categories.
+The following figure shows the effect before and after the attack. The left part is the original example, and the right part is the adversarial example generated after the untargeted FGSM attack. From a visual point of view, there is little difference between the right images and the left images, but all images on the right successfully mislead the model into misclassifying the sample as another incorrect category.
 
 ![adv_attack_result](./images/adv_attack_result.png)
 
 ## Adversarial Defense
 
-Natural Adversarial Defense (NAD) is a simple and effective adversarial example defense method, via adversarial training. It constructs adversarial examples during model training and mixes the adversarial examples with original examples to train the model. As the number of training iteration increases, the robustness of the model against adversarial examples improves. The NAD algorithm uses FGSM as the attack algorithm to construct adversarial examples.
+Natural Adversarial Defense (NAD) is a simple and effective adversarial example defense method, via adversarial training. It constructs adversarial examples during model training and mixes the adversarial examples with original examples to train the model. As the number of training iterations increases, the robustness of the model against adversarial examples improves. The NAD algorithm uses FGSM as the attack algorithm to construct adversarial examples.
 
 ### Defense Implementation
 

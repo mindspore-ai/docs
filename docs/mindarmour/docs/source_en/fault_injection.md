@@ -12,7 +12,7 @@ implementation as faults can lead to loss of life and property.
 
 In order to ensure the reliability and availability of AI model under various fault scenarios,
 it is important to strictly test and verify its components.
-This module can simulate various fault scenarios and evaluation of model reliability.
+This module can simulate various fault scenarios and evaluate model reliability.
 
 The following is a simple example showing the overall process of model fault injection and evaluation:
 
@@ -46,7 +46,7 @@ Decompress the downloaded dataset to a local path. The directory structure is as
 
 ### Downloading the Checkpoint File
 
-Download checkpoint file or just trained your own checkpoint.
+Download checkpoint file or just train your own checkpoint.
 
 ### Importing the Python Library and Modules
 
@@ -134,7 +134,7 @@ results = fi.kick_off(ds_data, ds_label, iter_times=100)
 
 - `ds_data(numpy.ndarray)`: The data for testing. The fault tolerance of the model will be evaluated on this data.
 - `ds_label(numpy.ndarray)`: The label of data, corresponding to the data.
-- `iter_times(numpy.ndarray)`: The number of evaluations, which will determine the batch size.
+- `iter_times(int)`: The number of evaluations, which will determine the batch size.
 
 call function `metrics`, and get summary result:
 
