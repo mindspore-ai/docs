@@ -6,7 +6,7 @@ Translator: [翁炜华](https://atomgit.com/weng-weihua)
 
 ## Overview
 
-Privacy suppression is a mechanism to protect the privacy of user dat a. Privacy suppression is a way to protect user privacy when training an AI model. By removing unimportant parameters from the model, the number of its parameters can be significantly reduced, which reduces the input sample information that may be leaked by the model, thus greatly reducing the possibility of obtaining the original samples through model reversal attacks. Experiments show that the privacy suppression technique can achieve a better balance between the training accuracy and the degree of privacy protection for some models compared to differential privacy.
+Privacy suppression is a mechanism to protect the privacy of user data. Privacy suppression is a way to protect user privacy when training an AI model. By removing unimportant parameters from the model, the number of its parameters can be significantly reduced, which reduces the input sample information that may be leaked by the model, thus greatly reducing the possibility of obtaining the original samples through model reversal attacks. Experiments show that the privacy suppression technique can achieve a better balance between the training accuracy and the degree of privacy protection for some models compared to differential privacy.
 
 ### MindSpore Armour's Implementation of Privacy Suppression
 
