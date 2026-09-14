@@ -50,6 +50,14 @@ html_title = author + ' ' + release + ' ' + project
 # ones.
 myst_enable_extensions = ["dollarmath", "amsmath"]
 
+jquery_path = "/doc-lib/jquery.js"
+underscore_path = "/doc-lib/underscore.js"
+USE_JQUERY = os.path.exists(jquery_path)
+USE_UNDERSCORE = os.path.exists(underscore_path)
+html_context = {
+    'use_jquery': USE_JQUERY,
+    'use_underscore': USE_UNDERSCORE
+}
 
 myst_heading_anchors = 5
 extensions = [
@@ -70,18 +78,17 @@ templates_path = ['_templates']
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
 # This pattern also affects html_static_path and html_extra_path.
-mathjax_path = 'https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/mathjax/MathJax-3.2.2/es5/tex-mml-chtml.js'
+local_mathjax_path = '/doc-lib/mathjax/tex-mml-chtml.js'
+if os.path.exists(local_mathjax_path):
+    mathjax_path = local_mathjax_path
+else:
+    mathjax_path = 'https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/mathjax/MathJax-4.0.0/tex-mml-chtml.js'
 
 mathjax_options = {
     'async':'async'
 }
 
-nbsphinx_requirejs_path = 'https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js'
-
-nbsphinx_requirejs_options = {
-    "crossorigin": "anonymous",
-    "integrity": "sha256-1fEPhSsRKlFKGfK3eO710tEweHh1fwokU5wFGDHO+vg="
-}
+nbsphinx_requirejs_path = ''
 
 smartquotes_action = 'De'
 
