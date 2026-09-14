@@ -13,6 +13,10 @@
 {%- set (_ver_major, _ver_minor, _ver_bugfix) = sphinx_version.split('.') | map('int') -%}
 {%- set sphinx_version_info = (_ver_major, _ver_minor, _ver_bugfix) -%}
 
+{# 检测是否使用 lib #}
+{%- set use_jquery = use_jquery is defined and use_jquery %}
+{%- set use_underscore = use_underscore is defined and use_underscore %}
+
 <!DOCTYPE html>
 <html class="{{ sphinx_writer }}" lang="{{ lang_attr }}" >
 <head>
@@ -73,8 +77,24 @@
       {%- endif -%}
       {%- for scriptfile in script_files %}
         {%- if 'jquery.js' in scriptfile -%}
-        {{ js_tag(scriptfile) }}
+        {# 替换为共享或默认jquery #}
+        {%- if use_jquery %}
+          {# 使用共享 jquery #}
+          <script src="/doc-lib/jquery.js"></script>
+        {%- else %}
+          {# 使用默认 jquery #}
+          <script src="{{ pathto('_static/jquery.js', 1) }}"></script>
+        {%- endif %}
         <script src="/check-dark-mode.js"></script>{{ js_tag('_static/js/theme.js') }}
+        {%- elif 'underscore.js' in scriptfile -%}
+        {# 替换 underscore.js 为共享版本 #}
+        {%- if use_underscore %}
+          {# 使用共享 underscore #}
+          <script src="/doc-lib/underscore.js"></script>
+        {%- else %}
+          {# 使用默认 underscore #}
+          <script src="{{ pathto('_static/underscore.js', 1) }}"></script>
+        {%- endif %}
         {%- else -%}
         {{ js_tag(scriptfile) }}
         {%- endif -%}
