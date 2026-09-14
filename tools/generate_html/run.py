@@ -501,6 +501,19 @@ def main(version, user, pd, WGETDIR, release_url, generate_list, api_detect):
     failed_name_list = []
 
     replace_flag = 1
+    # 复制 doc-lib 文件夹
+    theme_path = args.theme
+    lib_src = os.path.join(os.path.dirname(theme_path), 'public/doc-lib')
+    lib_dst = "/doc-lib"
+    # 先删除已存在的 doc-lib
+    if os.path.exists(lib_dst):
+        shutil.rmtree(lib_dst)
+    # 复制 doc-lib
+    if os.path.exists(lib_src):
+        shutil.copytree(lib_src, lib_dst)
+        print(f"doc-lib 已复制到: {lib_dst}")
+    else:
+        print(f"doc-lib 不存在: {lib_src}")
     # 遍历ArraySource开始生成html
     # pylint: disable=R1702
     for i in ArraySource:
@@ -788,11 +801,6 @@ if __name__ == "__main__":
                     static_path_searchtools = glob.glob(f"{output_path}/{out_name}/{lg}/*/_static/searchtools.js")[0]
                     static_path_css = glob.glob(f"{output_path}/{out_name}/{lg}/*/_static/css/theme.css")[0]
                     static_path_js = glob.glob(f"{output_path}/{out_name}/{lg}/*/_static/js/theme.js")[0]
-                    static_path_jquery = glob.glob(f"{output_path}/{out_name}/{lg}/*/_static/jquery.js")[0]
-                    static_path_underscore = glob.glob(f"{output_path}/{out_name}/{lg}/*/_static/underscore.js")[0]
-                    static_path_jquery_ = glob.glob(f"{output_path}/{out_name}/{lg}/*/_static/jquery-3.5.1.js")[0]
-                    static_path_underscore_ = glob.glob(f"{output_path}/{out_name}/{lg}/*/_static/underscore-1.13.1.js")
-                    static_path_underscore_ = static_path_underscore_[0]
 
                     static_path_css_badge = glob.glob(f"{output_path}/{out_name}/{lg}/*/_static/css/badge_only.css")[0]
                     static_path_js_badge = glob.glob(f"{output_path}/{out_name}/{lg}/*/_static/js/badge_only.js")[0]
@@ -814,8 +822,6 @@ if __name__ == "__main__":
                         js_path = "theme-docs/theme.js"
                     static_path_new_css = os.path.join(theme_path, css_path)
                     static_path_new_js = os.path.join(theme_path, js_path)
-                    static_path_new_jquery = os.path.join(theme_path, "update_js", "jquery.js")
-                    static_path_new_underscore = os.path.join(theme_path, "update_js", "underscore.js")
                     out_name_1 = out_name.split('/')[0]
                     static_path_new_version = os.path.join(version_path, f"{out_name_1}_version.json")
                     # 删除字体
@@ -835,17 +841,7 @@ if __name__ == "__main__":
                     if os.path.exists(static_path_version):
                         os.remove(static_path_version)
                     shutil.copy(static_path_new_version, static_path_version)
-                    if os.path.exists(static_path_jquery):
-                        os.remove(static_path_jquery)
-                    shutil.copy(static_path_new_jquery, static_path_jquery)
-                    if os.path.exists(static_path_underscore):
-                        os.remove(static_path_underscore)
-                    shutil.copy(static_path_new_underscore, static_path_underscore)
 
-                    if os.path.exists(static_path_jquery):
-                        os.remove(static_path_jquery_)
-                    if os.path.exists(static_path_underscore_):
-                        os.remove(static_path_underscore_)
                     if os.path.exists(static_path_css_badge):
                         os.remove(static_path_css_badge)
                     if os.path.exists(static_path_js_badge):
@@ -872,6 +868,20 @@ if __name__ == "__main__":
                     print(f'替换{out_name}下{lg}样式文件失败!\n{e}')
                     continue
         print(f'替换样式文件成功!')
+        # 所有后处理完成后，统一删除 _static/jquery*.js和_static/underscore*.js
+        shared_libs = [
+            ('/doc-lib/jquery.js', 'jquery*.js'),
+            ('/doc-lib/underscore.js', 'underscore*.js')
+        ]
+        for root, dirs, files in os.walk(output_path):
+            if '_static' in dirs:
+                static_dir = os.path.join(root, '_static')
+                for lib_path, pattern in shared_libs:
+                    if os.path.exists(lib_path):
+                        files_to_delete = glob.glob(os.path.join(static_dir, pattern))
+                        for f in files_to_delete:
+                            os.remove(f)
+                            print(f"已删除 {f} (使用 {lib_path})")
     except (KeyboardInterrupt, SystemExit):
         print("程序即将终止....")
         time.sleep(1)
