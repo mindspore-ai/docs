@@ -11,7 +11,7 @@
 
 ## Version dependency
 
-Due the dependency between MindSpore Armour and MindSpore, please follow the table below and install the corresponding MindSpore verision from [MindSpore download page](https://www.mindspore.cn/versions/en).
+Due to the dependency between MindSpore Armour and MindSpore, please follow the table below and install the corresponding MindSpore version from [MindSpore download page](https://www.mindspore.cn/versions/en).
 
 | MindSpore Armour Version | Branch                                                    | MindSpore Version |
 | ------------------ | --------------------------------------------------------- | ----------------- |
@@ -50,7 +50,7 @@ pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/{version}/MindAr
 
 ## Installation Verification
 
-Successfully installed, if there is no error message such as `No module named 'mindarmour'` when execute the following command:
+Successfully installed, if there is no error message such as `No module named 'mindarmour'` when you execute the following command:
 
 ```bash
 python -c 'import mindarmour'

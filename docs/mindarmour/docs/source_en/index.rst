@@ -1,7 +1,7 @@
 MindSpore Armour Documents
 ============================
 
-AI is the catalyst for change but also faces challengs in security and privacy protection. MindSpore Armour is a security and privacy protection tool that is committed to enhancing the trustworthiness of models and protecting the privacy of training and inference data.
+AI is the catalyst for change but also faces challenges in security and privacy protection. MindSpore Armour is a security and privacy protection tool that is committed to enhancing the trustworthiness of models and protecting the privacy of training and inference data.
 
 .. raw:: html
 
@@ -28,7 +28,7 @@ Typical Application Scenarios
 
 3. `Privacy Protection <https://www.mindspore.cn/mindarmour/docs/en/master/protect_user_privacy_with_differential_privacy.html>`_
 
-   Emhances model privacy and protects user data using differential training and protection suppression mechanisms.
+   Enhances model privacy and protects user data differential privacy training and protection suppression mechanisms.
 
 4. `Reliability <https://www.mindspore.cn/mindarmour/docs/en/master/concept_drift_time_series.html>`_
 

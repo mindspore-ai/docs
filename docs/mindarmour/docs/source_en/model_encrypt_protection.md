@@ -113,7 +113,7 @@ def decrypt_func(cipher_file : str, key : bytes):
     return plain_data
 ```
 
-The parameters for customized decryption are cipher file name (str) and decryption key (bytes). The decryption method must return the decrypted model stream in bytes. The customized decryption method is passed from the parameter `dec_mode`. The decrpytion key and the encryption key should be the same.
+The parameters for customized decryption are cipher file name (str) and decryption key (bytes). The decryption method must return the decrypted model stream in bytes. The customized decryption method is passed from the parameter `dec_mode`. The decryption key and the encryption key should be the same.
 
 You can use the following method to enable loading the customized-decrypted model:
 
