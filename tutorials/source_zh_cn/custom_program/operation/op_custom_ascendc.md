@@ -609,7 +609,7 @@ extern "C" std::vector<TypeId> FuncNameInferType(std::vector<TypeId> type_ids, A
    raise err
        File "/.../python3.7/site-packages/mindspore/nn/cell.py", Line 718, in _call
    pynative_executor.end_graph(self, output, *args, **kwargs)
-   File "/.../python3.7/site packages/mindspore/common/api.py", Line 1557, in end_graph
+   File "/.../python3.7/site-packages/mindspore/common/api.py", Line 1557, in end_graph
        self._executor.end_graph(obj, output, *args, *(kwargs.values ( ) ) )
    RuntimeError: Launch kernel failed, name:Default/Custom-op0
    ```
