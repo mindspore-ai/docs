@@ -11,8 +11,6 @@ MindSpore LLM Inference with Framework
 
    ms_infer_network_develop
    ms_infer_parallel_infer
-   ms_infer_quantization
-   ms_infer_model_serving_infer
 
 Background
 ------------
@@ -413,8 +411,6 @@ To quantize a model using Golden Stick, perform the following steps:
 1. **Model quantization**: Use a quantization algorithm to convert the model data type from high-bit type (eg. float16) to low-bit type (eg. int8 or int4).
 
 2. **Model inference**: Load the standard model, quantize the model network (by inserting corresponding quantization operators), load the quantized weight, and call the model inference.
-
-For details about model quantization, see `Quantization <./ms_infer_quantization>`_.
 
 Advanced Usage
 -----------------
