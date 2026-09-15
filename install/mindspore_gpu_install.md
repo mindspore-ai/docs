@@ -8,7 +8,6 @@
     - [环境要求](#环境要求)
         - [硬件要求](#硬件要求)
         - [系统要求和软件依赖](#系统要求和软件依赖)
-        - [Conda安装（可选）](#conda安装可选)
     - [安装指南](#安装指南)
         - [通过可执行文件安装](#通过可执行文件安装)
         - [从源码编译安装](#从源码编译安装)
@@ -32,21 +31,6 @@
 
 - 在联网状态下，安装whl包时会自动下载`requirements.txt`中的依赖项，其余情况需自行安装。
 - 为了方便用户使用，MindSpore降低了对Autoconf、Libtool、Automake版本的依赖，可以使用系统自带版本。
-
-### Conda安装（可选）
-
-1. Conda安装包下载路径如下。
-
-   - [X86 Anaconda](https://www.anaconda.com/distribution/) 或 [X86 Miniconda](https://docs.conda.io/en/latest/miniconda.html)
-
-2. 创建并激活Python环境。
-
-    ```bash
-    conda create -n {your_env_name} python=3.7.5
-    conda activate {your_env_name}
-    ```
-
-> Conda是强大的Python环境管理工具，建议初学者上网查阅更多资料。
 
 ## 安装指南
 
