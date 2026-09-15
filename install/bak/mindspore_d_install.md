@@ -8,7 +8,6 @@
     - [环境要求](#环境要求)
         - [硬件要求](#硬件要求)
         - [系统要求和软件依赖](#系统要求和软件依赖)
-        - [Conda安装（可选）](#conda安装可选)
         - [配套软件包依赖配置](#配套软件包依赖配置)
     - [安装指南](#安装指南)
         - [通过可执行文件安装](#通过可执行文件安装)
@@ -45,22 +44,6 @@
 - 若环境中已经安装了Python，确保将python添加到环境变量中，还可以通过命令`python --version`查看Python的版本是否符合要求。
 - 请将pip添加到环境变量中，以保证可以通过pip直接安装Python相关的工具包。如果pip没有在当前环境中安装，可以在 `https://pypi.org/project/pip/` 中进行下载安装。
 - 在联网状态下，安装whl包时会自动下载`requirements.txt`中的依赖项，其余情况需自行安装。
-
-### Conda安装（可选）
-
-1. 针对不同的CPU架构，Conda安装包下载路径如下。
-
-   - [X86 Anaconda](https://www.anaconda.com/distribution/) 或 [X86 Miniconda](https://docs.conda.io/en/latest/miniconda.html)
-   - [ARM Anaconda](https://github.com/Archiconda/build-tools/releases/download/0.2.3/Archiconda3-0.2.3-Linux-aarch64.sh)
-
-2. 创建并激活Python环境。
-
-    ```bash
-    conda create -n {your_env_name} python=3.7.5
-    conda activate {your_env_name}
-    ```
-
-> Conda是强大的Python环境管理工具，建议初学者上网查阅更多资料。
 
 ### 配套软件包依赖配置
 
@@ -118,7 +101,6 @@
     # control log level. 0-DEBUG, 1-INFO, 2-WARNING, 3-ERROR, default level is WARNING.
     export GLOG_v=2
 
-    # Conda environmental options
     LOCAL_ASCEND=/usr/local/Ascend # the root directory of run package
 
     # lib libraries that the run package depends on
