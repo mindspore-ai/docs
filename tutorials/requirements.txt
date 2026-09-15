@@ -1,10 +1,10 @@
-sphinx == 7.2.6
-docutils == 0.20
+sphinx == 7.4.7
+docutils == 0.21.2
 myst-parser == 4.0.1
 sphinx_rtd_theme == 3.1.0
 numpy
 nbsphinx == 0.8.11
 IPython
 jieba
-jinja2 < 3.1
+jinja2 >= 3.1
 setuptools == 81.0.0
