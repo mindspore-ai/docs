@@ -8,7 +8,6 @@
     - [环境要求](#环境要求)
         - [硬件要求](#硬件要求)
         - [系统要求和软件依赖](#系统要求和软件依赖)
-        - [Conda安装（可选）](#conda安装可选)
         - [配套软件包依赖配置](#配套软件包依赖配置)
     - [安装指南](#安装指南)
         - [通过可执行文件安装](#通过可执行文件安装)
@@ -37,22 +36,6 @@
 - 确认当前用户有权限访问Ascend 910 AI处理器配套软件包（对应版本[Atlas Data Center Solution V100R020C10T400](https://support.huawei.com/enterprise/zh/ascend-computing/atlas-data-center-solution-pid-251167910/software/251811136?idAbsPath=fixnode01%7C23710424%7C251366513%7C22892968%7C251167910)）的安装路径`/usr/local/Ascend`，若无权限，需要root用户将当前用户添加到`/usr/local/Ascend`所在的用户组，具体配置请详见配套软件包的说明文档。
 - GCC 7.3.0可以直接通过apt命令安装。
 - 在联网状态下，安装whl包时会自动下载`requirements.txt`中的依赖项，其余情况需自行安装。
-
-### Conda安装（可选）
-
-1. 针对不同的CPU架构，Conda安装包下载路径如下。
-
-   - [X86 Anaconda](https://www.anaconda.com/distribution/) 或 [X86 Miniconda](https://docs.conda.io/en/latest/miniconda.html)
-   - [ARM Anaconda](https://github.com/Archiconda/build-tools/releases/download/0.2.3/Archiconda3-0.2.3-Linux-aarch64.sh)
-
-2. 创建并激活Python环境。
-
-    ```bash
-    conda create -n {your_env_name} python=3.7.5
-    conda activate {your_env_name}
-    ```
-
-> Conda是强大的Python环境管理工具，建议初学者上网查阅更多资料。
 
 ### 配套软件包依赖配置
 
@@ -108,7 +91,6 @@
     # control log level. 0-DEBUG, 1-INFO, 2-WARNING, 3-ERROR, default level is WARNING.
     export GLOG_v=2
 
-    # Conda environmental options
     LOCAL_ASCEND=/usr/local/Ascend # the root directory of run package
 
     # lib libraries that the run package depends on
@@ -127,7 +109,6 @@
     # control log level. 0-DEBUG, 1-INFO, 2-WARNING, 3-ERROR, default level is WARNING.
     export GLOG_v=2
 
-    # Conda environmental options
     LOCAL_ASCEND=/usr/local/Ascend # the root directory of run package
 
     # lib libraries that the run package depends on

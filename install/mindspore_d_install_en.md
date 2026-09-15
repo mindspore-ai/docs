@@ -8,7 +8,6 @@ This document describes how to quickly install MindSpore in an Ascend AI process
     - [Environment Requirements](#environment-requirements)
         - [Hardware Requirements](#hardware-requirements)
         - [System Requirements and Software Dependencies](#system-requirements-and-software-dependencies)
-        - [(Optional) Installing Conda](#optional-installing-conda)
         - [Configuring software package Dependencies](#configuring-software-package-dependencies)
     - [Installation Guide](#installation-guide)
         - [Installing Using Executable Files](#installing-using-executable-files)
@@ -37,22 +36,6 @@ This document describes how to quickly install MindSpore in an Ascend AI process
 - Confirm that the current user has the right to access the installation path `/usr/local/Ascend `of Ascend 910 AI processor software package(Version:[Atlas Data Center Solution V100R020C10T400](https://support.huawei.com/enterprise/zh/ascend-computing/atlas-data-center-solution-pid-251167910/software/251811136?idAbsPath=fixnode01%7C23710424%7C251366513%7C22892968%7C251167910)). If not, the root user needs to add the current user to the user group where `/usr/local/Ascend` is located. For the specific configuration, please refer to the software package instruction document.
 - GCC 7.3.0 can be installed by using apt command.
 - When the network is connected, dependency items in the `requirements.txt` file are automatically downloaded during .whl package installation. In other cases, you need to manually install dependency items.
-
-### (Optional) Installing Conda
-
-1. Download the Conda installation package from the following path:
-
-   - [X86 Anaconda](https://www.anaconda.com/distribution/) or [X86 Miniconda](https://docs.conda.io/en/latest/miniconda.html)
-   - [ARM Anaconda](https://github.com/Archiconda/build-tools/releases/download/0.2.3/Archiconda3-0.2.3-Linux-aarch64.sh)
-
-2. Create and activate the Python environment.
-
-    ```bash
-    conda create -n {your_env_name} python=3.7.5
-    conda activate {your_env_name}
-    ```
-
-> Conda is a powerful Python environment management tool. Beginers are adviced to check related information on the Internet.
 
 ### Configuring software package Dependencies
 
@@ -108,7 +91,6 @@ The compilation and installation must be performed on the Ascend 910 AI processo
     # control log level. 0-DEBUG, 1-INFO, 2-WARNING, 3-ERROR, default level is WARNING.
     export GLOG_v=2
 
-    # Conda environmental options
     LOCAL_ASCEND=/usr/local/Ascend # the root directory of run package
 
     # lib libraries that the run package depends on
@@ -127,7 +109,6 @@ The compilation and installation must be performed on the Ascend 910 AI processo
     # control log level. 0-DEBUG, 1-INFO, 2-WARNING, 3-ERROR, default level is WARNING.
     export GLOG_v=2
 
-    # Conda environmental options
     LOCAL_ASCEND=/usr/local/Ascend # the root directory of run package
 
     # lib libraries that the run package depends on
