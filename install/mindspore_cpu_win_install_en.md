@@ -7,7 +7,6 @@ This document describes how to quickly install MindSpore on a Windows system wit
 - [MindSpore Installation Guide](#mindspore-installation-guide)
     - [Environment Requirements](#environment-requirements)
         - [System Requirements and Software Dependencies](#system-requirements-and-software-dependencies)
-        - [(Optional) Installing Conda](#optional-installing-conda)
     - [Installation Guide](#installation-guide)
         - [Installing Using Executable Files](#installing-using-executable-files)
         - [Installing Using the Source Code](#installing-using-the-source-code)
@@ -23,22 +22,6 @@ This document describes how to quickly install MindSpore on a Windows system wit
 | MindSpore 0.5.0-beta | Windows 10 x86_64 | - [Python](https://www.python.org/downloads/) 3.7.5 <br> - For details about other dependency items, see [requirements.txt](https://gitee.com/mindspore/mindspore/blob/r0.5/requirements.txt). | **Compilation dependencies:**<br> - [Python](https://www.python.org/downloads/) 3.7.5 <br> - [MinGW-W64 GCC-7.3.0](https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win64/Personal%20Builds/mingw-builds/7.3.0/threads-posix/seh/x86_64-7.3.0-release-posix-seh-rt_v5-rev0.7z) x86_64-posix-seh <br> - [ActivePerl](http://downloads.activestate.com/ActivePerl/releases/5.24.3.2404/ActivePerl-5.24.3.2404-MSWin32-x64-404865.exe) 5.24.3.2404 <br> - [CMake](https://cmake.org/download/) 3.14.1 <br> - [wheel](https://pypi.org/project/wheel/) >= 0.32.0 <br> **Installation dependencies:**<br> same as the executable file installation dependencies. |
 
 - When the network is connected, dependency items in the `requirements.txt` file are automatically downloaded during .whl package installation. In other cases, you need to manually install dependency items.
-
-### (Optional) Installing Conda
-
-1. Download the Conda installation package from the following path:
-
-   - [X86 Anaconda](https://www.anaconda.com/distribution/) or [X86 Miniconda](https://docs.conda.io/en/latest/miniconda.html)
-
-2. Open Anaconda Prompt from the Windows start menu after installation.
-3. Create and activate the Python environment.
-
-    ```bash
-    conda create -n {your_env_name} python=3.7.5
-    conda activate {your_env_name}
-    ```
-
-> Conda is a powerful Python environment management tool. It is recommended that a beginner read related information on the Internet first.
 
 ## Installation Guide
 
