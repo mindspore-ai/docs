@@ -8,7 +8,6 @@ This document describes how to quickly install MindSpore in an Ascend AI process
     - [Environment Requirements](#environment-requirements)
         - [Hardware Requirements](#hardware-requirements)
         - [System Requirements and Software Dependencies](#system-requirements-and-software-dependencies)
-        - [(Optional) Installing Conda](#optional-installing-conda)
         - [Configuring software package Dependencies](#configuring-software-package-dependencies)
     - [Installation Guide](#installation-guide)
         - [Installing Using Executable Files](#installing-using-executable-files)
@@ -45,22 +44,6 @@ This document describes how to quickly install MindSpore in an Ascend AI process
 - If Python has already installed, using `python --version` to check whether the version match, make sure your Python was added in environment variable `PATH`.
 - Add pip to the environment variable to ensure that Python related toolkits can be installed directly through pip. You can get pip installer here `https://pypi.org/project/pip/` if pip is not install.
 - When the network is connected, dependency items in the `requirements.txt` file are automatically downloaded during .whl package installation. In other cases, you need to manually install dependency items.
-
-### (Optional) Installing Conda
-
-1. Download the Conda installation package from the following path:
-
-   - [X86 Anaconda](https://www.anaconda.com/distribution/) or [X86 Miniconda](https://docs.conda.io/en/latest/miniconda.html)
-   - [ARM Anaconda](https://github.com/Archiconda/build-tools/releases/download/0.2.3/Archiconda3-0.2.3-Linux-aarch64.sh)
-
-2. Create and activate the Python environment.
-
-    ```bash
-    conda create -n {your_env_name} python=3.7.5
-    conda activate {your_env_name}
-    ```
-
-> Conda is a powerful Python environment management tool. Beginers are adviced to check related information on the Internet.
 
 ### Configuring software package Dependencies
 
@@ -118,7 +101,6 @@ The compilation and installation must be performed on the Ascend 910 AI processo
     # control log level. 0-DEBUG, 1-INFO, 2-WARNING, 3-ERROR, default level is WARNING.
     export GLOG_v=2
 
-    # Conda environmental options
     LOCAL_ASCEND=/usr/local/Ascend # the root directory of run package
 
     # lib libraries that the run package depends on

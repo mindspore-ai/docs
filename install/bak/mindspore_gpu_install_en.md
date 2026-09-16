@@ -8,7 +8,6 @@ This document describes how to quickly install MindSpore in a NVIDIA GPU environ
     - [Environment Requirements](#environment-requirements)
         - [Hardware Requirements](#hardware-requirements)
         - [System Requirements and Software Dependencies](#system-requirements-and-software-dependencies)
-        - [(Optional) Installing Conda](#optional-installing-conda)
     - [Installation Guide](#installation-guide)
         - [Installing Using Executable Files](#installing-using-executable-files)
         - [Installing Using the Source Code](#installing-using-the-source-code)
@@ -41,21 +40,6 @@ This document describes how to quickly install MindSpore in a NVIDIA GPU environ
 - When the network is connected, dependency items in the `requirements.txt` file are automatically downloaded during `.whl` package installation. In other cases, you need to manually install dependency items.
 - MindSpore reduces dependency on Autoconf, Libtool, Automake versions for the convenience of users, default versions of these tools built in their systems are now supported.
 - **If CUDA is installed in a non-default path**, after installing CUDA, environment variable `PATH`(e.g. `export PATH=/usr/local/cuda-${version}/bin:$PATH`) and `LD_LIBRARY_PATH`(e.g. `export LD_LIBRARY_PATH=/usr/local/cuda-${version}/lib64:$LD_LIBRARY_PATH`) need to be set. Please refer to [CUDA installation guide](https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html#post-installation-actions) for detailed post installation actions.
-
-### (Optional) Installing Conda
-
-1. Download the Conda installation package from the following path:
-
-   - [X86 Anaconda](https://www.anaconda.com/distribution/) or [X86 Miniconda](https://docs.conda.io/en/latest/miniconda.html)
-
-2. Create and activate the Python environment.
-
-    ```bash
-    conda create -n {your_env_name} python=3.7.5
-    conda activate {your_env_name}
-    ```
-
-> Conda is a powerful Python environment management tool. Beginners are adviced to check related information on the Internet.
 
 ## Installation Guide
 
