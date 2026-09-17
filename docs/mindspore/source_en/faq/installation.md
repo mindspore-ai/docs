@@ -38,7 +38,7 @@ A: Add the `--trusted-host=ms-release.obs.cn-north-4.myhuaweicloud.com` paramete
 
 <br/>
 
-### Q: Any specific requirements for Protobuf version when use MindSpore?
+### Q: Any specific requirements for Protobuf version when using MindSpore?
 
 A: MindSpore installs version 3.13.0 of Protobuf by default. If it is not the version, there will be many warnings in the log when using pytest to test the code. It is recommended that you use the command 'pip install protobuf==3.13.0' to reinstall version 3.13.0.
 
@@ -148,7 +148,7 @@ For more details, please refer to [setuptools version history](https://setuptool
 
 <br/>
 
-### Q: What should I do if the software version required by MindSpore is not the same with the Ubuntu default software version?
+### Q: What should I do if the software version required by MindSpore is not the same as the Ubuntu default software version?
 
 A: Currently, MindSpore only provides version matching relationships, which requires you to manually install and upgrade the companion software. (**Note**: MindSpore requires Python3.7.5 and gcc7.3, and the default version in Ubuntu 16.04 are Python3.5 and gcc5, whereas the default one in Ubuntu 18.04 are Python3.7.3 and gcc7.4)
 

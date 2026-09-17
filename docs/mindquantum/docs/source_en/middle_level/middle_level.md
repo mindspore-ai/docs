@@ -8,6 +8,6 @@ Understand the applications of MindSpore Quantum in noisy quantum simulation, qu
 
 <ul>
   <li><a href="noise.html">Noisy Quantum Circuit</a></li>
-  <li><a href="noise_simulator.html">Noise simulator</a></li>
+  <li><a href="noise_simulator.html">Noise Simulator</a></li>
   <li><a href="qubit_mapping.html">Qubit Mapping</a></li>
 </ul>
