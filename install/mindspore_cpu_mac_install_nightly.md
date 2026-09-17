@@ -25,8 +25,6 @@ MindSpore Nightly是包含当前最新功能与bugfix的预览版本，但是可
     |M1|ARM|11.3|Python 3.8.-3.9|
     |Intel|x86_64|10.15/11.3|Python 3.7-3.9|
 
-> 注意：[Python 3.8.10](https://www.python.org/downloads/release/python-3810/) 或通过Conda安装的Python 3.8.5版本是支持M1芯片（ARM架构）macOS的最低Python版本
-
 - 确认安装对应的Python版本。如果未安装或者已安装其他版本的Python，可以从[Python官网](https://www.python.org/downloads/macos/)或者[华为云](https://repo.huaweicloud.com/python/)选择合适的版本进行安装。
 
 ## 下载安装MindSpore
