@@ -48,18 +48,6 @@ MINDSPORE_VERSION=2.0.0rc1 bash -i ./euleros-ascend-pip.sh
 
 在脚本执行完成后，需要重新打开终端窗口以使环境变量生效。
 
-自动安装脚本会为MindSpore创建名为`mindspore_pyXX`的虚拟环境。其中`XX`为Python版本，如Python 3.7则虚拟环境名为`mindspore_py37`。执行以下命令查看所有虚拟环境。
-
-```bash
-conda env list
-```
-
-以Python 3.7为例，执行以下命令激活虚拟环境。
-
-```bash
-conda activate mindspore_py37
-```
-
 现在您可以跳转到[配置环境变量](#配置环境变量)小节设置相关环境变量。
 
 更多的用法请参看脚本头部的说明。
@@ -79,29 +67,9 @@ conda activate mindspore_py37
 
 ### 安装Python
 
-[Python](https://www.python.org/)可通过Conda进行安装。
+请参照[Python官网](https://www.python.org/)自行安装Python，版本要求为3.7-3.9。
 
-安装Miniconda：
-
-```bash
-cd /tmp
-curl -O https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/Miniconda3-py37_4.10.3-Linux-$(arch).sh
-bash Miniconda3-py37_4.10.3-Linux-$(arch).sh -b
-cd -
-. ~/miniconda3/etc/profile.d/conda.sh
-conda init bash
-```
-
-安装完成后，可以为Conda设置清华源加速下载，参考[此处](https://mirrors.tuna.tsinghua.edu.cn/help/anaconda/)。
-
-创建虚拟环境，以Python 3.7.5为例：
-
-```bash
-conda create -n mindspore_py37 python=3.7.5 -y
-conda activate mindspore_py37
-```
-
-可以通过以下命令查看Python版本。
+安装完成后，可以通过以下命令查看Python版本。
 
 ```bash
 python --version
@@ -201,7 +169,6 @@ pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/${MS_VERSION}/Mi
 # control log level. 0-DEBUG, 1-INFO, 2-WARNING, 3-ERROR, 4-CRITICAL, default level is WARNING.
 export GLOG_v=2
 
-# Conda environmental options
 LOCAL_ASCEND=/usr/local/Ascend # the root directory of run package
 
 # lib libraries that the run package depends on
