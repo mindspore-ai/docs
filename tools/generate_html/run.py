@@ -485,14 +485,21 @@ def main(version, user, pd, WGETDIR, release_url, generate_list, api_detect):
             ArraySource[data[i]['name'] + '/docs'] = html_branch
 
     # 安装opencv-python额外依赖
+    print("安装 opencv-python 开始")
+    install_start = time.perf_counter()
     cmd = ["pip", "install", "opencv-python"]
     process = subprocess.Popen(cmd, stderr=subprocess.PIPE, encoding="utf-8")
     process.communicate()
     process.wait()
+    install_end = time.perf_counter()
+    minutes, seconds = divmod(install_end - install_start, 60)
+    print(f"安装 opencv-python 完成，耗时: {int(minutes)}分{seconds:.1f}秒")
 
     # 安装各个组件的需要的安装包
     os.chdir(WHLDIR)
 
+    print("安装各组件 whl 包开始")
+    whl_install_start = time.perf_counter()
     whls = os.listdir()
     if whls:
         for i in whls:
@@ -512,12 +519,20 @@ def main(version, user, pd, WGETDIR, release_url, generate_list, api_detect):
                 subprocess.run(cmd_install)
             else:
                 os.environ["LITE_PACKAGE_PATH"] = os.path.join(WHLDIR, i)
+    whl_install_end = time.perf_counter()
+    minutes, seconds = divmod(whl_install_end - whl_install_start, 60)
+    print(f"安装各组件 whl 包完成，耗时: {int(minutes)}分{seconds:.1f}秒")
 
     # 安装mistune额外依赖
+    print("安装 mistune 开始")
+    mistune_start = time.perf_counter()
     cmd = ["pip", "install", "mistune==2.0.4"]
     process_1 = subprocess.Popen(cmd, stderr=subprocess.PIPE, encoding="utf-8")
     process_1.communicate()
     process_1.wait()
+    mistune_end = time.perf_counter()
+    minutes, seconds = divmod(mistune_end - mistune_start, 60)
+    print(f"安装 mistune 完成，耗时: {int(minutes)}分{seconds:.1f}秒")
 
     ERRORLOGDIR = f"{WORKDIR}/errorlog/"
 
@@ -560,8 +575,14 @@ def main(version, user, pd, WGETDIR, release_url, generate_list, api_detect):
         else:
             os.chdir(os.path.join(DOCDIR, "../../docs", i))
         # 安装各个组件需要的依赖
+        print(f"[{i}] 安装 requirements.txt 开始")
+        req_start = time.perf_counter()
         install_req_cmd = ["pip", "install", "-r", "requirements.txt"]
         subprocess.run(install_req_cmd)
+        req_end = time.perf_counter()
+        minutes, seconds = divmod(req_end - req_start, 60)
+        print(f"[{i}] 安装 requirements.txt 完成，耗时: {int(minutes)}分{seconds:.1f}秒")
+
         sys.path.append(os.path.join(DOCDIR, '../../resource/sphinx_ext'))
         import sphinx_replace
 
@@ -604,6 +625,7 @@ def main(version, user, pd, WGETDIR, release_url, generate_list, api_detect):
         if os.path.exists("source_en"):
             try:
                 print(f"当前输出-{i}- 的-英文-版本---->")
+                en_start = time.perf_counter()
                 with open("Makefile", "r+") as f:
                     content = f.read()
                     content_mod = content.replace("source_zh_cn", "source_en")\
@@ -642,6 +664,9 @@ def main(version, user, pd, WGETDIR, release_url, generate_list, api_detect):
                         if os.path.exists(jquery_file):
                             os.remove(jquery_file)
                             print(f"已删除 {jquery_file} (使用 /doc-lib/jquery.js)")
+                en_end = time.perf_counter()
+                en_min, en_sec = divmod(en_end - en_start, 60)
+                print(f"[{i}] 英文构建耗时: {int(en_min)}分{en_sec:.1f}秒")
             # pylint: disable=W0702
             except:
                 print(f"{i} 的 英文版本运行失败")
@@ -650,6 +675,7 @@ def main(version, user, pd, WGETDIR, release_url, generate_list, api_detect):
         if os.path.exists("source_zh_cn"):
             try:
                 print(f"当前输出-{i}- 的-中文-版本---->")
+                cn_start = time.perf_counter()
                 with open("Makefile", "r+") as f:
                     content = f.read()
                     content_mod = content.replace("source_en", "source_zh_cn")\
@@ -687,6 +713,9 @@ def main(version, user, pd, WGETDIR, release_url, generate_list, api_detect):
                         if os.path.exists(jquery_file):
                             os.remove(jquery_file)
                             print(f"已删除 {jquery_file} (使用 /doc-lib/jquery.js)")
+                cn_end = time.perf_counter()
+                cn_min, cn_sec = divmod(cn_end - cn_start, 60)
+                print(f"[{i}] 中文构建耗时: {int(cn_min)}分{cn_sec:.1f}秒")
             # pylint: disable=W0702
             except:
                 print(f"{i} 的 中文版本运行失败")
@@ -798,13 +827,17 @@ if __name__ == "__main__":
     # git 克隆仓保存路径
     REPODIR = f"{MAINDIR}/repository"
 
+    total_start = time.perf_counter()
     # 开始执行
     try:
         # 主函数组件html构建
+        stage1_start = time.perf_counter()
         main(version=args.version, user=args.user, pd=password, WGETDIR=args.wgetdir,
              release_url=args.release_url, generate_list=generate_list_p, api_detect=args.api_detect)
+        stage1_end = time.perf_counter()
 
         # 替换页面左侧目录部分
+        stage2_start = time.perf_counter()
         ms_path = f"{MAINDIR}/{args.version}/output/docs/zh-CN/master"
         if os.path.exists(ms_path):
             replace_html_menu(ms_path, os.path.join(DOCDIR, "../../docs/mindspore/source_zh_cn"))
@@ -825,8 +858,10 @@ if __name__ == "__main__":
             print('tutorials中文目录大纲调整完成！')
             modify_menu_num(ts_path.replace('zh-CN', 'en'))
             print('tutorials英文目录大纲调整完成！')
+        stage2_end = time.perf_counter()
 
         # 替换样式相关内容
+        stage3_start = time.perf_counter()
         theme_list = []
         output_path = f"{MAINDIR}/{args.version}/output"
         version_path = f"{MAINDIR}/{args.version}_version/"
@@ -909,10 +944,20 @@ if __name__ == "__main__":
                     print(f'替换{out_name}下{lg}样式文件失败!\n{e}')
                     continue
         print(f'替换样式文件成功!')
+        stage3_end = time.perf_counter()
         # 修改 searchtools.js
         output_path = f"{MAINDIR}/{args.version}/output"
         patch_searchtools(output_path)
         print("searchtools.js 修改完成!")
+        total_end = time.perf_counter()
+        t_min, t_sec = divmod(total_end - total_start, 60)
+        print(f"总耗时: {int(t_min)}分{t_sec:.1f}秒")
+        s1_min, s1_sec = divmod(stage1_end - stage1_start, 60)
+        print(f"  阶段 1 (main 构建): {int(s1_min)}分{s1_sec:.1f}秒")
+        s2_min, s2_sec = divmod(stage2_end - stage2_start, 60)
+        print(f"  阶段 2 (替换目录): {int(s2_min)}分{s2_sec:.1f}秒")
+        s3_min, s3_sec = divmod(stage3_end - stage3_start, 60)
+        print(f"  阶段 3 (替换样式): {int(s3_min)}分{s3_sec:.1f}秒")
     except (KeyboardInterrupt, SystemExit):
         print("程序即将终止....")
         time.sleep(1)
