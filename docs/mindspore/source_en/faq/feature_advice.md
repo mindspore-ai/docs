@@ -74,7 +74,7 @@ A: Due to hardware limitations of Protobuf, when exporting to ONNX formats, the 
 
 ### Q: Does MindSpore have any plan on supporting heterogeneous computing hardware?
 
-A: MindSpore provides pluggable device management interface, so that developer could easily integrate other types of heterogeneous computing hardware (like FPGA) to MindSpore. We welcome more backend support in MindSpore from the community.
+A: MindSpore provides pluggable device management interface, so that developers could easily integrate other types of heterogeneous computing hardware (like FPGA) to MindSpore. We welcome more backend support in MindSpore from the community.
 
 <br/>
 
@@ -92,7 +92,7 @@ A: MindSpore supports Python native expression and `import mindspore` related pa
 
 ### Q: What is the MindSpore IR design concept?
 
-A: Function expression: All expressions are functions, and differentiation and automatic parallel analysis are easy to implement without side effect. `JIT` compilation capability: The graph-based IR, control flow dependency, and data flow are combined to balance the universality and usability. Graphically complete IR: More conversion of `Python` flexible syntax, including recursion, etc.
+A: Function expression: All expressions are functions, and differentiation and automatic parallel analysis are easy to implement without side effects. `JIT` compilation capability: The graph-based IR, control flow dependency, and data flow are combined to balance the universality and usability. Graphically complete IR: More conversion of `Python` flexible syntax, including recursion, etc.
 
 <br/>
 
