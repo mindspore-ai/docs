@@ -569,26 +569,12 @@ def main(version, user, pd, WGETDIR, release_url, generate_list, api_detect):
             if replace_flag:
                 # 替换影响锚点生成的文件
                 from docutils import nodes
-                # nodes_target = os.path.join(os.path.dirname(nodes.__file__), 'nodes.py')
-                # nodes_src = os.path.join(DOCDIR, '../../resource/sphinx_ext/nodes.txt')
-                # if os.path.exists(nodes_target):
-                #     os.remove(nodes_target)
-                # shutil.copy(nodes_src, nodes_target)
+                nodes_target = os.path.join(os.path.dirname(nodes.__file__), 'nodes.py')
+                nodes_src = os.path.join(DOCDIR, '../../resource/sphinx_ext/nodes.txt')
+                if os.path.exists(nodes_target):
+                    os.remove(nodes_target)
+                shutil.copy(nodes_src, nodes_target)
 
-                # 兼容 docutils 0.21.2 的 findall
-                docutils_path = os.path.join(pythonlib_dir, 'sphinx', 'util', 'docutils.py')
-                if os.path.exists(docutils_path):
-                    with open(docutils_path, 'r', encoding='utf-8') as f:
-                        content = f.read()
-                    if 'hasattr(Node, "findall")' not in content:
-                        content = content.replace(
-                            'Node.findall = findall #type: ignore',
-                            '''if not hasattr(Node, "findall"):
-            Node.findall = lambda self, *args, **kwargs: self.find(*args, **kwargs)'''
-                        )
-                        with open(docutils_path, 'w', encoding='utf-8') as f:
-                            f.write(content)
-                        print(f" 已 patch docutils.py")
                 # 去除页面元数据中关于docutils的版本信息
                 html_base_target = os.path.join(os.path.dirname(nodes.__file__), 'writers/_html_base.py')
                 with open(html_base_target, 'r+', encoding='utf-8') as h:

@@ -882,11 +882,7 @@ class StandaloneHTMLBuilder(Builder):
     def cleanup(self) -> None:
         # clean up theme stuff
         if self.theme:
-            # 兼容 sphinx7.4.7(Theme基类方法名从 cleanup 改为 _cleanup)
-            if hasattr(self.theme, '_cleanup'):
-                self.theme._cleanup()
-            elif hasattr(self.theme, 'cleanup'):
-                self.theme.cleanup()
+            self.theme.cleanup()
 
     def post_process_images(self, doctree: Node) -> None:
         """Pick the best candidate for an image and link down-scaled images to
