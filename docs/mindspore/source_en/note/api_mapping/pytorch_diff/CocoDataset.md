@@ -1,4 +1,4 @@
-# Differences with torch.torchvision.datasets.CocoDetection
+# Differences with torchvision.datasets.CocoDetection
 
 [![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/CocoDataset.md)
 
@@ -60,7 +60,7 @@ MindSpore: Input the COCO dataset and a specified task type (target detection, p
 |     | Parameter12 | -    | num_shards | Number of shards that the dataset will be divided into |
 |     | Parameter13 | -    | shard_id | The shard ID within num_shards |
 |     | Parameter14 | -    | cache | Use tensor caching service to speed up dataset processing |
-|     | Parameter15 | -    | extra_metadata | Flag to add extra meta-data to row |
+|     | Parameter15 | -    | extra_metadata | Flag to add extra metadata to row |
 |     | Parameter16 | -    | decrypt | Image decryption function |
 
 ## Code Example

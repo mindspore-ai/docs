@@ -6,7 +6,7 @@
 
 Data parallel is the most commonly used parallel training approach for accelerating model training and handling large-scale datasets. In data parallel mode, the training data is divided into multiple copies and then each copy is assigned to a different compute node, such as multiple cards or multiple devices. Each node processes its own subset of data independently and uses the same model for forward and backward propagation, and ultimately performs model parameter updates after synchronizing the gradients of all nodes.
 
-> Hardware platforms supported for data parallelism include Ascend, GPU and CPU, in addition to both PyNative and Graph modes.
+> Hardware platforms supported for data parallel include Ascend, GPU and CPU, in addition to both PyNative and Graph modes.
 
 Related interfaces are as follows:
 

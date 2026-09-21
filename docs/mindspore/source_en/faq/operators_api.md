@@ -95,7 +95,7 @@ A: Currently, MindSpore does not provide anti-pooling APIs but you can customize
 
 <br/>
 
-### Q: The performance of some operators can not up to standard even though tuned by the operator tuning tool, what should I do?
+### Q: The performance of some operators cannot meet the standard even though tuned by the operator tuning tool, what should I do?
 
 A: In this case,
 

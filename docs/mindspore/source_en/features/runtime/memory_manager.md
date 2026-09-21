@@ -35,7 +35,7 @@ Memory reuse algorithm serves as the core competitiveness of memory management, 
 
 **Static Memory Reuse**
 
-Static memory reuse: the memory reuse relationship is mainly determined in the graph compilation phase. MindSpore implements the SOMAS (Safe Optimized Memory Allocation Solver ) algorithm, whose main idea is to perform aggregation analysis between the calculation graph parallel flow and data dependency, to get the inter-operator dependency, modeling the tensor global lifetime constraints through the dependencies, and solving the optimal memory static planning by using various heuristic algorithms to minimize the memory fragmentation and achieve memory reuse close to theoretical limits. The main steps are:
+Static memory reuse: the memory reuse relationship is mainly determined in the graph compilation phase. MindSpore implements the SOMAS (Safe Optimized Memory Allocation Solver) algorithm, whose main idea is to perform aggregation analysis between the calculation graph parallel flow and data dependency, to get the inter-operator dependency, modeling the tensor global lifetime constraints through the dependencies, and solving the optimal memory static planning by using various heuristic algorithms to minimize the memory fragmentation and achieve memory reuse close to theoretical limits. The main steps are:
 
 1. Model the graph.
 2. Compute mutually exclusive constraint relationships between tensors based on modeling information.

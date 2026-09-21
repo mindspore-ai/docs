@@ -22,7 +22,7 @@ For more information, see [mindspore.dataset.audio.AmplitudeToDB](https://mindsp
 
 PyTorch: Turn the input audio waveform from the amplitude/power scale to decibel scale.
 
-MindSpore: Turn the input audio waveform from the amplitude/power scale to decibel scale. Specified lower bound of the input waveform and multiplier reference value for db are supported.
+MindSpore: Turn the input audio waveform from the amplitude/power scale to decibel scale. Specified lower bound of the input waveform and multiplier reference value for dB are supported.
 
 | Categories | Subcategories |PyTorch | MindSpore | Difference |
 | --- | ---   | ---   | ---        |---  |

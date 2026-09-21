@@ -6,7 +6,7 @@
 
 ### Q: 使用溢出检测Dump功能时，遇到`RuntimeError: aclnnAllFiniteGetWorkspaceSize call failed, please check!`报错，该如何解决？
 
-A: 该错误通常是因为溢出检测功能所依赖的自定义算子与当前 CANN 版本不兼容所致。MindSpore 的溢出检测 Dump 功能对 CANN 版本有严格要求，高版本 MindSpore 无法兼容低版本 CANN。
+A: 该错误通常是由于溢出检测功能所依赖的自定义算子与当前 CANN 版本不兼容导致的。MindSpore 的溢出检测 Dump 功能对 CANN 版本有严格要求，高版本 MindSpore 无法兼容低版本 CANN。
 
 建议通过以下方式解决：
 
