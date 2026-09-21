@@ -41,6 +41,7 @@ html_context = {'use_lib': USE_LIB}
 myst_heading_anchors = 5
 extensions = [
     'myst_parser',
+    'custom_anchor',
 ]
 
 source_suffix = {
