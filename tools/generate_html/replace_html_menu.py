@@ -302,9 +302,12 @@ def replace_html_menu(html_path, hm_ds_path):
 
     # 修改搜索引擎内的逻辑适配单独模块搜索
     searchtools_path = os.path.join(html_path, '_static/searchtools.js')
-    old_searchtools_content = '// let the scorer override scores with a custom scoring function'
-    new_searchtools_content = r"""var pathname = window.location.pathname;
-    let spec_re = /(zh-CN|en)\/[^\/]+?\/search.html/;
+    old_searchtools_content = 'let results = [...nonMainIndexResults, ...normalResults];'
+    new_searchtools_content = """let results = [...nonMainIndexResults, ...normalResults];
+
+    // 自定义过滤：只显示当前目录下的结果
+    var pathname = window.location.pathname;
+    let spec_re = /(zh-CN|en)\\/[^\\/]+?\\/search.html/;
 
     if (!spec_re.test(pathname)) {
       results = results.filter(function(e,i,arry) {
@@ -314,9 +317,7 @@ def replace_html_menu(html_path, hm_ds_path):
           return pathname.includes(arry[i][0].split('/')[0])
         }
       })
-    }
-
-    // let the scorer override scores with a custom scoring function"""
+    }"""
 
     old_searchtools_url = 'requestUrl = contentRoot + docName + docFileSuffix;'
     new_searchtools_url = """let fullUrl = window.location.href;

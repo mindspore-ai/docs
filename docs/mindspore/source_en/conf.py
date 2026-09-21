@@ -115,7 +115,8 @@ extensions = [
     'myst_parser',
     'nbsphinx',
     'sphinx.ext.mathjax',
-    'IPython.sphinxext.ipython_console_highlighting'
+    'IPython.sphinxext.ipython_console_highlighting',
+    'custom_anchor',
 ]
 
 
@@ -187,6 +188,8 @@ with open(os.path.join(os.path.dirname(sphinx_rtd_theme.__file__), 'breadcrumbs.
     f.seek(0)
     f.truncate()
     f.write(content)
+
+sys.path.append(os.path.abspath('../../../resource/sphinx_ext'))
 
 # -- Options for Texinfo output -------------------------------------------
 

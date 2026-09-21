@@ -590,11 +590,26 @@ def main(version, user, pd, WGETDIR, release_url, generate_list, api_detect):
             if replace_flag:
                 # 替换影响锚点生成的文件
                 from docutils import nodes
-                nodes_target = os.path.join(os.path.dirname(nodes.__file__), 'nodes.py')
-                nodes_src = os.path.join(DOCDIR, '../../resource/sphinx_ext/nodes.txt')
-                if os.path.exists(nodes_target):
-                    os.remove(nodes_target)
-                shutil.copy(nodes_src, nodes_target)
+                # nodes_target = os.path.join(os.path.dirname(nodes.__file__), 'nodes.py')
+                # nodes_src = os.path.join(DOCDIR, '../../resource/sphinx_ext/nodes.txt')
+                # if os.path.exists(nodes_target):
+                #     os.remove(nodes_target)
+                # shutil.copy(nodes_src, nodes_target)
+
+                # 兼容 docutils 0.21.2 的 findall
+                docutils_path = os.path.join(pythonlib_dir, 'sphinx', 'util', 'docutils.py')
+                if os.path.exists(docutils_path):
+                    with open(docutils_path, 'r', encoding='utf-8') as f:
+                        content = f.read()
+                    if 'hasattr(Node, "findall")' not in content:
+                        content = content.replace(
+                            'Node.findall = findall #type: ignore',
+                            '''if not hasattr(Node, "findall"):
+            Node.findall = lambda self, *args, **kwargs: self.find(*args, **kwargs)'''
+                        )
+                        with open(docutils_path, 'w', encoding='utf-8') as f:
+                            f.write(content)
+                        print(f" 已 patch docutils.py")
 
                 # 去除页面元数据中关于docutils的版本信息
                 html_base_target = os.path.join(os.path.dirname(nodes.__file__), 'writers/_html_base.py')
@@ -774,24 +789,6 @@ def process_file(file_path):
     except Exception:
         print(f"{file_path}替换失败")
 
-def patch_searchtools(output_path):
-    for root, dirs, files in os.walk(output_path):
-        if 'searchtools.js' in files:
-            file_path = os.path.join(root, 'searchtools.js')
-            with open(file_path, 'r', encoding='utf-8') as f:
-                content = f.read()
-            # 修复 htmlToText (移除 style 标签)
-            old_line = 'htmlElement.querySelectorAll(".headerlink").forEach((el) => { el.remove() });'
-            new_line = """htmlElement.querySelectorAll('style').forEach((el) => { el.remove() });
-    htmlElement.querySelectorAll(".headerlink").forEach((el) => { el.remove() });"""
-            if old_line in content:
-                content = content.replace(old_line, new_line)
-                with open(file_path, 'w', encoding='utf-8') as f:
-                    f.write(content)
-                print(f" 已添加 style 移除: {file_path}")
-            else:
-                print(f" 未找到: {file_path}")
-
 if __name__ == "__main__":
     # 配置一个工作目录
     try:
@@ -945,10 +942,6 @@ if __name__ == "__main__":
                     continue
         print(f'替换样式文件成功!')
         stage3_end = time.perf_counter()
-        # 修改 searchtools.js
-        output_path = f"{MAINDIR}/{args.version}/output"
-        patch_searchtools(output_path)
-        print("searchtools.js 修改完成!")
         total_end = time.perf_counter()
         t_min, t_sec = divmod(total_end - total_start, 60)
         print(f"总耗时: {int(t_min)}分{t_sec:.1f}秒")
