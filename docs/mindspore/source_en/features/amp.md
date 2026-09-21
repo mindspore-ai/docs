@@ -56,10 +56,10 @@ def train_step(data, label):
     (loss, _), grads = grad_fn(data, label)
     # Unscale the loss to the actual loss.
     loss = loss_scaler.unscale(loss)
-    # Check whether the gradient does not overflow.
+    # Check whether the gradient has not overflowed.
     is_finite = amp.all_finite(grads)
     if is_finite:
-        # If the gradient does not overflow, unscale it to the actual gradient.
+        # If the gradient has not overflowed, unscale it to the actual gradient.
         # After unscaling the gradient, you can perform operations such as clipping and penalty on the gradient.
         grads = loss_scaler.unscale(grads)
         # Update the model parameters using the optimizer.

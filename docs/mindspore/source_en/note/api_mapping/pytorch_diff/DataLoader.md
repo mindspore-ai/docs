@@ -27,7 +27,7 @@ For more information, see [mindspore.dataset.GeneratorDataset](https://mindspore
 
 ## Difference
 
-PyTorch: DataLoader accepts a data loading class, sampler, and parameters such as batch processing, shuffling, and multi-processing options to create an iterator for data iteration. The `dataset` parameter can be inherited from the user-defined class of `torch.utils.data.Dataset`. or transfer the dataset loading class predefined in components such as `torchvision.datasets`, `torchtext.datasets`, and `torchaudio.datasets` modules.
+PyTorch: DataLoader accepts a data loading class, sampler, and parameters such as batch processing, shuffling, and multi-processing options to create an iterator for data iteration. The `dataset` parameter can be inherited from the user-defined class of `torch.utils.data.Dataset`, or transfer the dataset loading class predefined in components such as `torchvision.datasets`, `torchtext.datasets`, and `torchaudio.datasets` modules.
 
 MindSpore: GeneratorDataset accepts a data loading class, sampler, shuffling, sharding, and multi-processing options to create an iterator for data iteration.
 The function positioning of this API is the same as that of the DataLoader of PyTorch. Both these two APIs are used to load customized datasets, but the parameter lists are different. The following code examples demonstrate how to use two APIs to implement the same function.

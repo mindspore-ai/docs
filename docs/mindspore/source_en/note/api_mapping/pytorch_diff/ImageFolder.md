@@ -39,7 +39,7 @@ For more information, see [mindspore.dataset.ImageFolderDataset](https://mindspo
 
 PyTorch: A source dataset that reads images from a tree of directories. API integrates the transformation operations for image and label. File Loader can be specified.
 
-MindSpore: A source dataset that reads images from a tree of directories. Transforms for image and label depends on `mindshare.dataset.map` operation. File Loader can not be specified.
+MindSpore: A source dataset that reads images from a tree of directories. Transforms for image and label depends on `mindspore.dataset.map` operation. File Loader can not be specified.
 
 | Categories | Subcategories |PyTorch | MindSpore | Difference |
 | --- | ---   | ---   | ---        |---  |

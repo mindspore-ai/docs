@@ -34,9 +34,9 @@ class mindspore.dataset.Cifar10Dataset(
 
 ## 差异对比
 
-PyTorch：读取CIFAR-10数据集（仅支持CIFAR-10 python version版本）。将image和label的变换操作集成在参数中。
+PyTorch：读取CIFAR-10数据集（仅支持CIFAR-10 python 版本）。将image和label的变换操作集成在参数中。
 
-MindSpore：读取CIFAR-10数据集（仅支持CIFAR-10 binary version版本），不支持下载，对image和label的变换需要使用`mindspore.dataset.map`操作。
+MindSpore：读取CIFAR-10数据集（仅支持CIFAR-10 binary 版本），不支持下载，对image和label的变换需要使用`mindspore.dataset.map`操作。
 
 | 分类 | 子类 |PyTorch | MindSpore | 差异 |
 | --- | ---   | ---   | ---        |---  |

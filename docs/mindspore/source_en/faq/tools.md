@@ -6,7 +6,7 @@
 
 ### Q: When using the overflow detection Dump feature, I encounter the error `RuntimeError: aclnnAllFiniteGetWorkspaceSize call failed, please check!`. How can I resolve this?
 
-A: This error typically occurs because the custom operators used by the overflow detection feature are incompatible with the current CANN version. The overflow detection Dump functionality in MindSpore has strict version requirements for CANN. A higher-version MindSpore is not compatible with a lower-version CANN.
+A: This error typically occurs because the custom operators used by the overflow detection feature are incompatible with the current CANN version. The overflow detection Dump functionality in MindSpore has strict version requirements for CANN. A higher version of MindSpore is not compatible with a lower-version CANN.
 
 To resolve this issue, consider the following approaches:
 

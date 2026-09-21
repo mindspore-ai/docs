@@ -117,7 +117,7 @@ For double recursive to generate strategies, there must be at least one operator
 The list of operators which have a cost model includes:
 
 - MatMul
-- BatchMatMul
+- BatchMatMul (inference-only cost model)
 - Convolution (Conv2D, Conv2DTranspose)
 - Pooling ops (Pooling, MaxPool, MaxPoolV2)
 - BatchNorm
