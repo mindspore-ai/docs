@@ -274,6 +274,8 @@ def main(version, user, pd, WGETDIR, release_url, generate_list, api_detect):
         if generate_list and data[i]['name'] not in generate_list:
             continue
         # 根据environ判断是否需要克隆git仓库，并更新分支
+        print(f"[{data[i]['name']}] 克隆/更新仓库开始")
+        clone_start = time.perf_counter()
         if data[i]['environ'] and branch_:
             os.environ[data[i]['environ']] = repo_path
             try:
@@ -294,6 +296,9 @@ def main(version, user, pd, WGETDIR, release_url, generate_list, api_detect):
                     print(f'{repo_name}仓库克隆更新成功')
             except KeyError:
                 print(f'{repo_name}仓库克隆或更新失败')
+        clone_end = time.perf_counter()
+        clone_min, clone_sec = divmod(clone_end - clone_start, 60)
+        print(f"[{data[i]['name']}] 克隆/更新仓库完成，耗时: {int(clone_min)}分{clone_sec:.1f}秒")
 
         # 组件仓内有.sh需提前运行
         if 'golden-stick' in repo_path:
@@ -317,6 +322,8 @@ def main(version, user, pd, WGETDIR, release_url, generate_list, api_detect):
 
         # 从网站下载各个组件需要的whl包或tar包
         if version == "daily" or flag_dev:
+            print(f"[{data[i]['name']}] 下载 whl/tar 包开始")
+            dl_start = time.perf_counter()
             urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
             s = requests.session()
             if data[i]['name'] == "reinforcement" or data[i]['name'] == "recommender" or data[i]['name'] == "mindscience":
@@ -341,6 +348,9 @@ def main(version, user, pd, WGETDIR, release_url, generate_list, api_detect):
                             url = search_url+href+data[i]['whl_search']
                             break
                 if not url:
+                    dl_end = time.perf_counter()
+                    dl_min, dl_sec = divmod(dl_end - dl_start, 60)
+                    print(f"[{data[i]['name']}] 下载 whl/tar 包完成，耗时: {int(dl_min)}分{dl_sec:.1f}秒")
                     continue
 
                 re_name = data[i]['whl_name'].replace('.whl', '\\.whl')
@@ -406,6 +416,9 @@ def main(version, user, pd, WGETDIR, release_url, generate_list, api_detect):
             if 'cloud_tar_path' in data[i].keys() and data[i]['cloud_tar_path'] != '':
                 url = f"{wgetdir}/{data[i]['cloud_tar_path']}"
                 download_tar(data[i]['cloud_tar_name'], url, s, user, pd)
+            dl_end = time.perf_counter()
+            dl_min, dl_sec = divmod(dl_end - dl_start, 60)
+            print(f"[{data[i]['name']}] 下载 whl/tar 包完成，耗时: {int(dl_min)}分{dl_sec:.1f}秒")
 
         # 发布版本构建时下载包
         elif version != "daily":
@@ -458,14 +471,25 @@ def main(version, user, pd, WGETDIR, release_url, generate_list, api_detect):
             whl_name = "torch-2.13.0-cp312-cp312-manylinux_2_28_x86_64.whl"
             download_url = "https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/whl/"\
                            + whl_name
+            print("[lite] 下载 torch 开始")
+            torch_dl_start = time.perf_counter()
             downloaded = requests.get(download_url, stream=True, verify=False, timeout=30)
             with open(whl_name, 'wb') as fd:
                 for chunk in downloaded.iter_content(chunk_size=512):
                     if chunk:
                         fd.write(chunk)
             print(f"Download torch success!")
+            torch_dl_end = time.perf_counter()
+            dl_min, dl_sec = divmod(torch_dl_end - torch_dl_start, 60)
+            print(f"[lite] 下载 torch 完成，耗时: {int(dl_min)}分{dl_sec:.1f}秒")
+
+            print("[lite] 安装 torch 开始")
+            torch_inst_start = time.perf_counter()
             cmd_install = [sys.executable, "-m", "pip", "install", whl_name]
             subprocess.run(cmd_install)
+            torch_inst_end = time.perf_counter()
+            inst_min, inst_sec = divmod(torch_inst_end - torch_inst_start, 60)
+            print(f"[lite] 安装 torch 完成，耗时: {int(inst_min)}分{inst_sec:.1f}秒")
 
         # 默认html上显示的分支跟仓库分支相同，如果配置了html_version，以html_version为准
         html_branch = branch_
