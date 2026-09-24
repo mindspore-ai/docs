@@ -224,7 +224,7 @@ Users must ensure that the `"model"` field matches the model tag used when start
 
 ## Appendix
 
-### Ray Multi-Node Cluster Management
+### Ray Installation Process
 
 On Ascend, there are two startup methods: multiprocess and Ray. In multi-node scenarios, if using Ray, an additional pyACL package needs to be installed to adapt Ray, and the CANN dependency versions on all nodes must be consistent.
 

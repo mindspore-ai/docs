@@ -152,7 +152,7 @@ export ASCEND_RT_VISIBLE_DEVICES=4,5,6,7
 
 ## Online Inference
 
-vLLM-MindSpore Plugin supports online inference deployment with the OpenAI API protocol. The following section would introduce how to [starting the service](#starting-the-service) and [send requests](#sending-requests) to obtain inference results, using [Qwen2.5-32B](https://huggingface.co/Qwen/Qwen2.5-32B-Instruct) as an example.
+vLLM-MindSpore Plugin supports online inference deployment with the OpenAI API protocol. The following section would introduce how to [start the service](#starting-the-service) and [send requests](#sending-requests) to obtain inference results, using [Qwen2.5-32B](https://huggingface.co/Qwen/Qwen2.5-32B-Instruct) as an example.
 
 ### Starting the Service
 

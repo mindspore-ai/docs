@@ -30,7 +30,7 @@ MindSpore: Computes the Region of Interest (RoI) Align operator. The input list 
 |     | Parameter3 | output_size | [pooled_height, pooled_width]  | The size of output features, defined in two parameters in MindSpore |
 |     | Parameter4 | spatial_scale  | spatial_scale  | - |
 |     | Parameter5 | sampling_ratio | sample_num  | - |
-|     | Parameter6 | aligned | roi_end_mode  | Align mode.  are False and True, while parameter values for MindSpore are 0 and 1. |
+|     | Parameter6 | aligned | roi_end_mode  | Align mode. PyTorch values are False and True, while parameter values for MindSpore are 0 and 1. |
 |Input | Input1 | -   | features    | The input features |
 |     | Input2 | -   | rois    | The input box coordinates |
 |Output | Output1 | Tensor | Tensor  |- |

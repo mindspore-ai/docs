@@ -26,7 +26,7 @@ MindSpore: Defined as a function of Cell or primitive. Use the concrete cell.rec
 
 | Categories | Subcategories |PyTorch | MindSpore | Difference |
 | --- | ---   | ---   | ---        |---  |
-| Parameters | Parameter 1  | function | mp_comm_recompute  | function means the cell that needed to be warpped. mp_comm_recompute indicates whether the communication operations introduced by model parallelism within the cell are recalculated in automatic parallel or semi-automatic parallel mode |
+| Parameters | Parameter 1  | function | mp_comm_recompute  | function means the cell that needed to be wrapped. mp_comm_recompute indicates whether the communication operations introduced by model parallelism within the cell are recalculated in automatic parallel or semi-automatic parallel mode |
 |      | Parameter 2  | preserve_rng_state | parallel_optimizer_comm_recompute | preserve_rng_state indicates whether to save the state of the random number generator, and parallel_optimizer_comm_recompute indicates whether the AllGather communication introduced by the optimizer in parallel within the specified cell is recalculated in automatic parallel or semi-automatic parallel mode |
 |      | Parameter 3  | *args |   | Indicates the input parameter of the function function |
 

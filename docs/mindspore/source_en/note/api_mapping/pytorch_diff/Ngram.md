@@ -34,10 +34,10 @@ MindSpore: Generate n-gram from a 1-D string Tensor, string padding and connecti
 
 | Categories | Subcategories | PyTorch      | MindSpore     | Differences   |
 | ---------- | ------------- | ------------ | ---------     | ------------- |
-| Parameters       | Parameters 1       | token_list    | -         | A list of tokens, uasge see code example below |
+| Parameters       | Parameters 1       | token_list    | -         | A list of tokens, usage see code example below |
 |            | Parameters 2       | ngrams          | n          | n-gram number |
-|            | Parameters 3       | -           | left_pad        | Strings to be paded left side |
-|            | Parameters 4       | -     | right_pad          | Strings to be paded right side |
+|            | Parameters 3       | -           | left_pad        | Strings to be padded left side |
+|            | Parameters 4       | -     | right_pad          | Strings to be padded right side |
 |            | Parameters 5       | -          | separator     | Symbol used to join strings together |
 
 ## Code Example
