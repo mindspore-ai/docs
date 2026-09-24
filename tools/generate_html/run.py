@@ -465,27 +465,54 @@ def main(version, user, pd, WGETDIR, release_url, generate_list, api_detect):
                             fd.write(chunk)
                 print(f"Download {data[i]['cloud_tar_name']} success!")
 
-        # 下载obs中lite_boost所需的torch包，提升下载速度
+        # 下载obs中lite_boost所需的torch包及其依赖包，提升下载速度
         if data[i]['name'] == "lite":
             os.chdir(WHLDIR)
-            whl_name = "torch-2.13.0-cp312-cp312-manylinux_2_28_x86_64.whl"
-            download_url = "https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/whl/"\
-                           + whl_name
-            print("[lite] 下载 torch 开始")
+            whl_names = [
+                "torch-2.13.0-cp312-cp312-manylinux_2_28_x86_64.whl",
+                "cuda_bindings-13.4.2-cp312-cp312-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl",
+                "nvidia_cudnn_cu13-9.20.0.48-py3-none-manylinux_2_27_x86_64.whl",
+                "nvidia_cusparselt_cu13-0.8.1-py3-none-manylinux2014_x86_64.whl",
+                "nvidia_nccl_cu13-2.29.7-py3-none-manylinux_2_18_x86_64.whl",
+                "nvidia_nvshmem_cu13-3.4.5-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+                "triton-3.7.1-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl",
+                "nvidia_cublas-13.1.1.3-py3-none-manylinux_2_27_x86_64.whl",
+                "nvidia_cuda_nvrtc-13.0.88-py3-none-manylinux2010_x86_64.manylinux_2_12_x86_64.whl",
+                "nvidia_cuda_runtime-13.0.96-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+                "nvidia_cufft-12.0.0.61-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+                "nvidia_nvjitlink-13.4.92-py3-none-manylinux2010_x86_64.manylinux_2_12_x86_64.whl",
+                "nvidia_cufile-1.15.1.6-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+                "nvidia_cuda_cupti-13.0.85-py3-none-manylinux_2_25_x86_64.whl",
+                "nvidia_curand-10.4.0.35-py3-none-manylinux_2_27_x86_64.whl",
+                "nvidia_cusolver-12.0.4.66-py3-none-manylinux_2_27_x86_64.whl",
+                "nvidia_cusparse-12.6.3.3-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl"
+            ]
+            download_url = "https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/whl/"
+            print("[lite] 下载 torch 及依赖开始")
             torch_dl_start = time.perf_counter()
-            downloaded = requests.get(download_url, stream=True, verify=False, timeout=30)
-            with open(whl_name, 'wb') as fd:
-                for chunk in downloaded.iter_content(chunk_size=512):
-                    if chunk:
-                        fd.write(chunk)
+            for whl in whl_names:
+                if not os.path.exists(whl):
+                    print(f"下载 {whl} ...")
+                    downloaded = download_with_retry(download_url + whl, verify=False)
+                    with open(whl, 'wb') as fd:
+                        for chunk in downloaded.iter_content(chunk_size=512):
+                            fd.write(chunk)
+                    print(f" {whl} 下载完成 ")
             print(f"Download torch success!")
             torch_dl_end = time.perf_counter()
             dl_min, dl_sec = divmod(torch_dl_end - torch_dl_start, 60)
-            print(f"[lite] 下载 torch 完成，耗时: {int(dl_min)}分{dl_sec:.1f}秒")
+            print(f"[lite] 下载 torch 及依赖完成，耗时: {int(dl_min)}分{dl_sec:.1f}秒")
 
-            print("[lite] 安装 torch 开始")
+            print("[lite] 安装 torch 及依赖开始")
             torch_inst_start = time.perf_counter()
-            cmd_install = [sys.executable, "-m", "pip", "install", whl_name]
+            for whl in whl_names:
+                if whl.startswith("torch-"):
+                    continue
+                print(f"安装依赖: {whl}")
+                cmd_dep = [sys.executable, "-m", "pip", "install", whl]
+                subprocess.run(cmd_dep)
+            torch_whl = "torch-2.13.0-cp312-cp312-manylinux_2_28_x86_64.whl"
+            cmd_install = [sys.executable, "-m", "pip", "install", torch_whl]
             subprocess.run(cmd_install)
             torch_inst_end = time.perf_counter()
             inst_min, inst_sec = divmod(torch_inst_end - torch_inst_start, 60)
@@ -525,8 +552,12 @@ def main(version, user, pd, WGETDIR, release_url, generate_list, api_detect):
     print("安装各组件 whl 包开始")
     whl_install_start = time.perf_counter()
     whls = os.listdir()
+    SKIP_PREFIXES = ("torch-", "cuda_bindings-", "nvidia_", "triton-")
     if whls:
         for i in whls:
+            # 跳过安装 torch 的 whl 包
+            if i.startswith(SKIP_PREFIXES):
+                continue
             if re.findall('mindspore-[0-9]', i) and "tar.gz" not in i:
                 cmd_install = [sys.executable, "-m", "pip", "install", i]
                 subprocess.run(cmd_install) 
