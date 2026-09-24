@@ -2,7 +2,7 @@
 
 [![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/vllm_mindspore/docs/source_en/getting_started/tutorials/qwen3_vl_8b_singleNPU/qwen3_vl_8b_singleNPU.md)  
 
-This document introduces single NPU multimodal inference process by vLLM-MindSpore Plugin. Taking the [Qwen3-VL-8B-Instruct](https://huggingface.co/Qwen/Qwen3-VL-8B-Instruct) model as an example, user can configure the environment through the [Docker Installation](#docker-installation) or the [Installation Guide](../../installation/installation.md#installation-guide), and [downloading model weights](#downloading-model-weights). After [setting environment variables](#setting-environment-variables), user can perform [offline inference](#offline-inference) and [online inference](#online-inference) to experience single NPU inference abilities.
+This document introduces single NPU multimodal inference process by vLLM-MindSpore Plugin. Taking the [Qwen3-VL-8B-Instruct](https://huggingface.co/Qwen/Qwen3-VL-8B-Instruct) model as an example, users can configure the environment through the [Docker Installation](#docker-installation) or the [Installation Guide](../../installation/installation.md#installation-guide), and [downloading model weights](#downloading-model-weights). After [setting environment variables](#setting-environment-variables), users can perform [offline inference](#offline-inference) and [online inference](#online-inference) to experience single NPU inference abilities.
 
 ## Docker Installation
 
@@ -10,7 +10,7 @@ In this section, we recommend using Docker for quick deployment of the vLLM-Mind
 
 ### Building the Image  
 
-User can execute the following commands to clone the vLLM-MindSpore Plugin code repository:
+Users can execute the following commands to clone the vLLM-MindSpore Plugin code repository:
 
 ```bash  
 git clone https://atomgit.com/mindspore/vllm-mindspore.git
@@ -30,14 +30,14 @@ To build the image according to your npu type, follow these steps:
   bash build_image.sh -a 310p
   ```
 
-After a successful build, user will get the following output:
+After a successful build, users will get the following output:
 
 ```text
 Successfully built e40bcbeae9fc
 Successfully tagged vllm_ms_20250726:latest
 ```
 
-Here, `e40bcbeae9fc` is the image ID, and `vllm_ms_20250726:latest` is the image name and tag. User can run the following command to confirm that the Docker image has been successfully created:  
+Here, `e40bcbeae9fc` is the image ID, and `vllm_ms_20250726:latest` is the image name and tag. Users can run the following command to confirm that the Docker image has been successfully created:  
 
 ```bash  
 docker images  
@@ -92,7 +92,7 @@ docker exec -it $DOCKER_NAME bash
 
 ## Downloading Model Weights
 
-User can download the model using either Web or [git-lfs Tool](#downloading-with-git-lfs-tool).  
+Users can download the model using either Web or [git-lfs Tool](#downloading-with-git-lfs-tool).  
 
 ### Downloading with git-lfs Tool
 
@@ -129,7 +129,7 @@ Here is an explanation of these variables:
 
 - `VLLM_MS_MODEL_BACKEND`: The model backend. Currently supported models and backends are listed in the [Model Support List](../../../user_guide/supported_models/models_list/models_list.md).
 
-User can check memory usage with `npu-smi info` and set the compute card for inference using:  
+Users can check memory usage with `npu-smi info` and set the compute card for inference using:  
 
 ```bash  
 export ASCEND_RT_VISIBLE_DEVICES=0  
@@ -137,7 +137,7 @@ export ASCEND_RT_VISIBLE_DEVICES=0
 
 ## Offline Inference
 
-After setting up the vLLM-MindSpore Plugin environment, user can use the following python code to perform offline inference on the model:
+After setting up the vLLM-MindSpore Plugin environment, users can use the following python code to perform offline inference on the model:
 
 ```python
 from PIL import Image
@@ -190,7 +190,7 @@ If offline inference runs successfully, similar results will be obtained:
 
 ## Online Inference
 
-vLLM-MindSpore Plugin supports online inference deployment with the OpenAI API protocol. The following section would introduce how to [starting the service](#starting-the-service) and [send requests](#sending-requests) to obtain inference results, using [Qwen3-VL-8B-Instruct](https://huggingface.co/Qwen/Qwen3-VL-8B-Instruct) as an example.
+vLLM-MindSpore Plugin supports online inference deployment with the OpenAI API protocol. The following section would introduce how to [start the service](#starting-the-service) and [send requests](#sending-requests) to obtain inference results, using [Qwen3-VL-8B-Instruct](https://huggingface.co/Qwen/Qwen3-VL-8B-Instruct) as an example.
 
 ### Starting the Service
 
@@ -200,7 +200,7 @@ Start the vLLM service with the following command:
 nohup vllm-mindspore serve /path/to/save/Qwen3-VL-8B-Instruct --max-model-len 32768 --gpu-memory-utilization 0.85 &
 ```
 
-User can also set the local model path as model tag. If the service starts successfully, similar output will be obtained:
+Users can also set the local model path as model tag. If the service starts successfully, similar output will be obtained:
 
 ```text
 INFO:   Started server process [6363]
@@ -260,7 +260,7 @@ payload = {
 send_request()
 ```
 
-User needs to ensure that the `"model"` field matches the model tag in the service startup, and the request can successfully match the model.
+Users needs to ensure that the `"model"` field matches the model tag in the service startup, and the request can successfully match the model.
 
 If online inference runs successfully, similar results will be obtained:
 

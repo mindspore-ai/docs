@@ -24,7 +24,7 @@ For more information, see [mindspore.dataset.vision.ToPIL](https://mindspore.cn/
 
 PyTorch: Converts a tensor or Numpy array to PIL Image. The input can be a torch Tensor in the format of <C, H, W>, or a numpy array in the format of <H, W, C>.
 
-MindSpore: Convert a Numpy array in <H, W, C> format (such as decoded image) into a PIL image, color space is not support to specified.
+MindSpore: Convert a Numpy array in <H, W, C> format (such as decoded image) into a PIL image, color space is not supported to be specified.
 
 | Categories | Subcategories |PyTorch | MindSpore | Difference |
 | --- | ---   | ---   | ---        |---  |

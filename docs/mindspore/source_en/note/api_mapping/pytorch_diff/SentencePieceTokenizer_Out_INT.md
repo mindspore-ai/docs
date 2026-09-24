@@ -31,7 +31,7 @@ MindSpore: According to the incoming sentencepiece model, the input text is segm
 
 | Categories | Subcategories |PyTorch | MindSpore | Difference |
 | --- | ---   | ---   | ---        |---  |
-|Parameter | Parameter 1 | sp_model    | mode    | MindSpore support SentencePieceVocab object or path of SentencePiece model |
+|Parameter | Parameter 1 | sp_model    | mode    | MindSpore supports SentencePieceVocab object or path of SentencePiece model |
 |     | Parameter 2 | -    |out_type     | The output type of tokenizer  |
 
 ## Code Example

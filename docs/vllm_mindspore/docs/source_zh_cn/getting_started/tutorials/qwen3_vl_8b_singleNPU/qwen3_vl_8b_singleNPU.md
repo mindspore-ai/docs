@@ -92,7 +92,7 @@ docker exec -it $DOCKER_NAME bash
 
 ## 下载模型权重
 
-用户可采用Hugging Face网页下载或者(#git-lfs工具下载)两种方式，进行模型下载。
+用户可采用Hugging Face网页下载或者[git-lfs工具下载](#git-lfs工具下载)两种方式，进行模型下载。
 
 ### git-lfs工具下载
 
