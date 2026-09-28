@@ -1,5 +1,7 @@
 # MindSpore Lite支持的硬件后端列表
 
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/lite/docs/source_zh_cn/reference/operator_list_lite.md)
+
 ## Abs
 
 ### 功能
@@ -10,7 +12,7 @@
 
 - CPU：FP16、FP32、Int32、Int8、UInt8
 - Kirin NPU：FP16
-- GPU(Mali/Adreno)：FP16、FP32
+- GPU (Mali/Adreno)：FP16、FP32
 - Ascend：FP16
 
 ---
@@ -37,7 +39,7 @@
 
 - CPU：FP16、FP32、Int32、Int8、UInt8
 - Kirin NPU：FP16
-- GPU(Mali/Adreno)：FP16、FP32
+- GPU (Mali/Adreno)：FP16、FP32
 - Ascend：FP16
 
 ---
@@ -76,7 +78,7 @@
 
 - CPU：FP16、FP32、Int32、Int8、UInt8、Bool
 - Kirin NPU：FP16
-- GPU(Mali/Adreno)：FP16、FP32、Int8
+- GPU (Mali/Adreno)：FP16、FP32、Int8
 - Ascend：FP16
 
 ---
@@ -177,7 +179,7 @@
 
 - CPU：FP16、FP32、Int8、UInt8
 - Kirin NPU：FP16
-- GPU(Mali/Adreno)：FP16、FP32
+- GPU (Mali/Adreno)：FP16、FP32
 - Ascend：FP16
 
 ---
@@ -191,7 +193,7 @@
 ### 支持的硬件后端
 
 - CPU：FP16、FP32、Int8、UInt8
-- GPU(Mali/Adreno)：FP16、FP32
+- GPU (Mali/Adreno)：FP16、FP32
 - Ascend：FP16
 
 ---
@@ -231,7 +233,7 @@
 
 - CPU：FP16、FP32、Int8、UInt8
 - Kirin NPU：FP16
-- GPU(Mali/Adreno)：FP16、FP32
+- GPU (Mali/Adreno)：FP16、FP32
 - Ascend：FP16
 
 ---
@@ -257,7 +259,7 @@
 ### 支持的硬件后端
 
 - CPU：FP16、FP32、Int8、UInt8
-- GPU(Mali/Adreno)：FP16、FP32
+- GPU (Mali/Adreno)：FP16、FP32
 - Ascend：FP16
 
 ---
@@ -283,7 +285,7 @@
 ### 支持的硬件后端
 
 - CPU：FP32、Int8、UInt8
-- GPU(Mali/Adreno)：FP16、FP32
+- GPU (Mali/Adreno)：FP16、FP32
 
 ---
 
@@ -296,7 +298,7 @@ BatchToSpace的ND通用版本。
 ### 支持的硬件后端
 
 - CPU：FP16、FP32、Int8、UInt8
-- GPU(Mali/Adreno)：FP16、FP32
+- GPU (Mali/Adreno)：FP16、FP32
 
 ---
 
@@ -309,7 +311,7 @@ BatchToSpace的ND通用版本。
 ### 支持的硬件后端
 
 - CPU：FP16、FP32、Int8、UInt8
-- GPU(Mali/Adreno)：FP16、FP32
+- GPU (Mali/Adreno)：FP16、FP32
 - Ascend：FP16
 
 ---
@@ -386,7 +388,7 @@ BatchToSpace的ND通用版本。
 
 - CPU：FP16、FP32、Int32、Int8、UInt8、Bool
 - Kirin NPU：FP16
-- GPU(Mali/Adreno)：FP16、FP32
+- GPU (Mali/Adreno)：FP16、FP32
 - Ascend：FP16
 
 ---
@@ -401,7 +403,7 @@ BatchToSpace的ND通用版本。
 
 - CPU：FP16、FP32、Int8、UInt8
 - Kirin NPU：FP16
-- GPU(Mali/Adreno)：FP16、FP32
+- GPU (Mali/Adreno)：FP16、FP32
 - Ascend：FP16
 
 ---
@@ -429,7 +431,7 @@ BatchToSpace的ND通用版本。
 
 - CPU：FP16、FP32、Int32、Int8、UInt8、Bool
 - Kirin NPU：FP16
-- GPU(Mali/Adreno)：FP16、FP32、Int32
+- GPU (Mali/Adreno)：FP16、FP32、Int32
 - Ascend：FP16
 
 ---
@@ -456,7 +458,7 @@ BatchToSpace的ND通用版本。
 
 - CPU：FP16、FP32、Int8、UInt8
 - Kirin NPU：FP16
-- GPU(Mali/Adreno)：FP16、FP32
+- GPU (Mali/Adreno)：FP16、FP32
 - Ascend：FP16
 
 ---
@@ -495,7 +497,7 @@ BatchToSpace的ND通用版本。
 
 - CPU：FP16、FP32、Int8、UInt8
 - Kirin NPU：FP16
-- GPU(Mali/Adreno)：FP16、FP32
+- GPU (Mali/Adreno)：FP16、FP32
 - Ascend：FP16
 
 ---
@@ -510,7 +512,7 @@ BatchToSpace的ND通用版本。
 
 - CPU：FP16、FP32、Int8、UInt8
 - Kirin NPU：FP16
-- GPU(Mali/Adreno)：FP16、FP32
+- GPU (Mali/Adreno)：FP16、FP32
 - Ascend：FP16
 
 ---
@@ -610,7 +612,7 @@ BatchToSpace的ND通用版本。
 ### 支持的硬件后端
 
 - CPU：FP16、FP32、Int8、UInt8
-- GPU(Mali/Adreno)：FP16、FP32
+- GPU (Mali/Adreno)：FP16、FP32
 
 ---
 
@@ -636,7 +638,7 @@ BatchToSpace的ND通用版本。
 
 - CPU：FP16、FP32、Int32、Int8、UInt8
 - Kirin NPU：FP16
-- GPU(Mali/Adreno)：FP16、FP32
+- GPU (Mali/Adreno)：FP16、FP32
 - Ascend：FP16
 
 ---
@@ -700,7 +702,7 @@ BatchToSpace的ND通用版本。
 
 - CPU：FP16、FP32、Int8、UInt8
 - Kirin NPU：FP16
-- GPU(Mali/Adreno)：FP16、FP32
+- GPU (Mali/Adreno)：FP16、FP32
 - Ascend：FP16
 
 ---
@@ -728,7 +730,7 @@ BatchToSpace的ND通用版本。
 
 - CPU：FP16、FP32、Int32、Int8、UInt8
 - Kirin NPU：FP16
-- GPU(Mali/Adreno)：FP16、FP32
+- GPU (Mali/Adreno)：FP16、FP32
 - Ascend：FP16
 
 ---
@@ -767,7 +769,7 @@ BatchToSpace的ND通用版本。
 ### 支持的硬件后端
 
 - CPU：FP16、FP32
-- GPU(Mali/Adreno)：FP16、FP32
+- GPU (Mali/Adreno)：FP16、FP32
 - Ascend：FP16
 
 ---
@@ -782,7 +784,7 @@ BatchToSpace的ND通用版本。
 
 - CPU：FP16、FP32、Int32、Int8、UInt8、Bool
 - Kirin NPU：FP16
-- GPU(Mali/Adreno)：FP16、FP32、Int32
+- GPU (Mali/Adreno)：FP16、FP32、Int32
 - Ascend：FP16
 
 ---
@@ -796,7 +798,7 @@ BatchToSpace的ND通用版本。
 ### 支持的硬件后端
 
 - CPU：FP16、FP32、Int32、Bool
-- GPU(Mali/Adreno)：FP16、FP32
+- GPU (Mali/Adreno)：FP16、FP32
 - Ascend：FP16
 
 ---
@@ -836,7 +838,7 @@ BatchToSpace的ND通用版本。
 
 - CPU：FP16、FP32、Int8、UInt8
 - Kirin NPU：FP16
-- GPU(Mali/Adreno)：FP16、FP32
+- GPU (Mali/Adreno)：FP16、FP32
 - Ascend：FP16
 
 ---
@@ -851,7 +853,7 @@ BatchToSpace的ND通用版本。
 
 - CPU：FP16、FP32、Int32
 - Kirin NPU：FP16
-- GPU(Mali/Adreno)：FP16、FP32
+- GPU (Mali/Adreno)：FP16、FP32
 
 ---
 
@@ -865,7 +867,7 @@ BatchToSpace的ND通用版本。
 
 - CPU：FP16、FP32、Int32
 - Kirin NPU：FP16
-- GPU(Mali/Adreno)：FP16、FP32
+- GPU (Mali/Adreno)：FP16、FP32
 
 ---
 
@@ -879,7 +881,7 @@ BatchToSpace的ND通用版本。
 
 - CPU：FP16、FP32、Int8、UInt8
 - Kirin NPU：FP16
-- GPU(Mali/Adreno)：FP16、FP32
+- GPU (Mali/Adreno)：FP16、FP32
 - Ascend：FP16
 
 ---
@@ -908,7 +910,7 @@ BatchToSpace的ND通用版本。
 
 - CPU：FP16、FP32、Int32、Int8、UInt8、Bool
 - Kirin NPU：FP16
-- GPU(Mali/Adreno)：FP16、FP32、Int32
+- GPU (Mali/Adreno)：FP16、FP32、Int32
 - Ascend：FP16
 
 ---
@@ -935,7 +937,7 @@ BatchToSpace的ND通用版本。
 ### 支持的硬件后端
 
 - CPU：FP16、FP32、Int32、Int8、UInt8、Bool
-- GPU(Mali/Adreno)：FP16、FP32
+- GPU (Mali/Adreno)：FP16、FP32
 - Ascend：FP16
 
 ---
@@ -962,7 +964,7 @@ BatchToSpace的ND通用版本。
 
 - CPU：FP16、FP32、Int32、Int8、UInt8
 - Kirin NPU：FP16
-- GPU(Mali/Adreno)：FP16、FP32
+- GPU (Mali/Adreno)：FP16、FP32
 - Ascend：FP16
 
 ---
@@ -977,7 +979,7 @@ BatchToSpace的ND通用版本。
 
 - CPU：FP16、FP32、Int32、Int8、UInt8
 - Kirin NPU：FP16
-- GPU(Mali/Adreno)：FP16、FP32
+- GPU (Mali/Adreno)：FP16、FP32
 - Ascend：FP16
 
 ---
@@ -1078,7 +1080,7 @@ BatchToSpace的ND通用版本。
 ### 支持的硬件后端
 
 - CPU：FP16、FP32、Int8
-- GPU(Mali/Adreno)：FP16、FP32
+- GPU (Mali/Adreno)：FP16、FP32
 - Ascend：FP16
 
 ---
@@ -1105,7 +1107,7 @@ BatchToSpace的ND通用版本。
 
 - CPU：FP16、FP32、Int8、UInt8
 - Kirin NPU：FP16
-- GPU(Mali/Adreno)：FP16、FP32
+- GPU (Mali/Adreno)：FP16、FP32
 - Ascend：FP16
 
 ---
@@ -1120,7 +1122,7 @@ BatchToSpace的ND通用版本。
 
 - CPU：FP16、FP32、Int32、Int8、UInt8
 - Kirin NPU：FP16
-- GPU(Mali/Adreno)：FP16、FP32
+- GPU (Mali/Adreno)：FP16、FP32
 - Ascend：FP16
 
 ---
@@ -1135,7 +1137,7 @@ BatchToSpace的ND通用版本。
 
 - CPU：FP16、FP32、Int32、Int8、UInt8
 - Kirin NPU：FP16
-- GPU(Mali/Adreno)：FP16、FP32
+- GPU (Mali/Adreno)：FP16、FP32
 - Ascend：FP16
 
 ---
@@ -1163,7 +1165,7 @@ BatchToSpace的ND通用版本。
 
 - CPU：FP16、FP32、Int8、UInt8
 - Kirin NPU：FP16
-- GPU(Mali/Adreno)：FP16、FP32
+- GPU (Mali/Adreno)：FP16、FP32
 - Ascend：FP16
 
 ---
@@ -1203,7 +1205,7 @@ BatchToSpace的ND通用版本。
 
 - CPU：FP16、FP32、Int32、Bool
 - Kirin NPU：FP16
-- GPU(Mali/Adreno)：FP16、FP32
+- GPU (Mali/Adreno)：FP16、FP32
 
 ---
 
@@ -1217,7 +1219,7 @@ BatchToSpace的ND通用版本。
 
 - CPU：FP16、FP32、Int8、UInt8、Bool
 - Kirin NPU：FP16
-- GPU(Mali/Adreno)：FP16、FP32
+- GPU (Mali/Adreno)：FP16、FP32
 
 ---
 
@@ -1231,7 +1233,7 @@ BatchToSpace的ND通用版本。
 
 - CPU：FP16、FP32、Bool
 - Kirin NPU：FP16
-- GPU(Mali/Adreno)：FP16、FP32
+- GPU (Mali/Adreno)：FP16、FP32
 
 ---
 
@@ -1318,7 +1320,7 @@ BatchToSpace的ND通用版本。
 
 - CPU：FP16、FP32、Int8、UInt8
 - Kirin NPU：FP16
-- GPU(Mali/Adreno)：FP16、FP32
+- GPU (Mali/Adreno)：FP16、FP32
 - Ascend：FP16
 
 ---
@@ -1333,7 +1335,7 @@ BatchToSpace的ND通用版本。
 
 - CPU：FP16、FP32、Int32
 - Kirin NPU：FP16
-- GPU(Mali/Adreno)：FP16、FP32
+- GPU (Mali/Adreno)：FP16、FP32
 - Ascend：FP16
 
 ---
@@ -1360,7 +1362,7 @@ BatchToSpace的ND通用版本。
 
 - CPU：FP16、FP32、Int8、UInt8
 - Kirin NPU：FP16
-- GPU(Mali/Adreno)：FP16、FP32
+- GPU (Mali/Adreno)：FP16、FP32
 - Ascend：FP16
 
 ---
@@ -1399,7 +1401,7 @@ BatchToSpace的ND通用版本。
 
 - CPU：FP16、FP32、Int32
 - Kirin NPU：FP16
-- GPU(Mali/Adreno)：FP16、FP32
+- GPU (Mali/Adreno)：FP16、FP32
 - Ascend：FP16
 
 ---
@@ -1439,7 +1441,7 @@ BatchToSpace的ND通用版本。
 
 - CPU：FP16、FP32、Int32、Int8、UInt8
 - Kirin NPU：FP16
-- GPU(Mali/Adreno)：FP16、FP32
+- GPU (Mali/Adreno)：FP16、FP32
 - Ascend：FP16
 
 ---
@@ -1466,7 +1468,7 @@ BatchToSpace的ND通用版本。
 
 - CPU：FP16、FP32、Int32
 - Kirin NPU：FP16
-- GPU(Mali/Adreno)：FP16、FP32
+- GPU (Mali/Adreno)：FP16、FP32
 - Ascend：FP16
 
 ---
@@ -1518,7 +1520,7 @@ BatchToSpace的ND通用版本。
 
 - CPU：FP16、FP32、Int32、Int8、UInt8
 - Kirin NPU：FP16
-- GPU(Mali/Adreno)：FP16、FP32
+- GPU (Mali/Adreno)：FP16、FP32
 
 ---
 
@@ -1557,7 +1559,7 @@ BatchToSpace的ND通用版本。
 ### 支持的硬件后端
 
 - CPU：FP16、FP32、Int32
-- GPU(Mali/Adreno)：FP16、FP32、Int32
+- GPU (Mali/Adreno)：FP16、FP32、Int32
 
 ---
 
@@ -1584,7 +1586,7 @@ BatchToSpace的ND通用版本。
 
 - CPU：FP16、FP32、Int8、UInt8
 - Kirin NPU：FP16
-- GPU(Mali/Adreno)：FP16、FP32
+- GPU (Mali/Adreno)：FP16、FP32
 - Ascend：FP16
 
 ---
@@ -1610,7 +1612,7 @@ BatchToSpace的ND通用版本。
 ### 支持的硬件后端
 
 - CPU：FP16、FP32、Int8、UInt8
-- GPU(Mali/Adreno)：FP16、FP32
+- GPU (Mali/Adreno)：FP16、FP32
 - Ascend：FP16
 
 ---
@@ -1649,7 +1651,7 @@ PRelu激活函数。
 ### 支持的硬件后端
 
 - CPU：FP16、FP32
-- GPU(Mali/Adreno)：FP16、FP32
+- GPU (Mali/Adreno)：FP16、FP32
 - Ascend：FP16
 
 ---
@@ -1764,7 +1766,7 @@ PRelu激活函数。
 
 - CPU：FP16、FP32、Int32、Int8、UInt8、Bool
 - Kirin NPU：FP16
-- GPU(Mali/Adreno)：FP16、FP32
+- GPU (Mali/Adreno)：FP16、FP32
 - Ascend：FP16
 
 ---
@@ -1791,7 +1793,7 @@ PRelu激活函数。
 
 - CPU：FP16、FP32、Int32、Int8、UInt8、Bool
 - Kirin NPU：FP16
-- GPU(Mali/Adreno)：FP16、FP32、Int32
+- GPU (Mali/Adreno)：FP16、FP32、Int32
 - Ascend：FP16
 
 ---
@@ -1806,7 +1808,7 @@ PRelu激活函数。
 
 - CPU：FP16、FP32、Int8、UInt8
 - Kirin NPU：FP16
-- GPU(Mali/Adreno)：FP16、FP32
+- GPU (Mali/Adreno)：FP16、FP32
 
 ---
 
@@ -1870,7 +1872,7 @@ PRelu激活函数。
 
 - CPU：FP16、FP32、Int8、UInt8
 - Kirin NPU：FP16
-- GPU(Mali/Adreno)：FP16、FP32
+- GPU (Mali/Adreno)：FP16、FP32
 - Ascend：FP16
 
 ---
@@ -1885,7 +1887,7 @@ PRelu激活函数。
 
 - CPU：FP16、FP32、Int8、UInt8
 - Kirin NPU：FP16
-- GPU(Mali/Adreno)：FP16、FP32
+- GPU (Mali/Adreno)：FP16、FP32
 
 ---
 
@@ -1935,7 +1937,7 @@ PRelu激活函数。
 
 - CPU：FP16、FP32、Int8、UInt8
 - Kirin NPU：FP16
-- GPU(Mali/Adreno)：FP16、FP32
+- GPU (Mali/Adreno)：FP16、FP32
 - Ascend：FP16
 
 ---
@@ -1987,7 +1989,7 @@ PRelu激活函数。
 ### 支持的硬件后端
 
 - CPU：FP16、FP32、Int32、Int8、UInt8、Bool
-- GPU(Mali/Adreno)：FP16、FP32
+- GPU (Mali/Adreno)：FP16、FP32
 - Ascend：FP16
 
 ---
@@ -2028,7 +2030,7 @@ PRelu激活函数。
 
 - CPU：FP16、FP32、Int8、UInt8
 - Kirin NPU：FP16
-- GPU(Mali/Adreno)：FP16、FP32
+- GPU (Mali/Adreno)：FP16、FP32
 - Ascend：FP16
 
 ---
@@ -2056,7 +2058,7 @@ PRelu激活函数。
 
 - CPU：FP16、FP32、Int32、Int8、UInt8
 - Kirin NPU：FP16
-- GPU(Mali/Adreno)：FP16、FP32
+- GPU (Mali/Adreno)：FP16、FP32
 - Ascend：FP16
 
 ---
@@ -2108,7 +2110,7 @@ Skip-gram模型的核心操作，用于词向量训练。
 
 - CPU：FP16、FP32、Int8、UInt8
 - Kirin NPU：FP16
-- GPU(Mali/Adreno)：FP16、FP32
+- GPU (Mali/Adreno)：FP16、FP32
 - Ascend：FP16
 
 ---
@@ -2147,7 +2149,7 @@ Skip-gram模型的核心操作，用于词向量训练。
 ### 支持的硬件后端
 
 - CPU：FP16、FP32、Int8、UInt8
-- GPU(Mali/Adreno)：FP16、FP32
+- GPU (Mali/Adreno)：FP16、FP32
 - Ascend：FP16
 
 ---
@@ -2161,7 +2163,7 @@ Skip-gram模型的核心操作，用于词向量训练。
 ### 支持的硬件后端
 
 - CPU：FP16、FP32、Int8、UInt8
-- GPU(Mali/Adreno)：FP16、FP32
+- GPU (Mali/Adreno)：FP16、FP32
 
 ---
 
@@ -2174,7 +2176,7 @@ Skip-gram模型的核心操作，用于词向量训练。
 ### 支持的硬件后端
 
 - CPU：FP16、FP32
-- GPU(Mali/Adreno)：FP16、FP32
+- GPU (Mali/Adreno)：FP16、FP32
 
 ---
 
@@ -2187,7 +2189,7 @@ Skip-gram模型的核心操作，用于词向量训练。
 ### 支持的硬件后端
 
 - CPU：FP16、FP32、Int32
-- GPU(Mali/Adreno)：FP16、FP32、Int32
+- GPU (Mali/Adreno)：FP16、FP32、Int32
 
 ---
 
@@ -2226,7 +2228,7 @@ Skip-gram模型的核心操作，用于词向量训练。
 
 - CPU：FP16、FP32、Int32、Int8、UInt8
 - Kirin NPU：FP16
-- GPU(Mali/Adreno)：FP16、FP32
+- GPU (Mali/Adreno)：FP16、FP32
 - Ascend：FP16
 
 ---
@@ -2253,7 +2255,7 @@ Skip-gram模型的核心操作，用于词向量训练。
 
 - CPU：FP16、FP32、Int8、UInt8
 - Kirin NPU：FP16
-- GPU(Mali/Adreno)：FP16、FP32
+- GPU (Mali/Adreno)：FP16、FP32
 - Ascend：FP16
 
 ---
@@ -2280,7 +2282,7 @@ Skip-gram模型的核心操作，用于词向量训练。
 
 - CPU：FP16、FP32、Int8、UInt8
 - Kirin NPU：FP16
-- GPU(Mali/Adreno)：FP16、FP32
+- GPU (Mali/Adreno)：FP16、FP32
 - Ascend：FP16
 
 ---
@@ -2294,7 +2296,7 @@ Skip-gram模型的核心操作，用于词向量训练。
 ### 支持的硬件后端
 
 - CPU：FP16、FP32
-- GPU(Mali/Adreno)：FP16、FP32
+- GPU (Mali/Adreno)：FP16、FP32
 
 ---
 
@@ -2307,7 +2309,7 @@ Skip-gram模型的核心操作，用于词向量训练。
 ### 支持的硬件后端
 
 - CPU：FP16、FP32、Int32、Int8、UInt8、Bool
-- GPU(Mali/Adreno)：FP16、FP32、Int32
+- GPU (Mali/Adreno)：FP16、FP32、Int32
 
 ---
 
@@ -2321,7 +2323,7 @@ Tensor切片。
 
 - CPU：FP16、FP32、Int32、Int8、UInt8
 - Kirin NPU：FP16
-- GPU(Mali/Adreno)：FP16、FP32
+- GPU (Mali/Adreno)：FP16、FP32
 - Ascend：FP16
 
 ---
@@ -2347,7 +2349,7 @@ Tensor切片。
 ### 支持的硬件后端
 
 - CPU：FP16、FP32、Int32
-- GPU(Mali/Adreno)：FP16、FP32
+- GPU (Mali/Adreno)：FP16、FP32
 - Ascend：FP16
 
 ---
@@ -2362,7 +2364,7 @@ Tensor切片。
 
 - CPU：FP16、FP32、Int32、Int8、UInt8
 - Kirin NPU：FP16
-- GPU(Mali/Adreno)：FP16、FP32
+- GPU (Mali/Adreno)：FP16、FP32
 - Ascend：FP16
 
 ---
@@ -2512,7 +2514,7 @@ Tensor切片。
 
 - CPU：FP16、FP32、Int32、Int8、Bool
 - Kirin NPU：FP16
-- GPU(Mali/Adreno)：FP16、FP32
+- GPU (Mali/Adreno)：FP16、FP32
 - Ascend：FP16
 
 ---
@@ -2563,7 +2565,7 @@ Tensor切片。
 
 - CPU：FP16、FP32、Int32、Int8、UInt8、Bool
 - Kirin NPU：FP16
-- GPU(Mali/Adreno)：FP16、FP32、Int32
+- GPU (Mali/Adreno)：FP16、FP32、Int32
 
 ---
 
