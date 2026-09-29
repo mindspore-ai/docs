@@ -5,19 +5,15 @@
 | MindSpore Lite算子名称 | 对应的TensorFlow Lite算子                                    | 算子规格 |
 | ---------------------- | ------------------------------------------------------------ | -------- |
 | Abs                    | Abs                                                          | -        |
-| Activation             | Activation, ReLU, ReLU6, PReLU, <br/>LeakyReLU, Tanh, HardSwish, Logistic | -        |
-| Adam                   | Adam                                                         | -        |
+| Activation             | Activation, Elu, ReLU, ReLU6, PReLU, <br/>LeakyReLU, Tanh, HardSwish, Logistic | Elu、ReLU、ReLU6、PReLU、LeakyReLU、Tanh、HardSwish、Logistic不支持int类型。 |
 | AddFusion              | Add                                                          | -        |
 | AddN                   | AddN                                                         | -        |
-| ApplyMomentum          | ApplyMomentum                                                | -        |
-| Assign                 | Assign                                                       | -        |
 | ArgmaxFusion           | Argmax                                                       | -        |
 | ArgminFusion           | Argmin                                                       | -        |
 | AvgPoolFusion          | MeanPooling                                                  | -        |
 | BatchToSpace           | BatchToSpace                                                 | -        |
 | BatchToSpaceND         | BatchToSpaceND                                               | -        |
 | BinaryCrossEntropy     | BinaryCrossEntropy                                           | -        |
-| BroadcastTo            | BroadcastTo                                                  | -        |
 | Cast                   | Cast,<br/>QUANTIZE,<br/>DEQUANTIZE                           | -        |
 | Ceil                   | Ceil                                                         | -        |
 | Clip                   | Clip                                                         | -        |
@@ -25,13 +21,12 @@
 | Conv2DFusion           | Conv2D                                                       | -        |
 | Conv2dTransposeFusion  | DeConv2D                                                     | -        |
 | Cos                    | Cos                                                          | -        |
-| CustomExtractFeatures  | ExtractFeatures                                              | -        |
-| CustomNormalize        | Normalize                                                    | -        |
-| CustomPredict          | Predict                                                      | -        |
+| CustomExtractFeatures  | ExtractFeatures                                              | TFLite CUSTOM算子。 |
+| CustomNormalize        | Normalize                                                    | TFLite CUSTOM算子。 |
+| CustomPredict          | Predict                                                      | TFLite CUSTOM算子。 |
 | DepthToSpace           | DepthToSpace                                                 | -        |
 | DetectionPostProcess   | Custom                                                       | -        |
-| DivFusion              | Div, RealDiv                                                 | -        |
-| Dropout                | Dropout                                                      | -        |
+| DivFusion              | Div                                                          | -        |
 | Equal                  | Equal                                                        | -        |
 | Erf                    | Erf                                                          | -        |
 | ExpFusion              | Exp                                                          | -        |
@@ -47,14 +42,11 @@
 | Greater                | Greater                                                      | -        |
 | GreaterEqual           | GreaterEqual                                                 | -        |
 | HashtableLookup        | HashtableLookup                                              | -        |
-| InstanceNorm           | InstanceNorm                                                 | -        |
-| IsFinite               | IsFinite                                                     | -        |
 | LeakyReLU              | LeakyRelu                                                    | -        |
 | Less                   | Less                                                         | -        |
 | LessEqual              | LessEqual                                                    | -        |
 | LRN                    | LocalResponseNorm                                            | -        |
 | Log                    | Log                                                          | -        |
-| Log1p                  | Log1p                                                        | -        |
 | LogicalAnd             | LogicalAnd                                                   | -        |
 | LogicalNot             | LogicalNot                                                   | -        |
 | LogicalOr              | LogicalOr                                                    | -        |
@@ -64,36 +56,28 @@
 | Maximum                | Maximum                                                      | -        |
 | MaxPoolFusion          | MaxPooling                                                   | -        |
 | Minimum                | Minimum                                                      | -        |
-| Mod                    | Mod                                                          | -        |
 | MulFusion              | Mul                                                          | -        |
 | Neg                    | Neg                                                          | -        |
 | NotEqual               | NotEqual                                                     | -        |
-| NonMaxSuppression      | NonMaxSuppression                                            | -        |
-| NonZero                | NonZero                                                      | -        |
 | OneHot                 | OneHot                                                       | -        |
-| OnesLike               | OnesLike                                                     | -        |
 | PadFusion              | Pad, MirrorPad, PadV2                                        | -        |
 | PowFusion              | Pow                                                          | -        |
 | PReLUFusion            | PRELU                                                        | -        |
-| RandomNormal           | RandomNormal                                                 | -        |
 | Range                  | Range                                                        | -        |
 | Rank                   | Rank                                                         | -        |
-| ReduceFusion           | Sum, Mean, ReduceMax, ReduceMin, ReduceProd                  | -        |
+| ReduceFusion           | Sum, Mean, ReduceMax, ReduceMin, ReduceProd                  | Sum、Mean、ReduceMax、ReduceMin、ReduceProd不支持bool类型。 |
 | Reshape                | Reshape                                                      | -        |
-| Resize                 | ResizeBilinear,<br/>NearestNeighbor                          | -        |
-| ReverseV2              | reverse                                                      | -        |
+| Resize                 | ResizeBilinear,<br/>ResizeNearestNeighbor                    | ResizeNearestNeighbor不支持fp16类型。 |
+| ReverseV2              | ReverseV2                                                    | -        |
 | ReverseSequence        | ReverseSequence                                              | -        |
 | Round                  | Round                                                        | -        |
 | Rsqrt                  | Rsqrt                                                        | -        |
 | ScatterNd              | ScatterNd                                                    | -        |
-| ScatterNdUpdate        | ScatterNdUpdate                                              | -        |
-| SGD                    | SGD                                                          | -        |
 | Shape                  | Shape                                                        | -        |
 | Sin                    | Sin                                                          | -        |
 | SliceFusion            | Slice                                                        | -        |
 | SkipGram               | SkipGram                                                     | -        |
 | Softmax                | Softmax                                                      | -        |
-| SpaceToBatch           | SpaceToBatch                                                 | 仅支持4维输入张量。 |
 | SpaceToBatchND         | SpaceToBatchND                                               | -        |
 | SpaceToDepth           | SpaceToDepth                                                 | -        |
 | SparseToDense          | SparseToDense                                                 | -        |
@@ -103,13 +87,12 @@
 | SquaredDifference      | SquaredDifference                                            | -        |
 | Squeeze                | Squeeze                                                      | -        |
 | StridedSlice           | StridedSlice                                                 | -        |
-| Stack                  | Stack                                                        | -        |
+| Stack                  | Pack                                                         | -        |
 | SubFusion              | Sub                                                          | -        |
-| TensorScatterAdd       | TensorScatterAdd                                             | -        |
 | TileFusion             | Tile                                                         | -        |
 | TopKFusion             | TopKV2                                                       | -        |
 | Transpose              | Transpose                                                    | -        |
 | Unique                 | Unique                                                       | -        |
-| Unstack                | Unstack                                                      | -        |
+| Unstack                | Unpack                                                       | -        |
 | Where                  | Where                                                        | -        |
 | ZerosLike              | ZerosLike                                                    | -        |
