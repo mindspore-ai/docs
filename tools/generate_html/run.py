@@ -948,7 +948,11 @@ if __name__ == "__main__":
                     for f in ("llms.txt", "llms-full.txt"):
                         src = version_dir / f
                         if src.exists():
-                            shutil.move(str(src), str(lang_dir / f))
+                            dst = lang_dir / f
+                            shutil.move(str(src), str(dst))
+                            print(f"[llms] moved: {src} -> {dst}")
+                        else:
+                            print(f"[llms] skip (not found): {src}")
     except (KeyboardInterrupt, SystemExit):
         print("程序即将终止....")
         time.sleep(1)
