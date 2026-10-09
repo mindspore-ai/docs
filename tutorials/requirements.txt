@@ -8,3 +8,4 @@ IPython
 jieba
 jinja2 < 3.1
 setuptools == 81.0.0
+sphinx-llms-txt == 0.7.1

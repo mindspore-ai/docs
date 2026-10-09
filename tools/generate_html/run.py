@@ -17,6 +17,7 @@ from multiprocessing import Pool
 import requests
 import sphinx
 import urllib3
+from pathlib import Path
 from git import Repo
 from lxml import etree
 from replace_html_menu import replace_html_menu, modify_menu_num
@@ -932,6 +933,22 @@ if __name__ == "__main__":
         output_path = f"{MAINDIR}/{args.version}/output"
         patch_searchtools(output_path)
         print("searchtools.js 修改完成!")
+
+        output_root = Path(output_path)
+        for component in output_root.iterdir():
+            if not component.is_dir():
+                continue
+            for lang in ("en", "zh-CN"):
+                lang_dir = component / lang
+                if not lang_dir.is_dir():
+                    continue
+                for version_dir in lang_dir.iterdir():
+                    if not version_dir.is_dir():
+                        continue
+                    for f in ("llms.txt", "llms-full.txt"):
+                        src = version_dir / f
+                        if src.exists():
+                            shutil.move(str(src), str(lang_dir / f))
     except (KeyboardInterrupt, SystemExit):
         print("程序即将终止....")
         time.sleep(1)
