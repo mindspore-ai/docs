@@ -9,7 +9,7 @@
 | AddFusion              | Add、AddV2                                                   | -        |
 | AddN                   | AddN                                                         | -        |
 | All                    | All                                                          | -        |
-| Assert                 | Assert                                                       | Assert算子不产生输出，无输出模型会转换失败。 |
+| Assert                 | Assert                                                       | Assert算子不产生输出，无输出的模型会转换失败。 |
 | ArgmaxFusion           | ArgMax                                                       | -        |
 | ArgminFusion           | ArgMin                                                       | -        |
 | AvgPoolFusion          | AvgPool                                                      | -        |
