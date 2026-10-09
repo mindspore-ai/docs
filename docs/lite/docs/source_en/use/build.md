@@ -26,8 +26,8 @@ Modules in MindSpore Lite:
     - [Git](https://git-scm.com/downloads) >= 2.28.0
     - [Android_NDK](https://dl.google.com/android/repository/android-ndk-r20b-linux-x86_64.zip) >= r20
         - Configure environment variables: `export ANDROID_NDK=NDK path`.
-    - [OpenHarmony_NDK](https://dcp.openharmony.cn/workbench/cicd/dailybuild/dailylist)
-        - Download OpenHarmony NDK: Go to OpenHarmony daily build web site, select "modality" as "ohos-sdk", then select any successfully built package to download. After downloading, the files in the unzipped package that begin with 'native' are OpenHarmony NDK.
+    - [OpenHarmony_NDK](https://developer.huawei.com/consumer/en/download/command-line-tools-for-hmos)
+        - Download OpenHarmony NDK: Go to the HarmonyOS official website, select Command Line Tools Linux(64-bit), and download Command Line Tools 6.1.1 Release. After downloading, decompress the package. The `command-line-tools/sdk/default/openharmony/native/` subdirectory is the OpenHarmony NDK.
         - Configure environment variables: `export OHOS_NDK=OHOS NDK path`, `export TOOLCHAIN_NAME=ohos`.
 - Compilation dependency of the Java API module (optional). If the JAVA_HOME environment variable is not set, this module will not be compiled:
     - [Gradle](https://gradle.org/releases/) >= 6.6.1
@@ -94,7 +94,7 @@ The construction of modules is controlled by environment variables. Users can co
     > - When the AVX instruction set is enabled, the CPU of the running environment needs to support both AVX and FMA features.
     > - The compilation time of the model conversion tool is long. If it is not necessary, it is recommended to use `MSLITE_ENABLE_CONVERTER` to turn off the compilation of the conversion tool to speed up the compilation.
     > - When pre-inference during model compilation is enabled, for the non-encrypted model, the inference framework will create a child process for pre-inference when Build interface is called. After the child process returns successfully, the main process will formally execute the process of graph compilation.
-    > - At present, OpenHarmony only supports CPU reasoning, not GPU reasoning.
+    > - Currently, OpenHarmony supports only CPU inference.
 
 - Runtime feature compilation options
 
