@@ -26,8 +26,8 @@ MindSpore Lite包含模块：
     - [Git](https://git-scm.com/downloads) >= 2.28.0
     - [Android_NDK](https://dl.google.com/android/repository/android-ndk-r20b-linux-x86_64.zip) >= r20
         - 配置环境变量：`export ANDROID_NDK=NDK路径`
-    - [OpenHarmony_NDK](https://dcp.openharmony.cn/workbench/cicd/dailybuild/dailylist)
-        - 下载OpenHarmony NDK：前往OpenHarmony的每日构建，选择"形态组件"为"ohos-sdk"，任选一个成功构建的包进行下载。下载之后解压压缩包，其中以native开头的文件即为OpenHarmony NDK。
+    - [OpenHarmony_NDK](https://developer.huawei.com/consumer/cn/download/command-line-tools-for-hmos)
+        - 下载OpenHarmony NDK：前往HarmonyOS官网，选择Command Line Tools Linux(64-bit)，下载Command Line Tools 6.1.1 Release。下载之后解压压缩包，其中`command-line-tools/sdk/default/openharmony/native/`子目录即为OpenHarmony NDK。
         - 配置环境变量：`export OHOS_NDK=NDK路径`、`export TOOLCHAIN_NAME=ohos`
 - Java API模块的编译依赖（可选），未设置JAVA_HOME环境变量则不编译该模块。
     - [Gradle](https://gradle.org/releases/) >= 6.6.1
@@ -94,7 +94,7 @@ MindSpore Lite根目录下的`build.sh`脚本可用于MindSpore Lite的编译。
     > - 启用AVX指令集时，需要运行环境的CPU同时支持avx特性和fma特性。
     > - 模型转换工具的编译时间较长，若非必要，建议通过`MSLITE_ENABLE_CONVERTER`关闭转换工具编译，以加快编译速度。
     > - 当启用模型编译时预推理时，对于非加密模型，用户调用Build接口时，推理框架会创建一个子进程进行预推理，子进程成功返回之后，主进程会正式执行图编译的流程。
-    > - 目前OpenHarmony系统仅支持CPU推理，不支持GPU推理。
+    > - 目前OpenHarmony系统仅支持CPU推理。
 
 - runtime功能裁剪编译选项
 
