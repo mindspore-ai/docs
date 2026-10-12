@@ -99,9 +99,9 @@ The following sections expand on the "Configuration" and "Distributed" modules, 
 - **Parallelism Dimensions**: Data Parallelism (DP, including Fully Sharded Data Parallelism, FSDP, and Hybrid Sharded Data Parallelism, HSDP), Tensor Parallelism (TP), Pipeline Parallelism (PP), Context Parallelism (CP), Expert Parallelism (EP), and Sequence Parallelism (SP). The device mesh is constructed based on the product of each dimension, satisfying `dp_replicate * dp_shard * cp * tp * pp == world_size` (`parallel_dims.py`).
 - **Memory Optimization**: Activation checkpointing and fine-grained SWAP.
 
-> **About pet (LoRA) and models subdirectories**
+> **About LoRA**
 >
->The `pynative/pet/` and `pynative/models/` directories currently only contain `__init__.py` and have no implementation yet. LoRA fine-tuning is **not yet implemented** in the dynamic graph: when triggered, it will raise `NotImplementedError("Lora model is not implemented yet.")` in `trainer/utils.py`. For LoRA, please use the static graph implementation.
+> Dynamic graph LoRA is implemented in `pynative/pet/`, supporting adapter input for regular `Linear` and MoE routed expert `GroupedMLP`, as well as adapter-only saving, resumable training from checkpoints, and weight merging. For configuration and usage, see [Full-Parameter Fine-Tuning and LoRA Fine-Tuning](../feature/finetune.md).
 
 ## Model Architecture
 
