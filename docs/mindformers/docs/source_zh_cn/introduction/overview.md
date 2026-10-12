@@ -99,9 +99,9 @@ layers/           Linear · RMSNorm · SwiGlu · FlashAttention · 掩码生成
 - **并行维度**：数据并行（Data Parallel，DP，包含完全分片数据并行 FSDP 和混合分片数据并行 HSDP）、张量并行（Tensor Parallel，TP）、流水线并行（Pipeline Parallel，PP）、上下文并行（Context Parallel，CP）、专家并行（Expert Parallel，EP）和序列并行（Sequence Parallel，SP）。设备网格依据各维度乘积构建，满足 `dp_replicate * dp_shard * cp * tp * pp == world_size`（`parallel_dims.py`）。
 - **显存优化**：重计算（activation checkpoint）、细粒度 SWAP。
 
-> **关于 pet（LoRA）与 models 子目录**
+> **关于 LoRA**
 >
-> `pynative/pet/` 与 `pynative/models/` 目录当前仅含 `__init__.py`，尚无实现。LoRA 微调在动态图下**暂未实现**：触发时会在 `trainer/utils.py` 抛出 `NotImplementedError("Lora model is not implemented yet.")`。如需 LoRA，请使用静态图实现。
+> 动态图 LoRA 实现在 `pynative/pet/`，支持为普通 `Linear` 和 MoE 路由专家 `GroupedMLP` 注入适配器，并支持仅适配器保存、断点续训和权重合并。配置及使用方法见[全参微调与 LoRA 微调](../feature/finetune.md)。
 
 ## 模型架构
 
