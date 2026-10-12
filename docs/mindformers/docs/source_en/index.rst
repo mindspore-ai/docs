@@ -51,6 +51,7 @@ The open-source code repository for MindSpore Transformers is located at `AtomGi
    feature/memory_optimization
    feature/save_load_checkpoint
    feature/resume_training
+   feature/finetune
    feature/monitor
    feature/other_training_features
    feature/static_graph_features
