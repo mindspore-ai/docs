@@ -935,24 +935,18 @@ if __name__ == "__main__":
         print("searchtools.js 修改完成!")
 
         output_root = Path(output_path)
-        for component in output_root.iterdir():
-            if not component.is_dir():
-                continue
-            for lang in ("en", "zh-CN"):
-                lang_dir = component / lang
-                if not lang_dir.is_dir():
+        for f_name in ("llms.txt", "llms-full.txt"):
+            for src in output_root.rglob(f_name):
+                version_dir = src.parent
+                lang_dir = version_dir.parent
+
+                if lang_dir.name not in ("en", "zh-CN"):
                     continue
-                for version_dir in lang_dir.iterdir():
-                    if not version_dir.is_dir():
-                        continue
-                    for f in ("llms.txt", "llms-full.txt"):
-                        src = version_dir / f
-                        if src.exists():
-                            dst = lang_dir / f
-                            shutil.move(str(src), str(dst))
-                            print(f"[llms] moved: {src} -> {dst}")
-                        else:
-                            print(f"[llms] skip (not found): {src}")
+
+                dst = lang_dir / f_name
+                if src.exists() and src != dst:
+                    shutil.move(str(src), str(dst))
+                    print(f"[llms] moved: {src} -> {dst}")
     except (KeyboardInterrupt, SystemExit):
         print("程序即将终止....")
         time.sleep(1)
