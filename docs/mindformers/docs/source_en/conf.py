@@ -63,7 +63,8 @@ extensions = [
     'sphinxcontrib.jquery',
     'myst_parser',
     'sphinx.ext.mathjax',
-    'IPython.sphinxext.ipython_console_highlighting'
+    'IPython.sphinxext.ipython_console_highlighting',
+    'sphinx_llms_txt',
 ]
 
 source_suffix = {

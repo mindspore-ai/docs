@@ -7,3 +7,5 @@ nbsphinx == 0.8.11
 IPython
 jieba
 setuptools == 81.0.0
+sphinx-llms-txt == 0.7.1
+sphinx-markdown-builder

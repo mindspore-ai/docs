@@ -4,3 +4,5 @@ myst-parser == 4.0.1
 sphinx_rtd_theme == 3.1.0
 jieba
 setuptools == 81.0.0
+sphinx-llms-txt == 0.7.1
+sphinx-markdown-builder
