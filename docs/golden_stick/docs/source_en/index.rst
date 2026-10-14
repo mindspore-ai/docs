@@ -1,3 +1,0 @@
-MindSpore Golden Stick
-=============================
-
