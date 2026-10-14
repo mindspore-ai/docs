@@ -14,7 +14,7 @@
 
 <!-- /TOC -->
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/install/mindspore_cpu_mac_install_source.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.11.0/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/r2.11.0/install/mindspore_cpu_mac_install_source.md)
 
 ## 确认系统环境信息
 
@@ -51,7 +51,7 @@ python --version
 ## 从代码仓下载源码
 
 ```bash
-git clone https://atomgit.com/mindspore/mindspore.git
+git clone -b v2.11.0 https://atomgit.com/mindspore/mindspore.git
 ```
 
 ## 编译MindSpore

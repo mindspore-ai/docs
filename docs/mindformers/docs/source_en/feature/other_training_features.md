@@ -1,6 +1,6 @@
 # Other Training Features
 
-[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_en/feature/other_training_features.md)
+[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.11.0/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/r2.11.0/docs/mindformers/docs/source_en/feature/other_training_features.md)
 
 In addition to hyperparameters for training such as the optimizer and learning rate, and parallelism strategies, dynamic graph (PyNative) training also has several common features: **gradient accumulation, gradient clipping, operator fusion, and hybrid precision**. This page describes the usage and configuration methods of each feature, and provides YAML sections that can be directly used.
 
@@ -25,7 +25,7 @@ Use this method when the graphics memory is insufficient to accommodate the targ
 
 ### Inference Rules
 
-In dynamic graphs, **the number of gradient accumulation steps is not configured separately**. Instead, it is inferred from `global_batch_size` and `local_batch_size` in the `training` segment and the data parallel dimension `data_parallel` (see `_compute_data_parallel_size` in [mindformers/pynative/trainer/trainer.py](https://atomgit.com/mindspore/mindformers/blob/master/mindformers/pynative/trainer/trainer.py)):
+In dynamic graphs, **the number of gradient accumulation steps is not configured separately**. Instead, it is inferred from `global_batch_size` and `local_batch_size` in the `training` segment and the data parallel dimension `data_parallel` (see `_compute_data_parallel_size` in [mindformers/pynative/trainer/trainer.py](https://atomgit.com/mindspore/mindformers/blob/r2.1.0/mindformers/pynative/trainer/trainer.py)):
 
 ```text
 num_accumulation_steps = global_batch_size // (data_parallel * local_batch_size)
@@ -84,7 +84,7 @@ It is used when loss jitter or gradient norm spike occurs during training. Gradi
 
 ### Working Principle
 
-Before updating the optimizer, the framework computes the global L2 norm of all parameter gradients (cross-process all-reduce synchronization in distributed mode). When the norm exceeds `max_norm`, the gradients are scaled in place proportionally (see `_calculate_global_grad_norm` in [mindformers/pynative/trainer/utils.py](https://atomgit.com/mindspore/mindformers/blob/master/mindformers/pynative/trainer/utils.py)).
+Before updating the optimizer, the framework computes the global L2 norm of all parameter gradients (cross-process all-reduce synchronization in distributed mode). When the norm exceeds `max_norm`, the gradients are scaled in place proportionally (see `_calculate_global_grad_norm` in [mindformers/pynative/trainer/utils.py](https://atomgit.com/mindspore/mindformers/blob/r2.1.0/mindformers/pynative/trainer/utils.py)).
 
 **Value and distributed consistency**: The norm calculation is performed at **fp32** precision to avoid numerical instability in BF16/FP16. The `Replicate` placement dimension of the DTensor is scaled and corrected to ensure that the results of multiple devices are consistent with those of a single device.
 
@@ -117,7 +117,7 @@ By default, operator fusion is enabled for dynamic graphs and does not need to b
 
 ### Operators
 
-The source code is located in [mindformers/pynative/layers/layer_norm.py](https://atomgit.com/mindspore/mindformers/blob/master/mindformers/pynative/layers/layer_norm.py) and [mindformers/pynative/layers/activation.py](https://atomgit.com/mindspore/mindformers/blob/master/mindformers/pynative/layers/activation.py).
+The source code is located in [mindformers/pynative/layers/layer_norm.py](https://atomgit.com/mindspore/mindformers/blob/r2.1.0/mindformers/pynative/layers/layer_norm.py) and [mindformers/pynative/layers/activation.py](https://atomgit.com/mindspore/mindformers/blob/r2.1.0/mindformers/pynative/layers/activation.py).
 
 | Operator       | Class               | Key Parameter (Default)                          | Behavior                                                                     |
 |-----------|------------------|------------------------------------|-------------------------------------------------------------------------|

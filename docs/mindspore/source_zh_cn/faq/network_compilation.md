@@ -1,6 +1,6 @@
 # 网络编译
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/faq/network_compilation.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.11.0/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/r2.11.0/docs/mindspore/source_zh_cn/faq/network_compilation.md)
 
 ## 常见问题
 
@@ -12,7 +12,7 @@ A: 静态图模式能够支持覆盖Python常用语法子集，以支持神经�
 
 ### Q: 编译时报错'self.xx' should be initialized as a 'Parameter' type in the '`__init__`' function怎么办？
 
-A: 在 `construct` 函数内，如果想对类成员 `self.xx` 赋值，那么 `self.xx` 必须已经在 `__init__` 函数中被定义为 [Parameter](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.Parameter.html) 类型，其他类型则不支持。局部变量 `xx` 不受这个限制。
+A: 在 `construct` 函数内，如果想对类成员 `self.xx` 赋值，那么 `self.xx` 必须已经在 `__init__` 函数中被定义为 [Parameter](https://www.mindspore.cn/docs/zh-CN/r2.11.0/api_python/mindspore/mindspore.Parameter.html) 类型，其他类型则不支持。局部变量 `xx` 不受这个限制。
 
 <br/>
 
@@ -300,7 +300,7 @@ A: 首先检查导出参数和导入执行的参数个数是否是匹配的。�
 
 因为导出数据输入为非Tensor时，该导出的输入将会变成常量固化到MindIR中，使MindIR中的输入要少于网络构建的Construct入参。
 
-如果是标量类型，可以将标量转成Tensor类型导出。如果是Tuple或者List类型，可以使用[mutable](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.mutable.html)接口进行包装后及进行导出。
+如果是标量类型，可以将标量转成Tensor类型导出。如果是Tuple或者List类型，可以使用[mutable](https://www.mindspore.cn/docs/zh-CN/r2.11.0/api_python/mindspore/mindspore.mutable.html)接口进行包装后及进行导出。
 
 <br/>
 
@@ -768,7 +768,7 @@ A: 以下场景会触发重新编译：
 
 - Tuple或List的长度发生改变。
 
-- 网络的输入是tuple[Tensor]、list[Tensor]或Dict[Tensor]，即使里面Tensor的shape和dtype没有发生变化。详情请参考 [mutable](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.mutable.html)。
+- 网络的输入是tuple[Tensor]、list[Tensor]或Dict[Tensor]，即使里面Tensor的shape和dtype没有发生变化。详情请参考 [mutable](https://www.mindspore.cn/docs/zh-CN/r2.11.0/api_python/mindspore/mindspore.mutable.html)。
 
 <br/>
 

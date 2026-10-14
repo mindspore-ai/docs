@@ -20,7 +20,7 @@
 
 <!-- /TOC -->
 
-[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/install/mindspore_ascend_install_source_en.md)
+[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.11.0/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/r2.11.0/install/mindspore_ascend_install_source_en.md)
 
 This document describes how to install MindSpore by compiling source code on Linux in an Ascend environment.
 
@@ -195,7 +195,7 @@ The following takes GCC 9 as example for how to install GCC on common operating 
 ## Downloading the Source Code from the Code Repository
 
 ```bash
-git clone https://atomgit.com/mindspore/mindspore.git
+git clone -b v2.11.0 https://atomgit.com/mindspore/mindspore.git
 ```
 
 ## Configuring Environment Variables
@@ -235,7 +235,7 @@ Where:
 pip install output/mindspore-*.whl -i https://repo.huaweicloud.com/repository/pypi/simple/
 ```
 
-When the network is connected, dependencies of MindSpore are automatically downloaded during the .whl package installation. (For details about the dependency, see required_package in [setup.py](https://atomgit.com/mindspore/mindspore/blob/master/setup.py)). In other cases, you need to install dependencies by yourself.
+When the network is connected, dependencies of MindSpore are automatically downloaded during the .whl package installation. (For details about the dependency, see required_package in [setup.py](https://atomgit.com/mindspore/mindspore/blob/v2.11.0/setup.py)). In other cases, you need to install dependencies by yourself.
 
 ## Installation Verification
 

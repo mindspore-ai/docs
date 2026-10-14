@@ -1,8 +1,8 @@
 Environment Variables
 =====================
 
-.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg
-    :target: https://atomgit.com/mindspore/docs/blob/master/docs/mindspore/source_en/api_python/env_var_list.rst
+.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.11.0/resource/_static/logo_source_en.svg
+    :target: https://atomgit.com/mindspore/docs/blob/r2.11.0/docs/mindspore/source_en/api_python/env_var_list.rst
     :alt: View Source On AtomGit
 
 MindSpore environment variables are as follows:
@@ -428,7 +428,7 @@ Dump Debugging
      - Description
    * - MINDSPORE_DUMP_CONFIG
      - Specify the path of the configuration file that the `cloud-side Dump <https://www.mindspore.cn/tutorials/en/master/debug/dump.html>`_
-       or the `device-side Dump <https://www.mindspore.cn/lite/docs/en/master/tools/benchmark_tool.html#dump>`_ depends on.
+       or the `device-side Dump <https://www.mindspore.cn/lite/docs/en/r2.11.0/tools/benchmark_tool.html#dump>`_ depends on.
      - String
      - File path, which can be a relative path or an absolute path.
      -
@@ -723,7 +723,7 @@ Operators Compile
        Default value: empty string.
      -
 
-For more information, see `FAQ <https://mindspore.cn/docs/en/master/faq/operators_api.html>`_.
+For more information, see `FAQ <https://mindspore.cn/docs/en/r2.11.0/faq/operators_api.html>`_.
 
 Log
 ---
@@ -831,7 +831,7 @@ Log
 
      - The assignment way is:`MS_SUBMODULE_LOG_v="{SubModule1:LogLevel1,SubModule2:LogLevel2,...}"`
 
-       The log level of the specified sub-module will override the setting of `GLOG_v` in this module, where the log level of the sub-module `LogLevel` has the same meaning as that of `GLOG_v`. For a detailed list of MindSpore sub-modules, see `sub-module_names <https://atomgit.com/mindspore/mindspore/blob/master/mindspore/core/utils/log_adapter.cc>`_.
+       The log level of the specified sub-module will override the setting of `GLOG_v` in this module, where the log level of the sub-module `LogLevel` has the same meaning as that of `GLOG_v`. For a detailed list of MindSpore sub-modules, see `sub-module_names <https://atomgit.com/mindspore/mindspore/blob/v2.11.0/mindspore/core/utils/log_adapter.cc>`_.
 
        For example, you can set the log level of `PARSER` and `ANALYZER` modules to WARNING and the log level of other modules to INFO by `GLOG_v=1 MS_SUBMODULE_LOG_v="{PARSER:2,ANALYZER:2}"`.
    * - GLOG_logfile_mode
@@ -1044,7 +1044,7 @@ Profiler
 
        profiler_level (str, optional) - Set the level of performance data collection. Default value: Level0. Possible values: Level0, Level1, Level2.
 
-       Refer to other parameters, see `Description of MindSpore profile parameters <https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.profiler.profile.html>`_.
+       Refer to other parameters, see `Description of MindSpore profile parameters <https://www.mindspore.cn/docs/en/r2.11.0/api_python/mindspore/mindspore.profiler.profile.html>`_.
 
      - This environment variable enables one of two ways to enable performance data collection with the input parameter instantiation Profiler method.
    * - PROFILING_MODE

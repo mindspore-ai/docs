@@ -1,6 +1,6 @@
 # 算子API
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/faq/operators_api.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.11.0/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/r2.11.0/docs/mindspore/source_zh_cn/faq/operators_api.md)
 
 ## 常见问题
 
@@ -12,7 +12,7 @@ A: 确保MindSpore版本与CANN版本的配套使用。推荐使用MindSpore 2.7
 
 ### Q: 在Ascend机器上使用`ops.ring_attention_update`算子，搭配8.1.RC1的CANN包，发生报错`RuntimeError: aclnnRingAttentionUpdateGetWorkSpaceSize call failed`，是怎么回事？
 
-A: 出于性能考虑，[ops.ring_attention_update](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.ring_attention_update.html)算子不再兼容8.1.RC1及更早之前版本的CANN包，建议安装8.2.RC1或更新版本的CANN包。
+A: 出于性能考虑，[ops.ring_attention_update](https://www.mindspore.cn/docs/zh-CN/r2.11.0/api_python/ops/mindspore.ops.ring_attention_update.html)算子不再兼容8.1.RC1及更早之前版本的CANN包，建议安装8.2.RC1或更新版本的CANN包。
 
 <br/>
 
@@ -24,7 +24,7 @@ A: 该问题为 MindSpore 2.7.2 及以上版本与 CANN 8.0.0.alpha003 不兼容
 
 ### Q: 在使用`ops.concat`算子时，因为数据规模有点大，导致报错`Error:Input and (output + workspace) num should <=192!`，可以怎么处理？
 
-A: 这种报错，主要为[ops.concat](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.concat.html)算子提示`shape`过大。建议对`dataset`对象创建迭代器时可设置输出为`numpy`, 如下设置：
+A: 这种报错，主要为[ops.concat](https://www.mindspore.cn/docs/zh-CN/r2.11.0/api_python/ops/mindspore.ops.concat.html)算子提示`shape`过大。建议对`dataset`对象创建迭代器时可设置输出为`numpy`, 如下设置：
 
 ```python
 galleryloader.create_dict_iterator(output_numpy=True)
@@ -36,7 +36,7 @@ galleryloader.create_dict_iterator(output_numpy=True)
 
 ### Q: 请问在静态图模式的`construct`函数里，如何把一个`tensor`中所含有的负数值全部去除掉？
 
-A: 建议使用[ops.clip_by_value](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.clip_by_value.html)接口，把负数全变成0来进行计算。
+A: 建议使用[ops.clip_by_value](https://www.mindspore.cn/docs/zh-CN/r2.11.0/api_python/ops/mindspore.ops.clip_by_value.html)接口，把负数全变成0来进行计算。
 
 <br/>
 
@@ -54,19 +54,19 @@ A: 这个昇腾算子底层规格限制一次拼接的Tensor个数不能超过19
 
 ### Q: 在使用`Conv2D`进行卷积定义的时候使用到了`group`的参数，`group`的值不是只需要保证可以被输入输出的维度整除即可了吗？`group`参数的传递方式是怎样的呢？
 
-A: `Conv2D`算子是有这个约束条件的: 当`group`大于1 时，其值必须要与输入输出的通道数相等。不要使用[ops.Conv2D](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.Conv2D.html)，这个算子目前不支持`group`>1。目前MindSpore只有[nn.Conv2D](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Conv2d.html)接口支持组卷积，但是有`group`要与输入输出的通道数相等的约束。
+A: `Conv2D`算子是有这个约束条件的: 当`group`大于1 时，其值必须要与输入输出的通道数相等。不要使用[ops.Conv2D](https://www.mindspore.cn/docs/zh-CN/r2.11.0/api_python/ops/mindspore.ops.Conv2D.html)，这个算子目前不支持`group`>1。目前MindSpore只有[nn.Conv2D](https://www.mindspore.cn/docs/zh-CN/r2.11.0/api_python/nn/mindspore.nn.Conv2d.html)接口支持组卷积，但是有`group`要与输入输出的通道数相等的约束。
 
 <br/>
 
 ### Q: MindSpore支持矩阵转置吗？
 
-A: 支持，请参考`mindspore.ops.Transpose`的[算子教程](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.Transpose.html#mindspore.ops.Transpose)。
+A: 支持，请参考`mindspore.ops.Transpose`的[算子教程](https://www.mindspore.cn/docs/zh-CN/r2.11.0/api_python/ops/mindspore.ops.Transpose.html#mindspore.ops.Transpose)。
 
 <br/>
 
 ### Q: 请问MindSpore能算给定任意一个`tensor`的方差吗？
 
-A: 可以使用mindspore.Tensor.var接口计算Tensor的方差，你可以参考[mindspore.Tensor.var(axis=None, ddof=0, keepdims=False)](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/Tensor/mindspore.Tensor.var.html#mindspore.Tensor.var)来实现。
+A: 可以使用mindspore.Tensor.var接口计算Tensor的方差，你可以参考[mindspore.Tensor.var(axis=None, ddof=0, keepdims=False)](https://www.mindspore.cn/docs/zh-CN/r2.11.0/api_python/mindspore/Tensor/mindspore.Tensor.var.html#mindspore.Tensor.var)来实现。
 
 <br/>
 
@@ -101,7 +101,7 @@ A: 解决方案如下：
 
 1. 看一下这些算子是否为融合算子。因为算子预编译可能会改变算子的fusion_type属性，而该属性会影响算子的融合，导致原本不应该融合的小算子融合成了大算子，这些融合出来的大算子性能不一定比小算子性能好。
 
-2. 其次，如果排除了上述融合算子的影响，可以尝试使用环境变量`MS_COMPILER_OP_LEVEL`来生成算子编译的debug调试信息，然后找算子开发人员根据这些调试信息进一步定位，具体配置信息可以参考[环境变量](https://www.mindspore.cn/docs/zh-CN/master/api_python/env_var_list.html)。
+2. 其次，如果排除了上述融合算子的影响，可以尝试使用环境变量`MS_COMPILER_OP_LEVEL`来生成算子编译的debug调试信息，然后找算子开发人员根据这些调试信息进一步定位，具体配置信息可以参考[环境变量](https://www.mindspore.cn/docs/zh-CN/r2.11.0/api_python/env_var_list.html)。
 
 <br/>
 
@@ -142,7 +142,7 @@ A: Ascend后端，算子有AI CORE算子和AI CPU算子之分，部分算子AI C
 
 ### Q: MindSpore的算子输入的类型转换规则是什么？如果输入中存在零维Tensor，是否遵循这个规则？
 
-A: MindSpore的算子输入的类型转换，可以参考[类型转换规则](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.dtype.html)。与PyTorch不同的是，算子输入中存在零维Tensor时，MindSpore同样遵循这一规则。示例代码如下：
+A: MindSpore的算子输入的类型转换，可以参考[类型转换规则](https://www.mindspore.cn/docs/zh-CN/r2.11.0/api_python/mindspore/mindspore.dtype.html)。与PyTorch不同的是，算子输入中存在零维Tensor时，MindSpore同样遵循这一规则。示例代码如下：
 
 ```python
 import torch

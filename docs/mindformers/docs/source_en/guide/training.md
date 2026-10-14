@@ -1,6 +1,6 @@
 # Training Guide
 
-[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_en/guide/training.md)
+[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.11.0/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/r2.11.0/docs/mindformers/docs/source_en/guide/training.md)
 
 ## Overview
 
@@ -44,7 +44,7 @@ For details about the processing and configuration, see [Datasets](../feature/da
 
 **Processing Pretraining Data**
 
-For the Megatron dataset, MindSpore Transformers provides the data preprocessing script [preprocess_indexed_dataset.py](https://atomgit.com/mindspore/mindformers/blob/master/toolkit/data_preprocess/megatron/preprocess_indexed_dataset.py) to convert the original text corpus in `json` format into `.bin` or `.idx` files. This solution supports multi-source mixing.
+For the Megatron dataset, MindSpore Transformers provides the data preprocessing script [preprocess_indexed_dataset.py](https://atomgit.com/mindspore/mindformers/blob/r2.1.0/toolkit/data_preprocess/megatron/preprocess_indexed_dataset.py) to convert the original text corpus in `json` format into `.bin` or `.idx` files. This solution supports multi-source mixing.
 
 - **Flexible configuration**: Multiple bin data files can be loaded at the same time, and the sampling ratio parameter can be used to control the hybrid weight of different data sources.
 - **Efficient training**: The binary storage format greatly improves I/O efficiency, which is especially suitable for large-scale pretraining scenarios.
@@ -53,7 +53,7 @@ After the preprocessing is complete, you can configure `BlendedMegatronDatasetDa
 
 ### 2. Preparing Configuration Files
 
-Each pretraining task involves a high number of LLM parameters (usually ranging from billions to trillions). Distributed computing resources are required for efficient training and hyperparameter modification to ensure the normal execution of the task and the final performance metrics of the model. Dynamic graph (PyNative) training uses a YAML file to manage all configurable items in a centralized manner. The **dataclass configuration system** (TrainConfig and its sub-configuration classes) of [mindformers/pynative/config/config.py](https://atomgit.com/mindspore/mindformers/blob/master/mindformers/pynative/config/config.py) parses and verifies the YAML file when loading it. A complete configuration consists of the following top-level sections (for details, see [Configuration File Description](../feature/configuration.md)):
+Each pretraining task involves a high number of LLM parameters (usually ranging from billions to trillions). Distributed computing resources are required for efficient training and hyperparameter modification to ensure the normal execution of the task and the final performance metrics of the model. Dynamic graph (PyNative) training uses a YAML file to manage all configurable items in a centralized manner. The **dataclass configuration system** (TrainConfig and its sub-configuration classes) of [mindformers/pynative/config/config.py](https://atomgit.com/mindspore/mindformers/blob/r2.1.0/mindformers/pynative/config/config.py) parses and verifies the YAML file when loading it. A complete configuration consists of the following top-level sections (for details, see [Configuration File Description](../feature/configuration.md)):
 
 - **Model configuration** (`model`): Modify the parameters related to the model architecture in the configuration file based on the predefined model specifications, such as the number of layers, number of heads, and hidden layer dimension.
 - **Data configuration** (`train_dataset`): Specify the dataset obtained after preprocessing, and configure the dataset path, data loading mode, and other necessary information.
@@ -75,20 +75,20 @@ MindSpore Transformers classifies configurable parameters by configuration type 
     <td rowspan="3">Basic configurations</td>
     <td rowspan="3">You can specify the corresponding configuration items to start a simple training task based on the current model structure.</td>
     <td>Dataset</td>
-    <td><a href=https://www.mindspore.cn/mindformers/docs/en/master/feature/dataset.html target="_blank">Dataset usage</a></td>
+    <td><a href=https://www.mindspore.cn/mindformers/docs/en/r2.1.0/feature/dataset.html target="_blank">Dataset usage</a></td>
   </tr>
   <tr>
     <td>Parallelism configurations</td>
     <td>
-    <a href=https://www.mindspore.cn/mindformers/docs/en/master/feature/configuration.html#parallelism%E2%80%94multidimensional-parallelism target="_blank">Parallelism configuration items</a><br>
-    <a href=https://www.mindspore.cn/mindformers/docs/en/master/feature/parallel_training.html target="_blank">Distributed parallel training guide</a>
+    <a href=https://www.mindspore.cn/mindformers/docs/en/r2.1.0/feature/configuration.html#parallelism%E2%80%94multidimensional-parallelism target="_blank">Parallelism configuration items</a><br>
+    <a href=https://www.mindspore.cn/mindformers/docs/en/r2.1.0/feature/parallel_training.html target="_blank">Distributed parallel training guide</a>
     </td>
   </tr>
   <tr>
     <td>Hyperparameter training</td>
     <td>
-    <a href=https://www.mindspore.cn/mindformers/docs/en/master/feature/training_hyperparameters.html target="_blank">Hyperparameters and optimizers for training</a><br>
-    <a href=https://www.mindspore.cn/mindformers/docs/en/master/feature/other_training_features.html target="_blank">Other training features (gradient accumulation/gradient clipping/operator fusion/hybrid precision)</a>
+    <a href=https://www.mindspore.cn/mindformers/docs/en/r2.1.0/feature/training_hyperparameters.html target="_blank">Hyperparameters and optimizers for training</a><br>
+    <a href=https://www.mindspore.cn/mindformers/docs/en/r2.1.0/feature/other_training_features.html target="_blank">Other training features (gradient accumulation/gradient clipping/operator fusion/hybrid precision)</a>
     </td>
   </tr>
   <tr>
@@ -96,20 +96,20 @@ MindSpore Transformers classifies configurable parameters by configuration type 
     <td rowspan="3">By configuring this part, you can detect the training status and ensure the continuous execution of multiple training tasks.</td>
     <td>Weight saving</td>
     <td>
-      <a href=https://www.mindspore.cn/mindformers/docs/en/master/feature/save_load_checkpoint.html target="_blank">Safetensors weight saving and loading</a><br>
-      <a href=https://www.mindspore.cn/mindformers/docs/en/master/feature/configuration.html#checkpoint%E2%80%94weight-saving-and-loading target="_blank">Callbacks configuration > CheckpointMonitor</a>
+      <a href=https://www.mindspore.cn/mindformers/docs/en/r2.1.0/feature/save_load_checkpoint.html target="_blank">Safetensors weight saving and loading</a><br>
+      <a href=https://www.mindspore.cn/mindformers/docs/en/r2.1.0/feature/configuration.html#checkpoint%E2%80%94weight-saving-and-loading target="_blank">Callbacks configuration > CheckpointMonitor</a>
     </td>
   </tr>
   <tr>
     <td>Resumable training</td>
     <td>
-      <a href=https://www.mindspore.cn/mindformers/docs/en/master/feature/resume_training.html target="_blank">Examples for resumable training after breakpoint</a>
+      <a href=https://www.mindspore.cn/mindformers/docs/en/r2.1.0/feature/resume_training.html target="_blank">Examples for resumable training after breakpoint</a>
     </td>
   </tr>
   <tr>
     <td>Online monitoring</td>
     <td>
-      <a href=https://www.mindspore.cn/mindformers/docs/en/master/feature/monitor.html target="_blank">Training metrics monitoring and profiling</a>
+      <a href=https://www.mindspore.cn/mindformers/docs/en/r2.1.0/feature/monitor.html target="_blank">Training metrics monitoring and profiling</a>
     </td>
   </tr>
   <tr>
@@ -117,18 +117,18 @@ MindSpore Transformers classifies configurable parameters by configuration type 
     <td rowspan="2">By specifying these configuration items, you can monitor the status of the training process and optimize performance to ensure stable and high-performance training across different cluster scales.</td>
     <td>Performance optimization</td>
     <td>
-      <a href=https://www.mindspore.cn/mindformers/docs/en/master/feature/memory_optimization.html target="_blank">Training memory optimization</a>
+      <a href=https://www.mindspore.cn/mindformers/docs/en/r2.1.0/feature/memory_optimization.html target="_blank">Training memory optimization</a>
     </td>
   </tr>
   <tr>
     <td>Other training features</td>
     <td>
-      <a href=https://www.mindspore.cn/mindformers/docs/en/master/feature/other_training_features.html#2-gradient-clipping target="_blank">Gradient accumulation/gradient clipping/operator fusion/hybrid precision</a>
+      <a href=https://www.mindspore.cn/mindformers/docs/en/r2.1.0/feature/other_training_features.html#2-gradient-clipping target="_blank">Gradient accumulation/gradient clipping/operator fusion/hybrid precision</a>
     </td>
   </tr>
 </table>
 
-Except the preceding configuration items, all configuration items of training tasks are controlled by the [configuration file](https://www.mindspore.cn/mindformers/docs/en/master/feature/configuration.html). You can adjust them based on the configuration item description.
+Except the preceding configuration items, all configuration items of training tasks are controlled by the [configuration file](https://www.mindspore.cn/mindformers/docs/en/r2.1.0/feature/configuration.html). You can adjust them based on the configuration item description.
 
 > **Configuration Differences Between Dynamic and Static Graphs**
 >
@@ -138,7 +138,7 @@ Except the preceding configuration items, all configuration items of training ta
 
 ### 3. Starting a Training Task
 
-MindSpore Transformers dynamic graph training supports single-node multi-device and multi-node multi-device distributed training. The cluster scale can be expanded from a single node with eight devices to ultra-large-scale distributed training with tens of thousands of devices. Dynamic graph training is started through [run_mindformer.py](https://atomgit.com/mindspore/mindformers/blob/master/run_mindformer.py). You must explicitly specify **PYNATIVE_MODE** using `--mode 1`.
+MindSpore Transformers dynamic graph training supports single-node multi-device and multi-node multi-device distributed training. The cluster scale can be expanded from a single node with eight devices to ultra-large-scale distributed training with tens of thousands of devices. Dynamic graph training is started through [run_mindformer.py](https://atomgit.com/mindspore/mindformers/blob/r2.1.0/run_mindformer.py). You must explicitly specify **PYNATIVE_MODE** using `--mode 1`.
 
 - **Single-device startup**: Use `run_mindformer.py` to start a task and select a specific device using the environment variable `ASCEND_RT_VISIBLE_DEVICES`.
 

@@ -1,6 +1,6 @@
 # 安装指南
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/installation.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.11.0/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/r2.11.0/docs/mindformers/docs/source_zh_cn/installation.md)
 
 本指南面向 **动态图（PyNative）** 场景，介绍 MindSpore Transformers 的环境依赖、安装方式与安装校验。动态图任务通过 `msrun ... run_mindformer.py --config xxx.yaml --mode 1` 启动（`--mode 1` 即 PyNative 模式），当前已支持 DeepSeek-V3等模型（完整模型清单见 [模型库](introduction/models.md)）。
 
@@ -55,7 +55,7 @@
 
 ```bash
 # 在研版本（master 分支，最新特性）
-git clone -b master https://atomgit.com/mindspore/mindformers.git
+git clone -b r2.1.0 https://atomgit.com/mindspore/mindformers.git
 cd mindformers
 bash build.sh
 ```
@@ -141,7 +141,7 @@ python -c "from hyper_parallel import DTensor, DeviceMesh, PipelineStage; print(
 
 MindSpore Transformers Ascend 镜像托管在华为云 SWR 镜像仓库，开箱即用、无需本地构建。
 
-> 镜像仓库中可能尚未推出2.0及后续版本的官方预构建镜像，请以 [docker/OVERVIEW_CN.md](https://atomgit.com/mindspore/mindformers/blob/master/docker/OVERVIEW_CN.md) 中的实际可用 tag 为准。若暂无所需版本，可使用下文的「方式二：自行构建镜像」。
+> 镜像仓库中可能尚未推出2.0及后续版本的官方预构建镜像，请以 [docker/OVERVIEW_CN.md](https://atomgit.com/mindspore/mindformers/blob/r2.1.0/docker/OVERVIEW_CN.md) 中的实际可用 tag 为准。若暂无所需版本，可使用下文的「方式二：自行构建镜像」。
 
 **镜像仓库地址：**
 
@@ -158,7 +158,7 @@ swr.cn-south-1.myhuaweicloud.com/ascendhub/mindformers
 | 字段 | 示例值 | 说明 |
 |---|---|---|
 | 版本号 | `2.0.0` | MindSpore Transformers 发布版本 |
-| 硬件信息（芯片） | `<芯片架构>` | 昇腾芯片型号标识，具体取值见 [docker/OVERVIEW_CN.md](https://atomgit.com/mindspore/mindformers/blob/master/docker/OVERVIEW_CN.md) |
+| 硬件信息（芯片） | `<芯片架构>` | 昇腾芯片型号标识，具体取值见 [docker/OVERVIEW_CN.md](https://atomgit.com/mindspore/mindformers/blob/r2.1.0/docker/OVERVIEW_CN.md) |
 | 操作系统 | `ubuntu22.04` / `openeuler24.03` | 基础镜像操作系统发行版 |
 | Python 版本 | `py3.12` | 镜像内置 Python 大版本 |
 
@@ -168,7 +168,7 @@ swr.cn-south-1.myhuaweicloud.com/ascendhub/mindformers
 docker pull swr.cn-south-1.myhuaweicloud.com/ascendhub/mindformers:2.0.0-<芯片架构>-ubuntu22.04-py3.12
 ```
 
-> `<芯片架构>` 替换为实际芯片型号，完整取值列表见 [docker/OVERVIEW_CN.md](https://atomgit.com/mindspore/mindformers/blob/master/docker/OVERVIEW_CN.md)。可用 `docker manifest inspect <镜像>` 查看镜像支持的系统架构（ARM64 / x86_64）。
+> `<芯片架构>` 替换为实际芯片型号，完整取值列表见 [docker/OVERVIEW_CN.md](https://atomgit.com/mindspore/mindformers/blob/r2.1.0/docker/OVERVIEW_CN.md)。可用 `docker manifest inspect <镜像>` 查看镜像支持的系统架构（ARM64 / x86_64）。
 
 ### 方式二：自行构建镜像
 
@@ -192,7 +192,7 @@ docker build \
 | 参数 | 必填 | 说明 | 示例值 |
 |---|---|---|---|
 | `CANN_VERSION` | 是 | 昇腾 CANN 工具包版本（决定基础镜像 tag） | `9.1.0` |
-| `CHIP_ARCH` | 是 | 昇腾芯片架构标识，具体取值见 [docker/OVERVIEW_CN.md](https://atomgit.com/mindspore/mindformers/blob/master/docker/OVERVIEW_CN.md) | `<芯片架构>` |
+| `CHIP_ARCH` | 是 | 昇腾芯片架构标识，具体取值见 [docker/OVERVIEW_CN.md](https://atomgit.com/mindspore/mindformers/blob/r2.1.0/docker/OVERVIEW_CN.md) | `<芯片架构>` |
 | `OS_SYSTEM` | 是 | 基础镜像操作系统及版本 | `ubuntu22.04` / `openeuler24.03` |
 | `PY_VERSION` | 是 | 基础镜像内置 Python 版本 | `py3.12` |
 | `MINDSPORE_VERSION` | 是 | MindSpore 版本号（按配套表选取） | `2.10.0` |

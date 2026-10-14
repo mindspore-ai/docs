@@ -1,8 +1,8 @@
 # Weight Saving and Loading
 
-[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_en/feature/save_load_checkpoint.md)
+[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.11.0/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/r2.11.0/docs/mindformers/docs/source_en/feature/save_load_checkpoint.md)
 
-For MindSpore Transformers dynamic graph (PyNative) training, weights are saved and loaded in **Safetensors** format. The framework centrally configures the saving and loading behavior in the `checkpoint` section (`CheckpointConfig`): The saving is triggered by `CheckpointCallback` of [mindformers/pynative/callback/checkpoint_callback.py](https://atomgit.com/mindspore/mindformers/blob/master/mindformers/pynative/callback/checkpoint_callback.py) step by step during training, and the loading is completed by `Trainer` during the training startup phase. The underlying layers of the two modes call `mindformers.checkpoint.save_checkpoint` and `mindformers.checkpoint.load_checkpoint`, and use the `common.json` file in the weight directory to connect the resumable training.
+For MindSpore Transformers dynamic graph (PyNative) training, weights are saved and loaded in **Safetensors** format. The framework centrally configures the saving and loading behavior in the `checkpoint` section (`CheckpointConfig`): The saving is triggered by `CheckpointCallback` of [mindformers/pynative/callback/checkpoint_callback.py](https://atomgit.com/mindspore/mindformers/blob/r2.1.0/mindformers/pynative/callback/checkpoint_callback.py) step by step during training, and the loading is completed by `Trainer` during the training startup phase. The underlying layers of the two modes call `mindformers.checkpoint.save_checkpoint` and `mindformers.checkpoint.load_checkpoint`, and use the `common.json` file in the weight directory to connect the resumable training.
 
 > **Dynamic graph using only Safetensors**
 >

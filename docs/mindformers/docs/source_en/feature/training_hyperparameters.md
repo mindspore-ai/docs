@@ -1,6 +1,6 @@
 # Hyperparameters and Optimizers for Training
 
-[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_en/feature/training_hyperparameters.md)
+[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.11.0/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/r2.11.0/docs/mindformers/docs/source_en/feature/training_hyperparameters.md)
 
 The hyperparameters for dynamic graph (PyNative) training are concentrated in three **top-level parallel sections** of the configuration file: `optimizer` (optimizers), `lr_scheduler` (learning rate strategies), and `training` (basic training parameters). They are parsed by `OptimizerConfig`, `LrSchedulerConfig`, and `TrainingConfig`, respectively. For details, see [Configuration File Description](./configuration.md).
 

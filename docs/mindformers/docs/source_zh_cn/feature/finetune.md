@@ -1,6 +1,6 @@
 # 全参微调与 LoRA 微调
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/feature/finetune.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.11.0/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/r2.11.0/docs/mindformers/docs/source_zh_cn/feature/finetune.md)
 
 MindSpore Transformers 动态图（PyNative）支持**全参微调**与 **LoRA 高效微调**。全参微调更新模型的全部参数；LoRA 微调冻结基座参数，仅训练注入到普通 `Linear` 和 MoE 路由专家 `GroupedMLP` 中的低秩适配器。
 

@@ -1,6 +1,6 @@
 # Network Compilation
 
-[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindspore/source_en/faq/network_compilation.md)
+[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.11.0/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/r2.11.0/docs/mindspore/source_en/faq/network_compilation.md)
 
 ## FAQ
 
@@ -12,7 +12,7 @@ A: Static graph mode can support a subset of common Python syntax to support the
 
 ### Q: What can I do if an error "'self.xx' should be initialized as a 'Parameter' type in the '`__init__`' function" is reported?
 
-A: If you want to assign for a class member such as `self.xx` in the function `construct`, `self.xx` must have been defined as a [Parameter](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.Parameter.html) type in the `__init__` function while the other types are not supported. But the local variable `xx` is not under the regulation.
+A: If you want to assign for a class member such as `self.xx` in the function `construct`, `self.xx` must have been defined as a [Parameter](https://www.mindspore.cn/docs/en/r2.11.0/api_python/mindspore/mindspore.Parameter.html) type in the `__init__` function while the other types are not supported. But the local variable `xx` is not under the regulation.
 
 <br/>
 
@@ -302,7 +302,7 @@ If the match, you need to check if a non-Tensor scenario in the exported paramet
 
 When the exported data input is a non-Tensor, the exported input will be solidified into MindIR as a constant, making the input in MindIR less than the Construct input for network construction.
 
-If the data is a scalar type, you can export the scalar to Tensor type, and if the data is Tuple or List type, you can use the [mutable](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.mutable.html) interface to encapsulate it and export it.
+If the data is a scalar type, you can export the scalar to Tensor type, and if the data is Tuple or List type, you can use the [mutable](https://www.mindspore.cn/docs/en/r2.11.0/api_python/mindspore/mindspore.mutable.html) interface to encapsulate it and export it.
 
 <br/>
 
@@ -770,7 +770,7 @@ A: The following scenarios will trigger recompilation:
 
 - The length of Tuple or List changes.
 
-- When the input of network is tuple[Tensor], list[Tensor] or Dict[Tensor], even if the shape and dtype of the Tensor inside do not change. For more details, please refer to [mutable](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.mutable.html).
+- When the input of network is tuple[Tensor], list[Tensor] or Dict[Tensor], even if the shape and dtype of the Tensor inside do not change. For more details, please refer to [mutable](https://www.mindspore.cn/docs/en/r2.11.0/api_python/mindspore/mindspore.mutable.html).
 
 <br/>
 

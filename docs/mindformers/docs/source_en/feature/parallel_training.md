@@ -1,6 +1,6 @@
 # Distributed Parallel Training
 
-[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_en/feature/parallel_training.md)
+[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.11.0/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/r2.11.0/docs/mindformers/docs/source_en/feature/parallel_training.md)
 
 When the model size exceeds the capacity of a single device, dynamic graph (PyNative) training uses **multi-dimensional hybrid parallelism** to split the model and data into multiple devices for collaborative training in different dimensions. Multiple splitting methods can be combined as required: data splitting (data parallelism/FSDP), intra-operator weight splitting (tensor parallelism, TP), sequence splitting (context parallelism, CP), model layer splitting (pipeline parallelism, PP), and MoE expert splitting (expert parallelism, EP). All parallel configurations are written in the `parallelism` field of the configuration file.
 
@@ -205,13 +205,13 @@ parallelism:
 - `ulysses`: performs sharding in the head dimension, making it more suitable for models with a large number of heads. When async is enabled, ensure that the number of heads is exactly divided by the Ulysses degree.
 - `hybrid`: shards the CP into two layers: sequence block and head sharding. This is suitable for ultra-long sequence scenarios where both long sequence sharding and head dimension parallelism are required.
 
-**CP and FSDP coupling**: When CP is enabled, **FSDP also applies to the CP group**. The shard grid name is `fsdp` and the scale is `dp_shard * cp`, even if `dp_shard == 1` (see the `fsdp_enabled`/`fsdp` attribute in [parallel_dims.py](https://atomgit.com/mindspore/mindformers/blob/master/mindformers/pynative/distributed/parallel_dims.py)). That is, enabling CP automatically shards parameters within the CP group, and no separate configuration is required.
+**CP and FSDP coupling**: When CP is enabled, **FSDP also applies to the CP group**. The shard grid name is `fsdp` and the scale is `dp_shard * cp`, even if `dp_shard == 1` (see the `fsdp_enabled`/`fsdp` attribute in [parallel_dims.py](https://atomgit.com/mindspore/mindformers/blob/r2.1.0/mindformers/pynative/distributed/parallel_dims.py)). That is, enabling CP automatically shards parameters within the CP group, and no separate configuration is required.
 
 In addition, before the forward pass starts, CP shards the input of a batch (such as `input_ids`, `position_ids`, and mask) along the sequence dimension and distributes the shards to each device in the CP group. In this way, each device obtains only the sequence segment it is responsible for. This step is called **CP input preparation**. Currently, it **supports only** `context_parallel_mask_type: causal`. If other values are passed, `NotImplementedError` is thrown. User-defined `attention_mask` is not accepted. CP depends on the **compressed attention mask** on the model side, and mask compression must be enabled as described in section 3.3.
 
 ### 3.3 Attention Mask Compression (Required for CP)
 
-**Attention mask compression must be enabled when `context_parallel > 1` is met**. Otherwise, `apply_context_parallel_model_io` in [context_parallel.py](https://atomgit.com/mindspore/mindformers/blob/master/mindformers/pynative/distributed/context_parallel.py) will directly throw an error:
+**Attention mask compression must be enabled when `context_parallel > 1` is met**. Otherwise, `apply_context_parallel_model_io` in [context_parallel.py](https://atomgit.com/mindspore/mindformers/blob/r2.1.0/mindformers/pynative/distributed/context_parallel.py) will directly throw an error:
 
 ```text
 Context parallel (context_parallel > 1) requires a compressed attention mask.
@@ -315,7 +315,7 @@ parallelism:
 
 **Microbatch size and scheduling strategy (automatic inference/reservation)**:
 
-- **`pipeline_parallel_microbatch_size` is automatically inferred by the framework and is not configurable by users.** [trainer.py](https://atomgit.com/mindspore/mindformers/blob/master/mindformers/pynative/trainer/trainer.py) will overwrite it with the number of gradient accumulation steps: `num_accumulation_steps = global_batch_size // (data_parallel * local_batch_size)` (where `data_parallel = dp_replicate * dp_shard` is the data parallel dimension), followed by `pipeline_parallel_microbatch_size = num_accumulation_steps`. Therefore, you need to use `global_batch_size` or `local_batch_size` to indirectly control the number of microbatches (see [Configuration File Description](./configuration.md)). Manually setting this field is invalid.
+- **`pipeline_parallel_microbatch_size` is automatically inferred by the framework and is not configurable by users.** [trainer.py](https://atomgit.com/mindspore/mindformers/blob/r2.1.0/mindformers/pynative/trainer/trainer.py) will overwrite it with the number of gradient accumulation steps: `num_accumulation_steps = global_batch_size // (data_parallel * local_batch_size)` (where `data_parallel = dp_replicate * dp_shard` is the data parallel dimension), followed by `pipeline_parallel_microbatch_size = num_accumulation_steps`. Therefore, you need to use `global_batch_size` or `local_batch_size` to indirectly control the number of microbatches (see [Configuration File Description](./configuration.md)). Manually setting this field is invalid.
 - **`pipeline_parallel_schedule` (`"1f1b"` by default in `ParallelismConfig`) is not involved in the branch.** The dynamic graph always uses the interleaved 1F1B scheduling. This string is not read and is reserved. The actual pipeline behavior is determined by `pipeline_parallel_interleave_num` and `pipeline_parallel_overlap_p2p`/`pipeline_parallel_overlap_b_f`.
 - **`pipeline_parallel_enable_dxdw_split` (`False` by default) is currently a reserved item.** This field is defined in `ParallelismConfig` (used for dx/dw communication sharding in PP), but is not read or used in the dynamic graph code. Modifying this field does not change the behavior. It is a reserved/placeholder item and does not need to be set.
 
@@ -376,7 +376,7 @@ The layers are executed in the sequence of virtual stages 0, 1, 2, and 3, that i
 
 ### 5.1 Overview
 
-For MoE models (such as DeepSeek-V3), `expert_parallel` distributes experts to different devices, and tokens are routed to the experts on the corresponding devices through all-to-all communication for expert computation (`apply_moe_ep_tp`). EP **is not an independent device dimension**. It does not appear in the product of `dp_replicate * dp_shard * cp * tp * pp == world_size`, but is **reused on the `dp_shard * cp * tp` device**. `build_mesh` of [parallel_dims.py](https://atomgit.com/mindspore/mindformers/blob/master/mindformers/pynative/distributed/parallel_dims.py) constructs a separate sparse grid `["pp", "dp_replicate", "efsdp", "ep"]` for the expert, and the expert's FSDP shard grid `efsdp` is computed as follows:
+For MoE models (such as DeepSeek-V3), `expert_parallel` distributes experts to different devices, and tokens are routed to the experts on the corresponding devices through all-to-all communication for expert computation (`apply_moe_ep_tp`). EP **is not an independent device dimension**. It does not appear in the product of `dp_replicate * dp_shard * cp * tp * pp == world_size`, but is **reused on the `dp_shard * cp * tp` device**. `build_mesh` of [parallel_dims.py](https://atomgit.com/mindspore/mindformers/blob/r2.1.0/mindformers/pynative/distributed/parallel_dims.py) constructs a separate sparse grid `["pp", "dp_replicate", "efsdp", "ep"]` for the expert, and the expert's FSDP shard grid `efsdp` is computed as follows:
 
 ```text
 efsdp = dp_shard * cp * tp // expert_parallel
@@ -438,9 +438,9 @@ parallelism:
 
 Based on TP, SP further shards the parts (LayerNorm, Dropout, and residual) that are not sharded by TP by **sequence dimension** to reduce the activation memory usage of these operators.
 
-**SP is automatically enabled with TP. Currently, SP cannot be disabled separately.** In the SPMD path of a dynamic graph, **SP is automatically applied as long as TP is enabled (`tensor_parallel > 1`)**. When the source code in [base_models/gpt/parallelize.py](https://atomgit.com/mindspore/mindformers/blob/master/mindformers/pynative/base_models/gpt/parallelize.py) calls `apply_non_moe_tp`, the formal parameter `enable_sp` is always `True` and **the `sequence_parallel` field is not read**. Therefore, SP cannot be disabled through configuration.
+**SP is automatically enabled with TP. Currently, SP cannot be disabled separately.** In the SPMD path of a dynamic graph, **SP is automatically applied as long as TP is enabled (`tensor_parallel > 1`)**. When the source code in [base_models/gpt/parallelize.py](https://atomgit.com/mindspore/mindformers/blob/r2.1.0/mindformers/pynative/base_models/gpt/parallelize.py) calls `apply_non_moe_tp`, the formal parameter `enable_sp` is always `True` and **the `sequence_parallel` field is not read**. Therefore, SP cannot be disabled through configuration.
 
-> Note: The `sequence_parallel` field is still read by `TransformerBlock.__init__` of [transformer_block.py](https://atomgit.com/mindspore/mindformers/blob/master/mindformers/pynative/transformers/transformer_block.py), but **it is used only to detect conflicts between CPs and SPs and generate alarms** (when `cp > 1` and `sequence_parallel=True`, a message is displayed indicating that the SP conflicts with the CP and the SP is ignored). It is not a function switch for SPs.
+> Note: The `sequence_parallel` field is still read by `TransformerBlock.__init__` of [transformer_block.py](https://atomgit.com/mindspore/mindformers/blob/r2.1.0/mindformers/pynative/transformers/transformer_block.py), but **it is used only to detect conflicts between CPs and SPs and generate alarms** (when `cp > 1` and `sequence_parallel=True`, a message is displayed indicating that the SP conflicts with the CP and the SP is ignored). It is not a function switch for SPs.
 
 Therefore, **you do not need to configure SP separately**. After TP (`tensor_parallel > 1`) is configured by referring to section 2 on this page, SP automatically takes effect.
 
