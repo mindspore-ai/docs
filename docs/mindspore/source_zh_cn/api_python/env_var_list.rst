@@ -1,8 +1,8 @@
 环境变量
 ========
 
-.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg
-    :target: https://atomgit.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/api_python/env_var_list.rst
+.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.11.0/resource/_static/logo_source.svg
+    :target: https://atomgit.com/mindspore/docs/blob/r2.11.0/docs/mindspore/source_zh_cn/api_python/env_var_list.rst
     :alt: 查看源文件
 
 本文介绍MindSpore的环境变量。
@@ -428,7 +428,7 @@ Dump调试
      - 说明
    * - MINDSPORE_DUMP_CONFIG
      - 指定 `云侧Dump功能 <https://www.mindspore.cn/tutorials/zh-CN/master/debug/dump.html>`_
-       或 `端侧Dump功能 <https://www.mindspore.cn/lite/docs/zh-CN/master/tools/benchmark_tool.html#dump功能>`_ 所依赖的配置文件的路径
+       或 `端侧Dump功能 <https://www.mindspore.cn/lite/docs/zh-CN/r2.11.0/tools/benchmark_tool.html#dump功能>`_ 所依赖的配置文件的路径
      - String
      - 文件路径，支持相对路径与绝对路径
      -
@@ -717,7 +717,7 @@ Dump调试
        默认：空。
      -
 
-常见问题详见 `FAQ <https://mindspore.cn/docs/zh-CN/master/faq/operators_api.html>`_ 。
+常见问题详见 `FAQ <https://mindspore.cn/docs/zh-CN/r2.11.0/faq/operators_api.html>`_ 。
 
 日志
 ----
@@ -828,7 +828,7 @@ Dump调试
 
        其中被指定子模块的日志级别将覆盖 `GLOG_v` 在此模块内的设置，
        此处子模块的日志级别 `LogLevel` 与 `GLOG_v` 的日志级别含义相同，
-       MindSpore子模块列表详见 `sub-module_names <https://atomgit.com/mindspore/mindspore/blob/master/mindspore/core/utils/log_adapter.cc>`_。
+       MindSpore子模块列表详见 `sub-module_names <https://atomgit.com/mindspore/mindspore/blob/v2.11.0/mindspore/core/utils/log_adapter.cc>`_。
 
        例如可以通过 `GLOG_v=1 MS_SUBMODULE_LOG_v="{PARSER:2,ANALYZER:2}"`
        把 `PARSER` 和 `ANALYZER` 模块的日志级别设为WARNING，其他模块的日志级别设为INFO
@@ -1040,7 +1040,7 @@ Profiler
 
        profiler_level (str, 可选) - 设置采集性能数据级别。默认值：Level0。可取值：Level0、Level1、Level2。
 
-       其他参数可参考 `MindSpore profile参数详解 <https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.profiler.profile.html>`_ 。
+       其他参数可参考 `MindSpore profile参数详解 <https://www.mindspore.cn/docs/zh-CN/r2.11.0/api_python/mindspore/mindspore.profiler.profile.html>`_ 。
 
      - 此环境变量使能与输入参数实例化Profiler方式使能性能数据采集的方式二选一。
    * - PROFILING_MODE

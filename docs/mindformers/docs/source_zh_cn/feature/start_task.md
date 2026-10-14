@@ -1,6 +1,6 @@
 # 启动任务
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/feature/start_task.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.11.0/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/r2.11.0/docs/mindformers/docs/source_zh_cn/feature/start_task.md)
 
 MindSpore Transformers 动态图（PyNative）训练提供了一键启动脚本 `run_mindformer.py` 和分布式任务拉起脚本 `msrun_launcher.sh`。
 
@@ -20,7 +20,7 @@ MindSpore Transformers 动态图（PyNative）训练提供了一键启动脚本 
 |   `--run_mode`   | str  |  可选  | 取自YAML配置  | 设置模型的运行模式，可选 `train`。                                                                                                       |
 | `--use_parallel` | bool |  可选  | 取自YAML配置  | 是否开启并行模式。                                                                                                                   |
 |  `--output_dir`  | str  |  可选  | 取自YAML配置  | 设置保存日志、权重、切分策略等文件的路径。                                                                                                       |
-|    `--seed`      | int  | 可选   | 取自YAML配置  | 设置全局种子。详情可参考[mindspore.set_seed](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.set_seed.html)。  |
+|    `--seed`      | int  | 可选   | 取自YAML配置  | 设置全局种子。详情可参考[mindspore.set_seed](https://www.mindspore.cn/docs/zh-CN/r2.11.0/api_python/mindspore/mindspore.set_seed.html)。  |
 
 ## 二、分布式任务拉起脚本
 

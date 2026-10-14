@@ -1,6 +1,6 @@
 # Resumable Training
 
-[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_en/feature/resume_training.md)
+[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.11.0/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/r2.11.0/docs/mindformers/docs/source_en/feature/resume_training.md)
 
 MindSpore Transformers dynamic graph (PyNative) supports **step-level resumable training**. After training is interrupted, the framework restores the model and optimizer status from the saved weight directory, rolls back the training progress to the step when the training was interrupted, and jumps the dataset cursor to the corresponding position. This avoids the waste of computing power caused by retraining from scratch.
 

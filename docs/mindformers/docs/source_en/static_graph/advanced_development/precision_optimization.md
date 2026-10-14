@@ -8,7 +8,7 @@ This page belongs to the **Static Graph (GRAPH_MODE) Implementation** section an
 
 # Large Model Precision Optimization Guide
 
-[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_en/static_graph/advanced_development/precision_optimization.md)
+[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.11.0/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/r2.11.0/docs/mindformers/docs/source_en/static_graph/advanced_development/precision_optimization.md)
 
 ## Overview and Scenarios of Precision Issues
 
@@ -113,7 +113,7 @@ Before locating the operator precision problem, we should first eliminate the in
 | Overflow Detection | Overflow Status Aligns PyTorch, suggest to use INFNAN_MODE, i.e., `export MS_ASCEND_CHECK_OVERFLOW_MODE=INFNAN_MODE`.                                                                                                                                                                         |
 | Graph Operator Fusion | Turn off graph operator fusion, i.e. `enable_graph_kernel: False`.                                                                                                                                                                                                                            |
 | Training Inference Template Consistency | If training SFT, you need to make sure that the input template used for training inference is consistent.                                                                                                                                                                                     |
-| Version Check | Check whether the versions of MindSpore, MindSpore Transformers and CANN are compatible, it is recommended to use the [latest compatible version](https://www.mindspore.cn/mindformers/docs/en/master/installation.html#version-compatibility).                               |
+| Version Check | Check whether the versions of MindSpore, MindSpore Transformers and CANN are compatible, it is recommended to use the [latest compatible version](https://www.mindspore.cn/mindformers/docs/en/r2.1.0/installation.html#version-compatibility).                               |
 | Differences with Open Source | MindSpore Transformers has supported the mainstream open source LLM models, and has been more fully tested. If you are developing based on the open source models in MindSpore Transformers, you can focus on checking the differences with the open source models in MindSpore Transformers. |
 
 ## Introduction to Precision Debugging Tools
@@ -197,7 +197,7 @@ Since features such as model parallelism, flow parallelism, sequence parallelism
 
 #### Weight Conversion
 
-During training, MindSpore is loaded with the same weights as PyTorch. In case of pre-training scenarios, you can use PyTorch to save an initialized weight and then convert it to MindSpore weights. Because MindSpore weight names differ from PyTorch, the essence of weight conversion is to change the names in the PyTorch weight dict to MindSpore weight names to support MindSpore loading. Refer to [weight conversion guide](https://www.mindspore.cn/mindformers/docs/en/master/static_graph/feature/ckpt.html#weight-format-conversion) for weight conversion.
+During training, MindSpore is loaded with the same weights as PyTorch. In case of pre-training scenarios, you can use PyTorch to save an initialized weight and then convert it to MindSpore weights. Because MindSpore weight names differ from PyTorch, the essence of weight conversion is to change the names in the PyTorch weight dict to MindSpore weight names to support MindSpore loading. Refer to [weight conversion guide](https://www.mindspore.cn/mindformers/docs/en/r2.1.0/static_graph/feature/ckpt.html#weight-format-conversion) for weight conversion.
 
 Both MindSpore and PyTorch support `bin` format data, loading the same dataset for training ensures consistency from step to step.
 
@@ -236,7 +236,7 @@ The training process fixes randomness and turns on deterministic computation in 
       # Original code
   ```
 
-* MindSpore code, in [run_mindformer.py](https://atomgit.com/mindspore/mindformers/blob/master/run_mindformer.py), the new seed_all method is added and called in the main method, adding the method as follows:
+* MindSpore code, in [run_mindformer.py](https://atomgit.com/mindspore/mindformers/blob/r2.1.0/run_mindformer.py), the new seed_all method is added and called in the main method, adding the method as follows:
 
   ```python
   import numpy as np
@@ -356,7 +356,7 @@ def get_parameters(self):
     return params
 ```
 
-For MindSpore Transformers loading gradient, refer to [mindformers/wrapper/wrapper.py](https://atomgit.com/mindspore/mindformers/blob/master/mindformers/wrapper/wrapper.py) implementation. Note that users need to find the correspondence between MindSpore Transformers and PyTorch gradient. Refer to the following modified code:
+For MindSpore Transformers loading gradient, refer to [mindformers/wrapper/wrapper.py](https://atomgit.com/mindspore/mindformers/blob/r2.1.0/mindformers/wrapper/wrapper.py) implementation. Note that users need to find the correspondence between MindSpore Transformers and PyTorch gradient. Refer to the following modified code:
 
 ```python
 class MFTrainOneStepCell(nn.TrainOneStepWithLossScaleCell):

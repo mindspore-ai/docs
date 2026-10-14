@@ -1,8 +1,8 @@
 # Configuration File Description
 
-[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_en/feature/configuration.md)
+[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.11.0/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/r2.11.0/docs/mindformers/docs/source_en/feature/configuration.md)
 
-Dynamic graph (PyNative) training uses a YAML file to manage all configurable items in a centralized manner. The **dataclass configuration system** (`TrainConfig` and its sub-configuration classes) of [mindformers/pynative/config/config.py](https://atomgit.com/mindspore/mindformers/blob/master/mindformers/pynative/config/config.py) parses and verifies the YAML file when loading it.
+Dynamic graph (PyNative) training uses a YAML file to manage all configurable items in a centralized manner. The **dataclass configuration system** (`TrainConfig` and its sub-configuration classes) of [mindformers/pynative/config/config.py](https://atomgit.com/mindspore/mindformers/blob/r2.1.0/mindformers/pynative/config/config.py) parses and verifies the YAML file when loading it.
 
 - Each top-level section of the YAML file corresponds to a field of `TrainConfig` and is mapped to a sub-configuration class.
 - During loading, these sub-configuration classes perform type conversion and validity checks on the configuration items. If the verification fails, an error is thrown (for example, `global_batch_size` must be positive).
@@ -552,13 +552,13 @@ The framework calls the registrar for each item in the list to instantiate the c
 
 ## Loading and Startup
 
-Dynamic graph training tasks are started through [run_mindformer.py](https://atomgit.com/mindspore/mindformers/blob/master/run_mindformer.py). To execute a single-device task, refer to the following command:
+Dynamic graph training tasks are started through [run_mindformer.py](https://atomgit.com/mindspore/mindformers/blob/r2.1.0/run_mindformer.py). To execute a single-device task, refer to the following command:
 
 ```bash
 python run_mindformer.py --config train.yaml --mode 1 --use_parallel False
 ```
 
-Multi-device tasks can be executed using the [msrun_launcher.sh](https://atomgit.com/mindspore/mindformers/blob/master/scripts/msrun_launcher.sh) script in the **scripts** directory. The following is an example command:
+Multi-device tasks can be executed using the [msrun_launcher.sh](https://atomgit.com/mindspore/mindformers/blob/r2.1.0/scripts/msrun_launcher.sh) script in the **scripts** directory. The following is an example command:
 
 ```bash
 bash scripts/msrun_launcher.sh "run_mindformer.py --config train.yaml --mode 1" 8 # 8 indicates an 8-device task.

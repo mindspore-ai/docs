@@ -1,6 +1,6 @@
 # 训练显存优化
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/feature/memory_optimization.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.11.0/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/r2.11.0/docs/mindformers/docs/source_zh_cn/feature/memory_optimization.md)
 
 大模型训练中，**激活值（activation）** 通常是显存占用的主要来源。MindSpore Transformers 动态图（PyNative）提供多种显存优化功能，可在配置文件中独立或组合启用。本文介绍显存优化的概念与必要性、各类方法的原理，以及 MindSpore Transformers 支持的场景与配置方法。
 

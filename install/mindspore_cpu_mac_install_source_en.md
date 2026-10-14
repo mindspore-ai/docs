@@ -14,7 +14,7 @@
 
 <!-- /TOC -->
 
-[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/install/mindspore_cpu_mac_install_source_en.md)
+[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.11.0/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/r2.11.0/install/mindspore_cpu_mac_install_source_en.md)
 
 ## System Environment Information Confirmation
 
@@ -51,7 +51,7 @@ In Python environment which MindSpore will be built upon, ensure that the follow
 ## Downloading Source Code from Code Repository
 
 ```bash
-git clone https://atomgit.com/mindspore/mindspore.git
+git clone -b v2.11.0 https://atomgit.com/mindspore/mindspore.git
 ```
 
 ## Compiling MindSpore

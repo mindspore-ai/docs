@@ -1,6 +1,6 @@
 # Training Graphics Memory Optimization
 
-[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_en/feature/memory_optimization.md)
+[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.11.0/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/r2.11.0/docs/mindformers/docs/source_en/feature/memory_optimization.md)
 
 In foundation model training, **activation** is the main source of the graphics memory usage. The dynamic graph (PyNative) of MindSpore Transformers provides multiple graphics memory optimization functions, which can be enabled independently or in combination in the configuration file. This document introduces the concept and necessity of graphics memory optimization, the principles of various methods, and the supported scenarios and configuration methods of MindSpore Transformers.
 

@@ -1,6 +1,6 @@
 # Full-Parameter Fine-Tuning and LoRA Fine-Tuning
 
-[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_en/feature/finetune.md)
+[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.11.0/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/r2.11.0/docs/mindformers/docs/source_en/feature/finetune.md)
 
 MindSpore Transformers' dynamic graph (PyNative) mode supports **full-parameter fine-tuning** and **LoRA efficient fine-tuning**. Full-parameter fine-tuning updates all model parameters; LoRA fine-tuning freezes the base model parameters and only trains low-rank adapters injected into regular `Linear` layers and MoE routed expert `GroupedMLP` layers.
 

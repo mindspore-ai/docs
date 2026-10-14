@@ -1,12 +1,12 @@
 # Data Processing
 
-[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindspore/source_en/faq/data_processing.md)
+[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.11.0/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/r2.11.0/docs/mindspore/source_en/faq/data_processing.md)
 
 ## FAQ
 
 ### Q: How do I offload data if I do not use high-level APIs?
 
-A: You can implement by referring to the [test_tdt_data_transfer.py](https://atomgit.com/mindspore/mindspore/blob/master/tests/st/data_transfer/test_tdt_data_transfer.py) example of the manual offloading mode without using the `model.train` API. Currently, the GPU-based and Ascend-based hardware is supported.
+A: You can implement by referring to the [test_tdt_data_transfer.py](https://atomgit.com/mindspore/mindspore/blob/v2.11.0/tests/st/data_transfer/test_tdt_data_transfer.py) example of the manual offloading mode without using the `model.train` API. Currently, the GPU-based and Ascend-based hardware is supported.
 
 <br/>
 
@@ -40,7 +40,7 @@ A: You can refer to the following steps to reduce CPU consumption (mainly due to
 
 ### Q: Why there is no difference between the parameter `shuffle` in `GeneratorDataset`, and `shuffle=True` and `shuffle=False` when the task is run?
 
-A: If `shuffle` is enabled, the input `Dataset` must support random access (for example, the user-defined `Dataset` has the `getitem` method). If data is returned in `yield` mode in the user-defined `Dataset`, random access is not supported. For details, see section [GeneratorDataset example](https://www.mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.GeneratorDataset.html).
+A: If `shuffle` is enabled, the input `Dataset` must support random access (for example, the user-defined `Dataset` has the `getitem` method). If data is returned in `yield` mode in the user-defined `Dataset`, random access is not supported. For details, see section [GeneratorDataset example](https://www.mindspore.cn/docs/en/r2.11.0/api_python/dataset/mindspore.dataset.GeneratorDataset.html).
 
 <br/>
 
@@ -179,7 +179,7 @@ A: The MNIST gray scale image dataset is used for MindSpore training. Therefore,
 
 ### Q: Can you introduce the data processing framework in MindSpore?
 
-A: MindSpore Dataset module makes it easy for users to define data preprocessing pipelines and transform samples efficiently with multiprocessing or multithreading. MindSpore Dataset also provides variable APIs for users to load and process datasets, more introduction please refer to [MindSpore Dataset](https://mindspore.cn/docs/en/master/api_python/mindspore.dataset.html). If you want to further study the performance optimization of dataset pipeline, please read [Optimizing Data Processing](https://www.mindspore.cn/tutorials/en/master/dataset/optimize.html).
+A: MindSpore Dataset module makes it easy for users to define data preprocessing pipelines and transform samples efficiently with multiprocessing or multithreading. MindSpore Dataset also provides variable APIs for users to load and process datasets, more introduction please refer to [MindSpore Dataset](https://mindspore.cn/docs/en/r2.11.0/api_python/mindspore.dataset.html). If you want to further study the performance optimization of dataset pipeline, please read [Optimizing Data Processing](https://www.mindspore.cn/tutorials/en/master/dataset/optimize.html).
 
 <br/>
 
@@ -191,7 +191,7 @@ A: Firstly, above error refers to failed sending data to the device through the 
 
 2. **When error raised in the graph compiling stage, as training has not started** (for example, the loss has not been printed in the log), please check the error log if there are errors reported by the network related operators or the environment configuration resulted Errors (such as hccl.json is incorrect, resulted abnormal initialization of multi-card communication)
 
-3. **When error raised during the training process**, usually this is caused by the mismatch between the amount of data (batch number) has been sent and the amount of data (step number) required for network training. You can print and check the number of batches of an epoch with [get_dataset_size](https://www.mindspore.cn/docs/en/master/api_python/dataset/dataset_method/attribute/mindspore.dataset.Dataset.get_dataset_size.html) interface, several possible reason are as follows:
+3. **When error raised during the training process**, usually this is caused by the mismatch between the amount of data (batch number) has been sent and the amount of data (step number) required for network training. You can print and check the number of batches of an epoch with [get_dataset_size](https://www.mindspore.cn/docs/en/r2.11.0/api_python/dataset/dataset_method/attribute/mindspore.dataset.Dataset.get_dataset_size.html) interface, several possible reason are as follows:
 
     - With checking the print times of loss to figure out that when data amount(trained steps) is just an integer multiple of the batches number in an epoch, there may be a processing existence problem in the data processing part involving Epoch processing, such as the following case:
 
@@ -247,7 +247,7 @@ dataset3 = dataset2.map(***)
 
 ### Q: What is the API corresponding to DataLoader in MindSpore?
 
-A: If the DataLoader is considered as an API for receiving user-defined datasets, the GeneratorDataset in the MindSpore data processing API is similar to that in the DataLoader and can receive user-defined datasets. For details about how to use the GeneratorDataset, see the [GeneratorDataset example](https://www.mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.GeneratorDataset.html), and for details about the differences, see the [API Mapping](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_api_mapping.html).
+A: If the DataLoader is considered as an API for receiving user-defined datasets, the GeneratorDataset in the MindSpore data processing API is similar to that in the DataLoader and can receive user-defined datasets. For details about how to use the GeneratorDataset, see the [GeneratorDataset example](https://www.mindspore.cn/docs/en/r2.11.0/api_python/dataset/mindspore.dataset.GeneratorDataset.html), and for details about the differences, see the [API Mapping](https://www.mindspore.cn/docs/en/r2.11.0/note/api_mapping/pytorch_api_mapping.html).
 
 <br/>
 
@@ -266,7 +266,7 @@ for item in Dataset:
 ### Q: Can the data processing operation and network computing operator be used together?
 
 A: Generally, if the data processing operation and network computing operator are used together, the performance deteriorates. If the corresponding data processing operation is unavailable and the user-defined transforms operation is inappropriate, you can try to use the data processing operation and network computing operator together. Note that because the inputs required are different, the input of the data processing operation is Numpy array or PIL Image, but the input of the network computing operator must be MindSpore.Tensor.
-To use these two together, ensure that the output format of the previous one is the same as the input format of the next. Data processing operations refer to APIs in [mindspore.dataset](https://www.mindspore.cn/docs/en/master/api_python/mindspore.dataset.html) module on the official website, for example, [mindspore.dataset.vision.CenterCrop](https://www.mindspore.cn/docs/en/master/api_python/dataset_vision/mindspore.dataset.vision.CenterCrop.html). Network computing operators include operators in the mindspore.nn and mindspore.ops modules.
+To use these two together, ensure that the output format of the previous one is the same as the input format of the next. Data processing operations refer to APIs in [mindspore.dataset](https://www.mindspore.cn/docs/en/r2.11.0/api_python/mindspore.dataset.html) module on the official website, for example, [mindspore.dataset.vision.CenterCrop](https://www.mindspore.cn/docs/en/r2.11.0/api_python/dataset_vision/mindspore.dataset.vision.CenterCrop.html). Network computing operators include operators in the mindspore.nn and mindspore.ops modules.
 
 <br/>
 

@@ -1,6 +1,6 @@
 # Starting Tasks
 
-[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_en/feature/start_task.md)
+[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.11.0/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/r2.11.0/docs/mindformers/docs/source_en/feature/start_task.md)
 
 MindSpore Transformers dynamic graph (PyNative) training provides the one-click startup script `run_mindformer.py` and the distributed task startup script `msrun_launcher.sh`.
 
@@ -20,7 +20,7 @@ In the root directory of the MindSpore Transformers code, use Python to execute 
 |   `--run_mode`   | String |  Optional | Obtained from the YAML configuration. | Running mode of the model. The value can be `train`.                                                                                                      |
 | `--use_parallel` | Boolean|  Optional | Obtained from the YAML configuration. | Specifies whether to enable the parallel mode.                                                                                                                  |
 |  `--output_dir`  | String |  Optional | Obtained from the YAML configuration. | Path for storing files such as logs, weights, and sharding strategies.                                                                                                      |
-|    `--seed`      | int  | Optional  | Obtained from the YAML configuration. | Global seed. For details, see [mindspore.set_seed](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.set_seed.html). |
+|    `--seed`      | int  | Optional  | Obtained from the YAML configuration. | Global seed. For details, see [mindspore.set_seed](https://www.mindspore.cn/docs/en/r2.11.0/api_python/mindspore/mindspore.set_seed.html). |
 
 ## 2 Distributed Task Startup Script
 
