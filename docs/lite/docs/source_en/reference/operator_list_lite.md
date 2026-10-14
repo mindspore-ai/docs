@@ -15,6 +15,8 @@ Computes the absolute value element-wise.
 - GPU (Mali/Adreno): FP16, FP32
 - Ascend: FP16
 
+</br></br>
+
 ---
 
 ## AbsGrad
@@ -26,6 +28,8 @@ Computes the gradient of the absolute value function.
 ### Supported Hardware Backends
 
 - CPU: FP32
+
+</br></br>
 
 ---
 
@@ -42,6 +46,8 @@ Activation function.
 - GPU (Mali/Adreno): FP16, FP32
 - Ascend: FP16
 
+</br></br>
+
 ---
 
 ## ActivationGrad
@@ -54,6 +60,8 @@ Computes the gradient of a specific activation function.
 
 - CPU: FP16, FP32
 
+</br></br>
+
 ---
 
 ## Adam
@@ -65,6 +73,8 @@ Performs a single parameter update step of the Adam optimizer.
 ### Supported Hardware Backends
 
 - CPU: FP32
+
+</br></br>
 
 ---
 
@@ -81,6 +91,8 @@ Computes addition element-wise.
 - GPU (Mali/Adreno): FP16, FP32, Int8
 - Ascend: FP16
 
+</br></br>
+
 ---
 
 ## AdderFusion
@@ -92,6 +104,8 @@ Addition-based convolution operation.
 ### Supported Hardware Backends
 
 - CPU: FP32
+
+</br></br>
 
 ---
 
@@ -105,6 +119,8 @@ Computes the gradient of the addition operation.
 
 - CPU: FP32
 
+</br></br>
+
 ---
 
 ## AddN
@@ -116,6 +132,8 @@ Performs element-wise addition of N input tensors with the same shape and data t
 ### Supported Hardware Backends
 
 - CPU: FP16, FP32
+
+</br></br>
 
 ---
 
@@ -130,6 +148,8 @@ Applies an affine transformation to the input tensor.
 - CPU: FP32
 - Ascend: FP16
 
+</br></br>
+
 ---
 
 ## All
@@ -141,6 +161,8 @@ Determines whether all elements in the tensor are True (non-zero) along the spec
 ### Supported Hardware Backends
 
 - CPU: FP32
+
+</br></br>
 
 ---
 
@@ -154,6 +176,8 @@ Distributed collective communication operation.
 
 - CPU: FP32
 
+</br></br>
+
 ---
 
 ## ApplyMomentum
@@ -166,6 +190,8 @@ Performs a single parameter update step of stochastic gradient descent with mome
 
 - CPU: FP32
 - Ascend: FP16
+
+</br></br>
 
 ---
 
@@ -182,6 +208,8 @@ Finds the maximum value along a certain dimension.
 - GPU (Mali/Adreno): FP16, FP32
 - Ascend: FP16
 
+</br></br>
+
 ---
 
 ## ArgminFusion
@@ -196,6 +224,8 @@ Finds the minimum value along a certain dimension.
 - GPU (Mali/Adreno): FP16, FP32
 - Ascend: FP16
 
+</br></br>
+
 ---
 
 ## Assert
@@ -207,6 +237,8 @@ Assertion.
 ### Supported Hardware Backends
 
 - CPU: FP16, FP32, Bool
+
+</br></br>
 
 ---
 
@@ -220,6 +252,8 @@ Assigns a value to a variable.
 
 - CPU: FP32
 - Ascend: FP16
+
+</br></br>
 
 ---
 
@@ -236,6 +270,8 @@ Average pooling.
 - GPU (Mali/Adreno): FP16, FP32
 - Ascend: FP16
 
+</br></br>
+
 ---
 
 ## AvgPoolGrad
@@ -247,6 +283,8 @@ Computes the gradient of the average pooling layer.
 ### Supported Hardware Backends
 
 - CPU: FP16, FP32
+
+</br></br>
 
 ---
 
@@ -262,6 +300,8 @@ Batch normalization.
 - GPU (Mali/Adreno): FP16, FP32
 - Ascend: FP16
 
+</br></br>
+
 ---
 
 ## BatchNormGrad
@@ -273,6 +313,8 @@ Computes the gradient of the batch normalization layer.
 ### Supported Hardware Backends
 
 - CPU: FP16, FP32
+
+</br></br>
 
 ---
 
@@ -287,6 +329,8 @@ The inverse operation of space-to-batch transformation.
 - CPU: FP32, Int8, UInt8
 - GPU (Mali/Adreno): FP16, FP32
 
+</br></br>
+
 ---
 
 ## BatchToSpaceND
@@ -299,6 +343,8 @@ The ND general version of BatchToSpace.
 
 - CPU: FP16, FP32, Int8, UInt8
 - GPU (Mali/Adreno): FP16, FP32
+
+</br></br>
 
 ---
 
@@ -314,6 +360,8 @@ Adds a bias vector to the input tensor.
 - GPU (Mali/Adreno): FP16, FP32
 - Ascend: FP16
 
+</br></br>
+
 ---
 
 ## BiasAddGrad
@@ -325,6 +373,8 @@ Computes the gradient of the BiasAdd operation.
 ### Supported Hardware Backends
 
 - CPU: FP16, FP32
+
+</br></br>
 
 ---
 
@@ -339,6 +389,8 @@ Computes the binary cross-entropy loss.
 - CPU: FP32
 - Ascend: FP16
 
+</br></br>
+
 ---
 
 ## BinaryCrossEntropyGrad
@@ -350,6 +402,8 @@ Computes the gradient of the binary cross-entropy loss function.
 ### Supported Hardware Backends
 
 - CPU: FP32
+
+</br></br>
 
 ---
 
@@ -363,6 +417,8 @@ Expands/broadcasts a tensor along specified dimensions to a larger shape accordi
 
 - CPU: FP16, FP32, Int32, Bool
 
+</br></br>
+
 ---
 
 ## Call
@@ -375,6 +431,8 @@ Calls a subgraph or function.
 
 - CPU: FP16, FP32, Int32, Bool
 - Ascend: FP16
+
+</br></br>
 
 ---
 
@@ -391,6 +449,8 @@ Data type conversion.
 - GPU (Mali/Adreno): FP16, FP32
 - Ascend: FP16
 
+</br></br>
+
 ---
 
 ## Ceil
@@ -406,6 +466,8 @@ Rounds up to the nearest integer.
 - GPU (Mali/Adreno): FP16, FP32
 - Ascend: FP16
 
+</br></br>
+
 ---
 
 ## Clip
@@ -418,6 +480,8 @@ Clips the range of elements.
 
 - CPU: FP32, Int32
 - Ascend: FP16
+
+</br></br>
 
 ---
 
@@ -434,6 +498,8 @@ Concatenates tensors.
 - GPU (Mali/Adreno): FP16, FP32, Int32
 - Ascend: FP16
 
+</br></br>
+
 ---
 
 ## ConstantOfShape
@@ -445,6 +511,8 @@ Generates a tensor with the same shape as the input, filled with a specified con
 ### Supported Hardware Backends
 
 - CPU: FP16, FP32, Int32
+
+</br></br>
 
 ---
 
@@ -461,6 +529,8 @@ Generates a tensor with the same shape as the input, filled with a specified con
 - GPU (Mali/Adreno): FP16, FP32
 - Ascend: FP16
 
+</br></br>
+
 ---
 
 ## Conv2DBackpropFilterFusion
@@ -473,6 +543,8 @@ Computes the gradient of a normal convolution operation with respect to the conv
 
 - CPU: FP16, FP32
 
+</br></br>
+
 ---
 
 ## Conv2DBackpropInputFusion
@@ -484,6 +556,8 @@ Computes the gradient of a normal convolution operation with respect to the inpu
 ### Supported Hardware Backends
 
 - CPU: FP16, FP32
+
+</br></br>
 
 ---
 
@@ -500,6 +574,8 @@ Performs transposed convolution.
 - GPU (Mali/Adreno): FP16, FP32
 - Ascend: FP16
 
+</br></br>
+
 ---
 
 ## Cos
@@ -515,6 +591,8 @@ Computes the cosine element-wise.
 - GPU (Mali/Adreno): FP16, FP32
 - Ascend: FP16
 
+</br></br>
+
 ---
 
 ## Crop
@@ -526,6 +604,8 @@ Crops a specified region from the input image or feature map.
 ### Supported Hardware Backends
 
 - CPU: FP16, FP32, Int32, Int8, UInt8
+
+</br></br>
 
 ---
 
@@ -540,6 +620,8 @@ Crops regions from the input image according to a set of bounding boxes, then re
 - CPU: FP32
 - Kirin NPU: FP16
 
+</br></br>
+
 ---
 
 ## CumSum
@@ -553,6 +635,8 @@ Cumulative sum of elements.
 - CPU: FP32, Int32
 - Ascend: FP16
 
+</br></br>
+
 ---
 
 ## CustomExtractFeatures
@@ -564,6 +648,8 @@ Custom feature extraction operator.
 ### Supported Hardware Backends
 
 - CPU: FP32
+
+</br></br>
 
 ---
 
@@ -577,6 +663,8 @@ Custom normalization operator.
 
 - CPU: FP32
 
+</br></br>
+
 ---
 
 ## CustomPredict
@@ -589,6 +677,8 @@ Custom prediction operator.
 
 - CPU: FP32, Int32
 
+</br></br>
+
 ---
 
 ## DEConv2DGradFilter
@@ -600,6 +690,8 @@ Computes the gradient of transposed convolution with respect to the convolution 
 ### Supported Hardware Backends
 
 - CPU: FP32
+
+</br></br>
 
 ---
 
@@ -614,6 +706,8 @@ Rearranges depth data into spatial dimensions.
 - CPU: FP16, FP32, Int8, UInt8
 - GPU (Mali/Adreno): FP16, FP32
 
+</br></br>
+
 ---
 
 ## DetectionPostProcess
@@ -625,6 +719,8 @@ Object detection post-processing.
 ### Supported Hardware Backends
 
 - CPU: FP32, Int8, UInt8
+
+</br></br>
 
 ---
 
@@ -641,6 +737,8 @@ Element-wise division.
 - GPU (Mali/Adreno): FP16, FP32
 - Ascend: FP16
 
+</br></br>
+
 ---
 
 ## DivGrad
@@ -652,6 +750,8 @@ Computes the gradient of the division operation.
 ### Supported Hardware Backends
 
 - CPU: FP32
+
+</br></br>
 
 ---
 
@@ -666,6 +766,8 @@ Randomly sets some elements of the input tensor to 0.
 - CPU: FP16, FP32
 - Ascend: FP16
 
+</br></br>
+
 ---
 
 ## DropoutGrad
@@ -678,6 +780,8 @@ Computes the gradient of the Dropout operation.
 
 - CPU: FP16, FP32
 
+</br></br>
+
 ---
 
 ## DynamicQuant
@@ -689,6 +793,8 @@ Dynamically quantizes a floating-point tensor to uint8 type.
 ### Supported Hardware Backends
 
 - CPU: FP32
+
+</br></br>
 
 ---
 
@@ -705,6 +811,8 @@ Element-wise operation.
 - GPU (Mali/Adreno): FP16, FP32
 - Ascend: FP16
 
+</br></br>
+
 ---
 
 ## Elu
@@ -717,6 +825,8 @@ Activation function that applies exponential correction to negative inputs.
 
 - CPU: FP16, FP32
 - Ascend: FP16
+
+</br></br>
 
 ---
 
@@ -733,6 +843,8 @@ Determines whether the inputs are equal.
 - GPU (Mali/Adreno): FP16, FP32
 - Ascend: FP16
 
+</br></br>
+
 ---
 
 ## EmbeddingLookupFusion
@@ -744,6 +856,8 @@ Optimized word embedding lookup that maps integer indices to dense vectors.
 ### Supported Hardware Backends
 
 - CPU: FP32
+
+</br></br>
 
 ---
 
@@ -758,6 +872,8 @@ Error function.
 - CPU: FP16, FP32
 - Ascend: FP16
 
+</br></br>
+
 ---
 
 ## ExpFusion
@@ -771,6 +887,8 @@ Computes the exponential element-wise.
 - CPU: FP16, FP32
 - GPU (Mali/Adreno): FP16, FP32
 - Ascend: FP16
+
+</br></br>
 
 ---
 
@@ -787,6 +905,8 @@ Inserts a dimension of length 1 at the specified position.
 - GPU (Mali/Adreno): FP16, FP32, Int32
 - Ascend: FP16
 
+</br></br>
+
 ---
 
 ## Fill
@@ -801,6 +921,8 @@ Generates a tensor filled with a specified constant.
 - GPU (Mali/Adreno): FP16, FP32
 - Ascend: FP16
 
+</br></br>
+
 ---
 
 ## Flatten
@@ -814,6 +936,8 @@ Flattens data along dimensions.
 - CPU: FP16, FP32, Int32
 - Ascend: FP16
 
+</br></br>
+
 ---
 
 ## FlattenGrad
@@ -825,6 +949,8 @@ Computes the gradient of the Flatten operation.
 ### Supported Hardware Backends
 
 - CPU: FP16, FP32
+
+</br></br>
 
 ---
 
@@ -841,6 +967,8 @@ Rounds down to the nearest integer.
 - GPU (Mali/Adreno): FP16, FP32
 - Ascend: FP16
 
+</br></br>
+
 ---
 
 ## FloorDiv
@@ -855,6 +983,8 @@ Element-wise floor division.
 - Kirin NPU: FP16
 - GPU (Mali/Adreno): FP16, FP32
 
+</br></br>
+
 ---
 
 ## FloorMod
@@ -868,6 +998,8 @@ Element-wise modulo operation, where the sign of the result matches the divisor.
 - CPU: FP16, FP32, Int32
 - Kirin NPU: FP16
 - GPU (Mali/Adreno): FP16, FP32
+
+</br></br>
 
 ---
 
@@ -884,6 +1016,8 @@ Fully connected layer.
 - GPU (Mali/Adreno): FP16, FP32
 - Ascend: FP16
 
+</br></br>
+
 ---
 
 ## FusedBatchNorm
@@ -897,6 +1031,8 @@ Normalizes the input.
 - CPU: FP16, FP32, Int8, UInt8
 - Kirin NPU: FP16
 - Ascend: FP16
+
+</br></br>
 
 ---
 
@@ -913,6 +1049,8 @@ Collects elements at specified index positions along a single dimension.
 - GPU (Mali/Adreno): FP16, FP32, Int32
 - Ascend: FP16
 
+</br></br>
+
 ---
 
 ## GatherD
@@ -925,6 +1063,8 @@ Collects elements from the input tensor according to an index tensor.
 
 - CPU: FP16, FP32, Int32, Bool
 - Ascend: FP16
+
+</br></br>
 
 ---
 
@@ -940,6 +1080,8 @@ Collects elements at specified positions from the input tensor according to an i
 - GPU (Mali/Adreno): FP16, FP32
 - Ascend: FP16
 
+</br></br>
+
 ---
 
 ## GLU
@@ -951,6 +1093,8 @@ Gated linear unit activation function that splits the input into two parts and m
 ### Supported Hardware Backends
 
 - CPU: FP32
+
+</br></br>
 
 ---
 
@@ -967,6 +1111,8 @@ Compares two tensors element-wise and returns the logical result of A > B (True/
 - GPU (Mali/Adreno): FP16, FP32
 - Ascend: FP16
 
+</br></br>
+
 ---
 
 ## GreaterEqual
@@ -982,6 +1128,8 @@ Compares two tensors element-wise and returns the logical result of A ≥ B (Tru
 - GPU (Mali/Adreno): FP16, FP32
 - Ascend: FP16
 
+</br></br>
+
 ---
 
 ## GroupNormFusion
@@ -993,6 +1141,8 @@ Fused optimized group normalization.
 ### Supported Hardware Backends
 
 - CPU: FP32
+
+</br></br>
 
 ---
 
@@ -1006,6 +1156,8 @@ Gated recurrent unit, a simplified version of LSTM.
 
 - CPU: FP16, FP32
 
+</br></br>
+
 ---
 
 ## HashtableLookup
@@ -1017,6 +1169,8 @@ Hash table lookup.
 ### Supported Hardware Backends
 
 - CPU: FP32, Int32
+
+</br></br>
 
 ---
 
@@ -1032,6 +1186,8 @@ Instance normalization.
 - Kirin NPU: FP16
 - Ascend: FP16
 
+</br></br>
+
 ---
 
 ## InvertPermutation
@@ -1043,6 +1199,8 @@ Inverts permutation indices.
 ### Supported Hardware Backends
 
 - CPU: FP16, FP32, Int32
+
+</br></br>
 
 ---
 
@@ -1057,6 +1215,8 @@ Checks whether each element in the tensor is a finite value (not inf/NaN).
 - CPU: FP32
 - Ascend: FP16
 
+</br></br>
+
 ---
 
 ## L2NormalizeFusion
@@ -1068,6 +1228,8 @@ Fused optimized L2 normalization.
 ### Supported Hardware Backends
 
 - CPU: FP32, Int8, UInt8
+
+</br></br>
 
 ---
 
@@ -1083,6 +1245,8 @@ Fused optimized layer normalization.
 - GPU (Mali/Adreno): FP16, FP32
 - Ascend: FP16
 
+</br></br>
+
 ---
 
 ## LayerNormGrad
@@ -1094,6 +1258,8 @@ Computes the gradient of layer normalization.
 ### Supported Hardware Backends
 
 - CPU: FP16, FP32
+
+</br></br>
 
 ---
 
@@ -1110,6 +1276,8 @@ Leaky ReLU activation function that gives a small slope to negative inputs.
 - GPU (Mali/Adreno): FP16, FP32
 - Ascend: FP16
 
+</br></br>
+
 ---
 
 ## Less
@@ -1124,6 +1292,8 @@ Compares two tensors element-wise and returns the logical result of A < B.
 - Kirin NPU: FP16
 - GPU (Mali/Adreno): FP16, FP32
 - Ascend: FP16
+
+</br></br>
 
 ---
 
@@ -1140,6 +1310,8 @@ Compares A ≤ B element-wise and returns a boolean tensor.
 - GPU (Mali/Adreno): FP16, FP32
 - Ascend: FP16
 
+</br></br>
+
 ---
 
 ## LRN
@@ -1152,6 +1324,8 @@ Local response normalization.
 
 - CPU: FP32
 - Ascend: FP16
+
+</br></br>
 
 ---
 
@@ -1168,6 +1342,8 @@ Computes the logarithm element-wise.
 - GPU (Mali/Adreno): FP16, FP32
 - Ascend: FP16
 
+</br></br>
+
 ---
 
 ## Log1p
@@ -1181,6 +1357,8 @@ Computes log(1+X).
 - CPU: FP32
 - Ascend: FP16
 
+</br></br>
+
 ---
 
 ## LogGrad
@@ -1192,6 +1370,8 @@ Computes the gradient of the logarithmic function.
 ### Supported Hardware Backends
 
 - CPU: FP16, FP32
+
+</br></br>
 
 ---
 
@@ -1207,6 +1387,8 @@ Element-wise logical AND operation.
 - Kirin NPU: FP16
 - GPU (Mali/Adreno): FP16, FP32
 
+</br></br>
+
 ---
 
 ## LogicalNot
@@ -1220,6 +1402,8 @@ Element-wise logical NOT operation.
 - CPU: FP16, FP32, Int8, UInt8, Bool
 - Kirin NPU: FP16
 - GPU (Mali/Adreno): FP16, FP32
+
+</br></br>
 
 ---
 
@@ -1235,6 +1419,8 @@ Element-wise logical OR operation.
 - Kirin NPU: FP16
 - GPU (Mali/Adreno): FP16, FP32
 
+</br></br>
+
 ---
 
 ## LogSoftmax
@@ -1248,6 +1434,8 @@ Applies softmax to the input vector, then takes the logarithm of the softmax res
 - CPU: FP16, FP32
 - Ascend: FP16
 
+</br></br>
+
 ---
 
 ## LshProjection
@@ -1259,6 +1447,8 @@ Locality-sensitive hashing projection.
 ### Supported Hardware Backends
 
 - CPU: FP32
+
+</br></br>
 
 ---
 
@@ -1272,6 +1462,8 @@ Long short-term memory network unit.
 
 - CPU: FP16, FP32
 
+</br></br>
+
 ---
 
 ## LSTMGrad
@@ -1283,6 +1475,8 @@ Computes the backpropagation gradient of LSTM with respect to the hidden state.
 ### Supported Hardware Backends
 
 - CPU: FP32
+
+</br></br>
 
 ---
 
@@ -1296,6 +1490,8 @@ Computes the backpropagation gradient of LSTM with respect to the input data.
 
 - CPU: FP32
 
+</br></br>
+
 ---
 
 ## LSTMGradWeight
@@ -1307,6 +1503,8 @@ Computes the backpropagation gradient of LSTM with respect to the weights.
 ### Supported Hardware Backends
 
 - CPU: FP32
+
+</br></br>
 
 ---
 
@@ -1323,6 +1521,8 @@ Performs matrix multiplication on 2 inputs.
 - GPU (Mali/Adreno): FP16, FP32
 - Ascend: FP16
 
+</br></br>
+
 ---
 
 ## Maximum
@@ -1338,6 +1538,8 @@ Takes the element-wise maximum value.
 - GPU (Mali/Adreno): FP16, FP32
 - Ascend: FP16
 
+</br></br>
+
 ---
 
 ## MaximumGrad
@@ -1349,6 +1551,8 @@ Computes the gradient of the maximum function.
 ### Supported Hardware Backends
 
 - CPU: FP16, FP32
+
+</br></br>
 
 ---
 
@@ -1365,6 +1569,8 @@ Max pooling.
 - GPU (Mali/Adreno): FP16, FP32
 - Ascend: FP16
 
+</br></br>
+
 ---
 
 ## MaxPoolGrad
@@ -1377,6 +1583,8 @@ Computes the gradient of the max pooling layer.
 
 - CPU: FP16, FP32
 
+</br></br>
+
 ---
 
 ## Merge
@@ -1388,6 +1596,8 @@ Obtains the first available tensor from a set of input tensors and outputs it.
 ### Supported Hardware Backends
 
 - CPU: FP16, FP32
+
+</br></br>
 
 ---
 
@@ -1404,6 +1614,8 @@ Takes the element-wise minimum value.
 - GPU (Mali/Adreno): FP16, FP32
 - Ascend: FP16
 
+</br></br>
+
 ---
 
 ## MinimumGrad
@@ -1415,6 +1627,8 @@ Computes the gradient of the minimum function.
 ### Supported Hardware Backends
 
 - CPU: FP16, FP32
+
+</br></br>
 
 ---
 
@@ -1428,6 +1642,8 @@ Returns the remainder of division elements.
 
 - CPU: FP32, Int32
 - Ascend: FP16
+
+</br></br>
 
 ---
 
@@ -1444,6 +1660,8 @@ Element-wise multiplication.
 - GPU (Mali/Adreno): FP16, FP32
 - Ascend: FP16
 
+</br></br>
+
 ---
 
 ## MulGrad
@@ -1455,6 +1673,8 @@ Computes the gradient of the multiplication operation.
 ### Supported Hardware Backends
 
 - CPU: FP32
+
+</br></br>
 
 ---
 
@@ -1471,6 +1691,8 @@ Computes the negative value element-wise.
 - GPU (Mali/Adreno): FP16, FP32
 - Ascend: FP16
 
+</br></br>
+
 ---
 
 ## NegGrad
@@ -1482,6 +1704,8 @@ Computes the gradient of the negation operation.
 ### Supported Hardware Backends
 
 - CPU: FP16, FP32
+
+</br></br>
 
 ---
 
@@ -1496,6 +1720,8 @@ Computes the negative log-likelihood loss.
 - CPU: FP32
 - Ascend: FP16
 
+</br></br>
+
 ---
 
 ## NLLLossGrad
@@ -1507,6 +1733,8 @@ Computes the gradient of NLLLoss.
 ### Supported Hardware Backends
 
 - CPU: FP32
+
+</br></br>
 
 ---
 
@@ -1522,6 +1750,8 @@ Compares two tensors element-wise and returns the logical result of A != B.
 - Kirin NPU: FP16
 - GPU (Mali/Adreno): FP16, FP32
 
+</br></br>
+
 ---
 
 ## NonMaxSuppression
@@ -1534,6 +1764,8 @@ Non-maximum suppression.
 
 - CPU: FP32
 - Ascend: FP16
+
+</br></br>
 
 ---
 
@@ -1548,6 +1780,8 @@ Returns the indices of all non-zero elements in the input tensor.
 - CPU: Bool
 - Ascend: FP16
 
+</br></br>
+
 ---
 
 ## OneHot
@@ -1561,6 +1795,8 @@ Converts an integer index tensor into a one-hot encoding representation.
 - CPU: FP16, FP32, Int32
 - GPU (Mali/Adreno): FP16, FP32, Int32
 
+</br></br>
+
 ---
 
 ## OnesLike
@@ -1573,6 +1809,8 @@ Creates a new tensor with exactly the same shape as the input tensor X but with 
 
 - CPU: FP16, FP32, Int32
 - Ascend: FP16
+
+</br></br>
 
 ---
 
@@ -1589,6 +1827,8 @@ Pads the input tensor with the specified padding to reach the specified size.
 - GPU (Mali/Adreno): FP16, FP32
 - Ascend: FP16
 
+</br></br>
+
 ---
 
 ## PartialFusion
@@ -1600,6 +1840,8 @@ Partial fusion.
 ### Supported Hardware Backends
 
 - CPU: FP16, FP32, Int32, Bool
+
+</br></br>
 
 ---
 
@@ -1615,6 +1857,8 @@ Computes the power element-wise.
 - GPU (Mali/Adreno): FP16, FP32
 - Ascend: FP16
 
+</br></br>
+
 ---
 
 ## PowerGrad
@@ -1626,6 +1870,8 @@ Computes the gradient of the power operation.
 ### Supported Hardware Backends
 
 - CPU: FP32
+
+</br></br>
 
 ---
 
@@ -1639,6 +1885,8 @@ Generates prior boxes.
 
 - CPU: FP32, Int8, UInt8
 - Ascend: FP16
+
+</br></br>
 
 ---
 
@@ -1654,6 +1902,8 @@ PReLU activation function.
 - GPU (Mali/Adreno): FP16, FP32
 - Ascend: FP16
 
+</br></br>
+
 ---
 
 ## QuantDTypeCast
@@ -1665,6 +1915,8 @@ Performs quantized data type conversion.
 ### Supported Hardware Backends
 
 - CPU: FP16, FP32, Int8, UInt8
+
+</br></br>
 
 ---
 
@@ -1678,6 +1930,8 @@ Generates a sequence with non-uniform intervals.
 
 - CPU: FP16, FP32, Int32
 
+</br></br>
+
 ---
 
 ## RandomNormal
@@ -1690,6 +1944,8 @@ Generates a tensor whose values are randomly sampled from a normal distribution.
 
 - CPU: FP16, FP32
 
+</br></br>
+
 ---
 
 ## RandomStandardNormal
@@ -1701,6 +1957,8 @@ Generates a random number tensor that follows the standard normal distribution.
 ### Supported Hardware Backends
 
 - CPU: FP16, FP32
+
+</br></br>
 
 ---
 
@@ -1715,6 +1973,8 @@ Generates elements within a certain interval.
 - CPU: FP16, FP32, Int32
 - Ascend: FP16
 
+</br></br>
+
 ---
 
 ## Rank
@@ -1726,6 +1986,8 @@ Returns the number of dimensions of the input tensor.
 ### Supported Hardware Backends
 
 - CPU: FP16, FP32
+
+</br></br>
 
 ---
 
@@ -1740,6 +2002,8 @@ Element-wise division.
 - CPU: FP16, FP32
 - Ascend: FP16
 
+</br></br>
+
 ---
 
 ## Reciprocal
@@ -1753,6 +2017,8 @@ Returns the reciprocal.
 - CPU: FP16, FP32, Int8
 - Kirin NPU: FP16
 - Ascend: FP16
+
+</br></br>
 
 ---
 
@@ -1769,6 +2035,8 @@ Reduction operation.
 - GPU (Mali/Adreno): FP16, FP32
 - Ascend: FP16
 
+</br></br>
+
 ---
 
 ## ReduceScatter
@@ -1780,6 +2048,8 @@ Distributed operation that segments the input tensor and distributes it to each 
 ### Supported Hardware Backends
 
 - CPU: FP32
+
+</br></br>
 
 ---
 
@@ -1796,6 +2066,8 @@ Changes the tensor shape while keeping the total number of elements unchanged.
 - GPU (Mali/Adreno): FP16, FP32, Int32
 - Ascend: FP16
 
+</br></br>
+
 ---
 
 ## Resize
@@ -1810,6 +2082,8 @@ Upsamples or resizes the input tensor.
 - Kirin NPU: FP16
 - GPU (Mali/Adreno): FP16, FP32
 
+</br></br>
+
 ---
 
 ## ResizeGrad
@@ -1822,6 +2096,8 @@ Computes the gradient of Resize.
 
 - CPU: FP16, FP32
 
+</br></br>
+
 ---
 
 ## ReverseV2
@@ -1833,6 +2109,8 @@ Reverses the tensor along the specified axis.
 ### Supported Hardware Backends
 
 - CPU: FP32, Int32
+
+</br></br>
 
 ---
 
@@ -1847,6 +2125,8 @@ Partially reverses variable-length sequences of the input tensor.
 - CPU: FP32
 - Ascend: FP16
 
+</br></br>
+
 ---
 
 ## ROIPooling
@@ -1859,6 +2139,8 @@ Region of interest pooling.
 
 - CPU: FP32
 - Ascend: FP16
+
+</br></br>
 
 ---
 
@@ -1875,6 +2157,8 @@ Rounds to the nearest integer value.
 - GPU (Mali/Adreno): FP16, FP32
 - Ascend: FP16
 
+</br></br>
+
 ---
 
 ## Rsqrt
@@ -1889,6 +2173,8 @@ Computes the reciprocal of the square root element-wise, used for normalization.
 - Kirin NPU: FP16
 - GPU (Mali/Adreno): FP16, FP32
 
+</br></br>
+
 ---
 
 ## RsqrtGrad
@@ -1900,6 +2186,8 @@ Computes the gradient of the reciprocal square root.
 ### Supported Hardware Backends
 
 - CPU: FP32
+
+</br></br>
 
 ---
 
@@ -1913,6 +2201,8 @@ Selects elements from two tensors based on a condition.
 
 - CPU: FP32, Bool
 
+</br></br>
+
 ---
 
 ## Selu
@@ -1924,6 +2214,8 @@ Self-normalizing exponential linear unit activation function.
 ### Supported Hardware Backends
 
 None
+
+</br></br>
 
 ---
 
@@ -1940,6 +2232,8 @@ Fuses the scaling operation with adjacent operators.
 - GPU (Mali/Adreno): FP16, FP32
 - Ascend: FP16
 
+</br></br>
+
 ---
 
 ## ScatterNd
@@ -1953,6 +2247,8 @@ Scatters values from the update tensor to specified positions in the output tens
 - CPU: FP16, FP32, Int32
 - Ascend: FP16
 
+</br></br>
+
 ---
 
 ## ScatterNdUpdate
@@ -1964,6 +2260,8 @@ Updates the values of the input data using the given values and input indices.
 ### Supported Hardware Backends
 
 - CPU: FP16, FP32, Int32
+
+</br></br>
 
 ---
 
@@ -1977,6 +2275,8 @@ Stochastic gradient descent optimizer.
 
 - CPU: FP32
 - Ascend: FP16
+
+</br></br>
 
 ---
 
@@ -1992,6 +2292,8 @@ Obtains the tensor shape.
 - GPU (Mali/Adreno): FP16, FP32
 - Ascend: FP16
 
+</br></br>
+
 ---
 
 ## SigmoidCrossEntropyWithLogits
@@ -2005,6 +2307,8 @@ Combines Sigmoid activation and cross-entropy loss.
 - CPU: FP32
 - Ascend: FP16
 
+</br></br>
+
 ---
 
 ## SigmoidCrossEntropyWithLogitsGrad
@@ -2017,6 +2321,8 @@ Computes the gradient of the cross-entropy loss with Sigmoid.
 
 - CPU: FP32
 - Ascend: FP16
+
+</br></br>
 
 ---
 
@@ -2033,6 +2339,8 @@ Computes the sine element-wise.
 - GPU (Mali/Adreno): FP16, FP32
 - Ascend: FP16
 
+</br></br>
+
 ---
 
 ## Size
@@ -2045,6 +2353,8 @@ Obtains the tensor dimension size.
 
 - CPU: FP16, FP32, Int32
 - Ascend: FP16
+
+</br></br>
 
 ---
 
@@ -2061,6 +2371,8 @@ Tensor slicing operation.
 - GPU (Mali/Adreno): FP16, FP32
 - Ascend: FP16
 
+</br></br>
+
 ---
 
 ## SkipGram
@@ -2072,6 +2384,8 @@ The core operation of the Skip-gram model, used for word vector training.
 ### Supported Hardware Backends
 
 - CPU: FP32
+
+</br></br>
 
 ---
 
@@ -2086,6 +2400,8 @@ Smooth L1 loss.
 - CPU: FP32
 - Ascend: FP16
 
+</br></br>
+
 ---
 
 ## SmoothL1LossGrad
@@ -2097,6 +2413,8 @@ Computes the gradient of the smooth L1 loss.
 ### Supported Hardware Backends
 
 - CPU: FP32
+
+</br></br>
 
 ---
 
@@ -2113,6 +2431,8 @@ Normalization operation.
 - GPU (Mali/Adreno): FP16, FP32
 - Ascend: FP16
 
+</br></br>
+
 ---
 
 ## SoftmaxGrad
@@ -2124,6 +2444,8 @@ Computes the gradient of Softmax.
 ### Supported Hardware Backends
 
 - CPU: FP32
+
+</br></br>
 
 ---
 
@@ -2137,6 +2459,8 @@ Smooth variant of ReLU.
 
 - CPU: FP16, FP32
 - Ascend: FP16
+
+</br></br>
 
 ---
 
@@ -2152,6 +2476,8 @@ Moves values from height and width dimensions to the depth dimension.
 - GPU (Mali/Adreno): FP16, FP32
 - Ascend: FP16
 
+</br></br>
+
 ---
 
 ## SpaceToBatchND
@@ -2164,6 +2490,8 @@ Splits blocks of data from spatial dimensions into the batch dimension.
 
 - CPU: FP16, FP32, Int8, UInt8
 - GPU (Mali/Adreno): FP16, FP32
+
+</br></br>
 
 ---
 
@@ -2178,6 +2506,8 @@ Reorganizes spatial data into depth channels.
 - CPU: FP16, FP32
 - GPU (Mali/Adreno): FP16, FP32
 
+</br></br>
+
 ---
 
 ## SparseToDense
@@ -2190,6 +2520,8 @@ Converts a sparse representation to a dense tensor.
 
 - CPU: FP16, FP32, Int32
 - GPU (Mali/Adreno): FP16, FP32, Int32
+
+</br></br>
 
 ---
 
@@ -2204,6 +2536,8 @@ Softmax cross-entropy with sparse labels.
 - CPU: FP32
 - Ascend: FP16
 
+</br></br>
+
 ---
 
 ## Splice
@@ -2215,6 +2549,8 @@ Concatenates multiple slices or ranges of the input tensor along the specified a
 ### Supported Hardware Backends
 
 - CPU: FP16, FP32
+
+</br></br>
 
 ---
 
@@ -2231,6 +2567,8 @@ Splits the input tensor into multiple smaller output tensors along the specified
 - GPU (Mali/Adreno): FP16, FP32
 - Ascend: FP16
 
+</br></br>
+
 ---
 
 ## SplitWithOverlap
@@ -2242,6 +2580,8 @@ Splits the tensor with overlap.
 ### Supported Hardware Backends
 
 - CPU: FP16, FP32
+
+</br></br>
 
 ---
 
@@ -2258,6 +2598,8 @@ Computes the square root element-wise.
 - GPU (Mali/Adreno): FP16, FP32
 - Ascend: FP16
 
+</br></br>
+
 ---
 
 ## SqrtGrad
@@ -2269,6 +2611,8 @@ Computes the gradient of the square root.
 ### Supported Hardware Backends
 
 - CPU: FP32
+
+</br></br>
 
 ---
 
@@ -2285,6 +2629,8 @@ Computes the square element-wise.
 - GPU (Mali/Adreno): FP16, FP32
 - Ascend: FP16
 
+</br></br>
+
 ---
 
 ## SquaredDifference
@@ -2298,6 +2644,8 @@ Computes (A-B)² element-wise.
 - CPU: FP16, FP32
 - GPU (Mali/Adreno): FP16, FP32
 
+</br></br>
+
 ---
 
 ## Squeeze
@@ -2310,6 +2658,8 @@ Removes dimensions of size 1.
 
 - CPU: FP16, FP32, Int32, Int8, UInt8, Bool
 - GPU (Mali/Adreno): FP16, FP32, Int32
+
+</br></br>
 
 ---
 
@@ -2326,6 +2676,8 @@ Tensor slicing.
 - GPU (Mali/Adreno): FP16, FP32
 - Ascend: FP16
 
+</br></br>
+
 ---
 
 ## StridedSliceGrad
@@ -2337,6 +2689,8 @@ Computes the gradient of the slicing operation.
 ### Supported Hardware Backends
 
 - CPU: FP16, FP32
+
+</br></br>
 
 ---
 
@@ -2351,6 +2705,8 @@ Stacks multiple tensors along a new axis.
 - CPU: FP16, FP32, Int32
 - GPU (Mali/Adreno): FP16, FP32
 - Ascend: FP16
+
+</br></br>
 
 ---
 
@@ -2367,6 +2723,8 @@ Element-wise subtraction.
 - GPU (Mali/Adreno): FP16, FP32
 - Ascend: FP16
 
+</br></br>
+
 ---
 
 ## SubGrad
@@ -2378,6 +2736,8 @@ Computes the gradient of subtraction.
 ### Supported Hardware Backends
 
 - CPU: FP32
+
+</br></br>
 
 ---
 
@@ -2391,6 +2751,8 @@ Selects an output branch based on a boolean condition.
 
 - CPU: FP16, FP32, Int32, Bool
 
+</br></br>
+
 ---
 
 ## SwitchLayer
@@ -2402,6 +2764,8 @@ Selects different sub-network branches for execution in the model.
 ### Supported Hardware Backends
 
 - CPU: FP16, FP32, Int32, Bool
+
+</br></br>
 
 ---
 
@@ -2415,6 +2779,8 @@ Converts an ordinary tensor into a tensor list, splitting along the specified ax
 
 - CPU: FP16, FP32, Int32
 
+</br></br>
+
 ---
 
 ## TensorListGetItem
@@ -2426,6 +2792,8 @@ Retrieves the tensor at the specified index position from a tensor list.
 ### Supported Hardware Backends
 
 - CPU: FP16, FP32, Int32
+
+</br></br>
 
 ---
 
@@ -2439,6 +2807,8 @@ Pre-allocates an empty tensor list with the specified element data type and init
 
 - CPU: FP16, FP32, Int32
 
+</br></br>
+
 ---
 
 ## TensorListSetItem
@@ -2450,6 +2820,8 @@ Inserts a tensor at the specified position in a tensor list.
 ### Supported Hardware Backends
 
 - CPU: FP16, FP32, Int32
+
+</br></br>
 
 ---
 
@@ -2463,6 +2835,8 @@ Stacks a tensor list into an ordinary tensor.
 
 - CPU: FP16, FP32, Int32
 
+</br></br>
+
 ---
 
 ## TensorScatterAdd
@@ -2474,6 +2848,8 @@ Scatter-adds the values of the update tensor to specified positions in the targe
 ### Supported Hardware Backends
 
 - CPU: FP32, Int32
+
+</br></br>
 
 ---
 
@@ -2489,6 +2865,8 @@ Tiles a given matrix.
 - Kirin NPU: FP16
 - Ascend: FP16
 
+</br></br>
+
 ---
 
 ## TopKFusion
@@ -2501,6 +2879,8 @@ Returns the top K elements from the input tensor.
 
 - CPU: FP16, FP32, Int32, Int8, UInt8
 - Ascend: FP16
+
+</br></br>
 
 ---
 
@@ -2517,6 +2897,8 @@ Tensor transposition.
 - GPU (Mali/Adreno): FP16, FP32
 - Ascend: FP16
 
+</br></br>
+
 ---
 
 ## UniformReal
@@ -2528,6 +2910,8 @@ Generates a random number tensor that follows a uniform distribution.
 ### Supported Hardware Backends
 
 - CPU: FP32, Int32
+
+</br></br>
 
 ---
 
@@ -2541,6 +2925,8 @@ Returns the unique values in the input tensor, and optionally returns the indice
 
 - CPU: FP16, FP32, Int32
 
+</br></br>
+
 ---
 
 ## UnsortedSegmentSum
@@ -2552,6 +2938,8 @@ Performs segmented summation on a tensor without requiring the segment indices t
 ### Supported Hardware Backends
 
 - CPU: FP16, FP32, Int32
+
+</br></br>
 
 ---
 
@@ -2567,6 +2955,8 @@ Adds a new dimension to the input tensor.
 - Kirin NPU: FP16
 - GPU (Mali/Adreno): FP16, FP32, Int32
 
+</br></br>
+
 ---
 
 ## Unstack
@@ -2579,6 +2969,8 @@ Splits the tensor into multiple sub-tensors along the specified axis.
 
 - CPU: FP16, FP32, Int32
 
+</br></br>
+
 ---
 
 ## Where
@@ -2590,6 +2982,8 @@ Element selection.
 ### Supported Hardware Backends
 
 - CPU: FP16, FP32, Int32, Bool
+
+</br></br>
 
 ---
 
