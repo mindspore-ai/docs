@@ -68,6 +68,7 @@ def _generate_llms_full_txt(app):
         try:
             doctree = app.env.get_doctree(docname)
             md = _doctree_to_markdown(doctree, docname)
+            parts.append(f"\n---\n\n{md}")
         except (ValueError, TypeError, OSError) as e:
             logger.warning(
                 "llms_txt: failed to convert %s: %s: %s",
@@ -77,23 +78,15 @@ def _generate_llms_full_txt(app):
                 text = doctree.astext()
                 title = app.env.titles.get(docname)
                 title_str = title.astext() if title else docname
-                md = f"# {title_str}\n\n{text}"
+                parts.append(f"\n---\n\n# {title_str}\n\n{text}")
             else:
-                md = f"# {docname}\n\n(conversion failed)"
-
-        parts.append(f"\n---\n\n{md}")
-
-        # 同时写一份单页 .md，供 llms.txt 的相对链接使用
-        page_md_path = os.path.join(app.outdir, f"{docname}.md")
-        os.makedirs(os.path.dirname(page_md_path), exist_ok=True)
-        with open(page_md_path, "w", encoding="utf-8") as f:
-            f.write(md)
+                parts.append(f"\n---\n\n# {docname}\n\n(conversion failed)")
 
     content = "\n".join(parts) + "\n"
     outpath = os.path.join(app.outdir, "llms-full.txt")
     with open(outpath, "w", encoding="utf-8") as f:
         f.write(content)
-    logger.info("llms_txt: wrote %s and per-page .md files", outpath)
+    logger.info("llms_txt: wrote %s", outpath)
 
 def _generate_llms_txt(app):
     """生成 llms.txt 摘要索引，Markdown 格式的站点地图。"""
@@ -102,7 +95,7 @@ def _generate_llms_txt(app):
     for docname in _collect_docnames(app):
         title = app.env.titles.get(docname)
         title_str = title.astext() if title else docname
-        lines.append(f"- [{title_str}]({docname}.md)")
+        lines.append(f"- [{title_str}]({docname}.html)")
 
     content = "\n".join(lines) + "\n"
     outpath = os.path.join(app.outdir, "llms.txt")

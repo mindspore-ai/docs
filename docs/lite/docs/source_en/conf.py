@@ -39,7 +39,7 @@ html_context = {'use_lib': USE_LIB}
 myst_heading_anchors = 5
 extensions = [
     'myst_parser',
-    'sphinx_llms_txt',
+    'llms_txt',
 ]
 
 source_suffix = {
