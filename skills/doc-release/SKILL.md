@@ -28,6 +28,9 @@ description: MindSpore 文档发布新分支时，链接更替与组件清洗技
 3. 增加链接有效性检测功能
 4. 支持 `.ipynb` (Jupyter Notebook) 文件中的链接替换
 5. 组件清洗，仅保留需要的组件目录
+6. 支持 `git clone` 命令（含带 `-b`、不带 `-b` 两种形式）的分支替换
+7. **保留 `git clone URL -b {version}` 形式**（`-b` 在 URL 后面，占位符形式，不替换）
+8. 自动处理所有 RST 文件中的网格表格折行 URL，无需维护文件清单
 
 ---
 
@@ -44,18 +47,16 @@ description: MindSpore 文档发布新分支时，链接更替与组件清洗技
 
 ## 限制条件
 
-- 组件清洗仅在 `docs/docs` 目录下执行
+- 组件清洗仅在仓库根目录的 `docs/` 目录下执行
 - 链接替换作用于以下三个目录：
-  - `docs/docs`
-  - `docs/tutorials`
-  - `docs/install`
-- 链接替换支持以下文件类型：
-  - `.md` (Markdown)
-  - `.txt` (文本文件)
-  - `.rst` (reStructuredText)
-  - `.html` (HTML)
-  - `.yml` / `.yaml` (YAML)
-  - `.ipynb` (Jupyter Notebook)
+  - `docs/`
+  - `tutorials/`
+  - `install/`
+- 文件类型处理：
+  - `.md` / `.txt` / `.html` / `.yml` / `.yaml` / `.ipynb`：普通正则替换
+  - `.rst`：网格表格按"逐逻辑行还原折行 URL → 替换 → 重新折行"处理（列宽按显示宽度计算），非表格区域直接替换
+
+> **⚠️ 运行前请确保当前工作目录为仓库根目录**（即 `tutorials/`、`install/`、`docs/` 所在的那一层）。
 
 ---
 
@@ -185,24 +186,26 @@ else:
 
 ---
 
-### 步骤 2：替换分支链接并检测有效性
+### 步骤 2：替换分支链接并检测有效性（普通文件 + RST）
 
-在 `docs/docs`、`docs/tutorials`、`docs/install` 三个目录下，根据 `component_branch_map` 为每个组件替换对应的分支名。
+在 `docs/`、`tutorials/`、`install/` 三个目录下，对**所有支持的文件**替换分支名：
+
+- `.md` / `.txt` / `.html` / `.yml` / `.yaml` / `.ipynb`：普通正则替换
+- `.rst`：网格表格按"逐逻辑行还原折行 URL → 替换 → 重新折行"处理（列宽按显示宽度计算），非表格区域直接替换
 
 #### 替换规则说明
 
-脚本会为每个组件生成以下替换规则：
-
-| 链接类型 | 使用的字段 | 示例（source_branch=master, target_html_branch=r2.10.0, tag=v2.10.0） |
+| 链接类型 | 使用的字段 | 示例（source_branch=master, target_html_branch=r2.11.0, tag=v2.11.0） |
 |---------|-----------|----------------------------------------------------------------|
-| OBS 资源链接 | `target_html_branch` | `website-images/master/resource/...` → `website-images/r2.10.0/resource/...` |
-| OBS Notebook 链接 | `target_html_branch` | `notebook/master/tutorials/...` → `notebook/r2.10.0/tutorials/...` |
-| 官网链接 | `target_html_branch` | `mindspore.cn/docs/zh-CN/master/` → `.../r2.10.0/` |
-| atomgit docs 仓链接 | `target_html_branch` | `docs/blob/master/tutorials/...` → `docs/blob/r2.10.0/tutorials/...` |
-| atomgit 仓库链接 | `tag`（如有） | `mindspore/blob/master/...` → `mindspore/blob/v2.10.0/...` |
-| git clone 命令 | `tag`（如有） | `git clone -b master ...` → `git clone -b v2.10.0 ...` |
-
-**注意：** 只有 MindSpore （`mindspore`）有 tag，其余用各自的branch。
+| OBS 资源链接 | `target_html_branch` | `website-images/master/resource/...` → `website-images/r2.11.0/resource/...` |
+| OBS Notebook 链接 | `target_html_branch` | `notebook/master/tutorials/...` → `notebook/r2.11.0/tutorials/...` |
+| 官网链接 | `target_html_branch` | `mindspore.cn/docs/zh-CN/master/` → `.../r2.11.0/` |
+| atomgit docs 仓链接 | `target_html_branch` | `docs/blob/master/tutorials/...` → `docs/blob/r2.11.0/tutorials/...` |
+| atomgit 仓库链接 | `tag`（无 tag 用 `target_html_branch`） | `mindspore/blob/master/...` → `mindspore/blob/v2.11.0/...` |
+| git clone（`-b` 在前） | `tag`（无 tag 用 `target_html_branch`） | `git clone -b master ...` → `git clone -b v2.11.0 ...` |
+| git clone（不带 `-b`） | `tag`（无 tag 用 `target_html_branch`） | `git clone https://.../mindspore.git` → `git clone -b v2.11.0 https://.../mindspore.git` |
+| **git clone（`-b` 在 URL 后，占位符）** | **不替换** | `git clone ...git -b {version}` → **保留原样** |
+| RST 网格表格折行 URL | 同上 | 由本步骤的 RST 分支自动处理 |
 
 #### 执行代码
 
@@ -218,7 +221,6 @@ logger = logging.getLogger(__name__)
 
 # ============ 链接检测函数 ============
 def check_url(url, timeout=5):
-    """检测 URL 是否可访问（HEAD 请求）"""
     try:
         resp = requests.head(url, timeout=timeout, allow_redirects=True)
         return resp.status_code < 400
@@ -226,13 +228,10 @@ def check_url(url, timeout=5):
         return False
 
 def validate_links(link_list, max_workers=5):
-    """并发检测链接列表"""
     if not link_list:
         return
-
     logger.info(f"开始检测 {len(link_list)} 个链接...")
     failed_links = []
-
     with ThreadPoolExecutor(max_workers=max_workers) as executor:
         future_to_url = {executor.submit(check_url, url): url for url in link_list}
         for future in as_completed(future_to_url):
@@ -245,75 +244,260 @@ def validate_links(link_list, max_workers=5):
             except Exception as e:
                 failed_links.append(url)
                 logger.error(f"检测失败 {url}: {e}")
-
     if failed_links:
-        logger.error(f"发现 {len(failed_links)} 个可能无效的链接，请检查:")
+        logger.error(f"发现 {len(failed_links)} 个可能无效的链接:")
         for link in failed_links:
             logger.error(f"  - {link}")
     else:
         logger.info("✅ 所有检测的链接均有效")
 
-# ============ 主替换逻辑 ============
-def replace_urls(target_paths, sub_list, enable_check=True):
-    """遍历目标目录，执行链接替换"""
-    all_replaced_links = []
+# ============ RST 网格表格工具 ============
+BORDER_RE = re.compile(r'^\+[-=+]+\+$')
+URI_RE = re.compile(r'<https?://[^>]+>')
+# 嵌入式 URI 的 '<' 前必须有空白。单元格拼接会吃掉换行，故折行时若 '<' 前无空白需重新断行。
+EMBED_URI_RE = re.compile(r'(?<!\s)(<[a-zA-Z][a-zA-Z0-9+.\-]*://)')
 
-    for tp in target_paths:
-        if not os.path.exists(tp):
-            logger.warning(f"路径不存在: {tp}")
+# docutils 解析网格表格按“显示宽度”计算列宽：CJK 等宽字符算 2 列。
+# 优先复用 docutils 自带实现，保证与 Sphinx 完全一致。
+try:
+    from docutils.utils import column_width as dwidth
+except Exception:
+    import unicodedata
+
+    def dwidth(s):
+        width = 0
+        for ch in s:
+            if unicodedata.category(ch) in ('Mn', 'Me', 'Cf'):
+                continue
+            width += 2 if unicodedata.east_asian_width(ch) in ('W', 'F') else 1
+        return width
+
+def is_border(line):
+    return bool(BORDER_RE.match(line.strip()))
+
+def is_data_row(line):
+    s = line.strip()
+    return s.startswith('|') and s.endswith('|')
+
+def border_positions(border_line):
+    """分隔符所在的显示位置（边框为 ASCII，字符下标即显示宽度）。"""
+    return [i for i, ch in enumerate(border_line) if ch == '+']
+
+def slice_display(line, start, end):
+    """按显示宽度区间 [start, end) 截取内容（不含两端的分隔符 '|'）。"""
+    w = 0
+    out = []
+    for ch in line:
+        cw = dwidth(ch)
+        if w >= start and (w + cw) <= end:
+            out.append(ch)
+        w += cw
+    return ''.join(out)
+
+def split_row(line, positions):
+    """按边框给出的列边界做“位置切分”，与 docutils 一致。
+
+    不能用 body.split('|')：单元格内可能含转义竖线 \\|，且中文列宽按显示宽度对齐，
+    直接按 '|' 切分会把内容/填充错位。
+    """
+    return [slice_display(line, positions[i] + 1, positions[i + 1])
+            for i in range(len(positions) - 1)]
+
+def cpad(s, width):
+    pad = width - dwidth(s)
+    return s + ' ' * pad if pad > 0 else s
+
+def build_row(cells, widths):
+    return '|' + '|'.join(cpad(c, w) for c, w in zip(cells, widths)) + '|'
+
+def fold_by_width(text, width):
+    lines = []
+    cur = ''
+    for ch in text:
+        if cur and dwidth(cur) + dwidth(ch) > width:
+            lines.append(cur)
+            cur = ch
+        else:
+            cur += ch
+    if cur or not lines:
+        lines.append(cur)
+    return lines
+
+def fold_uri_safe(text, width):
+    """折行，并保证嵌入式 URI 的 '<' 前有空白（reST 要求）。"""
+    text = EMBED_URI_RE.sub(r'\n\1', text)
+    out = []
+    for part in text.split('\n'):
+        out.extend(fold_by_width(part, width))
+    return out
+
+def process_run(run, positions, widths, rules):
+    """处理一个逻辑行（两个边框之间的一组物理行）。
+
+    逐逻辑行处理很关键：一张网格表格通常由表头与多个逻辑行组成（用 +---+ 分隔），
+    不能把整表所有物理行按列拼接，否则表头文字与各行 URL 会被串到一起。
+    """
+    ncols = len(widths)
+    cells = [split_row(l, positions) for l in run]
+    cells = [r[:ncols] + [''] * (ncols - len(r)) for r in cells]
+    new = [list(r) for r in cells]
+    changed = False
+    for c in range(ncols):
+        # 跨物理行拼接该列内容（去掉填充空白），用于还原被硬折行的 URL
+        joined = ''.join(r[c].strip() for r in cells)
+        if URI_RE.search(joined):
+            new_joined = joined
+            for pat, rep in rules:
+                new_joined = re.sub(pat, rep, new_joined)
+            if new_joined != joined:
+                changed = True
+                folded = fold_uri_safe(new_joined, widths[c])
+                if len(folded) > len(run):
+                    logger.warning(f"折行数({len(folded)})超过原行数({len(run)})，可能错位，col={c}")
+                for r in range(len(run)):
+                    new[r][c] = folded[r] if r < len(folded) else ''
+        else:
+            for r in range(len(run)):
+                cell = cells[r][c]
+                for pat, rep in rules:
+                    cell = re.sub(pat, rep, cell)
+                if cell != cells[r][c]:
+                    changed = True
+                    new[r][c] = cell
+    if not changed:
+        return run, False
+    return [build_row(new[r], widths) for r in range(len(run))], True
+
+def process_table(table_lines, rules):
+    """处理整张网格表格：逐逻辑行处理，返回 (新行列表, 是否有改动)。"""
+    borders = [l for l in table_lines if is_border(l)]
+    if not borders:
+        return table_lines, False
+    positions = border_positions(borders[0])
+    if len(positions) < 2:
+        return table_lines, False
+    widths = [positions[i + 1] - positions[i] - 1 for i in range(len(positions) - 1)]
+
+    out = []
+    changed_any = False
+    i = 0
+    while i < len(table_lines):
+        if is_border(table_lines[i]):
+            out.append(table_lines[i])
+            i += 1
             continue
+        run = []
+        while i < len(table_lines) and is_data_row(table_lines[i]):
+            run.append(table_lines[i])
+            i += 1
+        if run:
+            new_run, changed = process_run(run, positions, widths, rules)
+            changed_any = changed_any or changed
+            out.extend(new_run)
+    return out, changed_any
 
-        for root, dirs, files in os.walk(tp):
-            for file in files:
-                file_path = os.path.join(root, file)
-                if not file.endswith(('.md', '.txt', '.rst', '.html', '.yml', '.yaml', '.ipynb')):
-                    continue
+def process_rst_file(filepath, rules):
+    with open(filepath, 'r', encoding='utf-8') as f:
+        content = f.read()
+    lines = content.split('\n')
+    new_lines = []
+    i = 0
+    while i < len(lines):
+        line = lines[i]
+        if is_border(line) and i + 1 < len(lines) and is_data_row(lines[i + 1]):
+            table = []
+            j = i
+            while j < len(lines) and (is_border(lines[j]) or is_data_row(lines[j])):
+                table.append(lines[j])
+                j += 1
+            new_table, _ = process_table(table, rules)
+            new_lines.extend(new_table)
+            i = j
+        else:
+            replaced = line
+            for pat, rep in rules:
+                replaced = re.sub(pat, rep, replaced)
+            new_lines.append(replaced)
+            i += 1
+    new_content = '\n'.join(new_lines)
+    if new_content != content:
+        with open(filepath, 'w', encoding='utf-8') as f:
+            f.write(new_content)
+        logger.info(f"✅ 已处理 RST: {filepath}")
+        return True
+    return False
 
-                try:
-                    with open(file_path, 'r', encoding='utf-8') as f:
-                        content = f.read()
+# ============ 规则构建 ============
+def build_sub_list(component_configs, source_branch):
+    sub_list = []
+    for repo_name, has_git, target_html_branch, tag, url_name in component_configs:
+        sub_list.append([
+            rf'(mindspore-website\.obs\.cn-north-4\.myhuaweicloud\.com/website-images)/{source_branch}',
+            rf'\1/{target_html_branch}'
+        ])
+        sub_list.append([
+            rf'(mindspore-website\.obs\.cn-north-4\.myhuaweicloud\.com/notebook)/{source_branch}(/[\w\d/_.-]*?)',
+            rf'\1/{target_html_branch}\2'
+        ])
+    for repo_name, has_git, target_html_branch, tag, url_name in component_configs:
+        if repo_name == 'mindspore':
+            sub_list.append([
+                rf'(atomgit\.com/mindspore/docs/(?:blob|tree))/{source_branch}(/[\w\d/_.-]*?)',
+                rf'\1/{target_html_branch}\2'
+            ])
+        if repo_name == 'tutorials':
+            sub_list.append([
+                rf'(mindspore\.cn/tutorials/[\w\d/_.-]*?)/{source_branch}',
+                rf'\1/{target_html_branch}'
+            ])
+            sub_list.append([
+                rf'(www\.mindspore\.cn/tutorials/[\w\d/_.-]*?)/{source_branch}',
+                rf'\1/{target_html_branch}'
+            ])
+            sub_list.append([
+                rf'(atomgit\.com/mindspore/docs/(?:blob|tree))/{source_branch}(/[\w\d/_.-]*?tutorials)',
+                rf'\1/{target_html_branch}\2'
+            ])
+        if repo_name != 'tutorials':
+            sub_list.append([
+                rf'(mindspore\.cn/{url_name}/[\w\d/_.-]*?)/{source_branch}',
+                rf'\1/{target_html_branch}'
+            ])
+            sub_list.append([
+                rf'(www\.mindspore\.cn/{url_name}/[\w\d/_.-]*?)/{source_branch}',
+                rf'\1/{target_html_branch}'
+            ])
+            if has_git:
+                effective_ref = tag if tag else target_html_branch
+                sub_list.append([
+                    rf'(atomgit\.com/mindspore/{repo_name}/(?:blob|tree))/{source_branch}(/[\w\d/_.-]*?)',
+                    rf'\1/{effective_ref}\2'
+                ])
+                sub_list.append([
+                    rf'git clone -b {source_branch} ((?:https?://)?atomgit\.com/mindspore/{repo_name}\.git)',
+                    rf'git clone -b {effective_ref} \1'
+                ])
+                sub_list.append([
+                    rf'git clone (?!-b )((?:https?://)?atomgit\.com/mindspore/{repo_name}\.git)(?!\s+-b\b)',
+                    rf'git clone -b {effective_ref} \1'
+                ])
+    return sub_list
 
-                    new_content = content
-                    for pattern, replacement in sub_list:
-                        try:
-                            new_content = re.sub(pattern, replacement, new_content, flags=re.DOTALL)
-                        except re.error as e:
-                            logger.error(f"正则表达式错误: {pattern}, {e}")
-                            continue
-
-                    if new_content != content:
-                        with open(file_path, 'w', encoding='utf-8') as f:
-                            f.write(new_content)
-                        logger.info(f"已更新: {file_path}")
-
-                        if enable_check:
-                            atomgit_links = re.findall(
-                                r'https?://atomgit\.com/[^\s<>"\'\)]+',
-                                new_content
-                            )
-                            all_replaced_links.extend(atomgit_links)
-
-                except UnicodeDecodeError:
-                    continue
-                except Exception as e:
-                    logger.error(f"处理失败 {file_path}: {e}")
-                    continue
-
-    if enable_check and all_replaced_links:
-        validate_links(list(set(all_replaced_links)))
-
-# ============ 配置区域 ============
-target_paths = [
-    './docs/docs',
-    './docs/tutorials',
-    './docs/install',
-]
-
+# ============ 主处理 ============
+REPO_ROOT = os.getcwd()
 SOURCE_BRANCH = "{{ parameters.source_branch }}"
 ENABLE_LINK_CHECK = {{ parameters.enable_link_check | default(True) | lower }}
 
-# 组件配置：[repo_name, has_git, target_html_branch, tag, url_name]
-# 只有 MindSpore 有 tag
+target_paths = [
+    os.path.join(REPO_ROOT, 'docs'),
+    os.path.join(REPO_ROOT, 'tutorials'),
+    os.path.join(REPO_ROOT, 'install'),
+]
+
+print(f"当前工作目录: {os.getcwd()}")
+for p in target_paths:
+    print(f"  {p} 存在: {os.path.exists(p)}")
+
 component_configs = [
     {% for component, config in parameters.component_branch_map.items() %}
     [
@@ -326,99 +510,8 @@ component_configs = [
     {% endfor %}
 ]
 
-all_sub_list = []
+all_sub_list = build_sub_list(component_configs, SOURCE_BRANCH)
 
-# ============================================
-# 第一部分：OBS 链接替换（通用）
-# 使用 target_html_branch
-# ============================================
-for repo_name, has_git, target_html_branch, tag, url_name in component_configs:
-    # OBS website-images 链接
-    # 示例: website-images/master/resource/ -> website-images/r2.10.0/resource/
-    all_sub_list.append([
-        rf'(mindspore-website\.obs\.cn-north-4\.myhuaweicloud\.com/website-images)/{SOURCE_BRANCH}',
-        rf'\1/{target_html_branch}'
-    ])
-
-    # OBS notebook 链接
-    # 示例: notebook/master/tutorials/ -> notebook/r2.10.0/tutorials/
-    all_sub_list.append([
-        rf'(mindspore-website\.obs\.cn-north-4\.myhuaweicloud\.com/notebook)/{SOURCE_BRANCH}(/[\w\d/_.-]*?)',
-        rf'\1/{target_html_branch}\2'
-    ])
-
-# ============================================
-# 第二部分：各组件专属链接替换
-# ============================================
-for repo_name, has_git, target_html_branch, tag, url_name in component_configs:
-
-    # ----- 处理 mindspore（docs 仓链接）-----
-    if repo_name == 'mindspore':
-        # atomgit docs 仓链接 - 使用 target_html_branch
-        # 示例: docs/blob/master/tutorials/ -> docs/blob/r2.10.0/tutorials/
-        all_sub_list.append([
-            rf'(atomgit\.com/mindspore/docs/(?:blob|tree))/{SOURCE_BRANCH}(/[\w\d/_.-]*?)',
-            rf'\1/{target_html_branch}\2'
-        ])
-
-    # ----- 处理 tutorials -----
-    if repo_name == 'tutorials':
-        # 官网教程链接 - 使用 target_html_branch
-        # 示例: mindspore.cn/tutorials/zh-CN/master/ -> mindspore.cn/tutorials/zh-CN/r2.10.0/
-        all_sub_list.append([
-            rf'(mindspore\.cn/tutorials/[\w\d/_.-]*?)/{SOURCE_BRANCH}',
-            rf'\1/{target_html_branch}'
-        ])
-        # 带 www 前缀
-        all_sub_list.append([
-            rf'(www\.mindspore\.cn/tutorials/[\w\d/_.-]*?)/{SOURCE_BRANCH}',
-            rf'\1/{target_html_branch}'
-        ])
-        # atomgit docs 仓教程链接
-        all_sub_list.append([
-            rf'(atomgit\.com/mindspore/docs/(?:blob|tree))/{SOURCE_BRANCH}(/[\w\d/_.-]*?tutorials)',
-            rf'\1/{target_html_branch}\2'
-        ])
-
-    # ----- 处理普通组件（非教程）-----
-    if repo_name != 'tutorials':
-        # 官网链接 - 使用 target_html_branch
-        # 示例: mindspore.cn/docs/zh-CN/master/ -> mindspore.cn/docs/zh-CN/r2.10.0/
-        all_sub_list.append([
-            rf'(mindspore\.cn/{url_name}/[\w\d/_.-]*?)/{SOURCE_BRANCH}',
-            rf'\1/{target_html_branch}'
-        ])
-        # 带 www 前缀
-        all_sub_list.append([
-            rf'(www\.mindspore\.cn/{url_name}/[\w\d/_.-]*?)/{SOURCE_BRANCH}',
-            rf'\1/{target_html_branch}'
-        ])
-
-        # 仓库链接处理（仅当有独立仓库且有 tag 时）
-        if has_git and tag:
-            # atomgit 仓库链接 - 使用 tag
-            # 示例: atomgit.com/mindspore/mindspore/blob/master/ -> blob/v2.10.0/
-            all_sub_list.append([
-                rf'(atomgit\.com/mindspore/{repo_name}/(?:blob|tree))/{SOURCE_BRANCH}(/[\w\d/_.-]*?)',
-                rf'\1/{tag}\2'
-            ])
-
-            # git clone 命令（仅替换带 -b 参数的）
-            # 示例: git clone -b master https://atomgit.com/mindspore/mindspore.git
-            #    -> git clone -b v2.10.0 https://atomgit.com/mindspore/mindspore.git
-            all_sub_list.append([
-                f'git clone -b {SOURCE_BRANCH} https://atomgit.com/mindspore/{repo_name}.git',
-                f'git clone -b {tag} https://atomgit.com/mindspore/{repo_name}.git'
-            ])
-        elif has_git and not tag:
-            # 有独立仓库但没有 tag，只处理官网链接
-            logger.info(f"⚠️ 组件 {repo_name} 有独立仓库但未配置 tag，仓库链接暂不替换")
-
-        # 无独立仓库的组件（has_git=False），只处理官网链接
-
-# ============================================
-# 打印所有替换规则用于调试
-# ============================================
 logger.info("========== 替换规则列表 ==========")
 logger.info(f"源分支: {SOURCE_BRANCH}")
 logger.info(f"链接检测: {'启用' if ENABLE_LINK_CHECK else '禁用'}")
@@ -426,10 +519,52 @@ for pattern, replacement in all_sub_list:
     logger.info(f"替换: {pattern} -> {replacement}")
 logger.info("==================================")
 
-# ============================================
-# 执行替换
-# ============================================
-replace_urls(target_paths, all_sub_list, enable_check=ENABLE_LINK_CHECK)
+# ---- 遍历目标目录，处理所有文件 ----
+all_replaced_links = []
+
+for tp in target_paths:
+    if not os.path.exists(tp):
+        logger.warning(f"路径不存在: {tp}")
+        continue
+    logger.info(f"扫描目录: {tp}")
+    for root, dirs, files in os.walk(tp):
+        for file in files:
+            file_path = os.path.join(root, file)
+
+            # ---- RST 文件：走"还原折行 → 替换 → 重折行" ----
+            if file.endswith('.rst'):
+                try:
+                    if process_rst_file(file_path, all_sub_list):
+                        if ENABLE_LINK_CHECK:
+                            with open(file_path, 'r', encoding='utf-8') as f:
+                                c = f.read()
+                            all_replaced_links.extend(re.findall(r'https?://atomgit\.com/[^\s<>"\'\)]+', c))
+                except Exception as e:
+                    logger.error(f"RST 处理失败 {file_path}: {e}")
+                continue
+
+            # ---- 其他文件：普通正则替换 ----
+            if not file.endswith(('.md', '.txt', '.html', '.yml', '.yaml', '.ipynb')):
+                continue
+            try:
+                with open(file_path, 'r', encoding='utf-8') as f:
+                    content = f.read()
+                new_content = content
+                for pattern, replacement in all_sub_list:
+                    new_content = re.sub(pattern, replacement, new_content, flags=re.DOTALL)
+                if new_content != content:
+                    with open(file_path, 'w', encoding='utf-8') as f:
+                        f.write(new_content)
+                    logger.info(f"已更新: {file_path}")
+                    if ENABLE_LINK_CHECK:
+                        all_replaced_links.extend(re.findall(r'https?://atomgit\.com/[^\s<>"\'\)]+', new_content))
+            except UnicodeDecodeError:
+                continue
+            except Exception as e:
+                logger.error(f"处理失败 {file_path}: {e}")
+
+if ENABLE_LINK_CHECK and all_replaced_links:
+    validate_links(list(set(all_replaced_links)))
 ```
 
 ---
@@ -464,17 +599,26 @@ https://www.mindspore.cn/tutorials/zh-CN/master/index.html
 | `docs/blob/{source_branch}/{path}` | `docs/blob/{target_html_branch}/{path}` | `target_html_branch` |
 | `docs/tree/{source_branch}/{path}` | `docs/tree/{target_html_branch}/{path}` | `target_html_branch` |
 
-### 4. atomgit 仓库链接（仅 MindSpore 系列）
+### 4. atomgit 仓库链接
 
 | 原始模式 | 替换后 | 使用的字段 |
 |---------|--------|-----------|
-| `{repo}/(blob\|tree)/{source_branch}/{path}` | `{repo}/(blob\|tree)/{tag}/{path}` | `tag` |
+| `{repo}/(blob\|tree)/{source_branch}/{path}` | `{repo}/(blob\|tree)/{effective_ref}/{path}` | `tag`，无 tag 时用 `target_html_branch` |
 
-### 5. git clone 命令（仅 MindSpore 系列）
+### 5. git clone 命令
 
 | 原始模式 | 替换后 | 使用的字段 |
 |---------|--------|-----------|
-| `git clone {source_branch} https://...` | `git clone -b {tag} https://...` | `tag` |
+| `git clone -b {source_branch} https://...` | `git clone -b {effective_ref} https://...` | `tag`，无 tag 时用 `target_html_branch` |
+| `git clone https://...`（不带 `-b`） | `git clone -b {effective_ref} https://...` | `tag`，无 tag 时用 `target_html_branch` |
+| `git clone https://... -b {version}` | **不替换**（占位符形式） | — |
+
+### 6. RST 网格表格折行 URL
+
+| 场景 | 处理方式 |
+|------|----------|
+| 普通正文/段落中的 URL | 由本步骤的 RST 非表格分支处理 |
+| RST 网格表格中被硬折行的 URL | 由本步骤的 RST 表格分支处理（逐逻辑行，列宽按显示宽度） |
 
 ---
 
@@ -491,28 +635,28 @@ https://www.mindspore.cn/tutorials/zh-CN/master/index.html
     "tutorials": {
       "repo_name": "tutorials",
       "has_git": false,
-      "target_html_branch": "r2.10.0",
+      "target_html_branch": "r2.11.0",
       "tag": "",
       "url_name": "tutorials"
     },
     "mindspore": {
       "repo_name": "mindspore",
       "has_git": true,
-      "target_html_branch": "r2.10.0",
-      "tag": "v2.10.0",
+      "target_html_branch": "r2.11.0",
+      "tag": "v2.11.0",
       "url_name": "docs"
     },
     "mindspore-lite": {
       "repo_name": "mindspore-lite",
       "has_git": true,
-      "target_html_branch": "r2.10.0",
-      "tag": "r2.10",
+      "target_html_branch": "r2.11.0",
+      "tag": "r2.11",
       "url_name": "lite"
     },
     "mindformers": {
       "repo_name": "mindformers",
       "has_git": true,
-      "target_html_branch": "r2.0.0",
+      "target_html_branch": "r2.1.0",
       "tag": "",
       "url_name": "mindformers"
     },
@@ -540,18 +684,20 @@ https://www.mindspore.cn/tutorials/zh-CN/master/index.html
 
 | 链接类型 | 原始 | 替换后 |
 |---------|------|--------|
-| 官网教程 | `mindspore.cn/tutorials/zh-CN/master/` | `mindspore.cn/tutorials/zh-CN/r2.10.0/` |
-| 官网主文档 | `mindspore.cn/docs/zh-CN/master/` | `mindspore.cn/docs/zh-CN/r2.10.0/` |
-| 官网 Lite | `mindspore.cn/lite/zh-CN/master/` | `mindspore.cn/lite/zh-CN/r2.10.0/` |
-| 官网 MindFormers | `mindspore.cn/mindformers/zh-CN/master/` | `mindspore.cn/mindformers/zh-CN/r2.0.0/` |
+| 官网教程 | `mindspore.cn/tutorials/zh-CN/master/` | `mindspore.cn/tutorials/zh-CN/r2.11.0/` |
+| 官网主文档 | `mindspore.cn/docs/zh-CN/master/` | `mindspore.cn/docs/zh-CN/r2.11.0/` |
+| 官网 Lite | `mindspore.cn/lite/zh-CN/master/` | `mindspore.cn/lite/zh-CN/r2.11.0/` |
+| 官网 MindFormers | `mindspore.cn/mindformers/zh-CN/master/` | `mindspore.cn/mindformers/zh-CN/r2.1.0/` |
 | 官网 MindQuantum | `mindspore.cn/mindquantum/zh-CN/master/` | `mindspore.cn/mindquantum/zh-CN/r0.11/` |
 | 官网 MindStudio | `mindspore.cn/mindstudio/zh-CN/master/` | `mindspore.cn/mindstudio/zh-CN/81RC1/` |
-| atomgit docs 仓 | `docs/blob/master/tutorials/` | `docs/blob/r2.10.0/tutorials/` |
-| atomgit mindspore 仓库 | `mindspore/blob/master/README` | `mindspore/blob/v2.10.0/README` |
-| atomgit mindspore-lite 仓库 | `mindspore-lite/blob/master/README` | `mindspore-lite/blob/r2.10/README` |
-| git clone (mindspore) | `git clone -b master .../mindspore.git` | `git clone -b v2.10.0 .../mindspore.git` |
-| git clone (mindspore-lite) | `git clone -b master .../mindspore-lite.git` | `git clone -b r2.10 .../mindspore-lite.git` |
-| git clone (mindformers) | `git clone -b master .../mindformers.git` | **暂不替换** |
+| atomgit docs 仓 | `docs/blob/master/tutorials/` | `docs/blob/r2.11.0/tutorials/` |
+| atomgit mindspore 仓库 | `mindspore/blob/master/README` | `mindspore/blob/v2.11.0/README` |
+| atomgit mindspore-lite 仓库 | `mindspore-lite/blob/master/README` | `mindspore-lite/blob/r2.11/README` |
+| git clone（带 `-b`） | `git clone -b master .../mindspore.git` | `git clone -b v2.11.0 .../mindspore.git` |
+| git clone（不带 `-b`） | `git clone https://atomgit.com/mindspore/mindspore.git` | `git clone -b v2.11.0 https://atomgit.com/mindspore/mindspore.git` |
+| git clone（不带 `-b`，mindspore-lite） | `git clone https://atomgit.com/mindspore/mindspore-lite.git` | `git clone -b r2.11 https://atomgit.com/mindspore/mindspore-lite.git` |
+| git clone（`-b` 在 URL 后） | `git clone https://.../mindspore-lite.git -b {version}` | **保留原样** |
+| RST 网格表格折行 URL | `.../master/api_python/...`（跨多行） | `.../r2.11.0/api_python/...`（重新折行） |
 
 ---
 
@@ -563,8 +709,11 @@ https://www.mindspore.cn/tutorials/zh-CN/master/index.html
 | OBS Notebook 链接 | `target_html_branch` | 所有组件通用 |
 | 官网链接（`mindspore.cn/{url_name}/...`） | `target_html_branch` | 使用各组件的 `url_name` |
 | atomgit docs 仓链接 | `target_html_branch` | 仅 mindspore 组件 |
-| atomgit 仓库链接 | `tag` | **仅 MindSpore 系列有 tag** |
-| git clone 命令 | `tag` | **仅 MindSpore 系列有 tag** |
+| atomgit 仓库链接 | `tag`（无 tag 用 `target_html_branch`） | 所有有独立仓库的组件 |
+| git clone（带 `-b`） | `tag`（无 tag 用 `target_html_branch`） | 所有有独立仓库的组件 |
+| git clone（不带 `-b`） | `tag`（无 tag 用 `target_html_branch`） | 所有有独立仓库的组件 |
+| git clone（`-b` 在 URL 后） | 不替换 | 保留原样 |
+| RST 网格表格折行 URL | 同上 | 自动处理 |
 
 ---
 
@@ -606,3 +755,33 @@ https://www.mindspore.cn/tutorials/zh-CN/master/index.html
 ### Q4: 链接检测会误报吗？
 
 可能。某些仓库可能设置了访问限制或需要登录。如果确认链接无误，可以设置 `"enable_link_check": false` 禁用检测。
+
+### Q5: RST 列宽为什么按显示宽度而不是字符数？
+
+Sphinx / docutils 解析网格表格时，按**显示宽度**计算列宽：CJK 等东亚宽字符算 2 列，其余算 1 列（组合符/零宽字符算 0）。因此 `dwidth`（直接复用 `docutils.utils.column_width`）、`cpad`、`fold_by_width`、`slice_display` 全部使用显示宽度。若误用 `len()`，中文表格会错位。
+
+### Q6: RST 表格单元格里的 `\|` 和中文怎么切分？
+
+网格表格列宽按显示宽度对齐，且单元格内可能含转义竖线 `\|`，因此**不能**用 `body.split('|')` 切分。改为按边框给出的显示位置做“位置切分”（`split_row` + `slice_display`），与 docutils 完全一致。
+
+### Q7: `git clone URL -b {version}` 为什么不替换？
+
+`{version}` 是文档里的**字面占位符**，不是具体分支。因此 `-b` 在 URL 后面的形式**保留原样**。通过负向先行断言 `(?!\s+-b\b)` 排除。
+
+### Q8: 如果替换后 URL 变长导致折行数超过原物理行数怎么办？
+
+`process_run` 会检测并输出警告：
+
+```text
+折行数(N)超过原行数(M)，可能错位，col=X
+```
+
+此时需人工检查。通常 `master → r2.11.0` 长度相近，折行数不变。
+
+### Q9: 为什么必须“逐逻辑行”处理，不能整表按列拼接？
+
+一张网格表格通常由**表头 + 多个逻辑行**组成，逻辑行之间用 `+---+` 边框分隔。若把整表所有物理行按列拼接，表头文字会与下面各行的 URL 串到一起，导致内容错乱。因此 `process_table` 在每个边框处断开，仅对相邻两个边框之间的物理行做列拼接（`process_run`）。
+
+### Q10: 折行后嵌入式 URI 前必须有空白吗？
+
+是。reST 要求 `text <https://...>` 的 `<` 前有空白。单元格内容跨行拼接时会吃掉换行带来的空白，若折叠点恰好落在 `<` 前，会产生 “Unknown target name” 错误。`fold_uri_safe` 用 `EMBED_URI_RE` 在无空白前置的 `<` 前重新插入换行，保证合法。
