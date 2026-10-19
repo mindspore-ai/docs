@@ -210,11 +210,9 @@ unzip OpenCompassData-core-20240207.zip
 
 ### 4.2 设置config文件和运行脚本
 
-模型的config文件设置参考[text](https://opencompass.readthedocs.io/zh-cn/latest/advanced_guides/accelerator_intro.html#api)
-
 修改`path`为部署模型的名字，修改`openai_api_base`为部署模型的`url`，配置模型的`tokenizer_path`，`batch_size`可以适当调大来加速。
 
-数据集一般不用自己配置，参考[text](https://opencompass.readthedocs.io/zh-cn/latest/advanced_guides/accelerator_intro.html#api)获得推荐配置，或是在每个数据集的config路径下查找合适的配置。例如bbh（big bench hard）数据集，在`opencompass/opencompass/configs/datasets/bbh/`下有`bbh_gen_ee62e9.py`、`bbh_0shot_nocot_academic_gen.py`等，分别是zero-shot和five-shot的配置，根据需要自由选择。
+数据集一般不用自己配置，在每个数据集的config路径下查找合适的配置。例如bbh（big bench hard）数据集，在`opencompass/opencompass/configs/datasets/bbh/`下有`bbh_gen_ee62e9.py`、`bbh_0shot_nocot_academic_gen.py`等，分别是zero-shot和five-shot的配置，根据需要自由选择。
 
 运行脚本参考[eval_api_demo.py](https://github.com/open-compass/opencompass/blob/main/examples/eval_api_demo.py)进行修改，导入需要评测的模型配置和需要测试的数据集即可
 
@@ -243,5 +241,3 @@ hard_coded_path = '/path/to/datasets/bbh' \
 ```bash
 opencompass /path/to/your/scripts
 ```
-
-如果需要额外的参数设置，参考[text](https://opencompass.readthedocs.io/zh-cn/latest/user_guides/experimentation.html)进行额外配置即可。
