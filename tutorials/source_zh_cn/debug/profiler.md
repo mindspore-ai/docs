@@ -77,7 +77,7 @@ with mindspore.profiler.profile(activities=[ProfilerActivity.CPU, ProfilerActivi
 跳过wait个step；warmup表示预热阶段，跳过warmup个step；active表示采集active个step；repeat表示重复执行次数。其中1个repeat包括wait+warmup+active个step。
 一个repeat内所有step执行完之后，会执行on_trace_ready配置的回调函数解析性能数据。各个参数的详细介绍请参考[schedule API文档](https://www.mindspore.cn/docs/zh-CN/r2.11.0/api_python/mindspore/mindspore.profiler.schedule.html)。
 
-![schedule.png](./images/schedule.png)
+![schedule参数配置原理](./images/schedule.png)
 
 例如：模型训练共100个step（0-99），此时配置schedule为 `schedule(skip_first=10, wait=10, warmup=5, active=5, repeat=2)` 。那么profiler将会先跳过前10个step（0-9）。从step 10开始，第1个repeat将等待10个step（10-19），预热5个step（20-24），最终采集5个step（25-29）的性能数据。第2个repeat重复等待10个step（30-39），预热5个step（40-44），最终采集5个step（45-49）的性能数据。
 
@@ -209,7 +209,7 @@ analyse("./profiler_data_path") # './profiler_data_path'为离线解析数据路
 
 针对大集群场景传统Profiler流程重、数据量大的问题，提供轻量化Profiler能力，帮助大集群场景轻量化获取模型关键指标性能数据。如下图所示，用户可通过mstx.mark、mstx.range_start、mstx.range_end接口自定义打点，同时支持通信算子的内置打点，用户开启轻量化打点功能，通讯算子前后将自动实现打点。所有的打点任务由runtime下发至device侧，可呈现打点任务在host侧和device侧的时间点或时间片。
 
-![mstx_profiler.png](./images/mstx_profiler.png)
+![使用轻量化打点功能](./images/mstx_profiler.png)
 
 使用轻量化打点功能时需要保证[_ExperimentalConfig](https://www.mindspore.cn/docs/zh-CN/r2.11.0/api_python/mindspore/mindspore.profiler._ExperimentalConfig.html)接口中的mstx配置为True，同时注意轻量化打点数据只在profiler的数据采集区间生效。mstx接口详细介绍请参考[mstx API文档](https://www.mindspore.cn/docs/zh-CN/r2.11.0/api_python/mindspore/mindspore.profiler.mstx.html)。
 
@@ -385,7 +385,7 @@ mstx.range_end(range_id)
 
 在大模型训练过程中，由于一些不可预知的引入，导致模型出现了一些性能劣化的问题，例如算子计算时间慢、通信快慢卡等。需要定位性能劣化的根本原因，并解决问题。
 
-![profiler_process.png](./images/profiler_process.png)
+![性能调优流程](./images/profiler_process.png)
 
 性能调优最重要的就是对症下药，先定界问题，再对问题进行针对性调优。
 
@@ -403,17 +403,17 @@ MindStudio Insight提供了丰富的调优分析手段，可视化呈现真实�
 
 - 首先，在MindStudio Insight界面中选择'导入数据'按钮，导入采集的profiler数据，以下为导入多卡性能数据。
 
-  ![load_data.png](./images/load_data.png)
+  ![导入profiler数据](./images/load_data.png)
 
-  ![load_data_path.png](./images/load_data_path.png)
+  ![输入文件数据](./images/load_data_path.png)
 
   可以在时间线界面看出导入了8卡数据，如下图：
 
-  ![time_line.png](./images/time_line.png)
+  ![时间线界面](./images/time_line.png)
 
 - 接下来，可以在概览界面展示所选通信域下每张卡的计算、通信、空闲时间占比情况，并提供专家建议。
 
-  ![overview.png](./images/overview.png)
+  ![概览界面](./images/overview.png)
 
 各图例相关数据指标的含义如下：
 
@@ -439,21 +439,21 @@ MindStudio Insight提供了丰富的调优分析手段，可视化呈现真实�
 
 当数据指标现象指示为**计算**问题时，可以直接查看异常卡的算子数据，并与正常卡进行比较。此时可以使用MindStudio Insight的卡间性能比对功能，设置两卡进入比对模式，并在算子界面查看结果。其中饼状图展示了各类算子的耗时占比，表格展示了各类算子的详细信息。
 
-![operations.png](./images/operations.png)
+![算子界面](./images/operations.png)
 
 #### 调度问题
 
 当数据指标现象指示为**调度**问题时，需要到时间线界面将异常卡和正常卡进行比较，进一步定位出现问题的算子。
 
-![time_line_on_line.png](./images/time_line_on_line.png)
+![在时间线界面，异常卡和正常卡进行比较](./images/time_line_on_line.png)
 
 进入时间线界面，选择HostToDevice连线类型。HostToDevice展示了CANN层算子到AscendHardware的算子的下发执行关系，以及CANN层算子到HCCL通信算子的下发执行关系，用于定位调度问题。
 
-![time_line_cann.png](./images/time_line_cann.png)
+![下发执行关系展示](./images/time_line_cann.png)
 
 HostToDevice的连线通常有两种形态：倾斜和竖直。下图是一个存在调度问题的案例。如果HostToDevice连线如左侧所示，是倾斜的，说明此时间段调度任务安排合理，昇腾设备是满负荷执行计算和通信任务的。如果HostToDevice连线如右侧所示，是竖直的，说明昇腾设备此时快速执行完了CPU下发的任务，未满负荷进行计算和通信任务，这一般表示存在调度问题。
 
-![time_line_cann_details.png](./images/time_line_cann_details.png)
+![HostToDevice的连线状态](./images/time_line_cann_details.png)
 
 #### 通信问题
 
@@ -465,7 +465,7 @@ HostToDevice的连线通常有两种形态：倾斜和竖直。下图是一个�
 
   分析时可以先查看传输大小，分析在这个集合通信中，每张卡的传输量是否存在差异、是否有分配不均的情况。其次，再查看传输时长，如果某张卡的传输时长非常短，那它极有可能是在处理其他事情，导致下游卡长时间等待。最后可以查看带宽情况，如果不同卡间的带宽数据差异过大或带宽数值异常，那都意味着通信域中存在异常卡。
 
-  ![communication_matrix.png](./images/communication_matrix.png)
+  ![MindStudio Insight通信矩阵可视化界面](./images/communication_matrix.png)
 
 - 通信时长：
 
@@ -473,7 +473,7 @@ HostToDevice的连线通常有两种形态：倾斜和竖直。下图是一个�
 
   用户选择具体通信域后，即可在通信时长界面中查看通信域中各个计算卡的耗时汇总情况，以及每个通信算子的时序图和通信时长的分布图，从而快速获得通信算子的相对位置关系以及详细通信数据。
 
-  ![communication_time.png](./images/communication_time.png)
+  ![在通信时长界面查看相对位置关系和详细数据](./images/communication_time.png)
 
 ## 常见工具问题及解决办法
 

@@ -14,7 +14,7 @@ When developing operators using [C++ Interface](https://www.mindspore.cn/tutoria
 
 MindSpore uses Python as the frontend and implements the backend with C++. Each operator execution needs to go through a series of operations such as Python interpretation and execution, operator inference, and operator memory allocation before being dispatched to the GPU/NPU. This results in relatively slower execution speeds. To address this performance issue, MindSpore's dynamic graph adopts a multi-stage pipeline runtime, where various stages of operator dispatch are executed in parallel, thereby improving operator dispatch speed.
 
-![pyboost pipeline](../images/customopbuilder_pyboost.png)
+![Schematic Diagram of the Various Stages in the Multi-Level Pipeline Operator Distribution Process](../images/customopbuilder_pyboost.png)
 
 As shown in the figure, the operator execution process in MindSpore's dynamic graph is divided into four pipeline stages:
 

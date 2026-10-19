@@ -24,7 +24,7 @@ Before performing model sharding and parallelism, you need to analyze the parall
 
 The following figure shows the execution of one Qwen2 layer with a parallelism degree of 2.
 
-![matmul1](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.11.0/tutorials/source_zh_cn/model_infer/ms_infer/images/llm_qwen2_parallel_split.png)
+![Qwen2 Splitting Parallelism](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.11.0/tutorials/source_zh_cn/model_infer/ms_infer/images/llm_qwen2_parallel_split.png)
 
 As shown in the figure, RmsNorm cannot be sharded. Therefore, an AllReduce operator needs to be added to the network before each RmsNorm computing to synchronize the computing results of each subprocess. The result after RmsNorm is usually **hidden_states**. Therefore, the result can be sharded by column-wise Linear and allocated to each subprocess for computing and then normalized by RowLinear.
 
@@ -259,8 +259,8 @@ Starting with the original implementation of `nn.Dense` in MindSpore, we can bui
 
    In addition to MatMul, the embedding layer can also be parallelized. The embedding weights can be sharded across multiple devices, with each device responsible for mapping a different range of token IDs.
 
-   ![embedding1](./images/embedding1.png)
-   ![embedding2](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.11.0/tutorials/source_zh_cn/model_infer/ms_infer/images/embedding2.png)
+   ![Embedding1](./images/embedding1.png)
+   ![Embedding2](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.11.0/tutorials/source_zh_cn/model_infer/ms_infer/images/embedding2.png)
 
    Based on nn.Embedding, build an embedding layer for model parallelism.
 
@@ -327,7 +327,7 @@ Starting with the original implementation of `nn.Dense` in MindSpore, we can bui
 
 It can be seen that the tensor is processed sequentially. First, it passes through the `ColumnParallelLinear` column-wise MatMul to obtain the parallelized results. Then, it is input to the `RowParallelLinear` row-wise MatMul, resulting in the complete output of the two MatMul operations.
 
-![Column+Row](../../../source_zh_cn/model_infer/ms_infer/images/column+row.png)
+![Two MatMul Operations](../../../source_zh_cn/model_infer/ms_infer/images/column+row.png)
 
 Based on the preceding analysis, TransformerModel can be modified to support parallelism.
 
@@ -335,7 +335,7 @@ Based on the preceding analysis, TransformerModel can be modified to support par
 
     Take the multi-head attention (MHA) module as an example. The attention module in the Transformer is multi-headed, and attention heads are independent of each other. Therefore, the activation value can be sharded by `hidden_size` while ensuring that a single attention head is complete. For example, assume that the number of MHA headers (`num_heads`) is 16, the number of dimensions (`head_dim`) of each header is 256, then `hidden_size` is 4096, and the number of linear in/out dimensions of Q/K/V is 4096. When `tensor_model_parallel` is set to `4` for the model parallelism, these linear results are allocated to four devices. The shape of each device is (4096,1024), indicating that each device computes 4 heads.
 
-    ![MHA](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.11.0/tutorials/source_zh_cn/model_infer/ms_infer/images/MHA.png)
+    ![Attention](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.11.0/tutorials/source_zh_cn/model_infer/ms_infer/images/MHA.png)
 
     The following is an example of the Attention module code:
 

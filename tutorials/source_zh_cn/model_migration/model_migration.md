@@ -66,7 +66,7 @@ dataset.batch将数据集中连续batch_size条数据，组合为一个批数据
 
 ### 与PyTorch数据集构建差别
 
-![generatordataset_dataloader.png](images/generatordataset_dataloader.png)
+![MindSpore的GeneratorDataset与PyTorch的DataLoader的主要差别](images/generatordataset_dataloader.png)
 
 MindSpore的GeneratorDataset与PyTorch的DataLoader的主要差别有：
 

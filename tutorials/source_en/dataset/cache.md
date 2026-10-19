@@ -14,13 +14,13 @@ Currently, the cache service supports only <b>single-node cache</b>. That is, th
 
     You can use the cache in the dataset loading operation. The loaded data is stored in the cache server. If the same data is required subsequently, the data can be directly loaded from the cache server, avoiding repeated loading from the disk.
 
-    ![cache on leaf pipeline](./images/cache_dataset.png)
+    ![Cache the Loaded Raw Dataset to Avoid Reloading It](./images/cache_dataset.png)
 
 - Cache the data processed by augmentation.
 
     You can also use the cache in the `map` operation. The data processed by augmentation (such as image cropping or resizing) is directly cached, avoiding repeated data augmentation operations and reducing unnecessary computations.
 
-    ![cache on map pipeline](./images/cache_processed_data.png)
+    ![Cache the Data Processed by Augmentation](./images/cache_processed_data.png)
 
 ## Data Cache Process
 

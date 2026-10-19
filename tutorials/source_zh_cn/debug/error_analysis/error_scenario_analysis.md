@@ -10,7 +10,7 @@
 
 数据处理过程出现报错时，报错信息如图1所示，在报错信息中包含C++侧报错信息。通常数据处理的C++侧操作与Python侧同名，可以通过报错信息，确定Python代码中哪个数据处理操作报错，找到报错代码位置。
 
-![minddata-errmsg](images/minddata_errmsg.png)
+![MindData报错信息](images/minddata_errmsg.png)
 
 *图 1*
 
@@ -44,7 +44,7 @@
 
 通常情况下，报错信息中可能包含有`WARNING`日志，进行错误分析时优先分析Traceback后面的报错内容。
 
-![pynative-errmsg](images/pynative_errmsg.png)
+![PyNative报错信息](images/pynative_errmsg.png)
 
 *图 2*
 
@@ -58,7 +58,7 @@
 
 静态图模式下，MindSpore首先将网络结构编译成计算图，然后再执行图中涉及的计算操作。因此，静态图模式下的报错问题包括计算图编译报错问题和计算图执行报错问题。计算图编译报错的报错信息如图3所示，发生报错时自动保存`analyze_failed.ir`文件，帮助分析报错代码的位置。
 
-![graph-errmsg](../images/graph_errmsg.png)
+![Graph报错信息](../images/graph_errmsg.png)
 
 *图 3*
 
