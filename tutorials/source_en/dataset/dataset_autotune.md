@@ -8,7 +8,7 @@ MindSpore provides an automatic data tuning tool, Dataset AutoTune, for automati
 
 Throughout the training process, the Dataset AutoTune module continuously detects whether the current training performance bottleneck is on the data side or the network side. If the bottleneck is detected on the data side, further parameter tuning will be performed for each operation in the data processing pipeline (e.g., GeneratorDataset, map, batch, and such data processing operations), and the parameters that can be tuned at present include the number of worker threads for the operation (num_parallel_workers), and the depth of the internal queue (prefetch_size).
 
-![autotune](images/autotune.png)
+![Dataset AutoTune for Dataset Pipeline](images/autotune.png)
 
 With Dataset AutoTune enabled, MindSpore will sample dataset statistics at a given interval, which is tuneable by the user.
 

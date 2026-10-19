@@ -18,7 +18,7 @@ from mindspore import ops, nn, Tensor, Parameter
 
 Computing graphs are a way to represent mathematical functions in a graph-theoretic language and a unified way to represent neural network models in a deep learning framework. We will construct computing functions and neural networks based on the following computing graphs.
 
-![compute-graph](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/source_zh_cn/beginner/images/comp-graph.png)
+![Computational Graph for Computational Functions and Neural Networks](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/source_zh_cn/beginner/images/comp-graph.png)
 
 In this model, $x$ is the input, $y$ is the correct value, and $w$ and $b$ are the parameters to be optimized.
 

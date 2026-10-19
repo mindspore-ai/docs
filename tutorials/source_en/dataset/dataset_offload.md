@@ -32,7 +32,7 @@ The current supported data augmentation operations which can perform heterogeneo
 The following figures show the typical computation process of how to use heterogeneous acceleration in the given dataset
 pipeline.
 
-![offload](images/offload_process.PNG)
+![The Typical Computation Process of How to Use Heterogeneous Acceleration](images/offload_process.PNG)
 
 Heterogeneous acceleration has two APIs to allow users enable this functionality:
 
