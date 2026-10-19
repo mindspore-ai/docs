@@ -180,6 +180,23 @@ def extra_download(user, pd, wgetdir, extra_whl_path, extra_whl_name, whl_dir):
                     if os.path.exists(save_path):
                         os.remove(save_path)
 
+def release_download(release_url, path, name):
+    urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+    # 判断path是否为url
+    if path.startswith("https://"):
+        download_url = path + name
+    else:
+        download_url = release_url + path + name
+    try:
+        downloaded = requests.get(download_url, stream=True, verify=False, timeout=30)
+        with open(name, 'wb') as fd:
+            for chunk in downloaded.iter_content(chunk_size=512):
+                if chunk:
+                    fd.write(chunk)
+        print(f"Download {name} success!")
+    except Exception as e:
+        print(f"Failed to download {name}: {e}")
+
 #######################################
 # 运行检测
 #######################################
@@ -404,10 +421,16 @@ def main(version, user, pd, WGETDIR, release_url, generate_list, api_detect):
                 if data[i]['name'] == "mindscience":
                     wgetdir = WGETDIR + "mindspore"
                 if isinstance(data[i]['extra_whl_path'], str):
-                    extra_download(user, pd, wgetdir, data[i]['extra_whl_path'], data[i]['extra_whl_name'], WHLDIR)
+                    if data[i]['extra_whl_path'].startswith("http"):
+                        release_download("", data[i]['extra_whl_path'], data[i]['extra_whl_name'])
+                    else:
+                        extra_download(user, pd, wgetdir, data[i]['extra_whl_path'], data[i]['extra_whl_name'], WHLDIR)
                 elif isinstance(data[i]['extra_whl_path'], list):
                     for j in range(len(data[i]['extra_whl_path'])):
-                        extra_download(user, pd, wgetdir, data[i]['extra_whl_path'][j], data[i]['extra_whl_name'][j], WHLDIR)
+                        if data[i]['extra_whl_path'][j].startswith("http"):
+                            release_download("", data[i]['extra_whl_path'][j], data[i]['extra_whl_name'][j])
+                        else:
+                            extra_download(user, pd, wgetdir, data[i]['extra_whl_path'][j], data[i]['extra_whl_name'][j], WHLDIR)
 
             # 下载tar包
             if 'tar_path' in data[i].keys() and data[i]['tar_path'] != '':
