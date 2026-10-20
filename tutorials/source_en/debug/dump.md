@@ -10,7 +10,7 @@ The MindSpore Dump functionality has been gradually migrated to the [msprobe too
 
 > [msprobe](https://atomgit.com/Ascend/msprobe) is a toolkit under the MindStudio Training Tools suite, specifically for accuracy debugging. It primarily includes functionalities such as accuracy pre-inspection, overflow detection, and accuracy comparison. Currently, it is compatible with the PyTorch and MindSpore frameworks.
 
-The Dump features for dynamic graphs have been fully migrated to the msprobe tool and are enabled through the msprobe tool entry point. For more details, please refer to the [msprobe Tool MindSpore Scenario Accuracy Data Collection Guide](https://atomgit.com/Ascend/msprobe/blob/master/docs/en/dump/mindspore_data_dump_instruct.md).
+The Dump features for dynamic graphs have been fully migrated to the msprobe tool and are enabled through the msprobe tool entry point.
 
 For graphs in Ascend ms_backend and CPU/GPU backends, these functionalities are still enabled through the framework entry points but will be gradually migrated to the msprobe tool in subsequent updates.
 
