@@ -271,11 +271,7 @@ In graph mode, it is recommended to adopt a "from coarse to fine" hierarchical l
 1. L0-level data collection: First, perform data dumping on the overall or module-level outputs, and use the automatic comparison function of tools to identify modules with significant differences.
 2. L2-level fine-grained dumping: Based on the initial localization, conduct fine-grained data collection for suspicious operators within the module to further investigate the precision deviations of specific operators.
 
-Currently, the msprobe accuracy analysis tool provides hierarchical data collection and comparison capabilities, effectively supporting the localization of such issues. Relevant operations can refer to the following documents:
-
-* [msprobe Tool MindSpore Scenario Accuracy Data Collection Guide](https://atomgit.com/Ascend/msprobe/blob/master/docs/en/dump/mindspore_data_dump_instruct.md)
-* [msprobe Tool PyTorch Scenario Accuracy Data Collection Guide](https://atomgit.com/Ascend/msprobe/blob/master/docs/en/dump/pytorch_data_dump_instruct.md)
-* [Accuracy comparison of MindSpore scenarios](https://atomgit.com/Ascend/msprobe/blob/master/docs/en/accuracy_compare/mindspore_accuracy_compare_instruct.md)
+Currently, the msprobe accuracy analysis tool provides hierarchical data collection and comparison capabilities, effectively supporting the localization of such issues.
 
 #### Comparison of local norm Values for step1
 
