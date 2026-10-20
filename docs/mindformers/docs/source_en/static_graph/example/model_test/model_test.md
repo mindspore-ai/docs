@@ -210,11 +210,9 @@ unzip OpenCompassData-core-20240207.zip
 
 ### 4.2 Setting the config File and Running Script
 
-For details about how to set the **config** file of the model, see [text](https://opencompass.readthedocs.io/en/latest/advanced_guides/accelerator_intro.html).
-
 Change `path` to the name of the deployed model, change `openai_api_base` to the `url` of the deployed model, and set `tokenizer_path` of the model. You can increase the value of `batch_size` for acceleration.
 
-Generally, you do not need to configure the dataset. You can obtain the recommended configuration by referring to [text](https://opencompass.readthedocs.io/en/latest/advanced_guides/accelerator_intro.html) or find the appropriate configuration in the **config** path of each dataset. For example, in the big bench hard (BBH) dataset, there are `bbh_gen_ee62e9.py` and `bbh_0shot_nocot_academic_gen.py` in `opencompass/opencompass/configs/datasets/bbh/`, which are the configurations of **zero-shot** and **five-shot**, respectively. Select the configuration as required.
+Generally, you do not need to configure the dataset. You can find the appropriate configuration in the **config** path of each dataset. For example, in the big bench hard (BBH) dataset, there are `bbh_gen_ee62e9.py` and `bbh_0shot_nocot_academic_gen.py` in `opencompass/opencompass/configs/datasets/bbh/`, which are the configurations of **zero-shot** and **five-shot**, respectively. Select the configuration as required.
 
 Modify the script by referring to [eval_api_demo.py](https://github.com/open-compass/opencompass/blob/main/examples/eval_api_demo.py). Import the model configurations and datasets to be tested.
 
@@ -243,5 +241,3 @@ Run the following command to start the evaluation:
 ```bash
 opencompass /path/to/your/scripts
 ```
-
-If additional parameter settings are required, refer to [text](https://opencompass.readthedocs.io/en/latest/advanced_guides/accelerator_intro.html) for additional configurations.
