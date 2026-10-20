@@ -27,7 +27,7 @@ MindSpore提供了一种运算负载均衡的技术，可以将MindSpore的Tenso
 
 下图显示了给定数据处理管道使用异构加速的典型计算过程。
 
-![offload](./images/offload_process.PNG)
+![使用异构加速的典型计算过程](./images/offload_process.PNG)
 
 异构加速功能提供了两个API以允许用户启用此功能：
 

@@ -10,19 +10,19 @@
 
 参数权重的切分策略是十分重要的，尤其对大模型来说，因为参数权重引起的内存消耗占据模型训练总内存消耗的大部分。因此，涉及权重的算子通常需要显式地配置切分策略。在下图的两个例子中，涉及权重的Gather和MatMul算子配置了切分策略，而其他算子没有配置。这分别对应[MindSpore TransFormers](https://atomgit.com/mindspore/mindformers/blob/master/mindformers/modules/transformer/transformer.py)中的数据并行VocabEmbedding层和混合并行FeedForward层。
 
-![sp_case1_zh](./images/sp_case1_zh.png "配置涉及权重的算子")
+![配置涉及权重的算子](./images/sp_case1_zh.png)
 
 ### 配置维度改变/轴改变的算子
 
 深度学习框架的算子大致可以分为两类：语义简单的维度保持的算子；会改变输入张量维度的算子。对于维度保持算子，策略传播算法可以较容易地将切分策略传播出去。但是，对于维度改变算子，显式地配置切分策略才能更好地表达用户的初始想法，避免策略传播算法推导出非用户期望的切分策略。常见的维度改变/轴改变算子有：[ReduceMean](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.ReduceMean.html)、[ReduceSum](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.ReduceSum.html)、[Transpose](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.Transpose.html)、[StridedSlice](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.StridedSlice.html)、[MatMul](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.MatMul.html)与[BatchMatMul](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.BatchMatMul.html)。在下图的例子中，ReduceMean和MatMul是维度改变算子，它们被配置了切分策略。
 
-![sp_case2_zh](./images/sp_case2_zh.png "配置维度改变的算子")
+![配置维度改变的算子](./images/sp_case2_zh.png)
 
 ### 配置并行策略改变的边界算子
 
 对于类ResNet模型，模型的不同部分偏好的并行方式不同：前半部分使用数据并行，后半部分使用模型并行，以此获得最优的迭代性能。对于Llama类大模型，当vocab_size过大时，出于对内存的考虑，可能会选择模型并行切分；当sequence_length过大时，也可能会选择序列并行的策略。以上策略属于用户根据模型和硬件信息精心配置的策略。Sharding Propagation是一种朴素的寻找重排代价最低的算法，并不能自动找到精心配置的策略，因此，对于用户精心调优的算子策略，需要对其进行专门的配置。在下图的例子中，第一个MatMul配置了数据并行的策略，它会将数据并行的策略向前传播到模型的前半部分；第二个MatMul配置了模型并行的策略，它会将模型并行的策略向后传播到模型的后半部分。
 
-![sp_case3_zh](./images/sp_case3_zh.png "配置并行方式改变的边界算子")
+![配置并行方式改变的边界算子](./images/sp_case3_zh.png)
 
 ### 配置融合算子
 

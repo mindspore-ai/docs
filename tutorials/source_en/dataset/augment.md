@@ -350,7 +350,7 @@ Users can use the `RandomSelectSubpolicy` interface of the `mindspore.dataset.vi
 
 > For a better demonstration of the effect, only 5 images are loaded here, and no `shuffle` operation is performed when reading, nor `Normalize` and `HWC2CHW` operations are performed when automatic data augmentation is performed.
 
-![augment](./images/auto_augmentation.png)
+![Automatic Data Augmentation](./images/auto_augmentation.png)
 
 The running result shows the augmentation effect of each image in the batch. The vertical direction represents 5 images of 1 batch, and the horizontal direction represents 5 batches.
 

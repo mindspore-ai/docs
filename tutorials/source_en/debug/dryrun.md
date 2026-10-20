@@ -10,7 +10,7 @@ In the training process of large-scale deep learning models, the memory consumpt
 
 The MindSpore framework provides a DryRun mechanism that mocks all device-side interfaces, and the training process only runs the host-side processes within the framework. This allows for simulating the memory consumption of each rank in a large cluster in a local environment, efficiently simulating device memory and computing performance without relying on actual large cluster resources, and pre-evaluating and optimizing the rationality of the model's parallel strategy.
 
-![dryrun](./images/dryrun_en.png)
+![The Role of DryRun in the Hyperparameter Tuning Process](./images/dryrun_en.png)
 
 ### Usage
 
@@ -51,7 +51,7 @@ Adds statistics on the working memory of operators on top of `1`, occupying CPU 
 
 Use the environment variable `export MS_ALLOC_CONF=memory_tracker:True` to enable memory_tracker. After running, a `rank0/memory_block.csv` file will be generated in the running directory to view the working memory of operators.
 
-![mem_tracker](./images/mem_tracker.png)
+![Generate a .csv File in the Working Directory](./images/mem_tracker.png)
 
 As shown in the figure, this graph displays the workspace size of the IndexSelect operator as 77824, approximately 76KB.
 
@@ -61,7 +61,7 @@ Adds runtime statistics of computing operators on top of `2`, occupying CPU reso
 
 After enabling profiling, the `trace_view.json` file can be found, as shown below:
 
-![op_time_consuming](./images/op_time_consuming.png)
+![After Enabling Profiling, the `trace_view.json` File Can Be Found](./images/op_time_consuming.png)
 
 We can see that the time consumption of this computing operator is 0.109ms.
 

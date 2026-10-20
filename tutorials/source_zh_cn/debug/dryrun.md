@@ -10,7 +10,7 @@
 
 MindSpore框架提供了DryRun机制，模拟（mock）所有的device侧接口，训练过程只运行框架内的host端流程。从而能够在本地环境中模拟大集群中每个rank的内存消耗情况，在不依赖实际大集群资源的情况下，高效地模拟设备内存和计算性能，预先评估和优化自身模型并行策略的合理性。
 
-![dryrun](./images/dryrun.png)
+![调整超参流程中DryRun的作用](./images/dryrun.png)
 
 ### 使用方法
 
@@ -51,7 +51,7 @@ Actual peak memory usage (with fragments): 26244M
 
 使用环境变量`export MS_ALLOC_CONF=memory_tracker:True`打开memory_tracker后，会在运行目录下生成`rank0/memory_block.csv`文件，用于查看算子的工作内存。
 
-![mem_tracker](./images/mem_tracker.png)
+![运行目录下生成.csv文件](./images/mem_tracker.png)
 
 如图所示，该图展示了IndexSelect这个算子的workspace大小为77824，约为76KB。
 
@@ -61,7 +61,7 @@ Actual peak memory usage (with fragments): 26244M
 
 开启profiling后，可以找到`trace_view.json`文件，如下图所示：
 
-![op_time_consuming](./images/op_time_consuming.png)
+![开启profiling后，找到`trace_view.json`文件](./images/op_time_consuming.png)
 
 我们可以看到，该计算算子的耗时为0.109ms。
 

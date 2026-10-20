@@ -16,7 +16,7 @@ The overall architecture of MindSpore is as follows:
 2. Deep Learning + Scientific Computing: Provides developers with various Python interfaces required for AI model development, preserving developers' workflow habits in the Python ecosystem;
 3. Core: As the core of the AI framework, it builds the Tensor data structure, basic operation operators, autograd module for automatic differentiation, Parallel module for parallel computing, compile capabilities, and runtime management module.
 
-![arch](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindspore/source_en/features/images/arch_en.png)
+![MindSpore Architecture](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindspore/source_en/features/images/arch_en.png)
 
 ### Design Philosophy
 
@@ -34,7 +34,7 @@ The Huawei Atlas AI computing solution is based on the Ascend series AI processo
 
 The Ascend AI full-stack is shown below:
 
-![Ascend full stack](./images/introduction1.png)
+![Ascend Full Stack](./images/introduction1.png)
 
 The functions of each module are described as follows:
 

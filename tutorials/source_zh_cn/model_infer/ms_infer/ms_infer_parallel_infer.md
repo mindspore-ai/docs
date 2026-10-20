@@ -24,7 +24,7 @@
 
 下图是在并行度为2的1层Qwen2的切分执行示意图：
 
-![matmul1](images/llm_qwen2_parallel_split.png)
+![Qwen2的切分执行](images/llm_qwen2_parallel_split.png)
 
 从图中可以看出，由于RmsNorm无法切分，因此每次RmsNorm计算前，需要在网络中加入一个AllReduce的算子同步各个子进程的计算结果。而RmsNorm之后的结果，一般都是hidden_states，因此可以通过一个列切的Linear进行切分计算分配到各个子进程上。在需要归一的时候，可以通过行切的RowLinear进行归一。
 
@@ -40,9 +40,9 @@ Linear层作为切分主要的网络层，其核心是MatMul矩阵计算，因�
 
 在大模型计算中，矩阵乘（MatMul）不管是在权重还是计算量上都占了相当大的比例。观察矩阵乘，其拥有列可切分性（Column-wise Parallelism）和行可切分性（Row-wise Parallelism）。
 
-![Column-wise Parallelism](images/column.png)
+![列可切分性](images/column.png)
 
-![Row-wise Parallelism](images/row.png)
+![行可切分性](images/row.png)
 
 以MindSpore原始实现的`nn.Dense`为起点，分别构建列切和行切的矩阵乘实现。
 
@@ -328,7 +328,7 @@ Linear层作为切分主要的网络层，其核心是MatMul矩阵计算，因�
 
 可以看出，张量按顺序先经过`ColumnParallelLinear`列切矩阵乘得到并行的结果，然后输入`RowParallelLinear`行切矩阵乘，就能得到完整的两次矩阵乘结果。
 
-![Column+Row](images/column+row.png)
+![两次矩阵乘结果](images/column+row.png)
 
 根据以上分析，可以对TransformerModel模型修改为支持并行切分的模型结构。
 
@@ -336,7 +336,7 @@ Linear层作为切分主要的网络层，其核心是MatMul矩阵计算，因�
 
     以MHA（Multi Head Attention）为例，Transformer中典型的Attention模块是多头的，每个注意力头相互独立。因此在保证单个注意力头完整的情况下，激活值在`hidden_size`的维度是可切的。例如，假设一个MHA的头数（`num_heads`）是16，每个头的维度（`head_dim`）是256，那么`hidden_size`就是4096，计算Q/K/V的Linear的in/out都是4096。当模型并行设置为`tensor_model_parallel=4`时，这些Linear被切分到4个device，每个device的shape为(4096,1024)，意味着每个device计算4个头。
 
-    ![MHA](images/MHA.png)
+    ![Attention](images/MHA.png)
 
     Attention模块编码示例：
 

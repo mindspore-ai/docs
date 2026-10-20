@@ -75,7 +75,7 @@ For the complete case, refer to [custom for loop collection complete code exampl
 
 As illustrated in the following figure, schedule has 5 configurable parameters: skip_first, wait, warmup, active, and repeat. Among them, skip_first indicates skipping the first skip_first steps; wait represents the waiting phase, skipping wait steps; warmup represents the warm-up phase, skipping warmup steps; active indicates collecting active steps; repeat indicates the number of repetitions. One repeat includes wait+warmup+active steps. After all steps in a repeat are executed, the callback function configured via on_trace_ready will be executed to parse performance data. For detailed descriptions of each parameter, please refer to the [schedule API](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.profiler.schedule.html).
 
-![schedule.png](../../source_zh_cn/debug/images/schedule.png)
+![The Principle of Configuring Schedule Parameters](../../source_zh_cn/debug/images/schedule.png)
 
 For example: If there are 100 steps (0-99) in model training and the schedule is configured as `schedule(skip_first=10, wait=10, warmup=5, active=5, repeat=2)` . Profiler will first skip the first 10 steps (0-9). Starting from step 10, the first repeat will wait for 10 steps (10-19), warm up for 5 steps (20-24), and finally collect performance data for 5 steps (25-29). The second repeat will again wait for 10 steps (30-39), warm up for 5 steps (40-44), and finally collect performance data for 5 steps (45-49).
 
@@ -207,7 +207,7 @@ analyse("./profiler_data_path") # './profiler_data_path' is the data path
 
 To address the traditional profiler process being time-consuming and dealing with large amounts of data in large cluster scenarios, MindSpore 2.5 offers a lightweight profiler capability to assist in obtaining performance data for critical model metrics in a lightweight manner for large-scale clusters. As illustrated in the following figure, users can customize marking through the mstx.mark, mstx.range_start, and mstx.range_end interfaces, and also support built-in marking of communication operators. When users enable the lightweight marking function, marking is automatically performed before and after the communication operators. All marking tasks are issued by the runtime to the device side, which can present the time points or time slices of the marking tasks on the host side and the device side.
 
-![mstx_profiler.png](../../source_zh_cn/debug/images/mstx_profiler.png)
+![Using the Lightweight Marking Feature](../../source_zh_cn/debug/images/mstx_profiler.png)
 
 When using the lightweight marking feature, ensure that the mstx in the [_ExperimentalConfig](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.profiler._ExperimentalConfig.html) interface is set to True. Also note that lightweight marking data is only valid during the profiler's data collection interval. For details about the mstx interface, please refer to [mstx API](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.profiler.mstx.html).
 
@@ -388,7 +388,7 @@ The specific field and meaning of other performance data files can be referred t
 
 In the process of large model training, due to some unforeseen factors, the model has some performance deterioration problems, such as slow operator calculation time, communication speed and slow card. The root cause of performance degradation needs to be identified and the problem addressed.
 
-![profiler_process.png](images/profiler_process.png)
+![Performance Tuning Process](images/profiler_process.png)
 
 The most important thing in performance tuning is to identify the root cause before applying targeted fixes, delimit the problem first, and then perform targeted tuning.
 

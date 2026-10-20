@@ -14,7 +14,7 @@
 
 MindSpore以Python作为前端，用C++实现后端，每个算子执行时需要经历Python解释执行、算子Infer、算子内存分配等一系列操作之后，才能下发到GPU/NPU上，运行速度相对较慢。为了解决这个性能问题，MindSpore动态图采用多级流水运行时，将算子下发的各个阶段并行执行，提高算子下发速度。
 
-![pyboost pipeline](../images/customopbuilder_pyboost.png)
+![采用多级流水下发算子的各个阶段示意图](../images/customopbuilder_pyboost.png)
 
 如图所示，MindSpore动态图的算子执行流程共分为四级流水：
 
