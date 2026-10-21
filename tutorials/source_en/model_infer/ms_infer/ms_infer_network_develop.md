@@ -16,7 +16,7 @@ In MindSpore, you are advised to use the dynamic graph mode to develop a model a
 
 Most mainstream LLMs use the Transformer-based backbone network, where core computing relies on the self-attention mechanism. The following figure uses the Qwen2 LLM as an example to show the backbone network architecture.
 
-![Qwen2 network architecture](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.11.0/tutorials/source_zh_cn/model_infer/ms_infer/images/llm_qwen2_network_arch.png)
+![Qwen2 Network Architecture](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.11.0/tutorials/source_zh_cn/model_infer/ms_infer/images/llm_qwen2_network_arch.png)
 
 The core layer of Qwen2 consists of the following parts:
 

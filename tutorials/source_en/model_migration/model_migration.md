@@ -66,7 +66,7 @@ For more use methods, refer to [Dataset.batch](https://www.mindspore.cn/docs/en/
 
 ### Differences with PyTorch Dataset Construction
 
-![generatordataset_dataloader.png](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.11.0/tutorials/source_zh_cn/model_migration/images/generatordataset_dataloader.png)
+![The Main Differences Between MindSpore's GeneratorDataset and PyTorch's DataLoader](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.11.0/tutorials/source_zh_cn/model_migration/images/generatordataset_dataloader.png)
 
 The main differences between MindSpore's GeneratorDataset and PyTorch's DataLoader are:
 
