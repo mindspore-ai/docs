@@ -89,9 +89,31 @@ def generate_version_json(repo_name, branch, js_data, version_flag, target_path)
                 json.dump(write_content, g, indent=4)
             break
 
-def download_tar(tar_name, url, s, user, pd):
+def fetch_file(download_url, save_name, whl_dir, user=None, pd=None):
+    """统一下载：带重试、失败清理、成功日志。返回是否成功。"""
+    save_path = os.path.join(whl_dir, save_name)
+    try:
+        downloaded = download_with_retry(
+            download_url, max_retries=3,
+            auth=(user, pd) if user else None, verify=False
+        )
+        downloaded.raise_for_status()
+        with open(save_path, 'wb') as fd:
+            for chunk in downloaded.iter_content(chunk_size=512):
+                if chunk:
+                    fd.write(chunk)
+        print(f"Download {save_name} success!")
+        return True
+    except Exception as e:
+        print(f"Download {save_name} failed: {e}")
+        if os.path.exists(save_path):
+            os.remove(save_path)
+        return False
+
+def download_tar(tar_name, url, s, user, pd, whl_dir):
     """
-    下载tar包用于生成C++ API
+    下载tar包用于生成C++ API。
+    用 whl_dir 指定保存目录，不再 os.chdir， 避免切目录。
     """
     if not url.endswith(".html") and not url.endswith("/"):
         url += "/"
@@ -100,22 +122,18 @@ def download_tar(tar_name, url, s, user, pd):
     res = s.get(url, auth=(user, pd), verify=False)
     html = etree.HTML(res.text, parser=etree.HTMLParser())
     links = html.xpath("//a[@title]")
-    if links:
-        for link_ in links:
-            title = link_.get("title", "")
-            href = link_.get("href", "")
-            if re.findall(name, title):
-                download_url = url + href
-                if "cloud" in download_url:
-                    os.mkdir("cloud_fusion")
-                    os.chdir("cloud_fusion")
-                downloaded = requests.get(download_url, stream=True, auth=(user, pd),
-                                          verify=False, timeout=30)
-                with open(title, 'wb') as fd:
-                    for chunk in downloaded.iter_content(chunk_size=512):
-                        if chunk:
-                            fd.write(chunk)
-                print(f"Download {title} success!")
+    if not links:
+        return
+    for link_ in links:
+        title = link_.get("title", "")
+        href = link_.get("href", "")
+        if re.findall(name, title):
+            download_url = url + href
+            save_dir = whl_dir
+            if "cloud" in download_url:
+                save_dir = os.path.join(whl_dir, "cloud_fusion")
+                os.makedirs(save_dir, exist_ok=True)
+            fetch_file(download_url, title, save_dir, user, pd)
 
 def download_with_retry(url, max_retries=3, auth=None, verify=True):
     session = requests.Session()
@@ -148,6 +166,10 @@ def download_with_retry(url, max_retries=3, auth=None, verify=True):
         raise
 
 def extra_download(user, pd, wgetdir, extra_whl_path, extra_whl_name, whl_dir):
+    """
+    在 wgetdir/extra_whl_path 目录页里，用 extra_whl_name 正则匹配文件名并下载。
+    只适用于相对路径 + 可浏览目录。
+    """
     s = requests.session()
     url = f"{wgetdir}/{extra_whl_path}"
     if not url.endswith(".html") and not url.endswith("/"):
@@ -157,45 +179,51 @@ def extra_download(user, pd, wgetdir, extra_whl_path, extra_whl_name, whl_dir):
     res = s.get(url, auth=(user, pd), verify=False)
     html = etree.HTML(res.text, parser=etree.HTMLParser())
     links = html.xpath("//a[@title]")
-    if links:
-        for link_ in links:
-            title = link_.get("title", "")
-            href = link_.get("href", "")
-            if re.findall(name, title) and not os.path.exists(os.path.join(whl_dir, title)):
-                download_url = url+href
-                save_path = os.path.join(whl_dir, title)
-                try:
-                    downloaded = download_with_retry(download_url, max_retries=3, auth=(user, pd),
-                                            verify=False)
-                    with open(save_path, 'wb') as fd:
-                        #shutil.copyfileobj(dowmloaded.raw, fd)
-                        for chunk in downloaded.iter_content(chunk_size=512):
-                            if chunk:
-                                fd.write(chunk)
-                    print(f"Download {title} success!")
-                    time.sleep(1)
-                except Exception as e:
-                    print(f"Download {title} failed: {e}")
-                    # 修复：清理不完整文件
-                    if os.path.exists(save_path):
-                        os.remove(save_path)
+    if not links:
+        return
+    for link_ in links:
+        title = link_.get("title", "")
+        href = link_.get("href", "")
+        if re.findall(name, title) and not os.path.exists(os.path.join(whl_dir, title)):
+            download_url = url + href
+            fetch_file(download_url, title, whl_dir, user, pd)
+            time.sleep(1)
 
-def release_download(release_url, path, name):
-    urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
-    # 判断path是否为url
-    if path.startswith("https://"):
+def release_download(release_url, path, name, whl_dir):
+    """
+    发布版精确文件名（不做正则匹配）下载：
+    - path 以 http(s):// 开头: 直接 path + name
+    - 否则: release_url + path + name
+    """
+    if path.startswith("http://") or path.startswith("https://"):
         download_url = path + name
     else:
         download_url = release_url + path + name
-    try:
-        downloaded = requests.get(download_url, stream=True, verify=False, timeout=30)
-        with open(name, 'wb') as fd:
-            for chunk in downloaded.iter_content(chunk_size=512):
-                if chunk:
-                    fd.write(chunk)
-        print(f"Download {name} success!")
-    except Exception as e:
-        print(f"Failed to download {name}: {e}")
+    return fetch_file(download_url, name, whl_dir)
+
+def release_download_extra(user, pd, base_url, path, name, whl_dir, release_url=None):
+    """
+    - path 是 http(s):// -> release_download 直拼
+    - path 相对路径 + release_url 非None -> release_download(release_url, path, name)
+    - path 相对路径 + release_url 为None -> extra_download(daily 列目录 + 正则）
+    """
+    if path.startswith("http://") or path.startswith("https://"):
+        release_download("", path, name, whl_dir)
+    elif release_url is not None:
+        release_download(release_url, path, name, whl_dir)
+    else:
+        extra_download(user, pd, base_url, path, name, whl_dir)
+
+def release_download_extra_list(user, pd, base_url, item, whl_dir, release_url=None):
+    paths = item.get('extra_whl_path', "")
+    names = item.get('extra_whl_name', "")
+    if not paths:
+        return
+    if isinstance(paths, str):
+        release_download_extra(user, pd, base_url, paths, names, whl_dir, release_url)
+    elif isinstance(paths, list):
+        for j in range(len(paths)):
+            release_download_extra(user, pd, base_url, paths[j], names[j], whl_dir, release_url)
 
 #######################################
 # 运行检测
@@ -338,6 +366,7 @@ def main(version, user, pd, WGETDIR, release_url, generate_list, api_detect):
         os.chdir(WHLDIR)
 
         # 从网站下载各个组件需要的whl包或tar包
+        # base_url: 相对路径的拼接前缀， daily 用 wgetdir， 发布版本用 release_url
         if version == "daily" or flag_dev:
             print(f"[{data[i]['name']}] 下载 whl/tar 包开始")
             dl_start = time.perf_counter()
@@ -347,6 +376,7 @@ def main(version, user, pd, WGETDIR, release_url, generate_list, api_detect):
                 wgetdir = WGETDIR + "mindspore-lab"
             else:
                 wgetdir = WGETDIR + "mindspore"
+            base_url = wgetdir
             res = s.get(wgetdir, auth=(user, pd), verify=False)
             requests.packages.urllib3.disable_warnings()
             # 下载组件whl包
@@ -370,123 +400,38 @@ def main(version, user, pd, WGETDIR, release_url, generate_list, api_detect):
                     print(f"[{data[i]['name']}] 下载 whl/tar 包完成，耗时: {int(dl_min)}分{dl_sec:.1f}秒")
                     continue
 
-                re_name = data[i]['whl_name'].replace('.whl', '\\.whl')
-                name = rf"{re_name}"
-                res = s.get(url, auth=(user, pd), verify=False)
-                html = etree.HTML(res.text, parser=etree.HTMLParser())
-                links = html.xpath("//a[@title]")
-                if links:
-                    for link_ in links:
-                        title = link_.get("title", "")
-                        href = link_.get("href", "")
-                        if re.findall(name, title) and not os.path.exists(os.path.join(WHLDIR, title)):
-                            download_url = url+href
-                            downloaded = requests.get(download_url, stream=True, auth=(user, pd),
-                                                      verify=False, timeout=30)
-                            with open(title, 'wb') as fd:
-                                #shutil.copyfileobj(dowmloaded.raw, fd)
-                                for chunk in downloaded.iter_content(chunk_size=512):
-                                    if chunk:
-                                        fd.write(chunk)
-                            print(f"Download {title} success!")
-                            time.sleep(1)
+                extra_download(user, pd, url, "", data[i]['whl_name'], WHLDIR)
 
             elif data[i]['whl_path'] != "":
-                url = f"{wgetdir}/{data[i]['whl_path']}"
-                if not url.endswith(".html") and not url.endswith("/"):
-                    url += "/"
-                re_name = data[i]['whl_name'].replace('.whl', '\\.whl')
-                name = rf"{re_name}"
-                res = s.get(url, auth=(user, pd), verify=False)
-                html = etree.HTML(res.text, parser=etree.HTMLParser())
-                links = html.xpath("//a[@title]")
-                if links:
-                    for link_ in links:
-                        title = link_.get("title", "")
-                        href = link_.get("href", "")
-                        if re.findall(name, title) and not os.path.exists(os.path.join(WHLDIR, title)):
-                            download_url = url+href
-                            downloaded = requests.get(download_url, stream=True, auth=(user, pd),
-                                                      verify=False, timeout=30)
-                            with open(title, 'wb') as fd:
-                                #shutil.copyfileobj(dowmloaded.raw, fd)
-                                for chunk in downloaded.iter_content(chunk_size=512):
-                                    if chunk:
-                                        fd.write(chunk)
-                            print(f"Download {title} success!")
-                            time.sleep(1)
+                extra_download(user, pd, wgetdir, data[i]['whl_path'], data[i]['whl_name'], WHLDIR)
 
             # 下载其他需求的组件whl包
-            if 'extra_whl_path' in data[i] and data[i]['extra_whl_path'] != "":
-                if data[i]['name'] == "mindscience":
-                    wgetdir = WGETDIR + "mindspore"
-                if isinstance(data[i]['extra_whl_path'], str):
-                    if data[i]['extra_whl_path'].startswith("http"):
-                        release_download("", data[i]['extra_whl_path'], data[i]['extra_whl_name'])
-                    else:
-                        extra_download(user, pd, wgetdir, data[i]['extra_whl_path'], data[i]['extra_whl_name'], WHLDIR)
-                elif isinstance(data[i]['extra_whl_path'], list):
-                    for j in range(len(data[i]['extra_whl_path'])):
-                        if data[i]['extra_whl_path'][j].startswith("http"):
-                            release_download("", data[i]['extra_whl_path'][j], data[i]['extra_whl_name'][j])
-                        else:
-                            extra_download(user, pd, wgetdir, data[i]['extra_whl_path'][j], data[i]['extra_whl_name'][j], WHLDIR)
+            release_download_extra_list(user, pd, base_url, data[i], WHLDIR)
 
             # 下载tar包
             if 'tar_path' in data[i].keys() and data[i]['tar_path'] != '':
                 url = f"{wgetdir}/{data[i]['tar_path']}"
-                download_tar(data[i]['tar_name'], url, s, user, pd)
+                download_tar(data[i]['tar_name'], url, s, user, pd, WHLDIR)
             if 'cloud_tar_path' in data[i].keys() and data[i]['cloud_tar_path'] != '':
                 url = f"{wgetdir}/{data[i]['cloud_tar_path']}"
-                download_tar(data[i]['cloud_tar_name'], url, s, user, pd)
+                download_tar(data[i]['cloud_tar_name'], url, s, user, pd, WHLDIR)
             dl_end = time.perf_counter()
             dl_min, dl_sec = divmod(dl_end - dl_start, 60)
             print(f"[{data[i]['name']}] 下载 whl/tar 包完成，耗时: {int(dl_min)}分{dl_sec:.1f}秒")
 
         # 发布版本构建时下载包
         elif version != "daily":
+            urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+            # 发布版 whl_name 是精确文件名，直接拼
             if data[i]['whl_path'] != "":
-                urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
-                download_url = release_url + data[i]['whl_path'] + data[i]['whl_name']
-                downloaded = requests.get(download_url, stream=True, verify=False, timeout=30)
-                with open(data[i]['whl_name'], 'wb') as fd:
-                    #shutil.copyfileobj(dowmloaded.raw, fd)
-                    for chunk in downloaded.iter_content(chunk_size=512):
-                        if chunk:
-                            fd.write(chunk)
-                print(f"Download {data[i]['whl_name']} success!")
-            if 'extra_whl_path' in data[i] and data[i]['extra_whl_path'] != "":
-                urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
-                download_url = release_url + data[i]['extra_whl_path'] + data[i]['extra_whl_name']
-                downloaded = requests.get(download_url, stream=True, verify=False, timeout=30)
-                with open(data[i]['extra_whl_name'], 'wb') as fd:
-                    #shutil.copyfileobj(dowmloaded.raw, fd)
-                    for chunk in downloaded.iter_content(chunk_size=512):
-                        if chunk:
-                            fd.write(chunk)
-                print(f"Download {data[i]['extra_whl_name']} success!")
+                release_download(release_url, data[i]['whl_path'], data[i]['whl_name'], WHLDIR)
+            # extra_whl_path: daily 和发布版共用
+            release_download_extra_list(user, pd, base_url, data[i], WHLDIR, release_url=release_url)
+            # 发布版 tar 精确文件名，直接拼
             if 'tar_path' in data[i].keys() and data[i]['tar_path'] != '':
-                urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
-                download_url = release_url + data[i]['tar_path'] + data[i]['tar_name']
-                downloaded = requests.get(download_url, stream=True, verify=False, timeout=30)
-                with open(data[i]['tar_name'], 'wb') as fd:
-                    #shutil.copyfileobj(dowmloaded.raw, fd)
-                    for chunk in downloaded.iter_content(chunk_size=512):
-                        if chunk:
-                            fd.write(chunk)
-                print(f"Download {data[i]['tar_name']} success!")
+                release_download(release_url, data[i]['tar_path'], data[i]['tar_name'], WHLDIR)
             if 'cloud_tar_path' in data[i].keys() and data[i]['cloud_tar_path'] != '':
-                urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
-                os.mkdir("cloud_fusion")
-                os.chdir("cloud_fusion")
-                download_url = release_url + data[i]['cloud_tar_path'] + data[i]['cloud_tar_name']
-                downloaded = requests.get(download_url, stream=True, verify=False, timeout=30)
-                with open(data[i]['tar_name'], 'wb') as fd:
-                    #shutil.copyfileobj(dowmloaded.raw, fd)
-                    for chunk in downloaded.iter_content(chunk_size=512):
-                        if chunk:
-                            fd.write(chunk)
-                print(f"Download {data[i]['cloud_tar_name']} success!")
+                release_download(release_url, data[i]['cloud_tar_path'], data[i]['cloud_tar_name'], WHLDIR)
 
         # 下载obs中lite_boost所需的torch包及其依赖包，提升下载速度
         if data[i]['name'] == "lite":
