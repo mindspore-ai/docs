@@ -422,6 +422,7 @@ def main(version, user, pd, WGETDIR, release_url, generate_list, api_detect):
         # 发布版本构建时下载包
         elif version != "daily":
             urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+            base_url = release_url
             # 发布版 whl_name 是精确文件名，直接拼
             if data[i]['whl_path'] != "":
                 release_download(release_url, data[i]['whl_path'], data[i]['whl_name'], WHLDIR)
