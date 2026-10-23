@@ -26,7 +26,7 @@ The following table lists the system environment and third-party dependencies re
 |-|-|-|
 |Debian series OS / openEuler series OS|Debianseries: Debian, Ubuntu, veLinux / openEuler serires: openEuler, CentOS, Kylin, BCLinux, UOS V20, AntOS, CTyunOS, CULinux, Tlinux, MTOS|Operating Systems compatible to MindSpore|
 |[Python](#installing-python)|3.10-3.12|Python environment that MindSpore depends on|
-|[Ascend AI processor software package](#installing-ascend-ai-processor-software-package)|CANN 9.1.x, CANN 9.0.x, CANN 8.5.x|Ascend platform AI computing library used by MindSpore|
+|[Ascend AI processor software package](#installing-ascend-ai-processor-software-package)|CANN 9.2.x, CANN 9.1.x, CANN 9.0.x|Ascend platform AI computing library used by MindSpore|
 |[GCC](#installing-gcc)|9.5.0-11.3.0 (preferred version 9.5.0)|C++ compiler for compiling MindSpore|
 
 The following describes how to install the third-party dependencies.
@@ -49,7 +49,7 @@ python -m pip install -U pip
 
 ### Installing Ascend AI processor software package
 
-Ascend CANN `9.1.x` and installation instructions are available via [Quick install](https://www.hiascend.com/cann/download).
+Ascend CANN `9.2.x` and installation instructions are available via [Quick install](https://www.hiascend.com/cann/download).
 
 The default installation path of the installation package is `/usr/local/Ascend`. Ensure that the current user has the right to access the installation path of Ascend AI processor software package. If not, the root user needs to add the current user to the user group where `/usr/local/Ascend` is located.
 
@@ -91,10 +91,10 @@ The following takes GCC 9 as example for how to install GCC on common operating 
 
 ### Installing MindSpore
 
-First, refer to [Version List](https://www.mindspore.cn/versions) to select the version of MindSpore you want to install, and perform SHA-256 integrity check. Taking version 2.10.0 as an example, execute the following commands.
+First, refer to [Version List](https://www.mindspore.cn/versions) to select the version of MindSpore you want to install, and perform SHA-256 integrity check. Taking version 2.11.0 as an example, execute the following commands.
 
 ```bash
-export MS_VERSION=2.10.0
+export MS_VERSION=2.11.0
 ```
 
 Then run the following command to install MindSpore.
