@@ -32,7 +32,7 @@
 |-|-|-|
 |Debian系列操作系统 / openEuler系列操作系统|Debian系列：Debian、Ubuntu、veLinux / openEuler系列：openEuler、CentOS、Kylin、BCLinux、UOS V20、AntOS、CTyunOS、CULinux、Tlinux、MTOS|编译和运行MindSpore的操作系统|
 |[Python](#安装python)|3.10-3.12|MindSpore的使用依赖Python环境|
-|[昇腾AI处理器配套软件包](#安装昇腾ai处理器配套软件包)|CANN 9.1.x、CANN 9.0.x、CANN 8.5.x|MindSpore使用的Ascend平台AI计算库|
+|[昇腾AI处理器配套软件包](#安装昇腾ai处理器配套软件包)|CANN 9.2.x、CANN 9.1.x、CANN 9.0.x|MindSpore使用的Ascend平台AI计算库|
 |[wheel](#安装wheel-setuptools-pyyaml和numpy)|0.32.0及以上|MindSpore使用的Python打包工具|
 |[setuptools](#安装wheel-setuptools-pyyaml和numpy)|44.0及以上|MindSpore使用的Python包管理工具|
 |[PyYAML](#安装wheel-setuptools-pyyaml和numpy)|6.0-6.0.2|MindSpore里的算子编译功能依赖PyYAML模块|
@@ -60,7 +60,7 @@ python --version
 
 ### 安装昇腾AI处理器配套软件包
 
-昇腾计算架构（CANN）`9.1.x`版本的下载链接与安装指南请前往[快速安装](https://www.hiascend.com/cann/download)页面获取。
+昇腾计算架构（CANN）`9.2.x`版本的下载链接与安装指南请前往[快速安装](https://www.hiascend.com/cann/download)页面获取。
 
 安装包默认安装路径为`/usr/local/Ascend`。安装后确认当前用户有权限访问昇腾AI处理器配套软件包的安装路径，若无权限，需要root用户将当前用户添加到`/usr/local/Ascend`所在的用户组。
 
