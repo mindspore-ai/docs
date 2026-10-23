@@ -42,8 +42,8 @@ Tags follow this format:
 
 | Field | Example Values | Description |
 |-------|---------------|-------------|
-| MindSpore Version | 2.10.0 | Corresponds to the version identifier in MindSpore official release tags |
-| CANN Version | cann9.1.0 | Corresponds to the version identifier in Ascend official release tags |
+| MindSpore Version | 2.11.0 | Corresponds to the version identifier in MindSpore official release tags |
+| CANN Version | cann9.2.0 | Corresponds to the version identifier in Ascend official release tags |
 | Hardware Info (Chip) | see below | Ascend chip model identifier |
 | Operating System | ubuntu22.04 / openeuler24.03 | Operating system distribution and version used in the base image |
 | Python Version | py3.12 | Major Python version built into the image |
@@ -61,7 +61,7 @@ swr.cn-south-1.myhuaweicloud.com/mindspore/mindspore
 **Full Image Example:**
 
 ```text
-swr.cn-south-1.myhuaweicloud.com/mindspore/mindspore:2.10.0-cann9.1.0-910b-ubuntu22.04-py3.12
+swr.cn-south-1.myhuaweicloud.com/mindspore/mindspore:2.11.0-cann9.2.0-910b-ubuntu22.04-py3.12
 ```
 
 ## Quick Start
@@ -74,16 +74,16 @@ For `Ascend` backend, you can directly use the following command to obtain the l
 docker pull swr.cn-south-1.myhuaweicloud.com/mindspore/mindspore:<MindSpore Version>-<CANN Version>-<Hardware Info (Chip)>-<Operating System>-<Python Version>
 ```
 
-To install MindSpore 2.10.0 on Atlas A2 Training Platform, with Ubuntu 22.04 operating system, use the following command:
+To install MindSpore 2.11.0 on Atlas A2 Training Platform, with Ubuntu 22.04 operating system, use the following command:
 
 ```bash
-docker pull swr.cn-south-1.myhuaweicloud.com/mindspore/mindspore:2.10.0-cann9.1.0-910b-ubuntu22.04-py3.12
+docker pull swr.cn-south-1.myhuaweicloud.com/mindspore/mindspore:2.11.0-cann9.2.0-910b-ubuntu22.04-py3.12
 ```
 
-To install MindSpore 2.10.0 on Atlas A3 Training Platform, with OpenEuler 24.04 operating system, use the following command:
+To install MindSpore 2.11.0 on Atlas A3 Training Platform, with OpenEuler 24.04 operating system, use the following command:
 
 ```bash
-docker pull swr.cn-south-1.myhuaweicloud.com/mindspore/mindspore:2.10.0-cann9.1.0-a3-openeuler24.03-py3.12
+docker pull swr.cn-south-1.myhuaweicloud.com/mindspore/mindspore:2.11.0-cann9.2.0-a3-openeuler24.03-py3.12
 ```
 
 ### Running MindSpore Container
@@ -101,7 +101,7 @@ docker run \
     -v /usr/local/Ascend/driver/lib64/:/usr/local/Ascend/driver/lib64/ \
     -v /usr/local/Ascend/driver/version.info:/usr/local/Ascend/driver/version.info \
     -v /etc/ascend_install.info:/etc/ascend_install.info \
-    -it swr.cn-south-1.myhuaweicloud.com/mindspore/mindspore:2.10.0-cann9.1.0-a3-openeuler24.03-py3.12 bash
+    -it swr.cn-south-1.myhuaweicloud.com/mindspore/mindspore:2.11.0-cann9.2.0-a3-openeuler24.03-py3.12 bash
 ```
 
 ## Building MindSpore Image Locally
@@ -110,11 +110,11 @@ docker run \
 
 | Parameter | Description | Required | Source | Example Values |
 |-----------|-------------|----------|--------|----------------|
-| CANN_VERSION | Ascend CANN toolkit version | Yes | CANN image tag | 9.1.0 |
+| CANN_VERSION | Ascend CANN toolkit version | Yes | CANN image tag | 9.2.0 |
 | CHIP_ARCH | Ascend chip architecture identifier | Yes | Tag specification | see below |
 | OS_SYSTEM | Base image operating system and version | Yes | Tag specification | ubuntu22.04 / openeuler24.03 |
 | PY_VERSION | Python version built into the base image | Yes | Tag specification | py3.12 |
-| MINDSPORE_VERSION | MindSpore version number | Yes | [MindSpore repository releases](https://atomgit.com/mindspore/mindspore/releases) | 2.10.0 |
+| MINDSPORE_VERSION | MindSpore version number | Yes | [MindSpore repository releases](https://atomgit.com/mindspore/mindspore/releases) | 2.11.0 |
 | PIP_INDEX_URL | pip installation source URL (default: Huawei Cloud mirror) | No | PyPI mirror source | https://mirrors.huaweicloud.com/repository/pypi/simple |
 
 ### Building MindSpore Image
@@ -123,13 +123,13 @@ For the Dockerfile, see [Dockerfile](https://atomgit.com/mindspore/mindspore/blo
 
 ```bash
 docker build \
-    --build-arg CANN_VERSION=9.1.0 \
+    --build-arg CANN_VERSION=9.2.0 \
     --build-arg CHIP_ARCH=910b \
     --build-arg OS_SYSTEM=ubuntu22.04 \
     --build-arg PY_VERSION=py3.12 \
-    --build-arg MINDSPORE_VERSION=2.10.0 \
+    --build-arg MINDSPORE_VERSION=2.11.0 \
     --build-arg PIP_INDEX_URL=https://mirrors.huaweicloud.com/repository/pypi/simple \
-    -t mindspore:2.10.0-cann9.1.0-910b-ubuntu22.04-py3.12 \
+    -t mindspore:2.11.0-cann9.2.0-910b-ubuntu22.04-py3.12 \
     -f Dockerfile .
 ```
 
@@ -153,7 +153,7 @@ docker run \
 
 Where,
 
-- `{tag}` corresponds to the label designated when building MindSpore image, for example, `mindspore:2.10.0-cann9.1.0-910b-ubuntu22.04-py3.12`.
+- `{tag}` corresponds to the label designated when building MindSpore image, for example, `mindspore:2.11.0-cann9.2.0-910b-ubuntu22.04-py3.12`.
 
 ## Verification and Usage
 
@@ -235,7 +235,7 @@ When you need to update the MindSpore version:
 
 ```bash
 # Use MindSpore image as base image, add user software
-FROM swr.cn-south-1.myhuaweicloud.com/mindspore/mindspore:2.10.0-cann9.1.0-910b-ubuntu22.04-py3.12
+FROM swr.cn-south-1.myhuaweicloud.com/mindspore/mindspore:2.11.0-cann9.2.0-910b-ubuntu22.04-py3.12
 
 RUN apt update -y && \
     apt install -y gcc g++
