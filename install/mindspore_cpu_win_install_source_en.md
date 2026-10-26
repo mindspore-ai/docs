@@ -18,15 +18,15 @@ This document describes how to install MindSpore by compiling source code on Win
 
 ## System Environment Information Confirmation
 
-- Caurrently supports Windows 10/11 with the x86 architecture 64-bit operating system.
-- Ensure that [Microsoft Visual Studio Community 2019](https://learn.microsoft.com/zh-cn/visualstudio/releases/2019/release-notes) is installed. Workloads select `Desktop development with C++` and `Universal Windows Platform development`, Individual components select `Select C++ CMake tools for Windows`.
-- Ensure that [git](https://github.com/git-for-windows/git/releases/download/v2.29.2.windows.2/Git-2.29.2.2-64-bit.exe) tool is installed. Meanwhile, put Git insitall directory into `Path` environment variable. If git is installed in `D:\Program Files\Git`,then add `D:\Program Files\Git\usr\bin` into `Path` variable.
+- Currently supports Windows 10/11 with the x86 architecture 64-bit operating system.
+- Ensure that [Microsoft Visual Studio Community 2019](https://learn.microsoft.com/en-us/visualstudio/releases/2019/release-notes) is installed. Workloads select `Desktop development with C++` and `Universal Windows Platform development`, Individual components select `Select C++ CMake tools for Windows`.
+- Ensure that [git](https://github.com/git-for-windows/git/releases/download/v2.29.2.windows.2/Git-2.29.2.2-64-bit.exe) tool is installed. Meanwhile, put Git install directory into `Path` environment variable. If git is installed in `D:\Program Files\Git`,then add `D:\Program Files\Git\usr\bin` into `Path` variable.
 - Ensure that [CMake 3.22.3](https://cmake.org/files/v3.22/cmake-3.22.3-windows-x86_64.msi) is installed. After installing, add the path of `cmake.exe` to the environment variable `Path`.
 - Ensure that you have Python(3.10-3.12) installed. If not installed, follow the links to [Python official website](https://www.python.org/downloads/windows/) or [Huawei Cloud](https://repo.huaweicloud.com/python/) to download and install Python.
 - Ensure that [wheel 0.32.0 and later](https://pypi.org/project/wheel/) is installed.
 - Ensure that [PyYAML](https://pypi.org/project/pyyaml/) (>=6.0 and <= 6.0.2) is installed. Use `pip install pyyaml` if it's not installed.
 - Ensure that [MSYS2 software](https://www.msys2.org/) is installed. For details, please check [Installing MSYS2 Software on Windows](https://atomgit.com/mindspore/docs/blob/r2.11.0/install/third_party/msys_software_install_en.md).
-- Ensure that [Numpy](https://pypi.org/project/numpy/) (>=1.19.3 and <= 1.26.4) is installed. Use `pip install numpy` if it's not installed.
+- Ensure that [Numpy](https://pypi.org/project/numpy/) (>=1.20.0 and <=2.0.0) is installed. Use `pip install numpy` if it's not installed.
 
 ## Downloading Source Code from Code Repository
 
