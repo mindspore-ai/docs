@@ -27,6 +27,12 @@ class _MarkdownBuilderProxy:
     def get_target_uri(self, docname: str, typ: str = None) -> str:  # pylint: disable=unused-argument
         return f"{docname}.html"
 
+def _version_header(app) -> str:
+    """生成写入 llms.txt / llms-full.txt 头部的版本元信息。"""
+    version = getattr(app.config, "release", "") or getattr(app.config, "version", "")
+    return (
+        f"<!-- llms-version: {version} -->\n"
+    )
 
 def _doctree_to_markdown(doctree, docname):
     """使用 sphinx-markdown-builder 提供的 translator，把 Sphinx 的 doctree 转换成 Markdown。"""
@@ -61,7 +67,7 @@ def _collect_docnames(app):
 def _generate_llms_full_txt(app):
     """生成 llms-full.txt ，内容来自 doctree 的 Markdown 转换。"""
     project = app.config.project
-    parts = [f"# {project}\n"]
+    parts = [_version_header(app) + f"# {project}\n"]
 
     for docname in _collect_docnames(app):
         doctree = None
@@ -90,7 +96,7 @@ def _generate_llms_full_txt(app):
 
 def _generate_llms_txt(app):
     """生成 llms.txt 摘要索引，Markdown 格式的站点地图。"""
-    lines = [f"# {app.config.project}\n"]
+    lines = [_version_header(app) + f"# {app.config.project}\n"]
 
     for docname in _collect_docnames(app):
         title = app.env.titles.get(docname)
