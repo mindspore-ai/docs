@@ -46,7 +46,7 @@ In Python environment which MindSpore will be built upon, ensure that the follow
 
 - Ensure that [autoconf](https://ftp.gnu.org/gnu/autoconf/) is installed. Use `brew install autoconf` if it's not installed.
 
-- Ensure that [Numpy](https://pypi.org/project/numpy/) (>=1.19.3 and <= 1.26.4) is installed. Use `pip install numpy` if it's not installed.
+- Ensure that [Numpy](https://pypi.org/project/numpy/) (>=1.20.0 and <=2.0.0) is installed. Use `pip install numpy` if it's not installed.
 
 ## Downloading Source Code from Code Repository
 
