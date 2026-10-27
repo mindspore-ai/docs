@@ -83,6 +83,39 @@ MindSpore Lite模型转换工具提供了多种参数设置，用户可根据需
 > - `--optimize`该参数是用来设定在离线转换的过程中需要完成哪些特定的优化。如果该参数设置为none，那么在模型的离线转换阶段将不进行相关的图优化操作，相关的图优化操作将会在执行推理阶段完成。该参数的优点在于转换出来的模型由于没有经过特定的优化，可以直接部署到CPU/GPU/Ascend任意硬件后端；而带来的缺点是推理执行时模型的初始化时间增长。如果设置成general，表示离线转换过程会完成通用优化，包括常量折叠，算子融合等（转换出的模型只支持CPU/GPU后端，不支持Ascend后端）。如果设置成gpu_oriented，表示转换过程中会完成通用优化和针对GPU后端的额外优化（转换出来的模型只支持GPU后端）。如果设置成ascend_oriented，表示转换过程中只完成针对Ascend后端的优化（转换出来的模型只支持Ascend后端）。
 > - `--input_shape`参数以及dynamicDims参数在转换时会被存入模型中，在使用模型时可以调用model.get_model_info("input_shape")以及model.get_model_info("dynamic_dims")来获取。
 
+### 关闭常量折叠
+
+转换工具默认启用常量折叠，将可提前计算的常量运算替换为计算结果，以减少推理时的计算。如果需要保留这些运算以调试中间结果，或避免常量展开导致转换后的模型体积增大，可以通过配置文件关闭常量折叠。没有这些需求时，建议保持默认设置。
+
+1. 创建配置文件`disable_const_fold.cfg`，写入以下内容：
+
+    ```ini
+    [registry]
+    enable_const_fold=off
+    ```
+
+    如果已有配置文件，直接在已有的`[registry]`段中增加`enable_const_fold=off`，不要重复声明该段。此配置可以与量化等其他配置共存；仅关闭常量折叠时，无需配置量化、加载插件或关闭其他融合优化。
+
+2. 使用`--configFile`指定配置文件。以ONNX模型为例，将`model.onnx`替换为实际模型路径：
+
+    ```bash
+    ./converter_lite --fmk=ONNX --modelFile=model.onnx --outputFile=model --configFile=disable_const_fold.cfg
+    ```
+
+    转换成功后生成`model.ms`。
+
+`enable_const_fold`仅支持小写`on`和`off`。恢复默认行为时，删除该配置项或设置为`on`即可。不要使用`true`、`false`、`0`或`1`等其他非空取值，否则转换会终止并提示：
+
+```text
+CONFIG SETTING ILLEGAL: enable_const_fold should be on/off
+```
+
+使用时请注意：
+
+- 此开关控制转换工具的常量折叠优化，不等于关闭全部图优化，也不保证转换过程中不会通过其他优化生成常量。`disable_fusion`和`fusion_blacklists`用于控制融合优化，不能替代此开关。
+- 关闭后，保留的运算需要在推理时执行，可能增加推理耗时和内存开销；模型体积是否减小取决于模型本身。
+- 部署前，请确认目标设备的推理后端支持保留的算子，并对比关闭前后的推理结果、耗时和内存占用。
+
 ### CPU模型编译优化
 
 如果转换后的ms模型使用Android CPU后端进行推理，并且对模型编译阶段时延要求较高，可以尝试开启此优化。在`configFile`配置文件中增加配置项`[cpu_option_cfg_param]`，得到编译更高效的模型。目前仅对模型中含有Matmul算子并且数据类型为`float32`或开启动态量化时有优化效果。

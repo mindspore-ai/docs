@@ -149,13 +149,16 @@ The model file `add_extend.ms` will be generated, the place of which is up to th
 
 ## Extension Configuration
 
-To load the extension module when converting, users need to configure the path of extended dynamic library. The parameters related to the extension include `plugin_path`, `disable_fusion`, `fusion_blacklists`. The detailed description of the parameters is as follows:
+The `[registry]` section of the conversion configuration file supports loading extension libraries and controlling fusion optimizations and constant folding. You do not need to configure a library path when only adjusting optimization options. The parameters are described below:
 
 | Parameter         | Attribute | Function Description                         | Parameter Type | Default Value | Value Range                                             |
 | ----------------- | --------- | -------------------------------------------- | -------------- | ------------- | ------------------------------------------------------- |
 | plugin_path       | Optional  | Third-party library path                     | String         | -             | If there are more than one, please use `;` to separate. |
 | disable_fusion    | Optional  | Indicate whether to close fusion             | String         | off           | off or on.                                              |
 | fusion_blacklists | Optional  | Specified fusion operator names to be closed | String         | -             | If there are more than one, please use `,` to separate.  |
+| enable_const_fold | Optional  | Whether to enable constant folding          | String         | on            | on or off (lowercase).                                 |
+
+Set `enable_const_fold=off` to disable constant folding. Omitting the setting or setting it to `on` preserves the default behavior. Other non-empty values cause conversion to fail. This option is independent of the fusion optimization settings and does not disable all graph optimizations. For configuration steps, a command example, and deployment considerations, see [Disabling Constant Folding](../../converter/converter_tool.md#disabling-constant-folding).
 
 We have generated the default configuration file (converter.cfg). The content is as follows:
 
