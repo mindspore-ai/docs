@@ -341,3 +341,16 @@ A: 上述问题的原因是环境安装了较新版本的`asttokens`(>=2.0.6)，
 ### Q: 运行MindSpore时出现报错 `ModuleNotFoundError: No module named 'requests'` 应该怎么解决？
 
 A: 上述问题的原因是当前python环境缺少requests包，pip install requests即可解决。
+
+<br/>
+
+### Q: macOS系统上执行`import mindspore`时报错 `ImportError: dlopen(..._c_expression.cpython-310-darwin.so, 0x0002): symbol not found in flat namespace '_deflate'` 应该怎么解决？
+
+A: 上述报错是由于MindSpore依赖的`zlib`库未找到（`_deflate`是`zlib`提供的符号）。macOS 12及以下版本的`/usr/lib`目录中没有`zlib`，需要手动安装并通过环境变量指定其动态库，具体方法如下：
+
+```bash
+brew install zlib
+export DYLD_INSERT_LIBRARIES=/opt/homebrew/opt/zlib/lib/libz.1.2.12.dylib
+```
+
+其中`libz.1.2.12.dylib`的版本号和路径请以`brew install zlib`实际安装的结果为准。
