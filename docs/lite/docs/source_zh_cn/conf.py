@@ -42,6 +42,7 @@ myst_heading_anchors = 5
 extensions = [
     'myst_parser',
     'custom_anchor',
+    'llms_txt',
 ]
 
 source_suffix = {
