@@ -2,13 +2,13 @@
 
 [![View Source](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.11.0/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/r2.11.0/docs/mindformers/docs/source_en/installation.md)
 
-This guide is intended for the **PyNative (Dynamic Graph)** scenario and covers the environment dependencies, installation methods, and verification for MindSpore Transformers. Dynamic graph tasks are launched via `msrun ... run_mindformer.py --config xxx.yaml --mode 1` (`--mode 1` enables PyNative mode). Currently supported models include DeepSeek-V3 and others (see the [Model Library](introduction/models.md) for a complete list).
+This guide is intended for the **PyNative (Dynamic Graph)** scenario and covers the environment dependencies, installation methods, and verification for MindSpore Transformers. Dynamic graph tasks are launched via `msrun ... run_mindformer.py --config xxx.yaml --mode 1` (`--mode 1` enables PyNative mode). Currently supported models include DeepSeek-V3, DeepSeek-V4 and others (see the [Model Library](introduction/models.md) for a complete list).
 
 Installation consists of four main steps: **① Prepare Ascend hardware and install drivers/firmware → ② Install CANN and MindSpore according to the version compatibility table → ③ Install MindSpore Transformers → ④ Install HyperParallel (required for dynamic graph training)**. For step 3, you may choose any one of three methods: source, pip, or Docker.
 
 > **Additional MindSpore Version Requirements for Dynamic Graph**
 >
-> The dynamic graph training stack depends on [HyperParallel](https://atomgit.com/mindspore/hyper-parallel/), which requires **MindSpore >= 2.10** (latest version recommended). Therefore, please select MindSpore >= 2.10. See the [Version Compatibility](#version-compatibility) section below for details.
+> The dynamic graph training stack depends on [HyperParallel](https://atomgit.com/mindspore/hyper-parallel/), which for version 2.1.0 requires **MindSpore `~=2.11.0`** (2.11.0 recommended). See the [Version Compatibility](#version-compatibility) section below for details.
 
 ## Environment Dependencies
 
@@ -29,13 +29,13 @@ The host machine must have NPU drivers and firmware pre-installed. Refer to [Asc
 
 ### Version Compatibility
 
-Dynamic graph (r2.0.0 / WIP) requires the following components. Due to the dependency on HyperParallel, **MindSpore must be >= 2.10** (latest version recommended). CANN and drivers/firmware must correspond to the selected MindSpore version.
+Dynamic graph (version 2.1.0) requires the following components. Due to the dependency on HyperParallel, **MindSpore must satisfy `~=2.11.0`** (2.11.0 recommended). CANN and drivers/firmware must correspond to the selected MindSpore version (2.1.0 pairs with CANN 9.2.0 and firmware/driver 26.2.RC1).
 
 | Component | Version Requirement | Acquisition Method |
 |---|---|---|
-| MindSpore Transformers | WIP (master branch) | [Source Installation](#source-installation) |
-| HyperParallel | WIP (matching MindSpore) | [Source Installation](#installing-hyperparallel-required-for-dynamic-graph-training) |
-| MindSpore | **>= 2.10** (latest recommended) | [MindSpore Installation](https://www.mindspore.cn/install/) |
+| MindSpore Transformers | 2.1.0 | [Source Installation](#source-installation), [pip Installation](#pip-installation-released-versions) |
+| HyperParallel | 1.0.0 | [Source Installation](#installing-hyperparallel-required-for-dynamic-graph-training) |
+| MindSpore | **`~=2.11.0`** | [MindSpore Installation](https://www.mindspore.cn/install/) |
 
 ## Installing MindSpore Transformers
 
@@ -45,24 +45,17 @@ After completing CANN and MindSpore installation, proceed to install MindSpore T
 
 | Method | Use Case | Version Obtained |
 |---|---|---|
-| **Source Installation** | Need the latest master-branch features, want to modify source code, or debug | Current master branch code |
+| **Source Installation** | Need the latest 2.1.0 features, want to modify source code, or debug | Current code on the r2.1.0 branch |
 | **pip Installation** | Prefer to use a stable released version with an already-set-up environment | Published version on PyPI |
 | **Docker Installation** | Prefer not to modify the host's Python/CANN/MindSpore environment and want a ready-to-use solution | Pre-installed released version in the image |
 
-> The WIP (master) version currently **only supports source installation**; pip installation corresponds to published versions. Please select the version number according to the [Version Compatibility](#version-compatibility) table.
+> Version 2.1.0 can be installed from source or via pip as described in the table above; please select the version number according to the [Version Compatibility](#version-compatibility) table to avoid mismatches with your local CANN/MindSpore.
 
 ### Source Installation
 
 ```bash
-# WIP version (master branch, latest features)
+# 2.1.0 version (r2.1.0 branch, corresponding to the 2.1.0 release)
 git clone -b r2.1.0 https://atomgit.com/mindspore/mindformers.git
-cd mindformers
-bash build.sh
-```
-
-```bash
-# r2.0.0 version (r2.0.0 branch, corresponding to 2.0.0 release)
-git clone -b r2.0.0 https://atomgit.com/mindspore/mindformers.git
 cd mindformers
 bash build.sh
 ```
@@ -90,15 +83,13 @@ Released versions can be installed directly via pip. Refer to the [Version Compa
 
 ```bash
 # Install the specific version listed in the compatibility table (recommended to avoid mismatches)
-pip install mindformers==2.0.0
+pip install mindformers==2.1.0
 
 # Or install the latest released version from PyPI
 pip install mindformers
 ```
 
 > Specifying a version number ensures compatibility with your installed CANN/MindSpore; omitting the version number will install the latest released version, in which case you must verify compatibility with your local MindSpore installation.
->
-> `2.0.0` has not yet been released to PyPI, so installation via pip is currently unavailable. For now, please use the [“Install from Source”](#Install from Source) method described above to obtain the code from the master branch.
 
 ## Installing HyperParallel (Required for Dynamic Graph Training)
 
@@ -108,12 +99,13 @@ Trainers, optimizers, and parallel splitting and fusion operators under `mindfor
 
 > **Version Requirements**
 >
-> HyperParallel requires **MindSpore >= 2.10** (the latest version is recommended). Please ensure that MindSpore on your machine meets this requirement; see the installation instructions in the repository’s README for details.
+> HyperParallel 1.0.0 itself requires **MindSpore >= 2.10**, but MindSpore Transformers 2.1.0 depends on `mindspore~=2.11.0`; install as specified in the compatibility table. See the installation instructions in the repository’s README for details.
 
-The following demonstrates how to install HyperParallel from source:
+The following demonstrates how to install HyperParallel 1.0.0 from source:
 
 ```bash
-git clone https://atomgit.com/mindspore/hyper-parallel.git
+# HyperParallel 1.0.0 (r1.0.0 branch)
+git clone -b r1.0.0 https://atomgit.com/mindspore/hyper-parallel.git
 cd hyper-parallel
 python setup.py bdist_wheel
 pip install dist/hyper_parallel-*-py3-none-any.whl
@@ -137,11 +129,11 @@ If you do not want to configure the Python/CANN/MindSpore environment directly o
 - **Software**: Docker version `26.1.4` or higher. You can verify this by running `docker --version`; if it is not installed, refer to the [Official Docker Installation Guide](https://docs.docker.com/engine/install/).
 - **Network**: A stable internet connection is required to pull or build images, and access to Huawei Cloud is necessary. Please ensure that the host’s time and time zone are correct.
 
-### Method 1: Use the Official Pre-built Image (Recommended)
+### Method 1: Use the Official Pre-built Image
 
 The MindSpore Transformers Ascend image is hosted in the Huawei Cloud SWR image repository; it is ready to use out of the box and does not require local building.
 
-> The official pre-built image for version 2.0 and later may not yet be available in the image repository; please refer to the actually available tags in [docker/OVERVIEW.md](https://atomgit.com/mindspore/mindformers/blob/r2.1.0/docker/OVERVIEW.md). If the required version is not currently available, you can use `Method 2: Build the Image Yourself` described below.
+> The official pre-built image for 2.1.0 is not yet published; **use `Method 2: Build the Image Yourself` below for now**. Once the image is released, a directly executable pull command will be added here; refer to [docker/OVERVIEW.md](https://atomgit.com/mindspore/mindformers/blob/r2.1.0/docker/OVERVIEW.md) for the actually available tags.
 
 **Image Repository URL:**
 
@@ -152,38 +144,33 @@ swr.cn-south-1.myhuaweicloud.com/ascendhub/mindformers
 **Tag Specifications** (The system architecture is automatically recognized by the Docker Manifest; there is no need to specify it in the tag):
 
 ```text
-<MindSpore Transformers version number>-<hardware information (chip)>-<operating system>-<Python version>
+<MindSpore Transformers version number>-cann<CANN version number>-mindspore<MindSpore version number>-<hardware information (chip)>-<operating system>-<Python version>
 ```
 
 | Field | Example Value | Description |
 |---|---|---|
-| Version | `2.0.0` | MindSpore Transformers release version |
-| Hardware Information (Chip) | `<Chip Architecture>` | Ascend chip model identifier; see [docker/OVERVIEW.md](https://atomgit.com/mindspore/mindformers/blob/r2.1.0/docker/OVERVIEW.md) for specific values |
+| Version | `2.1.0` | MindSpore Transformers release version |
+| CANN Version | `9.2.0` | CANN version included in the image |
+| MindSpore Version | `2.11.0` | MindSpore version included in the image |
+| Hardware Information (Chip) | `910b` / `a3` | Ascend chip model identifier; see [docker/OVERVIEW.md](https://atomgit.com/mindspore/mindformers/blob/r2.1.0/docker/OVERVIEW.md) for specific values |
 | Operating System | `ubuntu22.04` / `openeuler24.03` | Base image operating system distribution |
 | Python Version | `py3.12` | Major Python version included in the image |
 
-**Pull the image** (using `2.0.0-<chip architecture>-ubuntu22.04-py3.12` as an example):
-
-```bash
-docker pull swr.cn-south-1.myhuaweicloud.com/ascendhub/mindformers:2.0.0-<chip architecture>-ubuntu22.04-py3.12
-```
-
-> Replace `<chip architecture>` with the actual chip model; see [docker/OVERVIEW.md](https://atomgit.com/mindspore/mindformers/blob/r2.1.0/docker/OVERVIEW.md) for the complete list of supported architectures. You can use `docker manifest inspect <image>` to view the system architectures supported by the image (ARM64 / x86_64).
-
 ### Method 2: Build the Image Yourself
 
-If you need a custom combination of CANN, MindSpore, and MindSpore Transformers versions, use the official Dockerfile in the repository (`docker/Dockerfile`) to build the image. This Dockerfile is based on the official CANN base image `quay.io/ascend/cann` and installs dependencies, MindSpore, and MindSpore Transformers in sequence.
+For 2.1.0, use this method to build the image. If you need a custom combination of CANN, MindSpore, and MindSpore Transformers versions, also use the official Dockerfile in the repository (`docker/Dockerfile`) to build the image. This Dockerfile is based on the official CANN base image `quay.io/ascend/cann` and installs dependencies, MindSpore, and MindSpore Transformers in sequence.
 
 ```bash
 docker build \
-  --build-arg CANN_VERSION=9.1.0 \
+  --build-arg CANN_VERSION=9.2.0 \
   --build-arg CHIP_ARCH=<chip architecture> \
   --build-arg OS_SYSTEM=ubuntu22.04 \
   --build-arg PY_VERSION=py3.12 \
-  --build-arg MINDSPORE_VERSION=2.10.0 \
-  --build-arg MINDFORMERS_VERSION=2.0.0 \
+  --build-arg MINDSPORE_VERSION=2.11.0 \
+  --build-arg HYPER_PARALLEL_VERSION=1.0.0 \
+  --build-arg MINDFORMERS_VERSION=2.1.0 \
   --build-arg PIP_INDEX_URL=https://mirrors.huaweicloud.com/repository/pypi/simple \
-  -t mindformers:2.0.0-<chip architecture>-ubuntu22.04-py3.12 \
+  -t mindformers:2.1.0-cann9.2.0-mindspore2.11.0-<chip architecture>-ubuntu22.04-py3.12 \
   -f docker/Dockerfile .
 ```
 
@@ -191,12 +178,13 @@ Meaning of each `build-arg` (consistent with the `docker/Dockerfile` repository)
 
 | Parameter | Required | Description | Example Value |
 |---|---|---|---|
-| `CANN_VERSION` | Yes | Ascend CANN toolkit version (determines the base image tag) | `9.1.0` |
+| `CANN_VERSION` | Yes | Ascend CANN toolkit version (determines the base image tag) | `9.2.0` |
 | `CHIP_ARCH` | Yes | Ascend chip architecture identifier; see [docker/OVERVIEW.md](https://atomgit.com/mindspore/mindformers/blob/r2.1.0/docker/OVERVIEW.md) for specific values | `<chip architecture>` |
 | `OS_SYSTEM` | Yes | Base image operating system and version | `ubuntu22.04` / `openeuler24.03` |
 | `PY_VERSION` | Yes | Python version pre-installed in the base image | `py3.12` |
-| `MINDSPORE_VERSION` | Yes | MindSpore version (select from the corresponding table) | `2.10.0` |
-| `MINDFORMERS_VERSION` | Yes | MindSpore Transformers version | `2.0.0` |
+| `MINDSPORE_VERSION` | Yes | MindSpore version (select from the corresponding table) | `2.11.0` |
+| `HYPER_PARALLEL_VERSION` | Yes | HyperParallel version (select from the corresponding table) | `1.0.0` |
+| `MINDFORMERS_VERSION` | Yes | MindSpore Transformers version | `2.1.0` |
 | `PIP_INDEX_URL` | No | pip installation source URL; Huawei Cloud source by default | `https://mirrors.huaweicloud.com/repository/pypi/simple` |
 
 > The version numbers listed above must comply with the [Version Compatibility](#version-compatibility). For more details, see the `docker/OVERVIEW.md` file in the repository.
