@@ -212,6 +212,7 @@ extensions = [
     'sphinx.ext.mathjax',
     'IPython.sphinxext.ipython_console_highlighting',
     'custom_anchor',
+    'llms_txt',
 ]
 
 source_suffix = {
@@ -467,7 +468,7 @@ re_url2 = r"(atomgit.com/mindspore/mindspore/[\w\d/_.-]*?)/(master)"
 
 re_url3 = r"(((atomgit.com/mindspore/mindformers)|(mindspore.cn/mindformers))[\w\d/_.-]*?)/(master)"
 
-re_url4 = r"(atomgit.com/mindspore/mindspore-lite[\w\d/_.-]*?)/(master)"
+# re_url4 = r"(atomgit.com/mindspore/mindspore-lite[\w\d/_.-]*?)/(master)"
 
 if os.path.exists('../../../tools/generate_html/version.json'):
     with open('../../../tools/generate_html/version.json', 'r+', encoding='utf-8') as f:
@@ -502,7 +503,7 @@ for cur, _, files in os.walk(des_sir):
                     # 发版本时这里启用
                     new_content = re.sub(re_url, r'\1/r2.11.0', new_content)
                     new_content = re.sub(re_url3, r'\1/r2.1.0', new_content)
-                    new_content = re.sub(re_url4, r'\1/r2.11', new_content)
+                    # new_content = re.sub(re_url4, r'\1/r2.11', new_content)
                     if i.endswith('.rst') or i.endswith('.ipynb'):
                         new_content = re.sub(re_url2, r'\1/v2.11.0', new_content)
 

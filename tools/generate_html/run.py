@@ -17,6 +17,7 @@ from multiprocessing import Pool
 import requests
 import sphinx
 import urllib3
+from pathlib import Path
 from git import Repo
 from lxml import etree
 from replace_html_menu import replace_html_menu, modify_menu_num
@@ -1006,6 +1007,21 @@ if __name__ == "__main__":
         print(f"  阶段 2 (替换目录): {int(s2_min)}分{s2_sec:.1f}秒")
         s3_min, s3_sec = divmod(stage3_end - stage3_start, 60)
         print(f"  阶段 3 (替换样式): {int(s3_min)}分{s3_sec:.1f}秒")
+
+        output_root = Path(output_path)
+        for f_name in ("llms.txt", "llms-full.txt"):
+            for src in output_root.rglob(f_name):
+                version_dir = src.parent
+                lang_dir = version_dir.parent
+ 
+                if lang_dir.name not in ("en", "zh-CN"):
+                    continue
+ 
+                dst = lang_dir / f_name
+                if src.exists() and src != dst:
+                    shutil.move(str(src), str(dst))
+                    print(f"[llms] moved: {src} -> {dst}")
+
     except (KeyboardInterrupt, SystemExit):
         print("程序即将终止....")
         time.sleep(1)

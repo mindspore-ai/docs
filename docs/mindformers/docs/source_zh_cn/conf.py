@@ -67,6 +67,7 @@ extensions = [
     'sphinx.ext.mathjax',
     'IPython.sphinxext.ipython_console_highlighting',
     'custom_anchor',
+    'llms_txt',
 ]
 
 source_suffix = {
@@ -331,7 +332,7 @@ re_url2 = r"(atomgit.com/mindspore/mindspore[\w\d/_.-]*?)/(master)"
 
 re_url3 = r"(((atomgit.com/mindspore/mindformers)|(mindspore.cn/mindformers))[\w\d/_.-]*?)/(master)"
 
-re_url4 = r"(atomgit.com/mindspore/mindspore-lite[\w\d/_.-]*?)/(master)"
+# re_url4 = r"(atomgit.com/mindspore/mindspore-lite[\w\d/_.-]*?)/(master)"
 
 for cur, _, files in os.walk(moment_dir):
     for i in files:
@@ -358,7 +359,7 @@ for cur, _, files in os.walk(moment_dir):
                         new_content = re.sub(re_url, r'\1/r2.11.0', new_content)
                         new_content = re.sub(re_url2, r'\1/v2.11.0', new_content)
                         new_content = re.sub(re_url3, r'\1/r2.1.0', new_content)
-                        new_content = re.sub(re_url4, r'\1/r2.11', new_content)
+                        # new_content = re.sub(re_url4, r'\1/r2.11', new_content)
 
                         if new_content != content:
                             f.seek(0)
