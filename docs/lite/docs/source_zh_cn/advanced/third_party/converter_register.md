@@ -149,13 +149,16 @@ REG_SCHEDULED_PASS(POSITION_BEGIN, {"PassTutorial"})  // 注册调度逻辑
 
 ## 扩展配置
 
-在转换阶段，为了能够加载扩展模块，用户需要配置扩展动态库路径。扩展相关的参数有`plugin_path`、`disable_fusion`、`fusion_blacklists`。参数的详细介绍如下所示：
+扩展配置位于转换配置文件的`[registry]`段，支持加载扩展动态库、控制融合优化和常量折叠。仅调整优化选项时，无需配置扩展动态库路径。参数的详细介绍如下所示：
 
 | 参数              | 属性 | 功能描述             | 参数类型 | 默认值 | 取值范围            |
 | ----------------- | ---- | -------------------- | -------- | ------ | ------------------- |
 | plugin_path       | 可选 | 第三方库加载路径     | String   | -      | 如有多个请用`;`分隔 |
 | disable_fusion    | 可选 | 是否关闭融合优化     | String   | off    | off、on             |
 | fusion_blacklists | 可选 | 关闭指定融合算子名称 | String   | -      | 如有多个请用`,`分隔 |
+| enable_const_fold | 可选 | 是否启用常量折叠优化 | String   | on     | on、off（小写）      |
+
+关闭常量折叠时，设置`enable_const_fold=off`；不配置或设置为`on`时保持默认行为。其他非空取值会导致转换失败。此选项独立于融合优化配置，不等于关闭全部图优化。配置步骤、命令示例及部署注意事项请参见[关闭常量折叠](../../converter/converter_tool.md#关闭常量折叠)。
 
 发布件中已为用户生成好默认的配置文件（converter.cfg）。该配置文件内容如下：
 

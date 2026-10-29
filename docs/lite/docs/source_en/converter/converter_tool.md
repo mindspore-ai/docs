@@ -85,6 +85,39 @@ The following describes the parameters in detail.
 > - `--optimize` parameter is used to set the mode of optimization during the offline conversion. If this parameter is set to none, no relevant graph optimization operations will be performed during the offline conversion phase of the model, and the relevant graph optimization operations will be done during the execution of the inference phase. The advantage of this parameter is that the converted model can be deployed directly to any CPU/GPU/Ascend hardware backend since it is not optimized in a specific way, while the disadvantage is that the initialization time of the model increases during inference execution. If this parameter is set to general, general optimization will be performed, such as constant folding and operator fusion (the converted model only supports CPU/GPU hardware backend, not Ascend backend). If this parameter is set to gpu_oriented, the general optimization and extra optimization for GPU hardware will be performed (the converted model only supports GPU hardware backend). If this parameter is set to ascend_oriented, the optimization for Ascend hardware will be performed (the converted model only supports Ascend hardware backend).
 > - Parameters `--input_shape` and dynamicDims are stored in the model during conversion. Call model.get_model_info("input_shape") and model.get_model_info("dynamic_dims") to get it when using the model.
 
+### Disabling Constant Folding
+
+By default, the conversion tool enables constant folding to replace constant computations with their results, reducing computation during inference. You can disable constant folding through a configuration file if you need to retain these computations to debug intermediate results or avoid an increase in model size caused by expanding constants. Otherwise, keep the default setting.
+
+1. Create `disable_const_fold.cfg` with the following content:
+
+    ```ini
+    [registry]
+    enable_const_fold=off
+    ```
+
+    If you already have a configuration file, add `enable_const_fold=off` to its existing `[registry]` section without repeating the section header. This setting can coexist with other settings, such as quantization. Disabling constant folding alone does not require quantization, plugins, or disabling other fusion optimizations.
+
+2. Specify the configuration file with `--configFile`. For an ONNX model, replace `model.onnx` with your model path:
+
+    ```bash
+    ./converter_lite --fmk=ONNX --modelFile=model.onnx --outputFile=model --configFile=disable_const_fold.cfg
+    ```
+
+    A successful conversion generates `model.ms`.
+
+`enable_const_fold` accepts only lowercase `on` and `off`. To restore the default behavior, remove the setting or set it to `on`. Other non-empty values, such as `true`, `false`, `0`, or `1`, stop conversion with the following message:
+
+```text
+CONFIG SETTING ILLEGAL: enable_const_fold should be on/off
+```
+
+Keep the following in mind:
+
+- This setting controls the conversion tool's constant folding optimization. It does not disable all graph optimizations or guarantee that other optimizations will not generate constants. `disable_fusion` and `fusion_blacklists` control fusion optimizations and are not substitutes for this setting.
+- Retained computations must run during inference and may increase inference latency and memory usage. Whether model size decreases depends on the model.
+- Before deployment, check that the inference backend on your target device supports the retained operators, and compare inference results, latency, and memory usage with and without constant folding.
+
 ### CPU Model Optimization
 
 If the converted ms model uses the Android CPU backend for inference and has stringent requirements for model compilation latency, you may consider enabling this optimization. Add the configuration item `[cpu_option_cfg_param]` in the `configFile` to get a lower compile latency model. At present, the optimization is only available when the model include Matmul operator and its data type is `float32` or dynamic quantization is enabled.
