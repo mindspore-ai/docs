@@ -60,8 +60,8 @@ Detailed parameter descriptions are provided below.
 | -------- | ------- | ----- | --- | ---- | ---- |
 | `--help` | Not | Print all help information. | - | - | - |
 | `--fmk=<FMK>` | Required | The original format of the input model. | MINDIR, CAFFE, TFLITE, TF, ONNX | - | - |
-| `--modelFile=<MODELFILE>` | Required | The path of the input model. | - | - | - |
-| `--outputFile=<OUTPUTFILE>` | Required | The path to the output model, without the suffix, can be automatically generated with the `.mindir` suffix. | - | - | - |
+| `--modelFile=<MODELFILE>` | Required | The path of the input model. When `--fmk=ONNX`, it can also be a directory. For details, see the notes. | - | - | - |
+| `--outputFile=<OUTPUTFILE>` | Required | The path to the output model, without the suffix, can be automatically generated with the `.mindir` suffix. When `--modelFile` is a directory, this parameter indicates the output root directory. For details, see the notes. | - | - | - |
 | `--weightFile=<WEIGHTFILE>` | Required when converting Caffe models | The path to the input model weight file. | - | - | - |
 | `--configFile=<CONFIGFILE>` | Not | 1. can be used as a post-training quantization profile path; 2. can be used as an extended function profile path.  | - | - | - |
 | `--inputShape=<INPUTSHAPE>` | Not | Set the dimensions of the model inputs, and keep the order of the input dimensions the same as the original model. The model structure can be further optimized for some specific models, but the converted model will probably lose the dynamic shape properties. Multiple inputs are split by `;`, along with double quotes `""`. | e.g.  "inTensorName_1: 1,32,32,4;inTensorName_2:1,64,64,4;" | - | - |
@@ -86,6 +86,11 @@ Notes:
     Inference is performed directly without offline conversion.
 
     When using offline conversion, setting `--optimize` to general in CPU hardware backend (for general optimization), setting `--optimize` to ascend_oriented in Ascend hardware. The relevant optimization is done in the offline phase to reduce the initialization time of inference execution.
+
+- When `--modelFile` is a directory, batch conversion is performed: the directory must contain subdirectories named `rank0`, `rank1`, ..., `rankn` consecutively starting from `rank0`. The converter recursively converts every `*.onnx` file under each `rankN` directory, generates one same-named `*.mindir` for each `*.onnx`, and all models of the batch share one deduplicated external weight file. Directories and `*.onnx` files outside the `rankN` directories are ignored.
+    - Currently only ONNX to MINDIR conversion is supported, and `--optimize=none` must be set. `--inputShape` and `--configFile` are not supported.
+    - `--outputFile` must be the output root directory (without a trailing `/`). The output layout mirrors the input rank directories: a model at `<modelFile>/rankN/<subdir>/x.onnx` is converted to `<outputFile>/rankN/<subdir>/x.mindir`, and the shared external weight file is `<outputFile>/variables/data_0`.
+    - The relative path of the weight root is recorded in each converted `mindir`. When deploying, keep the relative position between the `mindir` and `variables/data_0` unchanged, otherwise loading the model fails because the weight file cannot be found.
 
 ### Usage Examples
 
@@ -137,4 +142,44 @@ The following selects common examples to illustrate the use of the conversion co
 
     ```text
     CONVERT RESULT SUCCESS:0
+    ```
+
+- Take an ONNX model directory as an example to convert all models under the directory in a batch with shared weights.
+
+    ```bash
+    ./converter_lite --fmk=ONNX --saveType=MINDIR --optimize=none --modelFile=./models --outputFile=./out
+    ```
+
+    Suppose the `./models` directory is structured as follows:
+
+    ```text
+    models
+    ├── rank0
+    │   ├── prefill
+    │   │   └── qwen3_llm_prefill.onnx
+    │   └── decode
+    │       └── qwen3_llm_decode.onnx
+    └── rank1
+        ├── prefill
+        │   └── qwen3_llm_prefill.onnx
+        └── decode
+            └── qwen3_llm_decode.onnx
+    ```
+
+    After a successful conversion, the `./out` directory is structured as follows, where `variables/data_0` is the external weight file shared by all models:
+
+    ```text
+    out
+    ├── rank0
+    │   ├── prefill
+    │   │   └── qwen3_llm_prefill.mindir
+    │   └── decode
+    │       └── qwen3_llm_decode.mindir
+    ├── rank1
+    │   ├── prefill
+    │   │   └── qwen3_llm_prefill.mindir
+    │   └── decode
+    │       └── qwen3_llm_decode.mindir
+    └── variables
+        └── data_0
     ```
