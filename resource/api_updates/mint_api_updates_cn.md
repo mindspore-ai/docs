@@ -1,5 +1,7 @@
 # mindspore.mint API接口变更
 
+2.11.0版本与2.10.0版本相比，MindSpore中 `mindspore.mint` API接口没有变化。
+
 2.10.0版本与2.9.0版本相比，MindSpore中 `mindspore.mint` API接口没有变化。
 
 2.9.0版本与2.8.0版本相比，MindSpore中`mindspore.mint`API接口的添加、删除和支持平台的更改信息如下表所示。

@@ -1,5 +1,7 @@
 # mindspore.nn API Interface Change
 
+Compared with the version 2.10.0, the information of `mindspore.nn` operators in MindSpore has no changes in version 2.11.0.
+
 Compared with the version 2.9.0, the added, deleted and supported platforms change information of `mindspore.nn` operators in version 2.10.0, is shown in the following table.
 
 |API|Status|Description|Support Platform|Class
