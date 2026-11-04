@@ -42,12 +42,12 @@ myst_heading_anchors = 5
 extensions = [
     'myst_parser',
     'custom_anchor',
+    'llms_txt',
 ]
 
 source_suffix = {
     '.rst': 'restructuredtext',
     '.md': 'markdown',
-    'llms_txt',
 }
 
 # Add any paths that contain templates here, relative to this directory.
