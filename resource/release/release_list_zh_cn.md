@@ -87,6 +87,7 @@
 |           |               | MacOS-x64     | Python3.10 | [mindspore-2.11.0-cp310-cp310-macosx_10_15_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.11.0/MindSpore/cpu/x86_64/mindspore-2.11.0-cp310-cp310-macosx_10_15_x86_64.whl) | 936b02c28e54259f5713b0c8f9d3968a8e5b08216ff4bd6ac1fc7e32e85a2df3 |
 |           |               |               | Python3.11 | [mindspore-2.11.0-cp311-cp311-macosx_10_15_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.11.0/MindSpore/cpu/x86_64/mindspore-2.11.0-cp311-cp311-macosx_10_15_x86_64.whl) | d733e60a946488e575778754e17edf2de4a9da4c41f905fd609b1d175dfabebd |
 |           |               |               | Python3.12 | [mindspore-2.11.0-cp312-cp312-macosx_10_15_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.11.0/MindSpore/cpu/x86_64/mindspore-2.11.0-cp312-cp312-macosx_10_15_x86_64.whl) | b16352dc235b2cf8d603de692a77c71d78c37e4aaade521e39406b63373067ec |
+|MindSpore<br>Lite  |     |  |   | [安装包汇总链接](https://www.mindspore.cn/lite/docs/zh-CN/r2.11.0/use/downloads.html)   |      |
 
 **Ascend配套软件包**
 
@@ -98,7 +99,7 @@
 
 |   版本说明和接口变更   |   安装   |      教程      |  文档    |  API|
 |    ---  |    ---   |       ---      |     ---     |     ---      |
-|   [ReleaseNotes](https://www.mindspore.cn/docs/zh-CN/r2.11.0/RELEASE.html)   | [安装指南](https://atomgit.com/mindspore/docs/tree/r2.11.0/install)  |  [快速上手](https://www.mindspore.cn/tutorials/zh-CN/r2.11.0/beginner/quick_start.html)      <br> [实践案例](https://www.mindspore.cn/tutorials/zh-CN/r2.11.0/cv.html)  | [MindSpore](https://www.mindspore.cn/docs/zh-CN/r2.11.0/index.html) |  [MindSpore](https://www.mindspore.cn/docs/zh-CN/r2.11.0/api_python/mindspore.html)  |
+|   [ReleaseNotes](https://www.mindspore.cn/docs/zh-CN/r2.11.0/RELEASE.html)   | [安装指南](https://atomgit.com/mindspore/docs/tree/r2.11.0/install)  |  [快速上手](https://www.mindspore.cn/tutorials/zh-CN/r2.11.0/beginner/quick_start.html)      <br> [实践案例](https://www.mindspore.cn/tutorials/zh-CN/r2.11.0/cv.html)  | [MindSpore](https://www.mindspore.cn/docs/zh-CN/r2.11.0/index.html) <br> [MindSpore Lite](https://www.mindspore.cn/lite/docs/zh-CN/r2.11.0/index.html) |  [MindSpore](https://www.mindspore.cn/docs/zh-CN/r2.11.0/api_python/mindspore.html) <br> [MindSpore Lite](https://www.mindspore.cn/lite/api/zh-CN/r2.11.0/index.html)  |
 
 ## 2.10.0
 
@@ -119,6 +120,7 @@
 |           |               | MacOS-x64     | Python3.10 | [mindspore-2.10.0-cp310-cp310-macosx_10_15_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.10.0/MindSpore/cpu/x86_64/mindspore-2.10.0-cp310-cp310-macosx_10_15_x86_64.whl) | 50fe3faa66aed0be1ae2eff4e56beb46ea4d240ededba11dc962e72b152a161e |
 |           |               |               | Python3.11 | [mindspore-2.10.0-cp311-cp311-macosx_10_15_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.10.0/MindSpore/cpu/x86_64/mindspore-2.10.0-cp311-cp311-macosx_10_15_x86_64.whl) | 6314e2322e0a7042ec28b2560a1c54c22d884fc6b970652a85e25909bec3715a |
 |           |               |               | Python3.12 | [mindspore-2.10.0-cp312-cp312-macosx_10_15_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.10.0/MindSpore/cpu/x86_64/mindspore-2.10.0-cp312-cp312-macosx_10_15_x86_64.whl) | d677b6fed43bd4f124b5ca33d3572347f86ff47fcfa685b6484a8f09217f6a93 |
+|MindSpore<br>Lite  |     |  |   | [安装包汇总链接](https://www.mindspore.cn/lite/docs/zh-CN/r2.10.0/use/downloads.html)   |      |
 
 **Ascend配套软件包**
 
@@ -130,7 +132,7 @@
 
 |   版本说明和接口变更   |   安装   |      教程      |  文档    |  API|
 |    ---  |    ---   |       ---      |     ---     |     ---      |
-|   [ReleaseNotes](https://www.mindspore.cn/docs/zh-CN/r2.10.0/RELEASE.html)   | [安装指南](https://atomgit.com/mindspore/docs/tree/r2.10.0/install)  |  [快速上手](https://www.mindspore.cn/tutorials/zh-CN/r2.10.0/beginner/quick_start.html)      <br> [实践案例](https://www.mindspore.cn/tutorials/zh-CN/r2.10.0/cv.html)  | [MindSpore](https://www.mindspore.cn/docs/zh-CN/r2.10.0/index.html) |  [MindSpore](https://www.mindspore.cn/docs/zh-CN/r2.10.0/api_python/mindspore.html)  |
+|   [ReleaseNotes](https://www.mindspore.cn/docs/zh-CN/r2.10.0/RELEASE.html)   | [安装指南](https://atomgit.com/mindspore/docs/tree/r2.10.0/install)  |  [快速上手](https://www.mindspore.cn/tutorials/zh-CN/r2.10.0/beginner/quick_start.html)      <br> [实践案例](https://www.mindspore.cn/tutorials/zh-CN/r2.10.0/cv.html)  | [MindSpore](https://www.mindspore.cn/docs/zh-CN/r2.10.0/index.html) <br> [MindSpore Lite](https://www.mindspore.cn/lite/docs/zh-CN/r2.10.0/index.html)|  [MindSpore](https://www.mindspore.cn/docs/zh-CN/r2.10.0/api_python/mindspore.html)  <br> [MindSpore Lite](https://www.mindspore.cn/lite/api/zh-CN/r2.10.0/index.html) |
 
 ## 2.9.0
 
@@ -156,6 +158,7 @@
 |           |               |               | Python3.10 | [mindspore-2.9.0-cp310-cp310-macosx_10_15_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.9.0/MindSpore/cpu/x86_64/mindspore-2.9.0-cp310-cp310-macosx_10_15_x86_64.whl) | 5a458e2a88cd1e7a47133ff647fca90b3778bb70389dabed2bd37f8d6dd7e7c0 |
 |           |               |               | Python3.11 | [mindspore-2.9.0-cp311-cp311-macosx_10_15_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.9.0/MindSpore/cpu/x86_64/mindspore-2.9.0-cp311-cp311-macosx_10_15_x86_64.whl) | fb7f2dc0a67531a5a20cba5e0b9a9b813ac6ef1aaab74b952894423147f7a7c8 |
 |           |               |               | Python3.12 | [mindspore-2.9.0-cp312-cp312-macosx_10_15_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.9.0/MindSpore/cpu/x86_64/mindspore-2.9.0-cp312-cp312-macosx_10_15_x86_64.whl) | 571caceec0979b93f5675d77acd53bb60254227b7c3e53be9224755405205bd3 |
+|MindSpore<br>Lite  |     |  |   | [安装包汇总链接](https://www.mindspore.cn/lite/docs/zh-CN/r2.9.0/use/downloads.html)   |      |
 
 **Ascend配套软件包**
 
@@ -167,7 +170,7 @@
 
 |   版本说明和接口变更   |   安装   |      教程      |  文档    |  API|
 |    ---  |    ---   |       ---      |     ---     |     ---      |
-|   [ReleaseNotes](https://www.mindspore.cn/docs/zh-CN/r2.9.0/RELEASE.html)   | [安装指南](https://atomgit.com/mindspore/docs/tree/r2.9.0/install)  |  [快速上手](https://www.mindspore.cn/tutorials/zh-CN/r2.9.0/beginner/quick_start.html)      <br> [实践案例](https://www.mindspore.cn/tutorials/zh-CN/r2.9.0/cv.html)  | [MindSpore](https://www.mindspore.cn/docs/zh-CN/r2.9.0/index.html) |  [MindSpore](https://www.mindspore.cn/docs/zh-CN/r2.9.0/api_python/mindspore.html)  |
+|   [ReleaseNotes](https://www.mindspore.cn/docs/zh-CN/r2.9.0/RELEASE.html)   | [安装指南](https://atomgit.com/mindspore/docs/tree/r2.9.0/install)  |  [快速上手](https://www.mindspore.cn/tutorials/zh-CN/r2.9.0/beginner/quick_start.html)      <br> [实践案例](https://www.mindspore.cn/tutorials/zh-CN/r2.9.0/cv.html)  | [MindSpore](https://www.mindspore.cn/docs/zh-CN/r2.9.0/index.html)<br> [MindSpore Lite](https://www.mindspore.cn/lite/docs/zh-CN/r2.9.0/index.html) |  [MindSpore](https://www.mindspore.cn/docs/zh-CN/r2.9.0/api_python/mindspore.html) <br> [MindSpore Lite](https://www.mindspore.cn/lite/api/zh-CN/r2.9.0/index.html)  |
 
 ## 2.8.0
 
@@ -199,12 +202,13 @@
 |  安装指引 | 社区版下载地址 |
 |--------|------------------|
 | [安装指引文档](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/850/quickstart/instg_quick.html) | [CANN 8.5.0](https://www.hiascend.com/developer/download/community/result?module=cann) <br> [固件与驱动](https://www.hiascend.com/hardware/firmware-drivers/community) |
+|MindSpore<br>Lite  |     |  |   | [安装包汇总链接](https://www.mindspore.cn/lite/docs/zh-CN/r2.8.0/use/downloads.html)   |      |
 
 **配套资料**
 
 |   版本说明和接口变更   |   安装   |      教程      |  文档    |  API|
 |    ---  |    ---   |       ---      |     ---     |     ---      |
-|   [ReleaseNotes](https://www.mindspore.cn/docs/zh-CN/r2.8.0/RELEASE.html)   | [安装指南](https://atomgit.com/mindspore/docs/tree/r2.8.0/install)  |  [快速上手](https://www.mindspore.cn/tutorials/zh-CN/r2.8.0/beginner/quick_start.html)      <br> [实践案例](https://www.mindspore.cn/tutorials/zh-CN/r2.8.0/cv.html)  | [MindSpore](https://www.mindspore.cn/docs/zh-CN/r2.8.0/index.html) |  [MindSpore](https://www.mindspore.cn/docs/zh-CN/r2.8.0/api_python/mindspore.html)  |
+|   [ReleaseNotes](https://www.mindspore.cn/docs/zh-CN/r2.8.0/RELEASE.html)   | [安装指南](https://atomgit.com/mindspore/docs/tree/r2.8.0/install)  |  [快速上手](https://www.mindspore.cn/tutorials/zh-CN/r2.8.0/beginner/quick_start.html)      <br> [实践案例](https://www.mindspore.cn/tutorials/zh-CN/r2.8.0/cv.html)  | [MindSpore](https://www.mindspore.cn/docs/zh-CN/r2.8.0/index.html) <br> [MindSpore Lite](https://www.mindspore.cn/lite/docs/zh-CN/r2.8.0/index.html)|  [MindSpore](https://www.mindspore.cn/docs/zh-CN/r2.8.0/api_python/mindspore.html) <br> [MindSpore Lite](https://www.mindspore.cn/lite/api/zh-CN/r2.8.0/index.html)  |
 
 ## 2.7.2
 
@@ -262,6 +266,7 @@
 |           |               | MacOS-x64     | Python3.9  | [mindspore-2.7.1-cp39-cp39-macosx_10_15_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.7.1/MindSpore/cpu/x86_64/mindspore-2.7.1-cp39-cp39-macosx_10_15_x86_64.whl)     | 450108729596e1fd5b55b85f5a0fce52f66435b4e0f44e027ec445ae08d2c77f |
 |           |               |               | Python3.10 | [mindspore-2.7.1-cp310-cp310-macosx_10_15_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.7.1/MindSpore/cpu/x86_64/mindspore-2.7.1-cp310-cp310-macosx_10_15_x86_64.whl) | 1c2f22aca36a9eb0d2472fd81e4f78e4df87acfd3210043a271f42c42776ac00 |
 |           |               |               | Python3.11 | [mindspore-2.7.1-cp311-cp311-macosx_10_15_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.7.1/MindSpore/cpu/x86_64/mindspore-2.7.1-cp311-cp311-macosx_10_15_x86_64.whl) | 18a11196c1282d219a7d408cc70931e3a8bc9504a1f112f78a85d24cb8eeef0d |
+|MindSpore<br>Lite  |     |  |   | [安装包汇总链接](https://www.mindspore.cn/lite/docs/zh-CN/r2.7.1/use/downloads.html)   |      |
 
 **Ascend配套软件包**
 
@@ -273,7 +278,7 @@
 
 |   版本说明和接口变更   |   安装   |      教程      |  文档    |  API|
 |    ---  |    ---   |       ---      |     ---     |     ---      |
-|   [ReleaseNotes](https://www.mindspore.cn/docs/zh-CN/r2.7.1/RELEASE.html)   | [安装指南](https://atomgit.com/mindspore/docs/tree/r2.7.1/install)  |  [快速上手](https://www.mindspore.cn/tutorials/zh-CN/r2.7.1/beginner/quick_start.html)      <br> [实践案例](https://www.mindspore.cn/tutorials/zh-CN/r2.7.1/cv.html)  | [MindSpore](https://www.mindspore.cn/docs/zh-CN/r2.7.1/index.html) |  [MindSpore](https://www.mindspore.cn/docs/zh-CN/r2.7.1/api_python/mindspore.html)  |
+|   [ReleaseNotes](https://www.mindspore.cn/docs/zh-CN/r2.7.1/RELEASE.html)   | [安装指南](https://atomgit.com/mindspore/docs/tree/r2.7.1/install)  |  [快速上手](https://www.mindspore.cn/tutorials/zh-CN/r2.7.1/beginner/quick_start.html)      <br> [实践案例](https://www.mindspore.cn/tutorials/zh-CN/r2.7.1/cv.html)  | [MindSpore](https://www.mindspore.cn/docs/zh-CN/r2.7.1/index.html) <br> [MindSpore Lite](https://www.mindspore.cn/lite/docs/zh-CN/r2.7.1/index.html)|  [MindSpore](https://www.mindspore.cn/docs/zh-CN/r2.7.1/api_python/mindspore.html) <br> [MindSpore Lite](https://www.mindspore.cn/lite/api/zh-CN/r2.7.1/index.html)  |
 
 ## 2.7.0
 
@@ -294,6 +299,7 @@
 |           |               | MacOS-x64     | Python3.9  | [mindspore-2.7.0-cp39-cp39-macosx_10_15_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.7.0/MindSpore/cpu/x86_64/mindspore-2.7.0-cp39-cp39-macosx_10_15_x86_64.whl)     | 19a2062a033471b254c43ae48315507b2335281b507c3a8e464d83d5127b66e1 |
 |           |               |               | Python3.10 | [mindspore-2.7.0-cp310-cp310-macosx_10_15_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.7.0/MindSpore/cpu/x86_64/mindspore-2.7.0-cp310-cp310-macosx_10_15_x86_64.whl) | c33d010511be62dd5b8240a7f6d012c211776d0df89b4d454134ad3d304634d1 |
 |           |               |               | Python3.11 | [mindspore-2.7.0-cp311-cp311-macosx_10_15_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.7.0/MindSpore/cpu/x86_64/mindspore-2.7.0-cp311-cp311-macosx_10_15_x86_64.whl) | 78fca18ef9d06015a8bbf8674f0fc658403828df92e5d5fe71fae9f1984efe1a |
+|MindSpore<br>Lite  |     |  |   | [安装包汇总链接](https://www.mindspore.cn/lite/docs/zh-CN/r2.7.0/use/downloads.html)   |      |
 
 **Ascend配套软件包**
 
@@ -305,7 +311,7 @@
 
 |   版本说明和接口变更   |   安装   |      教程      |  文档    |  API|
 |    ---  |    ---   |       ---      |     ---     |     ---      |
-|   [ReleaseNotes](https://www.mindspore.cn/docs/zh-CN/r2.7.0/RELEASE.html)   | [安装指南](https://atomgit.com/mindspore/docs/tree/r2.7.0/install)  |  [快速上手](https://www.mindspore.cn/tutorials/zh-CN/r2.7.0/beginner/quick_start.html)      <br> [实践案例](https://www.mindspore.cn/tutorials/zh-CN/r2.7.0/cv.html)  | [MindSpore](https://www.mindspore.cn/docs/zh-CN/r2.7.0/index.html) |  [MindSpore](https://www.mindspore.cn/docs/zh-CN/r2.7.0/api_python/mindspore.html)  |
+|   [ReleaseNotes](https://www.mindspore.cn/docs/zh-CN/r2.7.0/RELEASE.html)   | [安装指南](https://atomgit.com/mindspore/docs/tree/r2.7.0/install)  |  [快速上手](https://www.mindspore.cn/tutorials/zh-CN/r2.7.0/beginner/quick_start.html)      <br> [实践案例](https://www.mindspore.cn/tutorials/zh-CN/r2.7.0/cv.html)  | [MindSpore](https://www.mindspore.cn/docs/zh-CN/r2.7.0/index.html) <br> [MindSpore Lite](https://www.mindspore.cn/lite/docs/zh-CN/r2.7.0/index.html)|  [MindSpore](https://www.mindspore.cn/docs/zh-CN/r2.7.0/api_python/mindspore.html) <br> [MindSpore Lite](https://www.mindspore.cn/lite/api/zh-CN/r2.7.0/index.html)  |
 
 ## 2.7.0-rc1
 
