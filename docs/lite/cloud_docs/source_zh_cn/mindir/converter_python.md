@@ -106,8 +106,8 @@ MindSpore Lite云侧推理的Python接口模型转换提供了多种属性设置
 | convert方法参数 | 参数类型  | 对应模型离线转换的参数  |  是否必选   |  参数说明  | 取值范围 | 参数默认值 |
 | -------- | ----- | -------- | ----- | --- | ---- | ---- |
 | fmk_type | FmkType | `--fmk=<FMK>`  | 是 | 输入模型框架类型。 | FmkType.TF、FmkType.CAFFE、FmkType.ONNX、FmkType.TFLITE | - |
-| model_file | str | `--modelFile=<MODELFILE>` | 是 | 转换时的输入模型文件路径。 | - | - |
-| output_file | str | `--outputFile=<OUTPUTFILE>` | 是 | 转换时的输出模型的路径，可自动生成`.mindir`后缀。 | - | - |
+| model_file | str | `--modelFile=<MODELFILE>` | 是 | 转换时的输入模型文件路径。当`fmk_type`为`FmkType.ONNX`时，还可以传入目录，详见下方说明。 | - | - |
+| output_file | str | `--outputFile=<OUTPUTFILE>` | 是 | 转换时的输出模型的路径，可自动生成`.mindir`后缀。当`model_file`为目录时，该参数表示输出根目录，详见下方说明。 | - | - |
 | weight_file | str | `--weightFile=<WEIGHTFILE>` | 转换Caffe模型时必选 | 输入模型权重文件路径。 | - | "" |
 | config_file | str | `--configFile=<CONFIGFILE>` | 否 | Converter的配置文件路径，可配置训练后量化或离线拆分算子并行或禁用算子融合功能并将插件设置为so路径等功能。 | - | "" |
 
@@ -118,6 +118,12 @@ MindSpore Lite云侧推理的Python接口模型转换提供了多种属性设置
 > Caffe模型一般分为两个文件：`*.prototxt`是模型结构，对应`model_file`参数；`model.caffemodel`是模型权值，对应`weight_file`参数。
 >
 > `config_file`配置文件采用`key = value`的方式定义相关参数。
+>
+> 当`model_file`为目录时，表示批量转换：目录下须包含从`rank0`开始连续命名的`rank0`、`rank1`……`rankn`子目录，转换工具会递归转换每个`rankN`目录下的所有`*.onnx`文件，每个`*.onnx`生成一个同名`*.mindir`，且整个批次的所有模型共享一个去重后的外部权重文件。`rankN`目录之外的目录和`*.onnx`文件会被忽略。
+>
+> - 该场景目前仅支持`FmkType.ONNX`转换为`ModelType.MINDIR`，且必须设置`optimize`为"none"；不支持`input_shape`和`config_file`。
+> - `output_file`需为输出根目录（末尾不能带`/`），输出目录结构按输入rank目录镜像：输入`<model_file>/rankN/<子目录>/x.onnx`会转换为`<output_file>/rankN/<子目录>/x.mindir`，共享的外部权重文件为`<output_file>/variables/data_0`。
+> - 转换后的`mindir`中记录了权重根目录的相对路径，部署时需保持`mindir`与`variables/data_0`的相对位置不变，否则加载模型时会因找不到权重文件而失败。
 >
 
 ### 使用示例
@@ -191,6 +197,18 @@ MindSpore Lite云侧推理的Python接口模型转换提供了多种属性设置
     ```text
     CONVERT RESULT SUCCESS:0
     ```
+
+- 以ONNX模型目录为例，批量转换目录下的模型并共享权重。
+
+    ```python
+    import mindspore_lite as mslite
+    converter = mslite.Converter()
+    converter.save_type = mslite.ModelType.MINDIR
+    converter.optimize = "none"
+    converter.convert(fmk_type=mslite.FmkType.ONNX, model_file="./models", output_file="./out")
+    ```
+
+    `./models`目录下需包含从`rank0`开始连续命名的`rank0`、`rank1`……`rankn`子目录。转换成功后，`./out`目录会按输入rank目录镜像生成对应的`.mindir`文件，所有模型共享的外部权重文件为`./out/variables/data_0`。
 
 ### 高级用法
 

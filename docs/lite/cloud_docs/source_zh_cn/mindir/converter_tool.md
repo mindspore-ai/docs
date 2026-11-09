@@ -60,8 +60,8 @@ MindSpore Lite云侧推理模型转换工具提供了多种参数设置，用户
 | ------- | ------- | ----- | --- | ---- | ---- |
 | `--help` | 否 | 打印全部帮助信息。 | - | - | - |
 | `--fmk=<FMK>` | 是 | 输入模型的原始格式。 | MINDIR、CAFFE、TFLITE、TF、ONNX | - | - |
-| `--modelFile=<MODELFILE>` | 是 | 输入模型的路径。 | - | - | - |
-| `--outputFile=<OUTPUTFILE>` | 是 | 输出模型的路径，不需加后缀，可自动生成`.mindir`后缀。 | - | - | - |
+| `--modelFile=<MODELFILE>` | 是 | 输入模型的路径。当`--fmk=ONNX`时，还可以传入目录，详见注意事项。 | - | - | - |
+| `--outputFile=<OUTPUTFILE>` | 是 | 输出模型的路径，不需加后缀，可自动生成`.mindir`后缀。当`--modelFile`为目录时，该参数表示输出根目录，详见注意事项。 | - | - | - |
 | `--weightFile=<WEIGHTFILE>` | 转换Caffe模型时必选 | 输入模型weight文件的路径。 | - | - | - |
 | `--configFile=<CONFIGFILE>` | 否 | 1）可作为训练后量化配置文件路径；2）可作为扩展功能配置文件路径。  | - | - | - |
 | `--inputShape=<INPUTSHAPE>` | 否 | 设定模型输入的维度，输入维度的顺序和原始模型保持一致。对某些特定的模型可以进一步优化模型结构，但是转化后的模型将可能失去动态shape的特性。多个输入用`;`分割，同时加上双引号`""`。 | e.g.  "inTensorName_1: 1,32,32,4;inTensorName_2:1,64,64,4;" | - | - |
@@ -86,6 +86,11 @@ MindSpore Lite云侧推理模型转换工具提供了多种参数设置，用户
     不需要经过离线转换，直接进行推理执行。
 
     使用离线转换，CPU后端设置`--optimize`为general（使能通用优化），Ascend后端设置`--optimize`为ascend_oriented，在离线阶段完成相关优化，减少推理执行的初始化时间。
+
+- 当`--modelFile`为目录时，表示批量转换：目录下须包含从`rank0`开始连续命名的`rank0`、`rank1`……`rankn`子目录，转换工具会递归转换每个`rankN`目录下的所有`*.onnx`文件，每个`*.onnx`生成一个同名`*.mindir`，且整个批次的所有模型共享一个去重后的外部权重文件。`rankN`目录之外的目录和`*.onnx`文件会被忽略。
+    - 该场景目前仅支持ONNX模型转换为MINDIR，且必须设置`--optimize=none`；不支持`--inputShape`和`--configFile`。
+    - `--outputFile`需为输出根目录（末尾不能带`/`），输出目录结构按输入rank目录镜像：输入`<modelFile>/rankN/<子目录>/x.onnx`会转换为`<outputFile>/rankN/<子目录>/x.mindir`，共享的外部权重文件为`<outputFile>/variables/data_0`。
+    - 转换后的`mindir`中记录了权重根目录的相对路径，部署时需保持`mindir`与`variables/data_0`的相对位置不变，否则加载模型时会因找不到权重文件而失败。
 
 ### 使用示例
 
@@ -137,4 +142,44 @@ MindSpore Lite云侧推理模型转换工具提供了多种参数设置，用户
 
     ```text
     CONVERT RESULT SUCCESS:0
+    ```
+
+- 以ONNX模型目录为例，批量转换目录下的模型并共享权重。
+
+    ```bash
+    ./converter_lite --fmk=ONNX --saveType=MINDIR --optimize=none --modelFile=./models --outputFile=./out
+    ```
+
+    假设`./models`目录结构如下：
+
+    ```text
+    models
+    ├── rank0
+    │   ├── prefill
+    │   │   └── qwen3_llm_prefill.onnx
+    │   └── decode
+    │       └── qwen3_llm_decode.onnx
+    └── rank1
+        ├── prefill
+        │   └── qwen3_llm_prefill.onnx
+        └── decode
+            └── qwen3_llm_decode.onnx
+    ```
+
+    转换成功后，`./out`目录结构如下，其中`variables/data_0`为所有模型共享的外部权重文件：
+
+    ```text
+    out
+    ├── rank0
+    │   ├── prefill
+    │   │   └── qwen3_llm_prefill.mindir
+    │   └── decode
+    │       └── qwen3_llm_decode.mindir
+    ├── rank1
+    │   ├── prefill
+    │   │   └── qwen3_llm_prefill.mindir
+    │   └── decode
+    │       └── qwen3_llm_decode.mindir
+    └── variables
+        └── data_0
     ```

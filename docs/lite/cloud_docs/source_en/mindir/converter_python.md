@@ -106,8 +106,8 @@ Detailed descriptions of the parameters and their correspondence to the paramete
 | Method of convert parameters | Types of parameters  | Parameters corresponding to the offline conversion of the model  |  Required or not   |  Description of parameters  | Value range | Default values |
 | -------- | ----- | -------- | ------- | ----- | --- | ---- |
 | fmk_type | FmkType | `--fmk=<FMK>`  | Required | Input model frame type. | FmkType.TF, FmkType.CAFFE, FmkType.ONNX, FmkType.TFLITE | - |
-| model_file | str | `--modelFile=<MODELFILE>` | Required | The path of the input model file for the conversion. | - | - |
-| output_file | str | `--outputFile=<OUTPUTFILE>` | Required | The path to the output model at the time of conversion can be automatically generated with the `.mindir` suffix. | - | - |
+| model_file | str | `--modelFile=<MODELFILE>` | Required | The path of the input model file for the conversion. When `fmk_type` is `FmkType.ONNX`, it can also be a directory. For details, see the notes below. | - | - |
+| output_file | str | `--outputFile=<OUTPUTFILE>` | Required | The path to the output model at the time of conversion can be automatically generated with the `.mindir` suffix. When `model_file` is a directory, this parameter indicates the output root directory. For details, see the notes below. | - | - |
 | weight_file | str | `--weightFile=<WEIGHTFILE>` | Required when converting Caffe models | The path to the input model weights file. | - | "" |
 | config_file | str | `--configFile=<CONFIGFILE>` | Not | Converter profile path to configure training post-quantization or offline splitting operators parallel or to disable the operator fusion function and set the plug-in to the so path, etc. | - | "" |
 
@@ -119,6 +119,11 @@ Detailed descriptions of the parameters and their correspondence to the paramete
 >
 > The `config_file` configuration file uses the `key = value` approach to define the relevant parameters.
 >
+> When `model_file` is a directory, batch conversion is performed: the directory must contain subdirectories named `rank0`, `rank1`, ..., `rankn` consecutively starting from `rank0`. The converter recursively converts every `*.onnx` file under each `rankN` directory, generates one same-named `*.mindir` for each `*.onnx`, and all models of the batch share one deduplicated external weight file. Directories and `*.onnx` files outside the `rankN` directories are ignored.
+>
+> - Currently only conversion from `FmkType.ONNX` to `ModelType.MINDIR` is supported, and `optimize` must be set to "none". `input_shape` and `config_file` are not supported.
+> - `output_file` must be the output root directory (without a trailing `/`). The output layout mirrors the input rank directories: a model at `<model_file>/rankN/<subdir>/x.onnx` is converted to `<output_file>/rankN/<subdir>/x.mindir`, and the shared external weight file is `<output_file>/variables/data_0`.
+> - The relative path of the weight root is recorded in each converted `mindir`. When deploying, keep the relative position between the `mindir` and `variables/data_0` unchanged, otherwise loading the model fails because the weight file cannot be found.
 
 ### Usage Examples
 
@@ -191,6 +196,18 @@ The following selects common examples to illustrate the use of the conversion co
     ```text
     CONVERT RESULT SUCCESS:0
     ```
+
+- Take an ONNX model directory as an example to convert all models under the directory in a batch with shared weights.
+
+    ```python
+    import mindspore_lite as mslite
+    converter = mslite.Converter()
+    converter.save_type = mslite.ModelType.MINDIR
+    converter.optimize = "none"
+    converter.convert(fmk_type=mslite.FmkType.ONNX, model_file="./models", output_file="./out")
+    ```
+
+    The `./models` directory must contain subdirectories named `rank0`, `rank1`, ..., `rankn` consecutively starting from `rank0`. After a successful conversion, the `./out` directory contains the corresponding `.mindir` files mirroring the input rank directories, and the external weight file shared by all models is `./out/variables/data_0`.
 
 ### Advanced Usage
 
