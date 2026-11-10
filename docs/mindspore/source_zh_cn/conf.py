@@ -237,7 +237,7 @@ mathjax_options = {
 
 nbsphinx_requirejs_path = ""
 
-smartquotes_action = 'De'
+smartquotes_action = 'D'
 
 exclude_patterns = []
 
