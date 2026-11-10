@@ -99,6 +99,7 @@ extensions = [
     'sphinx.ext.mathjax',
     'IPython.sphinxext.ipython_console_highlighting',
     'custom_anchor',
+    'promote_cpp_members',
 ]
 
 source_suffix = {
@@ -289,7 +290,7 @@ def specificationsForKind(kind):
     if kind == "class":
         return [
             ":members:",
-            ":no-link:",
+            # ":no-link:",
             # ":protected-members:",
             # ":private-members:"
         ]

@@ -2307,7 +2307,7 @@ class ExhaleRoot(object):
                         rst_file=dira+gfilename+".rst"
                         if os.path.exists(rst_file):
                             os.remove(rst_file)
-                shutil.rmtree(source_generate)
+                # shutil.rmtree(source_generate)
 
             # for file in os.listdir(dira):
             #     if file.startswith('enum') and file.endswith('-2.rst'):
