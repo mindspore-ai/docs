@@ -518,7 +518,7 @@ quant_strategy=ALWC
 
 ## Per-layer Quantization Control
 
-By default, the quantization strategy quantizes every supported operator. When some layers are accuracy-sensitive, or need to stay float32 for Micro code generation, per-layer quantization control decides which layers are quantized and which stay float32, and generates a per-layer decision report after conversion, so that whether each config entry took effect is explicitly visible instead of failing silently.
+By default, the quantization strategy quantizes every supported operator. When some layers are accuracy-sensitive, or need to stay float32 for Micro code generation, per-layer quantization control lets you decide which layers are quantized and which stay float32, and generates a per-layer decision report after conversion, so that whether each config entry took effect is explicitly visible instead of failing silently.
 
 ### Configuration
 
@@ -544,10 +544,9 @@ input_type=BIN
 - Blacklist `skip_quant_node`/`skip_quant_op_type`: matched layers stay float32, all other layers are quantized as usual.
 - Whitelist `quant_node`/`quant_op_type`: only matched layers are quantized, all other layers stay float32. A whitelist hit is a candidate condition: the layer still has to pass the quantizer's operator support set check.
 - One layer may hit both name and type entries at the same time; every hit is listed in the report.
-
 - Entry count limits: 200 for name lists and 100 for type lists.
 
-> **Scope and legacy compatibility**: the list parameters (whitelists and the type blacklist) take effect for the full quantization (FULL_QUANT) scenario only; configuring them for weight or dynamic quantization fails the conversion immediately. The decision report is generated in full for FULL_QUANT; when `quant_type` is unset, configuring only `layer_decision_report` runs a preview conversion (see above); no report is generated for weight or dynamic quantization. The legacy key `skip_quant_node` is unaffected: it stays effective for all three quantization types, and its name domain is a superset of the legacy behavior — existing configurations (using converted operator names such as `AVERAGE_POOL_2D-37`) keep hitting without any change, while original-model names and names of fusion-absorbed operators are newly supported.
+> **Scope and legacy compatibility**: the list parameters (whitelists and the type blacklist) take effect for the full quantization (FULL_QUANT) scenario only; configuring them for weight or dynamic quantization fails the conversion immediately. A full decision report is generated for FULL_QUANT; when `quant_type` is unset, configuring only `layer_decision_report` runs a preview conversion (see above); no report is generated for weight or dynamic quantization. The legacy key `skip_quant_node` is unaffected: it stays effective for all three quantization types, and its name domain is a superset of the legacy behavior — existing configurations (using converted operator names such as `AVERAGE_POOL_2D-37`) keep hitting without any change, while original-model names and names of fusion-absorbed operators are newly supported.
 
 ### Configure Operator Names of the Original Model
 
@@ -555,7 +554,7 @@ Conversion performs operator fusion (e.g. Conv+BN+ReLU fused into one Conv2DFusi
 
 - ONNX models: use the node name and type displayed in Netron directly, e.g. `Conv_3` and `Conv`.
 - TFLite models: TFLite operators are unnamed; the original name takes the `TYPE_index` form (e.g. `CONV_2D_12`, where the index corresponds to the identifier property of the operator in Netron).
-- Operators absorbed by fusion also take effect: configuring the name of a BN operator keeps the whole fused convolution layer float32.
+- Names of operators absorbed by fusion also take effect: configuring the name of a BN operator keeps the whole fused convolution layer float32.
 - Names and types generated after fusion (e.g. `Conv2DFusion-3`, `Conv2DFusion`) are not valid config values.
 
 When unsure about the value, run a preview conversion with only `layer_decision_report` configured (no quantization or calibration data needed); the report lists the configurable names and types of every layer.
