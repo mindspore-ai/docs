@@ -320,7 +320,7 @@ Common quantization parameters are the basic settings for post training quantiza
 | `bit_num`                  | Optional  | The number of quantized bits. Currently, weight quantization supports 0-16bit quantization. When it is set to 1-16bit, it is fixed-bit quantization. When it is set to 0bit, mixed-bit quantization is enabled. Full quantization and Dynamic quantization supports 8bit quantization. | Integer        | 8             | WEIGHT_QUANT:\[0, 16]<br/>FULL_QUANT: 8<br/>DYNAMIC_QUANT:8 |
 | `min_quant_weight_size`    | Optional  | Set the threshold of the weight size for quantization. If the number of weights is greater than this value, the weight will be quantized. | Integer        | 0             | [0, 65535]                                  |
 | `min_quant_weight_channel` | Optional  | Set the threshold of the number of weight channels for quantization. If the number of weight channels is greater than this value, the weight will be quantized. | Integer        | 16            | [0, 65535]                                  |
-| `skip_quant_node`          | Optional | Set the name of the operator that does not need to be quantified, and use `,` to split between multiple operators. Names are matched against the original model, including operators absorbed by fusion. See [Per-layer Quantization Control](#per-layer-quantization-control). | String   | -      | -                                     |
+| `skip_quant_node`          | Optional | Set the name of the operator that does not need to be quantified, and use `,` to split between multiple operators. Effective for full, weight and dynamic quantization alike; the name domain is a superset of the legacy behavior (converted names stay compatible, and original-model names including operators absorbed by fusion are newly supported). See [Per-layer Quantization Control](#per-layer-quantization-control). | String   | -      | -                                     |
 | `quant_node`               | Optional | Set the whitelist of operator names that participate in quantification, and use `,` to split between multiple operators. Only these layers are quantized. Effective for FULL_QUANT only. | String   | -      | -                                     |
 | `quant_op_type`            | Optional | Set the whitelist of operator types that participate in quantification, and use `,` to split between multiple types. Effective for FULL_QUANT only. | String   | -      | -                                     |
 | `skip_quant_op_type`       | Optional | Set the operator types that do not need to be quantified, and use `,` to split between multiple types. Effective for FULL_QUANT only. | String   | -      | -                                     |
@@ -333,7 +333,7 @@ Common quantization parameters are the basic settings for post training quantiza
 >
 > Recommendation: When the accuracy of full quantization is not satisfied, you can set `debug_info_save_path` to turn on the Debug mode to get the relevant statistical report, and set `skip_quant_node` for operators that are not suitable for quantization to not quantize them.
 >
-> `quant_node`, `quant_op_type`, `skip_quant_op_type`, `layer_decision_report` and `layer_decision_strict` take effect for FULL_QUANT only. The whitelist (`quant_node`/`quant_op_type`) and the blacklist (`skip_quant_node`/`skip_quant_op_type`) are mutually exclusive: configuring both sides makes the conversion fail immediately.
+> `quant_node`, `quant_op_type`, `skip_quant_op_type`, `layer_decision_report` and `layer_decision_strict` take effect for FULL_QUANT only: configuring them with another quantization type (or leaving `quant_type` unset) makes the conversion fail immediately. The whitelist (`quant_node`/`quant_op_type`) and the blacklist (`skip_quant_node`/`skip_quant_op_type`) are mutually exclusive: configuring both sides fails the conversion as well. The legacy key `skip_quant_node` keeps its existing behavior: it stays effective for all three quantization types and existing configurations need no change.
 
 The common quantization parameter configuration is as follows:
 
@@ -544,7 +544,10 @@ input_type=BIN
 - Blacklist `skip_quant_node`/`skip_quant_op_type`: matched layers stay float32, all other layers are quantized as usual.
 - Whitelist `quant_node`/`quant_op_type`: only matched layers are quantized, all other layers stay float32. A whitelist hit is a candidate condition: the layer still has to pass the quantizer's operator support set check.
 - One layer may hit both name and type entries at the same time; every hit is listed in the report.
+
 - Entry count limits: 200 for name lists and 100 for type lists.
+
+> **Scope and legacy compatibility**: the per-layer control capabilities of this section (whitelists, type lists, the decision report) are provided for the full quantization (FULL_QUANT) scenario only; configuring them for weight or dynamic quantization fails the conversion immediately. The legacy key `skip_quant_node` is unaffected: it stays effective for all three quantization types, and its name domain is a superset of the legacy behavior — existing configurations (using converted operator names such as `AVERAGE_POOL_2D-37`) keep hitting without any change, while original-model names and names of fusion-absorbed operators are newly supported.
 
 ### Configure Operator Names of the Original Model
 

@@ -320,7 +320,7 @@ quant_strategy=ALWC
 | `bit_num`                  | 可选 | 设置量化的比特数，目前权重量化支持0-16bit量化，设置为1-16bit时为固定比特量化，设置为0bit时，启用混合比特量化。全量化、动态量化支持8bit量化。 | Integer  | 8      | 权重量化：\[0，16]<br/>全量化：8<br/>动态量化：8 |
 | `min_quant_weight_size`    | 可选 | 设置参与量化的权重尺寸阈值，若权重数大于该值，则对此权重进行量化。 | Integer  | 0      | [0, 65535]                                       |
 | `min_quant_weight_channel` | 可选 | 设置参与量化的权重通道数阈值，若权重通道数大于该值，则对此权重进行量化。 | Integer  | 16     | [0, 65535]                                       |
-| `skip_quant_node`          | 可选 | 设置无需量化的算子名称，多个算子之间用`,`分割。按原始模型的算子名匹配，被融合吸收的算子名同样生效，详见[逐层量化控制](#逐层量化控制)。 | String   | -      | -                                                |
+| `skip_quant_node`          | 可选 | 设置无需量化的算子名称，多个算子之间用`,`分割。全量化、权重量化、动态量化均生效；名称域为存量行为的超集（转换后名称继续兼容，并扩展支持原始模型名称与被融合吸收的算子名），详见[逐层量化控制](#逐层量化控制)。 | String   | -      | -                                                |
 | `quant_node`               | 可选 | 设置参与量化的算子名称白名单，多个算子之间用`,`分割，仅这些层参与量化。仅全量化生效。 | String   | -      | -                                                |
 | `quant_op_type`            | 可选 | 设置参与量化的算子类型白名单，多个类型之间用`,`分割。仅全量化生效。 | String   | -      | -                                                |
 | `skip_quant_op_type`       | 可选 | 设置无需量化的算子类型，多个类型之间用`,`分割。仅全量化生效。   | String   | -      | -                                                |
@@ -333,7 +333,7 @@ quant_strategy=ALWC
 >
 > 建议：全量化在精度不满足的情况下，可设置`debug_info_save_path`开启Debug模式得到相关统计报告，针对不适合量化的算子设置`skip_quant_node`对其不进行量化。
 >
-> `quant_node`、`quant_op_type`、`skip_quant_op_type`、`layer_decision_report`、`layer_decision_strict`仅在全量化下生效；白名单（`quant_node`/`quant_op_type`）与黑名单（`skip_quant_node`/`skip_quant_op_type`）不可同时配置，同时配置时转换将直接报错退出。
+> `quant_node`、`quant_op_type`、`skip_quant_op_type`、`layer_decision_report`、`layer_decision_strict`仅在全量化下生效，配在其他量化类型（含未配置`quant_type`）时转换将直接报错退出；白名单（`quant_node`/`quant_op_type`）与黑名单（`skip_quant_node`/`skip_quant_op_type`）不可同时配置，同时配置时同样直接报错退出。存量键`skip_quant_node`行为保持不变：三种量化类型下继续生效，既有配置无需任何修改。
 
 公共量化参数配置如下所示：
 
@@ -544,7 +544,10 @@ input_type=BIN
 - 黑名单`skip_quant_node`/`skip_quant_op_type`：命中的层保持float32，其余层照常量化；
 - 白名单`quant_node`/`quant_op_type`：仅命中的层参与量化，其余层保持float32。白名单命中是候选条件，命中层仍需通过量化器的算子支持集检查；
 - 同一层可同时命中名称与类型条目，报告中会列出全部命中项；
+
 - 配置条目数量上限：名称类200条、类型类100条。
+
+> **生效范围与存量兼容**：本节的逐层控制能力（白名单、类型名单、决策报告）仅在全量化（FULL_QUANT）场景下提供，配在权重量化或动态量化下时转换将直接报错退出。存量键`skip_quant_node`不受影响：它在三种量化类型下继续生效，且名称域为存量行为的超集——既有配置（使用转换后算子名，如`AVERAGE_POOL_2D-37`）无需任何修改即可继续命中，同时新扩展支持原始模型算子名与被融合吸收的算子名。
 
 ### 按原始模型配置算子名
 
