@@ -324,8 +324,8 @@ quant_strategy=ALWC
 | `quant_node`               | 可选 | 设置参与量化的算子名称白名单，多个算子之间用`,`分割，仅这些层参与量化。仅全量化生效。 | String   | -      | -                                                |
 | `quant_op_type`            | 可选 | 设置参与量化的算子类型白名单，多个类型之间用`,`分割。仅全量化生效。 | String   | -      | -                                                |
 | `skip_quant_op_type`       | 可选 | 设置无需量化的算子类型，多个类型之间用`,`分割。仅全量化生效。   | String   | -      | -                                                |
-| `layer_decision_report`    | 可选 | 设置逐层量化决策报告的输出文件路径，转换完成后生成CSV报告描述每层的量化决策与配置命中情况。 | String   | -      | -                                                |
-| `layer_decision_strict`    | 可选 | 设置为true时，存在未命中任何层的配置条目将使转换失败。        | Boolean  | False  | True、False                                      |
+| `layer_decision_report`    | 可选 | 设置逐层量化决策报告的输出文件路径。全量化转换完成后生成完整CSV报告；不配置`quant_type`时执行预览转换生成预览报告；权重量化、动态量化下不生成报告。 | String   | -      | -                                                |
+| `layer_decision_strict`    | 可选 | 设置为true时，存在未命中任何层的配置条目将使转换失败。        | Boolean  | False  | True, False                                      |
 | `debug_info_save_path`     | 可选 | 设置量化Debug信息文件保存的文件夹路径。                      | String   | -      | -                                                |
 | `enable_encode`            | 可选 | 权重量化压缩编码使能开关。                                   | Boolean  | True   | True, False                                      |
 
@@ -333,7 +333,7 @@ quant_strategy=ALWC
 >
 > 建议：全量化在精度不满足的情况下，可设置`debug_info_save_path`开启Debug模式得到相关统计报告，针对不适合量化的算子设置`skip_quant_node`对其不进行量化。
 >
-> `quant_node`、`quant_op_type`、`skip_quant_op_type`、`layer_decision_report`、`layer_decision_strict`仅在全量化下生效，配在其他量化类型（含未配置`quant_type`）时转换将直接报错退出；白名单（`quant_node`/`quant_op_type`）与黑名单（`skip_quant_node`/`skip_quant_op_type`）不可同时配置，同时配置时同样直接报错退出。存量键`skip_quant_node`行为保持不变：三种量化类型下继续生效，既有配置无需任何修改。
+> 名单类新键`quant_node`、`quant_op_type`、`skip_quant_op_type`仅在全量化下生效，配在其他量化类型（含未配置`quant_type`）时转换将直接报错退出；白名单（`quant_node`/`quant_op_type`）与黑名单（`skip_quant_node`/`skip_quant_op_type`）不可同时配置，同时配置时同样直接报错退出。报告类新键`layer_decision_report`、`layer_decision_strict`：全量化下生成完整决策报告；仅配置`layer_decision_report`而不配置`quant_type`时执行预览转换生成预览报告；权重量化、动态量化下不生成报告。存量键`skip_quant_node`行为保持不变：三种量化类型下继续生效，既有配置无需任何修改。
 
 公共量化参数配置如下所示：
 
@@ -547,7 +547,7 @@ input_type=BIN
 
 - 配置条目数量上限：名称类200条、类型类100条。
 
-> **生效范围与存量兼容**：本节的逐层控制能力（白名单、类型名单、决策报告）仅在全量化（FULL_QUANT）场景下提供，配在权重量化或动态量化下时转换将直接报错退出。存量键`skip_quant_node`不受影响：它在三种量化类型下继续生效，且名称域为存量行为的超集——既有配置（使用转换后算子名，如`AVERAGE_POOL_2D-37`）无需任何修改即可继续命中，同时新扩展支持原始模型算子名与被融合吸收的算子名。
+> **生效范围与存量兼容**：名单类参数（白名单与类型黑名单）仅在全量化（FULL_QUANT）场景下生效，配在权重量化或动态量化下时转换将直接报错退出；决策报告在全量化下生成完整报告，不配置`quant_type`时支持仅配置`layer_decision_report`执行预览转换（见上文），权重量化、动态量化下不生成报告。存量键`skip_quant_node`不受影响：它在三种量化类型下继续生效，且名称域为存量行为的超集——既有配置（使用转换后算子名，如`AVERAGE_POOL_2D-37`）无需任何修改即可继续命中，同时新扩展支持原始模型算子名与被融合吸收的算子名。
 
 ### 按原始模型配置算子名
 
