@@ -402,7 +402,7 @@ target_device=DSP
 
 - 配置文件中全量化参数`full_quant_param`的target_device通常需设置为DSP，以支持更多的算子进行后量化。
 
-- 目前Micro已支持8个int8量化算子（add、batchnorm、concat、conv、convolution、matmul、resize、slice），如果在生成代码时，有相关量化算子不支持，可通过通用量化参数`common_quant_param`的`skip_quant_node`来规避该算子，被规避的算子节点仍然采用float32推理。
+- 目前Micro已支持数十类int8量化算子（conv、convolution、matmul、full_connection、pooling、activation、add/mul、concat、reshape/transpose等，完整清单以[算子支持列表](https://www.mindspore.cn/lite/docs/zh-CN/master/reference/operator_list_lite.html)为准）。如果在生成代码时，有相关量化算子不支持，可通过通用量化参数`common_quant_param`的`skip_quant_node`来规避该算子，被规避的算子节点仍然采用float32推理；逐层量化控制还支持按算子类型与原始模型算子名规避并生成决策报告，详见[逐层量化控制](https://www.mindspore.cn/lite/docs/zh-CN/master/advanced/quantization.html)。
 
 ## 模型训练代码生成
 

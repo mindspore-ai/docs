@@ -320,13 +320,20 @@ quant_strategy=ALWC
 | `bit_num`                  | 可选 | 设置量化的比特数，目前权重量化支持0-16bit量化，设置为1-16bit时为固定比特量化，设置为0bit时，启用混合比特量化。全量化、动态量化支持8bit量化。 | Integer  | 8      | 权重量化：\[0，16]<br/>全量化：8<br/>动态量化：8 |
 | `min_quant_weight_size`    | 可选 | 设置参与量化的权重尺寸阈值，若权重数大于该值，则对此权重进行量化。 | Integer  | 0      | [0, 65535]                                       |
 | `min_quant_weight_channel` | 可选 | 设置参与量化的权重通道数阈值，若权重通道数大于该值，则对此权重进行量化。 | Integer  | 16     | [0, 65535]                                       |
-| `skip_quant_node`          | 可选 | 设置无需量化的算子名称，多个算子之间用`,`分割。              | String   | -      | -                                                |
+| `skip_quant_node`          | 可选 | 设置无需量化的算子名称，多个算子之间用`,`分割。全量化、权重量化、动态量化均生效；名称域为存量行为的超集（转换后名称继续兼容，并扩展支持原始模型名称与被融合吸收的算子名），详见[逐层量化控制](#逐层量化控制)。 | String   | -      | -                                                |
+| `quant_node`               | 可选 | 设置参与量化的算子名称白名单，多个算子之间用`,`分割，仅这些层参与量化。仅全量化生效。 | String   | -      | -                                                |
+| `quant_op_type`            | 可选 | 设置参与量化的算子类型白名单，多个类型之间用`,`分割。仅全量化生效。 | String   | -      | -                                                |
+| `skip_quant_op_type`       | 可选 | 设置无需量化的算子类型，多个类型之间用`,`分割。仅全量化生效。   | String   | -      | -                                                |
+| `layer_decision_report`    | 可选 | 设置逐层量化决策报告的输出文件路径。全量化转换完成后生成完整CSV报告；不配置`quant_type`时执行预览转换生成预览报告；权重量化、动态量化下不生成报告。 | String   | -      | -                                                |
+| `layer_decision_strict`    | 可选 | 设置为true时，存在未命中任何层的配置条目将使转换失败。        | Boolean  | False  | True, False                                      |
 | `debug_info_save_path`     | 可选 | 设置量化Debug信息文件保存的文件夹路径。                      | String   | -      | -                                                |
 | `enable_encode`            | 可选 | 权重量化压缩编码使能开关。                                   | Boolean  | True   | True, False                                      |
 
 > 目前`min_quant_weight_size`、`min_quant_weight_channel`仅对权重量化有效。
 >
 > 建议：全量化在精度不满足的情况下，可设置`debug_info_save_path`开启Debug模式得到相关统计报告，针对不适合量化的算子设置`skip_quant_node`对其不进行量化。
+>
+> 名单类新键`quant_node`、`quant_op_type`、`skip_quant_op_type`仅在全量化下生效，配在其他量化类型（含未配置`quant_type`）时转换将直接报错退出；白名单（`quant_node`/`quant_op_type`）与黑名单（`skip_quant_node`/`skip_quant_op_type`）不可同时配置，同时配置时同样直接报错退出。报告类新键`layer_decision_report`、`layer_decision_strict`：全量化下生成完整决策报告；仅配置`layer_decision_report`而不配置`quant_type`时执行预览转换生成预览报告；权重量化、动态量化下不生成报告。存量键`skip_quant_node`行为保持不变：三种量化类型下继续生效，既有配置无需任何修改。
 
 公共量化参数配置如下所示：
 
@@ -343,6 +350,16 @@ min_quant_weight_size=0
 min_quant_weight_channel=16
 # Set the name of the operator that skips the quantization, and use `,` to split between multiple operators.
 skip_quant_node=node_name1,node_name2,node_name3
+# Whitelist: only the listed layers participate in quantization (FULL_QUANT only). Mutually exclusive with the blacklist.
+# quant_node=node_name1,node_name2
+# Whitelist of operator types (FULL_QUANT only).
+# quant_op_type=Conv,MatMul
+# Blacklist of operator types that stay float32 (FULL_QUANT only).
+# skip_quant_op_type=Gather,Softmax
+# Output path of the per-layer quantization decision report (a CSV file generated after conversion).
+# layer_decision_report=./layer_decision.csv
+# Fail the conversion when any config entry matches no layer of the model.
+# layer_decision_strict=false
 # Set the folder path where the quantization debug information file is saved.
 debug_info_save_path=/home/workspace/mindspore/debug_info_save_path
 # Enable tensor compression for weight quantization. If parameter bit_num not equal to 8 or 16, it can not be set to false.
@@ -498,6 +515,60 @@ center_crop_height=224
 # If set to ALWC, it will enable activation perlayer and weight perchannel quantization. If set to ACWL, it will enable activation perchannel and weight perlayer quantization. Default value is ALWC.
 quant_strategy=ALWC
 ```
+
+## 逐层量化控制
+
+量化策略默认对可支持的算子全部量化。当部分层对精度敏感，或希望在Micro码生成场景中让个别层保持float32推理时，可通过逐层量化控制指定"哪些层参与量化、哪些层保持浮点"，并在转换完成后输出一份逐层量化决策报告，使每条配置的生效情况显式可见，避免配置拼写错误导致的静默失效。
+
+### 配置方法
+
+逐层量化控制通过`[common_quant_param]`中的名单参数配置，均只需在原有全量化配置上追加：
+
+```ini
+[common_quant_param]
+quant_type=FULL_QUANT
+bit_num=8
+# 黑名单示例：命中的层保持float32（白名单与黑名单互斥，不可同时配置）
+skip_quant_node=Conv_3,BN-8
+skip_quant_op_type=Gather,Softmax
+# 决策报告输出路径（可选）：转换完成后生成逐层量化决策CSV
+layer_decision_report=./layer_decision.csv
+
+[data_preprocess_param]
+# 校准数据配置与普通全量化一致
+calibrate_path=input_name:/path/to/calibration_data
+calibrate_size=100
+input_type=BIN
+```
+
+- 黑名单`skip_quant_node`/`skip_quant_op_type`：命中的层保持float32，其余层照常量化；
+- 白名单`quant_node`/`quant_op_type`：仅命中的层参与量化，其余层保持float32。白名单命中是候选条件，命中层仍需通过量化器的算子支持集检查；
+- 同一层可同时命中名称与类型条目，报告中会列出全部命中项；
+- 配置条目数量上限：名称类200条、类型类100条。
+
+> **生效范围与存量兼容**：名单类参数（白名单与类型黑名单）仅在全量化（FULL_QUANT）场景下生效，配在权重量化或动态量化下时转换将直接报错退出；决策报告在全量化下生成完整报告，不配置`quant_type`时支持仅配置`layer_decision_report`执行预览转换（见上文），权重量化、动态量化下不生成报告。存量键`skip_quant_node`不受影响：它在三种量化类型下继续生效，且名称域为存量行为的超集——既有配置（使用转换后算子名，如`AVERAGE_POOL_2D-37`）无需任何修改即可继续命中，同时新扩展支持原始模型算子名与被融合吸收的算子名。
+
+### 按原始模型配置算子名
+
+转换过程中会进行算子融合（如Conv+BN+ReLU融合为一个Conv2DFusion算子），融合后原始算子名将消失。逐层量化控制按**原始模型**（ONNX/TFLite）中的算子名与算子类型匹配，即用户在Netron等可视化工具中看到的名称与类型：
+
+- ONNX模型：直接使用Netron中显示的节点名与类型，如`Conv_3`、`Conv`；
+- TFLite模型：TFLite算子无名，原始名为`类型_下标`形式（如`CONV_2D_12`，下标对应Netron中该算子的identifier属性）；
+- 被融合吸收的算子同样生效：例如配置BN算子的名称，融合后的整个卷积层将保持float32；
+- 融合后生成的名称与类型（如`Conv2DFusion-3`、`Conv2DFusion`）不作为配置写法。
+
+不确定名称取值时，可仅配置`layer_decision_report`（无需量化与校准数据）执行一次预览转换，报告中将列出每个层的可配置名称与类型。
+
+### 量化决策报告
+
+配置`layer_decision_report`后，转换完成时在指定路径生成一份CSV报告，转换后的每个层占一行，主要内容包括：融合前算子名/类型（配置取值来源）、量化决策、原因、命中的配置条目、Micro码生成可用性（启用Micro时）以及量化参数摘要。
+
+配置文件中未命中任何层的条目会在报告末尾以状态行标明，并输出告警日志：
+
+- `CONFIG_UNMATCHED`：该名称或类型在模型中不存在，通常为拼写或大小写错误（名称与类型均严格区分大小写），同时给出编辑距离最近的候选取值；
+- `FUSED_INVALID`：该名称对应的算子已被当前版本尚未覆盖的融合路径吸收。
+
+`layer_decision_strict`设置为`true`时，存在`CONFIG_UNMATCHED`条目将直接使转换失败，适用于配置由脚本批量生成的场景。
 
 ## 量化调试
 

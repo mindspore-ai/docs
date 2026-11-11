@@ -320,13 +320,20 @@ Common quantization parameters are the basic settings for post training quantiza
 | `bit_num`                  | Optional  | The number of quantized bits. Currently, weight quantization supports 0-16bit quantization. When it is set to 1-16bit, it is fixed-bit quantization. When it is set to 0bit, mixed-bit quantization is enabled. Full quantization and Dynamic quantization supports 8bit quantization. | Integer        | 8             | WEIGHT_QUANT:\[0, 16]<br/>FULL_QUANT: 8<br/>DYNAMIC_QUANT:8 |
 | `min_quant_weight_size`    | Optional  | Set the threshold of the weight size for quantization. If the number of weights is greater than this value, the weight will be quantized. | Integer        | 0             | [0, 65535]                                  |
 | `min_quant_weight_channel` | Optional  | Set the threshold of the number of weight channels for quantization. If the number of weight channels is greater than this value, the weight will be quantized. | Integer        | 16            | [0, 65535]                                  |
-| `skip_quant_node`          | Optional | Set the name of the operator that does not need to be quantified, and use `,` to split between multiple operators. | String   | -      | -                                     |
+| `skip_quant_node`          | Optional | Set the name of the operator that does not need to be quantified, and use `,` to split between multiple operators. Effective for full, weight and dynamic quantization alike; the name domain is a superset of the legacy behavior (converted names stay compatible, and original-model names including operators absorbed by fusion are newly supported). See [Per-layer Quantization Control](#per-layer-quantization-control). | String   | -      | -                                     |
+| `quant_node`               | Optional | Set the whitelist of operator names that participate in quantification, and use `,` to split between multiple operators. Only these layers are quantized. Effective for FULL_QUANT only. | String   | -      | -                                     |
+| `quant_op_type`            | Optional | Set the whitelist of operator types that participate in quantification, and use `,` to split between multiple types. Effective for FULL_QUANT only. | String   | -      | -                                     |
+| `skip_quant_op_type`       | Optional | Set the operator types that do not need to be quantified, and use `,` to split between multiple types. Effective for FULL_QUANT only. | String   | -      | -                                     |
+| `layer_decision_report`    | Optional | Set the output file path of the per-layer quantization decision report. A full CSV report is generated after a FULL_QUANT conversion; a preview report is generated when only this key is configured without `quant_type`; no report is generated for weight or dynamic quantization. | String   | -      | -                                     |
+| `layer_decision_strict`    | Optional | When set to true, the conversion fails if any configured entry matches no layer of the model. | Boolean  | False  | True, False                           |
 | `debug_info_save_path`     | Optional | Set the folder path where the quantized debug information file is saved. | String   | -      | -                                     |
 | `enable_encode`     | Optional |  The enable switch of compression code for weight quantization. | Boolean   | True     |  True, False                                    |
 
 > `min_quant_weight_size` and `min_quant_weight_channel` are only valid for weight quantization.
 >
 > Recommendation: When the accuracy of full quantization is not satisfied, you can set `debug_info_save_path` to turn on the Debug mode to get the relevant statistical report, and set `skip_quant_node` for operators that are not suitable for quantization to not quantize them.
+>
+> The new list keys `quant_node`, `quant_op_type` and `skip_quant_op_type` take effect for FULL_QUANT only: configuring them with another quantization type (or leaving `quant_type` unset) fails the conversion immediately. The whitelist (`quant_node`/`quant_op_type`) and the blacklist (`skip_quant_node`/`skip_quant_op_type`) are mutually exclusive: configuring both sides fails the conversion as well. The report keys `layer_decision_report` and `layer_decision_strict`: a full decision report is generated for FULL_QUANT; configuring only `layer_decision_report` without `quant_type` runs a preview conversion and generates a preview report; no report is generated for weight or dynamic quantization. The legacy key `skip_quant_node` keeps its existing behavior: it stays effective for all three quantization types and existing configurations need no change.
 
 The common quantization parameter configuration is as follows:
 
@@ -343,6 +350,16 @@ min_quant_weight_size=0
 min_quant_weight_channel=16
 # Set the name of the operator that skips the quantization, and use `,` to split between multiple operators.
 skip_quant_node=node_name1,node_name2,node_name3
+# Whitelist: only the listed layers participate in quantification (FULL_QUANT only). Mutually exclusive with the blacklist.
+# quant_node=node_name1,node_name2
+# Whitelist of operator types (FULL_QUANT only).
+# quant_op_type=Conv,MatMul
+# Blacklist of operator types that stay float32 (FULL_QUANT only).
+# skip_quant_op_type=Gather,Softmax
+# Output path of the per-layer quantization decision report (a CSV file generated after conversion).
+# layer_decision_report=./layer_decision.csv
+# Fail the conversion when any config entry matches no layer of the model.
+# layer_decision_strict=false
 # Set the folder path where the quantization debug information file is saved.
 debug_info_save_path=/home/workspace/mindspore/debug_info_save_path
 # Enable tensor compression for weight quantization. If parameter bit_num not equal to 8 or 16, it can not be set to false.
@@ -498,6 +515,60 @@ The dynamic quantization parameter configuration is as follows:
 # If set to ALWC, it will enable activation perlayer and weight perchannel quantization. If set to ACWL, it will enable activation perchannel and weight perlayer quantization. Default value is ALWC.
 quant_strategy=ALWC
 ```
+
+## Per-layer Quantization Control
+
+By default, the quantization strategy quantizes every supported operator. When some layers are accuracy-sensitive, or need to stay float32 for Micro code generation, per-layer quantization control lets you decide which layers are quantized and which stay float32, and generates a per-layer decision report after conversion, so that whether each config entry took effect is explicitly visible instead of failing silently.
+
+### Configuration
+
+Per-layer quantization control is configured with the list parameters of `[common_quant_param]`, appended to the ordinary full quantization configuration:
+
+```ini
+[common_quant_param]
+quant_type=FULL_QUANT
+bit_num=8
+# Blacklist example: matched layers stay float32 (whitelist and blacklist are mutually exclusive)
+skip_quant_node=Conv_3,BN-8
+skip_quant_op_type=Gather,Softmax
+# Output path of the decision report (optional): a per-layer CSV report generated after conversion
+layer_decision_report=./layer_decision.csv
+
+[data_preprocess_param]
+# Calibration data configuration is the same as ordinary full quantization
+calibrate_path=input_name:/path/to/calibration_data
+calibrate_size=100
+input_type=BIN
+```
+
+- Blacklist `skip_quant_node`/`skip_quant_op_type`: matched layers stay float32, all other layers are quantized as usual.
+- Whitelist `quant_node`/`quant_op_type`: only matched layers are quantized, all other layers stay float32. A whitelist hit is a candidate condition: the layer still has to pass the quantizer's operator support set check.
+- One layer may hit both name and type entries at the same time; every hit is listed in the report.
+- Entry count limits: 200 for name lists and 100 for type lists.
+
+> **Scope and legacy compatibility**: the list parameters (whitelists and the type blacklist) take effect for the full quantization (FULL_QUANT) scenario only; configuring them for weight or dynamic quantization fails the conversion immediately. A full decision report is generated for FULL_QUANT; when `quant_type` is unset, configuring only `layer_decision_report` runs a preview conversion (see above); no report is generated for weight or dynamic quantization. The legacy key `skip_quant_node` is unaffected: it stays effective for all three quantization types, and its name domain is a superset of the legacy behavior — existing configurations (using converted operator names such as `AVERAGE_POOL_2D-37`) keep hitting without any change, while original-model names and names of fusion-absorbed operators are newly supported.
+
+### Configure Operator Names of the Original Model
+
+Conversion performs operator fusion (e.g. Conv+BN+ReLU fused into one Conv2DFusion operator), after which the original operator names disappear. Per-layer quantization control matches the operator names and types of the **original model** (ONNX/TFLite), i.e. what the user sees in visualization tools such as Netron:
+
+- ONNX models: use the node name and type displayed in Netron directly, e.g. `Conv_3` and `Conv`.
+- TFLite models: TFLite operators are unnamed; the original name takes the `TYPE_index` form (e.g. `CONV_2D_12`, where the index corresponds to the identifier property of the operator in Netron).
+- Names of operators absorbed by fusion also take effect: configuring the name of a BN operator keeps the whole fused convolution layer float32.
+- Names and types generated after fusion (e.g. `Conv2DFusion-3`, `Conv2DFusion`) are not valid config values.
+
+When unsure about the value, run a preview conversion with only `layer_decision_report` configured (no quantization or calibration data needed); the report lists the configurable names and types of every layer.
+
+### Quantization Decision Report
+
+When `layer_decision_report` is configured, a CSV report is generated at the given path after conversion. Every layer of the converted model occupies one row, mainly covering: pre-fusion operator names/types (the config value source), the quantization decision, the reason, the matched config entries, Micro code generation availability (when Micro is enabled) and a quantization parameter summary.
+
+Config entries that match no layer are appended as status rows at the end of the report, together with a warning log:
+
+- `CONFIG_UNMATCHED`: the name or type does not exist in the model, usually a spelling or case error (names and types are case-sensitive); the nearest candidates by edit distance are provided as well.
+- `FUSED_INVALID`: the operator of this name was absorbed by a fusion path not covered by the current version.
+
+When `layer_decision_strict` is set to `true`, the existence of a `CONFIG_UNMATCHED` entry fails the conversion directly, which suits scenarios where configs are generated by scripts.
 
 ## Quantization Debugging
 
