@@ -404,7 +404,7 @@ target_device=DSP
 
 - The `target_device` of the full quantization parameter `full_quant_param` in the configuration file usually needs to be set to DSP to support more operators for post quantization.
 
-- At present, Micro has supported 8 Int8 quantization operators(add, batchnorm, concat, conv, convolution, matmul, resize, slice). If a related quantization operator does not support it when generating code, you can circumvent the operator through the `skip_quant_node` of the universal quantization parameter `common_quant_param`. The circumvented operator node still uses float32 inference.
+- At present, Micro has supported 8 Int8 quantization operators(add, batchnorm, concat, conv, convolution, matmul, resize, slice). If a related quantization operator does not support it when generating code, you can circumvent the operator through the `skip_quant_node` of the universal quantization parameter `common_quant_param`. The circumvented operator node still uses float32 inference. Per-layer quantization control supports configuring by operator name and operator type of the original model (including operators absorbed by fusion, e.g. BN), and a decision report tells whether each config entry took effect. See [Per-layer Quantization Control](https://www.mindspore.cn/lite/docs/en/master/advanced/quantization.html).
 
 ## Generating Model Training Code
 
