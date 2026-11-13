@@ -69,10 +69,6 @@
 /docs/mindformers/docs/source_zh_cn/_templates/ @gemini524
 /docs/mindformers/docs/source_zh_cn/conf.py @gemini524
 
-# The maintainers of vLLM-MindSpore Plugin docs.
-/docs/vllm_mindspore/docs/source_zh_cn/ @zlq2025 @horcham_zhq @gemini524
-/docs/vllm_mindspore/docs/source_zh_cn/conf.py @gemini524
-
 # The maintainers of MindStudio docs.
 /docs/mindstudio/docs/source_zh_cn/ @hwfuchao @gemini524
 /docs/mindstudio/docs/source_zh_cn/conf.py @gemini524
