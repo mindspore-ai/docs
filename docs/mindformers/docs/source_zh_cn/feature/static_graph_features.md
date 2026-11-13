@@ -11,7 +11,6 @@
 | 特性         | 说明                                                                      | 跳转                                                                     |
 |------------|-------------------------------------------------------------------------|------------------------------------------------------------------------|
 | 推理         | 训练后模型的推理流程。                                                             | [静态图 · 推理](../static_graph/guide/inference.md)                         |
-| 服务化部署      | 基于 vLLM 等的服务化部署。                                                        | [静态图 · 服务化部署](../static_graph/guide/deployment.md)                     |
 | 量化         | 集成 MindSpore Golden Stick 的量化推理。                                        | [静态图 · 量化](../static_graph/feature/quantization.md)                    |
 | Ckpt 权重    | ckpt 格式权重转换/切分（Checkpoint 1.0）。                                         | [静态图 · Ckpt 权重](../static_graph/feature/ckpt.md)                       |
 | 加载 HF 模型配置 | 通过 `pretrained_model_dir` 自动合并 HF `config.json`（动态图需在 `model` 段显式写结构）。  | [静态图 · 加载 HF 模型配置](../static_graph/feature/load_huggingface_config.md) |
