@@ -66,8 +66,6 @@ MindSpore Transformers 功能特性说明
    guide/pre_training
    guide/supervised_fine_tuning
    guide/inference
-   guide/deployment
-   guide/evaluation
 
 .. toctree::
    :glob:
@@ -123,7 +121,6 @@ MindSpore Transformers 功能特性说明
    example/docker-installation
    example/distilled/distilled
    example/convert_ckpt_to_megatron/convert_ckpt_to_megatron
-   example/model_test/model_test
    example/finetune_with_glm4/finetune_with_glm4
 
 .. toctree::
