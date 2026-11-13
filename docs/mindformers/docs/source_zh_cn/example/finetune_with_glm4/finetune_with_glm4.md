@@ -152,7 +152,7 @@ python mindformers/tools/transform_ckpt.py --src_ckpt_strategy SRC_CKPT_STRATEGY
 
 ### 3.4 权重反向转换
 
-由于训练过程中采用的是MindSpore版本的权重格式，如果需要用vLLM等推理框架进行部署的话，需要转换为Hugging Face权重格式。转换权重本质上是要让权重的字典与Hugging Face模型的字典一一对应。因此，我们在官方脚本 [convert_reversed.py](https://atomgit.com/mindspore/mindformers/blob/r1.9.0/mindformers/models/glm2/convert_reversed.py) 的基础上进行改写，该脚本已经实现了权重格式的转换以及字典名的对应，仅需要修改的地方为保存的部分。首先分析代码，修改的函数为`convert_ms_to_pt`：
+由于训练过程中采用的是MindSpore版本的权重格式，如果需要用推理框架进行部署的话，需要转换为Hugging Face权重格式。转换权重本质上是要让权重的字典与Hugging Face模型的字典一一对应。因此，我们在官方脚本 [convert_reversed.py](https://atomgit.com/mindspore/mindformers/blob/r1.9.0/mindformers/models/glm2/convert_reversed.py) 的基础上进行改写，该脚本已经实现了权重格式的转换以及字典名的对应，仅需要修改的地方为保存的部分。首先分析代码，修改的函数为`convert_ms_to_pt`：
 
 ``` python
 print('saving pt ckpt....')

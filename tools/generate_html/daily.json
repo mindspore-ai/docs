@@ -51,15 +51,6 @@
     ]
 },
 {
-    "id" : 5 ,
-    "name" : "vllm_mindspore",
-    "branch" : "master",
-    "whl_path" : "",
-    "whl_name" : "",
-    "environ" : "",
-    "uninstall_name" : ""
-},
-{
     "id" : 6 ,
     "name" : "mindstudio",
     "branch" : "master",
