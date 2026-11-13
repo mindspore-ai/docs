@@ -19,8 +19,7 @@ MindSpore Transformers 整体架构如下：
 MindSpore Transformers 北向既支持昇腾自有技术栈，也积极拥抱开源社区。用户可将其集成在自有训推平台或者开源组件中，具体如下：
 
 1. 训练平台：[MindCluster](http://hiascend.com/software/mindcluster)、第三方平台
-2. 服务化组件：[vLLM](https://www.mindspore.cn/mindformers/docs/zh-CN/r2.0.0/static_graph/guide/deployment.html)
-3. 社区：[魔乐社区](https://modelers.cn/)、[Hugging Face](https://huggingface.co/)
+2. 社区：[魔乐社区](https://modelers.cn/)、[Hugging Face](https://huggingface.co/)
 
 MindSpore Transformers 南向基于昇思+昇腾的大模型技术栈，利用昇思框架结合 CANN 对昇腾硬件进行亲和优化，提供高性能的模型训推体验。
 
@@ -84,17 +83,9 @@ MindSpore Transformers 构建了“北向生态融合、南向深度优化”的
 
   支持直接加载使用 Hugging Face 开源模型的配置文件、权重和 Tokenizer，实现配置即用、一键启动推理，降低迁移与部署门槛。
 
-- **对接 vLLM 服务化框架**
-
-  支持对接 vLLM 服务化框架，实现推理服务化部署。支持 Continuous Batch、Prefix Cache、Chunked Prefill 等核心特性，显著提升吞吐与资源利用率。
-
 - **支持量化推理**
 
   依托 MindSpore Golden-Stick 量化套件提供的量化算法，Legacy 模型已支持 A16W8、A8W8、A8W4 量化推理；Mcore 模型预计在下一版本中支持 A8W8 与 A8W4 量化推理。
-
-- **支持开源榜单评测**
-
-  通过 AISbench 评测套件，可对基于 vLLM 部署的模型进行评测，覆盖 CEval、GSM8K、AIME 等 20+ 主流榜单。
 
 **南向深度优化**
 

@@ -40,8 +40,6 @@ docs
 |    ├───msadapter // MSAdapter Documents
 |    |
 |    ├───sample_code // Document corresponding sample code
-|    |
-|    └───vllm_mindspore // vLLM-MindSpore Plugin Documents
 |
 │───install // Installation instruction
 |

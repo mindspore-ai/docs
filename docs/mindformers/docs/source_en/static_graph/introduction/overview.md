@@ -19,8 +19,7 @@ The overall architecture of MindSpore Transformers is as follows:
 MindSpore Transformers supports both Ascend's proprietary technology stack and actively embraces the open-source community. Users may integrate it into their own training and inference platforms or open-source components, as detailed below:
 
 1. Training platforms: [MindCluster](http://hiascend.com/software/mindcluster), third-party platforms
-2. Service components: [vLLM](https://www.mindspore.cn/mindformers/docs/en/r2.0.0/static_graph/guide/deployment.html)
-3. Communities: [Modelers](https://modelers.cn/), [Hugging Face](https://huggingface.co/)
+2. Communities: [Modelers](https://modelers.cn/), [Hugging Face](https://huggingface.co/)
 
 MindSpore Transformers Southbound is based on MindSpore+Ascend's large-scale model technology stack, leveraging the MindSpore framework combined with CANN to optimize Ascend hardware for compatibility, providing a high-performance model training and inference experience.
 
@@ -84,17 +83,9 @@ MindSpore Transformers establishes an inference framework centred on ‘northbou
 
   Supports direct loading of Hugging Face open-source model configuration files, weights, and tokenisers, enabling configuration-ready, one-click inference initiation to lower migration and deployment barriers.
 
-- **Integration with vLLM Service Framework**
-
-  Supports integration with the vLLM service framework for service-oriented inference deployment. Supports core features including Continuous Batch, Prefix Cache, and Chunked Prefill, significantly enhancing throughput and resource utilisation.
-
 - **Support for Quantisation Inference**
 
   Leveraging quantisation algorithms provided by the MindSpore Golden-Stick quantisation suite, Legacy models already support A16W8, A8W8, and A8W4 quantisation inference; Mcore models are expected to support A8W8 and A8W4 quantisation inference in the next release.
-
-- **Support for Open-Source Benchmark Evaluation**
-
-  Utilising the AISbench evaluation suite, models deployed via vLLM can be assessed across over 20 mainstream benchmarks including CEval, GSM8K, and AIME.
 
 **Southbound Deep Optimization**
 
