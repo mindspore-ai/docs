@@ -155,15 +155,6 @@
     {
         "version": "master",
         "label": {
-            "zh": "vLLM-MindSpore Plugin",
-            "en": "vLLM-MindSpore Plugin"
-        },
-        "repo_name": "vllm_mindspore",
-        "theme": "theme-docs"
-    },
-    {
-        "version": "master",
-        "label": {
             "zh": "MindStudio",
             "en": "MindStudio"
         },

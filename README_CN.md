@@ -40,8 +40,6 @@ docs
 │    ├───msadapter // MSAdapter 文档
 │    │
 │    ├───sample_code // 文档对应样例代码
-│    │
-│    └───vllm_mindspore // vLLM-MindSpore Plugin 文档
 │
 ├───install // 安装指南
 │
