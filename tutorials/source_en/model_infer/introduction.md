@@ -46,8 +46,6 @@ The MindSpore framework provides multiple model inference modes so that users ca
 
     - **MindIR model inference**: The MindIR file (official MindSpore file) is used for inference, which contains the network structure and weights. Model loading and inference are simpler, but the model cannot be adjusted and the MindIR file needs to be regenerated each time. This mode is not suitable for inference of models with large weights.
 
-    - **vLLM service-based inference**: The vLLM provides the service-based backend model inference capability, which can quickly deploy inference services. This mode is suitable for users who do not have their own service backends and can quickly implement inference services.
-
 - **Lite inference**: This mode is mainly used in scenarios where the computing resources on the device side are limited. The lightweight runtime reduces the resource requirements for model inference. The model file is in FlatBuffer format, implementing KB-level resource consumption for model inference and enabling the AI capability of devices such as mobile phones.
 
 The following figure shows the selection routes of common model inference scenarios.
@@ -61,8 +59,6 @@ The following figure shows the key technology stack of MindSpore inference.
 ![MindSpore Inference Technology Stack](images/model_infer_stack.png)
 
 - **Inference with a framework**: In scenarios with abundant computing resources, only Python APIs are provided. You need to use Python scripts to build models and perform inference. Service-oriented components are not mandatory.
-
-    - **vLLM & vLLM-MindSpore Plugin**: The service-oriented capability of the inference solution with a framework is provided. The popular vLLM service-oriented inference capability in the open-source community is used to seamlessly connect the service-oriented capability of the community to the MindSpore inference ecosystem.
 
     - **Python API**: MindSpore provides Python APIs, including mint operator APIs (consistent with PyTorch semantics), nn APIs, and parallel APIs.
 

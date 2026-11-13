@@ -9,5 +9,3 @@ Full-process Guide to Large Models
    pre_training
    supervised_fine_tuning
    inference
-   deployment
-   evaluation
