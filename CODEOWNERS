@@ -81,7 +81,3 @@
 /docs/mindquantum/docs/source_zh_cn/ @dsdsdshe @gemini524
 /docs/mindquantum/docs/source_zh_cn/_templates/ @gemini524
 /docs/mindquantum/docs/source_zh_cn/conf.py @gemini524
-
-# The maintainers of MSAdapter docs.
-/docs/msadapter/docs/source_zh_cn/ @gemini524
-/docs/msadapter/docs/source_zh_cn/conf.py @gemini524
