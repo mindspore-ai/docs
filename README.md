@@ -37,8 +37,6 @@ docs
 │    │
 │    ├───mindstudio // MindStudio Documents
 │    │
-│    ├───msadapter // MSAdapter Documents
-│    │
 │    ├───sample_code // Document corresponding sample code
 │
 ├───install // Installation instruction

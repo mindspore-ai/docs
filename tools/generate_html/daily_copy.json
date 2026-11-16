@@ -85,14 +85,5 @@
     "uninstall_name" : "mindscience",
     "extra_whl_path" : "/mindspore/website/master/cpu/x86_64",
     "extra_whl_name" : "mindspore-.*-cp312-cp312-linux_x86_64.whl$"
-},
-{
-    "id" : 10 ,
-    "name" : "msadapter",
-    "branch" : "master",
-    "whl_path" : "",
-    "whl_name" : "",
-    "environ" : "",
-    "uninstall_name" : ""
 }
 ]

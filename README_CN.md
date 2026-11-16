@@ -37,8 +37,6 @@ docs
 │    │
 │    ├───mindstudio // MindStudio 文档
 │    │
-│    ├───msadapter // MSAdapter 文档
-│    │
 │    ├───sample_code // 文档对应样例代码
 │
 ├───install // 安装指南

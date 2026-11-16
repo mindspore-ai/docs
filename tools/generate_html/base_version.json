@@ -164,15 +164,6 @@
     {
         "version": "master",
         "label": {
-            "zh": "MSAdapter",
-            "en": "MSAdapter"
-        },
-        "repo_name": "msadapter",
-        "theme": "theme-docs"
-    },
-    {
-        "version": "master",
-        "label": {
             "zh": "MindSpore Science",
             "en": "MindSpore Science"
         },
