@@ -14,7 +14,7 @@ LiteBoost is an inference acceleration toolkit for Ascend hardware, built on top
 ### Multi-Card Parallelism
 
 - Supports multiple parallel strategies such as TP, CP, SP, and DP.
-- Adapts and optimizes for different algorithm models through different parallel strategies, provides a simple and easy-to-use experience for open-source models, and improves developers’ ability to enable multi-card parallelism.
+- Adapts to and optimizes for different algorithm models through different parallel strategies, provides a simple and easy-to-use experience for open-source models, and improves developers’ ability to enable multi-card parallelism.
 
 ## Technical Architecture
 
