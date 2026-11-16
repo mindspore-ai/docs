@@ -12,9 +12,7 @@ For the model, after the adaptation and development are completed, if users want
 
 In the current development process of reasoning, the process of verifying precision first examines the precision of online reasoning. Only if the precision of online reasoning is normal will the evaluation score of the dataset be further verified. The following flowchart shows the entire process of precision verification.
 
-<div style="text-align: center;">
-  <img src="./images/infer_precision_comparison.png" alt="Comparison of Reasoning Precision" width="50%"/>
-</div>
+![Comparison of Inference Precision](./images/infer_precision_comparison.png)
 
 ### Online Reasoning Verification
 

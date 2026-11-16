@@ -12,9 +12,7 @@
 
 目前推理的开发流程中，验证精度的过程会先看在线推理的精度，如果在线推理的精度正常，才会进一步验证数据集的评测得分。下面流程图是整个精度验证的过程。
 
-<div style="text-align: center;">
-  <img src="./images/infer_precision_comparison.png" alt="推理精度对比" width="50%"/>
-</div>
+![推理精度对比](./images/infer_precision_comparison.png)
 
 ### 在线推理验证
 
