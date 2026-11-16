@@ -67,7 +67,7 @@
 | `ge.dynamicBatchSize`               | 可选 | 设置动态batch档位参数。 | String | 该参数需要与`input_shape`参数配合使用 |
 | `ge.dynamicImageSize`               | 可选 | 设置输入图片的动态分辨率参数。 | String | 该参数需要与`input_shape`参数配合使用 |
 | `ge.dynamicDims`                    | 可选 | 设置ND格式下的动态维度的档位。模型转换后可以用Model.get_model_info("dynamic_dims")获取 | String | 该参数需要与`input_shape`参数配合使用 |
-| `ge.inserOpFile`                    | 可选 | 输入预处理算子的配置文件路径。 | String | 配置文件路径 |
+| `ge.insertOpFile`                    | 可选 | 输入预处理算子的配置文件路径。 | String | 配置文件路径 |
 | `ge.exec.precision_mode`            | 可选 | 选择算子精度模式。 | String | 可选有`"force_fp32"`、`"force_fp16"`、`"allow_fp32_to_fp16"`、`"must_keep_origin_dtype"`、`"allow_mix_precision"`，默认为`"force_fp16"` |
 | `ge.exec.disableReuseMemory`        | 可选 | 内存复用开关。 | String | 可选有`"0"`、`"1"` |
 | `ge.outputDataType`                 | 可选 | 网络输出数据类型。 | String | 可选有`"FP32"`、`"UINT8"`、`"FP16"` |
@@ -174,7 +174,7 @@
     ./converter_lite --fmk=ONNX --modelFile=${model_name}.onnx --configFile=./config.txt --optimize=ascend_oriented --outputFile=${model_name}
     ```
 
-    说明：使能动态BatchSize时，不需要指定inputShape参数，仅需要通过configFile配置[ascend_context]动态分辨率，即上节示例中配置内容。
+    说明：使能动态分辨率时，不需要指定inputShape参数，仅需要通过configFile配置[ascend_context]动态分辨率，即上节示例中配置内容。
 
 - 推理
 

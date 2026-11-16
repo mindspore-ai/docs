@@ -82,7 +82,7 @@ Detailed descriptions of the parameters and their correspondence to the paramete
 | input_shape | dict{string:list\[int]} | `--inputShape=<INPUTSHAPE>` | Set the dimensions of the model input, and the order of the input dimensions is kept the same as the original model. For example: {"inTensor1": \[1, 32, 32, 32], "inTensor2": \[1, 1, 32, 32]} | - |
 | optimize | str | `--optimize=<OPTIMIZE>` | Set the mode of optimization during the offline conversion. | "none", "general", "ascend_oriented" | - |
 | output_data_type | DataType | `--outputDataType=<OUTPUTDATATYPE>` | Set the data type of the quantized model output Tensor. Only valid if the quantization parameters (`scale` and `zero point`) of the model output Tensor are available. The default is to keep the same data type as the original model output Tensor. | DataType.FLOAT32, DataType.INT8, DataType.UINT8, DataType.UNKNOWN | - |
-| save_type | ModelType | `--saveType=<SAVETYPE>` | Required | Set the model type needs to be export. | ModelType.MINDIR | The MINDIR model uses the MindSpore Lite cloud-side inference installation package |
+| save_type | ModelType | `--saveType=<SAVETYPE>` | Set the model type needs to be export. | ModelType.MINDIR | The MINDIR model uses the MindSpore Lite cloud-side inference installation package |
 | weight_fp16 | bool | `--fp16=<FP16>` | Set whether the weights in float32 data format need to be stored in float16 data format during model serialization. | True, False | - |
 
 > - `input_shape` is an attribute that the user may need to set in the following scenarios:
