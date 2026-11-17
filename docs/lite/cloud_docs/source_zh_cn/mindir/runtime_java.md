@@ -48,7 +48,7 @@ MindSpore Lite推理时的后端可调用[AddDeviceInfo](https://www.mindspore.c
 
 ### 配置使用CPU后端
 
-当需要执行的后端为CPU时，`MSContext`初始化后需要在[addDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/mscontext.html#adddeviceinfo)中`DeviceType.DT_CPU`，同时CPU支持设置绑核模式以及是否优先使用float16算子。
+当需要执行的后端为CPU时，`MSContext`初始化后需要在[addDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/mscontext.html#adddeviceinfo)中添加`DeviceType.DT_CPU`，同时CPU支持设置绑核模式以及是否优先使用float16算子。
 
 下面演示如何创建CPU后端，同时设定线程数为2、CPU绑核模式为大核优先并且使能float16推理，关闭并行：
 

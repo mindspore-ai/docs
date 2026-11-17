@@ -11,7 +11,7 @@ After exporting the `mindir` model by MindSpore or converting it by [model conve
 Concurrent inference with MindSpore Lite consists of the following main steps:
 
 1. Preparation: Install the MindSpore Lite cloud-side inference Python package.
-2. Create configuration context: Create a [Context.parallel](https://mindspore.cn/lite/api/en/master/mindspore_lite/mindspore_lite.Context.html#mindspore_lite.Context) attributes to configure multi-model concurrency.
+2. Create configuration context: Create a [Context.parallel](https://mindspore.cn/lite/api/en/master/mindspore_lite/mindspore_lite.Context.html#mindspore_lite.Context) attribute to configure multi-model concurrency.
 3. ModelParallelRunner creation and compilation: Before multi-model concurrent inference, you need to call [build_from_file](https://mindspore.cn/lite/api/en/master/mindspore_lite/mindspore_lite.ModelParallelRunner.html#mindspore_lite.ModelParallelRunner.build_from_file) interface of [ModelParallelRunner](https://mindspore.cn/lite/api/en/master/mindspore_lite/mindspore_lite.ModelParallelRunner.html) for ModelParallelRunner loading and compilation.
 4. Setting Concurrent Inference Tasks: Create multiple threads and bind concurrent inference tasks.
 5. Perform concurrent inference: Use Predict interface of ModelParallelRunner for multi-model concurrent inference.
