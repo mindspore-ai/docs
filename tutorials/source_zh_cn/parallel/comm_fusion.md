@@ -4,7 +4,7 @@
 
 ## 简介
 
-在分布式并行训练场景下训练大规模参数量的模型（如GPT-3、Pangu-$\alpha$），跨设备甚至跨节点的数据传输是制约扩展性以及算力利用率的瓶颈[1]。通信融合是一种提升网络资源利用率、加速数据传输效率的重要方法，其将相同源节点和目的节点的通信算子打包同时执行，以避免多个单算子执行带来的额外开销。
+在分布式并行训练场景下训练大规模参数量的模型（如GPT-3），跨设备甚至跨节点的数据传输是制约扩展性以及算力利用率的瓶颈[1]。通信融合是一种提升网络资源利用率、加速数据传输效率的重要方法，其将相同源节点和目的节点的通信算子打包同时执行，以避免多个单算子执行带来的额外开销。
 
 MindSpore支持对分布式训练中三种常用通信算子（[AllReduce](https://www.mindspore.cn/docs/zh-CN/r2.10.0/api_python/ops/mindspore.ops.AllReduce.html)、[AllGather](https://www.mindspore.cn/docs/zh-CN/r2.10.0/api_python/ops/mindspore.ops.AllGather.html)、[ReduceScatter](https://www.mindspore.cn/docs/zh-CN/r2.10.0/api_python/ops/mindspore.ops.ReduceScatter.html)）的融合，并提供简洁易用的接口方便用户自行配置。在长稳训练任务支撑中，通信融合特性发挥了重要作用。
 

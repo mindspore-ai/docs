@@ -61,7 +61,6 @@
 | [Llama](https://atomgit.com/mindspore/mindformers/blob/r1.0/docs/model_cards/llama.md) | 7B/13B | 稠密LLM | Legacy | 静态图 | 1.0 |
 | [MAE](https://atomgit.com/mindspore/mindformers/blob/r1.0/docs/model_cards/mae.md) | 86M | MM | Legacy | 静态图 | 1.0 |
 | [Mengzi3](https://atomgit.com/mindspore/mindformers/blob/r1.0/research/mengzi3/mengzi3.md) | 13B | 稠密LLM | Legacy | 静态图 | 1.0 |
-| [PanguAlpha](https://atomgit.com/mindspore/mindformers/blob/r1.0/docs/model_cards/pangualpha.md) | 2.6B/13B | 稠密LLM | Legacy | 静态图 | 1.0 |
 | [SAM](https://atomgit.com/mindspore/mindformers/blob/r1.0/docs/model_cards/sam.md) | 91M/308M/636M | MM | Legacy | 静态图 | 1.0 |
 | [Skywork](https://atomgit.com/mindspore/mindformers/blob/r1.0/research/skywork/skywork.md) | 13B | 稠密LLM | Legacy | 静态图 | 1.0 |
 | [Swin](https://atomgit.com/mindspore/mindformers/blob/r1.0/docs/model_cards/swin.md) | 88M | MM | Legacy | 静态图 | 1.0 |
