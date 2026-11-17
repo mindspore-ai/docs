@@ -6,7 +6,7 @@
 
 在单机多卡、单卡多芯场景下，为了充分发挥设备性能，需要让芯片或者不同卡直接进行并行推理。在Ascend环境下，这种场景更加常见，例如Atlas 300I Duo推理卡具有单卡双芯的规格，天然更适合并行处理。本教程介绍如何使用[Python接口](https://www.mindspore.cn/lite/api/zh-CN/master/mindspore_lite.html)在Ascend后端环境下执行MindSpore Lite多卡/多芯推理。推理核心流程与[云侧单卡推理](https://www.mindspore.cn/lite/cloud_docs/zh-CN/master/mindir/runtime_python.html)流程大致相同，可以相互参考。
 
-MindSpore Lite云侧分布式推理仅支持在Linux环境部署运行，本教程支持的设备类型为Atlas训练系列产品，并且以 **Atlas 300I Duo推理卡 + 开源Stable Diffusion（SD） ONNX模型** 作为案例。本案例调用Python的multiprocess库创建子进程，用户与主进程进行交互，主进程通过管道与子进程进行交互。
+MindSpore Lite云侧分布式推理仅支持在Linux环境部署运行，本教程支持的设备类型为Atlas训练系列产品，并且以 **Atlas 300I Duo推理卡 + 开源Stable Diffusion（SD） ONNX模型** 作为案例。本案例调用Python的multiprocessing库创建子进程，用户与主进程进行交互，主进程通过管道与子进程进行交互。
 
 ## 准备工作
 

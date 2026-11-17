@@ -14,7 +14,7 @@ MindSpore Lite cloud-side distributed inference is only supported to run in Linu
 
 2. Download the MindSpore Lite cloud-side inference installer [mindspore-lite-{version}-linux-{arch}.whl](https://www.mindspore.cn/lite/docs/en/master/use/downloads.html), store it to the sample code directory, and install it via the `pip` tool.
 
-3. Convert the ONNX model to MindSpore MINDIR format model via [converter_lite tool](https://www.mindspore.cn/lite/cloud_docs/en/master/mindir/converter_tool.html), where the batch_size is set to half the size of the original model, and is used to allocate to dual-core or dual-card parallel inference, to achieve the same output results as the original model (if more cards are used in parallel, the batch size needs to divide by the number of cards used, and is set to be the result of the division when converting). For example, for the model with batch size = 2, set it to 1 when converting, which means that each sub-process will reason about a single batch when inference in parallel on the dual-core. For the SD2.1 model, the following conversion command can be used:
+3. Convert the ONNX model to MindSpore MINDIR format model via [converter_lite tool](https://www.mindspore.cn/lite/cloud_docs/en/master/mindir/converter_tool.html), where the batch_size is set to half the size of the original model, and is used to allocate to dual-core or dual-card parallel inference, to achieve the same output results as the original model (if more cards are used in parallel, the batch size must be divisible by the number of cards used, and is set to be the result of the division when converting). For example, for the model with batch size = 2, set it to 1 when converting, which means that each sub-process runs inference on a single batch during dual-core parallel inference. For the SD2.1 model, the following conversion command can be used:
 
     ```shell
     ./converter_lite --modelFile=model.onnx --fmk=ONNX --outputFile=SD2.1_size512_bs1 --inputShape="sample:1,4,64,64;timestep:1;encoder_hidden_states:1,77,1024" --optimize=ascend_oriented
@@ -41,7 +41,7 @@ context.ascend.device_id = device_id
 
 ### Model Creation, Loading and Compilation
 
-Consistent with [MindSpore Lite cloud-side single-card inference](https://www.mindspore.cn/lite/cloud_docs/en/master/mindir/runtime_python.html), the main entry for Ascend backend multi-card/multi-core inference is the [Model](https://www.mindspore.cn/lite/api/en/master/mindspore_lite/mindspore_lite.Model.html#mindspore_lite.Model) interface, which allows for model loading compilation and execution. Create [Model](https://www.mindspore.cn/lite/api/en/master/mindspore_lite/mindspore_lite.Model.html#mindspore_lite.Model) and call [Model. build_from_file](https://www.mindspore.cn/lite/api/en/master/mindspore_lite/mindspore_lite.Model.html#mindspore_lite.Model.build_from_file) interface to achieve model loading and model compilation. Sample code is as follows:
+Consistent with [MindSpore Lite cloud-side single-card inference](https://www.mindspore.cn/lite/cloud_docs/en/master/mindir/runtime_python.html), the main entry for Ascend backend multi-card/multi-core inference is the [Model](https://www.mindspore.cn/lite/api/en/master/mindspore_lite/mindspore_lite.Model.html#mindspore_lite.Model) interface, which allows for model loading compilation and execution. Create [Model](https://www.mindspore.cn/lite/api/en/master/mindspore_lite/mindspore_lite.Model.html#mindspore_lite.Model) and call [Model.build_from_file](https://www.mindspore.cn/lite/api/en/master/mindspore_lite/mindspore_lite.Model.html#mindspore_lite.Model.build_from_file) interface to achieve model loading and model compilation. Sample code is as follows:
 
 ```python
 # create Model and build Model
@@ -51,7 +51,7 @@ model.build_from_file(mindir_file, mslite.ModelType.MINDIR, context)
 
 ### Model Input Data Padding
 
-First, use the [Model.get_inputs](https://www.mindspore.cn/lite/api/en/master/mindspore_lite/mindspore_lite.Model.html#mindspore_lite.Model.get_inputs) method to get all inputs [Tensor](https://www.mindspore.cn/lite/api/en/master/mindspore_lite/mindspore_lite.Tensor.html#mindspore_lite.Tensor), and fill in the Host data using the relevant interface. Sample code is as follows:
+First, use the [Model.get_inputs](https://www.mindspore.cn/lite/api/en/master/mindspore_lite/mindspore_lite.Model.html#mindspore_lite.Model.get_inputs) method to get all input [Tensors](https://www.mindspore.cn/lite/api/en/master/mindspore_lite/mindspore_lite.Tensor.html#mindspore_lite.Tensor), and fill in the Host data using the relevant interface. Sample code is as follows:
 
 ```python
 # set model input

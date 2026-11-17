@@ -12,7 +12,7 @@ Compared with C++ API, Java API can be called directly in Java Class, and users 
 2. Create configuration context: Create a configuration context [MSContext](https://www.mindspore.cn/lite/api/en/master/api_java/mscontext.html#mscontext) and save some basic configuration parameters used to guide model compilation and model execution, including device type, number of threads, CPU pinning, and enabling float16 mixed precision inference.
 3. Model creation, loading and compilation: Before executing inference, you need to call [build](https://www.mindspore.cn/lite/api/en/master/api_java/model.html#build) interface of [Model](https://www.mindspore.cn/lite/api/en/master/api_java/model.html#model) for model loading and model compilation. Both loading files and MappedByteBuffer are currently supported. The model loading phase parses the file or buffer into a runtime model.
 4. Input data: The model needs to be padded with data from the input Tensor before execution.
-5. Execute inference: Use [predict](https://www.mindspore.cn/lite/api/en/master/api_java/model.html#predict) of [Model](https://www.mindspore.cn/lite/api/en/master/api_java/model.html#model) method for model inference.
+5. Execute inference: Use the [predict](https://www.mindspore.cn/lite/api/en/master/api_java/model.html#predict) method of [Model](https://www.mindspore.cn/lite/api/en/master/api_java/model.html#model) to perform inference.
 6. Obtain the output: After the graph execution, the inference result can be obtained by outputting the Tensor.
 7. Release memory: When there is no need to use MindSpore Lite inference framework, you need to release the created [Model](https://www.mindspore.cn/lite/api/en/master/api_java/model.html#model).
 

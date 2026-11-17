@@ -4,7 +4,7 @@
 
 ## Overview
 
-MindSpore Lite cloud-side inference provides tools for offline conversion of models, and supports many types of model conversions, and the converted models can be used for inference. Command line parameters include a variety of personalized options to provide users with convenient conversion paths.
+MindSpore Lite cloud-side inference provides tools for offline conversion of models, supports many types of model conversions, and the converted models can be used for inference. Command line parameters include a variety of personalized options to provide users with convenient conversion paths.
 
 The currently supported input formats are MindSpore, TensorFlow Lite, Caffe, TensorFlow, and ONNX.
 
@@ -65,14 +65,14 @@ Detailed parameter descriptions are provided below.
 | `--weightFile=<WEIGHTFILE>` | Required when converting Caffe models | The path to the input model weight file. | - | - | - |
 | `--configFile=<CONFIGFILE>` | Not | 1. can be used as a post-training quantization profile path; 2. can be used as an extended function profile path.  | - | - | - |
 | `--inputShape=<INPUTSHAPE>` | Not | Set the dimensions of the model inputs, and keep the order of the input dimensions the same as the original model. The model structure can be further optimized for some specific models, but the converted model will probably lose the dynamic shape properties. Multiple inputs are split by `;`, along with double quotes `""`. | e.g.  "inTensorName_1: 1,32,32,4;inTensorName_2:1,64,64,4;" | - | - |
-| `--saveType=<SAVETYPE>` | Not | Set the exported model as `mindir` model or `ms` model. | MINDIR, MINDIR_LITE | MINDIR | This version can only be reasoned with models turned out by setting to MINDIR |
+| `--saveType=<SAVETYPE>` | Not | Set the exported model as `mindir` model or `ms` model. | MINDIR, MINDIR_LITE | MINDIR | Only models converted with saveType set to MINDIR can be used for inference on the cloud-side version. |
 | `--optimize=<OPTIMIZE>` | Not | Set the optimization accomplished in the process of converting model. | none, general, ascend_oriented| general | - |
 | `--infer=<INFER>` | Not | Set whether to perform pre-inference when the conversion is completed. | true, false | false | - |
 | `--inputDataFormat=<INPUTDATAFORMAT>` | Not | Set the input format of the exported model, valid only for 4-dimensional inputs. | NHWC, NCHW | - | - |
 | `--fp16=<FP16>` | Not | Set whether the weights in float32 data format need to be stored in float16 data format during model serialization. | on, off | off | Not supported at the moment|
 | `--inputDataType=<INPUTDATATYPE>` | Not | Set the data type of the quantized model input tensor. Only if the quantization parameters (scale and zero point) of the model input tensor are available. The default is to keep the same data type as the original model input tensor. | FLOAT32, INT8, UINT8, DEFAULT | DEFAULT | Not supported at the moment |
 | `--outputDataType=<OUTPUTDATATYPE>` | Not | Set the data type of the quantized model output tensor. Only if the quantization parameters (scale and zero point) of the model output tensor are available. The default is to keep the same data type as the original model output tensor. | FLOAT32, INT8, UINT8, DEFAULT | DEFAULT | Not supported at the moment |
-| `--device=<DEVICE>` | Not | Set target device when converting model. The use case is when on the Ascend device, if you need to the converted model to have the ability to use Ascend backend to perform inference, you can set the parameter. If it is not set, the converted model will use CPU backend to perform inference by default. | This option will be deprecated. It is replaced by setting `optimize` option to `ascend_oriented` |
+| `--device=<DEVICE>` | Not | Set target device when converting model. The use case is when on the Ascend device, if you need to the converted model to have the ability to use Ascend backend to perform inference, you can set the parameter. If it is not set, the converted model will use CPU backend to perform inference by default. |  Ascend, Ascend310, Ascend310P | - |This option will be deprecated. It is replaced by setting `optimize` option to `ascend_oriented` |
 | `--optimizeTransformer=<OPTIMIZETRANSFORMER>` | Not | Set whether to do transformer-fusion or not. | true, false | false | - |
 
 Notes:

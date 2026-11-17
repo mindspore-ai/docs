@@ -94,7 +94,7 @@ Optionally, you can additionally set the number of threads, thread affinity, par
     context->SetInterOpParallelNum(2);
     ```
 
-### Configuring Using Ascend Backend
+### Configuring to Use Ascend Backend
 
 When the backend to be executed is Ascend (Atlas 200/300/500 inference product, Atlas inference series, or Atlas training series are currently supported), you need to set [AscendDeviceInfo](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_AscendDeviceInfo.html#class-ascenddeviceinfo) as the inference backend. AscendDeviceInfo sets the device ID by `SetDeviceID`. Ascend enables float16 precision by default, and the precision mode can be changed by `AscendDeviceInfo.SetPrecisionMode`.
 
@@ -135,7 +135,7 @@ The user can configure the precision mode by calling the `SetPrecisionMode()` in
 | preferred_fp32                      | allow_fp32_to_fp16               | prefer to use fp32         |
 | enforce_fp16                        | force_fp16                       | force to use fp16          |
 | enforce_origin                      | must_keep_origin_dtype           | force to use original type |
-| preferred_optimal                   | allow_mix_precision              | prefer to use fp16         |
+| preferred_optimal                   | allow_mix_precision              | prefer fp16 with precision-performance trade-off         |
 
 ## Model Creation Loading and Compilation
 

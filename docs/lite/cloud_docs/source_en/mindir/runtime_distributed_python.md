@@ -14,11 +14,11 @@ Each process consists of the following main steps:
 
 1. Model reading: Slice and export the distributed MindIR model via MindSpore. The number of MindIR models is the same as the number of devices for loading to each device for inference.
 2. Context creation and configuration: Create and configure the [Context](https://www.mindspore.cn/lite/api/en/master/mindspore_lite/mindspore_lite.Context.html#mindspore_lite.Context), and hold the distributed inference parameters to guide distributed model compilation and model execution.
-3. Model loading and compilation: Use the [Model.build_from_file](https://www.mindspore.cn/lite/api/en/master/mindspore_lite/mindspore_lite.Model.html#mindspore_lite.Model.build_from_file) interface for model loading and model compilation. The model loading phase parses the file cache into a runtime model. The model compilation phase optimizes the front-end computational graph into a high-performance back-end computational graph. The process is time-consuming and it is recommended to compile once and inference multiple times.
+3. Model loading and compilation: Use the [Model.build_from_file](https://www.mindspore.cn/lite/api/en/master/mindspore_lite/mindspore_lite.Model.html#mindspore_lite.Model.build_from_file) interface for model loading and model compilation. The model loading phase parses the file cache into a runtime model. The model compilation phase optimizes the front-end computational graph into a high-performance back-end computational graph. The process is time-consuming and it is recommended to compile once and run inference multiple times.
 4. Model input data padding.
 5. Distributed inference execution: use the [Model.predict](https://www.mindspore.cn/lite/api/en/master/mindspore_lite/mindspore_lite.Model.html#mindspore_lite.Model.predict) interface for model distributed inference.
 6. Model output data obtaining.
-7. Multi-process execution of distributed inference programs.
+7. Multi-process execution of distributed inference scripts.
 
 ## Preparation
 
@@ -41,11 +41,11 @@ The contextual configuration holds the required basic configuration parameters a
 context = mslite.Context()
 ```
 
-Ascend is supported in distributed inference scenarios, and can be specified by [Context.target](https://www.mindspore.cn/lite/api/en/master/mindspore_lite/mindspore_lite.Context.html#mindspore_lite.Context.target) to specify the device to run.
+Ascend is supported in distributed inference scenarios; set [Context.target](https://www.mindspore.cn/lite/api/en/master/mindspore_lite/mindspore_lite.Context.html#mindspore_lite.Context.target) to specify the device to run.
 
 ### Configuring Ascend Device Context
 
-When the device type is Ascend (Atlas training series is currently supported by distributed inference), set [Context.target](https://www.mindspore.cn/lite/api/en/master/mindspore_lite/mindspore_lite.Context.html#mindspore_lite.Context.target) to `Ascend` and set `DeviceID`, `RankID` by the following way. Since Ascend provides multiple inference engine backends, currently only the `ge` backend supports distributed inference, and the Ascend inference engine backend is specified as `ge` by `ascend.provider`. The sample code is as follows.
+When the device type is Ascend (Atlas training series is currently supported by distributed inference), set [Context.target](https://www.mindspore.cn/lite/api/en/master/mindspore_lite/mindspore_lite.Context.html#mindspore_lite.Context.target) to `Ascend` and set `DeviceID`, `RankID` in the following way. Since Ascend provides multiple inference engine backends, currently only the `ge` backend supports distributed inference, and the Ascend inference engine backend is specified as `ge` by `ascend.provider`. The sample code is as follows.
 
 ```python
 # set Ascend target and distributed info
