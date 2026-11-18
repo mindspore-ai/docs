@@ -332,7 +332,27 @@ decorator_list = [("mindspore/common/_decorator.py", "deprecated",
                    ("mindspore/nn/cell.py","generate api",
                    "    @jit_forbidden_register","    # generate api by del decorator."),
                    ("mindspore/profiler/dynamic_profiler.py","generate api",
-                   "    @no_exception_func()","    # generate api by del decorator.")]
+                   "    @no_exception_func()","    # generate api by del decorator."),
+                   ("mindspore/graph/_utils/mindir_util.py", "del pangu",
+                   '"pangu v100"', '"v100"'),
+                   ("mindspore/parallel/checkpoint_convert.py", "del pangu",
+                   '"./origin_checkpoint_rank{}/pangu{}-100_2.ckpt".format(rank)',
+                   '"./origin_checkpoint_rank{}/{}-100_2.ckpt".format(rank, rank)'),
+                   ("mindspore/parallel/checkpoint_convert.py", "del pangu",
+                   '"./new_checkpoint_rank{}/pangu{}-100_2.ckpt".format(rank_id)',
+                   '"./new_checkpoint_rank{}/{}-100_2.ckpt".format(rank_id, rank_id)'),
+                   ("mindspore/parallel/checkpoint_convert.py", "del pangu",
+                   '"./pangu{}-100_2.ckpt".format(rank)',
+                   '"./{}-100_2.ckpt".format(rank)'),
+                   ("mindspore/parallel/checkpoint_transform.py", "del pangu",
+                   '"./origin_checkpoint_rank{}/pangu{}-100_2.ckpt".format(rank)',
+                   '"./origin_checkpoint_rank{}/{}-100_2.ckpt".format(rank, rank)'),
+                   ("mindspore/parallel/checkpoint_transform.py", "del pangu",
+                   '"./new_checkpoint_rank{}/pangu{}-100_2.ckpt".format(rank_id)',
+                   '"./new_checkpoint_rank{}/{}-100_2.ckpt".format(rank_id, rank_id)'),
+                   ("mindspore/parallel/checkpoint_transform.py", "del pangu",
+                   '"./pangu{}-100_2.ckpt".format(rank)',
+                   '"./{}-100_2.ckpt".format(rank)')]
 
 base_path = os.path.dirname(os.path.dirname(sphinx.__file__))
 for i in decorator_list:
