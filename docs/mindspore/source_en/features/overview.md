@@ -21,9 +21,11 @@ MindSpore is an AI framework designed for "device-edge-cloud" full-scenario appl
 
 The overall architecture of MindSpore is as follows:
 
-1. Model Suite: Provides developers with ready-to-use models and development kits, such as the large model suite MindSpore Transformers, MindSpore ONE, and scientific computing libraries for hot research areas;
-2. Deep Learning + Scientific Computing: Provides developers with various Python interfaces required for AI model development, maximizing compatibility with developers' habits in the Python ecosystem;
-3. Core: As the core of the AI framework, it builds the Tensor data structure, basic operation operators, autograd module for automatic differentiation, Parallel module for parallel computing, compile capabilities, and runtime management module.
+1. HyperParallel Parallel Library: Provides developers with out-of-the-box large model parallel training enablement. Delivers a minimal, decoupled experience between models and parallel optimization, and supports parallel enablement for HuggingFace model integration. Meanwhile, for Ascend super-node architecture, provides affinity-based parallel technologies such as HSDP.
+2. MindSpore Core: Provides Ascend-affinity graph-computation fusion optimization and runtime acceleration technologies, supporting users in programming and execution with dynamic graph mode as well as static graph compilation acceleration. MindData provides data loading and data preprocessing capabilities.
+3. MS Lite: Provides deployment for device-edge scenarios, supports lightweight model inference, and delivers a full-scenario deployment experience.
+4. MindSpore Science: AI + Scientific Computing Suite, designed for AI4S scenarios, it provides out-of-the-box model kits for multiple domains such as electromagnetics and pharmaceuticals, making it easier for the scientific computing field to integrate AI into development and application.
+5. MindSpore Transformers: Large Model Suite, provides developers with out-of-the-box mainstream large models and development kits.
 
 ![arch](./images/arch_en.png)
 

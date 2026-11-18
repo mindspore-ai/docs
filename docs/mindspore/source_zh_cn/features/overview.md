@@ -21,9 +21,11 @@ MindSpore是面向“端-边-云”全场景设计的AI框架，旨在弥合AI�
 
 MindSpore整体架构如下：
 
-1. 模型套件：为开发者提供开箱即用的模型和开发套件，如大模型套件MindSpore Transformers、MindSpore ONE以及科学计算库等热点研究领域拓展库；
-2. 深度学习+科学计算：为开发者提供AI模型开发所需各类Python接口，最大化保持开发者在Python生态开发的使用习惯；
-3. 核心：作为AI框架的核心，构建Tensor数据结构、基础运算算子Operator、自动求导autograd模块、并行计算Parallel模块、编译compile能力以及runtime运行时管理模块。
+1. HyperParallel并行库：为开发者提供开箱即用的大模型并行训练使能。提供模型和并行优化解耦极简使用体验，支持HuggingFace模型快速接入并行化使能。同时面向昇腾超节点架构，提供HSDP等亲和并行技术。
+2. MindSpore Core：提供昇腾亲和的图算融合优化与运行时加速技术，支持用户使用动态图模式编程与执行以及静态图编译加速。MindData提供数据加载与数据预处理的功能。
+3. MS Lite：用于端边侧部署，支持模型的轻量化推理，实现全场景的部署体验。
+4. MindSpore Science：AI+科学计算套件，面向AI4S场景，提供电磁、医药等多领域的开箱即用模型套件，方便科学计算领域结合AI进行开发与应用。
+5. MindSpore Transformers：大模型套件，为开发者提供开箱即用的主流大模型和开发套件。
 
 ![arch](./images/arch_zh.png)
 
