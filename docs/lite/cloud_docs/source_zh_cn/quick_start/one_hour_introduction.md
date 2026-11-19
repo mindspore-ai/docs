@@ -52,7 +52,7 @@ MindSpore Lite云侧推理仅支持在Linux环境部署运行。支持Atlas 200/
 
 3. 获取模型
 
-    MindSpore Lite云侧推理当前仅支持MindSpore的MindIR模型格式，可以通过MindSpore导出MindIR模型，或者由[模型转换工具](https://www.mindspore.cn/lite/cloud_docs/zh-CN/master/mindir/converter_tool.html)转换Tensorflow、Onnx、Caffe等格式的模型获得MindIR模型。
+    MindSpore Lite云侧推理当前仅支持MindSpore的MindIR模型格式，可以通过MindSpore导出MindIR模型，或者由[模型转换工具](https://www.mindspore.cn/lite/cloud_docs/zh-CN/master/mindir/converter_tool.html)转换TensorFlow、ONNX、Caffe等格式的模型获得MindIR模型。
 
     可下载模型文件[mobilenetv2.mindir](https://download.mindspore.cn/model_zoo/official/lite/quick_start/mobilenetv2.mindir)作为样例模型。
 
@@ -80,7 +80,7 @@ MindSpore Lite云侧推理仅支持在Linux环境部署运行。支持Atlas 200/
 MindSpore Lite云侧推理包解压缩后，设置`LITE_HOME`环境变量为解压缩的路径，其中{version}需改成下载的对应版本：
 
 ```bash
-export LITE_HOME=$some_path/mindpsore-lite-{version}-linux-x64
+export LITE_HOME=$some_path/mindspore-lite-{version}-linux-x64
 ```
 
 设置环境变量`LD_LIBRARY_PATH`：

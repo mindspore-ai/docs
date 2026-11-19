@@ -150,13 +150,13 @@ export MSLITE_ENABLE_ACL=on
 
 Execute the following command in the source root directory to compile different versions of MindSpore Lite.
 
-- Compile the x86_64 architecture version while set the number of threads.
+- Compile the x86_64 architecture version while setting the number of threads.
 
     ```bash
     bash build.sh -I x86_64 -j32
     ```
 
-- Compile the arm64 architecture version while set the number of threads.
+- Compile the arm64 architecture version while setting the number of threads.
 
     ```bash
     bash build.sh -I arm64 -j32

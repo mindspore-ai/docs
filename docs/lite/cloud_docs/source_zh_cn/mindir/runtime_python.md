@@ -99,7 +99,7 @@ context.cpu.thread_num = 1
 context.cpu.thread_affinity_mode=2
 ```
 
-如果用户需要在Ascend设备上运行推理时，因此需要设置上下文的目标设备为ascend。
+如果要在Ascend设备上运行推理，需将上下文的目标设备设置为ascend。
 
 ```python
 import numpy as np

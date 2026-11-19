@@ -116,4 +116,4 @@
 | ZerosLike              | ZerosLike                                                    |
 | Other operators supported by the conversion tool | Dropout, Enter,<br/>Exit, If, <br/>LinSpace,<br/>LoopCond,<br/>NextIteration,<br/>StatelessIf,<br/>StatelessWhile,<br/>TensorArrayGatherV3,<br/>TensorArrayReadV3,<br/>TensorArrayScatterV3,<br/>TensorArraySizeV3,<br/>TensorArrayV3,<br/>TensorArrayWriteV3,<br/>While |
 
-> [Converter too](https://www.mindspore.cn/lite/cloud_docs/en/master/mindir/converter_tool.html) supports operators that are not required to be explicitly implemented. Typically, such operators are optimized away in conversion tools—either fused or replaced with other operators.
+> [Converter tool](https://www.mindspore.cn/lite/cloud_docs/en/master/mindir/converter_tool.html) supports operators that are not required to be explicitly implemented. Typically, such operators are optimized away in conversion tools—either fused or replaced with other operators.

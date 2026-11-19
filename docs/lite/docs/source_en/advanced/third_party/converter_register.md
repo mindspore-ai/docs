@@ -6,15 +6,15 @@
 
 MindSpore Lite [Conversion Tool](https://www.mindspore.cn/lite/docs/en/master/converter/converter_tool.html), in addition to the basic model conversion function, also supports user-defined model optimization and construction to generate models with user-defined operators.
 
-We have designed a set of registration mechanisms, which allows users to expand, including node-parse extension, model-parse extension and graph-optimization extension. The users can combined them as needed to achieve their own intention.
+We have designed a set of registration mechanisms, which allows users to expand, including node-parse extension, model-parse extension and graph-optimization extension. The users can combine them as needed to achieve their own intention.
 
-node-parse extension: The users can define the process to parse a certain node of a model by themselves, which only support ONNX, CAFFE, TF and TFLITE. The related interface is [NodeParser](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_converter_NodeParser.html), [NodeParserRegistry](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_registry_NodeParserRegistry.html).
-model-parse extension: The users can define the process to parse a model by themselves, which only support ONNX, CAFFE, TF and TFLITE. The related interface is [ModelParser](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_converter_ModelParser.html), [ModelParserRegistry](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_registry_ModelParserRegistry.html).
+node-parse extension: The users can define the process to parse a certain node of a model by themselves, which only supports ONNX, CAFFE, TF and TFLITE. The related interface is [NodeParser](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_converter_NodeParser.html), [NodeParserRegistry](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_registry_NodeParserRegistry.html).
+model-parse extension: The users can define the process to parse a model by themselves, which only supports ONNX, CAFFE, TF and TFLITE. The related interface is [ModelParser](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_converter_ModelParser.html), [ModelParserRegistry](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_registry_ModelParserRegistry.html).
 graph-optimization extension: After parsing a model, a graph structure defined by MindSpore Lite will show up and then, the users can define the process to optimize the parsed graph. The related interfaces are [PassBase](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_registry_PassBase.html), [PassPosition](https://mindspore.cn/lite/api/en/master/generate/enum_mindspore_registry_PassPosition-1.html), [PassRegistry](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_registry_PassRegistry.html).
 
 > The node-parse extension needs to rely on the flatbuffers, protobuf and the serialization files of third-party frameworks, at the same time, the version of flatbuffers and the protobuf needs to be consistent with that of the released package, the serialized files must be compatible with that used by the released package. Note that the flatbuffers, protobuf and the serialization files are not provided in the released package, users need to compile and generate the serialized files by themselves. The users can obtain the basic information about [flatbuffers](https://atomgit.com/mindspore/mindspore-lite/blob/master/cmake/external_libs/flatbuffers.cmake), [protobuf](https://atomgit.com/mindspore/mindspore-lite/blob/master/cmake/external_libs/protobuf.cmake), [ONNX prototype file](https://atomgit.com/mindspore/mindspore-lite/tree/master/third_party/proto/onnx), [CAFFE prototype file](https://atomgit.com/mindspore/mindspore-lite/tree/master/third_party/proto/caffe), [TF prototype file](https://atomgit.com/mindspore/mindspore-lite/tree/master/third_party/proto/tensorflow) and [TFLITE prototype file](https://atomgit.com/mindspore/mindspore-lite/blob/master/mindspore-lite/tools/converter/parser/tflite/schema.fbs) from the [MindSpore WareHouse](https://atomgit.com/mindspore/mindspore-lite/tree/master).
 >
-> MindSpore Lite alse provides a series of registration macros to facilitate user access. These macros include node-parse registration [REG_NODE_PARSER](https://www.mindspore.cn/lite/api/en/master/generate/define_node_parser_registry.h_REG_NODE_PARSER-1.html), model-parse registration [REG_MODEL_PARSER](https://www.mindspore.cn/lite/api/en/master/generate/define_model_parser_registry.h_REG_MODEL_PARSER-1.html), graph-optimization registration [REG_PASS](https://www.mindspore.cn/lite/api/en/master/generate/define_pass_registry.h_REG_PASS-1.html) and graph-optimization scheduled registration [REG_SCHEDULED_PASS](https://www.mindspore.cn/lite/api/en/master/generate/define_pass_registry.h_REG_SCHEDULED_PASS-1.html)
+> MindSpore Lite also provides a series of registration macros to facilitate user access. These macros include node-parse registration [REG_NODE_PARSER](https://www.mindspore.cn/lite/api/en/master/generate/define_node_parser_registry.h_REG_NODE_PARSER-1.html), model-parse registration [REG_MODEL_PARSER](https://www.mindspore.cn/lite/api/en/master/generate/define_model_parser_registry.h_REG_MODEL_PARSER-1.html), graph-optimization registration [REG_PASS](https://www.mindspore.cn/lite/api/en/master/generate/define_pass_registry.h_REG_PASS-1.html) and graph-optimization scheduled registration [REG_SCHEDULED_PASS](https://www.mindspore.cn/lite/api/en/master/generate/define_pass_registry.h_REG_SCHEDULED_PASS-1.html)
 
 The expansion capability of MindSpore Lite conversion tool only supports on Linux system currently.
 
@@ -28,7 +28,7 @@ The code related to the example can be obtained from the path [mindspore-lite/ex
 
 ## Node Extension
 
-1. Self-defined node-parse: The users need to inherit the base class [NodeParser](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_converter_NodeParser.html), and then, choose a interface to override according to model frameworks.
+1. Self-defined node-parse: The users need to inherit the base class [NodeParser](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_converter_NodeParser.html), and then, choose an interface to override according to model frameworks.
 
 2. Node-parse Registration: The users can directly call the registration interface [REG_NODE_PARSER](https://www.mindspore.cn/lite/api/en/master/generate/define_node_parser_registry.h_REG_NODE_PARSER-1.html), so that the self-defined node-parse will be registered in the converter tool of MindSpore Lite.
 
@@ -92,7 +92,7 @@ For the sample code, please refer to [pass](https://atomgit.com/mindspore/mindsp
 
 - Compilation preparation
 
-  The release package of MindSpore Lite doesn't provide serialized files of other frameworks, therefore, users need to compile and obtain by yourselves. Here, please refer to [Overview](https://www.mindspore.cn/lite/docs/en/master/advanced/third_party/converter_register.html#overview).
+  The release package of MindSpore Lite doesn't provide serialized files of other frameworks, therefore, users need to compile and obtain by themselves. Here, please refer to [Overview](https://www.mindspore.cn/lite/docs/en/master/advanced/third_party/converter_register.html#overview).
 
   The case is a tflite model, users need to compile [flatbuffers](https://atomgit.com/mindspore/mindspore-lite/blob/master/cmake/external_libs/flatbuffers.cmake) and combine the [TFLITE Proto File](https://atomgit.com/mindspore/mindspore-lite/blob/master/mindspore-lite/tools/converter/parser/tflite/schema.fbs) to generate the serialized file.
 
@@ -106,7 +106,7 @@ For the sample code, please refer to [pass](https://atomgit.com/mindspore/mindsp
   bash build.sh
   ```
 
-  > If the automatic download is failed, users can download the specified package manually, of which the hardware platform is CPU and the system is Ubuntu-x64 [mindspore-lite-{version}-linux-x64.tar.gz](https://www.mindspore.cn/lite/docs/en/master/use/downloads.html), After unzipping, please copy the directory of `tools/converter/lib` and `tools/converter/include` to the directory of `mindspore-lite/examples/converter_extend`.
+  > If the automatic download fails, users can download the specified package manually, of which the hardware platform is CPU and the system is Ubuntu-x64 [mindspore-lite-{version}-linux-x64.tar.gz](https://www.mindspore.cn/lite/docs/en/master/use/downloads.html), After unzipping, please copy the directory of `tools/converter/lib` and `tools/converter/include` to the directory of `mindspore-lite/examples/converter_extend`.
   >
   > After manually downloading and storing the specified file, users need to execute the `build.sh` script to complete the compilation and build process.
 

@@ -6,7 +6,7 @@
 
 ### Environment Preparation
 
-Besides basic [Environment Preparation](https://www.mindspore.cn/lite/docs/en/master/use/build.html), Using DSP requires the integration of dsp_sdk. Dsp_sdk includes heterogeneous programming interfaces using DSP and interface implementations encapsulated into static libraries (named libhthread_host.a). Set the dsp_sdk directory as the environment variable `${dsp_sdk_path}`, and the build script will use this environment variable to find dsp_sdk; In addition, a cross compilation tool is required. The installation command is as follows:
+Besides basic [Environment Preparation](https://www.mindspore.cn/lite/docs/en/master/use/build.html), Using DSP requires the integration of dsp_sdk. Dsp_sdk includes heterogeneous programming interfaces using DSP and interface implementations encapsulated into static libraries (named libhthread_host.a). Set the dsp_sdk directory path to the environment variable `${DSP_SDK_PATH}`, and the build script will use this environment variable to find dsp_sdk; In addition, a cross compilation tool is required. The installation command is as follows:
 
 ```bash
 sudo apt-get update && apt-get install -y --no-install-recommends \
@@ -40,7 +40,7 @@ For more information about compilation, see [Linux Environment Compilation](http
 
 - Using Benchmark testing DSP inference
 
-    Users can test DSP inference using MindSpore Lite's Benchmark tool. Copy the benchmark tool to the `ft78` or `ft04` device, An example of using the benchmark tool on a device is as follows:
+    Users can test DSP inference using MindSpore Lite's Benchmark tool. Copy the benchmark tool to the `ft78` or `ft04` device. An example of using the benchmark tool on a device is as follows:
 
     - Test performance
 

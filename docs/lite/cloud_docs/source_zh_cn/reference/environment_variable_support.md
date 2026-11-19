@@ -17,7 +17,7 @@
 |      BENCHMARK_UPDATE_CONFIG_ENV       |                         Benchmark工具配置项设置                         |           "0"、""            |     ""      |
 |          MSLITE_PACKAGE_PATH           |                            测试用例打包路径                             |          文件路径           |     ""      |
 |     MS_ASCEND_CHECK_OVERFLOW_MODE      |                              精度模式选择                               | SATURATION_MODE/INFNAN_MODE | INFNAN_MODE |
-|          disable_REUSE_MEMORY          |                        Ascend GE后端显存复用开关                        |           "0"、"1"           |      0      |
+|          DISABLE_REUSE_MEMORY          |                        Ascend GE后端显存复用开关                        |           "0"、"1"           |      0      |
 |      ENABLE_MULTI_BACKEND_RUNTIME      |                           多后端异构能力开关                            |         "on"、"off"          |     off     |
 |         ASCEND_CUSTOM_OPP_PATH         |                        Ascend C自定义算子安装路径                        |          文件路径           |     ""      |
 |            ASCEND_OPP_PATH             |                             Ascend算子路径                              |          文件路径           |     ""      |

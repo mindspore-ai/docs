@@ -11,7 +11,7 @@ Delegate of MindSpore Lite is used to support third-party AI frameworks (such as
 Using Delegate to support a third-party AI framework mainly includes the following steps:
 
 1. Add a custom delegate class: Inherit the [Delegate](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Delegate.html) class to implement XXXDelegate.
-2. Implementing the Init Function: The [Init](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Delegate.html) function needs to check whether the device supports the delegate framework and to apply for resources related to delegate.
+2. Implementing the Init Function: The [Init](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Delegate.html) function needs to check whether the device supports the delegate framework and apply for resources related to delegate.
 3. Implementing the Build Function: The [Build](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Delegate.html) function will implement the kernel support judgment, the sub-graph construction, and the online graph building.
 4. Implementing the sub-graph Kernel: Inherit the [Kernel](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_kernel_Kernel.html#class-kernel) to implement delegate sub-graph Kernel.
 
@@ -34,7 +34,7 @@ class XXXDelegate : public Delegate {
 
 ### Implementing the Init
 
-[Init](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Delegate.html) will be called during the [Build](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Model.html) process of [Model](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Model.html#class-model). The specific location is in the [LiteSession::Init](https://atomgit.com/mindspore/mindspore-lite/blob/master/mindspore-lite/src/litert/lite_session.cc#L696) function of MindSpore Lite internal process.
+[Init](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Delegate.html) will be called during the [Build](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Model.html) process of [Model](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Model.html#class-model). The specific location is in the [LiteSession::Init](https://atomgit.com/mindspore/mindspore-lite/blob/master/mindspore-lite/src/litert/lite_session.cc#L696) function of MindSpore Lite internal code.
 
 ```cpp
 Status XXXDelegate::Init() {

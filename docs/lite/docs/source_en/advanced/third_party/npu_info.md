@@ -32,7 +32,7 @@ For more information about compilation, see [Linux Environment Compilation](http
         For more information about using Runtime to perform inference, see [Using Runtime to Perform Inference (C++)](https://www.mindspore.cn/lite/docs/en/master/infer/runtime_cpp.html).
 
     - Compile and execute the binary. If you use dynamic linking, refer to [compile output](https://www.mindspore.cn/lite/docs/en/master/use/build.html) when the compile option is `-I arm64` or `-I arm32`.
-        Configured environment variables will dynamically load libhiai.so, libhiai_ir.so, libhiai_ir_build.so, libhiai_hcl_model_runtime.so. For example,
+        Once the environment variables are configured, libhiai.so, libhiai_ir.so, libhiai_ir_build.so, and libhiai_hcl_model_runtime.so are loaded dynamically. For example,
 
         ```bash
         export LD_LIBRARY_PATH=mindspore-lite-{version}-android-{arch}/runtime/third_party/hiai_ddk/lib/:$LD_LIBRARY_PATH

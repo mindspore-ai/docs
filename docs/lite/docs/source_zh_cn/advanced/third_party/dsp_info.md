@@ -6,7 +6,7 @@
 
 ### 环境准备
 
-在基本的[环境准备](https://www.mindspore.cn/lite/docs/zh-CN/master/use/build.html)之外，使用国产DSP需要集成dsp_sdk。dsp_sdk包含了使用国产DSP的异构编程接口，以及封装成静态库的接口实现（名为libhthread_host.a）。将dsp_sdk目录设置为环境变量`${DSP_SDK_PATH}`，构建脚本将使用这个环境变量寻找dsp_sdk。此外还需要交叉编译工具，安装命令如下：
+在基本的[环境准备](https://www.mindspore.cn/lite/docs/zh-CN/master/use/build.html)之外，使用国产DSP需要集成dsp_sdk。dsp_sdk包含了使用国产DSP的异构编程接口，以及封装成静态库的接口实现（名为libhthread_host.a）。将dsp_sdk的目录路径设置到环境变量`${DSP_SDK_PATH}`，构建脚本将使用这个环境变量寻找dsp_sdk。此外还需要交叉编译工具，安装命令如下：
 
 ```bash
 sudo apt-get update && apt-get install -y --no-install-recommends \
