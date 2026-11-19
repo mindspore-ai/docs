@@ -52,7 +52,7 @@ In addition, users can use Python interface and Java interface of MindSpore Lite
 
 3. Obtain model
 
-    MindSpore Lite cloud-side inference currently only supports MindIR model format of MindSpore. You can export MindIR model by MindSpore or get MindIR model by [model converter](https://www.mindspore.cn/lite/cloud_docs/en/master/mindir/converter_tool.html) to convert models in Tensorflow, Onnx, Caffe.
+    MindSpore Lite cloud-side inference currently only supports MindIR model format of MindSpore. You can export MindIR model by MindSpore or get MindIR model by [model converter](https://www.mindspore.cn/lite/cloud_docs/en/master/mindir/converter_tool.html) to convert models in TensorFlow, ONNX, Caffe.
 
     The model file [mobilenetv2.mindir](https://download.mindspore.cn/model_zoo/official/lite/quick_start/mobilenetv2.mindir) can be downloaded as a sample model.
 
@@ -80,7 +80,7 @@ In addition, users can use Python interface and Java interface of MindSpore Lite
 After unzipping the MindSpore Lite cloud-side inference package, set the `LITE_HOME` environment variable to the path of the unzipping, replace version with the corresponding version you downloaded.
 
 ```bash
-export LITE_HOME=$some_path/mindpsore-lite-{version}-linux-x64
+export LITE_HOME=$some_path/mindspore-lite-{version}-linux-x64
 ```
 
 Set the environment variable `LD_LIBRARY_PATH`:
@@ -123,7 +123,7 @@ export PATH=$LITE_HOME/tools/converter/converter:$LITE_HOME/tools/benchmark:$PAT
     export TOOLCHAIN_HOME=${ASCEND_HOME}/ascend-toolkit/latest/toolkit
     ```
 
-    If not exist, set the environment variables as follows:
+    If it does not exist, set the environment variables as follows:
 
     ```bash
     export ASCEND_HOME=/usr/local/Ascend
@@ -408,7 +408,7 @@ The code function is parsed as follows:
 
 6. Release the model object
 
-    Model destructions will release model-related resources.
+    The Model destructor releases model-related resources.
 
 ### Compiling
 

@@ -18,7 +18,7 @@
 | AllGather                           | 分布式集合通信操作                                           | FP32                                                | -         | -                       |                        |
 | ApplyMomentum                       | 执行带动量的随机梯度下降的一次参数更新步骤                  | FP32                                                | -         | -                       | FP16                   |
 | Assert                              | 断言                                                         | FP16<br/>FP32<br/>Bool                              | -         | -                       |                        |
-| Assign                              | 将一个值赋值给一个变量                                       | FP32                                                | -         | -                       | FP16                   |
+| Assign                              | 将一个值赋给一个变量                                       | FP32                                                | -         | -                       | FP16                   |
 | ArgmaxFusion                        | 求某一维度最大值                                             | FP16<br/>FP32<br/>Int8<br/>UInt8                    | FP16      | FP16<br/>FP32           | FP16       |
 | ArgminFusion                        | 求某一维度最小值                                             | FP16<br/>FP32<br/>Int8<br/>UInt8                    | -         | FP16<br/>FP32           | FP16       |
 | AvgPoolFusion                       | 平均池化                                                     | FP16<br/>FP32<br/>Int8<br/>UInt8                    | FP16      | FP16<br/>FP32           | FP16       |

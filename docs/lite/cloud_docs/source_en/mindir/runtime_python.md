@@ -87,7 +87,7 @@ For more advanced usage and examples of Python interfaces, please refer to the [
 
 ### Creating Configuration Context
 
-Create the configuration context `Context`. Since this tutorial demonstrates a scenario where inference is performed on a CPU device, they need to set Context's target to cpu.
+Create the configuration context `Context`. Since this tutorial demonstrates a scenario where inference is performed on a CPU device, you need to set Context's target to cpu.
 
 ```python
 import numpy as np
@@ -112,7 +112,7 @@ context.target = ["ascend"]
 context.ascend.device_id = 0
 ```
 
-If the backend is Ascend deployed on the Elastic Cloud Server, set the `provider` to `ge`.
+If you need to perform inference in the Ascend elastic acceleration service environment (remote mode), set `provider` to `ge`.
 
 ```python
 context.ascend.provider = "ge"
@@ -233,7 +233,7 @@ model.update_weights([new_weights])
 
 ## Subgraph Splitting Inference
 
-When performing offline model conversion, if the [SplitGraph] parameter under the split_node_name is configured in the configuration file, the subgraph splitting inference feature must be used to create and infer the model. The purpose of this feature is to split the original model into multiple parts according to the specified configuration during the conversion process. Users can obtain the output of the intermediate layers of the model or provide input to certain layers in the middle of the model in this way, enabling inference on only a part of the model.
+When performing offline model conversion, if the split_node_name parameter under [SplitGraph] is configured in the configuration file, the subgraph splitting inference feature must be used to create and infer the model. The purpose of this feature is to split the original model into multiple parts according to the specified configuration during the conversion process. Users can obtain the output of the intermediate layers of the model or provide input to certain layers in the middle of the model in this way, enabling inference on only a part of the model.
 
 ### Creating MultiModelRunner
 
@@ -261,7 +261,7 @@ execs = runner.get_model_executor()
 
 When performing inference using ModelExecutor, you must first identify its input and output names. The inputs of a ModelExecutor may originate from either ​​the inputs of the entire graph​​ or ​​outputs from other ModelExecutor instances​​. You can use the following methods to retrieve the inputs and outputs:
 ModelExecutor.get_inputs() returns the input names of the current ModelExecutor.
-ModelExecutor.get_outputs() returns the output names of the current ModelExecutor.It is important to note that the sliced subgraph inputs may be more specified in the conversion profile than the output, and the number of subgraphs may also be more than specified in the configuration file, because there are some additional inputs from other subgraphs to prevent duplicate nodes in the subgraph when performing subgraph splitting.
+ModelExecutor.get_outputs() returns the output names of the current ModelExecutor. It is important to note that the sliced subgraph inputs may be more specified in the conversion profile than the output, and the number of subgraphs may also be more than specified in the configuration file, because there are some additional inputs from other subgraphs to prevent duplicate nodes in the subgraph when performing subgraph splitting.
 Refer to the following code for inference with ModelExecutor:
 
 ```python
