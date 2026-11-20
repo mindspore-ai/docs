@@ -10,7 +10,7 @@ If MindSpore Lite is used in an Android project, you can use [C++ API](https://w
 
 1. Load the model (optional): Read the `.ms` model converted by the model conversion tool introduced in [Converting Models for Inference](https://www.mindspore.cn/lite/docs/en/master/converter/converter_tool.html) from the file system.
 2. Create a configuration context: Create a configuration context [MSContext](https://www.mindspore.cn/lite/api/en/master/api_java/mscontext.html#mscontext) to save some basic configuration parameters to guide graph build and execution, including `deviceType` (device type), `threadNum` (number of threads), `cpuBindMode` (CPU core binding mode), and `enable_float16` (whether to preferentially use the float16 operator).
-3. Build a graph: Before building a graph, the [build](https://www.mindspore.cn/lite/api/en/master/api_java/model.html#build) API of [Model](https://www.mindspore.cn/lite/api/en/master/api_java/model.html#model) needs to be called to build the graph, including graph partition and operator selection and scheduling. This takes a long time. It is recommended that with [Model](https://www.mindspore.cn/lite/api/en/master/api_java/model.html#model) created each time, one graph be built. In this case, the inference will be performed for multiple times.
+3. Model Creation, loading, and compilation: Before performing inference, you need to call the [build](https://www.mindspore.cn/lite/api/en/master/api_java/model.html#build) API of [Model](https://www.mindspore.cn/lite/api/en/master/api_java/model.html#model) to load and compile the model. Currently, two methods are supported: loading from a file and loading from a MappedByteBuffer. In the model loading phase, the file or buffer is parsed into a runtime model. The model compilation phase mainly involves operator selection and scheduling, subgraph partitioning, and other processes, and this phase takes considerable time. It is recommended to create the Model once, compile it once, and perform inference multiple times.
 4. Input data: Before the graph is performed, data needs to be filled in to the `Input Tensor`.
 5. Perform inference: Use the [Model](https://www.mindspore.cn/lite/api/en/master/api_java/model.html#model) of the [predict](https://www.mindspore.cn/lite/api/en/master/api_java/model.html#predict) to perform model inference.
 6. Obtain the output: After the graph execution is complete, you can obtain the inference result by `outputting the tensor`.
@@ -77,7 +77,7 @@ try {
 
 Create the configuration context [MSContext](https://www.mindspore.cn/lite/api/en/master/api_java/mscontext.html#mscontext) to save some basic configuration parameters to guide graph build and execution. Configure the number of threads, thread affinity and whether to enable heterogeneous parallel inference via the [init](https://www.mindspore.cn/lite/api/en/master/api_java/mscontext.html#init) interface. MindSpore Lite has a built-in thread pool shared by processes. During inference, `threadNum` is used to specify the maximum number of threads in the thread pool. The default value is 2.
 
-MindSpore Lite supports heterogeneous inference. The preferred backend for inference is specified by `deviceType` of [AddDeviceInfo](https://www.mindspore.cn/lite/api/en/master/api_java/mscontext.html#adddeviceinfo). Currently, CPU, GPU and Kirin NPU are supported. During graph build, operator selection and scheduling are performed based on the preferred backend. If the backend supports Float16, you can use the Float16 operator first by setting `isEnableFloat16` to `true`. If it is an Kirin NPU backend, you can also set the Kirin NPU frequency value. The default frequency value is 3, and can be set to 1 (low power consumption), 2 (balanced), 3 (high performance), and 4 (extreme performance).
+MindSpore Lite supports heterogeneous inference. The preferred backend for inference is specified by `deviceType` of [AddDeviceInfo](https://www.mindspore.cn/lite/api/en/master/api_java/mscontext.html#adddeviceinfo). Currently, CPU, GPU and Kirin NPU are supported. During graph build, operator selection and scheduling are performed based on the preferred backend. If the backend supports Float16, you can use the Float16 operator first by setting `isEnableFloat16` to `true`. If it is a Kirin NPU backend, you can also set the Kirin NPU frequency value. The default frequency value is 3, and can be set to 1 (low power consumption), 2 (balanced), 3 (high performance), and 4 (extreme performance).
 
 ### Configuring the CPU Backend
 
@@ -174,7 +174,7 @@ After performing inference, MindSpore Lite can output a tensor to obtain the inf
     List<MSTensor> outTensors = model.getOutputs();
     ```
 
-2. Use the [getOutputsByNodeName](https://www.mindspore.cn/lite/api/en/master/api_java/model.html#getoutputsbynodename) method to obtain the vector of the tensor connected to the model output [MSTensor](https://www.mindspore.cn/lite/api/en/master/api_java/mstensor.html#mstensor) based on the name of the model output node. The following sample code from [MainActivity.java](https://atomgit.com/mindspore/mindspore-lite/blob/master/mindspore-lite/examples/runtime_java/app/src/main/java/com/mindspore/lite/demo/MainActivity.java#L175) demonstrates how to call `getOutputByTensorName` to obtain the output tensor.
+2. Use the [getOutputsByNodeName](https://www.mindspore.cn/lite/api/en/master/api_java/model.html#getoutputsbynodename) method to obtain the vector of the tensor connected to the model output [MSTensor](https://www.mindspore.cn/lite/api/en/master/api_java/mstensor.html#mstensor) based on the name of the model output node. The following sample code from [MainActivity.java](https://atomgit.com/mindspore/mindspore-lite/blob/master/mindspore-lite/examples/runtime_java/app/src/main/java/com/mindspore/lite/demo/MainActivity.java#L175) demonstrates how to call `getOutputsByNodeName` to obtain the output tensor.
 
     ```java
     MSTensor outTensor = model.getOutputsByNodeName("Default/head-MobileNetV2Head/Softmax-op204");
@@ -211,7 +211,7 @@ The following sample code from [MainActivity.java](https://atomgit.com/mindspore
 ```java
 List<MSTensor> inputs = model.getInputs();
 int[][] dims = {{1, 300, 300, 3}};
-bool ret = model.resize(inputs, dims);
+boolean ret = model.resize(inputs, dims);
 ```
 
 ### Viewing Logs
@@ -224,7 +224,7 @@ logcat -s "MS_LITE"
 
 ### Obtaining the Version Number
 
-MindSpore Lite provides the [Version](https://www.mindspore.cn/lite/api/en/master/api_java/model.html) method to obtain the version number, which is included in the `com.mindspore.lite.Version` header file. You can call this method to obtain the version number of MindSpore Lite.
+MindSpore Lite provides the [Version](https://www.mindspore.cn/lite/api/en/master/api_java/model.html) method to obtain the version number, which is included in the `com.mindspore.lite.config.Version` header file. You can call this method to obtain the version number of MindSpore Lite.
 
 The following sample code from [MainActivity.java](https://atomgit.com/mindspore/mindspore-lite/blob/master/mindspore-lite/examples/runtime_java/app/src/main/java/com/mindspore/lite/demo/MainActivity.java#L215) demonstrates how to obtain the version number of MindSpore Lite:
 

@@ -174,7 +174,7 @@ MindSpore Lite在执行完推理后，可以通过输出Tensor得到推理结果
     List<MSTensor> outTensors = model.getOutputs();
     ```
 
-2. 使用[getOutputsByNodeName](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/model.html#getoutputsbynodename)方法，根据模型输出节点的名称来获取模型输出[MSTensor](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/mstensor.html#mstensor)中连接到该节点的Tensor的vector。下面[示例代码](https://atomgit.com/mindspore/mindspore-lite/blob/master/mindspore-lite/examples/runtime_java/app/src/main/java/com/mindspore/lite/demo/MainActivity.java#L175)演示如何调用`getOutputByTensorName`获得输出Tensor。
+2. 使用[getOutputsByNodeName](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/model.html#getoutputsbynodename)方法，根据模型输出节点的名称来获取模型输出[MSTensor](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/mstensor.html#mstensor)中连接到该节点的Tensor的vector。下面[示例代码](https://atomgit.com/mindspore/mindspore-lite/blob/master/mindspore-lite/examples/runtime_java/app/src/main/java/com/mindspore/lite/demo/MainActivity.java#L175)演示如何调用`getOutputsByNodeName`获得输出Tensor。
 
     ```java
     MSTensor outTensor = model.getOutputsByNodeName("Default/head-MobileNetV2Head/Softmax-op204");
@@ -211,7 +211,7 @@ model.free();
 ```java
 List<MSTensor> inputs = model.getInputs();
 int[][] dims = {{1, 300, 300, 3}};
-bool ret = model.resize(inputs, dims);
+boolean ret = model.resize(inputs, dims);
 ```
 
 ### 查看日志

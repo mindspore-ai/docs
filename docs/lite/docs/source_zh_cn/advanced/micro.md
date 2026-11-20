@@ -781,7 +781,7 @@ STM32F767芯片为Cortex-M7架构，可以通过以下两种方式获取该架�
 
     - `STM32CubeMX`是`意法半导体`提供的STM32芯片图形化配置工具，该工具用于生成STM芯片的启动代码及工程。
 
-- [STM32CubePrg-Lin](https://www.st.com/en/development-tools/stm32cubeprog.html) >= 6.5.0
+- [STM32CubeProg-Lin](https://www.st.com/en/development-tools/stm32cubeprog.html) >= 6.5.0
 
     - 该工具是`意法半导体`提供的烧录工具，可用于程序烧录和数据读取。
 
@@ -948,13 +948,13 @@ STM32F767芯片为Cortex-M7架构，可以通过以下两种方式获取该架�
 
 - 烧录运行
 
-    我们可以通过`STMSTM32CubePrg`烧录工具进行代码烧录并运行。在PC机上，通过`STLink`连接一块可烧录的开发板，然后在当前MCU工程目录下运行以下命令，执行烧录并运行程序：
+    我们可以通过`STM32CubeProg`烧录工具进行代码烧录并运行。在PC机上，通过`STLink`连接一块可烧录的开发板，然后在当前MCU工程目录下运行以下命令，执行烧录并运行程序：
 
     ```bash
-    bash ${STMSTM32CubePrg_PATH}/bin/STM32_Programmer.sh -c port=SWD -w build/test_stm767.bin 0x08000000 -s 0x08000000
+    bash ${STM32CubeProg_PATH}/bin/STM32_Programmer.sh -c port=SWD -w build/test_stm767.bin 0x08000000 -s 0x08000000
     ```
 
-    ${STMSTM32CubePrg_PATH}为`STMSTM32CubePrg`安装路径。关于命令中的各参数含义，请参考`STMSTM32CubePrg`的使用手册。
+    ${STM32CubeProg_PATH}为`STM32CubeProg`安装路径。关于命令中的各参数含义，请参考`STM32CubeProg`的使用手册。
 
 #### 推理结果验证
 
@@ -962,10 +962,10 @@ STM32F767芯片为Cortex-M7架构，可以通过以下两种方式获取该架�
 在PC机上，通过`STLink`连接一块已烧录好程序的开发板，通过执行以下命令读取内存数据：
 
 ```bash
-bash ${STMSTM32CubePrg_PATH为}/bin/STM32_Programmer.sh -c port=SWD model=HOTPLUG --upload 0x20000000 0x1 ret.bin
+bash ${STM32CubeProg_PATH}/bin/STM32_Programmer.sh -c port=SWD model=HOTPLUG --upload 0x20000000 0x1 ret.bin
 ```
 
-${STMSTM32CubePrg_PATH}为`STMSTM32CubePrg`安装路径。关于命令中的各参数含义，请参考`STMSTM32CubePrg`的使用手册。
+${STM32CubeProg_PATH}为`STM32CubeProg`安装路径。关于命令中的各参数含义，请参考`STM32CubeProg`的使用手册。
 
 读取的数据被保存在`ret.bin`文件内，运行`cat ret.bin`，如果开发板端推理成功，`ret.bin`内保存着字符`1`，会显示如下：
 

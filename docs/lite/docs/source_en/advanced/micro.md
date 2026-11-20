@@ -303,7 +303,7 @@ In the usual Linux-x86/android scenario, with multi-core CPUs, Micro multi-threa
 #### Configuration
 
 By setting the `support_parallel` to true in the configuration file, the code supporting multi-threaded inference will be generated. Please refer to Table 1 for the meaning of each option in the configuration file.
-An example of a `x86` multithreaded code generation configuration file is as follows:
+An example of an `x86` multithreaded code generation configuration file is as follows:
 
 ```text
 [micro_param]
@@ -376,8 +376,8 @@ support_parallel=false
 # Supports WEIGHT_QUANT or FULL_QUANT
 quant_type=FULL_QUANT
 
-# Weight quantization support the number of bits [0,16], Set to 0 is mixed bit quantization, otherwise it is fixed bit quantization
-# Full quantization support the number of bits [1,8]
+# Weight quantization supports the number of bits [0,16], Set to 0 is mixed bit quantization, otherwise it is fixed bit quantization
+# Full quantization supports the number of bits [1,8]
 bit_num=8
 
 [data_preprocess_param]
@@ -404,7 +404,7 @@ target_device=DSP
 
 - The `target_device` of the full quantization parameter `full_quant_param` in the configuration file usually needs to be set to DSP to support more operators for post quantization.
 
-- At present, Micro supports dozens of Int8 quantization operator types (conv, convolution, matmul, full_connection, pooling, activation, add/mul, concat, reshape/transpose, etc.; see the [operator list](https://www.mindspore.cn/lite/docs/en/master/reference/operator_list_lite.html) for the complete set). If a related quantization operator does not support it when generating code, you can circumvent the operator through the `skip_quant_node` of the universal quantization parameter `common_quant_param`; the circumvented operator node still uses float32 inference. Per-layer quantization control further supports circumventing by operator type and by operator name of the original model, with a decision report; see [Per-layer Quantization Control](https://www.mindspore.cn/lite/docs/en/master/advanced/quantization.html).
+- At present, Micro supports dozens of Int8 quantization operator types (conv, convolution, matmul, full_connection, pooling, activation, add/mul, concat, reshape/transpose, etc.; see the [operator list](https://www.mindspore.cn/lite/docs/en/master/reference/operator_list_lite.html) for the complete set). If a related quantization operator is not supported when generating code, you can circumvent the operator through the `skip_quant_node` of the universal quantization parameter `common_quant_param`; the circumvented operator node still uses float32 inference. Per-layer quantization control further supports circumventing by operator type and by operator name of the original model, with a decision report; see [Per-layer Quantization Control](https://www.mindspore.cn/lite/docs/en/master/advanced/quantization.html).
 
 ## Generating Model Training Code
 
@@ -568,7 +568,7 @@ Different platforms have differences in code integration and compilation deploym
 
 ### Integration of Multi-model Inference Scenario
 
-Multi-model integration is similar to single model integration. The only difference is that in the single model scenario, users can create model through the `MSModelCreate` interface. While in multi-model scenario, the `MSModeHandle` handle is provided for users. Users can integrate different models by manipulating the `MSModeHandle` handle of different models and calling the inference common API interface of single model. The `MSModeHandle` handle can refer to the `model_handle.h` file in the multi-model directory.
+Multi-model integration is similar to single model integration. The only difference is that in the single model scenario, users can create model through the `MSModelCreate` interface. While in multi-model scenario, the `MSModelHandle` handle is provided for users. Users can integrate different models by manipulating the `MSModelHandle` handle of different models and calling the inference common API interface of single model. The `MSModelHandle` handle can refer to the `model_handle.h` file in the multi-model directory.
 
 ## Performing Inference on the MCU
 
@@ -640,7 +640,7 @@ This example shows code integration and burning through IAR and demonstrates how
 
 - Integrate model inference code and `Micro` lib within `IAR`.
 
-- Perform complilation and simulation run
+- Perform compilation and simulation run
 
 #### Environment Preparation
 
@@ -784,7 +784,7 @@ For the complete demo code built in this example, click [Download here](https://
 
     - `STM32CubeMX` is a graphical configuration tool for STM32 chips provided by `STM`, which is used to generate the startup code and project of STM chips.
 
-- [STM32CubePrg-Lin](https://www.st.com/en/development-tools/stm32cubeprog.html) >= 6.5.0
+- [STM32CubeProg-Lin](https://www.st.com/en/development-tools/stm32cubeprog.html) >= 6.5.0
 
     - This tool is a burning tool provided by `STM` and can be used for program burning and data reading.
 
@@ -951,13 +951,13 @@ This chapter uses the STM32F767 startup project as an example to describe how to
 
 - Burn and run
 
-    The `STMSTM32CubePrg` tool can be used to burn and run the code. On the PC, use `STLink` to connect to a development board that can be burnt. Then, run the following commands in the current MCU project directory to burn and run the program:
+    The `STM32CubeProg` tool can be used to burn and run the code. On the PC, use `STLink` to connect to a development board that can be burnt. Then, run the following commands in the current MCU project directory to burn and run the program:
 
     ```bash
-    bash ${STMSTM32CubePrg_PATH}/bin/STM32_Programmer.sh -c port=SWD -w build/test_stm767.bin 0x08000000 -s 0x08000000
+    bash ${STM32CubeProg_PATH}/bin/STM32_Programmer.sh -c port=SWD -w build/test_stm767.bin 0x08000000 -s 0x08000000
     ```
 
-    ${STMSTM32CubePrg_PATH} is installation path of `STMSTM32CubePrg`. For details about the parameters in the command, see the `STMSTM32CubePrg` user manual.
+    ${STM32CubeProg_PATH} is installation path of `STM32CubeProg`. For details about the parameters in the command, see the `STM32CubeProg` user manual.
 
 #### Inference Result Verification
 
@@ -965,10 +965,10 @@ In this example, the benchmark running result flag is stored in the memory segme
 On the PC, use `STLink` to connect to a development board where programs have been burnt. Run the following command to read the memory data:
 
 ```bash
-bash ${STMSTM32CubePrg_PATH is }/bin/STM32_Programmer.sh -c port=SWD model=HOTPLUG --upload 0x20000000 0x1 ret.bin
+bash ${STM32CubeProg_PATH}/bin/STM32_Programmer.sh -c port=SWD model=HOTPLUG --upload 0x20000000 0x1 ret.bin
 ```
 
-${STMSTM32CubePrg_PATH} is installation path of `STMSTM32CubePrg`. For details about the parameters in the command, see the `STMSTM32CubePrg` user manual.
+${STM32CubeProg_PATH} is installation path of `STM32CubeProg`. For details about the parameters in the command, see the `STM32CubeProg` user manual.
 
 The read data is saved in the `ret.bin` file and run `cat ret.bin`. If the board inference is successful and `ret.bin` stores `1`, the following information is displayed:
 
@@ -995,7 +995,7 @@ Set target to ARM32 in the config configuration file.
 
 ### Compiling the Build Script
 
-For details about how to develop light Harmony applications, see [Running Hello OHOS](https://device.harmonyos.com/cn/docs/start/introduce/quickstart-lite-steps-board3516-running-0000001151888681). Copy the mnist directory generated in the previous step to any Harmony source code path, such as, applications/sample/, and create the Build.gn file.
+For details about how to develop light Harmony applications, see [Running Hello OHOS](https://device.harmonyos.com/cn/docs/start/introduce/quickstart-lite-steps-board3516-running-0000001151888681). Copy the mnist directory generated in the previous step to any Harmony source code path, such as applications/sample/, and create the Build.gn file.
 
 ```text
 <harmony-source-path>/applications/sample/mnist
@@ -1134,7 +1134,7 @@ The manner that the model generates code is consistent with that of the non-cust
 ./converter_lite --fmk=TFLITE --modelFile=mnist.tflite --outputFile=${SOURCE_CODE_DIR} --configFile=${COFIG_FILE}
 ```
 
-where target sets to be ARM32.
+where target is set to ARM32.
 
 - For recurrent or LSTM networks, users need to configure the TIME_STEP environment variable based on the step value. The configuration method is as follows:
 
@@ -1156,7 +1156,7 @@ The previous step generates the source code directory under the specified path w
 int CustomKernel(TensorC *inputs, int input_num, TensorC *outputs, int output_num, CustomParameter *param);
 ```
 
-Users need to implement this function and add their source files to the cmake project. For example, we provide the custom kernel example dynamic library libmicro_nnie.so that supports NNIE from Hysis, which is included in the [official download page](https://www.mindspore.cn/lite/docs/en/master/use/downloads.html) "NNIE inference runtime lib, benchmark tool" component. Users need to modify the CMakeLists.txt of the generated code, add the name and path of the linked library.
+Users need to implement this function and add their source files to the cmake project. For example, we provide the custom kernel example dynamic library libmicro_nnie.so that supports NNIE from HiSilicon, which is included in the [official download page](https://www.mindspore.cn/lite/docs/en/master/use/downloads.html) "NNIE inference runtime lib, benchmark tool" component. Users need to modify the CMakeLists.txt of the generated code, add the name and path of the linked library.
 
 ```bash
 
@@ -1205,7 +1205,7 @@ Users can directly refer to [Device-side training](https://www.mindspore.cn/lite
 
 ### Generating Inference Code
 
-Users can directly refer to the above content, but two points need to be noted. Firstly, the trained model is an `ms` mode, so when using converter_lite conversion tool, the `fmk` need to be set to `MSLITE`. Secondly, in order to combine training with micro inference, it is necessary to ensure that the weights exported from training must match exactly with that from micro. Therefore, we have added two attributes to the micro configuration parameters to ensure consistency in weights.
+Users can directly refer to the above content, but two points need to be noted. Firstly, the trained model is an `ms` mode, so when using converter_lite conversion tool, the `fmk` needs to be set to `MSLITE`. Secondly, in order to combine training with micro inference, it is necessary to ensure that the weights exported from training must match exactly with that from micro. Therefore, we have added two attributes to the micro configuration parameters to ensure consistency in weights.
 
 ```text
 [micro_param]
@@ -1226,7 +1226,7 @@ Users can directly refer to the above content.
 
 ### Export weights of inference model
 
-MindSpore Lite  `Serialization` class provides the `ExportWeightsCollaborateWithMicro` function, and `ExportWeightsCollaborateWithMicro` is as follows.
+MindSpore Lite `Serialization` class provides the `ExportWeightsCollaborateWithMicro` function, and `ExportWeightsCollaborateWithMicro` is as follows.
 
 ```cpp
   static Status ExportWeightsCollaborateWithMicro(const Model &model, ModelType model_type,
@@ -1235,4 +1235,4 @@ MindSpore Lite  `Serialization` class provides the `ExportWeightsCollaborateWith
                                                   const std::vector<std::string> &changeable_weights_name = {});
 ```
 
-Here, `is_inference` currently only supports as `true`.
+Here, `is_inference` currently only supports `true`.

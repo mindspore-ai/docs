@@ -12,7 +12,7 @@ The MindSpore Lite inference steps are as follows:
 
 1. Read the model: Read the `.ms` model file converted by the [model conversion tool](https://www.mindspore.cn/lite/docs/en/master/converter/converter_tool.html) from the file system.
 2. Create and configure context: Create and configure [Context](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Context.html#class-context) to save some basic configuration parameters required to build and execute the model.
-3. Create, load and build a model: Use `Build` of [Model](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Model.html#class-model) to create and build the model, and configure the [Context](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Context.html#class-context) obtained in the previous step. In the model loading phase, the file cache is parsed into a runtime model. In the model building phase, subgraph partition, operator selection and scheduling are performed, which will take a long time. Therefore, it is recommended that the model should be created once, built once, and performed for multiple times.
+3. Create, load and build a model: Use `Build` of [Model](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Model.html#class-model) to create and build the model, and configure the [Context](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Context.html#class-context) obtained in the previous step. In the model loading phase, the file cache is parsed into a runtime model. In the model building phase, subgraph partition, operator selection and scheduling are performed, which will take a long time. Therefore, it is recommended that the model should be created once, built once, and used for multiple inferences.
 4. Input data: Before the model is executed, data needs to be filled in the `Input Tensor`.
 5. Perform inference: Use `Predict` of [Model](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Model.html#class-model) to perform model inference.
 6. Obtain the output: After the model execution is complete, you can obtain the inference result by `Output Tensor`.
@@ -41,7 +41,7 @@ The MindSpore Lite inference steps are as follows:
   bash build.sh
   ```
 
-  > If the MindSpore Lite inference framework fails to be downloaded by using this build script, manually download the MindSpore Lite model inference framework [mindspore-lite-{version}-linux-x64.tar.gz](https://www.mindspore.cn/lite/docs/en/master/use/downloads.html) whose hardware platform is CPU and operating system is Ubuntu-x64, and copy the `libmindspore-lite.so` file in the decompressed lib directory to the `mindspore-lite/examples/quick_start_cpp/lib` directory. Also copy the files from `runtime/include` to the `mindspore-lite/examples/quick_start_cpp/include` directory, and copy the `libmindspore_glog.so.0` file from the `runtime/third_party/glog` directory to the `libmindspore_glog.so` file in `mindspore/lite/examples/quick_start_cpp/lib` directory.
+  > If the MindSpore Lite inference framework fails to be downloaded by using this build script, manually download the MindSpore Lite model inference framework [mindspore-lite-{version}-linux-x64.tar.gz](https://www.mindspore.cn/lite/docs/en/master/use/downloads.html) whose hardware platform is CPU and operating system is Ubuntu-x64, and copy the `libmindspore-lite.so` file in the decompressed lib directory to the `mindspore-lite/examples/quick_start_cpp/lib` directory. Also copy the files from `runtime/include` to the `mindspore-lite/examples/quick_start_cpp/include` directory, and copy the `libmindspore_glog.so.0` file from the `runtime/third_party/glog` directory to the `libmindspore_glog.so` file in `mindspore-lite/examples/quick_start_cpp/lib` directory.
   >
   > If the MobileNetV2 model fails to be downloaded, manually download the model file [mobilenetv2.ms](https://download.mindspore.cn/model_zoo/official/lite/quick_start/mobilenetv2.ms) and copy it to the `mindspore-lite/examples/quick_start_cpp/model` directory.
   >
@@ -154,7 +154,7 @@ Read the MindSpore Lite model from the file system and store it in the memory bu
 ```c++
 // Read model file.
 size_t size = 0;
-char *model_buf = ReadFile(model_path, &size);
+char *model_buf = ReadFile(model_path.c_str(), &size);
 if (model_buf == nullptr) {
   std::cerr << "Read model file failed." << std::endl;
   return -1;

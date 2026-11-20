@@ -533,8 +533,8 @@ MindSpore Lite 支持 OpenGL纹理输入，进行端到端的GPU同构推理，�
 
     std::vector<mindspore::MSTensor> outputs;
     vector<GLuint> outTextureIDs;
-    for (auto i = 0; i < inputs.size(); i++) {
-      outputGlTexture.insert(std::pair<std::string, GLuint>(inputs.at(i).Name(), outTextureIDs.at(i)));
+    for (auto i = 0; i < outputs.size(); i++) {
+      outputGlTexture.insert(std::pair<std::string, GLuint>(outputs.at(i).Name(), outTextureIDs.at(i)));
     }
     ```
 

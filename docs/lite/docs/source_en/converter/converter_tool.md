@@ -67,7 +67,7 @@ The following describes the parameters in detail.
 | `--weightFile=<WEIGHTFILE>` | Yes (for Caffe models only) | Path of the weight file of the input model. | - | - | - |
 | `--configFile=<CONFIGFILE>` | No | 1. Configure quantization parameter; 2. Profile path for extension. | - | - | - |
 | `--fp16=<FP16>` | No | Serialize const tensor in float16 data type, only effective for const tensor in float32 data type. | on or off | off | - |
-| `--inputShape=<INPUTSHAPE>` | No | Set the dimension of the model input, the order of input dimensions is consistent with the original model. For some models, the model structure can be further optimized, but the transformed model may lose the characteristics of dynamic shape. Multiple inputs are separated by `;`, and surround with `""` | e.g.  "inTensorName_1: 1,32,32,4;inTensorName_2:1,64,64,4;" | - | - |
+| `--inputShape=<INPUTSHAPE>` | No | Set the dimension of the model input, the order of input dimensions is consistent with the original model. For some models, the model structure can be further optimized, but the transformed model may lose the characteristics of dynamic shape. Multiple inputs are separated by `;`, and surrounded by `""` | e.g.  "inTensorName_1: 1,32,32,4;inTensorName_2:1,64,64,4;" | - | - |
 | `--saveType=<SAVETYPE>` | No | Set the exported model as `mindir` model or `ms` model. | MINDIR, MINDIR_LITE | MINDIR_LITE | This device-side version can only be reasoned with models turned out by setting to MINDIR_LITE |
 | `--optimize=<OPTIMIZE>` | No | Set the optimization accomplished in the process of converting model. | none, general, gpu_oriented, ascend_oriented | general | - |
 | `--inputDataFormat=<INPUTDATAFORMAT>` | No | Set the input format of exported model. Only valid for 4-dimensional inputs. | NHWC, NCHW | NHWC | - |
@@ -83,7 +83,7 @@ The following describes the parameters in detail.
 > - `inputDataFormat`: generally, in the scenario of integrating third-party hardware of NCHW specification, designated as NCHW will have a significant performance improvement over NHWC. In other scenarios, users can also set as needed.
 > - The `configFile` configuration files uses the `key=value` mode to define related parameters. For the configuration parameters related to quantization, please refer to [quantization](https://www.mindspore.cn/lite/docs/en/master/advanced/quantization.html). For the configuration parameters related to extension, please refer to [Extension Configuration](https://www.mindspore.cn/lite/docs/en/master/advanced/third_party/converter_register.html#extension-configuration).
 > - `--optimize` parameter is used to set the mode of optimization during the offline conversion. If this parameter is set to none, no relevant graph optimization operations will be performed during the offline conversion phase of the model, and the relevant graph optimization operations will be done during the execution of the inference phase. The advantage of this parameter is that the converted model can be deployed directly to any CPU/GPU/Ascend hardware backend since it is not optimized in a specific way, while the disadvantage is that the initialization time of the model increases during inference execution. If this parameter is set to general, general optimization will be performed, such as constant folding and operator fusion (the converted model only supports CPU/GPU hardware backend, not Ascend backend). If this parameter is set to gpu_oriented, the general optimization and extra optimization for GPU hardware will be performed (the converted model only supports GPU hardware backend). If this parameter is set to ascend_oriented, the optimization for Ascend hardware will be performed (the converted model only supports Ascend hardware backend).
-> - Parameters `--input_shape` and dynamicDims are stored in the model during conversion. Call model.get_model_info("input_shape") and model.get_model_info("dynamic_dims") to get it when using the model.
+> - Parameters `--input_shape` and dynamicDims are stored in the model during conversion. Call model.get_model_info("input_shape") and model.get_model_info("dynamic_dims") to get them when using the model.
 
 ### Disabling Constant Folding
 
@@ -124,7 +124,7 @@ If the converted ms model uses the Android CPU backend for inference and has str
 
 | Parameter | Attribute | Function Description | Value Range |
 |--------|--------|--------|--------|
-|    `architecture`    |    Mandatory    |     target cpu architecture, only support ARM64    |     ARM64    |
+|    `architecture`    |    Mandatory    |     target CPU architecture, only support ARM64    |     ARM64    |
 |    `instruction`    |    Mandatory    |    target instruction set, only support SIMD_DOT    |    SIMD_DOT    |
 
 ### Example
@@ -201,7 +201,7 @@ The following describes how to use the conversion command by using several commo
 
 ## Windows Environment Instructions
 
-### Environment Preparation  
+### Environment Preparation
 
 To use the MindSpore Lite model conversion tool, the following environment preparations are required.
 

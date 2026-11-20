@@ -24,7 +24,7 @@ To use the MindSpore Lite inference framework, perform the following steps:
 
 ## Model Reading
 
-When MindSpore Lite is used for model inference, read the `.ms` model file converted by using the model conversion tool from the file system and store it in the memory buffer. For details, see [Converting Models for Inference](https://www.mindspore.cn/lite/docs/en/master/converter/converter_tool.html).
+When MindSpore Lite is used for model inference, read the `.ms` model file converted by using the model conversion tool from the file system. For details, see [Converting Models for Inference](https://www.mindspore.cn/lite/docs/en/master/converter/converter_tool.html).
 
 The following sample code from [main.cc](https://atomgit.com/mindspore/mindspore-lite/blob/master/mindspore-lite/examples/runtime_cpp/main.cc#L332) demonstrates how to load a MindSpore Lite model from the file system:
 
@@ -62,7 +62,7 @@ device_list.push_back(cpu_device_info);
 
 > `MutableDeviceInfo` supports multiple DeviceInfos, including [CPUDeviceInfo](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_CPUDeviceInfo.html#class-cpudeviceinfo), [GPUDeviceInfo](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_GPUDeviceInfo.html#class-gpudeviceinfo), [KirinNPUDeviceInfo](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_KirinNPUDeviceInfo.html#class-kirinnpudeviceinfo), [DSPDeviceInfo](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_DSPDeviceInfo.html#class-dspdeviceinfo). The device number limit is 3. During the inference, the operator will choose device in order.
 >
-> float16 takes effect only when the CPU is under the ARM v8.2 architecture. Other models and x86 platforms that do not supported float16 will be automatically rolled back to float32.
+> float16 takes effect only when the CPU is under the ARM v8.2 architecture. Other models and x86 platforms that do not support float16 will be automatically rolled back to float32.
 >
 > For the iOS platform, only the CPU backend is supported, and float16 is temporarily not supported.
 
@@ -98,7 +98,7 @@ context->SetEnableParallel(true);
 
 ### Configuring the GPU Backend
 
-If the backend to be executed is GPUs, you need to set [GPUDeviceInfo](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_GPUDeviceInfo.html#class-gpudeviceinfo) as the first choice. It is suggested to set [CPUDeviceInfo](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_CPUDeviceInfo.html#class-cpudeviceinfo) as the second choice, to ensure model inference. Use `SetEnableFP16` to enable GPU float16 inference.
+If the backend to be executed is GPU, you need to set [GPUDeviceInfo](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_GPUDeviceInfo.html#class-gpudeviceinfo) as the first choice. It is suggested to set [CPUDeviceInfo](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_CPUDeviceInfo.html#class-cpudeviceinfo) as the second choice, to ensure model inference. Use `SetEnableFP16` to enable GPU float16 inference.
 
 The following sample code from [main.cc](https://atomgit.com/mindspore/mindspore-lite/blob/master/mindspore-lite/examples/runtime_cpp/main.cc#L114) demonstrates how to create the CPU and GPU heterogeneous inference backend and how to enable float16 inference for the GPU.
 
@@ -210,7 +210,7 @@ context->SetDelegate(coreml_delegate);
 
 ### Configuring the DSP Backend
 
-If the backend to be executed is DSP(only support `ft04` and `ft78` inference product), you need to set [DSPDeviceInfo](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_DSPDeviceInfo.html#class-documentation) as the first choice. It is suggested to set [CPUDeviceInfo](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_CPUDeviceInfo.html#class-cpudeviceinfo) as the second choice, to ensure model inference.
+If the backend to be executed is DSP(only support `ft04` and `ft78` inference products), you need to set [DSPDeviceInfo](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_DSPDeviceInfo.html#class-documentation) as the first choice. It is suggested to set [CPUDeviceInfo](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_CPUDeviceInfo.html#class-cpudeviceinfo) as the second choice, to ensure model inference.
 
 The following sample code shows how to create the CPU and DSP heterogeneous inference backend.
 
@@ -262,7 +262,7 @@ if (build_ret != mindspore::kSuccess) {
 
 > After the [Model](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Model.html#class-model) is loaded and built, the [Context](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Context.html#class-context) created in the previous step can be released.
 >
-> For large models, when using the model buffer to load and compile, you need to set the path of the weight file separately, set the model path through [LoadConfig](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Model.html) or [UpdateConfig](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Model.html) interface, where `section` is `model_File`, `key` is `mindir_path`. When using the model path to load and compile, you do not need to set other parameters. The weight parameters will be automatically read.
+> For large models, when using the model buffer to load and compile, you need to set the path of the weight file separately, set the model path through [LoadConfig](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Model.html) or [UpdateConfig](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Model.html) interface, where `section` is `model_file`, `key` is `mindir_path`. When using the model path to load and compile, you do not need to set other parameters. The weight parameters will be automatically read.
 >
 > The pre-inference feature can be enabled through a configuration file by setting `enable_pre_inference=true` in the `[common]` section:
 >
@@ -522,7 +522,7 @@ MindSpore Lite supports OpenGL texture input, performs end-to-end GPU isomorphic
     return kSuccess;
     ```
 
-    In std::map<std::string, GLuint> input_gl_texture, the key is the model input tensor name, and the value is the corresponding GLuint texture; std::map<std::string, GLuint> the key in the output_gl_texture variable is the model output tensor name, Value is the corresponding GLuint texture. The model input and output tensor name can be obtained through the tensor.Name() interface. The sample code is as follows:
+    In std::map<std::string, GLuint> input_gl_texture, the key is the model input tensor name, and the value is the corresponding GLuint texture; std::map<std::string, GLuint> the key in the output_gl_texture variable is the model output tensor name, value is the corresponding GLuint texture. The model input and output tensor name can be obtained through the tensor.Name() interface. The sample code is as follows:
 
     ```cpp
     std::vector<mindspore::MSTensor> inputs;
@@ -533,8 +533,8 @@ MindSpore Lite supports OpenGL texture input, performs end-to-end GPU isomorphic
 
     std::vector<mindspore::MSTensor> outputs;
     vector<GLuint> outTextureIDs;
-    for (auto i = 0; i < inputs.size(); i++) {
-      outputGlTexture.insert(std::pair<std::string, GLuint>(inputs.at(i).Name(), outTextureIDs.at(i)));
+    for (auto i = 0; i < outputs.size(); i++) {
+      outputGlTexture.insert(std::pair<std::string, GLuint>(outputs.at(i).Name(), outTextureIDs.at(i)));
     }
     ```
 
@@ -801,7 +801,7 @@ REGISTER_CUSTOM_KERNEL_INTERFACE(CustomOpTutorial, Custom_Add, CustomAddInferCre
 
    - Compilation and Build
 
-     Execute the script [build.sh](https://atomgit.com/mindspore/mindspore-lite/blob/master/mindspore-lite/examples/runtime_extend/build.sh) in the directory of `mindspore-lite/examples/runtime_extend`, And then, the released package of MindSpore Lite will be downloaded and the demo will be compiled automatically.
+     Execute the script [build.sh](https://atomgit.com/mindspore/mindspore-lite/blob/master/mindspore-lite/examples/runtime_extend/build.sh) in the directory of `mindspore-lite/examples/runtime_extend`, and then, the released package of MindSpore Lite will be downloaded and the demo will be compiled automatically.
 
      ```bash
      bash build.sh
@@ -825,7 +825,7 @@ REGISTER_CUSTOM_KERNEL_INTERFACE(CustomOpTutorial, Custom_Add, CustomAddInferCre
    ./runtime_extend_tutorial ../model/add_extend.ms
    ```
 
-   After the execution, the following information is displayed, including the tensor name, tensor size, number of output tensors, and the first 20 pieces of data.
+   After the execution, the following information is displayed, including the tensor name, tensor size, number of output tensors, and the first 20 elements of data.
 
    ```text
    tensor name is:add-0 tensor size is:400 tensor elements num is:100
