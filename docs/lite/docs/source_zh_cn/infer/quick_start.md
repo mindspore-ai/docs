@@ -46,7 +46,7 @@ call converter_lite --fmk=MINDIR --modelFile=mobilenetv2.mindir --outputFile=mob
 - NDK 21.3
 - [CMake](https://cmake.org/download) >= 3.22.3
 - Android SDK >= 26
-- JDK >= 1.8  
+- JDK >= 1.8
 
 ### 构建与运行
 
@@ -80,7 +80,7 @@ call converter_lite --fmk=MINDIR --modelFile=mobilenetv2.mindir --outputFile=mob
 
     ![result](../images/lite_quick_start_app_result.png)
 
-## 示例程序详细说明  
+## 示例程序详细说明
 
 本端侧图像分类Android示例程序分为JAVA层和JNI层，其中，JAVA层主要通过Android Camera 2 API实现摄像头获取图像帧，以及相应的图像处理等功能；JNI层在[Runtime](https://www.mindspore.cn/lite/docs/zh-CN/master/infer/runtime_cpp.html)中完成模型推理的过程。
 

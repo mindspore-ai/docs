@@ -317,12 +317,12 @@ Common quantization parameters are the basic settings for post training quantiza
 | Parameter                  | Attribute | Function Description                                         | Parameter Type | Default Value | Value Range                                 |
 | -------------------------- | --------- | ------------------------------------------------------------ | -------------- | ------------- | ------------------------------------------- |
 | `quant_type`               | Mandatory | The quantization type. When set to WEIGHT_QUANT, weight quantization is enabled; when set to FULL_QUANT, full quantization is enabled; when set to DYNAMIC_QUANT, dynamic quantization is enabled. | String         | -             | WEIGHT_QUANT,<br/> FULL_QUANT,<br/>DYNAMIC_QUANT |
-| `bit_num`                  | Optional  | The number of quantized bits. Currently, weight quantization supports 0-16bit quantization. When it is set to 1-16bit, it is fixed-bit quantization. When it is set to 0bit, mixed-bit quantization is enabled. Full quantization and Dynamic quantization supports 8bit quantization. | Integer        | 8             | WEIGHT_QUANT:\[0, 16]<br/>FULL_QUANT: 8<br/>DYNAMIC_QUANT:8 |
+| `bit_num`                  | Optional  | The number of quantized bits. Currently, weight quantization supports 0-16bit quantization. When it is set to 1-16bit, it is fixed-bit quantization. When it is set to 0bit, mixed-bit quantization is enabled. Full quantization and Dynamic quantization support 8bit quantization. | Integer        | 8             | WEIGHT_QUANT:\[0, 16]<br/>FULL_QUANT: 8<br/>DYNAMIC_QUANT:8 |
 | `min_quant_weight_size`    | Optional  | Set the threshold of the weight size for quantization. If the number of weights is greater than this value, the weight will be quantized. | Integer        | 0             | [0, 65535]                                  |
 | `min_quant_weight_channel` | Optional  | Set the threshold of the number of weight channels for quantization. If the number of weight channels is greater than this value, the weight will be quantized. | Integer        | 16            | [0, 65535]                                  |
 | `skip_quant_node`          | Optional | Set the name of the operator that does not need to be quantified, and use `,` to split between multiple operators. Effective for full, weight and dynamic quantization alike; the name domain is a superset of the legacy behavior (converted names stay compatible, and original-model names including operators absorbed by fusion are newly supported). See [Per-layer Quantization Control](#per-layer-quantization-control). | String   | -      | -                                     |
-| `quant_node`               | Optional | Set the whitelist of operator names that participate in quantification, and use `,` to split between multiple operators. Only these layers are quantized. Effective for FULL_QUANT only. | String   | -      | -                                     |
-| `quant_op_type`            | Optional | Set the whitelist of operator types that participate in quantification, and use `,` to split between multiple types. Effective for FULL_QUANT only. | String   | -      | -                                     |
+| `quant_node`               | Optional | Set the whitelist of operator names that participate in quantization, and use `,` to split between multiple operators. Only these layers are quantized. Effective for FULL_QUANT only. | String   | -      | -                                     |
+| `quant_op_type`            | Optional | Set the whitelist of operator types that participate in quantization, and use `,` to split between multiple types. Effective for FULL_QUANT only. | String   | -      | -                                     |
 | `skip_quant_op_type`       | Optional | Set the operator types that do not need to be quantified, and use `,` to split between multiple types. Effective for FULL_QUANT only. | String   | -      | -                                     |
 | `layer_decision_report`    | Optional | Set the output file path of the per-layer quantization decision report. A full CSV report is generated after a FULL_QUANT conversion; a preview report is generated when only this key is configured without `quant_type`; no report is generated for weight or dynamic quantization. | String   | -      | -                                     |
 | `layer_decision_strict`    | Optional | When set to true, the conversion fails if any configured entry matches no layer of the model. | Boolean  | False  | True, False                           |
@@ -350,7 +350,7 @@ min_quant_weight_size=0
 min_quant_weight_channel=16
 # Set the name of the operator that skips the quantization, and use `,` to split between multiple operators.
 skip_quant_node=node_name1,node_name2,node_name3
-# Whitelist: only the listed layers participate in quantification (FULL_QUANT only). Mutually exclusive with the blacklist.
+# Whitelist: only the listed layers participate in quantization (FULL_QUANT only). Mutually exclusive with the blacklist.
 # quant_node=node_name1,node_name2
 # Whitelist of operator types (FULL_QUANT only).
 # quant_op_type=Conv,MatMul
@@ -362,7 +362,7 @@ skip_quant_node=node_name1,node_name2,node_name3
 # layer_decision_strict=false
 # Set the folder path where the quantization debug information file is saved.
 debug_info_save_path=/home/workspace/mindspore/debug_info_save_path
-# Enable tensor compression for weight quantization. If parameter bit_num not equal to 8 or 16, it can not be set to false.
+# Enable tensor compression for weight quantization. If parameter bit_num is not equal to 8 or 16, it can not be set to false.
 enable_encode = true
 ```
 
@@ -408,7 +408,7 @@ The detailed description of the ON_THE_FLY quantization parameters is as follows
 
 | Parameter               | Attribute | Function Description                                | Parameter Type | Default Value | Value Range                                                  |
 | ----------------------- | --------- | --------------------------------------------------- | -------------- | ------------- | ------------------------------------------------------------ |
-| dequant_strategy | optional | Weight quantization model | String   | -      | ON_THE_FLY. If it is enabled, the Ascend online inverse quantization mode is enabled. |
+| dequant_strategy | optional | Weight quantization mode | String   | -      | ON_THE_FLY. If it is enabled, the Ascend online inverse quantization mode is enabled. |
 
 The ON_THE_FLY quantization parameter is configured as shown below:
 
@@ -434,7 +434,7 @@ The detailed description of the full quantization parameters is as follows:
 | enable_all_ops         | Optional  | Indicate whether to quantize operators. | Boolean        | False          | True or False. After this parameter is enabled, quantization will be performed on all operators in the supported operator list. Currently, only Micro scenes are supported. |
 | target_device         | Optional  | Full quantization supports multiple hardware backends. After setting the specific hardware, the converted quantization model can execute the proprietary hardware quantization operator library. If not setting, universal quantization lib will be called. | String        | -          | NVGPU: The quantized model can perform quantitative inference on the NVIDIA GPU. <br/>DSP: The quantized model can perform quantitative inference on the DSP devices.<br/>ASCEND: The quantized model can perform quantitative inference on the ASCEND devices. |
 
-The fully quantization parameter configuration is shown below:
+The full quantization parameter configuration is shown below:
 
 ```ini
 [full_quant_param]
@@ -450,7 +450,7 @@ target_device=NVGPU
 
 ### Data Preprocessing Parameters
 
-Full quantization needs to provide 100-500 calibration data sets for pre-inference, which is used to calculate the quantization parameters of full quantization activation values. If there are multiple input Tensors, the calibration dataset for each input Tensor needs to be saved in a separate folder.
+Full quantization needs to provide 100-500 calibration datasets for pre-inference, which is used to calculate the quantization parameters of full quantization activation values. If there are multiple input Tensors, the calibration dataset for each input Tensor needs to be saved in a separate folder.
 
 For the BIN calibration dataset, the `.bin` file stores the input data buffer, and the format of the input data needs to be consistent with the format of the input data during inference. For 4D data, the default is `NHWC`. If the command parameter `inputDataFormat` of the converter tool is configured, the format of the input Buffer needs to be consistent.
 

@@ -28,7 +28,7 @@ The following describes how to build and execute an on-device image segmentation
 
 ### Running Dependencies
 
-- Android Studio 3.2 or later (Android 4.0 or later is recommended.)
+- Android Studio 3.2 or later (Android Studio 4.0 or later is recommended.)
 - Android SDK 26 or later (installed by Android Studio by default)
 - JDK 1.8 or later (installed by Android Studio by default)
 
@@ -139,7 +139,6 @@ The inference code and process are as follows.
     - Load the model file and build a computational graph for inference.
 
       ```java
-      // build model.
       MappedByteBuffer modelBuffer = loadModel(mContext, IMAGESEGMENTATIONMODEL);
       if(modelBuffer == null) {
           Log.e(TAG, "Load model failed");
@@ -184,7 +183,7 @@ The inference code and process are as follows.
 
 4. Process the output data.
 
-    - Obtain information such as the dimension, number of batches, and number of channels based on the output data obtained by the tensor.
+    - Obtain the dimension, number of batches, and number of channels from the output tensor.
 
       ```java
       // Get output tensor values.

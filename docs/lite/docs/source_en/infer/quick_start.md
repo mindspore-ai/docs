@@ -42,7 +42,7 @@ The following section describes how to build and execute an on-device image clas
 
 ### Running Dependencies
 
-- Android Studio 3.2 or later and Android 4.0 or later is recommended.
+- Android Studio 3.2 or later (Android Studio 4.0 or later is recommended).
 - Native development kit (NDK) 21.3
 - [CMake](https://cmake.org/download) >= 3.22.3
 - Android software development kit (SDK) 26 or later
@@ -203,7 +203,7 @@ Call MindSpore Lite C++ APIs at the JNI layer to implement on-device inference.
 
 The inference process code is as follows.
 
-1. Load the MindSpore Lite model file and build the context, model, and computational graph for inference.  
+1. Load the MindSpore Lite model file and build the context, session, and computational graph for inference.
 
     - Load model file:
 
@@ -224,7 +224,7 @@ The inference process code is as follows.
         }
         ```
 
-    - Build context, model, and computational graph for inference:
+    - Build context, session, and computational graph for inference:
 
         Build context and set model parameters. Create a model from context and model data.
 

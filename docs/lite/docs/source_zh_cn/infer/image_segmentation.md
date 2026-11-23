@@ -6,7 +6,7 @@
 
 推荐用户从端侧Android图像分割demo入手，了解MindSpore Lite应用工程的构建、依赖项配置以及相关Java API的使用。
 
-本教程基于MindSpore Lite团队提供的Android“端侧图像分割”示例程序，演示了端侧部署的流程。  
+本教程基于MindSpore Lite团队提供的Android“端侧图像分割”示例程序，演示了端侧部署的流程。
 
 ## 选择模型
 
@@ -70,7 +70,7 @@
       </tr>
     </table>
 
-## 示例程序详细说明  
+## 示例程序详细说明
 
 本端侧图像分割Android示例程序使用Java层，读者需要具备一定的Android开发基础知识。
 
@@ -92,7 +92,7 @@ app
 │   └── AndroidManifest.xml # Android配置文件
 │
 ├── libs # Android库项目的二进制归档文件
-|     └── mindspore-lite-version.aar #  MindSpore Lite针对Android版本的归档文件
+|     └── mindspore-lite-version.aar # MindSpore Lite针对Android版本的归档文件
 |
 ├── build.gradle # 其他Android配置文件
 ├── download.gradle # 工程依赖文件下载
@@ -119,7 +119,7 @@ Android调用MindSpore Lite Android AAR时，需要相关库文件支持。可�
 
 推理代码流程如下。
 
-1. 加载MindSpore Lite模型，构建上下文、会话以及用于推理的计算图。  
+1. 加载MindSpore Lite模型，构建上下文、会话以及用于推理的计算图。
 
     - 创建会话。
 
@@ -183,7 +183,7 @@ Android调用MindSpore Lite Android AAR时，需要相关库文件支持。可�
 
 4. 对输出数据进行处理。
 
-    - 通过Tensor获取的输出数据得到其维度，批处理数，通道数等信息。
+    - 通过Tensor获取的输出数据得到其维度、批处理数、通道数等信息。
 
       ```java
       // Get output tensor values.
