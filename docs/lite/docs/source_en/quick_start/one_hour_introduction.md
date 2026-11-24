@@ -150,7 +150,7 @@ The model conversion procedure is as follows:
 
     For details about the converter, see [Converting Models for Inference](https://www.mindspore.cn/lite/docs/en/master/converter/converter_tool.html).
 
-    For details about how to use the converter to implement post training quantization, see [Post Training Quantization](https://www.mindspore.cn/lite/docs/en/master/advanced/quantization.html).
+    For details about how to use the converter to implement post-training quantization, see [Post-Training Quantization](https://www.mindspore.cn/lite/docs/en/master/advanced/quantization.html).
 
     If you want to train a converted model, you need to convert a training model. For details, see [Creating MindSpore Lite Models](https://www.mindspore.cn/lite/docs/en/master/train/converter_train.html).
 
@@ -573,14 +573,14 @@ In the previous section, the official inference test tool is used to perform the
       // Create and init context, add CPU device info
       auto context = std::make_shared<mindspore::Context>();
       if (context == nullptr) {
-        delete[](model_buf);
+        delete[] model_buf;
         std::cerr << "New context failed." << std::endl;
         return -1;
       }
       auto &device_list = context->MutableDeviceInfo();
       auto device_info = std::make_shared<mindspore::CPUDeviceInfo>();
       if (device_info == nullptr) {
-        delete[](model_buf);
+        delete[] model_buf;
         std::cerr << "New CPUDeviceInfo failed." << std::endl;
         return -1;
       }
@@ -589,14 +589,14 @@ In the previous section, the official inference test tool is used to perform the
       // Create model
       auto model = new (std::nothrow) mindspore::Model();
       if (model == nullptr) {
-        delete[](model_buf);
+        delete[] model_buf;
         std::cerr << "New Model failed." << std::endl;
         return -1;
       }
 
       // Build model
       auto build_ret = model->Build(model_buf, size, mindspore::kMindIR, context);
-      delete[](model_buf);
+      delete[] model_buf;
       if (build_ret != mindspore::kSuccess) {
         delete model;
         std::cerr << "Build model error " << std::endl;
@@ -697,7 +697,7 @@ In the previous section, the official inference test tool is used to perform the
 
     ```cpp
     auto build_ret = model->Build(model_buf, size, mindspore::kMindIR, context);
-    delete[](model_buf);
+    delete[] model_buf;
     ```
 
     (4) Input data.
@@ -924,7 +924,7 @@ The model conversion procedure is as follows:
 
     For details about the converter, see [Converting Models for Inference](https://www.mindspore.cn/lite/docs/en/master/converter/converter_tool.html).
 
-    For details about how to use the converter to implement post training quantization, see [Post Training Quantization](https://www.mindspore.cn/lite/docs/en/master/advanced/quantization.html).
+    For details about how to use the converter to implement post-training quantization, see [Post-Training Quantization](https://www.mindspore.cn/lite/docs/en/master/advanced/quantization.html).
 
     If you want to train a converted model, you need to convert a training model. For details, see [Creating MindSpore Lite Models](https://www.mindspore.cn/lite/docs/en/master/train/converter_train.html).
 
@@ -1282,14 +1282,14 @@ In the previous section, the official inference test tool is used to perform the
       // Create and init context, add CPU device info
       auto context = std::make_shared<mindspore::Context>();
       if (context == nullptr) {
-        delete[](model_buf);
+        delete[] model_buf;
         std::cerr << "New context failed." << std::endl;
         return -1;
       }
       auto &device_list = context->MutableDeviceInfo();
       auto device_info = std::make_shared<mindspore::CPUDeviceInfo>();
       if (device_info == nullptr) {
-        delete[](model_buf);
+        delete[] model_buf;
         std::cerr << "New CPUDeviceInfo failed." << std::endl;
         return -1;
       }
@@ -1298,14 +1298,14 @@ In the previous section, the official inference test tool is used to perform the
       // Create model
       auto model = new (std::nothrow) mindspore::Model();
       if (model == nullptr) {
-        delete[](model_buf);
+        delete[] model_buf;
         std::cerr << "New Model failed." << std::endl;
         return -1;
       }
 
       // Build model
       auto build_ret = model->Build(model_buf, size, mindspore::kMindIR, context);
-      delete[](model_buf);
+      delete[] model_buf;
       if (build_ret != mindspore::kSuccess) {
         delete model;
         std::cerr << "Build model error " << std::endl;
@@ -1406,7 +1406,7 @@ In the previous section, the official inference test tool is used to perform the
 
     ```cpp
     auto build_ret = model->Build(model_buf, size, mindspore::kMindIR, context);
-    delete[](model_buf);
+    delete[] model_buf;
     ```
 
     (4) Input data.

@@ -396,17 +396,17 @@ A: [MindSpore Lite](https://www.mindspore.cn/lite/en) supports the inference of 
 
 <font size=3>**Q: Does MindSpore Lite have a lightweight on-device inference engine?**</font>
 
-A: The MindSpore Lite lightweight inference framework MindSpore Lite has been officially launched in r0.7. You are welcome to try it and give your comments. For details about the overview, tutorials, and documents, see [MindSpore Lite](https://www.mindspore.cn/lite/en).
+A: The MindSpore Lite lightweight inference framework was officially launched in r0.7. You are welcome to try it and give your comments. For details about the overview, tutorials, and documents, see [MindSpore Lite](https://www.mindspore.cn/lite/en).
 
 <br/>
 
 <font size=3>**Q: How to solve the problem of `sun.security.validator.ValidatorException: PKIX path building failed: sun.security.provider.certpath.SunCertPathBuilderException: unable to find valid certification path to requested target` when compiling JAVA library?**</font>
 
-A: Use the `keytool` tool to import the security certificate of the relevant website into the cacerts certificate library of java. E.g `keytool -import -file "XX.cer" -keystore ${JAVA_HOME}/lib/security/cacerts" -storepass changeit`.
+A: Use the `keytool` tool to import the security certificate of the relevant website into the cacerts certificate library of java. E.g. `keytool -import -file "XX.cer" -keystore ${JAVA_HOME}/lib/security/cacerts -storepass changeit`.
 
 <br/>
 
 <font size=3>**Q: How to solve the problem of `libpython3.7m.so.1.0: cannot open shared object file` when the reasoning version of MindSpore Lite on cloud is executed in the GPU environment?**</font>
 
-A: `Libpython3.7.m.so.1.0` is the so of Python, which defaults to the lib directory of the system. If not, you need to use `export LD_LIBRARY_PATH=${USERPATH}/lib:{LD_LIBRARY_PATH}` to configure. `${USERPATH}/lib` is the path where `libpython3.7.m.so.1.0` is located.
+A: `libpython3.7m.so.1.0` is the so of Python, which defaults to the lib directory of the system. If not, you need to use `export LD_LIBRARY_PATH=${USERPATH}/lib:${LD_LIBRARY_PATH}` to configure. `${USERPATH}/lib` is the path where `libpython3.7m.so.1.0` is located.
 <br/>

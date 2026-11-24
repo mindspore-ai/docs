@@ -301,7 +301,7 @@ quant_strategy=ALWC
 
 ## Configuration Parameter
 
-Post training quantization can be enabled by configuring `configFile` through [Conversion Tool](https://www.mindspore.cn/lite/docs/en/master/converter/converter_tool.html). The configuration file adopts the style of [`INI`](https://en.wikipedia.org/wiki/INI_file). For quantization, configurable parameters include:
+Post-training quantization can be enabled by configuring `configFile` through [Conversion Tool](https://www.mindspore.cn/lite/docs/en/master/converter/converter_tool.html). The configuration file adopts the style of [`INI`](https://en.wikipedia.org/wiki/INI_file). For quantization, configurable parameters include:
 
 - `[common_quant_param]: Public quantization parameters`
 - `[weight_quant_param]: Fixed bit quantization parameters`
@@ -312,7 +312,7 @@ Post training quantization can be enabled by configuring `configFile` through [C
 
 ### Common Quantization Parameter
 
-Common quantization parameters are the basic settings for post training quantization. The detailed description of the parameters is as follows:
+Common quantization parameters are the basic settings for post-training quantization. The detailed description of the parameters is as follows:
 
 | Parameter                  | Attribute | Function Description                                         | Parameter Type | Default Value | Value Range                                 |
 | -------------------------- | --------- | ------------------------------------------------------------ | -------------- | ------------- | ------------------------------------------- |
@@ -454,7 +454,7 @@ Full quantization needs to provide 100-500 calibration datasets for pre-inferenc
 
 For the BIN calibration dataset, the `.bin` file stores the input data buffer, and the format of the input data needs to be consistent with the format of the input data during inference. For 4D data, the default is `NHWC`. If the command parameter `inputDataFormat` of the converter tool is configured, the format of the input Buffer needs to be consistent.
 
-For the image calibration dataset, post training quantization provides data preprocessing functions such as channel conversion, normalization, resize, and center crop.
+For the image calibration dataset, post-training quantization provides data preprocessing functions such as channel conversion, normalization, resize, and center crop.
 
 | Parameter          | Attribute | Function Description                                         | Parameter Type | Default Value | Value Range                                                  |
 | ------------------ | --------- | ------------------------------------------------------------ | -------------- | ------------- | ------------------------------------------------------------ |

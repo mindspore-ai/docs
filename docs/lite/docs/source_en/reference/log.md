@@ -9,7 +9,7 @@ Only server inference version and windows version support environment variables 
 - `GLOG_v`
 
     The environment variable specifies the log level. After the log level is specified, the log information greater than or equal to this level will be output. The values are as follows: 0: DEBUG; 1: INFO; 2: WARNING; 3: ERROR.
-    The default value is 2, indicating the WARNING level. ERROR level indicates that an error occurred during program execution. The error log will be output and the program may not be terminated.
+    The default value is 2, indicating the WARNING level. ERROR level indicates that an error occurred during program execution, and the error log will be output.
 
 - `GLOG_logtostderr`
 

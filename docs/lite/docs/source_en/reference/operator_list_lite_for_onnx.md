@@ -2,7 +2,7 @@
 
 [![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/lite/docs/source_en/reference/operator_list_lite_for_onnx.md)
 
-> - None of the following operators support int64 type input.
+> - None of the following operators supports int64 type input.
 > - Currently, you can use the environment variable `export KEEP_ORIGIN_DTYPE=1` to preserve the data type as int64. Consider using this option when overflow occurs with the int32 data type. However, this is currently an experimental option and will be removed in future updates.
 
 | MindSpore Lite Operator Names | Operator Functions                                                     | Corresponding ONNX Operators                                             | Operator Specifications                                                     |
@@ -63,7 +63,7 @@
 | NonZero                | Return the indices of all non-zero elements in the input tensor.                             | NonZero                                                      | -                                                            |
 | OneHot                 | Convert integer index tensors to one-hot encoding representations                  | OneHot                                                       | -                                                            |
 | PadFusion              | Add specified padding to the input tensor, to achieve the desired size.             | Pad                                                          | Does not support the int32 type.                                            |
-| PowFusion              | Element-wise exponentiation                                                   | Pow                                                          | Only supports indices as single constants.                                       |
+| PowFusion              | Element-wise exponentiation                                                   | Pow                                                          | Only supports exponents that are single constants.                                       |
 | PReLUFusion            | PRelu activation function                                                | PRelu                                                        | -                                                            |
 | RandomNormal           | Generate a tensor whose values are randomly sampled from a normal distribution (Gaussian distribution).     | RandomNormal                                                 | -                                                            |
 | Range                  | Generate elements within a specified range                                         | Range                                                        | -                                                            |

@@ -12,7 +12,7 @@ The same as `benchmark`, you can use the `benchmark_train` tool to perform bench
 
 To use the `benchmark_train` tool, you need to prepare the environment as follows:
 
-- Compilation: The code of the `benchmark_train` tool is stored in the `mindspore-lite/tools/benchmark_train` directory of the MindSpore Lite source code. For details about the build operations, see the [Environment Requirements](https://www.mindspore.cn/lite/docs/en/master/use/build.html#environment-requirements) and [Compilation Example](https://www.mindspore.cn/lite/docs/en/master/use/build.html#compilation-example) in the build document.
+- Compilation: The code of the `benchmark_train` tool is stored in the `mindspore-lite/tools/benchmark_train` directory of the MindSpore Lite source code. For details about the build operations, see the [Environment Requirements](https://www.mindspore.cn/lite/docs/en/master/use/build.html#environment-requirements) and [Compilation Example](https://www.mindspore.cn/lite/docs/en/master/use/build.html#compilation-example) in the build document to compile the on-device training framework.
 
 - Configure environment variables: For details, see [Output Description](https://www.mindspore.cn/lite/docs/en/master/use/build.html#directory-structure-1) in the build document. Suppose the absolute path of MindSpore Lite training package you build is `/path/mindspore-lite-{version}-{os}-{arch}.tar.gz`, the commands to extract the package and configure the LD_LIBRARY_PATH variable are as follows:
 
@@ -47,7 +47,7 @@ The following describes the parameters in detail.
 | `--warmUpLoopCount=<WARMUPLOOPCOUNT>` | Optional | Specifies the number of preheating inference times of the tested model before multiple rounds of the benchmark test are executed. | Integer | 3 | - |
 | `--timeProfiling=<TIMEPROFILING>`  | Optional | Specifies whether to use TimeProfiler to print every kernel's cost time. | Boolean | false | true, false |
 | `--inDataFile=<INDATAFILE>` | Optional | Specifies the file path of the input data of the tested model. If this parameter is not set, a random value will be used. | String | Null  | -       |
-| `--epochs=<EPOCHS>` | Optional | Specifies the number of training epochs and print the consuming time. | Integer | 0 | >=0 |
+| `--epochs=<EPOCHS>` | Optional | Specifies the number of training epochs and prints the consuming time. | Integer | 0 | >=0 |
 | `--exportFile=<EXPORTFILE>` | Optional | Specifies the path of exporting file. | String | Null | - |
 
 ### Example
@@ -72,7 +72,7 @@ Model = test_benchmark.ms, numThreads = 1, MinRunTime = 72.228996 ms, MaxRuntime
 ./benchmark_train --modelFile=./models/test_benchmark.ms --epochs=10 --timeProfiling=true
 ```
 
-This command uses a random input, sets the parameter `timeProfiling` as true,  times and other parameters use default values. After this command is executed, the statistics on the running time of the model at the network layer will be displayed as follows. In this case, the statistics are displayed by `opName` and `optype`. `opName` indicates the operator name, `optype` indicates the operator type, and `avg` indicates the average running time of the operator per single run, `percent` indicates the ratio of the operator running time to the total operator running time, `calledTimes` indicates the number of times that the operator is run, and `opTotalTime` indicates the total time that the operator is run for a specified number of times. Finally, `total time` and `kernel cost` show the average time consumed by a single training operation of the model and the sum of the average time consumed by all operators in the model training, respectively.
+This command uses a random input, sets the parameter `timeProfiling` to true, and other parameters use default values. After this command is executed, the statistics on the running time of the model at the network layer will be displayed as follows. In this case, the statistics are displayed by `opName` and `optype`. `opName` indicates the operator name, `optype` indicates the operator type, and `avg` indicates the average running time of the operator per single run, `percent` indicates the ratio of the operator running time to the total operator running time, `calledTimes` indicates the number of times that the operator is run, and `opTotalTime` indicates the total time that the operator is run for a specified number of times. Finally, `total time` and `kernel cost` show the average time consumed by a single training operation of the model and the sum of the average time consumed by all operators in the model training, respectively.
 
 ```text
 -----------------------------------------------------------------------------------------
@@ -114,7 +114,7 @@ total time :     2.90800 ms,    kernel cost : 2.74851 ms
 
 #### Accuracy Test
 
-The accuracy test performed by the Benchmark tool aims to verify the accuracy of the MindSpore model output by setting benchmark data (the default input and benchmark data type are float32). In an accuracy test, in addition to the `modelFile` parameter, the `inDataFile` and `expectedDataFile` parameters must be set. For example:
+The accuracy test performed by the benchmark_train tool aims to verify the accuracy of the MindSpore model output by setting benchmark data (the default input and benchmark data types are both float32). In an accuracy test, in addition to the `modelFile` parameter, the `inDataFile` and `expectedDataFile` parameters must be set. For example:
 
 ```bash
 ./benchmark_train --modelFile=./models/test_benchmark.ms --inDataFile=./input/test_benchmark.bin --accuracyThreshold=3 --expectedDataFile=./output/test_benchmark.out

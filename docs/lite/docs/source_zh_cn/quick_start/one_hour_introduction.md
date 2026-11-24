@@ -573,14 +573,14 @@ mindspore-lite-{version}-linux-x64
       // Create and init context, add CPU device info
       auto context = std::make_shared<mindspore::Context>();
       if (context == nullptr) {
-        delete[](model_buf);
+        delete[] model_buf;
         std::cerr << "New context failed." << std::endl;
         return -1;
       }
       auto &device_list = context->MutableDeviceInfo();
       auto device_info = std::make_shared<mindspore::CPUDeviceInfo>();
       if (device_info == nullptr) {
-        delete[](model_buf);
+        delete[] model_buf;
         std::cerr << "New CPUDeviceInfo failed." << std::endl;
         return -1;
       }
@@ -589,14 +589,14 @@ mindspore-lite-{version}-linux-x64
       // Create model
       auto model = new (std::nothrow) mindspore::Model();
       if (model == nullptr) {
-        delete[](model_buf);
+        delete[] model_buf;
         std::cerr << "New Model failed." << std::endl;
         return -1;
       }
 
       // Build model
       auto build_ret = model->Build(model_buf, size, mindspore::kMindIR, context);
-      delete[](model_buf);
+      delete[] model_buf;
       if (build_ret != mindspore::kSuccess) {
         delete model;
         std::cerr << "Build model error " << std::endl;
@@ -697,7 +697,7 @@ mindspore-lite-{version}-linux-x64
 
     ```cpp
     auto build_ret = model->Build(model_buf, size, mindspore::kMindIR, context);
-    delete[](model_buf);
+    delete[] model_buf;
     ```
 
     (4) 传入数据
@@ -1282,14 +1282,14 @@ mindspore-lite-{version}-win-x64
       // Create and init context, add CPU device info
       auto context = std::make_shared<mindspore::Context>();
       if (context == nullptr) {
-        delete[](model_buf);
+        delete[] model_buf;
         std::cerr << "New context failed." << std::endl;
         return -1;
       }
       auto &device_list = context->MutableDeviceInfo();
       auto device_info = std::make_shared<mindspore::CPUDeviceInfo>();
       if (device_info == nullptr) {
-        delete[](model_buf);
+        delete[] model_buf;
         std::cerr << "New CPUDeviceInfo failed." << std::endl;
         return -1;
       }
@@ -1298,14 +1298,14 @@ mindspore-lite-{version}-win-x64
       // Create model
       auto model = new (std::nothrow) mindspore::Model();
       if (model == nullptr) {
-        delete[](model_buf);
+        delete[] model_buf;
         std::cerr << "New Model failed." << std::endl;
         return -1;
       }
 
       // Build model
       auto build_ret = model->Build(model_buf, size, mindspore::kMindIR, context);
-      delete[](model_buf);
+      delete[] model_buf;
       if (build_ret != mindspore::kSuccess) {
         delete model;
         std::cerr << "Build model error " << std::endl;
@@ -1406,7 +1406,7 @@ mindspore-lite-{version}-win-x64
 
     ```cpp
     auto build_ret = model->Build(model_buf, size, mindspore::kMindIR, context);
-    delete[](model_buf);
+    delete[] model_buf;
     ```
 
     (4) 传入数据

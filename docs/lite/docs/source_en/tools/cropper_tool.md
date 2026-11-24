@@ -4,9 +4,9 @@
 
 ## Overview
 
-MindSpore Lite provides the `libmindspore-lite.a` static library cropping tool for runtime, which can filter out the operators in the `ms` model, crop the static library files. If the size requirement is still not met after operator cropping, you can [recompile](https://www.mindspore.cn/lite/docs/en/master/use/build.html) the inference framework package and use the `Framework Function Cropping Compile Option` at compile time to crop the framework function, and then use the tool to perform the operator cropping afterwards.
+MindSpore Lite provides the `libmindspore-lite.a` static library cropping tool for runtime, which can filter the operators present in the `ms` model, crop the static library files. If the size requirement is still not met after operator cropping, you can [recompile](https://www.mindspore.cn/lite/docs/en/master/use/build.html) the inference framework package and use the `Framework Function Cropping Compile Option` at compile time to crop the framework function, and then use the tool to perform the operator cropping afterwards.
 
-The operating environment of the library cropping tool is x86_64, and currently supports the cropping of CPU or GPU operators, and the GPU library supports setting CMAKE's MSLITE_GPU_BACKEND to opencl. After cropping the operator, the cropped static libraries can be compiled into dynamic libraries to suit different needs.
+The operating environment of the library cropping tool is x86_64, and currently supports the cropping of CPU or GPU operators, and the GPU library supports setting CMAKE's MSLITE_GPU_BACKEND in `lite/CMakeLists.txt` to opencl. After cropping the operator, the cropped static libraries can be compiled into dynamic libraries to suit different needs.
 
 ## Environment Preparation
 
@@ -80,10 +80,10 @@ The Cropper tool obtains the operator list by parsing the `ms` model, and crop t
 After cropping the static library, if necessary, the cropped static library can be compiled into a dynamic library.
 The compilation environment requirements refer to the compilation requirements of MindSpore Lite [compilation](https://www.mindspore.cn/lite/docs/en/master/use/build.html).
 The compilation commands used for packages under different architectures are different.
-The specific commands can be obtained through the commands printed during the compilation of MindSpore Lite .
+The specific commands can be obtained through the commands printed during the compilation of MindSpore Lite.
 Refer to the example steps below.
 
-1. Add the following command to `lite/Cmakelist.txt` to enable the compilation process to print.
+1. Add the following command to `lite/CMakeLists.txt` to enable the compilation process to print.
 
     ```text
     set(CMAKE_VERBOSE_MAKEFILE on)

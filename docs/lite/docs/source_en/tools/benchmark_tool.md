@@ -4,7 +4,7 @@
 
 ## Overview
 
-After model conversion and before inference, you can use the Benchmark tool to perform benchmark testing on a MindSpore Lite model. It can not only perform quantitative analysis (performance) on the forward inference execution duration of a MindSpore Lite model, but also perform comparative error analysis (accuracy) based on the output of the specified model.
+After model conversion and before inference, you can use the Benchmark tool to perform benchmark testing on a MindSpore Lite model. It can not only perform quantitative analysis (performance) of the forward inference execution duration of a MindSpore Lite model, but also perform comparative error analysis (accuracy) based on the output of the specified model.
 
 ## Linux Environment Usage
 
@@ -16,7 +16,7 @@ To use the Benchmark tool, you need to prepare the environment as follows:
 
 - Run: Obtain the `benchmark` tool and configure environment variables. For details, see [Output Description](https://www.mindspore.cn/lite/docs/en/master/use/build.html#environment-requirements) in the build document.
 
-- Add the path of dynamic library required by the inference code to the environment variables LD_LIBRARY_PATH.
+- Add the path of dynamic library required by the inference code to the environment variable LD_LIBRARY_PATH.
 
     ```bash
     export LD_LIBRARY_PATH=${PACKAGE_ROOT_PATH}/runtime/lib:${LD_LIBRARY_PATH}
@@ -58,7 +58,7 @@ The following describes the parameters in detail.
 | ----------------- | ---- | ------------------------------------------------------------ | ------ | -------- | ------------------------------- |
 | `--modelFile=<MODELFILE>` | Mandatory | Specifies the file path of the MindSpore Lite model for benchmark testing. | String | Null  | -        |
 | `--accuracyThreshold=<ACCURACYTHRESHOLD>` | Optional | Specifies the accuracy threshold. | Float           | 0.5    | -        |
-| `--cosineDistanceThreshold=<COSINEDISTANCETHRESHOLD>` | Optional | Specifies the cosine distance threshold, only when the parameter is specified and it's value is bigger than -1, the cosine distance is computed. | Float           | -1.1    | -        |
+| `--cosineDistanceThreshold=<COSINEDISTANCETHRESHOLD>` | Optional | Specifies the cosine distance threshold, only when the parameter is specified and its value is bigger than -1, the cosine distance is computed. | Float           | -1.1    | -        |
 | `--benchmarkDataFile=<BENCHMARKDATAFILE>` | Optional | Specifies the file path of the benchmark data. The benchmark data, as the comparison output of the tested model, is output from the forward inference of the tested model under other deep learning frameworks using the same input. | String | Null | - |
 | `--benchmarkDataType=<BENCHMARKDATATYPE>` | Optional | Specifies the calibration data type. | String | FLOAT | FLOAT, INT32, INT8 or UINT8|
 | `--cpuBindMode=<CPUBINDMODE>` | Optional | Specifies the type of the CPU core bound to the model inference program. | Integer | 1      | 2: medium core<br/>1: large core<br/>0: not bound |
@@ -70,7 +70,7 @@ The following describes the parameters in detail.
 | `--warmUpLoopCount=<WARMUPLOOPCOUNT>` | Optional | Specifies the number of preheating inference times of the tested model before multiple rounds of the benchmark test are executed. | Integer | 3 | - |
 | `--enableFp16=<ENABLEFP16>` | Optional | Specifies whether the float16 operator is preferred. | Boolean | false | true, false |
 | `--timeProfiling=<TIMEPROFILING>` | Optional | Specifies whether to use TimeProfiler to print every kernel's cost time. | Boolean | false | true, false |
-| `--inputShapes=<INPUTSHAPES>` | Optional | Specifies the shape of input data, the format should be NHWC. Use "," to segregate each dimension of input shape, and for several input shapes, use ":" to segregate. | String | Null | - |
+| `--inputShapes=<INPUTSHAPES>` | Optional | Specifies the shape of input data. The format should be NHWC. Use "," to segregate each dimension of input shape, and for several input shapes, use ":" to segregate. | String | Null | - |
 | `--perfProfiling=<PERFPROFILING>` | Optional | Specifies whether to use PerfProfiler to print every kernel's CPU performance data (PMU readings), it is disabled when timeProfiling is true. Only aarch64 CPU is supported. | Boolean | false | true, false |
 | `--perfEvent=<PERFEVENT>` | Optional | Specifies what CPU performance data to measure when PerfProfiling is true. When set as CYCLE, the number of CPU cycles and instructions will be printed; when set as CACHE, cache reference times and cache miss times will be printed; when set as STALL, CPU front-end stall cycles and back-end stall cycles will be printed. | String | CYCLE | CYCLE/CACHE/STALL |
 
@@ -175,7 +175,7 @@ The main test indicator of the CPU performance test performed by the Benchmark t
 ./benchmark --modelFile=/path/to/model.ms --perfProfiling=true --numThreads=1
 ```
 
-This command uses a random input, sets the parameter `perfProfiling` as true, and other parameters use default values. After this command is executed, the statistics on the running time of the model at the network layer will be displayed as follows. In this case, the statistics are displayed by`opName` and `optype`. `opName` indicates the operator name, `optype` indicates the operator type, and `cycles(k)` indicates the average CPU cycles of the operator per single run (in thousand, affected by CPU frequency), `cycles(%)` indicates the ratio of the operator CPU cycles to the total operator CPU cycles, `ins(k)` indicates the average CPU instructions of the operator per single run (in thousand), and `ins(%)` indicates the ratio of the operator CPU instructions to the total operator CPU instructions. Finally, `Model`/`NumThreads`/`MinRuntime`/`MaxRunTime`/`AvgRunTime` is presented for reference.
+This command uses a random input, sets the parameter `perfProfiling` as true, and other parameters use default values. After this command is executed, the statistics on the running time of the model at the network layer will be displayed as follows. In this case, the statistics are displayed by`opName` and `optype`. `opName` indicates the operator name, `optype` indicates the operator type, and `cycles(k)` indicates the average CPU cycles of the operator per single run (in thousand, affected by CPU frequency), `cycles(%)` indicates the ratio of the operator CPU cycles to the total operator CPU cycles, `ins(k)` indicates the average CPU instructions of the operator per single run (in thousand), and `ins(%)` indicates the ratio of the operator CPU instructions to the total operator CPU instructions. Finally, `Model`/`NumThreads`/`MinRunTime`/`MaxRunTime`/`AvgRunTime` are presented for reference.
 
 ```text
 -----------------------------------------------------------------------------------------
@@ -287,7 +287,7 @@ np.fromfile("/path/to/dump.bin", np.float32)
 To use the Benchmark tool, you need to prepare the environment as follows:
 
 - Compilation: Install build dependencies and perform build. The code of the Benchmark tool is stored in the `mindspore-lite/tools/benchmark` directory of the MindSpore Lite source code. For details about the build operations, see the [Environment Requirements](https://www.mindspore.cn/lite/docs/en/master/use/build.html#environment-requirements) and [Compilation Example](https://www.mindspore.cn/lite/docs/en/master/use/build.html#compilation-example) in the build document.
-- Add the path of dynamic library required by the benchmark to the environment variables PATH.
+- Add the path of dynamic library required by the benchmark to the environment variable PATH.
 
     ```bash
     set PATH=%PACKAGE_ROOT_PATH%\runtime\lib;%PATH%
@@ -358,6 +358,6 @@ When using the Benchmark tool to perform benchmark testing on different MindSpor
 
 ### Dump
 
-The usage of Dump function in the Windows environment is basically the same as that of in the [Linux environment](https://www.mindspore.cn/lite/docs/en/master/tools/benchmark_tool.html#dump), and will not be repeated here.
+The usage of Dump function in the Windows environment is basically the same as that in the [Linux environment](https://www.mindspore.cn/lite/docs/en/master/tools/benchmark_tool.html#dump), and will not be repeated here.
 
 Note that in the Windows environment, when setting the absolute path `Path` in the `data_dump.json` configuration file, it must be specified in the form of `\\`.
