@@ -40,7 +40,7 @@ Step 1: Use `git clone https://github.com/lutzroeder/netron` to clone and obtain
 
 Step 2: Go to the `netron` directory and run the `npm install` command.
 
-Step 3: Run the `make build` command for build and generate an executable program in the `./dist` directory.
+Step 3: Run the `make build` command to build and generate an executable program in the `./dist` directory.
 
 ### Debugging a Model Using Javascript
 

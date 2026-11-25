@@ -4,7 +4,7 @@
 
 ## Object Detection Introduction
 
-Object detection can identify the object in the image and its position in the image. For the following figure, the output of the object detection model is shown in the following table. The rectangular box is used to identify the position of the object in the graph and to mark the probability of the object category. The four numbers in the coordinates are Xmin, Ymin, Xmax, Ymax; the probability represents the probability of the detected object.
+Object detection can identify the object in the image and its position in the image. In the example below, the object detection model's outputs are listed in the table. The rectangular box is used to identify the position of the object in the graph and to mark the probability of the object category. The four numbers in the coordinates are Xmin, Ymin, Xmax, Ymax; the probability represents the probability of the detected object.
 
 ![object_detection](images/object_detection.png)
 
@@ -16,7 +16,7 @@ Object detection can identify the object in the image and its position in the im
 
 The following table shows the data of some object detection models using MindSpore Lite inference.
 
-> The performance of the table below is tested on the Mate30.
+> The performance data of the table below is tested on the Mate30.
 
 | Model name      | Size(Mb) | mAP(IoU=0.50:0.95) | CPU 4 thread delay (ms) |
 |-----------------------| :----------: | :----------: | :-----------: |

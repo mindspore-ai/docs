@@ -12,7 +12,7 @@ This paper describes the usage of the mslite_gold benchmarking data generation t
 
 The developers first need to save the original model input data and the output data obtained from inference to a file in `.npz` format via the `savez()` command in `numpy`, and then convert the input data `input.npz` and the output data `output.npz` into `.bin` and `.out` files in binary format respectively by running [mslite_gold.py](https://atomgit.com/mindspore/docs/blob/master/docs/sample_code/golden/mslite_gold.py).
 
-### Environmental Requirements
+### Environment Requirements
 
 Python dependency libraries
 
@@ -28,7 +28,7 @@ Python dependency libraries
 python mslite_gold.py --inputFile "/path/to/input.npz" --outputFile "/path/to/output.npz" --savePath "/path/to/save_data"
 ```
 
-After executing the command, the following file is generated in the `/path/to/save_data/` directory:
+After executing the command, the following files are generated in the `/path/to/save_data/` directory:
 
 - `input.bin`: Input data, `flatten` the data of each input Tensor one-dimensionally and save it separately to a binary file `input.bin` without meta-information such as name, dtype, and shape.
 - `output.out`: Output data, all outputs are saved to a text file with the following format:
@@ -56,10 +56,10 @@ The following is an example of generating benchmark data from an ONNX model to i
 
 1. Randomly generate inputs, perform model inference, and then save the inputs and outputs in `.npz` format.
 
-   [onnx_demo.py sample code](https://atomgit.com/mindspore/docs/blob/master/docs/sample_code/golden/onnx_demo.py) supports random data generation based on ONNX models, or manually inputting data and performing inference to obtain output data. When inputting data manually, the input data path can be determined by the parameter `--inDataFile`. If the model is of dynamic shape type, the input size should be determined by the parameter `--inputShape`. Parameters `--inDataFile` and `--inputShape` are not required, and users can choose freely according to their own use of the scenario. The following is a basic example of the use of sample code:
+   [onnx_demo.py sample code](https://atomgit.com/mindspore/docs/blob/master/docs/sample_code/golden/onnx_demo.py) supports random data generation based on ONNX models, or manually inputting data and performing inference to obtain output data. When inputting data manually, the input data path can be determined by the parameter `--inDataFile`. If the model is of dynamic shape type, the input size should be determined by the parameter `--inputShape`. Parameters `--inDataFile` and `--inputShape` are not required, and users can choose freely based on their own scenarios. The following is a basic usage example:
 
    ```bash
-    python onnx_demo.py --modelFile "/path/to/model_example.onnx" --savePath "/path/to/data_example"
+   python onnx_demo.py --modelFile "/path/to/model_example.onnx" --savePath "/path/to/data_example"
    ```
 
    The `input.npz` and `output.npz` files are generated in the `/path/to/data_example/` directory.

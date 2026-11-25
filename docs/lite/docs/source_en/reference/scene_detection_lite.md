@@ -10,7 +10,7 @@ Scene detection can identify the type of scene in the device's camera.
 
 The following table shows the data of some scene detection models using MindSpore Lite inference.
 
-> The performance of the table below is tested on the P30.
+> The performance data of the table below is tested on the P30.
 
 | Model name              | Size(Mb)  | Top1 | CPU 4 thread delay (ms) |
 |-----------------------| :----------: | :----------: | :-----------: |

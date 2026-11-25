@@ -56,8 +56,8 @@ This article lists the operators supported by MindSpore Lite Codegen.
 | Squeeze               | ✅    |              |                 | Squeeze                         |                          | Squeeze                                         | Squeeze                                         |
 | Sub                   | ✅    | ✅    | ✅       | Sub                             |                          | Sub                                             | Sub                                             |
 
-[1] Clip: Only support converting clip(0, 6) to Relu6.
+[1] Clip: Only supports converting clip(0, 6) to Relu6.
 
-[2] Pow: Only support the form where the exponent is a single constant.
+[2] Pow: Only supports the form where the exponent is a single constant.
 
-[3] Sum and Max: Only support 2 inputs.
+[3] Sum and Max: Only supports 2 inputs.

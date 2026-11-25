@@ -19,7 +19,7 @@ Image classification model is to identify what an image represents, to predict t
 
 The following table shows the data of some image classification models using MindSpore Lite inference.
 
-> The performance of the table below is tested on the Mate30.
+> The performance data of the table below is tested on the Mate30.
 
 | Model name         | Size(Mb) | Top1 | Top5 | F1 | CPU 4 thread delay (ms) |
 |-----------------------| :----------: | :----------: | :----------: | :----------: | :-----------: |
